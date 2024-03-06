@@ -1,54 +1,42 @@
 <template>
   <div class="toolbar-container">
     <div class="left-toolbar">
-      <el-button type="text" :disabled="undoDisabled" :title="i18nt('designer.toolbar.undoHint')" @click="undoHistory">
+      <el-button link type="primary" :disabled="undoDisabled" :title="i18nt('designer.toolbar.undoHint')" @click="undoHistory">
         <svg-icon icon-class="undo" /></el-button>
-      <el-button type="text" :disabled="redoDisabled" :title="i18nt('designer.toolbar.redoHint')" @click="redoHistory">
+      <el-button link type="primary" :disabled="redoDisabled" :title="i18nt('designer.toolbar.redoHint')" @click="redoHistory">
         <svg-icon icon-class="redo" /></el-button>
       <el-button-group style="margin-left: 20px">
-        <el-button :type="layoutType === 'PC' ? 'primary': ''" @click="changeLayoutType('PC')">
+        <el-button :type="layoutType === 'PC' ? 'info': ''" @click="changeLayoutType('PC')">
           {{i18nt('designer.toolbar.pcLayout')}}</el-button>
-        <el-button :type="layoutType === 'Pad' ? 'primary': ''" @click="changeLayoutType('Pad')">
+        <el-button :type="layoutType === 'Pad' ? 'info': ''" @click="changeLayoutType('Pad')">
           {{i18nt('designer.toolbar.padLayout')}}</el-button>
-        <el-button :type="layoutType === 'H5' ? 'primary': ''" @click="changeLayoutType('H5')">
+        <el-button :type="layoutType === 'H5' ? 'info': ''" @click="changeLayoutType('H5')">
           {{i18nt('designer.toolbar.mobileLayout')}}</el-button>
       </el-button-group>
-      <!-- <el-button style="margin-left: 20px" :title="i18nt('designer.toolbar.nodeTreeHint')" @click="showNodeTreeDrawer">
-        <svg-icon icon-class="node-tree" /></el-button> -->
+      <el-button style="margin-left: 20px" :title="i18nt('designer.toolbar.nodeTreeHint')" @click="showNodeTreeDrawer">
+        <svg-icon icon-class="node-tree" /></el-button>
     </div>
 
-    <!-- <el-drawer :title="i18nt('designer.toolbar.nodeTreeTitle')" direction="ltr" v-model="showNodeTreeDrawerFlag"
-               :modal="true" :size="280" append-to-body
-               :destroy-on-close="true" custom-class="node-tree-drawer">
+    <el-drawer :title="i18nt('designer.toolbar.nodeTreeTitle')" direction="ltr" v-model="showNodeTreeDrawerFlag" :modal="true" :size="280"
+               :destroy-on-close="true" class="node-tree-drawer">
       <el-tree ref="nodeTree" :data="nodeTreeData" node-key="id" default-expand-all highlight-current class="node-tree"
                icon-class="el-icon-arrow-right" @node-click="onNodeTreeClick"></el-tree>
-    </el-drawer> -->
+    </el-drawer>
 
     <div class="right-toolbar" :style="{width: toolbarWidth + 'px'}">
       <div class="right-toolbar-con">
-        <el-dropdown v-if="showLink('languageMenu')" :hide-timeout="2000" @command="handleLanguageChanged" style="margin-top:8px;color:#409eff">
-          <span class="el-dropdown-link">{{curLangName}}<svg-icon icon-class="el-arrow-down" /></span>
-          <template #dropdown>
-            <el-dropdown-menu>
-              <el-dropdown-item command="zh-CN">{{i18nt('application.zh-CN')}}</el-dropdown-item>
-              <el-dropdown-item command="en-US">{{i18nt('application.en-US')}}</el-dropdown-item>
-            </el-dropdown-menu>
-          </template>
-        </el-dropdown>
-        <!-- <el-button v-if="showToolButton('clearDesignerButton')" type="text" @click="clearFormWidget">
-          <svg-icon icon-class="el-delete" />{{i18nt('designer.toolbar.clear')}}</el-button> -->
-        <el-button v-if="showToolButton('previewFormButton')" type="text" @click="previewForm">
+        <el-button v-if="showToolButton('clearDesignerButton')" link type="primary" @click="clearFormWidget">
+          <svg-icon icon-class="el-delete" />{{i18nt('designer.toolbar.clear')}}</el-button>
+        <el-button v-if="showToolButton('previewFormButton')" link type="primary" @click="previewForm">
           <svg-icon icon-class="el-view" />{{i18nt('designer.toolbar.preview')}}</el-button>
-        <!-- <el-button v-if="showToolButton('importJsonButton')" type="text" @click="importJson">
-          {{i18nt('designer.toolbar.importJson')}}</el-button> -->
-        <!-- <el-button v-if="showToolButton('exportJsonButton')" type="text" @click="exportJson">
-          {{i18nt('designer.toolbar.exportJson')}}</el-button> -->
-        <!-- <el-button v-if="showToolButton('exportCodeButton')" type="text" @click="exportCode">
-          {{i18nt('designer.toolbar.exportCode')}}</el-button> -->
-        <!-- <el-button v-if="showToolButton('generateSFCButton')" type="text" @click="generateSFC">
-          <svg-icon icon-class="vue-sfc" />{{i18nt('designer.toolbar.generateSFC')}}</el-button> -->
-        <el-button v-if="showToolButton('exportJson')" type="text" @click="exportJson">
-          {{i18nt('designer.toolbar.save')}}</el-button>
+        <el-button v-if="showToolButton('importJsonButton')" link type="primary" @click="importJson">
+          {{i18nt('designer.toolbar.importJson')}}</el-button>
+        <el-button v-if="showToolButton('exportJsonButton')" link type="primary" @click="exportJson">
+          {{i18nt('designer.toolbar.exportJson')}}</el-button>
+        <el-button v-if="showToolButton('exportCodeButton')" link type="primary" @click="exportCode">
+          {{i18nt('designer.toolbar.exportCode')}}</el-button>
+        <el-button v-if="true||showToolButton('generateSFCButton')" link type="primary" @click="generateSFC">
+          <svg-icon icon-class="vue-sfc" />{{i18nt('designer.toolbar.generateSFC')}}</el-button>
         <template v-for="(idx, slotName) in $slots">
           <slot :name="slotName"></slot>
         </template>
@@ -58,15 +46,13 @@
     <div v-if="showPreviewDialogFlag" class="" v-drag="['.drag-dialog.el-dialog', '.drag-dialog .el-dialog__header']">
       <el-dialog :title="i18nt('designer.toolbar.preview')" v-model="showPreviewDialogFlag"
                  :show-close="true" :close-on-click-modal="false" :close-on-press-escape="false" center
-                 :destroy-on-close="true" :append-to-body="true" custom-class="drag-dialog small-padding-dialog" width="75%"
+                 :destroy-on-close="true" :append-to-body="true" class="drag-dialog small-padding-dialog" width="75%"
                  :fullscreen="(layoutType === 'H5') || (layoutType === 'Pad')">
         <div>
           <div class="form-render-wrapper" :class="[layoutType === 'H5' ? 'h5-layout' : (layoutType === 'Pad' ? 'pad-layout' : '')]">
             <VFormRender ref="preForm" :form-json="formJson" :form-data="testFormData" :preview-state="true"
-                         :option-data="testOptionData" :global-dsv="designerDsv"
+                         :option-data="testOptionData" :global-dsv="designerDsv" @myEmitTest="onMyEmitTest"
                          @appendButtonClick="testOnAppendButtonClick" @buttonClick="testOnButtonClick"
-                         @dataTableSelectionChange="testDTSC" @operationButtonClick="testOBC"
-                         @myEmitTest="onMyEmitTest"
                          @formChange="handleFormChange">
             </VFormRender>
           </div>
@@ -77,11 +63,11 @@
             <el-button type="primary" @click="resetForm">{{i18nt('designer.hint.resetForm')}}</el-button>
             <el-button type="primary" @click="setFormDisabled">{{i18nt('designer.hint.disableForm')}}</el-button>
             <el-button type="primary" @click="setFormEnabled">{{i18nt('designer.hint.enableForm')}}</el-button>
-            <el-button type="primary" plain @click="switchReadMode">{{i18nt('designer.hint.switchReadMode')}}</el-button>
             <el-button @click="showPreviewDialogFlag = false">{{i18nt('designer.hint.closePreview')}}</el-button>
-            <el-button v-if="false" @click="testSetFormJson">setFormJson</el-button>
-            <el-button v-if="false" @click="testSubFormHide">Test SFH</el-button>
-            <el-button v-if="false" @click="testSetFormData">Test SFD</el-button>
+            <el-button v-if="true" @click="testLoadForm">Test Load</el-button>
+            <el-button v-if="true" @click="testSetFormJson">Test SFJ</el-button>
+            <el-button v-if="true" @click="testSetFormData">Test SFD</el-button>
+            <el-button v-if="true" @click="testReloadOptionData">Test ROD</el-button>
           </div>
         </template>
       </el-dialog>
@@ -89,7 +75,7 @@
 
     <div v-if="showImportJsonDialogFlag" class="" v-drag="['.drag-dialog.el-dialog', '.drag-dialog .el-dialog__header']">
       <el-dialog :title="i18nt('designer.toolbar.importJson')" v-model="showImportJsonDialogFlag"
-                 :show-close="true" custom-class="drag-dialog small-padding-dialog" :append-to-body="true" center
+                 :show-close="true" class="drag-dialog small-padding-dialog" :append-to-body="true" center
                  :close-on-click-modal="false" :close-on-press-escape="false" :destroy-on-close="true">
         <el-alert type="info" :title="i18nt('designer.hint.importJsonHint')" show-icon class="alert-padding"></el-alert>
         <code-editor :mode="'json'" :readonly="false" v-model="importTemplate"></code-editor>
@@ -106,7 +92,7 @@
 
     <div v-if="showExportJsonDialogFlag" class="" v-drag="['.drag-dialog.el-dialog', '.drag-dialog .el-dialog__header']">
       <el-dialog :title="i18nt('designer.toolbar.exportJson')" v-model="showExportJsonDialogFlag"
-                 :show-close="true" custom-class="drag-dialog small-padding-dialog" center append-to-body
+                 :show-close="true" class="drag-dialog small-padding-dialog" center append-to-body
                  :close-on-click-modal="false" :close-on-press-escape="false" :destroy-on-close="true">
         <code-editor :mode="'json'" :readonly="true" v-model="jsonContent"></code-editor>
         <template #footer>
@@ -123,7 +109,7 @@
 
     <div v-if="showExportCodeDialogFlag" class="" v-drag="['.drag-dialog.el-dialog', '.drag-dialog .el-dialog__header']">
       <el-dialog :title="i18nt('designer.toolbar.exportCode')" v-model="showExportCodeDialogFlag"
-                 :show-close="true" custom-class="drag-dialog small-padding-dialog" center append-to-body
+                 :show-close="true" class="drag-dialog small-padding-dialog" center append-to-body
                  width="65%" :close-on-click-modal="false" :close-on-press-escape="false" :destroy-on-close="true">
         <el-tabs type="border-card" class="no-box-shadow no-padding" v-model="activeCodeTab">
           <el-tab-pane label="Vue" name="vue">
@@ -150,7 +136,7 @@
 
     <div v-if="showFormDataDialogFlag" class="" v-drag="['.nested-drag-dialog.el-dialog', '.nested-drag-dialog .el-dialog__header']">
       <el-dialog :title="i18nt('designer.hint.exportFormData')" v-model="showFormDataDialogFlag"
-                 :show-close="true" custom-class="nested-drag-dialog dialog-title-light-bg" center
+                 :show-close="true" class="nested-drag-dialog dialog-title-light-bg" center
                  :close-on-click-modal="false" :close-on-press-escape="false" :destroy-on-close="true"
                  :append-to-body="true">
         <div style="border: 1px solid #DCDFE6">
@@ -170,7 +156,7 @@
 
     <div v-if="showExportSFCDialogFlag" class="" v-drag="['.drag-dialog.el-dialog', '.drag-dialog .el-dialog__header']">
       <el-dialog :title="i18nt('designer.toolbar.generateSFC')" v-model="showExportSFCDialogFlag" append-to-body
-                 v-if="showExportSFCDialogFlag" :show-close="true" custom-class="drag-dialog small-padding-dialog" center
+                 v-if="showExportSFCDialogFlag" :show-close="true" class="drag-dialog small-padding-dialog" center
                  width="65%" :close-on-click-modal="false" :close-on-press-escape="false" :destroy-on-close="true">
         <el-tabs type="border-card" class="no-box-shadow no-padding" v-model="activeSFCTab">
           <el-tab-pane label="Vue2" name="vue2">
@@ -201,7 +187,6 @@
 <script>
   import VFormRender from '@/components/form-render/index'
   import CodeEditor from '@/components/code-editor/index'
-  import SvgIcon from '@/components/svg-icon'
   import Clipboard from 'clipboard'
   import {
     deepClone,
@@ -210,11 +195,13 @@
     getQueryParam,
     traverseAllWidgets, addWindowResizeHandler
   } from "@/utils/util"
-  import i18n, { changeLocale } from "@/utils/i18n"
+  import i18n from '@/utils/i18n'
   import {generateCode} from "@/utils/code-generator"
   import {genSFC} from "@/utils/sfc-generator"
   import loadBeautifier from "@/utils/beautifierLoader"
   import { saveAs } from 'file-saver'
+  import axios from 'axios'
+  import SvgIcon from "@/components/svg-icon/index";
 
   export default {
     name: "ToolbarPanel",
@@ -222,8 +209,8 @@
     components: {
       VFormRender,
       CodeEditor,
-      SvgIcon,
       Clipboard,
+      SvgIcon,
     },
     props: {
       designer: Object,
@@ -237,7 +224,7 @@
       return {
         designerConfig: this.getDesignerConfig(),
 
-        toolbarWidth: 420,
+        toolbarWidth: 460,
         showPreviewDialogFlag: false,
         showImportJsonDialogFlag: false,
         showExportJsonDialogFlag: false,
@@ -247,7 +234,6 @@
         showNodeTreeDrawerFlag: false,
 
         nodeTreeData: [],
-        formReadonlyFlag: false,
 
         importTemplate: '',
         jsonContent: '',
@@ -275,16 +261,18 @@
           'select62173': 2,
         },
         testOptionData: {
-          // 'select62173': [
-          //   {label: '01', value: 1},
-          //   {label: '22', value: 2},
-          //   {label: '333', value: 3},
-          // ]
+          'select62173': [
+            {label: '01', value: 1},
+            {label: '22', value: 2},
+            {label: '333', value: 3},
+          ],
 
+          'select001': [
+            {label: '辣椒', value: 1},
+            {label: '菠萝', value: 2},
+            {label: '丑橘子', value: 3},
+          ],
         },
-        curLangName: '简体中文',
-        curLocale: '',
-        vsCodeFlag: false,
 
       }
     },
@@ -327,11 +315,10 @@
 
     },
     mounted() {
-      let maxTBWidth = this.designerConfig.toolbarMaxWidth || 420
+      let maxTBWidth = this.designerConfig.toolbarMaxWidth || 460
       let minTBWidth = this.designerConfig.toolbarMinWidth || 300
       let newTBWidth = window.innerWidth - 260 - 300 - 320 - 80
       this.toolbarWidth = newTBWidth >= maxTBWidth ? maxTBWidth : (newTBWidth <= minTBWidth ? minTBWidth : newTBWidth)
-      this.toolbarWidth = 170
       addWindowResizeHandler(() => {
         this.$nextTick(() => {
           let newTBWidth2 = window.innerWidth - 260 - 300 - 320 - 80
@@ -340,31 +327,6 @@
       })
     },
     methods: {
-      initLocale() {
-        this.curLocale = localStorage.getItem('v_form_locale')
-        if (!!this.vsCodeFlag) {
-          this.curLocale = this.curLocale || 'en-US'
-        } else {
-          this.curLocale = this.curLocale || 'zh-CN'
-        }
-        this.curLangName = this.i18nt('application.' + this.curLocale)
-        this.changeLanguage(this.curLocale)
-      },
-      handleLanguageChanged(command) {
-        this.changeLanguage(command)
-        this.curLangName = this.i18nt('application.' + command)
-      },
-
-      changeLanguage(langName) {
-        changeLocale(langName)
-      },
-      showLink(configName) {
-        if (this.designerConfig[configName] === undefined) {
-          return true
-        }
-
-        return !!this.designerConfig[configName]
-      },
       showToolButton(configName) {
         if (this.designerConfig[configName] === undefined) {
           return true
@@ -482,6 +444,7 @@
 
       clearFormWidget() {
         this.designer.clearDesigner()
+        this.designer.formWidget.clearWidgetRefList()
       },
 
       previewForm() {
@@ -669,46 +632,52 @@
         this.$refs['preForm'].enableForm()
       },
 
-      switchReadMode() {
-        this.formReadonlyFlag = !this.formReadonlyFlag
-        this.$refs['preForm'].setReadMode(this.formReadonlyFlag)
+      testLoadForm() {
+        axios.get('https://www.fastmock.site/mock/e9710039bb5f11262d1a0f2f0bbe08c8/vform3/getFS').then(res => {
+          let newFormJson = res.data
+          this.$refs.preForm.setFormJson(newFormJson)
+          // let newFormData = {'input30696': '668899'}
+          // this.$refs.preForm.setFormData(newFormData)
+
+          console.log('test', 'aaaaaaaa')
+          this.$nextTick(() => {
+            let newFormData = {'input30696': '668899'}
+            this.$refs.preForm.setFormData(newFormData)
+          })
+        }).catch(err => {
+          //
+        })
       },
 
       testSetFormJson() {
-        //let newJson = {"widgetList":[{"key":106933,"type":"input","icon":"text-field","formItemFlag":true,"options":{"name":"input40302","label":"input-new","labelAlign":"","type":"text","defaultValue":"","placeholder":"","columnWidth":"200px","size":"","labelWidth":null,"labelHidden":false,"readonly":false,"disabled":false,"hidden":false,"clearable":true,"showPassword":false,"required":false,"validation":"","validationHint":"","customClass":[],"labelIconClass":null,"labelIconPosition":"rear","labelTooltip":null,"minLength":null,"maxLength":null,"showWordLimit":false,"prefixIcon":"","suffixIcon":"","appendButton":false,"appendButtonDisabled":false,"buttonIcon":"custom-search","onCreated":"","onMounted":"","onInput":"","onChange":"","onFocus":"","onBlur":"","onValidate":""},"id":"input40302"}],"formConfig":{"modelName":"formData","refName":"vForm","rulesName":"rules","labelWidth":120,"labelPosition":"left","size":"","labelAlign":"label-left-align","cssCode":"","customClass":[],"functions":"","layoutType":"PC","jsonVersion":3,"onFormCreated":"","onFormMounted":"","onFormDataChange":""}}
-        let newJson = {"widgetList":[{"key":75094,"type":"input","icon":"text-field","formItemFlag":true,"options":{"name":"input30696","label":"input","labelAlign":"","type":"text","defaultValue":"","placeholder":"","columnWidth":"200px","size":"","labelWidth":null,"labelHidden":false,"readonly":false,"disabled":false,"hidden":false,"clearable":true,"showPassword":false,"required":false,"validation":"","validationHint":"","customClass":[],"labelIconClass":null,"labelIconPosition":"rear","labelTooltip":null,"minLength":null,"maxLength":null,"showWordLimit":false,"prefixIcon":"","suffixIcon":"","appendButton":false,"appendButtonDisabled":false,"buttonIcon":"custom-search","onCreated":"","onMounted":"","onInput":"","onChange":"","onFocus":"","onBlur":"","onValidate":""},"id":"input30696"}],"formConfig":{"modelName":"formData","refName":"vForm","rulesName":"rules","labelWidth":120,"labelPosition":"left","size":"","labelAlign":"label-left-align","cssCode":"","customClass":"","functions":"","layoutType":"PC","jsonVersion":3,"onFormCreated":"","onFormMounted":"","onFormDataChange":""}}
-        //let newJson = {"widgetList":[{"key":70118,"type":"input","icon":"text-field","formItemFlag":true,"options":{"name":"input37241","label":"input","labelAlign":"","type":"text","defaultValue":"","placeholder":"","columnWidth":"200px","size":"","labelWidth":null,"labelHidden":false,"readonly":false,"disabled":false,"hidden":false,"clearable":true,"showPassword":false,"required":false,"validation":"","validationHint":"","customClass":[],"labelIconClass":null,"labelIconPosition":"rear","labelTooltip":null,"minLength":null,"maxLength":null,"showWordLimit":false,"prefixIcon":"","suffixIcon":"","appendButton":false,"appendButtonDisabled":false,"buttonIcon":"custom-search","onCreated":"","onMounted":"","onInput":"","onChange":"","onFocus":"","onBlur":"","onValidate":""},"id":"input37241"}],"formConfig":{"modelName":"formData","refName":"vForm","rulesName":"rules","labelWidth":150,"labelPosition":"left","size":"","labelAlign":"label-right-align","cssCode":"","customClass":"","functions":"","layoutType":"PC","jsonVersion":3,"onFormCreated":"","onFormMounted":"","onFormDataChange":""}}
-        this.$refs['preForm'].setFormJson(newJson)
-      },
-
-      testSubFormHide() {
-        this.$refs['preForm'].hideWidgets('input73220')
+        let newFormJson = {"widgetList":[{"type":"static-text","icon":"static-text","formItemFlag":false,"options":{"name":"statictext111193","columnWidth":"200px","hidden":false,"textContent":"多列表单","customClass":[],"onCreated":"","onMounted":"","label":"static-text"},"id":"statictext111193"},{"type":"divider","icon":"divider","formItemFlag":false,"options":{"name":"divider102346","label":"","columnWidth":"200px","direction":"horizontal","contentPosition":"center","hidden":false,"customClass":[],"onCreated":"","onMounted":""},"id":"divider102346"},{"type":"grid","category":"container","icon":"grid","cols":[{"type":"grid-col","category":"container","icon":"grid-col","internal":true,"widgetList":[{"type":"input","icon":"text-field","formItemFlag":true,"options":{"name":"input12931","label":"发件人姓名","labelAlign":"","type":"text","defaultValue":"","placeholder":"","columnWidth":"200px","size":"","labelWidth":null,"labelHidden":false,"readonly":false,"disabled":false,"hidden":false,"clearable":true,"showPassword":false,"required":true,"validation":"","validationHint":"","customClass":[],"labelIconClass":null,"labelIconPosition":"rear","labelTooltip":null,"minLength":null,"maxLength":null,"showWordLimit":false,"prefixIcon":"","suffixIcon":"","appendButton":false,"appendButtonDisabled":false,"buttonIcon":"el-icon-search","onCreated":"","onMounted":"","onInput":"","onChange":"","onFocus":"","onBlur":"","onValidate":""},"id":"input12931"}],"options":{"name":"gridCol25469","hidden":false,"span":12,"offset":0,"push":0,"pull":0,"responsive":false,"md":12,"sm":12,"xs":12,"customClass":[]},"id":"grid-col-25469"},{"type":"grid-col","category":"container","icon":"grid-col","internal":true,"widgetList":[{"type":"input","icon":"text-field","formItemFlag":true,"options":{"name":"input23031","label":"发件人号码","labelAlign":"","type":"text","defaultValue":"","placeholder":"","columnWidth":"200px","size":"","labelWidth":null,"labelHidden":false,"readonly":false,"disabled":false,"hidden":false,"clearable":true,"showPassword":false,"required":true,"validation":"","validationHint":"","customClass":"","labelIconClass":null,"labelIconPosition":"rear","labelTooltip":null,"minLength":null,"maxLength":null,"showWordLimit":false,"prefixIcon":"","suffixIcon":"","appendButton":false,"appendButtonDisabled":false,"buttonIcon":"el-icon-search","onCreated":"","onMounted":"","onInput":"","onChange":"","onFocus":"","onBlur":"","onValidate":""},"id":"input23031"}],"options":{"name":"gridCol25125","hidden":false,"span":12,"offset":0,"push":0,"pull":0,"responsive":false,"md":12,"sm":12,"xs":12,"customClass":""},"id":"grid-col-25125"},{"type":"grid-col","category":"container","icon":"grid-col","internal":true,"widgetList":[{"type":"switch","icon":"switch-field","formItemFlag":true,"options":{"name":"switch96070","label":"是否保密","labelAlign":"","defaultValue":true,"columnWidth":"200px","labelWidth":null,"labelHidden":false,"disabled":false,"hidden":false,"customClass":"","labelIconClass":null,"labelIconPosition":"rear","labelTooltip":null,"switchWidth":40,"activeText":"","inactiveText":"","activeColor":null,"inactiveColor":null,"onCreated":"","onMounted":"","onChange":"","onValidate":""},"id":"switch96070"}],"options":{"name":"gridCol44470","hidden":false,"span":24,"offset":0,"push":0,"pull":0,"responsive":false,"md":12,"sm":12,"xs":12,"customClass":""},"id":"grid-col-44470"},{"type":"grid-col","category":"container","icon":"grid-col","internal":true,"widgetList":[{"type":"textarea","icon":"textarea-field","formItemFlag":true,"options":{"name":"textarea21654","label":"发件人地址","labelAlign":"","rows":3,"defaultValue":"","placeholder":"","columnWidth":"200px","size":"","labelWidth":null,"labelHidden":false,"readonly":false,"disabled":false,"hidden":false,"required":true,"validation":"","validationHint":"","customClass":"","labelIconClass":null,"labelIconPosition":"rear","labelTooltip":null,"minLength":null,"maxLength":null,"showWordLimit":false,"onCreated":"","onMounted":"","onInput":"","onChange":"","onFocus":"","onBlur":"","onValidate":""},"id":"textarea21654"}],"options":{"name":"gridCol98223","hidden":false,"span":24,"offset":0,"push":0,"pull":0,"responsive":false,"md":12,"sm":12,"xs":12,"customClass":""},"id":"grid-col-98223"}],"options":{"name":"grid35834","hidden":false,"gutter":12,"customClass":""},"id":"grid35834"},{"type":"divider","icon":"divider","formItemFlag":false,"options":{"name":"divider69240","label":"","columnWidth":"200px","direction":"horizontal","contentPosition":"center","hidden":false,"customClass":"","onCreated":"","onMounted":""},"id":"divider69240"},{"type":"grid","category":"container","icon":"grid","cols":[{"type":"grid-col","category":"container","icon":"grid-col","internal":true,"widgetList":[{"type":"input","icon":"text-field","formItemFlag":true,"options":{"name":"input113152","label":"收件人姓名111","labelAlign":"","type":"text","defaultValue":"","placeholder":"","columnWidth":"200px","size":"","labelWidth":null,"labelHidden":false,"readonly":false,"disabled":false,"hidden":false,"clearable":true,"showPassword":false,"required":true,"validation":"","validationHint":"","customClass":[],"labelIconClass":null,"labelIconPosition":"rear","labelTooltip":null,"minLength":null,"maxLength":null,"showWordLimit":false,"prefixIcon":"","suffixIcon":"","appendButton":false,"appendButtonDisabled":false,"buttonIcon":"el-icon-search","onCreated":"","onMounted":"","onInput":"","onChange":"","onFocus":"","onBlur":"","onValidate":""},"id":"input113152"}],"options":{"name":"gridCol47242","hidden":false,"span":12,"offset":0,"push":0,"pull":0,"responsive":false,"md":12,"sm":12,"xs":12,"customClass":""},"id":"grid-col-47242"},{"type":"grid-col","category":"container","icon":"grid-col","internal":true,"widgetList":[{"type":"input","icon":"text-field","formItemFlag":true,"options":{"name":"input40240","label":"收件人号码","labelAlign":"","type":"text","defaultValue":"","placeholder":"","columnWidth":"200px","size":"","labelWidth":null,"labelHidden":false,"readonly":false,"disabled":false,"hidden":false,"clearable":true,"showPassword":false,"required":true,"validation":"","validationHint":"","customClass":"","labelIconClass":null,"labelIconPosition":"rear","labelTooltip":null,"minLength":null,"maxLength":null,"showWordLimit":false,"prefixIcon":"","suffixIcon":"","appendButton":false,"appendButtonDisabled":false,"buttonIcon":"el-icon-search","onCreated":"","onMounted":"","onInput":"","onChange":"","onFocus":"","onBlur":"","onValidate":""},"id":"input40240"}],"options":{"name":"gridCol27970","hidden":false,"span":12,"offset":0,"push":0,"pull":0,"responsive":false,"md":12,"sm":12,"xs":12,"customClass":""},"id":"grid-col-27970"},{"type":"grid-col","category":"container","icon":"grid-col","internal":true,"widgetList":[{"type":"checkbox","icon":"checkbox-field","formItemFlag":true,"options":{"name":"checkbox63174","label":"接收时间段","labelAlign":"","defaultValue":[],"columnWidth":"200px","size":"","displayStyle":"inline","buttonStyle":false,"border":false,"labelWidth":null,"labelHidden":false,"disabled":false,"hidden":false,"optionItems":[{"label":"上午9:00 - 11:30","value":1},{"label":"下午12:30 - 18:00","value":2},{"label":"晚上18:00 - 21:00","value":3}],"required":true,"validation":"","validationHint":"","customClass":"","labelIconClass":null,"labelIconPosition":"rear","labelTooltip":null,"onCreated":"","onMounted":"","onChange":"","onValidate":""},"id":"checkbox63174"}],"options":{"name":"gridCol74653","hidden":false,"span":24,"offset":0,"push":0,"pull":0,"responsive":false,"md":12,"sm":12,"xs":12,"customClass":""},"id":"grid-col-74653"},{"type":"grid-col","category":"container","icon":"grid-col","internal":true,"widgetList":[{"type":"input","icon":"text-field","formItemFlag":true,"options":{"name":"input78584","label":"收件人地址","labelAlign":"","type":"text","defaultValue":"","placeholder":"","columnWidth":"200px","size":"","labelWidth":null,"labelHidden":false,"readonly":false,"disabled":false,"hidden":false,"clearable":true,"showPassword":false,"required":true,"validation":"","validationHint":"","customClass":"","labelIconClass":null,"labelIconPosition":"rear","labelTooltip":null,"minLength":null,"maxLength":null,"showWordLimit":false,"prefixIcon":"","suffixIcon":"","appendButton":false,"appendButtonDisabled":false,"buttonIcon":"el-icon-search","onCreated":"","onMounted":"","onInput":"","onChange":"","onFocus":"","onBlur":"","onValidate":""},"id":"input78584"}],"options":{"name":"gridCol63781","hidden":false,"span":24,"offset":0,"push":0,"pull":0,"responsive":false,"md":12,"sm":12,"xs":12,"customClass":""},"id":"grid-col-63781"}],"options":{"name":"grid114672","hidden":false,"gutter":12,"customClass":""},"id":"grid114672"},{"type":"divider","icon":"divider","formItemFlag":false,"options":{"name":"divider75887","label":"","columnWidth":"200px","direction":"horizontal","contentPosition":"center","hidden":false,"customClass":[],"onCreated":"","onMounted":""},"id":"divider75887"},{"type":"grid","category":"container","icon":"grid","cols":[{"type":"grid-col","category":"container","icon":"grid-col","internal":true,"widgetList":[{"type":"time-range","icon":"time-range-field","formItemFlag":true,"options":{"name":"timerange47503","label":"送货时间","labelAlign":"","defaultValue":null,"startPlaceholder":"","endPlaceholder":"","columnWidth":"200px","size":"","labelWidth":null,"labelHidden":false,"readonly":false,"disabled":false,"hidden":false,"clearable":true,"editable":false,"format":"HH:mm:ss","required":true,"validation":"","validationHint":"","customClass":"","labelIconClass":null,"labelIconPosition":"rear","labelTooltip":null,"onCreated":"","onMounted":"","onChange":"","onFocus":"","onBlur":"","onValidate":""},"id":"timerange47503"}],"options":{"name":"gridCol109912","hidden":false,"span":24,"offset":0,"push":0,"pull":0,"responsive":false,"md":12,"sm":12,"xs":12,"customClass":""},"id":"grid-col-109912"},{"type":"grid-col","category":"container","icon":"grid-col","internal":true,"widgetList":[{"type":"slider","icon":"slider-field","formItemFlag":true,"options":{"name":"slider54714","label":"价格保护","labelAlign":"","columnWidth":"200px","size":"","labelWidth":null,"labelHidden":false,"disabled":false,"hidden":false,"required":false,"validation":"","validationHint":"","customClass":[],"labelIconClass":null,"labelIconPosition":"rear","labelTooltip":null,"min":0,"max":100,"step":10,"range":false,"height":null,"onCreated":"","onMounted":"","onChange":"","onValidate":"","showStops":true},"id":"slider54714"}],"options":{"name":"gridCol114653","hidden":false,"span":24,"offset":0,"push":0,"pull":0,"responsive":false,"md":12,"sm":12,"xs":12,"customClass":""},"id":"grid-col-114653"},{"type":"grid-col","category":"container","icon":"grid-col","internal":true,"widgetList":[{"type":"textarea","icon":"textarea-field","formItemFlag":true,"options":{"name":"textarea64794","label":"其他信息","labelAlign":"","rows":3,"defaultValue":"","placeholder":"","columnWidth":"200px","size":"","labelWidth":null,"labelHidden":false,"readonly":false,"disabled":false,"hidden":false,"required":false,"validation":"","validationHint":"","customClass":"","labelIconClass":null,"labelIconPosition":"rear","labelTooltip":null,"minLength":null,"maxLength":null,"showWordLimit":false,"onCreated":"","onMounted":"","onInput":"","onChange":"","onFocus":"","onBlur":"","onValidate":""},"id":"textarea64794"}],"options":{"name":"gridCol80867","hidden":false,"span":24,"offset":0,"push":0,"pull":0,"responsive":false,"md":12,"sm":12,"xs":12,"customClass":""},"id":"grid-col-80867"}],"options":{"name":"grid28709","hidden":false,"gutter":12,"customClass":""},"id":"grid28709"}],"formConfig":{"modelName":"formData","refName":"vForm","rulesName":"rules","labelWidth":150,"labelPosition":"left","size":"","labelAlign":"label-right-align","cssCode":"","customClass":[],"functions":"","layoutType":"PC","jsonVersion":3,"onFormCreated":"","onFormMounted":"","onFormDataChange":"","onFormValidate":""}}
+        this.$refs.preForm.setFormJson(newFormJson)
+        this.$nextTick(() => {
+          this.$refs.preForm.setFormData({"input12931":"asdf",
+          input23031:'input23031',
+          textarea21654:'textarea21654',
+          input113152:'input113152',
+          input40240:'input40240',
+        
+        
+        })
+        })
       },
 
       testSetFormData() {
-        let testFormData = {
-          "picTest01": [
-            {
-              "name": "QQ浏览器截图20200730103242.png",
-              "url": "http://image-2021.test.upcdn.net/QQ浏览器截图20200730103242.png"
-            },
-            {
-              "name": "QQ浏览器截图20201218155618.jpg",
-              "url": "http://image-2021.test.upcdn.net/QQ浏览器截图20201218155618.jpg"
-            }
-          ],
-          "fileTest01": [
-            {
-              "name": "吉林大学2019-2020《公文写作》大作业.doc",
-              "url": "http://image-2021.test.upcdn.net/吉林大学2019-2020《公文写作》大作业.doc"
-            },
-            {
-              "name": "资源包抵扣明细.xlsx",
-              "url": "http://image-2021.test.upcdn.net/资源包抵扣明细.xlsx"
-            }
-          ]
+        let testFD = {
+          "input89263": "899668"
         }
-        this.$refs['preForm'].setFormData(testFormData)
+        this.$refs.preForm.setFormData(testFD)
+      },
+
+      testReloadOptionData() {
+        this.testOptionData['select001'].push({
+          label: 'aaa',
+          value: 888
+        })
+
+        this.$refs.preForm.reloadOptionData()
       },
 
       handleFormChange(fieldName, newValue, oldValue, formModel) {
@@ -720,6 +689,8 @@
         console.log('formModel', formModel)
         console.log('---formChange end---')
         */
+
+        console.log('formModel', formModel)
       },
 
       testOnAppendButtonClick(clickedWidget) {
@@ -730,18 +701,8 @@
         console.log('test', button)
       },
 
-      testDTSC(dt, s1, s2) {
-        console.log('test dt', dt)
-        console.log('test s1', s1)
-        console.log('test s2', s2)
-      },
-
-      testOBC(aa) {
-        console.log('test=====', aa)
-      },
-
       onMyEmitTest(aaa) {
-        console.log('test emit', aaa)
+        console.log('-----', aaa)
       },
 
       findWidgetById(wId) {
@@ -774,9 +735,10 @@
 </script>
 
 <style lang="scss" scoped>
-  div.toolbar-container {
-    //min-width: 728px;  /* 解决工具按钮栏换行的问题！！ */
-    /* 上一行css有问题，当窗口宽度不足时会把按钮挤出到右边的属性设置区，弃之！ */
+  .toolbar-container:after {
+    display: block;
+    content: "";
+    clear: both;
   }
 
   .left-toolbar {
@@ -788,8 +750,8 @@
 
   .right-toolbar {
     display: flex;
-    margin-top: 5px;
     float: right;
+    line-height: 42px;
     text-align: right;
     overflow: hidden;
 

@@ -1,21 +1,12 @@
-<!--
-/**
- * author: vformAdmin
- * email: vdpadmin@163.com
- * website: https://www.vform666.com
- * date: 2021.08.18
- * remark: 如果要分发VForm源码，需在本文件顶部保留此文件头信息！！
- */
--->
 
 <template>
   <el-container class="main-container full-height">
-    <!-- <el-header class="main-header" v-if="designerConfig.logoHeader !== false">
+    <el-header class="main-header">
       <div class="float-left main-title">
         <img src="../../assets/vform-logo.png" @click="openHome">
-        <span class="bold">{{vfProductName}}</span> {{vfProductTitle}} <span class="version-span">Ver {{vFormVersion}}</span></div>
-      <div class="float-right external-link"> -->
-        <!-- <el-dropdown v-if="showLink('languageMenu')" :hide-timeout="2000" @command="handleLanguageChanged">
+        <span class="bold">VForm 3</span> {{i18nt('application.productTitle')}} <span class="version-span">Ver {{vFormVersion}}</span></div>
+      <div class="float-right external-link">
+        <el-dropdown v-if="showLink('languageMenu')" :hide-timeout="2000" @command="handleLanguageChanged">
           <span class="el-dropdown-link">{{curLangName}}<svg-icon icon-class="el-arrow-down" /></span>
           <template #dropdown>
             <el-dropdown-menu>
@@ -23,17 +14,14 @@
               <el-dropdown-item command="en-US">{{i18nt('application.en-US')}}</el-dropdown-item>
             </el-dropdown-menu>
           </template>
-        </el-dropdown> -->
-        <!--
+        </el-dropdown>
         <a v-if="showLink('externalLink')" href="javascript:void(0)" @click="(ev) => openUrl(ev, gitUrl)" target="_blank"><svg-icon icon-class="github" />{{i18nt('application.github')}}</a>
         <a v-if="showLink('externalLink')" href="javascript:void(0)" @click="(ev) => openUrl(ev, docUrl)" target="_blank"><svg-icon icon-class="document" />{{i18nt('application.document')}}</a>
         <a v-if="showLink('externalLink')" href="javascript:void(0)" @click="(ev) => openUrl(ev, chatUrl)" target="_blank">{{i18nt('application.qqGroup')}}</a>
         <a v-if="showLink('externalLink')" href="javascript:void(0)" @click="(ev) => openUrl(ev, subScribeUrl)" target="_blank">
           {{i18nt('application.subscription')}}<i class="el-icon-top-right"></i></a>
-        -->
-        <!-- <a href="javascript:void(0)">&nbsp;</a>
       </div>
-    </el-header> -->
+    </el-header>
 
     <el-container>
       <el-aside class="side-panel">
@@ -71,10 +59,8 @@
   import SettingPanel from './setting-panel/index'
   import VFormWidget from './form-widget/index'
   import {createDesigner} from "@/components/form-designer/designer"
-  import {
-    addWindowResizeHandler, deepClone, getQueryParam, getAllContainerWidgets,
-    getAllFieldWidgets, traverseAllWidgets
-  } from "@/utils/util"
+  import {addWindowResizeHandler, deepClone, getQueryParam, getAllContainerWidgets,
+    getAllFieldWidgets, traverseAllWidgets} from "@/utils/util"
   import {MOCK_CASE_URL, VARIANT_FORM_VERSION} from "@/utils/config"
   import i18n, { changeLocale } from "@/utils/i18n"
   import axios from 'axios'
@@ -103,7 +89,6 @@
         type: Array,
         default: () => []
       },
-
       /* 设计器配置参数 */
       designerConfig: {
         type: Object,
@@ -121,16 +106,11 @@
             exportJsonButton: true,  //是否显示导出JSON器按钮
             exportCodeButton: true,  //是否显示导出代码按钮
             generateSFCButton: true,  //是否显示生成SFC按钮
-            logoHeader: true,  //是否显示Logo头部区域（仅Pro）
 
-            toolbarMaxWidth: 420,  //设计器工具按钮栏最大宽度（单位像素）
+            toolbarMaxWidth: 450,  //设计器工具按钮栏最大宽度（单位像素）
             toolbarMinWidth: 300,  //设计器工具按钮栏最小宽度（单位像素）
 
-            productName: '',  //自定义表单设计器名称，对应“VForm Pro”（仅Pro）
-            productTitle: '',  //自定义表单设计器标题，对应“表单设计器”（仅Pro）
-
             presetCssCode: '',  //设计器预设CSS样式代码
-            languageName: 'zh-CN',  //界面语言，默认显示中文
 
             resetFormJson: false,  //是否在设计器初始化时将表单内容重置为空
           }
@@ -155,16 +135,14 @@
 
         docUrl: 'https://www.vform666.com/document3.html',
         gitUrl: 'https://github.com/vform666/variant-form3-vite',
-        chatUrl: 'https://www.vform666.com/chat-group.html',
-        subScribeUrl: 'https://www.vform666.com/subscribe.html',
+        chatUrl: 'https://www.vform666.com/pages/chat-group/',
+        subScribeUrl: 'https://www.vform666.com/pages/pro/',
 
         scrollerHeight: 0,
 
         designer: createDesigner(this),
 
-        fieldList: [],
-
-        externalComponents:  {},  //外部组件实例集合
+        fieldList: []
       }
     },
     provide() {
@@ -174,30 +152,17 @@
         getBannedWidgets: () => this.bannedWidgets,
       }
     },
-    computed: {
-      vfProductName() {
-        return (this.designerConfig && this.designerConfig.productName) || 'VForm Pro'
-      },
-
-      vfProductTitle() {
-        return (this.designerConfig && this.designerConfig.productTitle) ||
-            this.i18nt('application.productTitle')
-      }
-
-    },
     created() {
-      this.designer.initDesigner( !!this.designerConfig.resetFormJson )
       this.vsCodeFlag = getQueryParam('vscode') == 1
       this.caseName = getQueryParam('case')
     },
     mounted() {
       this.initLocale()
 
-      let logoHeaderHeight = (this.designerConfig.logoHeader !== false) ? 48 : 0
-      this.scrollerHeight = window.innerHeight - logoHeaderHeight - 42 + 'px'
+      this.scrollerHeight = window.innerHeight - 56 - 36 + 'px'
       addWindowResizeHandler(() => {
         this.$nextTick(() => {
-          this.scrollerHeight = window.innerHeight - logoHeaderHeight - 42 + 'px'
+          this.scrollerHeight = window.innerHeight - 56 - 36 + 'px'
         })
       })
 
@@ -330,7 +295,6 @@
 
       clearDesigner() {
         this.$refs.toolbarRef.clearFormWidget()
-        this.$refs.formRef.clearWidgetRefList()
       },
 
 
@@ -382,18 +346,14 @@
 
       /**
        * 获取所有字段组件
-       * @param widgetList 默认为null，代表取当前表单json组件列表
-       * @param staticWidgetsIncluded 是否包含按钮等静态组件，默认不包含
        * @returns {*[]}
        */
-      getFieldWidgets(widgetList = null, staticWidgetsIncluded = false) {
-        return !!widgetList ? getAllFieldWidgets(widgetList, staticWidgetsIncluded) :
-            getAllFieldWidgets(this.designer.widgetList, staticWidgetsIncluded)
+      getFieldWidgets(widgetList = null) {
+        return !!widgetList ? getAllFieldWidgets(widgetList) : getAllFieldWidgets(this.designer.widgetList)
       },
 
       /**
        * 获取所有容器组件
-       * @param widgetList 默认为null，代表取当前表单json组件列表
        * @returns {*[]}
        */
       getContainerWidgets(widgetList = null) {
@@ -494,7 +454,6 @@
     height: 48px !important;
     line-height: 48px !important;
     min-width: 800px;
-    //background: #f5f7fa;
   }
 
   div.main-title {
@@ -539,7 +498,6 @@
   div.external-link {
     display: flex;
     align-items: center;
-    justify-content: center;
 
     a {
       font-size: 13px;
@@ -557,7 +515,7 @@
   }
 
   .el-aside.side-panel {
-    width: 345px !important;
+    width: 260px !important;
     overflow-y: hidden;
   }
 

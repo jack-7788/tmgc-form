@@ -70,18 +70,18 @@
         </el-scrollbar>
       </el-tab-pane>
 
-      <!-- <el-tab-pane v-if="!!designer" :label="i18nt('designer.hint.formSetting')" name="2">
+      <el-tab-pane v-if="!!designer" :label="i18nt('designer.hint.formSetting')" name="2">
         <el-scrollbar class="setting-scrollbar" :style="{height: scrollerHeight}">
           <form-setting :designer="designer" :form-config="formConfig"></form-setting>
         </el-scrollbar>
-      </el-tab-pane> -->
+      </el-tab-pane>
 
-      <!-- <el-tab-pane :label="i18nt('designer.setting.dataSource')" name="3">
+      <el-tab-pane :label="i18nt('designer.setting.dataSource')" name="3">
         <el-scrollbar class="ds-setting-scrollbar" :style="{height: scrollerHeight}">
           <data-source-setting :designer="designer" :form-config="formConfig">
           </data-source-setting>
         </el-scrollbar>
-      </el-tab-pane> -->
+      </el-tab-pane>
     </el-tabs>
 
     <div v-if="showWidgetEventDialogFlag" class="" v-drag="['.drag-dialog.el-dialog', '.drag-dialog .el-dialog__header']">

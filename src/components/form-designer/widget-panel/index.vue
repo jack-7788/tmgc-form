@@ -1,103 +1,58 @@
 <template>
-  <div class="title">表单设计器</div>
   <el-scrollbar class="side-scroll-bar" :style="{height: scrollerHeight}">
     <div class="panel-container">
 
-    <el-tabs :tab-position="tabPosition" v-model="firstTab" class="no-bottom-margin indent-left-margin" @tab-change="tabChange">
-      <el-tab-pane name="outline">
-        <template #label>
-          <span
-            ><svg-icon icon-class="node-tree" />
-            {{ i18nt("designer.outline") }}</span
-          >
-        </template>
-        <div style="margin-top:10px">
-          <span>{{i18nt('designer.toolbar.nodeTreeTitle')}}</span>
-          <div v-if="showNodeTreeDrawerFlag">
-            <el-tree ref="nodeTree" :data="nodeTreeData" node-key="id" default-expand-all highlight-current class="node-tree"
-              icon-class="el-icon-arrow-right" @node-click="onNodeTreeClick"></el-tree>
-          </div>
-        </div>
-      </el-tab-pane>
-      <el-tab-pane name="field">
-        <template #label>
-          <span
-            ><svg-icon icon-class="el-set-up" />
-            {{ i18nt("designer.field") }}</span
-          >
-        </template>
-        <div>
-          <div style="margin: 10px 0">
-            <el-autocomplete
-              style="width:95%"
-              v-model="state"
-              :fetch-suggestions="querySearchAsync"
-              placeholder="请输入关键词"
-              @select="handleSelect"
-            ></el-autocomplete>
-          </div>
-          字段组
-        </div>
-      </el-tab-pane>
+    <el-tabs v-model="firstTab" class="no-bottom-margin indent-left-margin">
       <el-tab-pane name="componentLib">
         <template #label>
           <span><svg-icon icon-class="el-set-up" /> {{i18nt('designer.componentLib')}}</span>
         </template>
-        <div style="margin-top: 10px">
-          <el-autocomplete
-            style="width:95%"
-            v-model="state"
-            :fetch-suggestions="componentLibSearch"
-            placeholder="请输入关键词"
-            @select="componentLibSelect"
-          ></el-autocomplete>
-          </div>
 
       <el-collapse v-model="activeNames" class="widget-collapse">
-        <el-collapse-item name="1" :title="i18nt('designer.containerTitle')" v-if="containers.length">
+        <el-collapse-item name="1" :title="i18nt('designer.containerTitle')">
           <draggable tag="ul" :list="containers" item-key="key" :group="{name: 'dragGroup', pull: 'clone', put: false}"
                      :clone="handleContainerWidgetClone" ghost-class="ghost" :sort="false"
                      :move="checkContainerMove" @end="onContainerDragEnd">
             <template #item="{ element: ctn }">
               <li class="container-widget-item" :title="ctn.displayName" @dblclick="addContainerByDbClick(ctn)">
-                <span><svg-icon :icon-class="ctn.icon" class-name="color-svg-icon" />{{getWidgetLabel(ctn)}}</span>
+                <span><svg-icon :icon-class="ctn.icon" class-name="color-svg-icon" />{{i18n2t(`designer.widgetLabel.${ctn.type}`, `extension.widgetLabel.${ctn.type}`)}}</span>
               </li>
             </template>
           </draggable>
         </el-collapse-item>
 
-        <el-collapse-item name="2" :title="i18nt('designer.basicFieldTitle')" v-if="basicFields.length">
+        <el-collapse-item name="2" :title="i18nt('designer.basicFieldTitle')">
           <draggable tag="ul" :list="basicFields" item-key="key" :group="{name: 'dragGroup', pull: 'clone', put: false}"
                      :move="checkFieldMove"
                      :clone="handleFieldWidgetClone" ghost-class="ghost" :sort="false">
             <template #item="{ element: fld }">
               <li class="field-widget-item" :title="fld.displayName" @dblclick="addFieldByDbClick(fld)">
-                <span><svg-icon :icon-class="fld.icon" class-name="color-svg-icon" />{{getWidgetLabel(fld)}}</span>
+                <span><svg-icon :icon-class="fld.icon" class-name="color-svg-icon" />{{i18n2t(`designer.widgetLabel.${fld.type}`, `extension.widgetLabel.${fld.type}`)}}</span>
               </li>
             </template>
           </draggable>
         </el-collapse-item>
 
-        <el-collapse-item name="3" :title="i18nt('designer.advancedFieldTitle')" v-if="advancedFields.length">
+        <el-collapse-item name="3" :title="i18nt('designer.advancedFieldTitle')">
           <draggable tag="ul" :list="advancedFields" item-key="key" :group="{name: 'dragGroup', pull: 'clone', put: false}"
                      :move="checkFieldMove"
                      :clone="handleFieldWidgetClone" ghost-class="ghost" :sort="false">
             <template #item="{ element: fld }">
               <li class="field-widget-item" :title="fld.displayName" @dblclick="addFieldByDbClick(fld)">
-                <span><svg-icon :icon-class="fld.icon" class-name="color-svg-icon" />{{getWidgetLabel(fld)}}</span>
+                <span><svg-icon :icon-class="fld.icon" class-name="color-svg-icon" />{{i18n2t(`designer.widgetLabel.${fld.type}`, `extension.widgetLabel.${fld.type}`)}}</span>
               </li>
             </template>
           </draggable>
         </el-collapse-item>
 
-        <el-collapse-item name="4" :title="i18nt('designer.customFieldTitle')" v-if="customFields.length">
+        <el-collapse-item name="4" :title="i18nt('designer.customFieldTitle')">
           <draggable tag="ul" :list="customFields" item-key="key" :group="{name: 'dragGroup', pull: 'clone', put: false}"
                      :move="checkFieldMove"
                      :clone="handleFieldWidgetClone" ghost-class="ghost" :sort="false">
             <template #item="{ element: fld }">
               <li class="field-widget-item" :title="fld.displayName" @dblclick="addFieldByDbClick(fld)">
                 <span>
-                  <svg-icon :icon-class="fld.icon" class-name="color-svg-icon" />{{getWidgetLabel(fld)}}</span>
+                  <svg-icon :icon-class="fld.icon" class-name="color-svg-icon" />{{i18n2t(`designer.widgetLabel.${fld.type}`, `extension.widgetLabel.${fld.type}`)}}</span>
               </li>
             </template>
           </draggable>
@@ -139,7 +94,7 @@
   import SvgIcon from '@/components/svg-icon'
   import {containers as CONS, basicFields as BFS, advancedFields as AFS, customFields as CFS} from "./widgetsConfig"
   import {formTemplates} from './templatesConfig'
-  import {addWindowResizeHandler, generateId,traverseAllWidgets} from "@/utils/util"
+  import {addWindowResizeHandler, generateId} from "@/utils/util"
   import i18n from "@/utils/i18n"
   import axios from 'axios'
 
@@ -164,15 +119,9 @@
     inject: ['getBannedWidgets', 'getDesignerConfig'],
     data() {
       return {
-        showNodeTreeDrawerFlag: false,
-        nodeTreeData: [],
-        search: "",
-        state: "",
-        restaurants: [],
         designerConfig: this.getDesignerConfig(),
 
         firstTab: 'componentLib',
-        tabPosition: 'left',
 
         scrollerHeight: 0,
 
@@ -182,11 +131,6 @@
         basicFields: [],
         advancedFields: [],
         customFields: [],
-
-        copycontainers: [],
-        copybasicFields: [],
-        copyadvancedFields: [],
-        copycustomFields: [],
 
         formTemplates: formTemplates,
         ftImages: [
@@ -219,19 +163,13 @@
       })
     },
     methods: {
-      getWidgetLabel(widget) {
-        if (!!widget.alias) {  //优先显示组件别名
-          return this.i18n2t(`designer.widgetLabel.${widget.alias}`, `extension.widgetLabel.${widget.alias}`)
-        }
-
-        return this.i18n2t(`designer.widgetLabel.${widget.type}`, `extension.widgetLabel.${widget.type}`)
-      },
-
       isBanned(wName) {
         return this.getBannedWidgets().indexOf(wName) > -1
       },
 
       showFormTemplates() {
+        //lucdt
+        // return false;
         if (this.designerConfig['formTemplates'] === undefined) {
           return true
         }
@@ -244,49 +182,41 @@
           return {
             key: generateId(),
             ...con,
-            displayName: this.i18n2t(`designer.widgetLabel.${con.type}`, `extension.widgetLabel.${con.type}`),
-            value: this.i18n2t(`designer.widgetLabel.${con.type}`, `extension.widgetLabel.${con.type}`)
+            displayName: this.i18n2t(`designer.widgetLabel.${con.type}`, `extension.widgetLabel.${con.type}`)
           }
         }).filter(con => {
           return !con.internal && !this.isBanned(con.type)
         })
-        this.copycontainers = this.containers
 
         this.basicFields = BFS.map(fld => {
           return {
             key: generateId(),
             ...fld,
-            displayName: this.i18n2t(`designer.widgetLabel.${fld.type}`, `extension.widgetLabel.${fld.type}`),
-            value: this.i18n2t(`designer.widgetLabel.${fld.type}`, `extension.widgetLabel.${fld.type}`)
+            displayName: this.i18n2t(`designer.widgetLabel.${fld.type}`, `extension.widgetLabel.${fld.type}`)
           }
         }).filter(fld => {
           return !this.isBanned(fld.type)
         })
-        this.copybasicFields = this.basicFields
 
         this.advancedFields = AFS.map(fld => {
           return {
             key: generateId(),
             ...fld,
-            displayName: this.i18n2t(`designer.widgetLabel.${fld.type}`, `extension.widgetLabel.${fld.type}`),
-            value: this.i18n2t(`designer.widgetLabel.${fld.type}`, `extension.widgetLabel.${fld.type}`)
+            displayName: this.i18n2t(`designer.widgetLabel.${fld.type}`, `extension.widgetLabel.${fld.type}`)
           }
         }).filter(fld => {
           return !this.isBanned(fld.type)
         })
-        this.copyadvancedFields = this.advancedFields
 
         this.customFields = CFS.map(fld => {
           return {
             key: generateId(),
             ...fld,
-            displayName: this.i18n2t(`designer.widgetLabel.${fld.type}`, `extension.widgetLabel.${fld.type}`),
-            value: this.i18n2t(`designer.widgetLabel.${fld.type}`, `extension.widgetLabel.${fld.type}`)
+            displayName: this.i18n2t(`designer.widgetLabel.${fld.type}`, `extension.widgetLabel.${fld.type}`)
           }
         }).filter(fld => {
           return !this.isBanned(fld.type)
         })
-        this.copycustomFields= this.customFields
       },
 
       handleContainerWidgetClone(origin) {
@@ -343,183 +273,8 @@
         }).catch(error => {
           console.error(error)
         })
-      },
-      // 组件查询
-      componentLibSearch(queryString, cb) {
-        var restaurants = [...this.copycontainers,...this.copybasicFields,...this.copyadvancedFields,...this.copycustomFields];
-        var results = queryString
-          ? restaurants.filter(this.componentLibFilter(queryString))
-          : restaurants;
-        cb(results);
-        console.log(results);
-        if (results.length === 0) {
-          this.containers = results;
-          this.basicFields = results;
-          this.advancedFields = results;
-          this.customFields = results;
-        } else {
-          this.containers = this.copycontainers;
-          this.basicFields = this.copybasicFields;
-          this.advancedFields = this.copyadvancedFields;
-          this.customFields = this.copycustomFields;
-        }
-      },
-      componentLibFilter(queryString) {
-        return (state) => {
-          return (
-            state.value.toLowerCase().indexOf(queryString.toLowerCase()) === 0
-          );
-        };
-      },
-      componentLibSelect(item) {
-        console.log(item)
-        this.containers = [];
-        this.basicFields = [];
-        this.advancedFields = [];
-        this.customFields = [];
-        this.copycontainers.forEach(ele => {
-          if (ele.type === item.type) {
-            this.containers.push(item)
-          }
-        })
-        this.copybasicFields.forEach(ele => {
-          if (ele.type === item.type) {
-            this.basicFields.push(item)
-          }
-        })
-        this.copyadvancedFields.forEach(ele => {
-          if (ele.type === item.type) {
-            this.advancedFields.push(item)
-          }
-        })
-        this.copycustomFields.forEach(ele => {
-          if (ele.type === item.type) {
-            this.customFields.push(item)
-          }
-        })
-      },
-      // 左侧tab切换
-      tabChange(name) {
-        if (name === 'outline') {
-          this.showNodeTreeDrawer()
-        }
-      },
-      showNodeTreeDrawer() {
-        console.log(11)
-        this.refreshNodeTree()
-        this.showNodeTreeDrawerFlag = true
-        this.$nextTick(() => {
-          if (!!this.designer.selectedId) {  //同步当前选中组件到节点树！！！
-            this.$refs.nodeTree.setCurrentKey(this.designer.selectedId)
-          }
-        })
-      },
-      refreshNodeTree() {
-        this.nodeTreeData.length = 0
-        this.designer.widgetList.forEach(wItem => {
-          this.buildTreeNodeOfWidget(wItem, this.nodeTreeData)
-        })
-      },
-      buildTreeNodeOfWidget(widget, treeNode) {
-        let curNode = {
-          id: widget.id,
-          label: widget.options.label || widget.type,
-          //selectable: true,
-        }
-        treeNode.push(curNode)
+      }
 
-        if (widget.category === undefined) {
-          return
-        }
-
-        curNode.children = []
-        if (widget.type === 'grid') {
-          widget.cols.map(col => {
-            let colNode = {
-              id: col.id,
-              label: col.options.name || widget.type,
-              children: []
-            }
-            curNode.children.push(colNode)
-            col.widgetList.map(wChild => {
-              this.buildTreeNodeOfWidget(wChild, colNode.children)
-            })
-          })
-        } else if (widget.type === 'table') {
-          //TODO: 需要考虑合并单元格！！
-          widget.rows.map(row => {
-            let rowNode = {
-              id: row.id,
-              label: 'table-row',
-              selectable: false,
-              children: [],
-            }
-            curNode.children.push(rowNode)
-
-            row.cols.map(cell => {
-              if (!!cell.merged) {  //跳过合并单元格！！
-                return
-              }
-
-              let rowChildren = rowNode.children
-              let cellNode = {
-                id: cell.id,
-                label: 'table-cell',
-                children: []
-              }
-              rowChildren.push(cellNode)
-
-              cell.widgetList.map(wChild => {
-                this.buildTreeNodeOfWidget(wChild, cellNode.children)
-              })
-            })
-          })
-        } else if (widget.type === 'tab') {
-          widget.tabs.map(tab => {
-            let tabNode = {
-              id: tab.id,
-              label: tab.options.name || widget.type,
-              selectable: false,
-              children: []
-            }
-            curNode.children.push(tabNode)
-            tab.widgetList.map(wChild => {
-              this.buildTreeNodeOfWidget(wChild, tabNode.children)
-            })
-          })
-        } else if (widget.type === 'sub-form') {
-          widget.widgetList.map(wChild => {
-            this.buildTreeNodeOfWidget(wChild, curNode.children)
-          })
-        } else if (widget.category === 'container') {  //自定义容器
-          widget.widgetList.map(wChild => {
-            this.buildTreeNodeOfWidget(wChild, curNode.children)
-          })
-        }
-      },
-      onNodeTreeClick(nodeData, node, nodeEl) {
-        //console.log('test', JSON.stringify(nodeData))
-
-        if ((nodeData.selectable !== undefined) && !nodeData.selectable) {
-          this.$message.info(this.i18nt('designer.hint.currentNodeCannotBeSelected'))
-        } else {
-          const selectedId = nodeData.id
-          const foundW = this.findWidgetById(selectedId)
-          if (!!foundW) {
-            this.designer.setSelected(foundW)
-          }
-        }
-      },
-      findWidgetById(wId) {
-        let foundW = null
-        traverseAllWidgets(this.designer.widgetList, (w) => {
-          if (w.id === wId) {
-            foundW = w
-          }
-        })
-
-        return foundW
-      },
     }
 
   }
@@ -652,93 +407,5 @@
     }
 
   }
-.title{
-  height: 41px;
-  line-height: 41px;
-  font-weight: bold;
-  text-align: center;
-  border-bottom: 1px dotted #CCCCCC
-}
-:deep(.indent-left-margin .el-tabs__nav){
-  margin-left: 0;
-}
-:deep(.el-tabs__item){
-  padding-left: 0;
-}
-:deep(.node-tree) {
-  .el-tree > .el-tree-node:after {
-    border-top: none;
-  }
-  .el-tree-node {
-    position: relative;
-    padding-left: 12px;
-  }
 
-  .el-tree-node__content {
-    padding-left: 0 !important;
-  }
-
-  .el-tree-node__expand-icon.is-leaf{
-    display: none;
-  }
-
-  .el-tree-node__children {
-    padding-left: 12px;
-    overflow: visible !important; /* 加入此行让el-tree宽度自动撑开，超出宽度el-draw自动出现水平滚动条！ */
-  }
-
-  .el-tree-node :last-child:before {
-    height: 38px;
-  }
-
-  .el-tree > .el-tree-node:before {
-    border-left: none;
-  }
-
-  .el-tree > .el-tree-node:after {
-    border-top: none;
-  }
-
-  .el-tree-node:before {
-    content: "";
-    left: -4px;
-    position: absolute;
-    right: auto;
-    border-width: 1px;
-  }
-
-  .el-tree-node:after {
-    content: "";
-    left: -4px;
-    position: absolute;
-    right: auto;
-    border-width: 1px;
-  }
-
-  .el-tree-node:before {
-    border-left: 1px dashed #4386c6;
-    bottom: 0px;
-    height: 100%;
-    top: -10px;
-    width: 1px;
-  }
-
-  .el-tree-node:after {
-    border-top: 1px dashed #4386c6;
-    height: 20px;
-    top: 12px;
-    width: 16px;
-  }
-
-  .el-tree-node.is-current > .el-tree-node__content {
-    background: #c2d6ea !important;
-  }
-
-  .el-tree-node__expand-icon {
-    margin-left: -3px;
-    padding: 6px 6px 6px 0px;
-    font-size: 16px;
-  }
-
-}
 </style>

@@ -8,9 +8,11 @@
 
 <script>
 import VFormDesigner from './components/form-designer/index.vue'
+import zhCNLang from 'element-plus/dist/locale/zh-cn.mjs'
+import enUSLang from 'element-plus/dist/locale/en.mjs'
 
-import zhCNLang from 'element-plus/lib/locale/lang/zh-cn'
-import enUSLang from 'element-plus/lib/locale/lang/en'
+// import zhCNLang from 'element-plus/lib/locale/lang/zh-cn'
+// import enUSLang from 'element-plus/lib/locale/lang/en'
 
 export default {
   name: 'App',

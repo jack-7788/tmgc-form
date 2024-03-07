@@ -1,11 +1,11 @@
 <template>
   <div>
-    <el-form-item label-width="0">
-      <el-divider class="custom-divider">{{i18nt('designer.setting.inputButton')}}</el-divider>
-    </el-form-item>
-    <el-form-item :label="i18nt('designer.setting.appendButton')">
-      <el-switch v-model="optionModel.appendButton"></el-switch>
-    </el-form-item>
+    <a-form-item label-width="0">
+      <a-divider class="custom-divider">{{i18nt('designer.setting.inputButton')}}</a-divider>
+    </a-form-item>
+    <a-form-item :label="i18nt('designer.setting.appendButton')">
+      <a-switch v-model:checked="optionModel.appendButton"></a-switch>
+    </a-form-item>
   </div>
 </template>
 

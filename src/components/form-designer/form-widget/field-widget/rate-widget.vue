@@ -2,14 +2,13 @@
   <form-item-wrapper :designer="designer" :field="field" :rules="rules" :design-state="designState"
                      :parent-widget="parentWidget" :parent-list="parentList" :index-of-parent-list="indexOfParentList"
                      :sub-form-row-index="subFormRowIndex" :sub-form-col-index="subFormColIndex" :sub-form-row-id="subFormRowId">
-    <el-rate ref="fieldEditor" v-model="fieldModel"
+    <a-rate ref="fieldEditor" v-model:value="fieldModel"
              :disabled="field.options.disabled"
-             :max="field.options.max"
-             :low-threshold="field.options.lowThreshold" :high-threshold="field.options.highThreshold"
+             :count="field.options.max"
              :allow-half="field.options.allowHalf"
              :show-text="field.options.showText" :show-score="field.options.showScore"
              @change="handleChangeEvent">
-    </el-rate>
+    </a-rate>
   </form-item-wrapper>
 </template>
 

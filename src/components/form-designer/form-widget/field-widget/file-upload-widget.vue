@@ -3,7 +3,7 @@
                      :parent-widget="parentWidget" :parent-list="parentList" :index-of-parent-list="indexOfParentList"
                      :sub-form-row-index="subFormRowIndex" :sub-form-col-index="subFormColIndex" :sub-form-row-id="subFormRowId">
     <!-- el-upload增加:name="field.options.name"后，会导致又拍云上传失败！故删除之！！ -->
-    <el-upload ref="fieldEditor" :disabled="field.options.disabled || isReadMode"
+    <a-upload ref="fieldEditor" :disabled="field.options.disabled || isReadMode"
                :style="styleVariables" class="dynamicPseudoAfter"
                :action="realUploadURL" :headers="uploadHeaders" :data="uploadData"
                :with-credentials="field.options.withCredentials"
@@ -11,13 +11,16 @@
                :show-file-list="field.options.showFileList" :class="{'hideUploadDiv': uploadBtnHidden || isReadMode}"
                :limit="field.options.limit" :on-exceed="handleFileExceed" :before-upload="beforeFileUpload"
                :on-success="handleFileUpload" :on-error="handleUploadError">
-      <template #tip>
+               <a-button>
+    + 上传
+    </a-button>
+      <!-- <template #tip>
         <div class="el-upload__tip"
              v-if="!!field.options.uploadTip">{{field.options.uploadTip}}</div>
-      </template>
-      <template #default>
+      </template> -->
+      <!-- <template #default>
         <svg-icon icon-class="el-plus" /><i class="el-icon-plus avatar-uploader-icon"></i>
-      </template>
+      </template> -->
       <template #file="{ file }">
         <div class="upload-file-list">
           <span class="upload-file-name" :title="file.name">{{file.name}}</span>
@@ -30,7 +33,7 @@
             @click="removeUploadFile(file.name, file.url, file.uid)"><svg-icon icon-class="el-delete" /></span>
         </div>
       </template>
-    </el-upload>
+    </a-upload>
   </form-item-wrapper>
 </template>
 
@@ -281,7 +284,8 @@
     width: 100% !important;
   }
 
-  .dynamicPseudoAfter :deep(.el-upload.el-upload--text) {
+  .dynamicPseudoAfter :deep(.el-upload.el-upload--text) ,
+  .dynamicPseudoAfter :deep(.ant-upload.ant-upload--text) {
     color: $--color-primary;
     font-size: 12px;
     .el-icon-plus:after {
@@ -290,15 +294,18 @@
   }
 
   .hideUploadDiv {
-    :deep(div.el-upload--picture-card) { /* 隐藏最后的图片上传按钮 */
+    :deep(div.el-upload--picture-card) ,
+    :deep(div.ant-upload--picture-card) { /* 隐藏最后的图片上传按钮 */
       display: none;
     }
 
-    :deep(div.el-upload--text) { /* 隐藏最后的文件上传按钮 */
+    :deep(div.el-upload--text),
+    :deep(div.ant-upload--text) { /* 隐藏最后的文件上传按钮 */
       display: none;
     }
 
-    :deep(div.el-upload__tip) { /* 隐藏最后的文件上传按钮 */
+    :deep(div.el-upload__tip),
+    :deep(div.ant-upload__tip) { /* 隐藏最后的文件上传按钮 */
       display: none;
     }
   }

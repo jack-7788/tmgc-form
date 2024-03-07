@@ -14,9 +14,9 @@
 
     <div :key="widget.id" class="tab-container"
          :class="{'selected': selected}" @click.stop="selectWidget(widget)">
-      <el-tabs :type="widget.displayType" v-model="activeTab" @tab-click="onTabClick">
+      <a-tabs :type="widget.displayType" v-model:activeKey="activeTab" @tab-click="onTabClick">
 
-        <el-tab-pane v-for="(tab, index) in widget.tabs" :key="index" :label="tab.options.label" :name="tab.options.name"
+        <a-tab-pane v-for="(tab, index) in widget.tabs"   :tab="tab.options.label" :key="tab.options.name"
                      @click.stop="selectWidget(widget)">
           <draggable :list="tab.widgetList" item-key="id" v-bind="{group:'dragGroup', ghostClass: 'ghost',animation: 200}"
                      handle=".drag-handler" tag="transition-group" :component-data="{name: 'fade'}"
@@ -35,9 +35,9 @@
               </div>
             </template>
           </draggable>
-        </el-tab-pane>
+        </a-tab-pane>
 
-      </el-tabs>
+      </a-tabs>
     </div>
 
   </container-wrapper>

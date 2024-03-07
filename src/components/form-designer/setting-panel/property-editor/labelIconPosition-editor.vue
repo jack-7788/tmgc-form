@@ -1,11 +1,11 @@
 <template>
-  <el-form-item :label="i18nt('designer.setting.labelIconPosition')">
-    <el-select v-model="optionModel.labelIconPosition">
-      <el-option v-for="item in labelIconPosition" :key="item.value" :label="item.label"
-                 :value="item.value">
-      </el-option>
-    </el-select>
-  </el-form-item>
+  <a-form-item :label="i18nt('designer.setting.labelIconPosition')">
+    <a-select v-model:value="optionModel.labelIconPosition">
+      <a-select-option v-for="item in labelIconPosition" :key="item.value" :label="item.label"
+                 :value="item.value"> {{ item.label }}
+      </a-select-option>
+    </a-select>
+  </a-form-item>
 </template>
 
 <script>

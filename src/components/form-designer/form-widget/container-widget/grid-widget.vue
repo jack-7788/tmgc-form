@@ -12,7 +12,7 @@
   <container-wrapper :designer="designer" :widget="widget" :parent-widget="parentWidget" :parent-list="parentList"
                      :index-of-parent-list="indexOfParentList">
 
-    <el-row :key="widget.id" :gutter="widget.options.gutter" class="grid-container"
+    <a-row :key="widget.id" :gutter="widget.options.gutter" class="grid-container"
             :class="[selected ? 'selected' : '', customClass]"
             @click.stop="selectWidget(widget)">
       <template v-for="(colWidget, colIdx) in widget.cols" :key="colWidget.id">
@@ -20,7 +20,7 @@
                          :index-of-parent-list="colIdx" :parent-widget="widget"
                          :col-height="widget.options.colHeight"></grid-col-widget>
       </template>
-    </el-row>
+    </a-row>
 
   </container-wrapper>
 </template>

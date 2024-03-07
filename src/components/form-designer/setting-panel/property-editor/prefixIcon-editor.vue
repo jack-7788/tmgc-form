@@ -1,7 +1,7 @@
 <template>
-  <el-form-item :label="i18nt('designer.setting.prefixIcon')">
-    <el-input type="text" v-model="optionModel.prefixIcon"></el-input>
-  </el-form-item>
+  <a-form-item :label="i18nt('designer.setting.prefixIcon')">
+    <a-input type="text" v-model:value="optionModel.prefixIcon"></a-input>
+  </a-form-item>
 </template>
 
 <script>

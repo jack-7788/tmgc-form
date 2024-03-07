@@ -1,7 +1,7 @@
 <template>
-  <el-form-item :label="i18nt('designer.setting.requiredHint')">
-    <el-input type="text" v-model="optionModel.requiredHint"></el-input>
-  </el-form-item>
+  <a-form-item :label="i18nt('designer.setting.requiredHint')">
+    <a-input type="text" v-model:value="optionModel.requiredHint"></a-input>
+  </a-form-item>
 </template>
 
 <script>

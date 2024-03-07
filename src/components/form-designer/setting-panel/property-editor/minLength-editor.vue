@@ -1,8 +1,8 @@
 <template>
-  <el-form-item :label="i18nt('designer.setting.minLength')">
-    <el-input type="number" @input="inputNumberHandler" class="hide-spin-button"
-              min="0" v-model="minLength" style="width: 100%"></el-input>
-  </el-form-item>
+  <a-form-item :label="i18nt('designer.setting.minLength')">
+    <a-input-number @input="inputNumberHandler" class="hide-spin-button"
+              :min="0" v-model:value="minLength" style="width: 100%"></a-input-number>
+  </a-form-item>
 </template>
 
 <script>

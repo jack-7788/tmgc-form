@@ -1,8 +1,8 @@
 <template>
   <div>
-    <el-form-item :label="i18nt('designer.setting.contentHeight')">
-      <el-input type="text" v-model="optionModel.contentHeight"></el-input>
-    </el-form-item>
+    <a-form-item :label="i18nt('designer.setting.contentHeight')">
+      <a-input type="text" v-model:value="optionModel.contentHeight"></a-input>
+    </a-form-item>
   </div>
 </template>
 

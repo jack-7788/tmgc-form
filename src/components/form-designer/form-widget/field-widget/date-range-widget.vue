@@ -3,7 +3,7 @@
                      :parent-widget="parentWidget" :parent-list="parentList" :index-of-parent-list="indexOfParentList"
                      :sub-form-row-index="subFormRowIndex" :sub-form-col-index="subFormColIndex" :sub-form-row-id="subFormRowId">
     <div :class="[!!field.options.autoFullWidth ? 'auto-full-width' : '', isReadMode ? 'readonly-mode-date-range' : '']">
-      <el-date-picker ref="fieldEditor" :type="field.options.type" v-model="fieldModel"
+      <a-range-picker ref="fieldEditor"   v-model:value="fieldModel"
                       :class="[!!field.options.autoFullWidth ? 'auto-full-width' : '']"
                       :disabled="field.options.disabled" :readonly="field.options.readonly"
                       :clearable="field.options.clearable" :editable="field.options.editable"
@@ -12,7 +12,7 @@
                       :end-placeholder="field.options.endPlaceholder || i18nt('render.hint.endDatePlaceholder')"
                       @focus="handleFocusCustomEvent" @blur="handleBlurCustomEvent"
                       @change="handleChangeEvent">
-      </el-date-picker>
+      </a-range-picker>
       <template v-if="isReadMode">
         <span class="readonly-mode-field">{{contentForReadMode}}</span>
       </template>

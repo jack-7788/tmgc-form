@@ -1,7 +1,7 @@
 <template>
-  <el-form-item :label="i18nt('designer.setting.uploadTip')">
-    <el-input type="text" v-model="optionModel.uploadTip"></el-input>
-  </el-form-item>
+  <a-form-item :label="i18nt('designer.setting.uploadTip')">
+    <a-input type="text" v-model:value="optionModel.uploadTip"></a-input>
+  </a-form-item>
 </template>
 
 <script>

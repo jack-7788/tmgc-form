@@ -2,315 +2,327 @@
 
   <div class="ds-list">
     <template v-if="!!formConfig.dataSources && (formConfig.dataSources.length > 0)">
-      <el-descriptions v-for="(ds, dsIdx) in formConfig.dataSources"
+      <a-descriptions v-for="(ds, dsIdx) in formConfig.dataSources"
                        :column="1" size="small" border>
         <template #title>
           <span :title="ds.description">{{ds.uniqueName}}</span>
         </template>
         <template #extra>
-          <el-button type="primary" icon="el-icon-edit" plain circle
-                     size="small" @click="editDataSource(dsIdx)"></el-button>
-          <el-button type="danger" icon="el-icon-delete" plian circle
-                     size="small" @click="deleteDataSource(dsIdx)"></el-button>
+          <a-button type="primary"   plain shape='circle'
+                     size="small" @click="editDataSource(dsIdx)"></a-button>
+          <a-button type="danger"  plian shape='circle'
+                     size="small" @click="deleteDataSource(dsIdx)"></a-button>
         </template>
-        <el-descriptions-item>
+        <a-descriptions-item>
           <template #label>
             <div :title="ds.requestURL">
-              <el-icon><platform /></el-icon></div>
+              内容的描述 图标
+              </div> 
           </template>
-          {{ds.requestURL}}</el-descriptions-item>
-      </el-descriptions>
+          {{ds.requestURL}}</a-descriptions-item>
+      </a-descriptions>
     </template>
     <template v-else>
-      <el-empty :description="i18nt('designer.setting.noDataSource')"></el-empty>
+      <a-empty :description="i18nt('designer.setting.noDataSource')"></a-empty>
     </template>
 
     <div class="ds-button-wrapper">
-      <el-button-group>
-        <el-button type="primary" icon="el-icon-plus" plain @click="addDataSource">
-          {{i18nt('designer.setting.addDataSource')}}</el-button>
-        <el-button icon="el-icon-bottom-left" plain :title="i18nt('designer.setting.importDataSource')"
-                   @click="importDataSource"></el-button>
-        <el-button icon="el-icon-top-right" plain :title="i18nt('designer.setting.exportDataSource')"
-                   @click="exportDataSource"></el-button>
-      </el-button-group>
+        <a-button type="primary"  plain @click="addDataSource">
+          {{i18nt('designer.setting.addDataSource')}}</a-button>
+        <!-- <a-button   plain :title="i18nt('designer.setting.importDataSource')"
+                   @click="importDataSource"></a-button>
+        <a-button   plain :title="i18nt('designer.setting.exportDataSource')"
+                   @click="exportDataSource"></a-button> -->
     </div>
   </div>
 
-  <el-drawer :title="i18nt('designer.setting.dataSourceSetting')" direction="rtl" v-model="showDataSourceDialogFlag"
-             :modal="true" :size="820"
+  <a-drawer :title="i18nt('designer.setting.dataSourceSetting')"  v-model:visible="showDataSourceDialogFlag"
+               :width="820"
              :destroy-on-close="true" :append-to-body="true" :close-on-click-modal="false" :close-on-press-escape="false"
              custom-class="ds-setting-drawer header-small-mb">
-    <template #default>
-      <el-form :model="dsModel" :rules="formRules" ref="dsForm"
-               label-width="160px" label-position="left" class="ds-form">
-        <el-form-item :label="i18nt('designer.setting.dsUniqueName')" prop="uniqueName">
-          <el-input v-model="dsModel.uniqueName"></el-input>
-        </el-form-item>
-        <el-row style="width: 100%">
-          <el-col :span="20">
-            <el-form-item :label="i18nt('designer.setting.dsRequestURL')" prop="requestURL">
-              <el-input v-model="dsModel.requestURL"></el-input>
-            </el-form-item>
-          </el-col>
-          <el-col :span="4">
-            <el-form-item :label-width="0" prop="requestURLType" class="no-left-margin">
-              <el-select v-model="dsModel.requestURLType" :placeholder="i18nt('designer.setting.dsRequestURLType')">
-                <el-option :label="i18nt('designer.setting.dsURLStringType')" value="String"></el-option>
-                <el-option :label="i18nt('designer.setting.dsURLVariableType')" value="Variable"></el-option>
-              </el-select>
-            </el-form-item>
-          </el-col>
-        </el-row>
-        <el-form-item :label="i18nt('designer.setting.dsDescription')" prop="description">
-          <el-input type="textarea" v-model="dsModel.description" :rows="2"></el-input>
-        </el-form-item>
-        <el-form-item :label="i18nt('designer.setting.dsRequestMethod')" prop="requestMethod">
-          <el-radio-group v-model="dsModel.requestMethod">
-            <el-radio-button label="get">get</el-radio-button>
-            <el-radio-button label="post">post</el-radio-button>
-            <el-radio-button label="put">put</el-radio-button>
-            <el-radio-button label="delete">delete</el-radio-button>
-          </el-radio-group>
-        </el-form-item>
-        <el-form-item :label="i18nt('designer.setting.dsRequestHeaders')">
-          <el-row v-for="(rh, hIdx) in dsModel.headers" class="rh-row" :gutter="8">
-            <el-col :span="8">
-              <el-form-item :prop="'headers.' + hIdx + '.name'" :rules="nameRules" :label-width="0">
-                <el-input v-model="rh.name" :placeholder="i18nt('designer.setting.dsRequestNameInputPlaceholder')"></el-input>
-              </el-form-item>
-            </el-col>
-            <el-col :span="5">
-              <el-form-item :prop="'headers.' + hIdx + '.type'" :label-width="0">
-                <el-select v-model="rh.type" :placeholder="i18nt('designer.setting.dsRequestTypeInputPlaceholder')">
-                  <el-option :label="i18nt('designer.setting.dsRequestValueStringType')" value="String"></el-option>
-                  <el-option :label="i18nt('designer.setting.dsRequestValueNumberType')" value="Number"></el-option>
-                  <el-option :label="i18nt('designer.setting.dsRequestValueBooleanType')" value="Boolean"></el-option>
-                  <el-option :label="i18nt('designer.setting.dsRequestValueVariableType')" value="Variable"></el-option>
-                </el-select>
-              </el-form-item>
-            </el-col>
-            <el-col :span="8">
-              <el-form-item :prop="'headers.' + hIdx + '.value'" :rules="valueRules" :label-width="0">
-                <el-input v-model="rh.value" :placeholder="i18nt('designer.setting.dsRequestValueInputPlaceholder')"></el-input>
-              </el-form-item>
-            </el-col>
-            <el-col :span="3">
-              <el-button icon="el-icon-delete" plain circle @click="deleteRequestHeader(hIdx)"></el-button>
-            </el-col>
-          </el-row>
-          <el-row>
-            <el-col :span="6">
-              <el-button type="text" icon="el-icon-plus" @click="addRequestHeader">
-                {{i18nt('designer.setting.addRequestHeader')}}</el-button>
-            </el-col>
-          </el-row>
-        </el-form-item>
-        <el-form-item :label="i18nt('designer.setting.dsRequestParams')">
-          <el-row v-for="(rp, pIdx) in dsModel.params" class="rd-row" :gutter="8">
-            <el-col :span="8">
-              <el-form-item :prop="'params.' + pIdx + '.name'" :rules="nameRules" :label-width="0">
-                <el-input v-model="rp.name" :placeholder="i18nt('designer.setting.dsRequestNameInputPlaceholder')"></el-input>
-              </el-form-item>
-            </el-col>
-            <el-col :span="5">
-              <el-form-item :prop="'params.' + pIdx + '.type'" :label-width="0">
-                <el-select v-model="rp.type" :placeholder="i18nt('designer.setting.dsRequestTypeInputPlaceholder')">
-                  <el-option :label="i18nt('designer.setting.dsRequestValueStringType')" value="String"></el-option>
-                  <el-option :label="i18nt('designer.setting.dsRequestValueNumberType')" value="Number"></el-option>
-                  <el-option :label="i18nt('designer.setting.dsRequestValueBooleanType')" value="Boolean"></el-option>
-                  <el-option :label="i18nt('designer.setting.dsRequestValueVariableType')" value="Variable"></el-option>
-                </el-select>
-              </el-form-item>
-            </el-col>
-            <el-col :span="8">
-              <el-form-item :prop="'params.' + pIdx + '.value'" :rules="valueRules" :label-width="0">
-                <el-input v-model="rp.value" :placeholder="i18nt('designer.setting.dsRequestValueInputPlaceholder')"></el-input>
-              </el-form-item>
-            </el-col>
-            <el-col :span="3">
-              <el-button icon="el-icon-delete" plain circle @click="deleteRequestParam(pIdx)"></el-button>
-            </el-col>
-          </el-row>
-          <el-row>
-            <el-col :span="6">
-              <el-button type="text" icon="el-icon-plus" @click="addRequestParam">
-                {{i18nt('designer.setting.addRequestParam')}}</el-button>
-            </el-col>
-          </el-row>
-        </el-form-item>
-        <el-form-item :label="i18nt('designer.setting.dsRequestData')">
-          <el-row v-for="(rd, dIdx) in dsModel.data" class="rd-row" :gutter="8">
-            <el-col :span="8">
-              <el-form-item :prop="'data.' + dIdx + '.name'" :rules="nameRules" :label-width="0">
-                <el-input v-model="rd.name" :placeholder="i18nt('designer.setting.dsRequestNameInputPlaceholder')"></el-input>
-              </el-form-item>
-            </el-col>
-            <el-col :span="5">
-              <el-form-item :prop="'data.' + dIdx + '.type'" :label-width="0">
-                <el-select v-model="rd.type" :placeholder="i18nt('designer.setting.dsRequestTypeInputPlaceholder')">
-                  <el-option :label="i18nt('designer.setting.dsRequestValueStringType')" value="String"></el-option>
-                  <el-option :label="i18nt('designer.setting.dsRequestValueNumberType')" value="Number"></el-option>
-                  <el-option :label="i18nt('designer.setting.dsRequestValueBooleanType')" value="Boolean"></el-option>
-                  <el-option :label="i18nt('designer.setting.dsRequestValueVariableType')" value="Variable"></el-option>
-                </el-select>
-              </el-form-item>
-            </el-col>
-            <el-col :span="8">
-              <el-form-item :prop="'data.' + dIdx + '.value'" :rules="valueRules" :label-width="0">
-                <el-input v-model="rd.value" :placeholder="i18nt('designer.setting.dsRequestValueInputPlaceholder')"></el-input>
-              </el-form-item>
-            </el-col>
-            <el-col :span="3">
-              <el-button icon="el-icon-delete" plain circle @click="deleteRequestData(dIdx)"></el-button>
-            </el-col>
-          </el-row>
-          <el-row>
-            <el-col :span="6">
-              <el-button type="text" icon="el-icon-plus" @click="addRequestData">
-                {{i18nt('designer.setting.addRequestData')}}</el-button>
-            </el-col>
-          </el-row>
-        </el-form-item>
+      <a-form :model="dsModel" :rules="formRules" ref="dsForm"
+               label-width="160px" labelAlign="left" class="ds-form">
+        <a-form-item :label="i18nt('designer.setting.dsUniqueName')" name="uniqueName">
+          <a-input v-model:value="dsModel.uniqueName"></a-input>
+        </a-form-item>
+        <a-row style="width: 100%">
+          <a-col :span="20">
+            <a-form-item :label="i18nt('designer.setting.dsRequestURL')" name="requestURL">
+              <a-input v-model:value="dsModel.requestURL"></a-input>
+            </a-form-item>
+          </a-col>
+          <a-col :span="4">
+            <a-form-item :label-width="0" name="requestURLType" class="no-left-margin">
+              <a-select v-model:value="dsModel.requestURLType" :placeholder="i18nt('designer.setting.dsRequestURLType')">
+                <a-select-option :label="i18nt('designer.setting.dsURLStringType')" value="String"> {{ i18nt('designer.setting.dsURLStringType') }} </a-select-option>
+                <a-select-option :label="i18nt('designer.setting.dsURLVariableType')" value="Variable">{{ i18nt('designer.setting.dsURLVariableType') }}</a-select-option>
+              </a-select>
+            </a-form-item>
+          </a-col>
+        </a-row>
+        <a-form-item :label="i18nt('designer.setting.dsDescription')" name="description">
+          <a-textarea   v-model:value="dsModel.description" :rows="2"></a-textarea>
+        </a-form-item>
+        <a-form-item :label="i18nt('designer.setting.dsRequestMethod')" name="requestMethod">
+          <a-radio-group v-model:value="dsModel.requestMethod">
+            <a-radio-button value="get">get</a-radio-button>
+            <a-radio-button value="post">post</a-radio-button>
+            <a-radio-button value="put">put</a-radio-button>
+            <a-radio-button value="delete">delete</a-radio-button>
+          </a-radio-group>
+        </a-form-item>
+        <a-form-item :label="i18nt('designer.setting.dsRequestHeaders')">
+          <a-row v-for="(rh, hIdx) in dsModel.headers" class="rh-row" :gutter="8">
+            <a-col :span="8">
+              <a-form-item :name="'headers.' + hIdx + '.name'" :rules="nameRules" :label-width="0">
+                <a-input v-model:value="rh.name" :placeholder="i18nt('designer.setting.dsRequestNameInputPlaceholder')"></a-input>
+              </a-form-item>
+            </a-col>
+            <a-col :span="5">
+              <a-form-item :name="'headers.' + hIdx + '.type'" :label-width="0">
+                <a-select v-model:value="rh.type" :placeholder="i18nt('designer.setting.dsRequestTypeInputPlaceholder')">
+                  <a-select-option :label="i18nt('designer.setting.dsRequestValueStringType')" value="String">
+                  {{ i18nt('designer.setting.dsRequestValueStringType') }}
+                  </a-select-option>
+                  <a-select-option :label="i18nt('designer.setting.dsRequestValueNumberType')" value="Number">
+                  {{ i18nt('designer.setting.dsRequestValueNumberType') }}
+                  </a-select-option>
+                  <a-select-option :label="i18nt('designer.setting.dsRequestValueBooleanType')" value="Boolean">
+                  {{ i18nt('designer.setting.dsRequestValueBooleanType') }}
+                  </a-select-option>
+                  <a-select-option :label="i18nt('designer.setting.dsRequestValueVariableType')" value="Variable">
+                  {{ i18nt('designer.setting.dsRequestValueVariableType') }}
+                  </a-select-option>
+                </a-select>
+              </a-form-item>
+            </a-col>
+            <a-col :span="8">
+              <a-form-item :name="'headers.' + hIdx + '.value'" :rules="valueRules" :label-width="0">
+                <a-input v-model:value="rh.value" :placeholder="i18nt('designer.setting.dsRequestValueInputPlaceholder')"></a-input>
+              </a-form-item>
+            </a-col>
+            <a-col :span="3">
+              <a-button type="primary"   plain shape='circle' @click="deleteRequestHeader(hIdx)">--</a-button>
+            </a-col>
+          </a-row>
+          <a-row>
+            <a-col :span="6">
+              <a-button type="primary"   @click="addRequestHeader"> ++
+                {{i18nt('designer.setting.addRequestHeader')}}</a-button>
+            </a-col>
+          </a-row>
+        </a-form-item>
+        <a-form-item :label="i18nt('designer.setting.dsRequestParams')">
+          <a-row v-for="(rp, pIdx) in dsModel.params" class="rd-row" :gutter="8">
+            <a-col :span="8">
+              <a-form-item :name="'params.' + pIdx + '.name'" :rules="nameRules" :label-width="0">
+                <a-input v-model:value="rp.name" :placeholder="i18nt('designer.setting.dsRequestNameInputPlaceholder')"></a-input>
+              </a-form-item>
+            </a-col>
+            <a-col :span="5">
+              <a-form-item :name="'params.' + pIdx + '.type'" :label-width="0">
+                <a-select v-model:value="rp.type" :placeholder="i18nt('designer.setting.dsRequestTypeInputPlaceholder')">
+                  <a-select-option :label="i18nt('designer.setting.dsRequestValueStringType')" value="String">
+                  {{ i18nt('designer.setting.dsRequestValueStringType') }}
+                  </a-select-option>
+                  <a-select-option :label="i18nt('designer.setting.dsRequestValueNumberType')" value="Number">
+                  {{ i18nt('designer.setting.dsRequestValueNumberType') }}
+                  </a-select-option>
+                  <a-select-option :label="i18nt('designer.setting.dsRequestValueBooleanType')" value="Boolean">
+                  {{ i18nt('designer.setting.dsRequestValueBooleanType') }}
+                  </a-select-option>
+                  <a-select-option :label="i18nt('designer.setting.dsRequestValueVariableType')" value="Variable">
+                  {{ i18nt('designer.setting.dsRequestValueVariableType') }}
+                  </a-select-option>
+                </a-select>
+              </a-form-item>
+            </a-col>
+            <a-col :span="8">
+              <a-form-item :name="'params.' + pIdx + '.value'" :rules="valueRules" :label-width="0">
+                <a-input v-model:value="rp.value" :placeholder="i18nt('designer.setting.dsRequestValueInputPlaceholder')"></a-input>
+              </a-form-item>
+            </a-col>
+            <a-col :span="3">
+              <a-button type="primary"  plain shape='circle' @click="deleteRequestParam(pIdx)">--</a-button>
+            </a-col>
+          </a-row>
+          <a-row>
+            <a-col :span="6">
+              <a-button type="primary"  @click="addRequestParam"> ++
+                {{i18nt('designer.setting.addRequestParam')}}</a-button>
+            </a-col>
+          </a-row>
+        </a-form-item>
+        <a-form-item :label="i18nt('designer.setting.dsRequestData')">
+          <a-row v-for="(rd, dIdx) in dsModel.data" class="rd-row" :gutter="8">
+            <a-col :span="8">
+              <a-form-item :name="'data.' + dIdx + '.name'" :rules="nameRules" :label-width="0">
+                <a-input v-model:value="rd.name" :placeholder="i18nt('designer.setting.dsRequestNameInputPlaceholder')"></a-input>
+              </a-form-item>
+            </a-col>
+            <a-col :span="5">
+              <a-form-item :name="'data.' + dIdx + '.type'" :label-width="0">
+                <a-select v-model:value="rd.type" :placeholder="i18nt('designer.setting.dsRequestTypeInputPlaceholder')">
+                  <a-select-option :label="i18nt('designer.setting.dsRequestValueStringType')" value="String"></a-select-option>
+                  <a-select-option :label="i18nt('designer.setting.dsRequestValueNumberType')" value="Number"></a-select-option>
+                  <a-select-option :label="i18nt('designer.setting.dsRequestValueBooleanType')" value="Boolean"></a-select-option>
+                  <a-select-option :label="i18nt('designer.setting.dsRequestValueVariableType')" value="Variable"></a-select-option>
+                </a-select>
+              </a-form-item>
+            </a-col>
+            <a-col :span="8">
+              <a-form-item :name="'data.' + dIdx + '.value'" :rules="valueRules" :label-width="0">
+                <a-input v-model:value="rd.value" :placeholder="i18nt('designer.setting.dsRequestValueInputPlaceholder')"></a-input>
+              </a-form-item>
+            </a-col>
+            <a-col :span="3">
+              <a-button  type="primary" plain shape='circle' @click="deleteRequestData(dIdx)"> -- </a-button>
+            </a-col>
+          </a-row>
+          <a-row>
+            <a-col :span="6">
+              <a-button type="primary"  @click="addRequestData"> ++
+                {{i18nt('designer.setting.addRequestData')}}</a-button>
+            </a-col>
+          </a-row>
+        </a-form-item>
 
-        <el-tabs v-model="activeNames" type="border-card">
-          <el-tab-pane name="1" :label="i18nt('designer.setting.dsConfigHandlerTitle')">
-            <el-alert type="info" :closable="false" title="(config, isSandbox, DSV, VFR) => {"></el-alert>
+        <a-tabs  v-model:activeKey="activeNames" type="border-card">
+          <a-tab-pane key="1" :tab="i18nt('designer.setting.dsConfigHandlerTitle')">
+            <a-alert type="info" :closable="false" message="(config, isSandbox, DSV, VFR) => {"></a-alert>
             <code-editor :mode="'javascript'" :readonly="false" v-model="dsModel.configHandlerCode" ref="chEditor"></code-editor>
-            <el-alert type="info" :closable="false" title="}"></el-alert>
-          </el-tab-pane>
+            <a-alert type="info" :closable="false" message="}"></a-alert>
+          </a-tab-pane>
 
-          <el-tab-pane name="2" :label="i18nt('designer.setting.dsDataHandlerTitle')">
-            <el-alert type="info" :closable="false" title="(result, isSandbox, DSV, VFR) => {"></el-alert>
+          <a-tab-pane key="2" :tab="i18nt('designer.setting.dsDataHandlerTitle')">
+            <a-alert type="info" :closable="false" message="(result, isSandbox, DSV, VFR) => {"></a-alert>
             <code-editor :mode="'javascript'" :readonly="false" v-model="dsModel.dataHandlerCode" ref="dhEditor"></code-editor>
-            <el-alert type="info" :closable="false" title="}"></el-alert>
-          </el-tab-pane>
+            <a-alert type="info" :closable="false" message="}"></a-alert>
+          </a-tab-pane>
 
-          <el-tab-pane name="3" :label="i18nt('designer.setting.dsErrorHandlerTitle')">
-            <el-alert type="info" :closable="false" title="(error, isSandbox, DSV, $message, VFR) => {"></el-alert>
+          <a-tab-pane key="3" :tab="i18nt('designer.setting.dsErrorHandlerTitle')">
+            <a-alert type="info" :closable="false" message="(error, isSandbox, DSV, $message, VFR) => {"></a-alert>
             <code-editor :mode="'javascript'" :readonly="false" v-model="dsModel.errorHandlerCode" ref="ehEditor"></code-editor>
-            <el-alert type="info" :closable="false" title="}"></el-alert>
-          </el-tab-pane>
+            <a-alert type="info" :closable="false" message="}"></a-alert>
+          </a-tab-pane>
 
-          <el-tab-pane name="4" :label="i18nt('designer.setting.dataSetSettingTitle')">
-            <el-form-item :label="i18nt('designer.setting.dataSetEnabled')">
-              <el-switch v-model="dsModel.dataSetEnabled"></el-switch>
-            </el-form-item>
-            <el-form-item :label="i18nt('designer.setting.dataSetSetting')" v-if="dsModel.dataSetEnabled" class="display-block">
-              <el-row v-for="(dSet, dIdx) in dsModel.dataSets" class="rd-row" :gutter="8">
-                <el-col :span="7">
-                  <el-form-item :prop="'dataSets.' + dIdx + '.name'" :rules="nameRules" label-width="0">
-                    <el-input v-model="dSet.name" :placeholder="i18nt('designer.setting.dsRequestNameInputPlaceholder')"></el-input>
-                  </el-form-item>
-                </el-col>
-                <el-col :span="8">
-                  <el-form-item :prop="'dataSets.' + dIdx + '.remark'" label-width="0">
-                    <el-input v-model="dSet.remark" :placeholder="i18nt('designer.setting.dataSetRemarkInputPlaceholder')"></el-input>
-                  </el-form-item>
-                </el-col>
-                <el-col :span="3">
-                  <el-button icon="el-icon-delete" plain circle @click="deleteDataSet(dIdx)"></el-button>
-                </el-col>
-              </el-row>
-              <el-row class="rd-row" :gutter="8">
-                <el-col :span="6">
-                  <el-button type="text" icon="el-icon-plus" @click="addDataSet">
-                    {{i18nt('designer.setting.addDataSet')}}</el-button>
-                </el-col>
-              </el-row>
-            </el-form-item>
-          </el-tab-pane>
-        </el-tabs>
+          <a-tab-pane key="4" :tab="i18nt('designer.setting.dataSetSettingTitle')">
+            <a-form-item :label="i18nt('designer.setting.dataSetEnabled')">
+              <a-switch v-model:checked="dsModel.dataSetEnabled"></a-switch>
+            </a-form-item>
+            <a-form-item :label="i18nt('designer.setting.dataSetSetting')" v-if="dsModel.dataSetEnabled" class="display-block">
+              <a-row v-for="(dSet, dIdx) in dsModel.dataSets" class="rd-row" :gutter="8">
+                <a-col :span="7">
+                  <a-form-item :name="'dataSets.' + dIdx + '.name'" :rules="nameRules" label-width="0">
+                    <a-input v-model:value="dSet.name" :placeholder="i18nt('designer.setting.dsRequestNameInputPlaceholder')"></a-input>
+                  </a-form-item>
+                </a-col>
+                <a-col :span="8">
+                  <a-form-item :name="'dataSets.' + dIdx + '.remark'" label-width="0">
+                    <a-input v-model:value="dSet.remark" :placeholder="i18nt('designer.setting.dataSetRemarkInputPlaceholder')"></a-input>
+                  </a-form-item>
+                </a-col>
+                <a-col :span="3">
+                  <a-button  plain shape='circle' @click="deleteDataSet(dIdx)">--</a-button>
+                </a-col>
+              </a-row>
+              <a-row class="rd-row" :gutter="8">
+                <a-col :span="6">
+                  <a-button type="text"   @click="addDataSet"> ++ 
+                    {{i18nt('designer.setting.addDataSet')}}</a-button>
+                </a-col>
+              </a-row>
+            </a-form-item>
+          </a-tab-pane>
+        </a-tabs>
 
-      </el-form>
-    </template>
+      </a-form>
     <template #footer>
       <div class="dialog-footer">
-        <el-button style="float: left" type="primary" plain @click="testDataSource">
-          {{i18nt('designer.setting.testDataSource')}}</el-button>
-        <el-button @click="showDataSourceDialogFlag = false">
-          {{i18nt('designer.hint.cancel')}}</el-button>
-        <el-button type="primary" @click="saveDataSource">
-          {{i18nt('designer.hint.confirm')}}</el-button>
+        <a-button style="float: left" type="primary" plain @click="testDataSource">
+          {{i18nt('designer.setting.testDataSource')}}</a-button>
+        <a-button @click="showDataSourceDialogFlag = false">
+          {{i18nt('designer.hint.cancel')}}</a-button>
+        <a-button type="primary" @click="saveDataSource">
+          {{i18nt('designer.hint.confirm')}}</a-button>
       </div>
     </template>
-  </el-drawer>
+  </a-drawer>
 
-  <div v-if="showTestDataSourceDialogFlag" class="" v-drag="['.drag-dialog.el-dialog', '.drag-dialog .el-dialog__header']">
-    <el-dialog :title="i18nt('designer.setting.testDataSource')" v-model="showTestDataSourceDialogFlag"
+ 
+    <a-modal :title="i18nt('designer.setting.testDataSource')" v-model:visible="showTestDataSourceDialogFlag"
                :show-close="true" custom-class="drag-dialog small-padding-dialog" append-to-body
                :close-on-click-modal="false" :close-on-press-escape="false" :destroy-on-close="true">
-      <el-alert type="info" :closable="false" :title="i18nt('designer.setting.dsvTitle')"></el-alert>
+      <a-alert type="info" :closable="false" :message="i18nt('designer.setting.dsvTitle')"></a-alert>
       <code-editor :mode="'json'" :readonly="false" v-model="dsvJson" class="dsv-json-editor"></code-editor>
       <div class="footer-button">
-        <el-button type="primary" @click="doDataSourceRequest">{{i18nt('designer.setting.executeDataSource')}}</el-button>
-        <el-button type="primary" plain @click="clearRequestResult">{{i18nt('designer.setting.clearRequestResult')}}</el-button>
-        <el-button  @click="showTestDataSourceDialogFlag = false">
-          {{i18nt('designer.hint.closePreview')}}</el-button>
+        <a-button type="primary" @click="doDataSourceRequest">{{i18nt('designer.setting.executeDataSource')}}</a-button>
+        <a-button type="primary" plain @click="clearRequestResult">{{i18nt('designer.setting.clearRequestResult')}}</a-button>
+        <a-button  @click="showTestDataSourceDialogFlag = false">
+          {{i18nt('designer.hint.closePreview')}}</a-button>
       </div>
-      <el-alert type="info" :closable="false" :title="i18nt('designer.setting.dsRequestResult')"></el-alert>
+      <a-alert type="info" :closable="false" :message="i18nt('designer.setting.dsRequestResult')"></a-alert>
       <code-editor :mode="'json'" :readonly="true" v-model="dsResultJson" ref="dsResultEditor"></code-editor>
-    </el-dialog>
-  </div>
+    </a-modal>
 
-  <div v-if="showImportDSDialogFlag" class="" v-drag="['.drag-dialog.el-dialog', '.drag-dialog .el-dialog__header']">
-    <el-dialog :title="i18nt('designer.setting.importDataSource')" v-model="showImportDSDialogFlag"
+    <a-modal :title="i18nt('designer.setting.importDataSource')" v-model:visible="showImportDSDialogFlag"
                :show-close="true" custom-class="drag-dialog small-padding-dialog" center
                append-to-body :close-on-click-modal="false" :close-on-press-escape="false" :destroy-on-close="true">
-      <el-alert type="info" :title="i18nt('designer.hint.importDSHint')" show-icon class="alert-padding"></el-alert>
+      <a-alert type="info" :message="i18nt('designer.hint.importDSHint')" show-icon class="alert-padding"></a-alert>
       <code-editor :mode="'json'" :readonly="false" v-model="importDSTemplate"></code-editor>
-      <el-switch v-model="clearOldDSFlag" style="margin-top: 10px"
+      <a-switch v-model:checked="clearOldDSFlag" style="margin-top: 10px"
                  :active-text="i18nt('designer.setting.clearExistingDataSource')"
-                 :inactive-text="i18nt('designer.setting.remainExistingDataSource')"></el-switch>
+                 :inactive-text="i18nt('designer.setting.remainExistingDataSource')"></a-switch>
       <div slot="footer" class="dialog-footer-center">
-        <el-button type="primary" @click="doImportDataSource">
-          {{i18nt('designer.hint.import')}}</el-button>
-        <el-button @click="showImportDSDialogFlag = false">
-          {{i18nt('designer.hint.cancel')}}</el-button>
+        <a-button type="primary" @click="doImportDataSource">
+          {{i18nt('designer.hint.import')}}</a-button>
+        <a-button @click="showImportDSDialogFlag = false">
+          {{i18nt('designer.hint.cancel')}}</a-button>
       </div>
-    </el-dialog>
-  </div>
+    </a-modal>
 
-  <div v-if="showExportDSDialogFlag" class="" v-drag="['.drag-dialog.el-dialog', '.drag-dialog .el-dialog__header']">
-    <el-dialog :title="i18nt('designer.setting.exportDataSource')" v-model="showExportDSDialogFlag"
+    <a-modal :title="i18nt('designer.setting.exportDataSource')" v-model:visible="showExportDSDialogFlag"
                :show-close="true" custom-class="drag-dialog small-padding-dialog" center
                :close-on-click-modal="false" :close-on-press-escape="false" :destroy-on-close="true">
-      <el-tabs type="border-card" class="no-box-shadow no-padding" v-model="activeExportTab" @tab-click="handleExportTabClick">
-        <el-tab-pane :label="i18nt('designer.setting.selectDataSourceForExport')" name="setting">
+      <a-tabs type="border-card" class="no-box-shadow no-padding" v-model:activeKey="activeExportTab" @tab-click="handleExportTabClick">
+        <a-tab-pane :tab="i18nt('designer.setting.selectDataSourceForExport')" key="setting">
           <div v-if="exportDSArray && (exportDSArray.length > 0)" class="export-ds-list">
-            <el-descriptions v-for="(ds, dsIdx) in exportDSArray" :key="dsIdx"
+            <a-descriptions v-for="(ds, dsIdx) in exportDSArray" :key="dsIdx"
                              :column="1" size="small" border>
               <template #title>
                 <span :title="ds.description">{{ds.uniqueName}}</span>
               </template>
               <template #extra>
-                <el-checkbox v-model="ds.checked" @change="handleExportDSChange">{{i18nt('designer.setting.dataSourceChecked')}}</el-checkbox>
+                <a-checkbox v-model:checked="ds.checked" @change="handleExportDSChange">{{i18nt('designer.setting.dataSourceChecked')}}</a-checkbox>
               </template>
-              <el-descriptions-item>
+              <a-descriptions-item>
                 <template #label>
                   <div :title="ds.requestURL">
-                    <el-icon><platform /></el-icon></div>
+                    icon
+                    </div> 
                 </template>
                 {{ds.requestURL}}
-              </el-descriptions-item>
-            </el-descriptions>
+              </a-descriptions-item>
+            </a-descriptions>
           </div>
           <template v-else>
-            <el-empty :description="i18nt('designer.setting.noDataSource')"></el-empty>
+            <a-empty :description="i18nt('designer.setting.noDataSource')"></a-empty>
           </template>
-        </el-tab-pane>
-        <el-tab-pane :label="i18nt('designer.setting.previewDataSourceExportResult')" name="result">
+        </a-tab-pane>
+        <a-tab-pane :tab="i18nt('designer.setting.previewDataSourceExportResult')" key="result">
           <code-editor :mode="'json'" :readonly="true" v-model="dsExportContent" ref="exportDSEditor"></code-editor>
-        </el-tab-pane>
-      </el-tabs>
-      <div slot="footer" class="dialog-footer-center">
-        <el-button type="primary" class="copy-json-btn" :data-clipboard-text="dsRawExportContent" @click="copyDataSourceJson">
-          {{i18nt('designer.hint.copyJson')}}</el-button>
-        <el-button type="" @click="showExportDSDialogFlag = false">
-          {{i18nt('designer.hint.closePreview')}}</el-button>
-      </div>
-    </el-dialog>
-  </div>
+        </a-tab-pane>
+      </a-tabs>
+      <template #footer>
+
+        <div class="dialog-footer-center">
+          <a-button type="primary" class="copy-json-btn" :data-clipboard-text="dsRawExportContent" @click="copyDataSourceJson">
+            {{i18nt('designer.hint.copyJson')}}</a-button>
+          <a-button type="" @click="showExportDSDialogFlag = false">
+            {{i18nt('designer.hint.closePreview')}}</a-button>
+        </div>
+      </template>
+    </a-modal>
 
 </template>
 
@@ -324,7 +336,7 @@
     name: "data-source-setting",
     mixins: [i18n],
     inject: ['getGlobalDsv'],
-    components: {
+    components: { 
       Platform,
       CodeEditor,
     },

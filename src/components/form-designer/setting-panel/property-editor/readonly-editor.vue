@@ -1,7 +1,7 @@
 <template>
-  <el-form-item :label="i18nt('designer.setting.readonly')">
-    <el-switch v-model="optionModel.readonly"></el-switch>
-  </el-form-item>
+  <a-form-item :label="i18nt('designer.setting.readonly')">
+    <a-switch v-model:checked="optionModel.readonly"></a-switch>
+  </a-form-item>
 </template>
 
 <script>

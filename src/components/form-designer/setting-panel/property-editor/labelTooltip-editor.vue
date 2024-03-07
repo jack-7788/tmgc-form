@@ -1,7 +1,7 @@
 <template>
-  <el-form-item :label="i18nt('designer.setting.labelTooltip')">
-    <el-input type="text" v-model="optionModel.labelTooltip"></el-input>
-  </el-form-item>
+  <a-form-item :label="i18nt('designer.setting.labelTooltip')">
+    <a-input type="text" v-model:value="optionModel.labelTooltip"></a-input>
+  </a-form-item>
 </template>
 
 <script>

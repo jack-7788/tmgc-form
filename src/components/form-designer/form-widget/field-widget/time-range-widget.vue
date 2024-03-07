@@ -3,16 +3,15 @@
                      :parent-widget="parentWidget" :parent-list="parentList" :index-of-parent-list="indexOfParentList"
                      :sub-form-row-index="subFormRowIndex" :sub-form-col-index="subFormColIndex" :sub-form-row-id="subFormRowId">
     <div :class="[!!field.options.autoFullWidth ? 'auto-full-width' : '', isReadMode ? 'readonly-mode-time-range' : '']">
-      <el-time-picker ref="fieldEditor" is-range v-model="fieldModel"
+      <a-time-range-picker ref="fieldEditor" v-model:value="fieldModel"
                       :class="[!!field.options.autoFullWidth ? 'full-width-input' : '']"
                       :disabled="field.options.disabled" :readonly="field.options.readonly"
-                      :clearable="field.options.clearable" :editable="field.options.editable"
+                      :allowClear="field.options.clearable" :editable="field.options.editable"
                       :format="field.options.format" value-format="HH:mm:ss"
-                      :start-placeholder="field.options.startPlaceholder || i18nt('render.hint.startTimePlaceholder')"
-                      :end-placeholder="field.options.endPlaceholder || i18nt('render.hint.endTimePlaceholder')"
+                      :placeholder="[(field.options.startPlaceholder || i18nt('render.hint.startTimePlaceholder')),(field.options.endPlaceholder || i18nt('render.hint.endTimePlaceholder'))]"
                       @focus="handleFocusCustomEvent" @blur="handleBlurCustomEvent"
                       @change="handleChangeEvent">
-      </el-time-picker>
+      </a-time-range-picker>
       <template v-if="isReadMode">
         <span class="readonly-mode-field">{{contentForReadMode}}</span>
       </template>

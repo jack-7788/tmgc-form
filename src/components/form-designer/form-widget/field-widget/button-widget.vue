@@ -2,13 +2,15 @@
   <static-content-wrapper :designer="designer" :field="field" :design-state="designState" :display-style="field.options.displayStyle"
                      :parent-widget="parentWidget" :parent-list="parentList" :index-of-parent-list="indexOfParentList"
                      :sub-form-row-index="subFormRowIndex" :sub-form-col-index="subFormColIndex" :sub-form-row-id="subFormRowId">
-    <el-button ref="fieldEditor" :type="field.options.type" :size="field.options.size"
+    <a-button  ref="fieldEditor" :type="field.options.type" :size="field.options.size"
                :class="[(field.options.label === '') ? 'hide-text-span' : '']"
-               :plain="field.options.plain" :round="field.options.round"
+               :plain="field.options.plain" 
+               :shape="field.options.round?'round':field.options.circle?'circle':'default '"
+               :round="field.options.round"
                :circle="field.options.circle" :icon="field.options.icon"
                :disabled="field.options.disabled"
                @click="handleButtonWidgetClick">
-      {{field.options.label}}</el-button>
+      {{field.options.label}}</a-button>
   </static-content-wrapper>
 </template>
 

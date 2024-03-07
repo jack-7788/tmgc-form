@@ -1,19 +1,19 @@
 <template>
-  <el-form-item>
+  <a-form-item>
     <template #label>
       <span>{{i18nt('designer.setting.validation')}}
-        <el-tooltip effect="light" :content="i18nt('designer.setting.validationHelp')">
-          <svg-icon icon-class="el-info" /></el-tooltip>
+        <a-tooltip effect="light" :title="i18nt('designer.setting.validationHelp')">
+          <svg-icon icon-class="el-info" /></a-tooltip>
       </span>
     </template>
-    <el-select v-model="optionModel.validation" filterable clearable allow-create default-first-option>
-      <el-option v-for="(fv, fvIdx) in fieldValidators"
+    <a-select v-model="optionModel.validation" filterable allowClear allow-create default-first-option>
+      <a-select-option v-for="(fv, fvIdx) in fieldValidators"
                  :key="fvIdx"
                  :label="fv.label"
-                 :value="fv.value">
-      </el-option>
-    </el-select>
-  </el-form-item>
+                 :value="fv.value"> {{ fv.label }}
+      </a-select-option>
+    </a-select>
+  </a-form-item>
 </template>
 
 <script>

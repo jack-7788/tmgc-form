@@ -15,7 +15,7 @@ export function addDirective(app) {
         const dragDom = document.querySelector(binding.value[0])
         const dragHeader = document.querySelector(binding.value[1])
 
-        dragHeader.onmouseover = () => (dragHeader.style.cursor = `move`);
+        dragHeader && (dragHeader.onmouseover = () => (dragHeader.style.cursor = `move`));
 
         function down(e, type) {
           // 鼠标按下，计算当前元素距离可视区的距离

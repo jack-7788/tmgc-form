@@ -1,7 +1,7 @@
 <template>
-  <el-form-item :label="i18nt('designer.setting.label')" v-if="!noLabelSetting">
-    <el-input type="text" v-model="optionModel.label"></el-input>
-  </el-form-item>
+  <a-form-item :label="i18nt('designer.setting.label')" v-if="!noLabelSetting">
+    <a-input type="text" v-model:value="optionModel.label"></a-input>
+  </a-form-item>
 </template>
 
 <script>

@@ -1,15 +1,16 @@
 <template>
-  <el-scrollbar class="side-scroll-bar" :style="{height: scrollerHeight}">
+  <div class="side-scroll-bar" :style="{height: scrollerHeight}">
     <div class="panel-container">
 
-    <el-tabs v-model="firstTab" class="no-bottom-margin indent-left-margin">
-      <el-tab-pane name="componentLib">
-        <template #label>
+    <a-tabs v-model:activeKey="firstTab" class="no-bottom-margin indent-left-margin">
+      <a-tab-pane key="componentLib">
+        <template #tab>
           <span><svg-icon icon-class="el-set-up" /> {{i18nt('designer.componentLib')}}</span>
         </template>
 
-      <el-collapse v-model="activeNames" class="widget-collapse">
-        <el-collapse-item name="1" :title="i18nt('designer.containerTitle')">
+      <a-collapse v-model:activeKey="activeNames" class="widget-collapse">
+        <a-collapse-panel key="containerTitle" :header="i18nt('designer.containerTitle')">
+
           <draggable tag="ul" :list="containers" item-key="key" :group="{name: 'dragGroup', pull: 'clone', put: false}"
                      :clone="handleContainerWidgetClone" ghost-class="ghost" :sort="false"
                      :move="checkContainerMove" @end="onContainerDragEnd">
@@ -19,9 +20,9 @@
               </li>
             </template>
           </draggable>
-        </el-collapse-item>
+        </a-collapse-panel>
 
-        <el-collapse-item name="2" :title="i18nt('designer.basicFieldTitle')">
+        <a-collapse-panel key="basicFieldTitle" :header="i18nt('designer.basicFieldTitle')">
           <draggable tag="ul" :list="basicFields" item-key="key" :group="{name: 'dragGroup', pull: 'clone', put: false}"
                      :move="checkFieldMove"
                      :clone="handleFieldWidgetClone" ghost-class="ghost" :sort="false">
@@ -31,9 +32,9 @@
               </li>
             </template>
           </draggable>
-        </el-collapse-item>
+        </a-collapse-panel>
 
-        <el-collapse-item name="3" :title="i18nt('designer.advancedFieldTitle')">
+        <a-collapse-panel  key="advancedFieldTitle"  :header="i18nt('designer.advancedFieldTitle')">
           <draggable tag="ul" :list="advancedFields" item-key="key" :group="{name: 'dragGroup', pull: 'clone', put: false}"
                      :move="checkFieldMove"
                      :clone="handleFieldWidgetClone" ghost-class="ghost" :sort="false">
@@ -43,9 +44,9 @@
               </li>
             </template>
           </draggable>
-        </el-collapse-item>
+        </a-collapse-panel>
 
-        <el-collapse-item name="4" :title="i18nt('designer.customFieldTitle')">
+        <!-- <a-collapse-panel key="customFieldTitle" :header="i18nt('designer.customFieldTitle')">
           <draggable tag="ul" :list="customFields" item-key="key" :group="{name: 'dragGroup', pull: 'clone', put: false}"
                      :move="checkFieldMove"
                      :clone="handleFieldWidgetClone" ghost-class="ghost" :sort="false">
@@ -56,14 +57,14 @@
               </li>
             </template>
           </draggable>
-        </el-collapse-item>
+        </a-collapse-panel> -->
 
-      </el-collapse>
+      </a-collapse>
 
-      </el-tab-pane>
+      </a-tab-pane>
 
-      <el-tab-pane v-if="showFormTemplates()" name="formLib" style="padding: 8px">
-        <template #label>
+      <a-tab-pane v-if="showFormTemplates()" key="formLib" style="padding: 8px">
+        <template #tab>
           <span><svg-icon icon-class="el-form-template" /> {{i18nt('designer.formLib')}}</span>
         </template>
 
@@ -82,12 +83,12 @@
             </div>
           </el-card>
         </template>
-      </el-tab-pane>
+      </a-tab-pane>
 
-    </el-tabs>
+    </a-tabs>
 
     </div>
-  </el-scrollbar>
+  </div>
 </template>
 
 <script>
@@ -125,7 +126,7 @@
 
         scrollerHeight: 0,
 
-        activeNames: ['1', '2', '3', '4'],
+        activeNames: ['containerTitle',"basicFieldTitle","advancedFieldTitle"],
 
         containers: [],
         basicFields: [],
@@ -285,48 +286,58 @@
     color: $--color-primary;
   }
 
-  .side-scroll-bar {
-    :deep(.el-scrollbar__wrap) {
-      overflow-x: hidden;
-    }
-  }
+  // .side-scroll-bar {
+  //   :deep(.el-scrollbar__wrap) {
+  //     overflow-x: hidden;
+  //   }
+  // }
 
   div.panel-container {
     padding-bottom: 10px;
   }
 
-  .no-bottom-margin :deep(.el-tabs__header) {
+  // .no-bottom-margin :deep(.el-tabs__header),
+  .no-bottom-margin :deep(.ant-collapse-header) {
     margin-bottom: 0;
   }
 
   .indent-left-margin {
-    :deep(.el-tabs__nav) {
+    :deep(.el-tabs__nav),
+    :deep(.ant-tabs-nav) {
       margin-left: 20px;
     }
+    
   }
-
-  .el-collapse-item :deep(ul) > li {
+  // .el-collapse-item :deep(ul) > li ,
+  .ant-collapse-item :deep(ul) > li{
     list-style: none;
   }
 
   .widget-collapse {
     border-top-width: 0;
 
-    :deep(.el-collapse-item__header) {
+    // :deep(.el-collapse-item__header) ,
+    :deep(.ant-collapse-header){
       margin-left: 8px;
       font-style: italic;
       font-weight: bold;
     }
-
-    :deep(.el-collapse-item__content) {
+    // :deep(.el-collapse-item__content) ,
+    :deep(.ant-collapse-content) {
       padding-bottom: 6px;
+       > .ant-collapse-content-box {
+        padding: 4px;
+       }
 
       ul {
-        padding-left: 10px;  /* 重置IE11默认样式 */
+        padding: 0;
+        // padding-left: 10px;  /* 重置IE11默认样式 */
         margin: 0;  /* 重置IE11默认样式 */
         margin-block-start: 0;
         margin-block-end: 0.25em;
-        padding-inline-start: 10px;
+        // padding-inline-start: 10px;
+        display: flex;
+        flex-wrap: wrap;
 
         &:after {
           content: "";
@@ -368,7 +379,8 @@
     }
   }
 
-  .el-card.ft-card {
+  // .el-card.ft-card,
+  .ant-card.ft-card {
     border: 1px solid #8896B3;
   }
 

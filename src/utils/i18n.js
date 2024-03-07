@@ -3,6 +3,9 @@ import { createI18n } from './smart-vue-i18n/index'
 // import enLocaleElement from "element-plus/lib/locale/lang/en";
 // import zhLocaleElement from "element-plus/lib/locale/lang/zh-cn";
 import zhLocaleElement from 'element-plus/dist/locale/zh-cn.mjs'
+import zhCN from 'ant-design-vue/es/locale/zh_CN';
+import enUS from 'ant-design-vue/es/locale/en_US';
+
 import enLocaleElement from 'element-plus/dist/locale/en.mjs'
 //import locale from "element-plus/lib/locale"
 
@@ -20,6 +23,7 @@ const langResources = {
       //...
     },
     ...enLocaleElement,
+    ...enUS,
     ...enLocale,
     ...enLocale_render,
     ...enLocale_extension
@@ -30,6 +34,7 @@ const langResources = {
       //...
     },
     ...zhLocaleElement,
+    ...zhCN,
     ...zhLocale,
     ...zhLocale_render,
     ...zhLocale_extension

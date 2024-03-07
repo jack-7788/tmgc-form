@@ -1,10 +1,10 @@
 <template>
-  <el-form-item :label="i18nt('designer.setting.customClass')">
-    <el-select v-model="optionModel.customClass" multiple filterable allow-create
+  <a-form-item :label="i18nt('designer.setting.customClass')">
+    <a-select v-model="optionModel.customClass" multiple filterable allow-create allowClear
                default-first-option>
-      <el-option v-for="(item, idx) in cssClassList" :key="idx" :label="item" :value="item"></el-option>
-    </el-select>
-  </el-form-item>
+      <a-select-option v-for="(item, idx) in cssClassList" :key="idx" :label="item" :value="item"> {{ item }} </a-select-option>
+    </a-select>
+  </a-form-item>
 </template>
 
 <script>

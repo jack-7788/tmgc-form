@@ -11,9 +11,11 @@
   },
   "dependencies": {
     "@element-plus/icons-vue": "^0.2.4",
+    "ant-design-vue": "3.2.20",
     "axios": "^0.24.0",
     "clipboard": "^2.0.8",
     "core-js": "^3.6.5",
+    "dayjs": "^1.11.10",
     "element-plus": "^2.0.4",
     "file-saver": "^2.0.5",
     "mitt": "^3.0.0",

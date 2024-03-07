@@ -1,8 +1,8 @@
 <template>
-  <el-form-item :label="i18nt('designer.setting.labelWidth')">
-    <el-input type="number" v-model="optionModel.labelWidth" @input="inputNumberHandler"
-              min="0" class="hide-spin-button"></el-input>
-  </el-form-item>
+  <a-form-item :label="i18nt('designer.setting.labelWidth')">
+    <a-input-number  v-model:value="optionModel.labelWidth" @input="inputNumberHandler"
+              :min="0" class="hide-spin-button"></a-input-number>
+  </a-form-item>
 </template>
 
 <script>

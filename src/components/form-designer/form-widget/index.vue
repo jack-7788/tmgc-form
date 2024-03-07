@@ -1,7 +1,7 @@
 <template>
+  <a-config-provider :component-size="size">
   <div class="form-widget-container">
-
-    <el-form class="full-height-width widget-form" :label-position="labelPosition"
+    <a-form class="full-height-width widget-form" :layout="labelPosition"
              :class="[customClass, layoutType + '-layout']" :size="size" :validate-on-rule-change="false">
 
       <template v-if="designer.widgetList.length === 0">
@@ -27,16 +27,16 @@
         </draggable>
       </div>
 
-    </el-form>
+    </a-form>
 
   </div>
+</a-config-provider>
 </template>
 
 <script>
   import '@/components/form-designer/form-widget/container-widget/index'
   import FieldComponents from '@/components/form-designer/form-widget/field-widget/index'
   import i18n from "@/utils/i18n"
-
   export default {
     name: "VFormWidget",
     componentName: "VFormWidget",
@@ -82,11 +82,12 @@
     },
     computed: {
       labelPosition() {
+        console.log(' this.designer.formConfig: ',  this.designer.formConfig);
         if (!!this.designer.formConfig && !!this.designer.formConfig.labelPosition) {
           return this.designer.formConfig.labelPosition
         }
 
-        return 'left'
+        return 'horizontal'
       },
 
       size() {
@@ -127,7 +128,7 @@
 
     },
     created() {
-      //this.designer.initDesigner( !!this.getDesignerConfig().resetFormJson )  //此行代码已移动到form-designer，以便提前赋值formConfig！！
+      this.designer.initDesigner( !!this.getDesignerConfig().resetFormJson )  //此行代码已移动到form-designer，以便提前赋值formConfig！！
       this.designer.loadPresetCssCode( this.getDesignerConfig().presetCssCode )
     },
     mounted() {
@@ -212,6 +213,7 @@
     overflow-x: hidden;
     overflow-y: auto;
 
+    .ant-form.full-height-width,
     .el-form.full-height-width {
       height: 100%;
       padding: 3px;
@@ -242,18 +244,18 @@
     :deep(li.container-widget-item), :deep(li.field-widget-item) {
       list-style: none;
     }
-
+  .ant-form.PC-layout,
     .el-form.PC-layout {
       //
     }
-
+    .ant-form.Pad-layout,
     .el-form.Pad-layout {
       margin: 0 auto;
       max-width: 960px;
       border-radius: 15px;
       box-shadow: 0 0 1px 10px #495060;
     }
-
+    .ant-form.H5-layout,
     .el-form.H5-layout {
       margin: 0 auto;
       width: 420px;
@@ -261,7 +263,7 @@
       //border-width: 10px;
       box-shadow: 0 0 1px 10px #495060;
     }
-
+    .ant-form.widget-form :deep(.el-row),
     .el-form.widget-form :deep(.el-row) {
       padding: 2px;
       border: 1px dashed rgba(170, 170, 170, 0.75);

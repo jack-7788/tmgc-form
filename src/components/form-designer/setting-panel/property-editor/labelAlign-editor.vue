@@ -1,14 +1,14 @@
 <template>
-  <el-form-item :label="i18nt('designer.setting.labelAlign')" v-if="!noLabelSetting && (selectedWidget.type !== 'button')">
-    <el-radio-group v-model="optionModel.labelAlign" class="radio-group-custom">
-      <el-radio-button label="label-left-align">
-        {{i18nt('designer.setting.leftAlign')}}</el-radio-button>
-      <el-radio-button label="label-center-align">
-        {{i18nt('designer.setting.centerAlign')}}</el-radio-button>
-      <el-radio-button label="label-right-align">
-        {{i18nt('designer.setting.rightAlign')}}</el-radio-button>
-    </el-radio-group>
-  </el-form-item>
+  <a-form-item :label="i18nt('designer.setting.labelAlign')" v-if="!noLabelSetting && (selectedWidget.type !== 'button')">
+    <a-radio-group v-model:value="optionModel.labelAlign" class="radio-group-custom">
+      <a-radio-button value="label-left-align">
+        {{i18nt('designer.setting.leftAlign')}}</a-radio-button>
+      <a-radio-button value="label-center-align">
+        {{i18nt('designer.setting.centerAlign')}}</a-radio-button>
+      <a-radio-button value="label-right-align">
+        {{i18nt('designer.setting.rightAlign')}}</a-radio-button>
+    </a-radio-group>
+  </a-form-item>
 </template>
 
 <script>
@@ -34,7 +34,8 @@
 
 <style lang="scss" scoped>
   .radio-group-custom {
-    :deep(.el-radio-button__inner) {
+    :deep(.el-radio-button__inner),
+    :deep(.ant-radio-button__inner) {
       padding-left: 12px;
       padding-right: 12px;
     }

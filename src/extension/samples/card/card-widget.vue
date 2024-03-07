@@ -1,18 +1,17 @@
 <template>
   <container-wrapper :designer="designer" :widget="widget" :parent-widget="parentWidget" :parent-list="parentList"
                      :index-of-parent-list="indexOfParentList">
-    <el-card :key="widget.id" class="card-container" @click.stop="selectWidget(widget)"
+    <a-card :key="widget.id" class="card-container" @click.stop="selectWidget(widget)"
              :shadow="widget.options.shadow" :style="{width: widget.options.cardWidth + '!important' || ''}"
              :class="[selected ? 'selected' : '', !!widget.options.folded ? 'folded' : '', customClass]">
-      <template #header>
+      <template #title>
         <div class="clear-fix">
           <span>{{widget.options.label}}</span>
           <i v-if="widget.options.showFold" class="float-right" @click="toggleCard">
-            <template v-if="!widget.options.folded">
-              <el-icon><ArrowDown /></el-icon>
+            <template v-if="!widget.options.folded">ArrowDown
             </template>
             <template v-else>
-              <el-icon><ArrowUp /></el-icon>
+              ArrowUp
             </template>
           </i>
         </div>
@@ -34,7 +33,7 @@
           </div>
         </template>
       </draggable>
-    </el-card>
+    </a-card>
   </container-wrapper>
 </template>
 

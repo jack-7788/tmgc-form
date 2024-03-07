@@ -1,7 +1,7 @@
 <template>
-  <el-form-item :label="i18nt('designer.setting.appendButtonDisabled')">
-    <el-switch v-model="optionModel.appendButtonDisabled"></el-switch>
-  </el-form-item>
+  <a-form-item :label="i18nt('designer.setting.appendButtonDisabled')">
+    <a-switch v-model:checked="optionModel.appendButtonDisabled"></a-switch>
+  </a-form-item>
 </template>
 
 <script>

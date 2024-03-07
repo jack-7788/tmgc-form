@@ -1,15 +1,6 @@
-<!--
-/**
- * author: vformAdmin
- * email: vdpadmin@163.com
- * website: https://www.vform666.com
- * date: 2021.08.18
- * remark: 如果要分发VForm源码，需在本文件顶部保留此文件头信息！！
- */
--->
 
 <template>
-  <el-form :label-position="labelPosition" :size="size" :class="[customClass, readModeFlag ? 'readonly-mode-form' : '']" class="render-form"
+  <a-form :layout="labelPosition" :size="size" :class="[customClass, readModeFlag ? 'readonly-mode-form' : '']" class="render-form"
            :label-width="labelWidth" :validate-on-rule-change="false"
            :model="formDataModel" ref="renderForm"
            @submit.prevent>
@@ -33,7 +24,7 @@
         </component>
       </template>
     </template>
-  </el-form>
+  </a-form>
 </template>
 
 <script>
@@ -62,6 +53,7 @@
   import i18n, { changeLocale } from "@/utils/i18n"
   import DynamicDialog from './dynamic-dialog'
   import DynamicDrawer from './dynamic-drawer'
+  import{message} from 'ant-design-vue'
 
   export default {
     name: "VFormRender",
@@ -1001,6 +993,7 @@
 </script>
 
 <style lang="scss" scoped>
+.ant-form :deep(.ant-row)，
   .el-form :deep(.el-row) {
     padding: 8px;
   }

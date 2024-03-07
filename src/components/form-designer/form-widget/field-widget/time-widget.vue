@@ -3,14 +3,14 @@
                      :parent-widget="parentWidget" :parent-list="parentList" :index-of-parent-list="indexOfParentList"
                      :sub-form-row-index="subFormRowIndex" :sub-form-col-index="subFormColIndex" :sub-form-row-id="subFormRowId">
     <div :class="[!!field.options.autoFullWidth ? 'auto-full-width' : '', isReadMode ? 'readonly-mode-time' : '']">
-      <el-time-picker ref="fieldEditor" v-model="fieldModel"
-                      :disabled="field.options.disabled" :readonly="field.options.readonly"
-                      :clearable="field.options.clearable" :editable="field.options.editable"
+      <a-time-picker ref="fieldEditor" v-model:value="fieldModel"
+                      :disabled="field.options.disabled" :readonly="true||field.options.readonly"
+                      :allowClear="field.options.clearable" :editable="field.options.editable"
                       :format="field.options.format" value-format="HH:mm:ss"
                       :placeholder="field.options.placeholder || i18nt('render.hint.timePlaceholder')"
                       @focus="handleFocusCustomEvent" @blur="handleBlurCustomEvent"
                       @change="handleChangeEvent">
-      </el-time-picker>
+      </a-time-picker>
       <template v-if="isReadMode">
         <span class="readonly-mode-field">{{fieldModel}}</span>
       </template>

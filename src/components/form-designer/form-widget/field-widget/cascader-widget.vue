@@ -3,9 +3,9 @@
                      :parent-widget="parentWidget" :parent-list="parentList" :index-of-parent-list="indexOfParentList"
                      :sub-form-row-index="subFormRowIndex" :sub-form-col-index="subFormColIndex" :sub-form-row-id="subFormRowId">
     <div class="full-width-input" :class="{'readonly-mode-cascader' : isReadMode}">
-      <el-cascader ref="fieldEditor" :options="field.options.optionItems" v-model="fieldModel"
+      <a-cascader ref="fieldEditor" :options="field.options.optionItems" v-model:value="fieldModel"
                    :disabled="field.options.disabled"
-                   :clearable="field.options.clearable"
+                   :allowClear="field.options.clearable"
                    :filterable="field.options.filterable"
                    :placeholder="field.options.placeholder || i18nt('render.hint.selectPlaceholder')"
                    :show-all-levels="showFullPath"
@@ -13,7 +13,7 @@
                    @visible-change="hideDropDownOnClick" @expand-change="hideDropDownOnClick"
                    @focus="handleFocusCustomEvent" @blur="handleBlurCustomEvent"
                    @change="handleChangeEvent">
-      </el-cascader>
+      </a-cascader>
       <template v-if="isReadMode">
         <span class="readonly-mode-field">{{contentForReadMode}}</span>
       </template>

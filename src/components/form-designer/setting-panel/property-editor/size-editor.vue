@@ -1,11 +1,11 @@
 <template>
-  <el-form-item :label="i18nt('designer.setting.widgetSize')">
-    <el-select v-model="optionModel.size">
-      <el-option v-for="item in widgetSizes" :key="item.value" :label="item.label"
-                 :value="item.value">
-      </el-option>
-    </el-select>
-  </el-form-item>
+  <a-form-item :label="i18nt('designer.setting.widgetSize')">
+    <a-select v-model:value="optionModel.size">
+      <a-select-option v-for="item in widgetSizes" :key="item.value"  
+                 :value="item.value">{{ item.label }}
+      </a-select-option>
+    </a-select>
+  </a-form-item>
 </template>
 
 <script>

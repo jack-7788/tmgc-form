@@ -1,7 +1,7 @@
 <template>
-  <el-form-item :label="i18nt('designer.setting.showWordLimit')">
-    <el-switch v-model="optionModel.showWordLimit"></el-switch>
-  </el-form-item>
+  <a-form-item :label="i18nt('designer.setting.showWordLimit')">
+    <a-switch v-model:checked="optionModel.showWordLimit"></a-switch>
+  </a-form-item>
 </template>
 
 <script>

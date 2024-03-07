@@ -1,10 +1,10 @@
 <template>
   <div>
-    <el-form-item :label="i18nt('designer.setting.htmlContent')">
-    </el-form-item>
-    <el-form-item label-width="0">
-      <el-input type="textarea" v-model="optionModel.htmlContent" :rows="5" class="html-content-editor"></el-input>
-    </el-form-item>
+    <a-form-item :label="i18nt('designer.setting.htmlContent')">
+    </a-form-item>
+    <a-form-item label-width="0">
+      <a-textarea  v-model:value="optionModel.htmlContent" :rows="5" class="html-content-editor"></a-textarea>
+    </a-form-item>
   </div>
 </template>
 

@@ -10,11 +10,11 @@
 
 <template>
   <div class="field-wrapper" :class="{'design-time-bottom-margin': !!this.designer}">
-    <el-form-item v-if="!!field.formItemFlag && (!field.options.hidden || (designState === true))"
+    <a-form-item v-if="!!field.formItemFlag && (!field.options.hidden || (designState === true))"
                   :label="label" :label-width="labelWidth + 'px'"
                   :title="field.options.labelTooltip"
                   :size="field.options.size"
-                  :rules="rules" :prop="getPropName()"
+                  :rules="rules" :name="getPropName()"
                   :class="[selected ? 'selected' : '', labelAlign, customClass, field.options.required ? 'required' : '']"
                   @click.stop="selectField(field)">
 
@@ -37,7 +37,7 @@
         </span>
       </template>
       <slot></slot>
-    </el-form-item>
+    </a-form-item>
 
     <template v-if="!!this.designer">
       <div class="field-action" v-if="designer.selectedId === field.id">
@@ -283,7 +283,7 @@
       margin-right: 0;
     }
   }
-
+  .ant-form-item,
   .el-form-item {
     //margin-bottom: 0 !important;
     //margin-bottom: 6px;
@@ -291,12 +291,14 @@
     //margin-top: 2px;
     position: relative;
 
+    :deep(.ant-form-item__label),
     :deep(.el-form-item__label) {
       white-space: nowrap;
       text-overflow: ellipsis;
     }
 
-    :deep(.el-form-item__content) {
+    :deep(.el-form-item__content),
+    :deep(.ant-form-item__content) {
       //position: unset;  /* TODO: 忘了这个样式设置是为了解决什么问题？？ */
     }
 
@@ -316,7 +318,8 @@
     }
   }
 
-  .required :deep(.el-form-item__label)::before {
+  .required :deep(.el-form-item__label)::before,
+  .required :deep(.ant-form-item__label)::before {
     content: '*';
     color: #F56C6C;
     margin-right: 4px;
@@ -331,22 +334,22 @@
       margin: 0;
     }
   }
-
+.ant-form-item.selected,
   .el-form-item.selected, .static-content-item.selected {
     outline: 2px solid $--color-primary;
   }
 
-  :deep(.label-left-align) .el-form-item__label {
+  :deep(.label-left-align) .el-form-item__label,.ant-form-item-label {
     text-align: left;
     justify-content: flex-start !important;
   }
 
-  :deep(.label-center-align) .el-form-item__label {
+  :deep(.label-center-align) .el-form-item__label,.ant-form-item__label {
     text-align: center;
     justify-content: center !important;
   }
 
-  :deep(.label-right-align) .el-form-item__label {
+  :deep(.label-right-align) .el-form-item__label,.ant-form-item__label {
     text-align: right;
     justify-content: flex-end !important;
   }

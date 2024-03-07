@@ -2,20 +2,20 @@
   <form-item-wrapper :designer="designer" :field="field" :rules="rules" :design-state="designState"
                      :parent-widget="parentWidget" :parent-list="parentList" :index-of-parent-list="indexOfParentList"
                      :sub-form-row-index="subFormRowIndex" :sub-form-col-index="subFormColIndex" :sub-form-row-id="subFormRowId">
-    <el-checkbox-group ref="fieldEditor" v-model="fieldModel" v-show="!isReadMode"
+    <a-checkbox-group ref="fieldEditor" v-model:value="fieldModel" v-show="!isReadMode"
                        :disabled="field.options.disabled"
                        @change="handleChangeEvent">
-      <template v-if="!!field.options.buttonStyle">
-        <el-checkbox-button v-for="(item, index) in field.options.optionItems" :key="index" :label="item.value"
+      <!-- <template v-if="!!field.options.buttonStyle">
+        <a-checkbox-button v-for="(item, index) in field.options.optionItems" :key="index" :label="item.value"
                             :disabled="item.disabled" :border="field.options.border"
-                            :style="{display: field.options.displayStyle}">{{item.label}}</el-checkbox-button>
+                            :style="{display: field.options.displayStyle}">{{item.label}}</a-checkbox-button>
       </template>
-      <template v-else>
-        <el-checkbox v-for="(item, index) in field.options.optionItems" :key="index" :label="item.value"
+      <template v-else> -->
+        <a-checkbox v-for="(item, index) in field.options.optionItems" :key="index" :value="item.value"
                      :disabled="item.disabled" :border="field.options.border"
-                     :style="{display: field.options.displayStyle}">{{item.label}}</el-checkbox>
-      </template>
-    </el-checkbox-group>
+                     :style="{}">{{item.label}}</a-checkbox>
+      <!-- </template> -->
+    </a-checkbox-group>
     <template v-if="isReadMode">
       <span class="readonly-mode-field">{{optionLabel}}</span>
     </template>

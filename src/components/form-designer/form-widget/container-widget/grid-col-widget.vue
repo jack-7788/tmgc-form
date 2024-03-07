@@ -1,5 +1,5 @@
 <template>
-  <el-col v-if="widget.type === 'grid-col'" class="grid-cell" v-bind="layoutProps"
+  <a-col v-if="widget.type === 'grid-col'" class="grid-cell" v-bind="layoutProps"
           :class="[selected ? 'selected' : '', customClass]" :style="colHeightStyle"
           :key="widget.id" @click.stop="selectWidget(widget)">
     <draggable :list="widget.widgetList" item-key="id" v-bind="{group:'dragGroup', ghostClass: 'ghost',animation: 200}"
@@ -39,7 +39,7 @@
     <div class="grid-col-handler" v-if="designer.selectedId === widget.id && widget.type === 'grid-col'">
       <i>{{i18nt('designer.widgetLabel.' + widget.type)}}</i>
     </div>
-  </el-col>
+  </a-col>
 </template>
 
 <script>

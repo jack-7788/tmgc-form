@@ -1,7 +1,7 @@
 <template>
-  <el-form-item :label="i18nt('designer.setting.hidden')">
-    <el-switch v-model="optionModel.hidden"></el-switch>
-  </el-form-item>
+  <a-form-item :label="i18nt('designer.setting.hidden')">
+    <a-switch v-model:checked="optionModel.hidden"></a-switch>
+  </a-form-item>
 </template>
 
 <script>

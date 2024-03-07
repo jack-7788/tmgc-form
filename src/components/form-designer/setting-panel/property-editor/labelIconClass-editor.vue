@@ -1,11 +1,11 @@
 <template>
   <div>
-    <el-form-item label-width="0">
-      <el-divider class="custom-divider">{{i18nt('designer.setting.customLabelIcon')}}</el-divider>
-    </el-form-item>
-    <el-form-item :label="i18nt('designer.setting.labelIconClass')">
-      <el-input type="text" v-model="optionModel.labelIconClass"></el-input>
-    </el-form-item>
+    <a-form-item label-width="0">
+      <a-divider class="custom-divider">{{i18nt('designer.setting.customLabelIcon')}}</a-divider>
+    </a-form-item>
+    <a-form-item :label="i18nt('designer.setting.labelIconClass')">
+      <a-input type="text" v-model:value="optionModel.labelIconClass"></a-input>
+    </a-form-item>
   </div>
 </template>
 

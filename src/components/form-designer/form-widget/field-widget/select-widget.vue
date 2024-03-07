@@ -2,7 +2,7 @@
   <form-item-wrapper :designer="designer" :field="field" :rules="rules" :design-state="designState"
                      :parent-widget="parentWidget" :parent-list="parentList" :index-of-parent-list="indexOfParentList"
                      :sub-form-row-index="subFormRowIndex" :sub-form-col-index="subFormColIndex" :sub-form-row-id="subFormRowId">
-    <el-select ref="fieldEditor" v-model="fieldModel" v-show="!isReadMode" class="full-width-input"
+    <a-select ref="fieldEditor" v-model:value="fieldModel" v-show="!isReadMode" class="full-width-input"
                :disabled="field.options.disabled"
                :clearable="field.options.clearable"
                :filterable="field.options.filterable"
@@ -13,11 +13,8 @@
                :placeholder="field.options.placeholder || i18nt('render.hint.selectPlaceholder')"
                :remote="field.options.remote" :remote-method="remoteQuery"
                @focus="handleFocusCustomEvent" @blur="handleBlurCustomEvent"
-               @change="handleChangeEvent">
-      <el-option v-for="item in field.options.optionItems" :key="item.value" :label="item.label"
-                 :value="item.value" :disabled="item.disabled">
-      </el-option>
-    </el-select>
+               @change="handleChangeEvent" :options="field.options.optionItems" >
+    </a-select>
     <template v-if="isReadMode">
       <span class="readonly-mode-field">{{optionLabel}}</span>
     </template>

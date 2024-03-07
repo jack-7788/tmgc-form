@@ -1,16 +1,21 @@
 <template>
-  <el-config-provider :locale="elLocale">
-  <div id="app">
-    <VFormDesigner :designer-config="designerConfig" :global-dsv="globalDsv" />
-  </div>
-  </el-config-provider>
+  <a-config-provider :locale="elLocale">
+    <el-config-provider :locale="elLocale">
+      <div id="app">
+        <VFormDesigner :designer-config="designerConfig" :global-dsv="globalDsv" />
+      </div>
+    </el-config-provider>
+  </a-config-provider>
 </template>
 
 <script>
 import VFormDesigner from './components/form-designer/index.vue'
 import zhCNLang from 'element-plus/dist/locale/zh-cn.mjs'
 import enUSLang from 'element-plus/dist/locale/en.mjs'
-
+import zhCN from 'ant-design-vue/es/locale/zh_CN';
+import dayjs from 'dayjs';
+import 'dayjs/locale/zh-cn';
+dayjs.locale('zh-cn');
 // import zhCNLang from 'element-plus/lib/locale/lang/zh-cn'
 // import enUSLang from 'element-plus/lib/locale/lang/en'
 
@@ -21,7 +26,7 @@ export default {
   },
   data() {
     return {
-      formJson: {"widgetList":[],"formConfig":{"modelName":"formData","refName":"vForm","rulesName":"rules","labelWidth":80,"labelPosition":"left","size":"","labelAlign":"label-left-align","cssCode":"","customClass":"","functions":"","layoutType":"PC","onFormCreated":"","onFormMounted":"","onFormDataChange":"","onFormValidate":""}},
+      formJson: { "widgetList": [], "formConfig": { "modelName": "formData", "refName": "vForm", "rulesName": "rules", "labelWidth": 80, "labelPosition": "left", "size": "", "labelAlign": "label-left-align", "cssCode": "", "customClass": "", "functions": "", "layoutType": "PC", "onFormCreated": "", "onFormMounted": "", "onFormDataChange": "", "onFormValidate": "" } },
       formData: {},
       optionData: {},
 
@@ -35,7 +40,10 @@ export default {
       },
 
       elLocaleMap: {
-        'zh-CN': zhCNLang,
+        'zh-CN': {
+          ...zhCNLang,
+          ...zhCN
+        },
         'en-US': enUSLang,
       },
     }
@@ -51,7 +59,7 @@ export default {
     submitForm() {
       this.$refs.vFormRef.getFormData().then(formData => {
         // Form Validation OK
-        alert( JSON.stringify(formData) )
+        alert(JSON.stringify(formData))
       }).catch(error => {
         // Form Validation failed
         this.$message.error(error)
@@ -62,7 +70,7 @@ export default {
 </script>
 
 <style lang="scss">
-  #app {
-    height: 100%;
-  }
+#app {
+  height: 100%;
+}
 </style>

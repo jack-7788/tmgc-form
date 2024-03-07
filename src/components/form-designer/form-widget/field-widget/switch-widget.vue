@@ -2,13 +2,13 @@
   <form-item-wrapper :designer="designer" :field="field" :rules="rules" :design-state="designState"
                      :parent-widget="parentWidget" :parent-list="parentList" :index-of-parent-list="indexOfParentList"
                      :sub-form-row-index="subFormRowIndex" :sub-form-col-index="subFormColIndex" :sub-form-row-id="subFormRowId">
-    <el-switch ref="fieldEditor" v-model="fieldModel" :class="[isReadMode ? 'readonly-mode-switch' : '']"
+    <a-switch ref="fieldEditor" v-model:checked="fieldModel" :class="[isReadMode ? 'readonly-mode-switch' : '']"
                :disabled="field.options.disabled"
-               :active-text="field.options.activeText" :inactive-text="field.options.inactiveText"
+               :checkedChildren="field.options.activeText" :unCheckedChildren="field.options.inactiveText"
                :active-color="field.options.activeColor" :inactive-color="field.options.inactiveColor"
                :width="field.options.switchWidth"
                @change="handleChangeEvent">
-    </el-switch>
+    </a-switch>
     <template v-if="isReadMode">
       <span class="readonly-mode-field">{{contentForReadMode}}</span>
     </template>

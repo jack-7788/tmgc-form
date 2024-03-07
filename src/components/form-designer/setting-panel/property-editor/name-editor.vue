@@ -1,21 +1,23 @@
 <template>
-  <el-form-item prop="name" :rules="nameRequiredRule">
+  <a-form-item name="name" :rules="nameRequiredRule">
     <template #label>
       <span>{{i18nt('designer.setting.uniqueName')}}
-        <el-tooltip effect="light" :content="i18nt('designer.setting.editNameHelp')">
-          <svg-icon icon-class="el-info" /></el-tooltip>
+        <a-tooltip   :title="i18nt('designer.setting.editNameHelp')">
+          <svg-icon icon-class="el-info" /></a-tooltip>
       </span>
     </template>
     <template v-if="!!selectedWidget.category || noFieldList">
-      <el-input type="text" v-model="optionModel.name" :readonly="widgetNameReadonly" @change="updateWidgetNameAndRef"></el-input>
+      <a-input type="text" v-model:value="optionModel.name" :readonly="widgetNameReadonly" @change="updateWidgetNameAndRef"></a-input>
     </template>
     <template v-else>
-      <el-select v-model="optionModel.name" allow-create filterable :disabled="widgetNameReadonly" @change="updateWidgetNameAndRef"
+      <a-select v-model:value="optionModel.name" allowClear  :disabled="widgetNameReadonly" @change="updateWidgetNameAndRef"
                  :title="i18nt('designer.setting.editNameHelp')">
-        <el-option v-for="(sf, sfIdx) in serverFieldList" :key="sfIdx" :label="sf.label" :value="sf.name"></el-option>
-      </el-select>
+        <a-select-option v-for="(sf, sfIdx) in serverFieldList" :key="sfIdx"   :value="sf.name">
+        {{  sf.label }}
+        </a-select-option>
+      </a-select>
     </template>
-  </el-form-item>
+  </a-form-item>
 </template>
 
 <script>

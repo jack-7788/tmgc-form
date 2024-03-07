@@ -385,11 +385,11 @@
 				op:[{
 						label: 'Date Format',
 						options: [
-							{value:'d1',label:"yyyy-MM-dd"},
-							{value:'d2',label:"yyyy/MM/dd"},
-							{value:'d3',label:"yyyy年MM月dd日"},
-							{value:'d4',label:"yyyy-MM-dd HH:mm:ss"},
-							{value:'d5',label:"yyyy-MM-dd hh:mm:ss"},
+							{value:'d1',label:"YYYY-MM-DD"},
+							{value:'d2',label:"YYYY/MM/DD"},
+							{value:'d3',label:"YYYY年MM月DD日"},
+							{value:'d4',label:"YYYY-MM-DD HH:mm:ss"},
+							{value:'d5',label:"YYYY-MM-DD hh:mm:ss"},
 						]
 					}, {
           label: 'Number Format',

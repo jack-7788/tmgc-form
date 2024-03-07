@@ -2,14 +2,14 @@
   <form-item-wrapper :designer="designer" :field="field" :rules="rules" :design-state="designState"
                      :parent-widget="parentWidget" :parent-list="parentList" :index-of-parent-list="indexOfParentList"
                      :sub-form-row-index="subFormRowIndex" :sub-form-col-index="subFormColIndex" :sub-form-row-id="subFormRowId">
-    <el-input type="textarea" ref="fieldEditor" v-model="fieldModel" v-show="!isReadMode"
+    <a-textarea  type="textarea" ref="fieldEditor" v-model:value="fieldModel" v-show="!isReadMode"
               :disabled="field.options.disabled" :readonly="field.options.readonly"
               :placeholder="field.options.placeholder" :rows="field.options.rows"
               :minlength="field.options.minLength" :maxlength="field.options.maxLength"
               :show-word-limit="field.options.showWordLimit"
               @focus="handleFocusCustomEvent" @blur="handleBlurCustomEvent" @input="handleInputCustomEvent"
               @change="handleChangeEvent">
-    </el-input>
+    </a-textarea>
     <template v-if="isReadMode">
       <div v-html="fieldModel" class="readonly-mode-field"></div>
     </template>

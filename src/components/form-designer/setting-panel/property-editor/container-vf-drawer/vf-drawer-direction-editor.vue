@@ -1,12 +1,12 @@
 <template>
-  <el-form-item :label="i18nt('designer.setting.drawDirection')">
-    <el-radio-group v-model="optionModel.direction" class="radio-group-custom">
-      <el-radio-button label="rtl"><el-icon><Back /></el-icon></el-radio-button>
-      <el-radio-button label="ltr"><el-icon><Right /></el-icon></el-radio-button>
-      <el-radio-button label="ttb"><el-icon><Bottom /></el-icon></el-radio-button>
-      <el-radio-button label="btt"><el-icon><Top /></el-icon></el-radio-button>
-    </el-radio-group>
-  </el-form-item>
+  <a-form-item :label="i18nt('designer.setting.drawDirection')">
+    <a-radio-group v-model:value="optionModel.direction" class="radio-group-custom">
+      <a-radio-button value="rtl"><el-icon><Back /></el-icon></a-radio-button>
+      <a-radio-button value="ltr"><el-icon><Right /></el-icon></a-radio-button>
+      <a-radio-button value="ttb"><el-icon><Bottom /></el-icon></a-radio-button>
+      <a-radio-button value="btt"><el-icon><Top /></el-icon></a-radio-button>
+    </a-radio-group>
+  </a-form-item>
 </template>
 
 <script>

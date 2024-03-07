@@ -2,7 +2,7 @@
   <form-item-wrapper :designer="designer" :field="field" :rules="rules" :design-state="designState"
                      :parent-widget="parentWidget" :parent-list="parentList" :index-of-parent-list="indexOfParentList"
                      :sub-form-row-index="subFormRowIndex" :sub-form-col-index="subFormColIndex" :sub-form-row-id="subFormRowId">
-    <a-input ref="fieldEditor" v-model="fieldModel" v-show="!isReadMode"
+    <a-input ref="fieldEditor" v-model:value="fieldModel" v-show="!isReadMode"
               :disabled="field.options.disabled" :readonly="field.options.readonly"
               :size="field.options.size" class="hide-spin-button"
               :type="inputType"
@@ -15,8 +15,8 @@
               @focus="handleFocusCustomEvent" @blur="handleBlurCustomEvent" @input="handleInputCustomEvent"
               @change="handleChangeEvent">
       <template #append v-if="field.options.appendButton">
-        <el-button :disabled="field.options.disabled || field.options.appendButtonDisabled"
-                   @click="emitAppendButtonClick"><svg-icon :icon-class="field.options.buttonIcon" /></el-button>
+        <a-button :disabled="field.options.disabled || field.options.appendButtonDisabled"
+                   @click="emitAppendButtonClick"><svg-icon :icon-class="field.options.buttonIcon" /></a-button>
       </template>
     </a-input>
     <template v-if="isReadMode">

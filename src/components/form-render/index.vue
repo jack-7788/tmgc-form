@@ -1,6 +1,8 @@
 
 <template>
-  <a-form :layout="labelPosition" :size="size" :class="[customClass, readModeFlag ? 'readonly-mode-form' : '']" class="render-form"
+  <a-config-provider :component-size="size">
+
+  <a-form :layout=" ['horizontal','vertical','inline'].includes(labelPosition) ? labelPosition :'horizontal'"  :class="[customClass, readModeFlag ? 'readonly-mode-form' : '']" class="render-form"
            :label-width="labelWidth" :validate-on-rule-change="false"
            :model="formDataModel" ref="renderForm"
            @submit.prevent>
@@ -25,6 +27,7 @@
       </template>
     </template>
   </a-form>
+</a-config-provider>
 </template>
 
 <script>
@@ -355,7 +358,7 @@
         this.off$('fieldValidation')  //移除原有事件监听
         this.on$('fieldValidation', (fieldName) => {
           if (!!this.$refs.renderForm) {
-            this.$refs.renderForm.validateField(fieldName)
+            this.$refs.renderForm.validateFields(fieldName)
           }
         })
       },
@@ -585,14 +588,18 @@
             !error ? resolve(formData) : reject(error);
           };
         });
-
-        this.$refs['renderForm'].validate((valid) => {
-          if (valid) {
-            callback(this.formDataModel)
-          } else {
-            callback(this.formDataModel, this.i18nt('render.hint.validationFailed'))
-          }
+        this.$refs['renderForm'].validate().then(res=>{
+          callback(this.formDataModel)
+        }).catch(()=>{
+          callback(this.formDataModel, this.i18nt('render.hint.validationFailed'))
         })
+        // this.$refs['renderForm'].validate((valid) => {
+        //   if (valid) {
+        //     callback(this.formDataModel)
+        //   } else {
+        //     callback(this.formDataModel, this.i18nt('render.hint.validationFailed'))
+        //   }
+        // })
 
         return promise
       },

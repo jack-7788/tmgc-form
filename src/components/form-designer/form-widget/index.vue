@@ -1,7 +1,7 @@
 <template>
   <a-config-provider :component-size="size">
   <div class="form-widget-container">
-    <a-form class="full-height-width widget-form" :layout="labelPosition"
+    <a-form class="full-height-width widget-form" :layout=" ['horizontal','vertical','inline'].includes(labelPosition) ? labelPosition :'horizontal'"
              :class="[customClass, layoutType + '-layout']" :size="size" :validate-on-rule-change="false">
 
       <template v-if="designer.widgetList.length === 0">

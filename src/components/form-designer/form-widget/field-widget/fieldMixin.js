@@ -407,15 +407,16 @@ export default {
       if (!!this.designState) {
         return
       }
+      const val = value instanceof  InputEvent ?value.target.value : value
 
       if (!!this.subFormItemFlag) {
         let subFormData = this.formModel[this.subFormName] || [{}]
         let subFormDataRow = subFormData[this.subFormRowIndex]
         if (!!subFormDataRow) { // 重置表单后subFormDataRow为undefined，应跳过！！
-          subFormDataRow[this.field.options.name] = value
+          subFormDataRow[this.field.options.name] = val
         }
       } else {
-        this.formModel[this.field.options.name] = value
+        this.formModel[this.field.options.name] = val
       }
     },
 

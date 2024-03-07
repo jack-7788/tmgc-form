@@ -93,7 +93,7 @@
                  :close-on-click-modal="false" :close-on-press-escape="false" :destroy-on-close="true">
         <a-alert type="info" :closable="false" :message="eventHeader"></a-alert>
         <code-editor :mode="'javascript'" :readonly="false" v-model="eventHandlerCode" ref="ecEditor"></code-editor>
-        <el-alert type="info" :closable="false" message="}"></el-alert>
+        <a-alert type="info" :closable="false" message="}"></a-alert>
         <template #footer>
           <div class="dialog-footer">
             <a-button @click="showWidgetEventDialogFlag = false">

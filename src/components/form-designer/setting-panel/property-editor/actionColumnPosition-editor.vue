@@ -1,12 +1,12 @@
 <template>
-  <el-form-item :label="i18nt('designer.setting.actionColumnPosition')">
-    <el-radio-group v-model="optionModel.actionColumnPosition" class="radio-group-custom">
-      <el-radio-button label="left">
-        {{i18nt('designer.setting.leftAlign')}}</el-radio-button>
-      <el-radio-button label="right">
-        {{i18nt('designer.setting.rightAlign')}}</el-radio-button>
-    </el-radio-group>
-  </el-form-item>
+  <a-form-item :label="i18nt('designer.setting.actionColumnPosition')">
+    <a-radio-group v-model:value="optionModel.actionColumnPosition" class="radio-group-custom">
+      <a-radio-button value="left">
+        {{i18nt('designer.setting.leftAlign')}}</a-radio-button>
+      <a-radio-button value="right">
+        {{i18nt('designer.setting.rightAlign')}}</a-radio-button>
+    </a-radio-group>
+  </a-form-item>
 </template>
 
 <script>

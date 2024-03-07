@@ -1,87 +1,87 @@
 <template>
   <div class="option-items-pane">
-    <el-radio-group v-if="(selectedWidget.type === 'radio') || ((selectedWidget.type === 'select') && !selectedWidget.options.multiple)"
+    <a-radio-group v-if="(selectedWidget.type === 'radio') || ((selectedWidget.type === 'select') && !selectedWidget.options.multiple)"
                     v-model="optionModel.defaultValue" @change="emitDefaultValueChange">
       <draggable tag="ul" :list="optionModel.optionItems" item-key="id"
                  v-bind="{group:'optionsGroup', ghostClass: 'ghost', handle: '.drag-option'}">
         <template #item="{ element: option, index: idx }">
           <li>
-            <el-radio :label="option.value">
-              <el-input v-model="option.value" size="small" style="width: 100px"></el-input>
-              <el-input v-model="option.label" size="small" style="width: 100px"></el-input>
+            <a-radio :label="option.value">
+              <a-input v-model:value="option.value" size="small" style="width: 100px"></a-input>
+              <a-input v-model:value="option.label" size="small" style="width: 100px"></a-input>
               <i class="iconfont icon-drag drag-option"></i>
-              <el-button circle plain size="small" type="danger" @click="deleteOption(option, idx)"
-                         icon="el-icon-minus" class="col-delete-button"></el-button>
-            </el-radio>
+              <a-button shape='circle' plain size="small" type="danger" @click="deleteOption(option, idx)"
+                         icon="el-icon-minus" class="col-delete-button"></a-button>
+            </a-radio>
           </li>
         </template>
       </draggable>
-    </el-radio-group>
-    <el-checkbox-group v-else-if="(selectedWidget.type === 'checkbox') || ((selectedWidget.type === 'select') && selectedWidget.options.multiple)"
-                    v-model="optionModel.defaultValue" @change="emitDefaultValueChange">
+    </a-radio-group>
+    <a-checkbox-group v-else-if="(selectedWidget.type === 'checkbox') || ((selectedWidget.type === 'select') && selectedWidget.options.multiple)"
+                    v-model:value="optionModel.defaultValue" @change="emitDefaultValueChange">
       <draggable tag="ul" :list="optionModel.optionItems" item-key="id"
                  v-bind="{group:'optionsGroup', ghostClass: 'ghost', handle: '.drag-option'}">
         <template #item="{ element: option, index: idx }">
           <li>
-            <el-checkbox :label="option.value">
-              <el-input v-model="option.value" size="small" style="width: 100px"></el-input>
-              <el-input v-model="option.label" size="small" style="width: 100px"></el-input>
+            <a-checkbox :label="option.value">
+              <a-input v-model:value="option.value" size="small" style="width: 100px"></a-input>
+              <a-input v-model:value="option.label" size="small" style="width: 100px"></a-input>
               <i class="iconfont icon-drag drag-option"></i>
-              <el-button circle plain size="small" type="danger" @click="deleteOption(option, idx)"
-                         icon="el-icon-minus" class="col-delete-button"></el-button>
-            </el-checkbox>
+              <a-button circle plain size="small" type="danger" @click="deleteOption(option, idx)"
+                         icon="el-icon-minus" class="col-delete-button"></a-button>
+            </a-checkbox>
           </li>
         </template>
       </draggable>
-    </el-checkbox-group>
+    </a-checkbox-group>
     <div v-else-if="(selectedWidget.type === 'cascader')" class="full-width-input">
-      <el-cascader v-model="optionModel.defaultValue" :options="optionModel.optionItems"
+      <a-cascader v-model:value="optionModel.defaultValue" :options="optionModel.optionItems"
                    @change="emitDefaultValueChange"
                    :placeholder="i18nt('render.hint.selectPlaceholder')">
-      </el-cascader>
+      </a-cascader>
     </div>
     <div v-if="(selectedWidget.type === 'cascader')">
-      <el-button type="text" @click="importCascaderOptions">{{i18nt('designer.setting.importOptions')}}</el-button>
-      <el-button type="text" @click="resetDefault">{{i18nt('designer.setting.resetDefault')}}</el-button>
+      <a-button type="text" @click="importCascaderOptions">{{i18nt('designer.setting.importOptions')}}</a-button>
+      <a-button type="text" @click="resetDefault">{{i18nt('designer.setting.resetDefault')}}</a-button>
     </div>
 
     <div v-if="(selectedWidget.type === 'radio') || (selectedWidget.type === 'checkbox') || (selectedWidget.type === 'select')">
-      <el-button type="text" @click="addOption">{{i18nt('designer.setting.addOption')}}</el-button>
-      <el-button type="text" @click="importOptions">{{i18nt('designer.setting.importOptions')}}</el-button>
-      <el-button type="text" @click="resetDefault">{{i18nt('designer.setting.resetDefault')}}</el-button>
+      <a-button type="text" @click="addOption">{{i18nt('designer.setting.addOption')}}</a-button>
+      <a-button type="text" @click="importOptions">{{i18nt('designer.setting.importOptions')}}</a-button>
+      <a-button type="text" @click="resetDefault">{{i18nt('designer.setting.resetDefault')}}</a-button>
     </div>
 
-    <div v-if="showImportDialogFlag" class="" v-drag="['.drag-dialog.el-dialog', '.drag-dialog .el-dialog__header']">
-      <el-dialog :title="i18nt('designer.setting.importOptions')" v-model="showImportDialogFlag"
+    <!-- <div v-if="showImportDialogFlag" class="" v-drag="['.drag-dialog.el-dialog', '.drag-dialog .el-dialog__header']"> -->
+      <a-modal :title="i18nt('designer.setting.importOptions')" v-model:visable="showImportDialogFlag"
                  :show-close="true" custom-class="drag-dialog small-padding-dialog" append-to-body
                  :close-on-click-modal="false" :close-on-press-escape="false" :destroy-on-close="true">
-        <el-form-item>
-          <el-input type="textarea" rows="10" v-model="optionLines"></el-input>
-        </el-form-item>
+        <a-form-item>
+          <a-textarea type="textarea" rows="10" v-model:value="optionLines"></a-textarea>
+        </a-form-item>
         <template #footer>
           <div class="dialog-footer">
-            <el-button size="large" type="primary" @click="saveOptions">{{i18nt('designer.hint.confirm')}}</el-button>
-            <el-button size="large" @click="showImportDialogFlag = false">{{i18nt('designer.hint.cancel')}}</el-button>
+            <a-button size="large" type="primary" @click="saveOptions">{{i18nt('designer.hint.confirm')}}</a-button>
+            <a-button size="large" @click="showImportDialogFlag = false">{{i18nt('designer.hint.cancel')}}</a-button>
           </div>
         </template>
-      </el-dialog>
-    </div>
+      </a-modal>
+    <!-- </div> -->
 
-    <div v-if="showImportCascaderDialogFlag" class="" v-drag="['.drag-dialog.el-dialog', '.drag-dialog .el-dialog__header']">
-      <el-dialog :title="i18nt('designer.setting.importOptions')" v-model="showImportCascaderDialogFlag"
+    <!-- <div v-if="showImportCascaderDialogFlag" class="" v-drag="['.drag-dialog.el-dialog', '.drag-dialog .el-dialog__header']"> -->
+      <a-modal :title="i18nt('designer.setting.importOptions')" v-model:visable="showImportCascaderDialogFlag"
                  :show-close="true" custom-class="drag-dialog small-padding-dialog" append-to-body
                  :close-on-click-modal="false" :close-on-press-escape="false" :destroy-on-close="true">
         <code-editor v-model="cascaderOptions" mode="json" :readonly="false"></code-editor>
         <template #footer>
           <div class="dialog-footer">
-            <el-button size="large" type="primary" @click="saveCascaderOptions">{{i18nt('designer.hint.confirm')}}</el-button>
-            <el-button size="large" @click="showImportCascaderDialogFlag = false">{{i18nt('designer.hint.cancel')}}</el-button>
+            <a-button size="large" type="primary" @click="saveCascaderOptions">{{i18nt('designer.hint.confirm')}}</a-button>
+            <a-button size="large" @click="showImportCascaderDialogFlag = false">{{i18nt('designer.hint.cancel')}}</a-button>
           </div>
         </template>
-      </el-dialog>
+      </a-modal>
     </div>
 
-  </div>
+  <!-- </div> -->
 </template>
 
 <script>

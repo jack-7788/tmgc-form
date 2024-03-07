@@ -69,19 +69,19 @@
         </template>
 
         <template v-for="(ft, idx) in formTemplates">
-          <el-card :bord-style="{ padding: '0' }" shadow="hover" class="ft-card">
-            <el-popover placement="right" trigger="hover">
-              <template #reference>
+          <a-card :bord-style="{ padding: '0' }" shadow="hover" class="ft-card">
+            <a-popover placement="right" trigger="hover">
+              <template #content>
                 <img :src="ftImages[idx].imgUrl" style="width: 200px">
               </template>
               <img :src="ftImages[idx].imgUrl" style="height: 600px;width: 720px">
-            </el-popover>
+            </a-popover>
             <div class="bottom clear-fix">
               <span class="ft-title">#{{idx+1}} {{ft.title}}</span>
-              <el-button type="text" class="right-button" @click="loadFormTemplate(ft.jsonUrl)">
-                {{i18nt('designer.hint.loadFormTemplate')}}</el-button>
+              <a-button type="text" class="right-button" @click="loadFormTemplate(ft.jsonUrl)">
+                {{i18nt('designer.hint.loadFormTemplate')}}</a-button>
             </div>
-          </el-card>
+          </a-card>
         </template>
       </a-tab-pane>
 
@@ -317,11 +317,11 @@
     border-top-width: 0;
 
     // :deep(.el-collapse-item__header) ,
-    :deep(.ant-collapse-header){
-      margin-left: 8px;
-      font-style: italic;
-      font-weight: bold;
-    }
+    // :deep(.ant-collapse-header){
+    //   margin-left: 8px;
+    //   font-style: italic;
+    //   font-weight: bold;
+    // }
     // :deep(.el-collapse-item__content) ,
     :deep(.ant-collapse-content) {
       padding-bottom: 6px;
@@ -380,9 +380,9 @@
   }
 
   // .el-card.ft-card,
-  .ant-card.ft-card {
-    border: 1px solid #8896B3;
-  }
+  // .ant-card.ft-card {
+  //   border: 1px solid #8896B3;
+  // }
 
   .ft-card {
     margin-bottom: 10px;

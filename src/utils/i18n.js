@@ -1,10 +1,7 @@
 import { createI18n } from './smart-vue-i18n/index';
 
-// import zhLocaleElement from 'element-plus/dist/locale/zh-cn.mjs';
 import zhCN from 'ant-design-vue/es/locale/zh_CN';
 import enUS from 'ant-design-vue/es/locale/en_US';
-
-// import enLocaleElement from 'element-plus/dist/locale/en.mjs';
 
 import enLocale from '@/lang/en-US';
 import zhLocale from '@/lang/zh-CN';

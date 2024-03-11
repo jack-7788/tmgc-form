@@ -18,7 +18,7 @@ export const generateCode = function (formJson, codeType = 'vue') {
   <div id="app">
 	  <v-form-render :form-json="formJson" :form-data="formData" :option-data="optionData" ref="vFormRef">
     </v-form-render>
-	  <el-button type="primary" @click="submitForm">Submit</el-button>
+	  <a-button type="primary" @click="submitForm">Submit</a-button>
   </div>
 
 <script src="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/vue/3.2.30/vue.global.min.js"></script>
@@ -57,7 +57,7 @@ export const generateCode = function (formJson, codeType = 'vue') {
   <div>
     <v-form-render :form-json="formJson" :form-data="formData" :option-data="optionData" ref="vFormRef">
     </v-form-render>
-    <el-button type="primary" @click="submitForm">Submit</el-button>
+    <a-button type="primary" @click="submitForm">Submit</a-button>
   </div>
 </template>
 

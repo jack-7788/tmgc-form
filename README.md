@@ -116,12 +116,11 @@ body {
       ref="vFormRef"
     >
     </v-form-render>
-    <el-button type="primary" @click="submitForm">Submit</el-button>
+    <a-button type="primary" @click="submitForm">Submit</a-button>
   </div>
 </template>
 <script setup>
   import { ref, reactive } from 'vue';
-  import { ElMessage } from 'element-plus';
 
   const formJson = reactive({
     widgetList: [],
@@ -156,7 +155,6 @@ body {
       })
       .catch(error => {
         // Form Validation failed
-        ElMessage.error(error);
       });
   };
 </script>

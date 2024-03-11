@@ -9,7 +9,7 @@ export const cardTemplateGenerator = function (cw, formConfig) {
   const vShowAttr = !!wop.hidden ? `v-show="false"` : '';
 
   const cardTemplate = `<div class="card-container">
-  <el-card ${classAttr} ${styleAttr} ${shadowAttr} ${vShowAttr}>
+  <a-card ${classAttr} ${styleAttr} ${shadowAttr} ${vShowAttr}>
     <template #header>
       <div class="clear-fix">
         <span>${wop.label}</span>
@@ -25,7 +25,7 @@ export const cardTemplateGenerator = function (cw, formConfig) {
         }
       })
       .join('')}
-  </el-card>
+  </a-card>
 </div>`;
 
   return cardTemplate;
@@ -42,9 +42,9 @@ export const alertTemplateGenerator = function (fw, formConfig) {
   const showIconAttr = `:show-icon="${wop.showIcon}"`;
   const effectAttr = `effect="${wop.effect}"`;
 
-  const alertTemplate = `<el-alert ${titleAttr} ${typeAttr} ${descriptionAttr} ${closableAttr} ${closeTextAttr} ${centerAttr}
+  const alertTemplate = `<a-alert ${titleAttr} ${typeAttr} ${descriptionAttr} ${closableAttr} ${closeTextAttr} ${centerAttr}
   ${showIconAttr} ${effectAttr}>
-</el-alert>`;
+</a-alert>`;
 
   return alertTemplate;
 };

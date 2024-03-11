@@ -36,7 +36,7 @@ export function getCustomLabel(subWidget) {
     html.push(`<span class="custom-label">`);
     if (subWidget.options.labelIconPosition === 'front') {
       html.push(
-        `<el-tooltip content="${subWidget.options.labelTooltip}" effect="light"><i class="${subWidget.options.labelIconClass}"></i></el-tooltip>${subWidget.options.label}`
+        `<a-tooltip message="${subWidget.options.labelTooltip}" effect="light"><i class="${subWidget.options.labelIconClass}"></i></el-tooltip>${subWidget.options.label}`
       );
     } else {
       html.push(`<i class="${subWidget.options.labelIconClass}"></i>${subWidget.options.label}`);
@@ -59,7 +59,7 @@ const containerTemplates = {
   //容器组件属性
   grid: (ctn, formConfig) => {
     const gridClassAttr = buildClassAttr(ctn);
-    const gridTemplate = `<el-row ${gridClassAttr}>
+    const gridTemplate = `<a-row ${gridClassAttr}>
 ${ctn.cols
   .map(col => {
     const colOpt = col.options;
@@ -71,7 +71,7 @@ ${ctn.cols
     const pushAttr = !!colOpt.push ? `:push="${colOpt.push}"` : '';
     const pullAttr = !!colOpt.pull ? `:pull="${colOpt.pull}"` : '';
     const colClassAttr = buildClassAttr(col, 'grid-cell');
-    return `<el-col ${spanAttr} ${mdAttr} ${smAttr} ${xsAttr} ${offsetAttr} ${pushAttr} ${pullAttr} ${colClassAttr}>
+    return `<a-col ${spanAttr} ${mdAttr} ${smAttr} ${xsAttr} ${offsetAttr} ${pushAttr} ${pullAttr} ${colClassAttr}>
     ${col.widgetList
       .map(cw => {
         if (cw.category === 'container') {
@@ -81,10 +81,10 @@ ${ctn.cols
         }
       })
       .join('')}
-    </el-col>`;
+    </a-col>`;
   })
   .join('')}
-</el-row>`;
+</a-row>`;
 
     return gridTemplate;
   },
@@ -133,12 +133,12 @@ ${ctn.cols
     const tabClassAttr = buildClassAttr(ctn);
     const vModel = ctn.tabs && ctn.tabs.length > 0 ? `v-model="${ctn.options.name}ActiveTab"` : '';
     const tabTemplate = `<div class="tab-container">
-  <el-tabs ${vModel} type="${ctn.displayType}" ${tabClassAttr}>
+  <a-tabs ${vModel} type="${ctn.displayType}" ${tabClassAttr}>
     ${ctn.tabs
       .map(tab => {
         const tabOpt = tab.options;
         const disabledAttr = tabOpt.disabled === true ? `disabled` : '';
-        return `<el-tab-pane name="${tabOpt.name}" label="${tabOpt.label}" ${disabledAttr}>
+        return `<a-tab-pane key="${tabOpt.name}" tab="${tabOpt.label}" ${disabledAttr}>
         ${tab.widgetList
           .map(tw => {
             if (tw.category === 'container') {
@@ -147,10 +147,10 @@ ${ctn.cols
               return buildFieldWidget(tw, formConfig);
             }
           })
-          .join('')}</el-tab-pane>`;
+          .join('')}</a-tab-pane>`;
       })
       .join('')}
-  </el-tabs>
+  </a-tabs>
 </div>`;
 
     return tabTemplate;
@@ -161,17 +161,17 @@ ${ctn.cols
 
     const tableTemplate = `<div class="container-wrapper"  ${emptyAttr('class', tabClassAttr)}>
       <div key="${ctn.id}" class="sub-form-container">
-        <el-row class="header-row">
+        <a-row class="header-row">
         <div class="action-header-column">
           <span class="action-label">操作</span>
-          <el-button round type="primary" size="mini" class="action-button" @click="addSubFormRow('${
+          <a-button round type="primary" size="mini" class="action-button" @click="addSubFormRow('${
             ctn.id
           }')" title="新增行">新增${
       vue3Flag
         ? ` <Plus style="width:1em; height:1em;" />`
         : `<i class="el-icon-plus el-icon-right"></i>`
     }
-          </el-button>
+          </a-button>
         </div>
 
           ${ctn.widgetList
@@ -190,25 +190,25 @@ ${ctn.cols
               return subWidgetContainer;
             })
             .join('')}
-        </el-row>
+        </a-row>
 
         ${(() => {
           const rowHtml = [];
 
           rowHtml.push(
-            `<el-row class="sub-form-row" v-for="(subWidget,sfrIdx) in formData.${ctn.id}" :key="sfrIdx">`
+            `<a-row class="sub-form-row" v-for="(subWidget,sfrIdx) in formData.${ctn.id}" :key="sfrIdx">`
           );
 
           rowHtml.push(`<div class="sub-form-action-column hide-label">
             <div class="action-button-column">
-              <el-button circle type="" ${
+              <a-button circle type="" ${
                 vue3Flag ? `icon="Plus"` : `icon="el-icon-circle-plus-outline"`
               } @click="insertSubFormRow('${ctn.id}',sfrIdx)"
                          title="插入行"></el-button>
-              <el-button circle type="" ${
+              <a-button circle type="" ${
                 vue3Flag ? `icon="Delete"` : `icon="el-icon-delete"`
               } @click="deleteSubFormRow('${ctn.id}',sfrIdx)"
-                         title="删除行"></el-button>
+                         title="删除行"></a-button>
               <span class="row-number-span">#{{sfrIdx+1}}</span>
             </div>
           </div>`);
@@ -236,10 +236,10 @@ ${ctn.cols
 
     const tableTemplate = `<div class="container-wrapper"  ${emptyAttr('class', tabClassAttr)}>
       <div key="${ctn.id}" class="sub-form-container">
-        <el-row class="header-row">
+        <a-row class="header-row">
         <div class="grid-sub-form action-header-column">
           <span class="action-label">操作</span>
-          <el-button  round type="primary" size="mini" class="action-button" @click="addSubFormRow('${
+          <a-button  round type="primary" size="mini" class="action-button" @click="addSubFormRow('${
             ctn.id
           }')"
           title="新增行">新增${
@@ -247,9 +247,9 @@ ${ctn.cols
               ? ` <Plus style="width:1em; height:1em;" />`
               : `<i class="el-icon-plus el-icon-right"></i>`
           }
-          </el-button>
+          </a-button>
         </div>
-        </el-row>
+        </a-row>
 
         ${(() => {
           const rowHtml = [];
@@ -260,14 +260,14 @@ ${ctn.cols
 
           rowHtml.push(`<div class="grid-sub-form sub-form-action-column hide-label">
             <div class="action-button-column">
-              <el-button circle type="" ${
+              <a-button circle type="" ${
                 vue3Flag ? `icon="Plus"` : `icon="el-icon-circle-plus-outline"`
               } @click="insertSubFormRow('${ctn.id}',sfrIdx)"
-                         title="插入行"></el-button>
-              <el-button circle type="" ${
+                         title="插入行"></a-button>
+              <a-button circle type="" ${
                 vue3Flag ? `icon="Delete"` : `icon="el-icon-delete"`
               } @click="deleteSubFormRow('${ctn.id}',sfrIdx)"
-                         title="删除行"></el-button>
+                         title="删除行"></a-button>
               <span class="row-number-span">#{{sfrIdx+1}}</span>
             </div>
           </div>`);
@@ -344,7 +344,7 @@ ${ctn.cols
     };
 
     const tableTemplate = `<div ${tabClassAttr}>
-    <el-table ref="dataTable" :data="formData.${ctn.id}.tableData" ${emptyAttr(
+    <a-table ref="dataTable" :data="formData.${ctn.id}.tableData" ${emptyAttr(
       'class',
       ctn.options.customClass.toString().replace(/,/g, ' ')
     )}
@@ -356,7 +356,7 @@ ${ctn.cols
 
       ${(() => {
         if (!!ctn.options.showIndex) {
-          return ` <el-table-column  type="index" width="50" fixed="left"></el-table-column>`;
+          return ` <a-table-column  type="index" width="50" fixed="left"></a-table-column>`;
         } else {
           return ``;
         }
@@ -364,9 +364,9 @@ ${ctn.cols
 
       ${(() => {
         if (!!ctn.options.showCheckBox) {
-          return `<el-table-column type="selection" :width="${
+          return `<a-table-column type="selection" :width="${
             !ctn.options.showSummary ? 50 : 55
-          }"  fixed="left"></el-table-column>`;
+          }"  fixed="left"></a-table-column>`;
         } else {
           return ``;
         }
@@ -376,7 +376,7 @@ ${ctn.cols
       ${(() => {
         const html = [];
         ctn.options.tableColumns.forEach((item, index) => {
-          html.push(`<el-table-column
+          html.push(`<a-table-column
                       prop="${item.prop}"
                       label="${item.label}"
                       ${emptyAttr(':sortable', item.sortable)}
@@ -404,7 +404,7 @@ ${ctn.cols
             html.push(`<span>{{scope.row['${item.prop}']}}</span>`);
             html.push(`</template>`);
           }
-          html.push(`</el-table-column>`);
+          html.push(`</a-table-column>`);
         });
 
         return html.join('');
@@ -414,7 +414,7 @@ ${ctn.cols
       ${(() => {
         if (!!ctn.options.showButtonsColumn)
           return `
-            <el-table-column fixed="${buttonsColumnFixed()}"
+            <a-table-column fixed="${buttonsColumnFixed()}"
                             class-name="data-table-buttons-column" align="'center'"
                             label="${ctn.options.buttonsColumnTitle}"
                             :width="${ctn.options.buttonsColumnWidth}">
@@ -424,37 +424,37 @@ ${ctn.cols
                     for (let i = 0; i < ctn.options.operationButtons.length; i++) {
                       const ob = ctn.options.operationButtons[i];
                       if (!ob.hidden) {
-                        buttons.push(`<el-button type="${ob.type}" size="${ob.size}" :round="${
+                        buttons.push(`<a-button type="${ob.type}" size="${ob.size}" :round="${
                           ob.round
                         }"
                           :disabled="${ob.disabled}"
                           :class="['${'data-table-' + ob.name + '-button'}']">${
                           ob.label
-                        }</el-button>`);
+                        }</a-button>`);
                       }
                     }
                     return buttons.join('');
                   })()}
               </template>
-            </el-table-column>
+            </a-table-column>
         `;
         else {
           return '';
         }
       })()}
 
-			</el-table>
+			</a-table>
 
       ${(() => {
         if (!!ctn.options.showPagination)
           return `
-              <el-pagination :small="${ctn.options.smallPagination}"
+              <a-pagination :small="${ctn.options.smallPagination}"
                             ${vue3Flag ? `current-page="1"` : `:current-page="1"`}
                             :page-sizes="[10,20,50,100]"
                             :page-size="10"
                             layout="${paginationLayout()}"
                             :total="${ctn.options.tableData.length}">
-              </el-pagination>
+              </a-pagination>
          `;
       })()}
 
@@ -567,9 +567,9 @@ function getElAttrs(widget, formConfig, parentWidget) {
         : '',
 
     appendButtonChild: !!wop.appendButton
-      ? `<template #append><el-button class="${wop.buttonIcon}" ${
+      ? `<template #append><a-button class="${wop.buttonIcon}" ${
           !!wop.appendButtonDisabled ? 'disabled' : ''
-        }></el-button></template>`
+        }></a-button></template>`
       : ''
   };
 }
@@ -618,8 +618,8 @@ const elTemplates = {
       suffixIcon,
       appendButtonChild
     } = getElAttrs(widget, formConfig, parentWidget);
-    return `<el-input ${vModel} ${readonly} ${disabled} ${size} ${type} ${showPassword} ${placeholder} ${allowClear}
-            ${minlength} ${maxlength} ${showWordLimit} ${prefixIcon} ${suffixIcon}>${appendButtonChild}</el-input>`;
+    return `<a-input ${vModel} ${readonly} ${disabled} ${size} ${type} ${showPassword} ${placeholder} ${allowClear}
+            ${minlength} ${maxlength} ${showWordLimit} ${prefixIcon} ${suffixIcon}>${appendButtonChild}</a-input>`;
   },
 
   textarea: (widget, formConfig, parentWidget) => {
@@ -637,8 +637,8 @@ const elTemplates = {
       maxlength,
       showWordLimit
     } = getElAttrs(widget, formConfig, parentWidget);
-    return `<el-input type="textarea" ${vModel} ${readonly} ${disabled} ${size} ${type} ${showPassword} ${placeholder}
-            ${rows} ${allowClear} ${minlength} ${maxlength} ${showWordLimit}></el-input>`;
+    return `<a-input type="textarea" ${vModel} ${readonly} ${disabled} ${size} ${type} ${showPassword} ${placeholder}
+            ${rows} ${allowClear} ${minlength} ${maxlength} ${showWordLimit}></a-input>`;
   },
 
   number: (widget, formConfig, parentWidget) => {
@@ -655,20 +655,20 @@ const elTemplates = {
       precision,
       step
     } = getElAttrs(widget, formConfig, parentWidget);
-    return `<el-input-number ${vModel} class="full-width-input" ${disabled} ${size} ${type} ${showPassword}
-            ${placeholder} ${controlsPosition} ${min} ${max} ${precision} ${step}></el-input-number>`;
+    return `<a-input-number ${vModel} class="full-width-input" ${disabled} ${size} ${type} ${showPassword}
+            ${placeholder} ${controlsPosition} ${min} ${max} ${precision} ${step}></a-input-number>`;
   },
 
   radio: (widget, formConfig, parentWidget) => {
     const { vModel, disabled, size } = getElAttrs(widget, formConfig, parentWidget);
     const radioOptions = buildRadioChildren(widget, formConfig);
-    return `<el-radio-group ${vModel} ${disabled} ${size}>${radioOptions}</el-radio-group>`;
+    return `<a-radio-group ${vModel} ${disabled} ${size}>${radioOptions}</a-radio-group>`;
   },
 
   checkbox: (widget, formConfig, parentWidget) => {
     const { vModel, disabled, size } = getElAttrs(widget, formConfig, parentWidget);
     const checkboxOptions = buildCheckboxChildren(widget, formConfig);
-    return `<el-checkbox-group ${vModel} ${disabled} ${size}>${checkboxOptions}</el-checkbox-group>`;
+    return `<a-checkbox-group ${vModel} ${disabled} ${size}>${checkboxOptions}</a-checkbox-group>`;
   },
 
   select: (widget, formConfig, parentWidget) => {
@@ -687,16 +687,16 @@ const elTemplates = {
       placeholder
     } = getElAttrs(widget, formConfig, parentWidget);
     const selectOptions = buildSelectChildren(widget, formConfig);
-    return `<el-select ${vModel} class="full-width-input" ${disabled} ${size} ${allowClear} ${filterable}
+    return `<a-select ${vModel} class="full-width-input" ${disabled} ${size} ${allowClear} ${filterable}
             ${allowCreate} ${defaultFirstOption} ${automaticDropdown} ${multiple} ${multipleLimit} ${placeholder}
-            ${remote}>${selectOptions}</el-select>`;
+            ${remote}>${selectOptions}</a-select>`;
   },
 
   time: (widget, formConfig, parentWidget) => {
     const { vModel, readonly, disabled, size, placeholder, allowClear, format, editable } =
       getElAttrs(widget, formConfig, parentWidget);
-    return `<el-time-picker ${vModel} class="full-width-input" ${readonly} ${disabled} ${size} ${format}
-            value-format="HH:mm:ss" ${placeholder} ${allowClear} ${editable}></el-time-picker>`;
+    return `<a-time-picker ${vModel} class="full-width-input" ${readonly} ${disabled} ${size} ${format}
+            value-format="HH:mm:ss" ${placeholder} ${allowClear} ${editable}></a-time-picker>`;
   },
 
   'time-range': (widget, formConfig, parentWidget) => {
@@ -711,8 +711,8 @@ const elTemplates = {
       format,
       editable
     } = getElAttrs(widget, formConfig, parentWidget);
-    return `<el-time-picker is-range ${vModel} class="full-width-input" ${readonly} ${disabled} ${size} ${format}
-            value-format="HH:mm:ss" ${startPlaceholder} ${endPlaceholder} ${allowClear} ${editable}></el-time-picker>`;
+    return `<a-time-picker is-range ${vModel} class="full-width-input" ${readonly} ${disabled} ${size} ${format}
+            value-format="HH:mm:ss" ${startPlaceholder} ${endPlaceholder} ${allowClear} ${editable}></a-time-picker>`;
   },
 
   date: (widget, formConfig, parentWidget) => {
@@ -728,8 +728,8 @@ const elTemplates = {
       valueFormat,
       editable
     } = getElAttrs(widget, formConfig, parentWidget);
-    return `<el-date-picker ${vModel} ${type} class="full-width-input" ${readonly} ${disabled} ${size} ${format}
-              ${valueFormat} ${placeholder} ${allowClear} ${editable}></el-date-picker>`;
+    return `<a-date-picker ${vModel} ${type} class="full-width-input" ${readonly} ${disabled} ${size} ${format}
+              ${valueFormat} ${placeholder} ${allowClear} ${editable}></a-date-picker>`;
   },
 
   'date-range': (widget, formConfig, parentWidget) => {
@@ -746,15 +746,15 @@ const elTemplates = {
       valueFormat,
       editable
     } = getElAttrs(widget, formConfig, parentWidget);
-    return `<el-date-picker is-range ${vModel} ${type} class="full-width-input" ${readonly} ${disabled} ${size} ${format}
-            ${valueFormat} ${startPlaceholder} ${endPlaceholder} ${allowClear} ${editable}></el-date-picker>`;
+    return `<a-date-picker is-range ${vModel} ${type} class="full-width-input" ${readonly} ${disabled} ${size} ${format}
+            ${valueFormat} ${startPlaceholder} ${endPlaceholder} ${allowClear} ${editable}></a-date-picker>`;
   },
 
   switch: (widget, formConfig, parentWidget) => {
     const { vModel, disabled, activeText, inactiveText, activeColor, inactiveColor, switchWidth } =
       getElAttrs(widget, formConfig, parentWidget);
-    return `<el-switch ${vModel} ${disabled} ${activeText} ${inactiveText} ${activeColor} ${inactiveColor}
-            ${switchWidth}></el-switch>`;
+    return `<a-switch ${vModel} ${disabled} ${activeText} ${inactiveText} ${activeColor} ${inactiveColor}
+            ${switchWidth}></a-switch>`;
   },
 
   rate: (widget, formConfig, parentWidget) => {
@@ -768,20 +768,20 @@ const elTemplates = {
       showText,
       showScore
     } = getElAttrs(widget, formConfig, parentWidget);
-    return `<el-rate ${vModel} ${disabled} ${rateMax} ${lowThreshold} ${highThreshold} ${allowHalf}
-            ${showText} ${showScore}></el-rate>`;
+    return `<a-rate ${vModel} ${disabled} ${rateMax} ${lowThreshold} ${highThreshold} ${allowHalf}
+            ${showText} ${showScore}></a-rate>`;
   },
 
   color: (widget, formConfig, parentWidget) => {
     const { vModel, disabled, size } = getElAttrs(widget, formConfig, parentWidget);
-    return `<el-color-picker ${vModel} ${disabled} ${size}></el-color-picker>`;
+    return `<a-color-picker ${vModel} ${disabled} ${size}></a-color-picker>`;
   },
 
   slider: (widget, formConfig, parentWidget) => {
     const { vModel, disabled, sliderMin, sliderMax, sliderStep, sliderRange, sliderVertical } =
       getElAttrs(widget, formConfig, parentWidget);
-    return `<el-slider ${vModel} ${disabled} ${sliderMin} ${sliderMax} ${sliderStep} ${sliderRange}
-            ${sliderVertical}></el-slider>`;
+    return `<a-slider ${vModel} ${disabled} ${sliderMin} ${sliderMax} ${sliderStep} ${sliderRange}
+            ${sliderVertical}></a-slider>`;
   },
 
   'picture-upload': (widget, formConfig, parentWidget) => {
@@ -797,9 +797,9 @@ const elTemplates = {
       pictureUploadIconChild
     } = getElAttrs(widget, formConfig, parentWidget);
     const wop = widget.options;
-    return `<el-upload :file-list="${wop.name}FileList" :headers="${wop.name}UploadHeaders" :data="${wop.name}UploadData"
+    return `<a-upload :file-list="${wop.name}FileList" :headers="${wop.name}UploadHeaders" :data="${wop.name}UploadData"
             ${disabled} ${uploadAction} list-type="picture-card" ${withCredentials} ${multipleSelect} ${showFileList}
-            ${limit}>${uploadTipSlotChild} ${pictureUploadIconChild}</el-upload>`;
+            ${limit}>${uploadTipSlotChild} ${pictureUploadIconChild}</a-upload>`;
   },
 
   'file-upload': (widget, formConfig, parentWidget) => {
@@ -815,9 +815,9 @@ const elTemplates = {
       fileUploadIconChild
     } = getElAttrs(widget, formConfig, parentWidget);
     const wop = widget.options;
-    return `<el-upload :file-list="${wop.name}FileList" :headers="${wop.name}UploadHeaders" :data="${wop.name}UploadData"
+    return `<a-upload :file-list="${wop.name}FileList" :headers="${wop.name}UploadHeaders" :data="${wop.name}UploadData"
             ${disabled} ${uploadAction} list-type="picture-card" ${withCredentials} ${multipleSelect} ${showFileList}
-            ${limit}>${uploadTipSlotChild} ${fileUploadIconChild}</el-upload>`;
+            ${limit}>${uploadTipSlotChild} ${fileUploadIconChild}</a-upload>`;
   },
 
   'rich-editor': (widget, formConfig, parentWidget) => {
@@ -833,8 +833,8 @@ const elTemplates = {
     );
     const wop = widget.options;
     const optionsAttr = `:options="${wop.name}Options"`;
-    return `<el-cascader ${vModel} class="full-width-input" ${optionsAttr} ${disabled} ${size} ${allowClear}
-            ${filterable} ${placeholder}></el-cascader>`;
+    return `<a-cascader ${vModel} class="full-width-input" ${optionsAttr} ${disabled} ${size} ${allowClear}
+            ${filterable} ${placeholder}></a-cascader>`;
   },
 
   'static-text': (widget, formConfig) => {
@@ -851,13 +851,13 @@ const elTemplates = {
       formConfig,
       parentWidget
     );
-    return `<el-button ${buttonType} ${buttonPlain} ${buttonRound} ${buttonCircle} ${buttonIcon}
-            ${disabled}>${widget.options.label}</el-button>`;
+    return `<a-button ${buttonType} ${buttonPlain} ${buttonRound} ${buttonCircle} ${buttonIcon}
+            ${disabled}>${widget.options.label}</a-button>`;
   },
 
   divider: (widget, formConfig, parentWidget) => {
     const { contentPosition } = getElAttrs(widget, formConfig, parentWidget);
-    return `<el-divider direction="horizontal" ${contentPosition}></el-divider>`;
+    return `<a-divider direction="horizontal" ${contentPosition}></a-divider>`;
   }
 };
 
@@ -889,10 +889,10 @@ export function buildFieldWidget(widget, formConfig, parentWidget, vue3Flag = fa
   let customLabelDom = `<template #label><span class="custom-label">${
     wop.labelIconPosition === 'front'
       ? !!wop.labelTooltip
-        ? `<el-tooltip content="${wop.labelTooltip}" effect="light"><i class="${wop.labelIconClass}"></i></el-tooltip>${wop.label}`
+        ? `<a-tooltip message="${wop.labelTooltip}" effect="light"><i class="${wop.labelIconClass}"></i></a-tooltip>${wop.label}`
         : `<i class="${wop.labelIconClass}"></i>${wop.label}`
       : !!wop.labelTooltip
-      ? `${wop.label}<el-tooltip content="${wop.labelTooltip}" effect="light"><i class="${wop.labelIconClass}"></i></el-tooltip>`
+      ? `${wop.label}<a-tooltip content="${wop.labelTooltip}" effect="light"><i class="${wop.labelIconClass}"></i></a-tooltip>`
       : `${wop.label}<i class="${wop.labelIconClass}"></i>`
   }
 </span></template>`;
@@ -904,10 +904,10 @@ export function buildFieldWidget(widget, formConfig, parentWidget, vue3Flag = fa
   const isFormItem = !!widget.formItemFlag;
   const vShowAttr = !!wop.hidden ? `v-show="false"` : '';
   return isFormItem
-    ? `<el-form-item label="${label}" ${labelWidthAttr} ${labelTooltipAttr} ${propAttr} ${classAttr}>
+    ? `<a-form-item label="${label}" ${labelWidthAttr} ${labelTooltipAttr} ${propAttr} ${classAttr}>
   ${customLabelDom}
   ${fwDom}
-</el-form-item>`
+</a-form-item>`
     : `<div ${classAttr} ${vShowAttr}>${fwDom}</div>`;
 }
 
@@ -939,10 +939,10 @@ export function buildSubFormFieldWidget(widget, formConfig, subformWidget, vue3F
   let customLabelDom = `<template #label><span class="custom-label">${
     wop.labelIconPosition === 'front'
       ? !!wop.labelTooltip
-        ? `<el-tooltip content="${wop.labelTooltip}" effect="light"><i class="${wop.labelIconClass}"></i></el-tooltip>${wop.label}`
+        ? `<a-tooltip message="${wop.labelTooltip}" effect="light"><i class="${wop.labelIconClass}"></i></a-tooltip>${wop.label}`
         : `<i class="${wop.labelIconClass}"></i>${wop.label}`
       : !!wop.labelTooltip
-      ? `${wop.label}<el-tooltip content="${wop.labelTooltip}" effect="light"><i class="${wop.labelIconClass}"></i></el-tooltip>`
+      ? `${wop.label}<a-tooltip message="${wop.labelTooltip}" effect="light"><i class="${wop.labelIconClass}"></i></a-tooltip>`
       : `${wop.label}<i class="${wop.labelIconClass}"></i>`
   }
 </span></template>`;
@@ -967,7 +967,7 @@ function genTemplate(formConfig, widgetList, vue3Flag = false) {
     }
   });
 
-  const formTemplate = `  <el-form :model="${formConfig.modelName}" ref="${
+  const formTemplate = `  <a-form :model="${formConfig.modelName}" ref="${
     formConfig.refName
   }" :rules="${formConfig.rulesName}"
     label-position="${formConfig.labelPosition}" label-width="${formConfig.labelWidth}px" size="${
@@ -975,7 +975,7 @@ function genTemplate(formConfig, widgetList, vue3Flag = false) {
   }"
     ${submitAttr}>
   ${!!childrenList ? childrenList.join('\n') : ''}
-</el-form>`;
+</a-form>`;
 
   return formTemplate;
 }

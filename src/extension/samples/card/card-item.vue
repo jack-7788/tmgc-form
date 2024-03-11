@@ -73,7 +73,6 @@
   import ContainerItemWrapper from '@/components/form-render/container-item/container-item-wrapper';
   import containerItemMixin from '@/components/form-render/container-item/containerItemMixin';
   import FieldComponents from '@/components/form-designer/form-widget/field-widget/index';
-  // import { ArrowDown, ArrowUp } from '@element-plus/icons-vue';
 
   export default {
     name: 'card-item',

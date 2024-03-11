@@ -457,7 +457,9 @@ export default {
     //--------------------- 事件处理 begin ------------------//
 
     emitFieldDataChange(newValue, oldValue) {
-      newValue = newValue.target ? newValue.target.value : newValue;
+      if (newValue) {
+        newValue = newValue.target ? newValue.target.value : newValue;
+      }
 
       this.emit$('field-value-changed', [newValue, oldValue]);
 
@@ -652,7 +654,9 @@ export default {
       因为setFormData方法调用后，子表单内所有field-widget组件已被清空，接收不到setFormData事件！！
     */
     setValue(newValue, disableChangeEvent = false) {
-      newValue = newValue.target ? newValue.target.value : newValue;
+      if (newValue) {
+        newValue = newValue.target ? newValue.target.value : newValue;
+      }
 
       /* if ((this.field.type === 'picture-upload') || (this.field.type === 'file-upload')) {
         this.fileList = newValue

@@ -1,10 +1,8 @@
 import { createApp } from 'vue';
 import axios from 'axios';
 import App from './App.vue';
-// import ElementPlus from 'element-plus';
 import Antd from 'ant-design-vue';
 
-// import 'element-plus/dist/index.css';
 import '@/styles/index.scss';
 import '@/iconfont/iconfont.css';
 import Draggable from '@/../lib/vuedraggable/dist/vuedraggable.umd.js';

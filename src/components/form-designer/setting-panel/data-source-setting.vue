@@ -531,7 +531,6 @@
   import i18n from '@/utils/i18n';
   import CodeEditor from '@/components/code-editor/index';
   import { copyToClipboard, deepClone, generateId, runDataSourceRequest } from '@/utils/util';
-  // import { Platform } from '@element-plus/icons-vue';
 
   export default {
     name: 'data-source-setting',

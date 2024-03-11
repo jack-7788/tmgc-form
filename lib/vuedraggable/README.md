@@ -311,9 +311,9 @@ Example (using [element UI library](http://element.eleme.io/#/en-US)):
 ```HTML
 <draggable tag="el-collapse" :list="list" :component-data="getComponentData()" item-key="name">
   <template #item="{element}">
-    <el-collapse-item :title="element.title" :name="element.name">
+    <a-collapse-item :title="element.title" :name="element.name">
         <div>{{element.description}}</div> 
-     </el-collapse-item>
+     </a-collapse-item>
   </template>
 </draggable>
 ```

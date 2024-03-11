@@ -5,56 +5,46 @@
 <template>
   <div>
     <a-form-item :label="i18nt('designer.setting.customClass')">
-      <a-select
-        v-model:value="optionModel.customClass"
-        multiple
-        filterable
-        allow-create
-        default-first-option
-      >
-        <a-select-option v-for="(item, idx) in cssClassList" :key="idx" :label="item" :value="item"
-          >{{ item }}
+      {{ optionModel }}
+      <a-select v-model:value="optionModel.customClass" multiple filterable allow-create>
+        <a-select-option v-for="(item, idx) in cssClassList" :key="idx" :label="item" :value="item">
+          {{ item }}
         </a-select-option>
       </a-select>
     </a-form-item>
     <a-form-item :label="i18nt('designer.setting.tabPaneSetting')" />
     <a-form-item label-width="0" class="panes-setting">
-      <draggable
-        tag="ul"
-        :list="selectedWidget.tabs"
-        item-key="id"
-        v-bind="{ group: 'panesGroup', ghostClass: 'ghost', handle: '.drag-option' }"
-      >
-        <template #item="{ element: tpItem, index: tpIdx }">
-          <li class="col-item">
-            <!-- span style="margin-right: 12px">{{tpIdx + 1}}</span -->
-            <a-checkbox
-              v-model:checked="tpItem.options.active"
-              disabled
-              @change="evt => onTabPaneActiveChange(evt, tpItem)"
-              style="margin-right: 8px"
-              >{{ i18nt('designer.setting.paneActive') }}</a-checkbox
-            >
-            <a-input type="text" v-model:value="tpItem.options.label" style="width: 155px" />
-            <i class="iconfont icon-drag drag-option"></i>
-            <a-button
-              shape="circle"
-              plain
-              size="small"
-              type="danger"
-              @click="deleteTabPane(selectedWidget, tpIdx)"
-              class="col-delete-button"
-            >
-              --
-            </a-button>
-          </li>
-        </template>
-      </draggable>
-
+      <a-radio-group v-model:value="optionModel.activeTab">
+        <draggable
+          tag="ul"
+          :list="selectedWidget.tabs"
+          item-key="id"
+          v-bind="{ group: 'panesGroup', ghostClass: 'ghost', handle: '.drag-option' }"
+        >
+          <template #item="{ element: tpItem, index: tpIdx }">
+            <li class="col-item">
+              <!-- span style="margin-right: 12px">{{tpIdx + 1}}</span -->
+              <a-radio :value="tpItem.options.label" style="margin-right: 8px">
+                {{ i18nt('designer.setting.paneActive') }}
+              </a-radio>
+              <a-input type="text" v-model:value="tpItem.options.label" style="width: 120px" />
+              <i class="iconfont icon-drag drag-option"></i>
+              <a-button
+                size="small"
+                type="danger"
+                @click="deleteTabPane(selectedWidget, tpIdx)"
+                class="col-delete-button"
+              >
+                删除
+              </a-button>
+            </li>
+          </template>
+        </draggable>
+      </a-radio-group>
       <div>
-        <a-button type="text" @click="addTabPane(selectedWidget)">{{
-          i18nt('designer.setting.addTabPane')
-        }}</a-button>
+        <a-button type="text" @click="addTabPane(selectedWidget)">
+          {{ i18nt('designer.setting.addTabPane') }}
+        </a-button>
       </div>
     </a-form-item>
   </div>

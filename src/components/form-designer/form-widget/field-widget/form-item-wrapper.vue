@@ -1,23 +1,14 @@
-<!--
-/**
- * author: vformAdmin
- * email: vdpadmin@163.com
- * website: https://www.vform666.com
- * date: 2021.08.18
- * remark: 如果要分发VForm源码，需在本文件顶部保留此文件头信息！！
- */
--->
-
 <template>
   <div class="field-wrapper" :class="{ 'design-time-bottom-margin': !!this.designer }">
     <a-form-item
       v-if="!!field.formItemFlag && (!field.options.hidden || designState === true)"
       :label="label"
-      :label-width="labelWidth + 'px'"
+      :labelCol="{ style: { width: labelWidth + 'px' } }"
       :title="field.options.labelTooltip"
       :size="field.options.size"
       :rules="rules"
       :name="getPropName()"
+      :labelAlign="labelAlign"
       :class="[
         selected ? 'selected' : '',
         labelAlign,
@@ -31,22 +22,24 @@
           <template v-if="field.options.labelIconPosition === 'front'">
             <template v-if="!!field.options.labelTooltip">
               <a-tooltip :title="field.options.labelTooltip" effect="light">
-                <svg-icon :icon-class="field.options.labelIconClass" /></a-tooltip
-              >{{ label }}</template
-            >
+                <svg-icon :icon-class="field.options.labelIconClass" />
+              </a-tooltip>
+              {{ label }}
+            </template>
             <template v-else>
               <svg-icon :icon-class="field.options.labelIconClass" />{{ label }}</template
             >
           </template>
           <template v-else-if="field.options.labelIconPosition === 'rear'">
             <template v-if="!!field.options.labelTooltip">
-              {{ label
-              }}<a-tooltip :title="field.options.labelTooltip" effect="light">
-                <svg-icon :icon-class="field.options.labelIconClass" /></a-tooltip
+              {{ label }}
+              <a-tooltip :title="field.options.labelTooltip" effect="light">
+                <svg-icon :icon-class="field.options.labelIconClass" /> </a-tooltip
             ></template>
             <template v-else>
-              {{ label }}<svg-icon :icon-class="field.options.labelIconClass"
-            /></template>
+              {{ label }}
+              <svg-icon :icon-class="field.options.labelIconClass" />
+            </template>
           </template>
         </span>
       </template>
@@ -64,14 +57,16 @@
           v-if="!!parentList && parentList.length > 1"
           :title="i18nt('designer.hint.moveUpWidget')"
           @click.stop="moveUpWidget(field)"
-          ><svg-icon icon-class="el-move-up"
-        /></i>
+        >
+          <svg-icon icon-class="el-move-up" />
+        </i>
         <i
           v-if="!!parentList && parentList.length > 1"
           :title="i18nt('designer.hint.moveDownWidget')"
           @click.stop="moveDownWidget(field)"
-          ><svg-icon icon-class="el-move-down"
-        /></i>
+        >
+          <svg-icon icon-class="el-move-down" />
+        </i>
         <i :title="i18nt('designer.hint.remove')" @click.stop="removeFieldWidget">
           <svg-icon icon-class="el-delete" />
         </i>
@@ -79,9 +74,9 @@
 
       <div class="drag-handler background-opacity" v-if="designer.selectedId === field.id">
         <i :title="i18nt('designer.hint.dragHandler')"><svg-icon icon-class="el-drag-move" /></i>
-        <i>{{
-          i18n2t(`designer.widgetLabel.${field.type}`, `extension.widgetLabel.${field.type}`)
-        }}</i>
+        <i>
+          {{ i18n2t(`designer.widgetLabel.${field.type}`, `extension.widgetLabel.${field.type}`) }}
+        </i>
         <i v-if="field.options.hidden === true"><svg-icon icon-class="el-hide" /></i>
       </div>
     </template>
@@ -165,9 +160,9 @@
         }
 
         if (!!this.designer) {
-          return this.designer.formConfig.labelAlign || 'label-left-align';
+          return this.designer.formConfig.labelAlign || 'right';
         } else {
-          return this.formConfig.labelAlign || 'label-left-align';
+          return this.formConfig.labelAlign || 'right';
         }
       },
 
@@ -319,7 +314,7 @@
       text-overflow: ellipsis;
     }
 
-    :deep(.ant-form-item__content) {
+    :deep(.ant-form-item-content) {
       //position: unset;  /* TODO: 忘了这个样式设置是为了解决什么问题？？ */
     }
 
@@ -339,8 +334,7 @@
     }
   }
 
-  .required :deep(.el-form-item__label)::before,
-  .required :deep(.ant-form-item__label)::before {
+  .required :deep(.ant-form-item-label)::before {
     content: '*';
     color: #f56c6c;
     margin-right: 4px;
@@ -358,20 +352,5 @@
   .ant-form-item.selected,
   .static-content-item.selected {
     outline: 2px solid $--color-primary;
-  }
-
-  :deep(.label-left-align) .ant-form-item-label {
-    text-align: left;
-    justify-content: flex-start !important;
-  }
-
-  :deep(.label-center-align) .ant-form-item__label {
-    text-align: center;
-    justify-content: center !important;
-  }
-
-  :deep(.label-right-align) .ant-form-item__label {
-    text-align: right;
-    justify-content: flex-end !important;
   }
 </style>

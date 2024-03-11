@@ -12,11 +12,15 @@
       :class="{ selected: selected }"
       @click.stop="selectWidget(widget)"
     >
-      <a-tabs :type="widget.displayType" v-model:activeKey="activeTab" @tab-click="onTabClick">
+      <a-tabs
+        :type="widget.displayType"
+        v-model:activeKey="widget.options.activeTab"
+        @tab-click="onTabClick"
+      >
         <a-tab-pane
           v-for="tab in widget.tabs"
           :tab="tab.options.label"
-          :key="tab.options.name"
+          :key="tab.options.label"
           @click.stop="selectWidget(widget)"
         >
           <draggable

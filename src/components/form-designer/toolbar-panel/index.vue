@@ -120,21 +120,21 @@
       </div>
       <template #footer>
         <div class="dialog-footer">
-          <a-button type="primary" @click="getFormData"
-            >{{ i18nt('designer.hint.getFormData') }}--获取数据</a-button
-          >
-          <a-button type="primary" @click="resetForm">{{
-            i18nt('designer.hint.resetForm')
-          }}</a-button>
-          <a-button type="primary" @click="setFormDisabled">{{
-            i18nt('designer.hint.disableForm')
-          }}</a-button>
-          <a-button type="primary" @click="setFormEnabled">{{
-            i18nt('designer.hint.enableForm')
-          }}</a-button>
-          <a-button @click="showPreviewDialogFlag = false">{{
-            i18nt('designer.hint.closePreview')
-          }}</a-button>
+          <a-button type="primary" @click="getFormData">
+            {{ i18nt('designer.hint.getFormData') }}--获取数据
+          </a-button>
+          <a-button type="primary" @click="resetForm">
+            {{ i18nt('designer.hint.resetForm') }}
+          </a-button>
+          <a-button type="primary" @click="setFormDisabled">
+            {{ i18nt('designer.hint.disableForm') }}
+          </a-button>
+          <a-button type="primary" @click="setFormEnabled">
+            {{ i18nt('designer.hint.enableForm') }}
+          </a-button>
+          <a-button @click="showPreviewDialogFlag = false">
+            {{ i18nt('designer.hint.closePreview') }}
+          </a-button>
           <a-button v-if="true" @click="testLoadForm">Test Load</a-button>
           <a-button v-if="true" @click="testSetFormJson">Test SFJ</a-button>
           <a-button v-if="true" @click="testSetFormData">Test SFD</a-button>
@@ -311,7 +311,7 @@
 </template>
 
 <script>
-  import VFormRender from '@/components/form-render/index';
+  import VFormRender from '@/components/form-render/index.vue';
   import CodeEditor from '@/components/code-editor/index';
   import Clipboard from 'clipboard';
   import {

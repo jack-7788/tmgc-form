@@ -1,13 +1,13 @@
 <template>
   <a-form-item :label="i18nt('designer.setting.labelAlign')">
     <a-radio-group v-model:value="optionModel.labelAlign" class="radio-group-custom">
-      <a-radio-button value="label-left-align">
+      <a-radio-button value="left">
         {{ i18nt('designer.setting.leftAlign') }}
       </a-radio-button>
-      <a-radio-button value="label-center-align">
+      <!-- <a-radio-button value="label-center-align">
         {{ i18nt('designer.setting.centerAlign') }}
-      </a-radio-button>
-      <a-radio-button value="label-right-align">
+      </a-radio-button> -->
+      <a-radio-button value="right">
         {{ i18nt('designer.setting.rightAlign') }}
       </a-radio-button>
     </a-radio-group>

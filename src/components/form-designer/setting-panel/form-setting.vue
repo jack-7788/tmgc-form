@@ -10,16 +10,7 @@
       <a-collapse v-model:activeKey="formActiveCollapseNames" class="setting-collapse">
         <a-collapse-panel key="1" :header="i18nt('designer.setting.basicSetting')">
           <a-form-item :label="i18nt('designer.setting.formSize')">
-            <a-select v-model:value="formConfig.size">
-              <a-select-option
-                v-for="item in formSizes"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value"
-              >
-                {{ item.label }}
-              </a-select-option>
-            </a-select>
+            <a-select v-model:value="formConfig.size" :options="formSizes" />
           </a-form-item>
           <a-form-item :label="i18nt('designer.setting.labelPosition')">
             <a-radio-group v-model:value="formConfig.labelPosition" class="radio-group-custom">
@@ -30,33 +21,37 @@
           </a-form-item>
           <a-form-item :label="i18nt('designer.setting.labelAlign')">
             <a-radio-group v-model:value="formConfig.labelAlign" class="radio-group-custom">
-              <a-radio-button value="label-left-align">{{
-                i18nt('designer.setting.leftAlign')
-              }}</a-radio-button>
-              <a-radio-button value="label-center-align">{{
+              <a-radio-button value="left"
+                >{{ i18nt('designer.setting.leftAlign') }}
+              </a-radio-button>
+              <!-- <a-radio-button value="label-center-align">{{
                 i18nt('designer.setting.centerAlign')
-              }}</a-radio-button>
-              <a-radio-button value="label-right-align">{{
-                i18nt('designer.setting.rightAlign')
-              }}</a-radio-button>
+              }}</a-radio-button> -->
+              <a-radio-button value="right">
+                {{ i18nt('designer.setting.rightAlign') }}
+              </a-radio-button>
             </a-radio-group>
           </a-form-item>
           <a-form-item :label="i18nt('designer.setting.labelWidth')">
             <a-input-number v-model:value="formConfig.labelWidth" :min="0" style="width: 100%" />
           </a-form-item>
           <a-form-item :label="i18nt('designer.setting.formCss')">
-            <a-button type="info" plain shape="round" @click="editFormCss">{{
-              i18nt('designer.setting.addCss')
-            }}</a-button>
+            <a-button
+              type="info"
+              shape="round"
+              @click="editFormCss"
+              :class="[{ 'button-text-highlight': !!formConfig.cssCode }]"
+            >
+              {{ i18nt('designer.setting.addCss') }}
+            </a-button>
           </a-form-item>
           <!-- -->
           <a-form-item :label="i18nt('designer.setting.customClass')">
             <a-select
               v-model:value="formConfig.customClass"
               multiple
-              filterable
-              allow-create
-              default-first-option
+              allowClear
+              @change="extractCssClass"
             >
               <a-select-option
                 v-for="(item, idx) in cssClassList"
@@ -70,14 +65,14 @@
           </a-form-item>
           <!-- -->
           <a-form-item :label="i18nt('designer.setting.globalFunctions')">
-            <a-button type="info" plain shape="round" @click="editGlobalFunctions">{{
-              i18nt('designer.setting.addEventHandler')
-            }}</a-button>
+            <a-button type="info" plain shape="round" @click="editGlobalFunctions">
+              {{ i18nt('designer.setting.addEventHandler') }}
+            </a-button>
           </a-form-item>
           <a-form-item label-width="0">
-            <a-divider class="custom-divider">{{
-              i18nt('designer.setting.formSFCSetting')
-            }}</a-divider>
+            <a-divider class="custom-divider">
+              {{ i18nt('designer.setting.formSFCSetting') }}
+            </a-divider>
           </a-form-item>
           <a-form-item :label="i18nt('designer.setting.formModelName')">
             <a-input type="text" v-model:value="formConfig.modelName" />
@@ -103,19 +98,18 @@
               :class="[getFormEventHandled('onFormCreated') ? 'button-text-highlight' : '']"
               @click="editFormEventHandler('onFormCreated')"
             >
-              {{ i18nt('designer.setting.addEventHandler') }}</a-button
-            >
+              {{ i18nt('designer.setting.addEventHandler') }}
+            </a-button>
           </a-form-item>
           <a-form-item label="onFormMounted" label-width="150px">
             <a-button
               type="info"
-              plain
               shape="round"
               :class="[getFormEventHandled('onFormMounted') ? 'button-text-highlight' : '']"
               @click="editFormEventHandler('onFormMounted')"
             >
-              {{ i18nt('designer.setting.addEventHandler') }}</a-button
-            >
+              {{ i18nt('designer.setting.addEventHandler') }}
+            </a-button>
           </a-form-item>
           <!-- -->
           <a-form-item label="onFormDataChange" label-width="150px">
@@ -126,8 +120,8 @@
               :class="[getFormEventHandled('onFormDataChange') ? 'button-text-highlight' : '']"
               @click="editFormEventHandler('onFormDataChange')"
             >
-              {{ i18nt('designer.setting.addEventHandler') }}</a-button
-            >
+              {{ i18nt('designer.setting.addEventHandler') }}
+            </a-button>
           </a-form-item>
           <!-- -->
           <!--
@@ -162,11 +156,11 @@
         <template #footer>
           <div class="dialog-footer">
             <a-button @click="showFormEventDialogFlag = false">
-              {{ i18nt('designer.hint.cancel') }}</a-button
-            >
+              {{ i18nt('designer.hint.cancel') }}
+            </a-button>
             <a-button type="primary" @click="saveFormEventHandler">
-              {{ i18nt('designer.hint.confirm') }}</a-button
-            >
+              {{ i18nt('designer.hint.confirm') }}
+            </a-button>
           </div>
         </template>
       </a-modal>
@@ -187,11 +181,11 @@
         <template #footer>
           <div class="dialog-footer">
             <a-button @click="showEditFormCssDialogFlag = false">
-              {{ i18nt('designer.hint.cancel') }}</a-button
-            >
+              {{ i18nt('designer.hint.cancel') }}
+            </a-button>
             <a-button type="primary" @click="saveFormCss">
-              {{ i18nt('designer.hint.confirm') }}</a-button
-            >
+              {{ i18nt('designer.hint.confirm') }}
+            </a-button>
           </div>
         </template>
       </a-modal>
@@ -217,11 +211,11 @@
         <template #footer>
           <div class="dialog-footer">
             <a-button @click="showEditFunctionsDialogFlag = false">
-              {{ i18nt('designer.hint.cancel') }}</a-button
-            >
+              {{ i18nt('designer.hint.cancel') }}
+            </a-button>
             <a-button type="primary" @click="saveGlobalFunctions">
-              {{ i18nt('designer.hint.confirm') }}</a-button
-            >
+              {{ i18nt('designer.hint.confirm') }}
+            </a-button>
           </div>
         </template>
       </a-modal>
@@ -261,7 +255,7 @@
 
         showEditFormCssDialogFlag: false,
         formCssCode: '',
-        cssClassList: [],
+        cssClassList: ['t-text-[#f99]'],
 
         showEditFunctionsDialogFlag: false,
         functionsCode: '',
@@ -358,8 +352,8 @@
         }
 
         //this.cssClassList.length = 0
-        this.cssClassList.splice(0, this.cssClassList.length); //清除数组必须用splice，length=0不会响应式更新！！
-        this.cssClassList = Array.from(new Set(cssNameArray)); //数组去重
+        // this.cssClassList.splice(0, this.cssClassList.length); //清除数组必须用splice，length=0不会响应式更新！！
+        // this.cssClassList = Array.from(new Set(cssNameArray)); //数组去重
       },
 
       saveFormCss() {

@@ -3,8 +3,10 @@ import vue from '@vitejs/plugin-vue';
 import vueJsx from '@vitejs/plugin-vue-jsx';
 import viteSvgIcons from 'vite-plugin-svg-icons';
 import { resolve } from 'path';
-import commonjs from '@rollup/plugin-commonjs';
-import externalGlobals from 'rollup-plugin-external-globals';
+// import commonjs from '@rollup/plugin-commonjs';
+// import externalGlobals from 'rollup-plugin-external-globals';
+import autoprefixer from 'autoprefixer';
+import tailwindcss from 'tailwindcss';
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -42,6 +44,9 @@ export default defineConfig({
   },
 
   css: {
+    postcss: {
+      plugins: [autoprefixer(), tailwindcss()]
+    },
     preprocessorOptions: {
       scss: {
         /* 自动引入全局scss文件 */

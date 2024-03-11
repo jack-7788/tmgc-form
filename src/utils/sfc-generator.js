@@ -876,10 +876,9 @@ export function buildFieldWidget(widget, formConfig, parentWidget, vue3Flag = fa
   !!wop.required && classArray.push('required');
   !!wop.customClass && wop.customClass.length > 0 && classArray.push(wop.customClass.join(' '));
   if (!!wop.labelAlign) {
-    wop.labelAlign !== 'label-left-align' && classArray.push(wop.labelAlign);
+    wop.labelAlign !== 'left' && classArray.push(wop.labelAlign);
   } else if (!!widget.formItemFlag) {
-    //classArray.push(formConfig.labelAlign || 'label-left-align')
-    formConfig.labelAlign !== 'label-left-align' && classArray.push(formConfig.labelAlign);
+    formConfig.labelAlign !== 'left' && classArray.push(formConfig.labelAlign);
   }
   if (!widget.formItemFlag) {
     classArray.push('static-content-item');
@@ -926,10 +925,9 @@ export function buildSubFormFieldWidget(widget, formConfig, subformWidget, vue3F
   !!wop.required && classArray.push('required');
   !!wop.customClass && wop.customClass.length > 0 && classArray.push(wop.customClass.join(' '));
   if (!!wop.labelAlign) {
-    wop.labelAlign !== 'label-left-align' && classArray.push(wop.labelAlign);
+    wop.labelAlign !== 'left' && classArray.push(wop.labelAlign);
   } else if (!!widget.formItemFlag) {
-    //classArray.push(formConfig.labelAlign || 'label-left-align')
-    formConfig.labelAlign !== 'label-left-align' && classArray.push(formConfig.labelAlign);
+    formConfig.labelAlign !== 'left' && classArray.push(formConfig.labelAlign);
   }
   if (!widget.formItemFlag) {
     classArray.push('static-content-item');

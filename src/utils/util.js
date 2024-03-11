@@ -459,7 +459,7 @@ export function getDefaultFormConfig() {
     labelWidth: 80,
     labelPosition: 'horizontal', //'left',
     size: '',
-    labelAlign: 'label-left-align',
+    labelAlign: 'right',
     cssCode: '',
     customClass: '',
     functions: '', //全局函数

@@ -334,13 +334,12 @@ export const containers = [
 export const basicFields = [
   {
     type: 'input',
-    alias: '', //组件别名，可以自定义
     icon: 'text-field',
     formItemFlag: true,
     options: {
       name: '',
       label: '',
-      labelAlign: '',
+      labelAlign: 'right',
       type: 'text',
       defaultValue: '',
       placeholder: '',

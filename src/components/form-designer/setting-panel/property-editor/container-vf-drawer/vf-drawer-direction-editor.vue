@@ -10,22 +10,21 @@
 </template>
 
 <script>
-  import i18n from "@/utils/i18n"
+  import i18n from '@/utils/i18n';
 
   export default {
-    name: "vf-drawer-direction-editor",
+    name: 'vf-drawer-direction-editor',
     mixins: [i18n],
-    components: {
-    },
+    components: {},
     props: {
       designer: Object,
       selectedWidget: Object,
-      optionModel: Object,
+      optionModel: Object
     },
     computed: {
       //
     }
-  }
+  };
 </script>
 
 <style lang="scss" scoped>

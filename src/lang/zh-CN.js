@@ -196,7 +196,7 @@ export default {
       blockLayout: '块',
       buttonStyle: '显示为按钮',
       border: '带有边框',
-      labelWidth: '标签宽度',
+      labelWidth: '标签宽度(px)',
       rows: '行数',
       labelHidden: '隐藏字段标签',
       required: '必填字段',

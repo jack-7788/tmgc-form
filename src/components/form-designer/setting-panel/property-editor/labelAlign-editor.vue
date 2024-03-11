@@ -1,35 +1,38 @@
 <template>
-  <a-form-item :label="i18nt('designer.setting.labelAlign')" v-if="!noLabelSetting && (selectedWidget.type !== 'button')">
+  <a-form-item
+    :label="i18nt('designer.setting.labelAlign')"
+    v-if="!noLabelSetting && selectedWidget.type !== 'button'"
+  >
     <a-radio-group v-model:value="optionModel.labelAlign" class="radio-group-custom">
-      <a-radio-button value="label-left-align">
-        {{i18nt('designer.setting.leftAlign')}}</a-radio-button>
-      <a-radio-button value="label-center-align">
-        {{i18nt('designer.setting.centerAlign')}}</a-radio-button>
-      <a-radio-button value="label-right-align">
-        {{i18nt('designer.setting.rightAlign')}}</a-radio-button>
+      <a-radio-button value="left"> {{ i18nt('designer.setting.leftAlign') }}</a-radio-button>
+      <!-- <a-radio-button value="label-center-align">
+        {{ i18nt('designer.setting.centerAlign') }}</a-radio-button
+      > -->
+      <a-radio-button value="right"> {{ i18nt('designer.setting.rightAlign') }}</a-radio-button>
     </a-radio-group>
   </a-form-item>
 </template>
 
 <script>
-  import i18n from "@/utils/i18n"
+  import i18n from '@/utils/i18n';
 
   export default {
-    name: "labelAlign-editor",
+    name: 'labelAlign-editor',
     mixins: [i18n],
     props: {
       designer: Object,
       selectedWidget: Object,
-      optionModel: Object,
+      optionModel: Object
     },
     computed: {
       noLabelSetting() {
-        return (this.selectedWidget.type === 'static-text') || (this.selectedWidget.type === 'html-text')
+        return (
+          this.selectedWidget.type === 'static-text' || this.selectedWidget.type === 'html-text'
+        );
         //|| (this.selectedWidget.type === 'divider')
-      },
-
+      }
     }
-  }
+  };
 </script>
 
 <style lang="scss" scoped>

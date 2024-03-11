@@ -5,7 +5,8 @@ import viteSvgIcons from 'vite-plugin-svg-icons';
 import { resolve } from 'path';
 import commonjs from '@rollup/plugin-commonjs';
 import visualizer from 'rollup-plugin-visualizer';
-
+import autoprefixer from 'autoprefixer';
+import tailwindcss from 'tailwindcss';
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
@@ -42,6 +43,9 @@ export default defineConfig({
   },
 
   css: {
+    postcss: {
+      plugins: [autoprefixer(), tailwindcss()]
+    },
     preprocessorOptions: {
       scss: {
         /* 自动引入全局scss文件 */

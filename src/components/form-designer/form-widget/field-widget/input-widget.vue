@@ -37,8 +37,9 @@
         <a-button
           :disabled="field.options.disabled || field.options.appendButtonDisabled"
           @click="emitAppendButtonClick"
-          ><svg-icon :icon-class="field.options.buttonIcon"
-        /></a-button>
+        >
+          <svg-icon :icon-class="field.options.buttonIcon" />
+        </a-button>
       </template>
     </a-input>
     <template v-if="isReadMode">

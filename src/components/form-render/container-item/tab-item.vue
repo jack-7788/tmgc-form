@@ -9,11 +9,10 @@
         @tab-click="handleTabClick"
       >
         <a-tab-pane
-          v-for="(tab, index) in visibleTabs"
-          :key="index"
+          v-for="tab in visibleTabs"
           :tab="tab.options.label"
           :disabled="tab.options.disabled"
-          :name="tab.options.name"
+          :key="tab.options.label"
         >
           <template v-for="(subWidget, swIdx) in tab.widgetList">
             <template v-if="'container' === subWidget.category">
@@ -119,10 +118,14 @@
           const activePanes = this.widget.tabs.filter(tp => {
             return tp.options.active === true;
           });
+          if (this.widget.options.activeTab) {
+            this.activeTabName = this.widget.options.activeTab;
+            return;
+          }
           if (activePanes.length > 0) {
-            this.activeTabName = activePanes[0].options.name;
+            this.activeTabName = activePanes[0].options.label;
           } else {
-            this.activeTabName = this.widget.tabs[0].options.name;
+            this.activeTabName = this.widget.tabs[0].options.label;
           }
         }
       },

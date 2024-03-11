@@ -257,12 +257,7 @@ export default {
         return;
       }
 
-      if (
-        this.field.type === 'radio' ||
-        this.field.type === 'checkbox' ||
-        this.field.type === 'select' ||
-        this.field.type === 'cascader'
-      ) {
+      if (['radio', 'checkbox', 'select', 'cascader'].includes(this.field.type)) {
         /* 首先处理数据源选项加载 */
         if (!!this.field.options.dsEnabled) {
           this.field.options.optionItems.splice(0, this.field.options.optionItems.length); // 清空原有选项

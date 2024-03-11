@@ -29,7 +29,7 @@
             labelWidth: 80,
             labelPosition: 'left',
             size: '',
-            labelAlign: 'label-left-align',
+            labelAlign: 'right',
             cssCode: '',
             customClass: '',
             functions: '',

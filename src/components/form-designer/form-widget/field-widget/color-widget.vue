@@ -101,10 +101,4 @@
 
 <style lang="scss" scoped>
   @import '../../../../styles/global.scss'; /* form-item-wrapper已引入，还需要重复引入吗？ */
-
-  .readonly-mode-color {
-    :deep(.el-color-picker) {
-      display: none;
-    }
-  }
 </style>

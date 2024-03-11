@@ -168,20 +168,7 @@
   import emitter from '@/utils/emitter';
 
   import i18n from '@/utils/i18n';
-  import {
-    formatDate1,
-    formatDate2,
-    formatDate3,
-    formatDate4,
-    formatDate5,
-    formatNumber1,
-    formatNumber2,
-    formatNumber3,
-    formatNumber4,
-    formatNumber5,
-    formatNumber6,
-    formatNumber7
-  } from '@/utils/format';
+
   import FieldComponents from '@/components/form-designer/form-widget/field-widget/index';
   import refMixin from '@/components/form-render/refMixin';
   import containerItemMixin from '@/components/form-render/container-item/containerItemMixin';
@@ -331,42 +318,6 @@
       },
 
       formatter(row, column, cellValue) {
-        return cellValue;
-      },
-
-      formatterValue(row, column, cellValue) {
-        if (!cellValue) {
-          return '';
-        }
-
-        if (!!column.formatS) {
-          switch (column.formatS) {
-            case 'd1':
-              return formatDate1(cellValue);
-            case 'd2':
-              return formatDate2(cellValue);
-            case 'd3':
-              return formatDate3(cellValue);
-            case 'd4':
-              return formatDate4(cellValue);
-            case 'd5':
-              return formatDate5(cellValue);
-            case 'n1':
-              return formatNumber1(cellValue);
-            case 'n2':
-              return formatNumber2(cellValue);
-            case 'n3':
-              return formatNumber3(cellValue);
-            case 'n4':
-              return formatNumber4(cellValue);
-            case 'n5':
-              return formatNumber5(cellValue);
-            case 'n6':
-              return formatNumber6(cellValue);
-            case 'n7':
-              return formatNumber7(cellValue);
-          }
-        }
         return cellValue;
       },
 
@@ -914,5 +865,5 @@
 <style scoped>
   :deep(.ant-table) .table-striped td {
     background-color: #fafafa;
-  }</style
->s
+  }
+</style>

@@ -62,48 +62,48 @@
         <i :title="i18nt('designer.hint.cellSetting')"><svg-icon icon-class="el-menu" /></i>
         <template #overlay>
           <a-menu @click="handleTableCellCommand">
-            <a-menu-item key="insertLeftCol">{{
-              i18nt('designer.setting.insertColumnToLeft')
-            }}</a-menu-item>
-            <a-menu-item key="insertRightCol">{{
-              i18nt('designer.setting.insertColumnToRight')
-            }}</a-menu-item>
-            <a-menu-item key="insertAboveRow">{{
-              i18nt('designer.setting.insertRowAbove')
-            }}</a-menu-item>
-            <a-menu-item key="insertBelowRow">{{
-              i18nt('designer.setting.insertRowBelow')
-            }}</a-menu-item>
-            <a-menu-item key="mergeLeftCol" :disabled="mergeLeftColDisabled" divided>{{
-              i18nt('designer.setting.mergeLeftColumn')
-            }}</a-menu-item>
-            <a-menu-item key="mergeRightCol" :disabled="mergeRightColDisabled">{{
-              i18nt('designer.setting.mergeRightColumn')
-            }}</a-menu-item>
-            <a-menu-item key="mergeWholeRow" :disabled="mergeWholeRowDisabled">{{
-              i18nt('designer.setting.mergeEntireRow')
-            }}</a-menu-item>
-            <a-menu-item key="mergeAboveRow" :disabled="mergeAboveRowDisabled" divided>{{
-              i18nt('designer.setting.mergeRowAbove')
-            }}</a-menu-item>
-            <a-menu-item key="mergeBelowRow" :disabled="mergeBelowRowDisabled">{{
-              i18nt('designer.setting.mergeRowBelow')
-            }}</a-menu-item>
-            <a-menu-item key="mergeWholeCol" :disabled="mergeWholeColDisabled">{{
-              i18nt('designer.setting.mergeEntireColumn')
-            }}</a-menu-item>
-            <a-menu-item key="undoMergeRow" :disabled="undoMergeRowDisabled" divided>{{
-              i18nt('designer.setting.undoMergeRow')
-            }}</a-menu-item>
-            <a-menu-item key="undoMergeCol" :disabled="undoMergeColDisabled">{{
-              i18nt('designer.setting.undoMergeCol')
-            }}</a-menu-item>
-            <a-menu-item key="deleteWholeCol" :disabled="deleteWholeColDisabled" divided>{{
-              i18nt('designer.setting.deleteEntireCol')
-            }}</a-menu-item>
-            <a-menu-item key="deleteWholeRow" :disabled="deleteWholeRowDisabled">{{
-              i18nt('designer.setting.deleteEntireRow')
-            }}</a-menu-item>
+            <a-menu-item key="insertLeftCol">
+              {{ i18nt('designer.setting.insertColumnToLeft') }}
+            </a-menu-item>
+            <a-menu-item key="insertRightCol">
+              {{ i18nt('designer.setting.insertColumnToRight') }}
+            </a-menu-item>
+            <a-menu-item key="insertAboveRow">
+              {{ i18nt('designer.setting.insertRowAbove') }}
+            </a-menu-item>
+            <a-menu-item key="insertBelowRow">
+              {{ i18nt('designer.setting.insertRowBelow') }}
+            </a-menu-item>
+            <a-menu-item key="mergeLeftCol" :disabled="mergeLeftColDisabled" divided>
+              {{ i18nt('designer.setting.mergeLeftColumn') }}
+            </a-menu-item>
+            <a-menu-item key="mergeRightCol" :disabled="mergeRightColDisabled">
+              {{ i18nt('designer.setting.mergeRightColumn') }}
+            </a-menu-item>
+            <a-menu-item key="mergeWholeRow" :disabled="mergeWholeRowDisabled">
+              {{ i18nt('designer.setting.mergeEntireRow') }}
+            </a-menu-item>
+            <a-menu-item key="mergeAboveRow" :disabled="mergeAboveRowDisabled" divided>
+              {{ i18nt('designer.setting.mergeRowAbove') }}
+            </a-menu-item>
+            <a-menu-item key="mergeBelowRow" :disabled="mergeBelowRowDisabled">
+              {{ i18nt('designer.setting.mergeRowBelow') }}
+            </a-menu-item>
+            <a-menu-item key="mergeWholeCol" :disabled="mergeWholeColDisabled">
+              {{ i18nt('designer.setting.mergeEntireColumn') }}
+            </a-menu-item>
+            <a-menu-item key="undoMergeRow" :disabled="undoMergeRowDisabled" divided>
+              {{ i18nt('designer.setting.undoMergeRow') }}
+            </a-menu-item>
+            <a-menu-item key="undoMergeCol" :disabled="undoMergeColDisabled">
+              {{ i18nt('designer.setting.undoMergeCol') }}
+            </a-menu-item>
+            <a-menu-item key="deleteWholeCol" :disabled="deleteWholeColDisabled" divided>
+              {{ i18nt('designer.setting.deleteEntireCol') }}
+            </a-menu-item>
+            <a-menu-item key="deleteWholeRow" :disabled="deleteWholeRowDisabled">
+              {{ i18nt('designer.setting.deleteEntireRow') }}
+            </a-menu-item>
           </a-menu>
         </template>
       </a-dropdown>

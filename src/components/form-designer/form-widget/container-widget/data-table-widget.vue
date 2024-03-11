@@ -340,23 +340,20 @@
     outline: 2px solid $--color-primary !important;
   }
 
-  .data-table-container {
-    :deep(.el-scrollbar__view) {
-      overflow-x: auto !important;
-      /* el-table默认显示水平滚动条！！ */
-      height: 100%;
-      /* 水平滚动条固定在表格底部显示！！ */
-    }
-  }
+  // .data-table-container {
+  //   :deep(.el-scrollbar__view) {
+  //     overflow-x: auto !important;
+  //     /* el-table默认显示水平滚动条！！ */
+  //     height: 100%;
+  //     /* 水平滚动条固定在表格底部显示！！ */
+  //   }
+  // }
 
-  :deep(.el-collapsed__header) {
-    padding: 10px 12px;
-  }
-</style>
+  // :deep(.el-collapsed__header) {
+  //   padding: 10px 12px;
+  // }
 
-<style scoped>
   :deep(.ant-table) .table-striped td {
     background-color: #fafafa;
   }
 </style>
-s

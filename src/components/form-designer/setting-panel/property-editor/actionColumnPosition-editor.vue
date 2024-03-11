@@ -31,9 +31,9 @@
 
 <style lang="scss" scoped>
   .radio-group-custom {
-    :deep(.el-radio-button__inner) {
-      padding-left: 12px;
-      padding-right: 12px;
-    }
+    // :deep(.el-radio-button__inner) {
+    //   padding-left: 12px;
+    //   padding-right: 12px;
+    // }
   }
 </style>

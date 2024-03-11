@@ -53,21 +53,26 @@
       class="grid-col-action"
       v-if="designer.selectedId === widget.id && widget.type === 'grid-col'"
     >
-      <i :title="i18nt('designer.hint.selectParentWidget')" @click.stop="selectParentWidget(widget)"
-        ><svg-icon icon-class="el-back"
-      /></i>
+      <i
+        :title="i18nt('designer.hint.selectParentWidget')"
+        @click.stop="selectParentWidget(widget)"
+      >
+        <svg-icon icon-class="el-back" />
+      </i>
       <i
         v-if="!!parentList && parentList.length > 1"
         :title="i18nt('designer.hint.moveUpWidget')"
         @click.stop="moveUpWidget()"
-        ><svg-icon icon-class="el-move-up"
-      /></i>
+      >
+        <svg-icon icon-class="el-move-up" />
+      </i>
       <i
         v-if="!!parentList && parentList.length > 1"
         :title="i18nt('designer.hint.moveDownWidget')"
         @click.stop="moveDownWidget()"
-        ><svg-icon icon-class="el-move-down"
-      /></i>
+      >
+        <svg-icon icon-class="el-move-down" />
+      </i>
       <i :title="i18nt('designer.hint.cloneWidget')" @click.stop="cloneGridCol(widget)">
         <svg-icon icon-class="el-clone" />
       </i>

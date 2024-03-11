@@ -318,7 +318,6 @@
     width: 100% !important;
   }
 
-  .dynamicPseudoAfter :deep(.el-upload.el-upload--text),
   .dynamicPseudoAfter :deep(.ant-upload.ant-upload--text) {
     color: $--color-primary;
     font-size: 12px;
@@ -328,19 +327,16 @@
   }
 
   .hideUploadDiv {
-    :deep(div.el-upload--picture-card),
     :deep(div.ant-upload--picture-card) {
       /* 隐藏最后的图片上传按钮 */
       display: none;
     }
 
-    :deep(div.el-upload--text),
     :deep(div.ant-upload--text) {
       /* 隐藏最后的文件上传按钮 */
       display: none;
     }
 
-    :deep(div.el-upload__tip),
     :deep(div.ant-upload__tip) {
       /* 隐藏最后的文件上传按钮 */
       display: none;

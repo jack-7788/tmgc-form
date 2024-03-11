@@ -1,8 +1,6 @@
 //import { vfApp } from '@/utils/create-app'
 
 export function addDirective(app) {
-
-
   /**
    * 拖拽指令使用方式：v-drag="[dragDom, dragHeader]"，如 `<div v-drag="['.drag-container .el-dialog', '.drag-container .el-dialog__header']"></div>`
    */
@@ -12,15 +10,21 @@ export function addDirective(app) {
       if (!binding.value) return false;
 
       binding.instance.$nextTick(() => {
-        const dragDom = document.querySelector(binding.value[0])
-        const dragHeader = document.querySelector(binding.value[1])
+        const dragDom = document.querySelector(binding.value[0]);
+        const dragHeader = document.querySelector(binding.value[1]);
 
         dragHeader && (dragHeader.onmouseover = () => (dragHeader.style.cursor = `move`));
 
         function down(e, type) {
           // 鼠标按下，计算当前元素距离可视区的距离
-          const disX = type === 'pc' ? e.clientX - dragHeader.offsetLeft : e.touches[0].clientX - dragHeader.offsetLeft;
-          const disY = type === 'pc' ? e.clientY - dragHeader.offsetTop : e.touches[0].clientY - dragHeader.offsetTop;
+          const disX =
+            type === 'pc'
+              ? e.clientX - dragHeader.offsetLeft
+              : e.touches[0].clientX - dragHeader.offsetLeft;
+          const disY =
+            type === 'pc'
+              ? e.clientY - dragHeader.offsetTop
+              : e.touches[0].clientY - dragHeader.offsetTop;
 
           // body当前宽度
           const screenWidth = document.body.clientWidth;
@@ -59,12 +63,21 @@ export function addDirective(app) {
             minDragDomTop,
             maxDragDomTop,
             styL,
-            styT,
+            styT
           };
         }
 
         function move(e, type, obj) {
-          let { disX, disY, minDragDomLeft, maxDragDomLeft, minDragDomTop, maxDragDomTop, styL, styT } = obj;
+          const {
+            disX,
+            disY,
+            minDragDomLeft,
+            maxDragDomLeft,
+            minDragDomTop,
+            maxDragDomTop,
+            styL,
+            styT
+          } = obj;
 
           // 通过事件委托，计算移动的距离
           let left = type === 'pc' ? e.clientX - disX : e.touches[0].clientX - disX;
@@ -93,9 +106,9 @@ export function addDirective(app) {
          * onmousemove 鼠标按下时持续触发事件
          * onmouseup 鼠标抬起触发事件
          */
-        dragHeader.onmousedown = (e) => {
+        dragHeader.onmousedown = e => {
           const obj = down(e, 'pc');
-          document.onmousemove = (e) => {
+          document.onmousemove = e => {
             move(e, 'pc', obj);
           };
           document.onmouseup = () => {
@@ -110,9 +123,9 @@ export function addDirective(app) {
          * ontouchmove 当移动手指时，触发ontouchmove
          * ontouchend 当移走手指时，触发ontouchend
          */
-        dragHeader.ontouchstart = (e) => {
+        dragHeader.ontouchstart = e => {
           const obj = down(e, 'app');
-          document.ontouchmove = (e) => {
+          document.ontouchmove = e => {
             move(e, 'app', obj);
           };
           document.ontouchend = () => {
@@ -120,35 +133,33 @@ export function addDirective(app) {
             document.ontouchend = null;
           };
         };
-      })
-    },
-  })
+      });
+    }
+  });
 
   // v-dialogDragWidth: 弹窗宽度拖大 拖小
   app.directive('dialogDragWidth', {
     mounted(el, binding) {
       binding.instance.$nextTick(() => {
-        const dragDom = binding.value.$el.querySelector('.el-dialog')
-        el.onmousedown = (e) => {
+        const dragDom = binding.value.$el.querySelector('.el-dialog');
+        el.onmousedown = e => {
           // 鼠标按下，计算当前元素距离可视区的距离
-          const disX = e.clientX - el.offsetLeft
+          const disX = e.clientX - el.offsetLeft;
 
-          document.onmousemove = function(e) {
-            e.preventDefault() // 移动时禁用默认事件
+          document.onmousemove = function (e) {
+            e.preventDefault(); // 移动时禁用默认事件
 
             // 通过事件委托，计算移动的距离
-            const l = e.clientX - disX
-            dragDom.style.width = `${l}px`
-          }
+            const l = e.clientX - disX;
+            dragDom.style.width = `${l}px`;
+          };
 
-          document.onmouseup = function(e) {
-            document.onmousemove = null
-            document.onmouseup = null
-          }
-        }
-      })
+          document.onmouseup = function (e) {
+            document.onmousemove = null;
+            document.onmouseup = null;
+          };
+        };
+      });
     }
-  })
-
+  });
 }
-

@@ -53,6 +53,5 @@ export const formTemplates = [
     imgUrl: 'https://ks3-cn-beijing.ksyuncs.com/vform-static/form-samples/t8.png',
     jsonUrl: 'https://ks3-cn-beijing.ksyuncs.com/vform-static/form-samples/json8.txt',
     description: '表单模板详细说明...'
-  },
-
-]
+  }
+];

@@ -1,0 +1,9 @@
+@tailwind base;
+
+/* 重写基本SVG样式以使用Ant Design 图标*/
+svg {
+    vertical-align: initial;
+}
+
+@tailwind components;
+@tailwind utilities;

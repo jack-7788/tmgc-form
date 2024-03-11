@@ -35,12 +35,3 @@
     }
   };
 </script>
-
-<style scoped lang="scss">
-  .button-text-highlight {
-    &.ant-btn {
-      font-weight: bold;
-      color: #409eff;
-    }
-  }
-</style>

@@ -300,18 +300,14 @@
     cursor: move;
   }
 
-  .small-padding-dialog :deep(.el-dialog__body) {
-    padding: 10px 15px;
-  }
-
-  .dialog-footer .el-button {
+  .dialog-footer .ant-button {
     width: 100px;
   }
 
   .full-width-input {
     width: 100% !important;
 
-    :deep(.el-cascader) {
+    :deep(.ant-cascader) {
       width: 100% !important;
     }
   }

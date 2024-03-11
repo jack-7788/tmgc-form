@@ -414,7 +414,6 @@
 
 <style lang="scss" scoped>
   .panel-container {
-    // padding: 0 8px;
     background-color: #fff;
     :deep(.ant-tabs-content) {
       overflow: auto;
@@ -427,43 +426,6 @@
     }
   }
 
-  // .setting-scrollbar {
-  //   :deep(.el-scrollbar__wrap) {
-  //     overflow-x: hidden; /* IE浏览器隐藏水平滚动条箭头！！ */
-  //   }
-  // }
-
-  // .ds-setting-scrollbar {
-  //   /*width: 284px;*/
-  //   :deep(.el-scrollbar__wrap) {
-  //     overflow-x: hidden; /* IE浏览器隐藏水平滚动条箭头！！ */
-  //   }
-  // }
-
-  // .setting-collapse {
-  //   :deep(.el-collapse-item__content) {
-  //     padding-bottom: 6px;
-  //   }
-
-  //   :deep(.el-collapse-item__header) {
-  //     font-style: italic;
-  //     font-weight: bold;
-  //   }
-  // }
-
-  // .setting-form {
-  //   :deep(.el-form-item__label) {
-  //     font-size: 13px;
-  //     //text-overflow: ellipsis;
-  //     overflow: hidden;
-  //     white-space: nowrap;
-  //   }
-
-  //   :deep(.el-form-item--small.el-form-item) {
-  //     margin-bottom: 10px;
-  //   }
-  // }
-
   /* 隐藏Chrome浏览器中el-input数字输入框右侧的上下调整小箭头 */
   :deep(.hide-spin-button) input::-webkit-outer-spin-button,
   :deep(.hide-spin-button) input::-webkit-inner-spin-button {
@@ -473,33 +435,6 @@
   /* 隐藏Firefox浏览器中el-input数字输入框右侧的上下调整小箭头 */
   // :deep(.hide-spin-button) input[type='number'] {
   //   -moz-appearance: textfield;
-  // }
-
-  // :deep(.custom-divider.el-divider--horizontal) {
-  //   margin: 10px 0;
-  // }
-
-  // :deep(.custom-divider-margin-top.el-divider--horizontal) {
-  //   margin: 20px 0;
-  // }
-
-  // .small-padding-dialog {
-  //   :deep(.el-dialog__body) {
-  //     padding: 6px 15px 12px 15px;
-  //   }
-  // }
-
-  // :deep(.header-small-mb .el-drawer__header) {
-  //   margin-bottom: 6px;
-  // }
-
-  // :deep(.header-small-mb .el-drawer__body) {
-  //   padding: 12px;
-  // }
-
-  // :deep(.el-button.button-text-highlight) {
-  //   font-weight: bold;
-  //   color: $--color-primary;
   // }
 </style>
 

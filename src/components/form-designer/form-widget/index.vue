@@ -274,15 +274,13 @@
     // .el-form.PC-layout {
     //   //
     // }
-    .ant-form.Pad-layout,
-    .el-form.Pad-layout {
+    .ant-form.Pad-layout {
       margin: 0 auto;
       max-width: 960px;
       border-radius: 15px;
       box-shadow: 0 0 1px 10px #495060;
     }
-    .ant-form.H5-layout,
-    .el-form.H5-layout {
+    .ant-form.H5-layout {
       margin: 0 auto;
       width: 420px;
       border-radius: 15px;

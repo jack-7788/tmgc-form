@@ -4,10 +4,6 @@
 
 <script>
   export default {
-    name: "vf-dialog-item"
-  }
+    name: 'vf-dialog-item'
+  };
 </script>
-
-<style scoped>
-
-</style>

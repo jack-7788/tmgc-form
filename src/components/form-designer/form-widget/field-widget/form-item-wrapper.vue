@@ -307,21 +307,18 @@
       margin-right: 0;
     }
   }
-  .ant-form-item,
-  .el-form-item {
+  .ant-form-item {
     //margin-bottom: 0 !important;
     //margin-bottom: 6px;
 
     //margin-top: 2px;
     position: relative;
 
-    :deep(.ant-form-item__label),
-    :deep(.el-form-item__label) {
+    :deep(.ant-form-item-label) {
       white-space: nowrap;
       text-overflow: ellipsis;
     }
 
-    :deep(.el-form-item__content),
     :deep(.ant-form-item__content) {
       //position: unset;  /* TODO: 忘了这个样式设置是为了解决什么问题？？ */
     }
@@ -359,25 +356,21 @@
     }
   }
   .ant-form-item.selected,
-  .el-form-item.selected,
   .static-content-item.selected {
     outline: 2px solid $--color-primary;
   }
 
-  :deep(.label-left-align) .el-form-item__label,
-  .ant-form-item-label {
+  :deep(.label-left-align) .ant-form-item-label {
     text-align: left;
     justify-content: flex-start !important;
   }
 
-  :deep(.label-center-align) .el-form-item__label,
-  .ant-form-item__label {
+  :deep(.label-center-align) .ant-form-item__label {
     text-align: center;
     justify-content: center !important;
   }
 
-  :deep(.label-right-align) .el-form-item__label,
-  .ant-form-item__label {
+  :deep(.label-right-align) .ant-form-item__label {
     text-align: right;
     justify-content: flex-end !important;
   }

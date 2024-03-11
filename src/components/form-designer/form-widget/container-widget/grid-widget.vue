@@ -1,13 +1,3 @@
-<!--
-/**
- * author: vformAdmin
- * email: vdpadmin@163.com
- * website: https://www.vform666.com
- * date: 2021.08.18
- * remark: 如果要分发VForm源码，需在本文件顶部保留此文件头信息！！
- */
--->
-
 <template>
   <container-wrapper
     :designer="designer"
@@ -85,8 +75,6 @@
 <style lang="scss" scoped>
   .ant-row.grid-container {
     min-height: 50px;
-    //line-height: 48px;
-    //padding: 6px;
     outline: 1px dashed #336699;
 
     .form-widget-list {

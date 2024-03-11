@@ -365,28 +365,19 @@
     color: $--color-primary;
   }
 
-  // .side-scroll-bar {
-  //   :deep(.el-scrollbar__wrap) {
-  //     overflow-x: hidden;
-  //   }
-  // }
-
   div.panel-container {
     padding-bottom: 10px;
   }
 
-  // .no-bottom-margin :deep(.el-tabs__header),
   .no-bottom-margin :deep(.ant-collapse-header) {
     margin-bottom: 0;
   }
 
   .indent-left-margin {
-    :deep(.el-tabs__nav),
     :deep(.ant-tabs-nav) {
       margin-left: 20px;
     }
   }
-  // .el-collapse-item :deep(ul) > li ,
   .ant-collapse-item :deep(ul) > li {
     list-style: none;
   }
@@ -394,13 +385,6 @@
   .widget-collapse {
     border-top-width: 0;
 
-    // :deep(.el-collapse-item__header) ,
-    // :deep(.ant-collapse-header){
-    //   margin-left: 8px;
-    //   font-style: italic;
-    //   font-weight: bold;
-    // }
-    // :deep(.el-collapse-item__content) ,
     :deep(.ant-collapse-content) {
       padding-bottom: 6px;
       > .ant-collapse-content-box {
@@ -458,11 +442,6 @@
       }
     }
   }
-
-  // .el-card.ft-card,
-  // .ant-card.ft-card {
-  //   border: 1px solid #8896B3;
-  // }
 
   .ft-card {
     margin-bottom: 10px;

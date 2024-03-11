@@ -2,6 +2,7 @@ import { createApp } from 'vue';
 import axios from 'axios';
 import App from './App.vue';
 import Antd from 'ant-design-vue';
+import 'ant-design-vue/dist/antd.css';
 
 import '@/styles/index.scss';
 import '@/iconfont/iconfont.css';
@@ -16,14 +17,12 @@ import VFormRender from '@/components/form-render/index';
 
 import { addDirective } from '@/utils/directive';
 import { loadExtension } from '@/extension/extension-loader';
-import 'ant-design-vue/dist/antd.css';
 
 if (typeof window !== 'undefined') {
   window.axios = axios;
 }
 
 const vfApp = createApp(App);
-// vfApp.config.globalProperties.$message = message;
 vfApp.use(Antd);
 registerIcon(vfApp);
 vfApp.component('draggable', Draggable);

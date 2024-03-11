@@ -24,58 +24,58 @@ $--color-primary: #409EFF;
   }
 }
 
-.el-form-item {
-  .el-rate{
-    margin-top: 8px;
-  }
-}
+// .el-form-item {
+//   .el-rate{
+//     margin-top: 8px;
+//   }
+// }
 
-.el-form-item--medium {
-  .el-radio {
-    line-height: 36px !important;
-  }
+// .el-form-item--medium {
+//   .el-radio {
+//     line-height: 36px !important;
+//   }
 
-  .el-rate{
-    margin-top: 8px;
-  }
-}
+//   .el-rate{
+//     margin-top: 8px;
+//   }
+// }
 
-.el-form-item--small {
-  .el-radio {
-    line-height: 32px !important;
-  }
+// .el-form-item--small {
+//   .el-radio {
+//     line-height: 32px !important;
+//   }
 
-  .el-rate{
-    margin-top: 6px;
-  }
-}
+//   .el-rate{
+//     margin-top: 6px;
+//   }
+// }
 
-.el-form-item--mini {
-  .el-radio {
-    line-height: 28px !important;
-  }
+// .el-form-item--mini {
+//   .el-radio {
+//     line-height: 28px !important;
+//   }
 
-  .el-rate{
-    margin-top: 4px;
-  }
-}
+//   .el-rate{
+//     margin-top: 4px;
+//   }
+// }
 
-.el-card {
-  margin-top: 3px;
-  margin-bottom: 3px;
-}
+// .el-card {
+//   margin-top: 3px;
+//   margin-bottom: 3px;
+// }
 
-.readonly-mode-form .el-form-item__content {
-  background-color: #f1f2f3;  /* 只读查看状态-默认底色 */
-}
+// .readonly-mode-form .el-form-item__content {
+//   background-color: #f1f2f3;  /* 只读查看状态-默认底色 */
+// }
 
-input[type="password"]::-ms-reveal {  /* 隐藏IE/Edge原生的密码查看按钮 */
-  display: none;
-}
+// input[type="password"]::-ms-reveal {  /* 隐藏IE/Edge原生的密码查看按钮 */
+//   display: none;
+// }
 
-.auto-full-width.el-date-editor.el-input, .auto-full-width.el-date-editor.el-input__inner {
-  width: 100% !important;
-}
+// .auto-full-width.el-date-editor.el-input, .auto-full-width.el-date-editor.el-input__inner {
+//   width: 100% !important;
+// }
 
 /* 滚动条样式 begin */
 ::-webkit-scrollbar {

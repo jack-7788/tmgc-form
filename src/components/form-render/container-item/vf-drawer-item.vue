@@ -4,10 +4,6 @@
 
 <script>
   export default {
-    name: "vf-drawer-item"
-  }
+    name: 'vf-drawer-item'
+  };
 </script>
-
-<style scoped>
-
-</style>

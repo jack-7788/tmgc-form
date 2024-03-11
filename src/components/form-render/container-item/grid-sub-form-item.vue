@@ -95,9 +95,9 @@
 
 <script>
   import emitter from '@/utils/emitter';
-  import i18n from '../../../utils/i18n';
+  import i18n from '@/utils/i18n';
   import { deepClone, generateId, traverseFieldWidgetsOfContainer } from '@/utils/util';
-  import refMixin from '../../../components/form-render/refMixin';
+  import refMixin from '@/components/form-render/refMixin';
   import ContainerItemWrapper from './container-item-wrapper';
   import containerItemMixin from './containerItemMixin';
   import FieldComponents from '@/components/form-designer/form-widget/field-widget/index';

@@ -537,7 +537,7 @@
     border-bottom: 1px dotted #cccccc;
     height: 42px !important;
     background: #fff;
-    padding: 0; //line-height: 42px !important;
+    padding: 0;
   }
 
   .ant-layout-sider.side-panel {
@@ -558,12 +558,5 @@
     & > :deep(.form-widget-container) {
       height: 100%;
     }
-
-    // overflow: auto;
-
-    // :deep(.el-scrollbar__wrap),
-    // :deep(.el-scrollbar__view) {
-    //   overflow-x: hidden;
-    // }
   }
 </style>

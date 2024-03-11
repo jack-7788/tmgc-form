@@ -141,11 +141,11 @@
     }
   }
 
-  :deep(.el-card__header) {
+  :deep(.ant-card-header) {
     padding: 10px 12px;
   }
 
-  .folded :deep(.el-card__body) {
+  .folded :deep(.ant-card-body) {
     display: none;
   }
 

@@ -9,9 +9,9 @@
     <a-form-item :label="i18nt('designer.setting.colsOfGrid')" />
     <a-form-item label-width="0">
       <li v-for="(colItem, colIdx) in selectedWidget.cols" :key="colIdx" class="col-item">
-        <span class="col-span-title"
-          >{{ i18nt('designer.setting.colSpanTitle') }}{{ colIdx + 1 }}</span
-        >
+        <span class="col-span-title">
+          {{ i18nt('designer.setting.colSpanTitle') }}{{ colIdx + 1 }}
+        </span>
         <a-input-number
           v-model:value="colItem.options.span"
           :min="1"
@@ -29,13 +29,13 @@
           @click="deleteCol(selectedWidget, colIdx)"
           class="col-delete-button"
         >
-          --
+          删除
         </a-button>
       </li>
       <div>
-        <a-button type="text" @click="addNewCol(selectedWidget)">{{
-          i18nt('designer.setting.addColumn')
-        }}</a-button>
+        <a-button type="primary" @click="addNewCol(selectedWidget)">
+          {{ i18nt('designer.setting.addColumn') }}
+        </a-button>
       </div>
     </a-form-item>
   </div>
@@ -60,7 +60,7 @@
         });
         if (spanSum > 24) {
           //this.$message.info('列栅格之和超出24')
-          console.log('列栅格之和超出24');
+          console.log('列栅格之和超出24', this.$message1);
           //TODO: 语言字符串资源化
         }
 
@@ -83,6 +83,7 @@
 <style lang="scss" scoped>
   li.col-item {
     list-style: none;
+    margin-bottom: 5px;
 
     span.col-span-title {
       display: inline-block;

@@ -624,7 +624,7 @@
       };
     },
     methods: {
-      validateValueInput(rule, value, callback) {
+      validateValueInput(rule, value) {
         const ruleField = rule.field;
         const fieldType = ruleField.substring(0, ruleField.indexOf('.'));
         const fieldIdx = Number(
@@ -633,9 +633,9 @@
         const valueType = this.dsModel[fieldType][fieldIdx].type;
         if (valueType === 'Number') {
           if (isNaN(value)) {
-            callback(new Error(this.i18nt('designer.setting.dsRequestNumberTypeError')));
+            return Promise.reject(this.i18nt('designer.setting.dsRequestNumberTypeError'));
           } else {
-            callback();
+            return Promise.resolve();
           }
         } else if (valueType === 'Boolean') {
           if (
@@ -645,12 +645,12 @@
             value === '1' ||
             value === '0'
           ) {
-            callback();
+            return Promise.resolve();
           } else {
-            callback(new Error(this.i18nt('designer.setting.dsRequestBooleanTypeError')));
+            return Promise.reject(this.i18nt('designer.setting.dsRequestBooleanTypeError'));
           }
         } else {
-          callback();
+          return Promise.resolve();
         }
       },
 

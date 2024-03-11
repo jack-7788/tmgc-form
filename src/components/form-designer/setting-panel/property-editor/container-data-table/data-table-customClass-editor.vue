@@ -246,32 +246,6 @@
             />
           </template>
         </a-table-column>
-        <el-table-column
-          v-if="false"
-          :label="i18nt('designer.setting.formatOfColumn')"
-          width="200"
-          prop="formatS"
-        >
-          <template #default="scope">
-            <a-select v-model:value="scope.row.formatS" allowClear>
-              <a-select-opt-group
-                :label="i18nt('designer.setting.customRenderGroup')"
-                key="custom-render-group"
-              >
-                <a-select-option value="render" label="render">render</a-select-option>
-              </a-select-opt-group>
-              <a-select-opt-group v-for="group in op" :key="group.label" :label="group.label">
-                <a-select-option
-                  v-for="item in group.options"
-                  :key="item.value"
-                  :label="item.label"
-                  :value="item.value"
-                  >{{ item.label }}
-                </a-select-option>
-              </a-select-opt-group>
-            </a-select>
-          </template>
-        </el-table-column>
         <a-table-column :title="'自定义渲染函数'" :width="80" fixed="right">
           <template #default="scope">
             <a-button @click="showRenderDialog(scope.record)" size="small" plain shape="round">

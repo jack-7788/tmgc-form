@@ -1,161 +1,139 @@
-import {isNotNull} from "@/utils/util";
-import {translate} from "@/utils/i18n";
-import FormValidators, {getRegExp} from "@/utils/validators";
-import {sfcTraverseContainerWidgets, sfcTraverseFieldWidgets, sfcTraverseSubformWidgets} from "@/utils/sfc-util";
+import { isNotNull } from '@/utils/util';
+import { translate } from '@/utils/i18n';
+import FormValidators, { getRegExp } from '@/utils/validators';
+import {
+  sfcTraverseContainerWidgets,
+  sfcTraverseFieldWidgets,
+  sfcTraverseSubformWidgets
+} from '@/utils/sfc-util';
 
 export function buildDefaultValueListFn(formConfig, widgetList, resultList) {
-  return function(fieldWidget) {
-    const fop = fieldWidget.options
-    const fd = fop.defaultValue
+  return function (fieldWidget) {
+    const fop = fieldWidget.options;
+    const fd = fop.defaultValue;
 
-    if (
-        fieldWidget.type === "sub-form" ||
-        fieldWidget.type === "grid-sub-form"
-    ) {
-      let resultSubList = {};
+    if (fieldWidget.type === 'sub-form' || fieldWidget.type === 'grid-sub-form') {
+      const resultSubList = {};
 
       //需要把subform的值整理成 subform:{ input:"",input2:""} 格式，其他的值可以直接写到data(){}里
-      sfcTraverseSubformWidgets(fieldWidget.widgetList, (result) => {
+      sfcTraverseSubformWidgets(fieldWidget.widgetList, result => {
         resultSubList[result.options.name] = result.options.defaultValue;
       });
       resultList.push(`${fop.name}: [${JSON.stringify(resultSubList)}],`);
-    } else if (fieldWidget.type === "data-table") {
-      let tableData = {
+    } else if (fieldWidget.type === 'data-table') {
+      const tableData = {
         tableData: fop.tableData,
-        tableColumns: fop.tableColumns,
+        tableColumns: fop.tableColumns
       };
 
       resultList.push(`${fop.name}: ${JSON.stringify(tableData)},`);
     } else {
       if (isNotNull(fd)) {
-        resultList.push(`${fop.name}: ${JSON.stringify(fd)},`)
+        resultList.push(`${fop.name}: ${JSON.stringify(fd)},`);
       } else {
-        resultList.push(`${fop.name}: null,`)
+        resultList.push(`${fop.name}: null,`);
       }
     }
-  }
+  };
 }
 
 export function buildRulesListFn(formConfig, widgetList, resultList) {
-  return function(fieldWidget) {
-    const fop = fieldWidget.options
-    let fieldRules = []
+  return function (fieldWidget) {
+    const fop = fieldWidget.options;
+    const fieldRules = [];
 
-    if (
-        fieldWidget.type !== "sub-form" &&
-        fieldWidget.type !== "grid-sub-form"
-    ) {
+    if (fieldWidget.type !== 'sub-form' && fieldWidget.type !== 'grid-sub-form') {
       if (!!fop.required) {
         fieldRules.push(`{
           required: true,
           message: '${translate('render.hint.fieldRequired')}',
-        }`)
+        }`);
       }
 
       if (!!fop.validation) {
-        let vldName = fop.validation
+        const vldName = fop.validation;
         if (!!FormValidators[vldName]) {
           fieldRules.push(`{
-            pattern: ${eval( getRegExp(vldName) )},
+            pattern: ${eval(getRegExp(vldName))},
             trigger: ['blur', 'change'],
             message: '${fop.validationHint}'
-          }`)
+          }`);
         } else {
           fieldRules.push(`{
             pattern: '${eval(vldName)}',
             trigger: ['blur', 'change'],
             message: '${fop.validationHint}'
-          }`)
+          }`);
         }
       }
 
       //TODO: 自定义校验函数
 
-      fieldRules.length > 0 && resultList.push(`${fop.name}: [${fieldRules.join(',')}],`)
+      fieldRules.length > 0 && resultList.push(`${fop.name}: [${fieldRules.join(',')}],`);
     } else {
-      let resultSubList = [];
-      fieldWidget.widgetList.forEach((subWidget) => {
-        buildRulesListFn(
-            formConfig,
-            fieldWidget.widgetList,
-            resultSubList
-        )(subWidget);
+      const resultSubList = [];
+      fieldWidget.widgetList.forEach(subWidget => {
+        buildRulesListFn(formConfig, fieldWidget.widgetList, resultSubList)(subWidget);
       });
       resultList.push(resultSubList);
     }
-  }
+  };
 }
 
 export function buildFieldOptionsFn(formConfig, widgetList, resultList) {
-  return function(fieldWidget) {
-    const fop = fieldWidget.options
-    const ft = fieldWidget.type
-    if (
-        ft === "radio" ||
-        ft === "checkbox" ||
-        ft === "select" ||
-        ft === "cascader"
-    ) {
-      resultList.push(
-          `${fop.name}Options: ${JSON.stringify(fop.optionItems)},`
-      );
-    } else if (ft === "sub-form" || ft === "grid-sub-form") {
-      let resultSubList = [];
-      fieldWidget.widgetList.forEach((subWidget) => {
-        buildFieldOptionsFn(
-            formConfig,
-            fop.widgetList,
-            resultSubList
-        )(subWidget);
+  return function (fieldWidget) {
+    const fop = fieldWidget.options;
+    const ft = fieldWidget.type;
+    if (['radio', 'checkbox', 'select', 'cascader'].includes(ft)) {
+      resultList.push(`${fop.name}Options: ${JSON.stringify(fop.optionItems)},`);
+    } else if (ft === 'sub-form' || ft === 'grid-sub-form') {
+      const resultSubList = [];
+      fieldWidget.widgetList.forEach(subWidget => {
+        buildFieldOptionsFn(formConfig, fop.widgetList, resultSubList)(subWidget);
       });
       resultList.push(...resultSubList);
-    } else if (ft==='grid') {
-      let resultSubList = [];
-      fieldWidget.cols.forEach((col) => {
-        col.widgetList.forEach((subWidget)=>{
-          buildFieldOptionsFn(
-              formConfig,
-              fop.widgetList,
-              resultSubList
-          )(subWidget);
+    } else if (ft === 'grid') {
+      const resultSubList = [];
+      fieldWidget.cols.forEach(col => {
+        col.widgetList.forEach(subWidget => {
+          buildFieldOptionsFn(formConfig, fop.widgetList, resultSubList)(subWidget);
         });
       });
       resultList.push(...resultSubList);
     }
-  }
+  };
 }
 
 export function buildUploadDataFn(formConfig, widgetList, resultList) {
-  return function(fieldWidget) {
-    const fop = fieldWidget.options
-    const ft = fieldWidget.type
-    if ((ft === 'picture-upload') || (ft === 'file-upload')) {
-      resultList.push(`${fop.name}FileList: [],`)
-      resultList.push(`${fop.name}UploadHeaders: {},`)
-      resultList.push(`${fop.name}UploadData: {},`)
+  return function (fieldWidget) {
+    const fop = fieldWidget.options;
+    const ft = fieldWidget.type;
+    if (ft === 'picture-upload' || ft === 'file-upload') {
+      resultList.push(`${fop.name}FileList: [],`);
+      resultList.push(`${fop.name}UploadHeaders: {},`);
+      resultList.push(`${fop.name}UploadData: {},`);
     }
-  }
+  };
 }
 
 export function buildActiveTabs(formConfig, widgetList) {
-  let resultList = []
+  const resultList = [];
   const handlerFn = function (cw) {
-    const cop = cw.options
-    const ct = cw.type
+    const cop = cw.options;
+    const ct = cw.type;
     if (ct === 'tab') {
-      cw.tabs.length > 0 && resultList.push(`'${cop.name}ActiveTab': '${cw.tabs[0].options.name}',`)
+      cw.tabs.length > 0 &&
+        resultList.push(`'${cop.name}ActiveTab': '${cw.tabs[0].options.name}',`);
     }
-  }
-  sfcTraverseContainerWidgets(widgetList, handlerFn)
+  };
+  sfcTraverseContainerWidgets(widgetList, handlerFn);
 
-  return resultList
+  return resultList;
 }
 
 export function buildSubFormMethods(widgetList) {
   let template = ``;
-  let widget = widgetList.find(
-      (x) => x.type === "sub-form" || x.type === "grid-sub-form"
-  );
+  const widget = widgetList.find(x => x.type === 'sub-form' || x.type === 'grid-sub-form');
   if (widget) {
     template = `
    addSubFormRow(widgetId){
@@ -175,7 +153,7 @@ export function buildSubFormMethods(widgetList) {
 
 export function buildDataTableMethods(widgetList) {
   let template = ``;
-  let widget = widgetList.find((x) => x.type === "data-table");
+  const widget = widgetList.find(x => x.type === 'data-table');
   if (widget) {
     template = `
     formatterValue(row, column, cellValue) {
@@ -384,21 +362,20 @@ export function buildDataTableMethods(widgetList) {
 }
 
 export const genVue2JS = function (formConfig, widgetList) {
-  let defaultValueList = []
-  let rulesList = []
-  let fieldOptions = []
-  let uploadData = []
-  sfcTraverseFieldWidgets(widgetList, (widget) => {
-    buildDefaultValueListFn(formConfig, widgetList, defaultValueList)(widget)
-    buildRulesListFn(formConfig, widgetList, rulesList)(widget)
-    buildFieldOptionsFn(formConfig, widgetList, fieldOptions)(widget)
-    buildUploadDataFn(formConfig, widgetList, uploadData)(widget)
-  })
+  const defaultValueList = [];
+  const rulesList = [];
+  const fieldOptions = [];
+  const uploadData = [];
+  sfcTraverseFieldWidgets(widgetList, widget => {
+    buildDefaultValueListFn(formConfig, widgetList, defaultValueList)(widget);
+    buildRulesListFn(formConfig, widgetList, rulesList)(widget);
+    buildFieldOptionsFn(formConfig, widgetList, fieldOptions)(widget);
+    buildUploadDataFn(formConfig, widgetList, uploadData)(widget);
+  });
 
-  const activeTabs = buildActiveTabs(formConfig, widgetList)
+  const activeTabs = buildActiveTabs(formConfig, widgetList);
 
-  const v2JSTemplate =
-`  export default {
+  const v2JSTemplate = `  export default {
     components: {},
     props: {},
     data() {
@@ -440,7 +417,7 @@ export const genVue2JS = function (formConfig, widgetList) {
         this.$refs['vForm'].resetFields()
       }
     }
-  }`
+  }`;
 
-  return v2JSTemplate
-}
+  return v2JSTemplate;
+};

@@ -389,9 +389,9 @@ export default {
 
       if (!!this.field.options.onValidate) {
         //let customFn = new Function('rule', 'value', 'callback', this.field.options.onValidate)
-        const customFn = (rule, value, callback) => {
-          const tmpFunc = new Function('rule', 'value', 'callback', this.field.options.onValidate);
-          return tmpFunc.call(this, rule, value, callback);
+        const customFn = (rule, value) => {
+          const tmpFunc = new Function('rule', 'value', this.field.options.onValidate);
+          return tmpFunc.call(this, rule, value);
         };
         this.rules.push({
           validator: customFn,

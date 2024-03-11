@@ -5,7 +5,7 @@
         selectedWidget.type === 'radio' ||
         (selectedWidget.type === 'select' && !selectedWidget.options.multiple)
       "
-      v-model="optionModel.defaultValue"
+      v-model:value="optionModel.defaultValue"
       @change="emitDefaultValueChange"
     >
       <draggable
@@ -16,19 +16,17 @@
       >
         <template #item="{ element: option, index: idx }">
           <li>
-            <a-radio :label="option.value">
-              <a-input v-model:value="option.value" size="small" style="width: 100px" />
-              <a-input v-model:value="option.label" size="small" style="width: 100px" />
+            <a-radio :value="option.value">
+              <a-input v-model:value="option.value" size="small" style="width: 80px" />
+              <a-input v-model:value="option.label" size="small" style="width: 80px" />
               <i class="iconfont icon-drag drag-option"></i>
               <a-button
-                shape="circle"
-                plain
                 size="small"
                 type="danger"
                 @click="deleteOption(option, idx)"
                 class="col-delete-button"
               >
-                --
+                删除
               </a-button>
             </a-radio>
           </li>
@@ -51,19 +49,17 @@
       >
         <template #item="{ element: option, index: idx }">
           <li>
-            <a-checkbox :label="option.value">
-              <a-input v-model:value="option.value" size="small" style="width: 100px" />
-              <a-input v-model:value="option.label" size="small" style="width: 100px" />
+            <a-checkbox :value="option.value">
+              <a-input v-model:value="option.value" size="small" style="width: 80px" />
+              <a-input v-model:value="option.label" size="small" style="width: 80px" />
               <i class="iconfont icon-drag drag-option"></i>
               <a-button
-                circle
-                plain
                 size="small"
                 type="danger"
                 @click="deleteOption(option, idx)"
                 class="col-delete-button"
               >
-                --
+                删除
               </a-button>
             </a-checkbox>
           </li>
@@ -79,34 +75,27 @@
       />
     </div>
     <div v-if="selectedWidget.type === 'cascader'">
-      <a-button type="text" @click="importCascaderOptions">{{
-        i18nt('designer.setting.importOptions')
-      }}</a-button>
-      <a-button type="text" @click="resetDefault">{{
-        i18nt('designer.setting.resetDefault')
-      }}</a-button>
+      <a-button type="text" @click="importCascaderOptions">
+        {{ i18nt('designer.setting.importOptions') }}
+      </a-button>
+      <a-button type="text" @click="resetDefault">
+        {{ i18nt('designer.setting.resetDefault') }}
+      </a-button>
     </div>
 
-    <div
-      v-if="
-        selectedWidget.type === 'radio' ||
-        selectedWidget.type === 'checkbox' ||
-        selectedWidget.type === 'select'
-      "
-    >
+    <div v-if="['radio', 'checkbox', 'select'].includes(selectedWidget.type)">
       <a-button type="text" @click="addOption">{{ i18nt('designer.setting.addOption') }}</a-button>
-      <a-button type="text" @click="importOptions">{{
-        i18nt('designer.setting.importOptions')
-      }}</a-button>
-      <a-button type="text" @click="resetDefault">{{
-        i18nt('designer.setting.resetDefault')
-      }}</a-button>
+      <a-button type="text" @click="importOptions">
+        {{ i18nt('designer.setting.importOptions') }}
+      </a-button>
+      <a-button type="text" @click="resetDefault">
+        {{ i18nt('designer.setting.resetDefault') }}
+      </a-button>
     </div>
 
-    <!-- <div v-if="showImportDialogFlag" class="" v-drag="['.drag-dialog.el-dialog', '.drag-dialog .el-dialog__header']"> -->
     <a-modal
       :title="i18nt('designer.setting.importOptions')"
-      v-model:visable="showImportDialogFlag"
+      v-model:visible="showImportDialogFlag"
       :show-close="true"
       custom-class="drag-dialog small-padding-dialog"
       append-to-body
@@ -119,21 +108,19 @@
       </a-form-item>
       <template #footer>
         <div class="dialog-footer">
-          <a-button size="large" type="primary" @click="saveOptions">{{
-            i18nt('designer.hint.confirm')
-          }}</a-button>
-          <a-button size="large" @click="showImportDialogFlag = false">{{
-            i18nt('designer.hint.cancel')
-          }}</a-button>
+          <a-button size="large" type="primary" @click="saveOptions">
+            {{ i18nt('designer.hint.confirm') }}
+          </a-button>
+          <a-button size="large" @click="showImportDialogFlag = false">
+            {{ i18nt('designer.hint.cancel') }}
+          </a-button>
         </div>
       </template>
     </a-modal>
-    <!-- </div> -->
 
-    <!-- <div v-if="showImportCascaderDialogFlag" class="" v-drag="['.drag-dialog.el-dialog', '.drag-dialog .el-dialog__header']"> -->
     <a-modal
       :title="i18nt('designer.setting.importOptions')"
-      v-model:visable="showImportCascaderDialogFlag"
+      v-model:visible="showImportCascaderDialogFlag"
       :show-close="true"
       custom-class="drag-dialog small-padding-dialog"
       append-to-body
@@ -144,18 +131,16 @@
       <code-editor v-model="cascaderOptions" mode="json" :readonly="false" />
       <template #footer>
         <div class="dialog-footer">
-          <a-button size="large" type="primary" @click="saveCascaderOptions">{{
-            i18nt('designer.hint.confirm')
-          }}</a-button>
-          <a-button size="large" @click="showImportCascaderDialogFlag = false">{{
-            i18nt('designer.hint.cancel')
-          }}</a-button>
+          <a-button size="large" type="primary" @click="saveCascaderOptions">
+            {{ i18nt('designer.hint.confirm') }}
+          </a-button>
+          <a-button size="large" @click="showImportCascaderDialogFlag = false">
+            {{ i18nt('designer.hint.cancel') }}
+          </a-button>
         </div>
       </template>
     </a-modal>
   </div>
-
-  <!-- </div> -->
 </template>
 
 <script>

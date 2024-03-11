@@ -578,6 +578,7 @@
       clearFormWidget() {
         this.designer.clearDesigner();
         this.designer.formWidget.clearWidgetRefList();
+        this.$message.success('ok');
       },
 
       previewForm() {

@@ -56,9 +56,9 @@
 </template>
 
 <script>
-  import WidgetPanel from './widget-panel/index';
-  import ToolbarPanel from './toolbar-panel/index';
-  import SettingPanel from './setting-panel/index';
+  import WidgetPanel from './widget-panel/index.vue';
+  import ToolbarPanel from './toolbar-panel/index.vue';
+  import SettingPanel from './setting-panel/index.vue';
   import VFormWidget from './form-widget/index';
   import { createDesigner } from '@/components/form-designer/designer';
   import {

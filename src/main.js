@@ -26,9 +26,7 @@ if (typeof window !== 'undefined') {
 
 const vfApp = createApp(App);
 // vfApp.config.globalProperties.$message = message;
-
 vfApp.use(Antd);
-// vfApp.use(ElementPlus);
 registerIcon(vfApp);
 vfApp.component('draggable', Draggable);
 addDirective(vfApp);

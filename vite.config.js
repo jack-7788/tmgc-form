@@ -54,7 +54,7 @@ export default defineConfig({
     //minify: false,
     commonjsOptions: {
       exclude: [
-        // 'lib/vuedraggable/dist/vuedraggable.umd.js,',  //引号前的逗号不能删，不知何故？？
+        'lib/vuedraggable/dist/vuedraggable.umd.js,' //引号前的逗号不能删，不知何故？？
         //'vue/dist/*.js'
       ],
       include: []

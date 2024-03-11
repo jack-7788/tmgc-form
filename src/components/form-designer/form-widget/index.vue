@@ -232,13 +232,6 @@
 </script>
 
 <style lang="scss" scoped>
-  .container-scroll-bar {
-    :deep(.el-scrollbar__wrap),
-    :deep(.el-scrollbar__view) {
-      overflow-x: hidden;
-    }
-  }
-
   .form-widget-container {
     padding: 10px;
     background: #f1f2f3;
@@ -246,8 +239,7 @@
     overflow-x: hidden;
     overflow-y: auto;
 
-    .ant-form.full-height-width,
-    .el-form.full-height-width {
+    .ant-form.full-height-width {
       height: 100%;
       padding: 3px;
       background: #ffffff;
@@ -278,10 +270,10 @@
     :deep(li.field-widget-item) {
       list-style: none;
     }
-    .ant-form.PC-layout,
-    .el-form.PC-layout {
-      //
-    }
+    // .ant-form.PC-layout,
+    // .el-form.PC-layout {
+    //   //
+    // }
     .ant-form.Pad-layout,
     .el-form.Pad-layout {
       margin: 0 auto;
@@ -297,8 +289,7 @@
       //border-width: 10px;
       box-shadow: 0 0 1px 10px #495060;
     }
-    .ant-form.widget-form :deep(.el-row),
-    .el-form.widget-form :deep(.el-row) {
+    .ant-form.widget-form :deep(.ant-row) {
       padding: 2px;
       border: 1px dashed rgba(170, 170, 170, 0.75);
     }

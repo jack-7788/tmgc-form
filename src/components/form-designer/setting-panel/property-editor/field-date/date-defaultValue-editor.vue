@@ -1,9 +1,9 @@
 <template>
-  <el-form-item :label="i18nt('designer.setting.defaultValue')">
-    <el-date-picker :type="optionModel.type" v-model="optionModel.defaultValue" @change="emitDefaultValueChange"
+  <a-form-item :label="i18nt('designer.setting.defaultValue')">
+    <a-date-picker :type="optionModel.type" v-model:value="optionModel.defaultValue" @change="emitDefaultValueChange"
                     :format="optionModel.format" :value-format="optionModel.valueFormat" style="width: 100%">
-    </el-date-picker>
-  </el-form-item>
+    </a-date-picker>
+  </a-form-item>
 </template>
 
 <script>

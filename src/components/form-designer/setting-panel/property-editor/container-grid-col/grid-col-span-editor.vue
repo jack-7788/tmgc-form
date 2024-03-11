@@ -1,24 +1,24 @@
 <template>
   <div>
-    <el-form-item :label="i18nt('designer.setting.colSpanTitle')" v-if="!optionModel.responsive">
-      <el-input-number v-model.number="optionModel.span" :min="1" :max="24"
-                       style="width: 100%"></el-input-number>
-    </el-form-item>
-    <el-form-item :label="i18nt('designer.setting.colSpanTitle') + '(PC)'"
+    <a-form-item :label="i18nt('designer.setting.colSpanTitle')" v-if="!optionModel.responsive">
+      <a-input-number v-model:value="optionModel.span" :min="1" :max="24"
+                       style="width: 100%"></a-input-number>
+    </a-form-item>
+    <a-form-item :label="i18nt('designer.setting.colSpanTitle') + '(PC)'"
                   v-if="!!optionModel.responsive && (formConfig.layoutType === 'PC')">
-      <el-input-number v-model.number="optionModel.md" :min="1" :max="24"
-                       style="width: 100%"></el-input-number>
-    </el-form-item>
-    <el-form-item :label="i18nt('designer.setting.colSpanTitle') + '(Pad)'"
+      <a-input-number v-model:value="optionModel.md" :min="1" :max="24"
+                       style="width: 100%"></a-input-number>
+    </a-form-item>
+    <a-form-item :label="i18nt('designer.setting.colSpanTitle') + '(Pad)'"
                   v-if="!!optionModel.responsive && (formConfig.layoutType === 'Pad')">
-      <el-input-number v-model.number="optionModel.sm" :min="1" :max="24"
-                       style="width: 100%"></el-input-number>
-    </el-form-item>
-    <el-form-item :label="i18nt('designer.setting.colSpanTitle') + '(H5)'"
+      <a-input-number v-model:value="optionModel.sm" :min="1" :max="24"
+                       style="width: 100%"></a-input-number>
+    </a-form-item>
+    <a-form-item :label="i18nt('designer.setting.colSpanTitle') + '(H5)'"
                   v-if="!!optionModel.responsive && (formConfig.layoutType === 'H5')">
-      <el-input-number v-model.number="optionModel.xs" :min="1" :max="24"
-                       style="width: 100%"></el-input-number>
-    </el-form-item>
+      <a-input-number v-model:value="optionModel.xs" :min="1" :max="24"
+                       style="width: 100%"></a-input-number>
+    </a-form-item>
   </div>
 </template>
 

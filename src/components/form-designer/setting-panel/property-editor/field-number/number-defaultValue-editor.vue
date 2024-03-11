@@ -1,8 +1,8 @@
 <template>
-  <el-form-item v-if="!hasConfig('optionItems')" :label="i18nt('designer.setting.defaultValue')">
-    <el-input-number type="text" style="width: 100%" v-model="optionModel.defaultValue"
-              @change="emitDefaultValueChange"></el-input-number>
-  </el-form-item>
+  <a-form-item v-if="!hasConfig('optionItems')" :label="i18nt('designer.setting.defaultValue')">
+    <a-input-number type="text" style="width: 100%" v-model:value="optionModel.defaultValue"
+              @change="emitDefaultValueChange"></a-input-number>
+  </a-form-item>
 </template>
 
 <script>

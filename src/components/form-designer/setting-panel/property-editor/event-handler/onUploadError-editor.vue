@@ -1,17 +1,23 @@
 <template>
-  <el-form-item label="onUploadError" label-width="150px">
-    <el-button type="info" icon="el-icon-edit" plain round :class="[eventHandled ? 'button-text-highlight' : '']"
-               @click="editEventHandler('onUploadError', eventParams)">
-      {{i18nt('designer.setting.addEventHandler')}}</el-button>
-  </el-form-item>
+  <a-form-item label="onUploadError" label-width="150px">
+    <a-button
+      type="info"
+      plain
+      shape="round"
+      :class="[eventHandled ? 'button-text-highlight' : '']"
+      @click="editEventHandler('onUploadError', eventParams)"
+    >
+      {{ i18nt('designer.setting.addEventHandler') }}</a-button
+    >
+  </a-form-item>
 </template>
 
 <script>
-  import i18n from "@/utils/i18n"
-  import eventMixin from "@/components/form-designer/setting-panel/property-editor/event-handler/eventMixin"
+  import i18n from '@/utils/i18n';
+  import eventMixin from '@/components/form-designer/setting-panel/property-editor/event-handler/eventMixin';
 
   export default {
-    name: "onUploadError-editor",
+    name: 'onUploadError-editor',
     mixins: [i18n, eventMixin],
     props: {
       designer: Object,
@@ -19,17 +25,22 @@
       optionModel: Object,
       eventHandled: {
         type: Boolean,
-        default: false,
-      },
+        default: false
+      }
     },
     data() {
       return {
-        eventParams: ['error', 'file', 'fileList'],
-      }
+        eventParams: ['error', 'file', 'fileList']
+      };
     }
-  }
+  };
 </script>
 
-<style scoped>
-
+<style scoped lang="scss">
+  .button-text-highlight {
+    &.ant-btn {
+      font-weight: bold;
+      color: #409eff;
+    }
+  }
 </style>

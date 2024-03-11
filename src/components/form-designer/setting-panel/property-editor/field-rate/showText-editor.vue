@@ -1,7 +1,7 @@
 <template>
-  <el-form-item :label="i18nt('designer.setting.showText')">
-    <el-switch v-model="optionModel.showText"></el-switch>
-  </el-form-item>
+  <a-form-item :label="i18nt('designer.setting.showText')">
+    <a-switch v-model:checked="optionModel.showText"></a-switch>
+  </a-form-item>
 </template>
 
 <script>

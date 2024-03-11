@@ -1,15 +1,15 @@
 <template>
-  <el-form-item :label="i18nt('designer.setting.format')">
-    <el-select v-model="optionModel.format" filterable allow-create>
-      <el-option label="YYYY-MM-DD" value="YYYY-MM-DD"></el-option>
-      <el-option label="YYYY/MM/DD" value="YYYY/MM/DD"></el-option>
-      <el-option label="YYYY年MM月DD日" value="YYYY年MM月DD日"></el-option>
-      <el-option label="YYYY-MM-DD HH:mm:ss" value="YYYY-MM-DD HH:mm:ss"></el-option>
-      <el-option label="YYYY-MM-DD hh:mm:ss" value="YYYY-MM-DD hh:mm:ss"></el-option>
-      <el-option label="YYYY-MM" value="YYYY-MM"></el-option>
-      <el-option label="YYYY" value="YYYY"></el-option>
-    </el-select>
-  </el-form-item>
+  <a-form-item :label="i18nt('designer.setting.format')">
+    <a-select v-model:value="optionModel.format" filterable allow-create>
+      <a-select-option label="YYYY-MM-DD" value="YYYY-MM-DD">YYYY-MM-DD</a-select-option>
+      <a-select-option label="YYYY/MM/DD" value="YYYY/MM/DD">YYYY/MM/DD</a-select-option>
+      <a-select-option label="YYYY年MM月DD日" value="YYYY年MM月DD日">YYYY年MM月DD日</a-select-option>
+      <a-select-option label="YYYY-MM-DD HH:mm:ss" value="YYYY-MM-DD HH:mm:ss">YYYY-MM-DD HH:mm:ss</a-select-option>
+      <a-select-option label="YYYY-MM-DD hh:mm:ss" value="YYYY-MM-DD hh:mm:ss">YYYY-MM-DD hh:mm:ss</a-select-option>
+      <a-select-option label="YYYY-MM" value="YYYY-MM">YYYY-MM</a-select-option>
+      <a-select-option label="YYYY" value="YYYY">YYYY</a-select-option>
+    </a-select>
+  </a-form-item>
 </template>
 
 <script>

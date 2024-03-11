@@ -1,9 +1,9 @@
 <template>
-  <el-form-item :label="i18nt('designer.setting.defaultValue')">
-    <el-time-picker v-model="optionModel.defaultValue" @change="emitDefaultValueChange"
+  <a-form-item :label="i18nt('designer.setting.defaultValue')">
+    <a-time-picker v-model:value="optionModel.defaultValue" @change="emitDefaultValueChange"
                     :format="optionModel.format" value-format="HH:mm:ss" style="width: 100%">
-    </el-time-picker>
-  </el-form-item>
+    </a-time-picker>
+  </a-form-item>
 </template>
 
 <script>

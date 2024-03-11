@@ -1,9 +1,9 @@
 <template>
-  <el-form-item label="onDialogBeforeClose" label-width="150px">
-    <el-button type="info" icon="el-icon-edit" plain round :class="[eventHandled ? 'button-text-highlight' : '']"
+  <a-form-item label="onDialogBeforeClose" label-width="150px">
+    <a-button type="info"  plain shape='round' :class="[eventHandled ? 'button-text-highlight' : '']"
                @click="editEventHandler('onDialogBeforeClose', eventParams)">
-      {{i18nt('designer.setting.addEventHandler')}}</el-button>
-  </el-form-item>
+      {{i18nt('designer.setting.addEventHandler')}}</a-button>
+  </a-form-item>
 </template>
 
 <script>
@@ -30,6 +30,11 @@
   }
 </script>
 
-<style scoped>
-
+<style scoped lang="scss">
+.button-text-highlight {
+  &.ant-btn {
+    font-weight: bold;
+    color: #409eff;
+  }
+}
 </style>

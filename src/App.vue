@@ -1,76 +1,88 @@
 <template>
   <a-config-provider :locale="elLocale">
-    <el-config-provider :locale="elLocale">
-      <div id="app">
-        <VFormDesigner :designer-config="designerConfig" :global-dsv="globalDsv" />
-      </div>
-    </el-config-provider>
+    <div id="app">
+      <VFormDesigner :designer-config="designerConfig" :global-dsv="globalDsv" />
+    </div>
   </a-config-provider>
 </template>
 
 <script>
-import VFormDesigner from './components/form-designer/index.vue'
-import zhCNLang from 'element-plus/dist/locale/zh-cn.mjs'
-import enUSLang from 'element-plus/dist/locale/en.mjs'
-import zhCN from 'ant-design-vue/es/locale/zh_CN';
-import dayjs from 'dayjs';
-import 'dayjs/locale/zh-cn';
-dayjs.locale('zh-cn');
-// import zhCNLang from 'element-plus/lib/locale/lang/zh-cn'
-// import enUSLang from 'element-plus/lib/locale/lang/en'
+  import VFormDesigner from './components/form-designer/index.vue';
+  import zhCN from 'ant-design-vue/es/locale/zh_CN';
+  import dayjs from 'dayjs';
+  import 'dayjs/locale/zh-cn';
+  dayjs.locale('zh-cn');
 
-export default {
-  name: 'App',
-  components: {
-    VFormDesigner,
-  },
-  data() {
-    return {
-      formJson: { "widgetList": [], "formConfig": { "modelName": "formData", "refName": "vForm", "rulesName": "rules", "labelWidth": 80, "labelPosition": "left", "size": "", "labelAlign": "label-left-align", "cssCode": "", "customClass": "", "functions": "", "layoutType": "PC", "onFormCreated": "", "onFormMounted": "", "onFormDataChange": "", "onFormValidate": "" } },
-      formData: {},
-      optionData: {},
-
-      designerConfig: {
-        //logoHeader: false,
-      },
-
-      //全局数据源变量
-      globalDsv: {
-        testApiHost: 'http://www.test.com/api'
-      },
-
-      elLocaleMap: {
-        'zh-CN': {
-          ...zhCNLang,
-          ...zhCN
-        },
-        'en-US': enUSLang,
-      },
-    }
-  },
-  computed: {
-    elLocale() {
-      let curLocale = localStorage.getItem('v_form_locale') || 'zh-CN'
-      return this.elLocaleMap[curLocale]
+  export default {
+    name: 'App',
+    components: {
+      VFormDesigner
     },
+    data() {
+      return {
+        formJson: {
+          widgetList: [],
+          formConfig: {
+            modelName: 'formData',
+            refName: 'vForm',
+            rulesName: 'rules',
+            labelWidth: 80,
+            labelPosition: 'left',
+            size: '',
+            labelAlign: 'label-left-align',
+            cssCode: '',
+            customClass: '',
+            functions: '',
+            layoutType: 'PC',
+            onFormCreated: '',
+            onFormMounted: '',
+            onFormDataChange: '',
+            onFormValidate: ''
+          }
+        },
+        formData: {},
+        optionData: {},
 
-  },
-  methods: {
-    submitForm() {
-      this.$refs.vFormRef.getFormData().then(formData => {
-        // Form Validation OK
-        alert(JSON.stringify(formData))
-      }).catch(error => {
-        // Form Validation failed
-        this.$message.error(error)
-      })
+        designerConfig: {
+          //logoHeader: false,
+        },
+
+        //全局数据源变量
+        globalDsv: {
+          testApiHost: 'http://www.test.com/api'
+        },
+
+        elLocaleMap: {
+          'zh-CN': { ...zhCN },
+          'en-US': {}
+        }
+      };
+    },
+    computed: {
+      elLocale() {
+        const curLocale = localStorage.getItem('v_form_locale') || 'zh-CN';
+        return this.elLocaleMap[curLocale];
+      }
+    },
+    methods: {
+      submitForm() {
+        this.$refs.vFormRef
+          .getFormData()
+          .then(formData => {
+            // Form Validation OK
+            alert(JSON.stringify(formData));
+          })
+          .catch(error => {
+            // Form Validation failed
+            this.$message.error(error);
+          });
+      }
     }
-  }
-}
+  };
 </script>
 
 <style lang="scss">
-#app {
-  height: 100%;
-}
+  #app {
+    height: 100%;
+  }
 </style>

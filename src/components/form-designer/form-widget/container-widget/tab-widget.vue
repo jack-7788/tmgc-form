@@ -9,99 +9,128 @@
 -->
 
 <template>
-  <container-wrapper :designer="designer" :widget="widget" :parent-widget="parentWidget" :parent-list="parentList"
-                     :index-of-parent-list="indexOfParentList">
-
-    <div :key="widget.id" class="tab-container"
-         :class="{'selected': selected}" @click.stop="selectWidget(widget)">
+  <container-wrapper
+    :designer="designer"
+    :widget="widget"
+    :parent-widget="parentWidget"
+    :parent-list="parentList"
+    :index-of-parent-list="indexOfParentList"
+  >
+    <div
+      :key="widget.id"
+      class="tab-container"
+      :class="{ selected: selected }"
+      @click.stop="selectWidget(widget)"
+    >
       <a-tabs :type="widget.displayType" v-model:activeKey="activeTab" @tab-click="onTabClick">
-
-        <a-tab-pane v-for="(tab, index) in widget.tabs"   :tab="tab.options.label" :key="tab.options.name"
-                     @click.stop="selectWidget(widget)">
-          <draggable :list="tab.widgetList" item-key="id" v-bind="{group:'dragGroup', ghostClass: 'ghost',animation: 200}"
-                     handle=".drag-handler" tag="transition-group" :component-data="{name: 'fade'}"
-                     @add="(evt) => onContainerDragAdd(evt, tab.widgetList)"
-                     @update="onContainerDragUpdate" :move="checkContainerMove">
+        <a-tab-pane
+          v-for="tab in widget.tabs"
+          :tab="tab.options.label"
+          :key="tab.options.name"
+          @click.stop="selectWidget(widget)"
+        >
+          <draggable
+            :list="tab.widgetList"
+            item-key="id"
+            v-bind="{ group: 'dragGroup', ghostClass: 'ghost', animation: 200 }"
+            handle=".drag-handler"
+            tag="transition-group"
+            :component-data="{ name: 'fade' }"
+            @add="evt => onContainerDragAdd(evt, tab.widgetList)"
+            @update="onContainerDragUpdate"
+            :move="checkContainerMove"
+          >
             <template #item="{ element: subWidget, index: swIdx }">
               <div class="form-widget-list">
                 <template v-if="'container' === subWidget.category">
-                  <component :is="subWidget.type + '-widget'" :widget="subWidget" :designer="designer" :key="subWidget.id" :parent-list="tab.widgetList"
-                                    :index-of-parent-list="swIdx" :parent-widget="widget"></component>
+                  <component
+                    :is="subWidget.type + '-widget'"
+                    :widget="subWidget"
+                    :designer="designer"
+                    :key="subWidget.id"
+                    :parent-list="tab.widgetList"
+                    :index-of-parent-list="swIdx"
+                    :parent-widget="widget"
+                  />
                 </template>
                 <template v-else>
-                  <component :is="subWidget.type + '-widget'" :field="subWidget" :designer="designer" :key="subWidget.id" :parent-list="tab.widgetList"
-                                :index-of-parent-list="swIdx" :parent-widget="widget" :design-state="true"></component>
+                  <component
+                    :is="subWidget.type + '-widget'"
+                    :field="subWidget"
+                    :designer="designer"
+                    :key="subWidget.id"
+                    :parent-list="tab.widgetList"
+                    :index-of-parent-list="swIdx"
+                    :parent-widget="widget"
+                    :design-state="true"
+                  />
                 </template>
               </div>
             </template>
           </draggable>
         </a-tab-pane>
-
       </a-tabs>
     </div>
-
   </container-wrapper>
 </template>
 
 <script>
-  import i18n from "@/utils/i18n"
-  import containerMixin from "@/components/form-designer/form-widget/container-widget/containerMixin"
-  import ContainerWrapper from "@/components/form-designer/form-widget/container-widget/container-wrapper"
-  import FieldComponents from '@/components/form-designer/form-widget/field-widget/index'
-  import refMixinDesign from "@/components/form-designer/refMixinDesign"
+  import i18n from '@/utils/i18n';
+  import containerMixin from '@/components/form-designer/form-widget/container-widget/containerMixin';
+  import ContainerWrapper from '@/components/form-designer/form-widget/container-widget/container-wrapper';
+  import FieldComponents from '@/components/form-designer/form-widget/field-widget/index';
+  import refMixinDesign from '@/components/form-designer/refMixinDesign';
 
   export default {
-    name: "tab-widget",
+    name: 'tab-widget',
     componentName: 'ContainerWidget',
     mixins: [i18n, containerMixin, refMixinDesign],
     inject: ['refList'],
     components: {
       ContainerWrapper,
-      ...FieldComponents,
+      ...FieldComponents
     },
     props: {
       widget: Object,
       parentWidget: Object,
       parentList: Array,
       indexOfParentList: Number,
-      designer: Object,
+      designer: Object
     },
     data() {
       return {
-        activeTab: 'tab1',
+        activeTab: 'tab1'
         //
-      }
+      };
     },
     computed: {
       selected() {
-        return this.widget.id === this.designer.selectedId
+        return this.widget.id === this.designer.selectedId;
       },
 
       customClass() {
-        return this.widget.options.customClass || ''
-      },
-
+        return this.widget.options.customClass || '';
+      }
     },
     watch: {
       //
     },
     created() {
-      this.initRefList()
+      this.initRefList();
     },
     mounted() {
       //
     },
     methods: {
       onTabClick(evt) {
-        console.log('onTabClick', evt)
-        let paneName = evt.name
-        this.widget.tabs.forEach((tp) => {
+        console.log('onTabClick', evt);
+        const paneName = evt.name;
+        this.widget.tabs.forEach(tp => {
           tp.options.active = tp.options.name === paneName;
-        })
-      },
-
+        });
+      }
     }
-  }
+  };
 </script>
 
 <style lang="scss" scoped>
@@ -117,5 +146,4 @@
   .tab-container.selected {
     outline: 2px solid $--color-primary !important;
   }
-
 </style>

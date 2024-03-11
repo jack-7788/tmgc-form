@@ -1,7 +1,7 @@
 <template>
-  <el-form-item :label="i18nt('designer.setting.vertical')">
-    <el-switch v-model="optionModel.vertical"></el-switch>
-  </el-form-item>
+  <a-form-item :label="i18nt('designer.setting.vertical')">
+    <a-switch v-model:checked="optionModel.vertical"></a-switch>
+  </a-form-item>
 </template>
 
 <script>

@@ -1,7 +1,7 @@
 <template>
-  <el-form-item :label="i18nt('designer.setting.center')" :title="i18nt('designer.setting.center')">
-    <el-switch v-model="optionModel.center"></el-switch>
-  </el-form-item>
+  <a-form-item :label="i18nt('designer.setting.center')" :title="i18nt('designer.setting.center')">
+    <a-switch v-model:value="optionModel.center"></a-switch>
+  </a-form-item>
 </template>
 
 <script>

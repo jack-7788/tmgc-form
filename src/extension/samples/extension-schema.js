@@ -11,9 +11,9 @@ export const cardSchema = {
     showFold: true,
     cardWidth: '100%',
     shadow: 'never',
-    customClass: '',
+    customClass: ''
   }
-}
+};
 
 export const alertSchema = {
   type: 'alert',
@@ -31,6 +31,6 @@ export const alertSchema = {
     effect: 'light',
     hidden: false,
     onClose: '',
-    customClass: '',
+    customClass: ''
   }
-}
+};

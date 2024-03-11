@@ -4,43 +4,69 @@
 
 <template>
   <div>
-    <el-form-item :label="i18nt('designer.setting.customClass')">
-      <el-select v-model="optionModel.customClass" multiple filterable allow-create
-                 default-first-option>
-        <el-option v-for="(item, idx) in cssClassList" :key="idx" :label="item" :value="item"></el-option>
-      </el-select>
-    </el-form-item>
-    <el-form-item :label="i18nt('designer.setting.tabPaneSetting')"></el-form-item>
-    <el-form-item label-width="0" class="panes-setting">
-      <draggable tag="ul" :list="selectedWidget.tabs" item-key="id"
-                 v-bind="{group:'panesGroup', ghostClass: 'ghost', handle: '.drag-option'}">
+    <a-form-item :label="i18nt('designer.setting.customClass')">
+      <a-select
+        v-model:value="optionModel.customClass"
+        multiple
+        filterable
+        allow-create
+        default-first-option
+      >
+        <a-select-option v-for="(item, idx) in cssClassList" :key="idx" :label="item" :value="item"
+          >{{ item }}
+        </a-select-option>
+      </a-select>
+    </a-form-item>
+    <a-form-item :label="i18nt('designer.setting.tabPaneSetting')" />
+    <a-form-item label-width="0" class="panes-setting">
+      <draggable
+        tag="ul"
+        :list="selectedWidget.tabs"
+        item-key="id"
+        v-bind="{ group: 'panesGroup', ghostClass: 'ghost', handle: '.drag-option' }"
+      >
         <template #item="{ element: tpItem, index: tpIdx }">
           <li class="col-item">
             <!-- span style="margin-right: 12px">{{tpIdx + 1}}</span -->
-            <el-checkbox v-model="tpItem.options.active" disabled @change="(evt) => onTabPaneActiveChange(evt, tpItem)"
-                         style="margin-right: 8px">{{i18nt('designer.setting.paneActive')}}</el-checkbox>
-            <el-input type="text" v-model="tpItem.options.label" style="width: 155px"></el-input>
+            <a-checkbox
+              v-model:checked="tpItem.options.active"
+              disabled
+              @change="evt => onTabPaneActiveChange(evt, tpItem)"
+              style="margin-right: 8px"
+              >{{ i18nt('designer.setting.paneActive') }}</a-checkbox
+            >
+            <a-input type="text" v-model:value="tpItem.options.label" style="width: 155px" />
             <i class="iconfont icon-drag drag-option"></i>
-            <el-button circle plain size="small" type="danger" @click="deleteTabPane(selectedWidget, tpIdx)"
-                       icon="el-icon-minus" class="col-delete-button"></el-button>
+            <a-button
+              shape="circle"
+              plain
+              size="small"
+              type="danger"
+              @click="deleteTabPane(selectedWidget, tpIdx)"
+              class="col-delete-button"
+            >
+              --
+            </a-button>
           </li>
         </template>
       </draggable>
 
       <div>
-        <el-button type="text" @click="addTabPane(selectedWidget)">{{i18nt('designer.setting.addTabPane')}}</el-button>
+        <a-button type="text" @click="addTabPane(selectedWidget)">{{
+          i18nt('designer.setting.addTabPane')
+        }}</a-button>
       </div>
-    </el-form-item>
+    </a-form-item>
   </div>
 </template>
 
 <script>
-  import i18n from "@/utils/i18n"
+  import i18n from '@/utils/i18n';
   //import Draggable from 'vuedraggable'
-  import {deepClone} from "@/utils/util";
+  import { deepClone } from '@/utils/util';
 
   export default {
-    name: "tab-customClass-editor",
+    name: 'tab-customClass-editor',
     componentName: 'PropertyEditor',
     mixins: [i18n],
     components: {
@@ -49,19 +75,19 @@
     props: {
       designer: Object,
       selectedWidget: Object,
-      optionModel: Object,
+      optionModel: Object
     },
     data() {
       return {
-        cssClassList: [],
-      }
+        cssClassList: []
+      };
     },
     created() {
-      this.cssClassList = deepClone(this.designer.getCssClassList())
+      this.cssClassList = deepClone(this.designer.getCssClassList());
       //监听表单css代码改动事件并重新加载！
-      this.designer.handleEvent('form-css-updated', (cssClassList) => {
-        this.cssClassList = cssClassList
-      })
+      this.designer.handleEvent('form-css-updated', cssClassList => {
+        this.cssClassList = cssClassList;
+      });
     },
     methods: {
       onTabPaneActiveChange(evt, tpItem) {
@@ -69,22 +95,21 @@
       },
 
       addTabPane(curTabs) {
-        this.designer.addTabPaneOfTabs(curTabs)
-        this.designer.emitHistoryChange()
+        this.designer.addTabPaneOfTabs(curTabs);
+        this.designer.emitHistoryChange();
       },
 
       deleteTabPane(curTabs, tpIdx) {
         if (curTabs.tabs.length === 1) {
-          this.$message.info(this.i18nt('designer.hint.lastPaneCannotBeDeleted'))
-          return
+          this.$message.info(this.i18nt('designer.hint.lastPaneCannotBeDeleted'));
+          return;
         }
 
-        this.designer.deleteTabPaneOfTabs(curTabs, tpIdx)
-        this.designer.emitHistoryChange()
-      },
-
+        this.designer.deleteTabPaneOfTabs(curTabs, tpIdx);
+        this.designer.emitHistoryChange();
+      }
     }
-  }
+  };
 </script>
 
 <style lang="scss" scoped>
@@ -118,5 +143,4 @@
       border: 2px dotted $--color-primary;
     }
   }
-
 </style>

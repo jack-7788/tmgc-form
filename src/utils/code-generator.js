@@ -1,5 +1,5 @@
-export const generateCode = function(formJson, codeType= 'vue') {
-  let formJsonStr = JSON.stringify(formJson)
+export const generateCode = function (formJson, codeType = 'vue') {
+  const formJsonStr = JSON.stringify(formJson);
 
   if (codeType === 'html') {
     return `<!DOCTYPE html>
@@ -51,8 +51,7 @@ export const generateCode = function(formJson, codeType= 'vue') {
 	app.mount("#app");
 </script>
 </body>
-</html>`
-
+</html>`;
   } else {
     return `<template>
   <div>
@@ -80,7 +79,6 @@ export const generateCode = function(formJson, codeType= 'vue') {
       ElMessage.error(error)
     })
   }
-</script>`
-
+</script>`;
   }
-}
+};

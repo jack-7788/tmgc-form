@@ -1,5 +1,5 @@
 <template>
-  <el-dialog :title="options.title" v-model="dialogVisible" append-to-body destroy-on-close draggable
+  <a-modal :title="options.title" v-model:visible="dialogVisible" append-to-body destroy-on-close draggable
              :width="options.width" :fullscreen="options.fullscreen" :modal="options.showModal"
              :show-close="options.showClose" :close-on-click-modal="options.closeOnClickModal"
              :close-on-press-escape="options.closeOnPressEscape" :center="options.center"
@@ -10,13 +10,13 @@
     </VFormRender>
     <template #footer>
       <div>
-        <el-button v-if="!options.cancelButtonHidden" @click="handleCancelClick">
-          {{cancelBtnLabel}}</el-button>
-        <el-button v-if="!options.okButtonHidden" type="primary" @click="handleOkClick">
-          {{okBtnLabel}}</el-button>
+        <a-button v-if="!options.cancelButtonHidden" @click="handleCancelClick">
+          {{cancelBtnLabel}}</a-button>
+        <a-button v-if="!options.okButtonHidden" type="primary" @click="handleOkClick">
+          {{okBtnLabel}}</a-button>
       </div>
     </template>
-  </el-dialog>
+  </a-modal>
 </template>
 
 <script>

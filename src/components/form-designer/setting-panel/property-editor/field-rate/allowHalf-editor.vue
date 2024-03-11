@@ -1,7 +1,7 @@
 <template>
-  <el-form-item :label="i18nt('designer.setting.allowHalf')">
-    <el-switch v-model="optionModel.allowHalf"></el-switch>
-  </el-form-item>
+  <a-form-item :label="i18nt('designer.setting.allowHalf')">
+    <a-switch v-model:checked="optionModel.allowHalf"></a-switch>
+  </a-form-item>
 </template>
 
 <script>

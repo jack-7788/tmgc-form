@@ -16,19 +16,16 @@
 
 <script>
   export default {
-    name: "container-item-wrapper",
+    name: 'container-item-wrapper',
     props: {
-      widget: Object,
+      widget: Object
     },
     computed: {
       customClass() {
-        return !!this.widget.options.customClass ? this.widget.options.customClass.join(' ') : ''
-      },
-
+        return !!this.widget.options.customClass ? this.widget.options.customClass.join(' ') : '';
+      }
     }
-  }
+  };
 </script>
 
-<style lang="scss" scoped>
-
-</style>
+<style lang="scss" scoped></style>

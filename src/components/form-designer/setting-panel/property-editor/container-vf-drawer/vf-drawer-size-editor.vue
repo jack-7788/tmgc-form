@@ -1,7 +1,7 @@
 <template>
-  <el-form-item :label="i18nt('designer.setting.drawSize')">
-    <el-input type="text" v-model="optionModel.size"></el-input>
-  </el-form-item>
+  <a-form-item :label="i18nt('designer.setting.drawSize')">
+    <a-input type="text" v-model:value="optionModel.size"></a-input>
+  </a-form-item>
 </template>
 
 <script>

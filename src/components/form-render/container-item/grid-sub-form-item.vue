@@ -1,83 +1,123 @@
 <template>
   <container-item-wrapper :widget="widget">
-
-    <div :key="widget.id" class="sub-form-container"
-         v-show="!widget.options.hidden">
-      <el-row class="header-row">
+    <div :key="widget.id" class="sub-form-container" v-show="!widget.options.hidden">
+      <a-row class="header-row">
         <div class="action-header-column">
-          <span class="action-label">{{i18nt('render.hint.subFormAction')}}</span>
-          <el-button v-if="!isReadMode" :disabled="actionDisabled || insertDisabled"
-                     round type="primary" size="small" class="action-button"
-                     @click="addSubFormRow" :title="i18nt('render.hint.subFormAddActionHint')">
-            {{i18nt('render.hint.subFormAddAction')}}<i class="el-icon-plus el-icon-right"></i></el-button>
+          <span class="action-label">{{ i18nt('render.hint.subFormAction') }}</span>
+          <a-button
+            v-if="!isReadMode"
+            :disabled="actionDisabled || insertDisabled"
+            shape="round"
+            type="primary"
+            size="small"
+            class="action-button"
+            @click="addSubFormRow"
+            :title="i18nt('render.hint.subFormAddActionHint')"
+          >
+            {{ i18nt('render.hint.subFormAddAction') }}<i class="el-icon-plus el-icon-right"></i
+          ></a-button>
         </div>
-      </el-row>
+      </a-row>
       <div v-for="(subFormRowId, sfrIdx) in rowIdData" class="sub-form-row" :key="subFormRowId">
         <div v-if="leftActionColumn" class="sub-form-action-column hide-label">
           <div class="action-button-column">
-            <el-button :disabled="actionDisabled || insertDisabled"
-                       circle type="" icon="el-icon-circle-plus-outline" @click="insertSubFormRow(sfrIdx)"
-                       v-show="!isReadMode" :title="i18nt('render.hint.insertSubFormRow')"></el-button>
-            <el-button :disabled="actionDisabled || deleteDisabled"
-                       circle type="" icon="el-icon-delete" @click="deleteSubFormRow(sfrIdx)"
-                       v-show="!isReadMode" :title="i18nt('render.hint.deleteSubFormRow')"></el-button>
-            <span v-if="widget.options.showRowNumber" class="row-number-span">#{{sfrIdx+1}}</span>
+            <a-button
+              :disabled="actionDisabled || insertDisabled"
+              shape="circle"
+              type=""
+              icon="el-icon-circle-plus-outline"
+              @click="insertSubFormRow(sfrIdx)"
+              v-show="!isReadMode"
+              :title="i18nt('render.hint.insertSubFormRow')"
+            />
+            <a-button
+              :disabled="actionDisabled || deleteDisabled"
+              shape="circle"
+              type=""
+              icon="el-icon-delete"
+              @click="deleteSubFormRow(sfrIdx)"
+              v-show="!isReadMode"
+              :title="i18nt('render.hint.deleteSubFormRow')"
+            />
+            <span v-if="widget.options.showRowNumber" class="row-number-span"
+              >#{{ sfrIdx + 1 }}</span
+            >
           </div>
         </div>
         <div v-if="!leftActionColumn && widget.options.showRowNumber" class="row-no-column">
-          <span v-if="widget.options.showRowNumber" class="row-number-span">#{{sfrIdx+1}}</span>
+          <span v-if="widget.options.showRowNumber" class="row-number-span">#{{ sfrIdx + 1 }}</span>
         </div>
         <div class="grid-sub-form-data-row">
-          <template v-for="(subWidget, swIdx) in widget.widgetList" :key="widgetSchemaData[sfrIdx][swIdx].id">
-            <component :is="getComponentByContainer(subWidget)" :widget="widgetSchemaData[sfrIdx][swIdx]"
-                       :parent-list="widget.widgetList"
-                       :index-of-parent-list="swIdx" :parent-widget="widget"
-                       :sub-form-row-id="subFormRowId" :sub-form-row-index="sfrIdx" :sub-form-col-index="swIdx">
+          <template
+            v-for="(subWidget, swIdx) in widget.widgetList"
+            :key="widgetSchemaData[sfrIdx][swIdx].id"
+          >
+            <component
+              :is="getComponentByContainer(subWidget)"
+              :widget="widgetSchemaData[sfrIdx][swIdx]"
+              :parent-list="widget.widgetList"
+              :index-of-parent-list="swIdx"
+              :parent-widget="widget"
+              :sub-form-row-id="subFormRowId"
+              :sub-form-row-index="sfrIdx"
+              :sub-form-col-index="swIdx"
+            >
               <!-- 子表单暂不支持插槽！！！ -->
             </component>
           </template>
         </div>
         <div v-if="!leftActionColumn" class="sub-form-action-column hide-label">
           <div class="action-button-column">
-            <el-button :disabled="actionDisabled || insertDisabled"
-                       circle type="" icon="el-icon-circle-plus-outline" @click="insertSubFormRow(sfrIdx)"
-                       v-show="!isReadMode" :title="i18nt('render.hint.insertSubFormRow')"></el-button>
-            <el-button :disabled="actionDisabled || deleteDisabled"
-                       circle type="" icon="el-icon-delete" @click="deleteSubFormRow(sfrIdx)"
-                       v-show="!isReadMode" :title="i18nt('render.hint.deleteSubFormRow')"></el-button>
+            <a-button
+              :disabled="actionDisabled || insertDisabled"
+              shape="circle"
+              type=""
+              icon="el-icon-circle-plus-outline"
+              @click="insertSubFormRow(sfrIdx)"
+              v-show="!isReadMode"
+              :title="i18nt('render.hint.insertSubFormRow')"
+            />
+            <a-button
+              :disabled="actionDisabled || deleteDisabled"
+              shape="circle"
+              type=""
+              icon="el-icon-delete"
+              @click="deleteSubFormRow(sfrIdx)"
+              v-show="!isReadMode"
+              :title="i18nt('render.hint.deleteSubFormRow')"
+            />
           </div>
         </div>
       </div>
     </div>
-
   </container-item-wrapper>
 </template>
 
 <script>
-  import emitter from '@/utils/emitter'
-  import i18n from "../../../utils/i18n"
-  import {deepClone, generateId, traverseFieldWidgetsOfContainer} from "@/utils/util"
-  import refMixin from "../../../components/form-render/refMixin"
-  import ContainerItemWrapper from './container-item-wrapper'
-  import containerItemMixin from "./containerItemMixin";
-  import FieldComponents from '@/components/form-designer/form-widget/field-widget/index'
+  import emitter from '@/utils/emitter';
+  import i18n from '../../../utils/i18n';
+  import { deepClone, generateId, traverseFieldWidgetsOfContainer } from '@/utils/util';
+  import refMixin from '../../../components/form-render/refMixin';
+  import ContainerItemWrapper from './container-item-wrapper';
+  import containerItemMixin from './containerItemMixin';
+  import FieldComponents from '@/components/form-designer/form-widget/field-widget/index';
 
   export default {
-    name: "grid-sub-form-item",
+    name: 'grid-sub-form-item',
     componentName: 'ContainerItem',
     mixins: [emitter, i18n, refMixin, containerItemMixin],
     components: {
       ContainerItemWrapper,
-      ...FieldComponents,
+      ...FieldComponents
     },
     props: {
-      widget: Object,
+      widget: Object
     },
     provide() {
       return {
         getSubFormFieldFlag: () => true,
-        getSubFormName: () => this.widget.options.name,
-      }
+        getSubFormName: () => this.widget.options.name
+      };
     },
     inject: ['refList', 'sfRefList', 'globalModel', 'getReadMode'],
     data() {
@@ -85,262 +125,281 @@
         rowIdData: [],
         widgetSchemaData: [],
         actionDisabled: false,
-        insertDisabled: false,  //是否禁止新增、插入记录
-        deleteDisabled: false,  //是否禁止删除记录
+        insertDisabled: false, //是否禁止新增、插入记录
+        deleteDisabled: false, //是否禁止删除记录
 
-        fieldWidgetList: [],
-      }
+        fieldWidgetList: []
+      };
     },
     computed: {
       isReadMode() {
-        return this.getReadMode()
+        return this.getReadMode();
       },
 
       leftActionColumn() {
-        return (this.widget.options.actionColumnPosition || 'left') === 'left'
-      },
-
+        return (this.widget.options.actionColumnPosition || 'left') === 'left';
+      }
     },
     created() {
-      this.initRefList()
-      this.registerSubFormToRefList()
-      this.initRowIdData(true)
-      this.initWidgetSchemaData()
-      this.initEventHandler()
+      this.initRefList();
+      this.registerSubFormToRefList();
+      this.initRowIdData(true);
+      this.initWidgetSchemaData();
+      this.initEventHandler();
     },
     mounted() {
-      this.extractFieldWidgetList()
-      this.handleSubFormFirstRowAdd()  //默认添加首行后，主动触发相关事件！！
+      this.extractFieldWidgetList();
+      this.handleSubFormFirstRowAdd(); //默认添加首行后，主动触发相关事件！！
     },
-    beforeDestroy() {
-      this.unregisterFromRefList()
+    beforeUnmount() {
+      this.unregisterFromRefList();
     },
     methods: {
       extractFieldWidgetList() {
-        this.fieldWidgetList.splice(0, this.fieldWidgetList.length)
-        let fieldListFn = (fw) => {
-          this.fieldWidgetList.push(fw)
-        }
-        traverseFieldWidgetsOfContainer(this.widget, fieldListFn)
+        this.fieldWidgetList.splice(0, this.fieldWidgetList.length);
+        const fieldListFn = fw => {
+          this.fieldWidgetList.push(fw);
+        };
+        traverseFieldWidgetsOfContainer(this.widget, fieldListFn);
       },
 
       getLabelAlign(widget, subWidget) {
-        return subWidget.options.labelAlign || widget.options.labelAlign
+        return subWidget.options.labelAlign || widget.options.labelAlign;
       },
 
       registerSubFormToRefList() {
         if (this.widget.type === 'grid-sub-form') {
-          this.sfRefList[this.widget.options.name] = this
+          this.sfRefList[this.widget.options.name] = this;
         }
       },
 
       initRowIdData(initFlag) {
         if (this.widget.type === 'grid-sub-form') {
-          this.rowIdData.splice(0, this.rowIdData.length)  //清除数组必须用splice，length=0不会响应式更新！！
-          let subFormModel = this.formModel[this.widget.options.name]
-          if (!!subFormModel && (subFormModel.length > 0)) {
+          this.rowIdData.splice(0, this.rowIdData.length); //清除数组必须用splice，length=0不会响应式更新！！
+          const subFormModel = this.formModel[this.widget.options.name];
+          if (!!subFormModel && subFormModel.length > 0) {
             subFormModel.forEach(() => {
-              this.rowIdData.push('id' + generateId())
-            })
+              this.rowIdData.push('id' + generateId());
+            });
 
             if (!!initFlag) {
               //注意：事件触发需延期执行，SumFormDataChange事件处理代码中可能存在尚未创建完成的组件！！
               setTimeout(() => {
-                this.handleSubFormRowChange(subFormModel)
-              }, 800)
+                this.handleSubFormRowChange(subFormModel);
+              }, 800);
             }
           }
         }
       },
 
       addToRowIdData() {
-        this.rowIdData.push('id' + generateId())
+        this.rowIdData.push('id' + generateId());
       },
 
       insertToRowIdData(rowIndex) {
-        this.rowIdData.splice(rowIndex, 0, 'id' + generateId())
+        this.rowIdData.splice(rowIndex, 0, 'id' + generateId());
       },
 
       deleteFromRowIdData(rowIndex) {
-        this.rowIdData.splice(rowIndex, 1)
+        this.rowIdData.splice(rowIndex, 1);
       },
 
       getRowIdData() {
-        return this.rowIdData
+        return this.rowIdData;
       },
 
       getWidgetRefOfSubForm(widgetName, rowIndex) {
-        let realWidgetName = widgetName + '@row' + this.rowIdData[rowIndex]
-        return this.getWidgetRef(realWidgetName)
+        const realWidgetName = widgetName + '@row' + this.rowIdData[rowIndex];
+        return this.getWidgetRef(realWidgetName);
       },
 
-      initWidgetSchemaData() {  //初始化widgetSchemaData！！！
+      initWidgetSchemaData() {
+        //初始化widgetSchemaData！！！
         if (this.widget.type !== 'grid-sub-form') {
-          return
+          return;
         }
 
-        let rowLength = this.rowIdData.length
-        this.widgetSchemaData.splice(0, this.widgetSchemaData.length)  //清除数组必须用splice，length=0不会响应式更新！！
+        const rowLength = this.rowIdData.length;
+        this.widgetSchemaData.splice(0, this.widgetSchemaData.length); //清除数组必须用splice，length=0不会响应式更新！！
         if (rowLength > 0) {
           for (let i = 0; i < rowLength; i++) {
-            let widgetSchemas = []
+            const widgetSchemas = [];
             this.widget.widgetList.forEach(swItem => {
-              widgetSchemas.push( this.cloneSchemaOfWidget(swItem) )
-            })
-            this.widgetSchemaData.push(widgetSchemas)
+              widgetSchemas.push(this.cloneSchemaOfWidget(swItem));
+            });
+            this.widgetSchemaData.push(widgetSchemas);
           }
         }
       },
 
       addToWidgetSchemaData(rowIndex) {
-        let widgetSchemas = []
+        const widgetSchemas = [];
         this.widget.widgetList.forEach(swItem => {
-          widgetSchemas.push( this.cloneSchemaOfWidget(swItem) )
-        })
+          widgetSchemas.push(this.cloneSchemaOfWidget(swItem));
+        });
 
         if (rowIndex === undefined) {
-          this.widgetSchemaData.push(widgetSchemas)
+          this.widgetSchemaData.push(widgetSchemas);
         } else {
-          this.widgetSchemaData.splice(rowIndex, 0, widgetSchemas)
+          this.widgetSchemaData.splice(rowIndex, 0, widgetSchemas);
         }
       },
 
       deleteFromWidgetSchemaData(rowIndex) {
-        this.widgetSchemaData.splice(rowIndex, 1)
+        this.widgetSchemaData.splice(rowIndex, 1);
       },
 
       cloneSchemaOfWidget(widget) {
-        let newWidgetSchema = deepClone(widget)
-        newWidgetSchema.id = widget.type + generateId()
-        return newWidgetSchema
+        const newWidgetSchema = deepClone(widget);
+        newWidgetSchema.id = widget.type + generateId();
+        return newWidgetSchema;
       },
 
       initEventHandler() {
         if (this.widget.type !== 'grid-sub-form') {
-          return
+          return;
         }
 
-        this.on$('setFormData', (newFormData) => {
-          this.initRowIdData(false)
-          this.initWidgetSchemaData()
+        this.on$('setFormData', newFormData => {
+          this.initRowIdData(false);
+          this.initWidgetSchemaData();
 
-          let subFormData = newFormData[this.widget.options.name] || []
-          setTimeout(() => {  //延时触发SubFormRowChange事件, 便于更新计算字段！！
-            this.handleSubFormRowChange(subFormData)
-          }, 800)
-        })
+          const subFormData = newFormData[this.widget.options.name] || [];
+          setTimeout(() => {
+            //延时触发SubFormRowChange事件, 便于更新计算字段！！
+            this.handleSubFormRowChange(subFormData);
+          }, 800);
+        });
       },
 
       handleSubFormFirstRowAdd() {
         if (this.widget.type !== 'grid-sub-form') {
-          return
+          return;
         }
 
-        if (!!this.widget.options.showBlankRow && (this.rowIdData.length === 1)) {
-          let oldSubFormData = this.formModel[this.widget.options.name] || []
+        if (!!this.widget.options.showBlankRow && this.rowIdData.length === 1) {
+          const oldSubFormData = this.formModel[this.widget.options.name] || [];
 
           //确认组件创建成功后触发事件!!
           this.$nextTick(() => {
-            this.handleSubFormRowAdd(oldSubFormData, this.rowIdData[0])
-            this.handleSubFormRowChange(oldSubFormData)
-          })
+            this.handleSubFormRowAdd(oldSubFormData, this.rowIdData[0]);
+            this.handleSubFormRowChange(oldSubFormData);
+          });
         }
       },
 
       addSubFormRow() {
-        let newSubFormDataRow = {}
+        const newSubFormDataRow = {};
         this.fieldWidgetList.forEach(subFormItem => {
           if (!!subFormItem.formItemFlag) {
-            newSubFormDataRow[subFormItem.options.name] = subFormItem.options.defaultValue
+            newSubFormDataRow[subFormItem.options.name] = subFormItem.options.defaultValue;
           }
-        })
+        });
 
-        let oldSubFormData = this.formModel[this.widget.options.name] || []
-        oldSubFormData.push(newSubFormDataRow)
-        this.addToRowIdData()
-        this.addToWidgetSchemaData()
+        const oldSubFormData = this.formModel[this.widget.options.name] || [];
+        oldSubFormData.push(newSubFormDataRow);
+        this.addToRowIdData();
+        this.addToWidgetSchemaData();
 
         //确认组件创建成功后触发事件!!
         this.$nextTick(() => {
-          this.handleSubFormRowAdd(oldSubFormData, this.rowIdData[oldSubFormData.length - 1])
-          this.handleSubFormRowChange(oldSubFormData)
-        })
+          this.handleSubFormRowAdd(oldSubFormData, this.rowIdData[oldSubFormData.length - 1]);
+          this.handleSubFormRowChange(oldSubFormData);
+        });
       },
 
       insertSubFormRow(beforeFormRowIndex) {
-        let newSubFormDataRow = {}
+        const newSubFormDataRow = {};
         this.fieldWidgetList.forEach(subFormItem => {
           if (!!subFormItem.formItemFlag) {
-            newSubFormDataRow[subFormItem.options.name] = subFormItem.options.defaultValue
+            newSubFormDataRow[subFormItem.options.name] = subFormItem.options.defaultValue;
           }
-        })
+        });
 
-        let oldSubFormData = this.formModel[this.widget.options.name] || []
-        oldSubFormData.splice(beforeFormRowIndex, 0, newSubFormDataRow)
-        this.insertToRowIdData(beforeFormRowIndex)
-        this.addToWidgetSchemaData(beforeFormRowIndex)
+        const oldSubFormData = this.formModel[this.widget.options.name] || [];
+        oldSubFormData.splice(beforeFormRowIndex, 0, newSubFormDataRow);
+        this.insertToRowIdData(beforeFormRowIndex);
+        this.addToWidgetSchemaData(beforeFormRowIndex);
 
         //确认组件创建成功后触发事件!!
         this.$nextTick(() => {
-          this.handleSubFormRowInsert(oldSubFormData, this.rowIdData[beforeFormRowIndex])
-          this.handleSubFormRowChange(oldSubFormData)
-        })
+          this.handleSubFormRowInsert(oldSubFormData, this.rowIdData[beforeFormRowIndex]);
+          this.handleSubFormRowChange(oldSubFormData);
+        });
       },
 
       deleteSubFormRow(formRowIndex) {
-        this.$confirm(this.i18nt('render.hint.deleteSubFormRow') + '?', this.i18nt('render.hint.prompt'), {
-          confirmButtonText: this.i18nt('render.hint.confirm'),
-          cancelButtonText: this.i18nt('render.hint.cancel')
-        }).then(() => {
-          let oldSubFormData = this.formModel[this.widget.options.name] || []
-          let deletedDataRow = deepClone(oldSubFormData[formRowIndex])
-          oldSubFormData.splice(formRowIndex, 1)
-          this.deleteFromRowIdData(formRowIndex)
-          this.deleteFromWidgetSchemaData(formRowIndex)
+        this.$confirm(
+          this.i18nt('render.hint.deleteSubFormRow') + '?',
+          this.i18nt('render.hint.prompt'),
+          {
+            confirmButtonText: this.i18nt('render.hint.confirm'),
+            cancelButtonText: this.i18nt('render.hint.cancel')
+          }
+        )
+          .then(() => {
+            const oldSubFormData = this.formModel[this.widget.options.name] || [];
+            const deletedDataRow = deepClone(oldSubFormData[formRowIndex]);
+            oldSubFormData.splice(formRowIndex, 1);
+            this.deleteFromRowIdData(formRowIndex);
+            this.deleteFromWidgetSchemaData(formRowIndex);
 
-          //确认组件创建成功后触发事件!!
-          this.$nextTick(() => {
-            this.handleSubFormRowDelete(oldSubFormData, deletedDataRow)
-            this.handleSubFormRowChange(oldSubFormData)
+            //确认组件创建成功后触发事件!!
+            this.$nextTick(() => {
+              this.handleSubFormRowDelete(oldSubFormData, deletedDataRow);
+              this.handleSubFormRowChange(oldSubFormData);
+            });
           })
-        }).catch(() => {
-          //
-        })
+          .catch(() => {
+            //
+          });
       },
 
       handleSubFormRowChange(subFormData) {
         if (!!this.widget.options.onSubFormRowChange) {
-          let customFunc = new Function('subFormData', this.widget.options.onSubFormRowChange)
-          customFunc.call(this, subFormData)
+          const customFunc = new Function('subFormData', this.widget.options.onSubFormRowChange);
+          customFunc.call(this, subFormData);
         }
       },
 
       handleSubFormRowAdd(subFormData, newRowId) {
         if (!!this.widget.options.onSubFormRowAdd) {
-          let customFunc = new Function('subFormData', 'newRowId', this.widget.options.onSubFormRowAdd)
-          customFunc.call(this, subFormData, newRowId)
+          const customFunc = new Function(
+            'subFormData',
+            'newRowId',
+            this.widget.options.onSubFormRowAdd
+          );
+          customFunc.call(this, subFormData, newRowId);
         }
       },
 
       handleSubFormRowInsert(subFormData, newRowId) {
         if (!!this.widget.options.onSubFormRowInsert) {
-          let customFunc = new Function('subFormData', 'newRowId', this.widget.options.onSubFormRowInsert)
-          customFunc.call(this, subFormData, newRowId)
+          const customFunc = new Function(
+            'subFormData',
+            'newRowId',
+            this.widget.options.onSubFormRowInsert
+          );
+          customFunc.call(this, subFormData, newRowId);
         }
       },
 
       handleSubFormRowDelete(subFormData, deletedDataRow) {
         if (!!this.widget.options.onSubFormRowDelete) {
-          let customFunc = new Function('subFormData', 'deletedDataRow', this.widget.options.onSubFormRowDelete)
-          customFunc.call(this, subFormData, deletedDataRow)
+          const customFunc = new Function(
+            'subFormData',
+            'deletedDataRow',
+            this.widget.options.onSubFormRowDelete
+          );
+          customFunc.call(this, subFormData, deletedDataRow);
         }
       },
 
       setDisabled(flag) {
         if (!!flag) {
-          this.disableGridSubForm()
+          this.disableGridSubForm();
         } else {
-          this.enableGridSubForm()
+          this.enableGridSubForm();
         }
       },
 
@@ -349,7 +408,7 @@
        * @param flag
        */
       setInsertDisabled(flag) {
-        this.insertDisabled = flag
+        this.insertDisabled = flag;
       },
 
       /**
@@ -357,11 +416,10 @@
        * @param flag
        */
       setDeleteDisabled(flag) {
-        this.deleteDisabled = flag
-      },
-
-    },
-  }
+        this.deleteDisabled = flag;
+      }
+    }
+  };
 </script>
 
 <style lang="scss" scoped>
@@ -420,7 +478,7 @@
 
   div.field-header-column.is-required:before {
     content: '*';
-    color: #F56C6C;
+    color: #f56c6c;
     margin-right: 4px;
   }
 
@@ -447,13 +505,12 @@
       margin-bottom: 0;
     }
 
-  :deep(.el-button) {
+    :deep(.el-button) {
       font-size: 18px;
       padding: 0;
-      background: #DCDFE6;
-      border: 4px solid #DCDFE6;
+      background: #dcdfe6;
+      border: 4px solid #dcdfe6;
     }
-
   }
 
   div.grid-sub-form-data-row {
@@ -500,5 +557,4 @@
       display: none;
     }
   }
-
 </style>

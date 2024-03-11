@@ -9,77 +9,88 @@
 -->
 
 <template>
-  <container-wrapper :designer="designer" :widget="widget" :parent-widget="parentWidget" :parent-list="parentList"
-                     :index-of-parent-list="indexOfParentList">
-
-    <div :key="widget.id" class="table-container"
-         :class="[selected ? 'selected' : '', customClass]" @click.stop="selectWidget(widget)">
+  <container-wrapper
+    :designer="designer"
+    :widget="widget"
+    :parent-widget="parentWidget"
+    :parent-list="parentList"
+    :index-of-parent-list="indexOfParentList"
+  >
+    <div
+      :key="widget.id"
+      class="table-container"
+      :class="[selected ? 'selected' : '', customClass]"
+      @click.stop="selectWidget(widget)"
+    >
       <table class="table-layout">
         <tbody>
-        <tr v-for="(row, rowIdx) in widget.rows" :key="row.id">
-          <template v-for="(colWidget, colIdx) in row.cols">
-            <table-cell-widget v-if="!colWidget.merged" :widget="colWidget" :designer="designer"
-                               :key="colWidget.id" :parent-list="widget.cols"
-                               :row-index="rowIdx" :row-length="widget.rows.length"
-                               :col-index="colIdx" :col-length="row.cols.length"
-                               :col-array="row.cols" :row-array="widget.rows"
-                               :parent-widget="widget"></table-cell-widget>
-          </template>
-        </tr>
+          <tr v-for="(row, rowIdx) in widget.rows" :key="row.id">
+            <template v-for="(colWidget, colIdx) in row.cols">
+              <table-cell-widget
+                v-if="!colWidget.merged"
+                :widget="colWidget"
+                :designer="designer"
+                :key="colWidget.id"
+                :parent-list="widget.cols"
+                :row-index="rowIdx"
+                :row-length="widget.rows.length"
+                :col-index="colIdx"
+                :col-length="row.cols.length"
+                :col-array="row.cols"
+                :row-array="widget.rows"
+                :parent-widget="widget"
+              />
+            </template>
+          </tr>
         </tbody>
       </table>
     </div>
-
   </container-wrapper>
 </template>
 
 <script>
-  import i18n from "@/utils/i18n"
-  import containerMixin from "@/components/form-designer/form-widget/container-widget/containerMixin"
-  import ContainerWrapper from "@/components/form-designer/form-widget/container-widget/container-wrapper"
-  import TableCellWidget from "@/components/form-designer/form-widget/container-widget/table-cell-widget"
-  import refMixinDesign from "@/components/form-designer/refMixinDesign"
+  import i18n from '@/utils/i18n';
+  import containerMixin from '@/components/form-designer/form-widget/container-widget/containerMixin';
+  import ContainerWrapper from '@/components/form-designer/form-widget/container-widget/container-wrapper';
+  import TableCellWidget from '@/components/form-designer/form-widget/container-widget/table-cell-widget';
+  import refMixinDesign from '@/components/form-designer/refMixinDesign';
 
   export default {
-    name: "table-widget",
+    name: 'table-widget',
     componentName: 'ContainerWidget',
     mixins: [i18n, containerMixin, refMixinDesign],
     inject: ['refList'],
     components: {
       ContainerWrapper,
-      TableCellWidget,
+      TableCellWidget
     },
     props: {
       widget: Object,
       parentWidget: Object,
       parentList: Array,
       indexOfParentList: Number,
-      designer: Object,
+      designer: Object
     },
     computed: {
       selected() {
-        return this.widget.id === this.designer.selectedId
+        return this.widget.id === this.designer.selectedId;
       },
 
       customClass() {
-        return this.widget.options.customClass || ''
-      },
-
+        return this.widget.options.customClass || '';
+      }
     },
     watch: {
       //
     },
     created() {
-      this.initRefList()
+      this.initRefList();
     },
     mounted() {
       //
     },
-    methods: {
-
-
-    }
-  }
+    methods: {}
+  };
 </script>
 
 <style lang="scss" scoped>
@@ -112,5 +123,4 @@
   .table-container.selected {
     outline: 2px solid $--color-primary !important;
   }
-
 </style>

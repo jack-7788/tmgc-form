@@ -1,7 +1,7 @@
 <template>
-  <el-form-item :label="i18nt('designer.setting.showRowNumber')">
-    <el-switch v-model="optionModel.showRowNumber"></el-switch>
-  </el-form-item>
+  <a-form-item :label="i18nt('designer.setting.showRowNumber')">
+    <a-switch v-model:checked="optionModel.showRowNumber"></a-switch>
+  </a-form-item>
 </template>
 
 <script>

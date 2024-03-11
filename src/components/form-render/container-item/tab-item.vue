@@ -3,9 +3,9 @@
 
     <div :key="widget.id" class="tab-container"
          v-show="!widget.options.hidden">
-      <el-tabs v-model="activeTabName" :type="widget.displayType" :ref="widget.id" :class="[customClass]"
+      <a-tabs v-model:activeKey="activeTabName" :type="widget.displayType" :ref="widget.id" :class="[customClass]"
                @tab-click="handleTabClick">
-        <el-tab-pane v-for="(tab, index) in visibleTabs" :key="index" :label="tab.options.label"
+        <a-tab-pane v-for="(tab, index) in visibleTabs" :key="index" :tab="tab.options.label"
                      :disabled="tab.options.disabled" :name="tab.options.name">
           <template v-for="(subWidget, swIdx) in tab.widgetList">
             <template v-if="'container' === subWidget.category">
@@ -29,8 +29,8 @@
               </component>
             </template>
           </template>
-        </el-tab-pane>
-      </el-tabs>
+        </a-tab-pane>
+      </a-tabs>
     </div>
 
   </container-item-wrapper>

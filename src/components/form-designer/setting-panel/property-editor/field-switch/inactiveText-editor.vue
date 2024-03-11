@@ -1,7 +1,7 @@
 <template>
-  <el-form-item :label="i18nt('designer.setting.inactiveText')">
-    <el-input v-model="optionModel.inactiveText"></el-input>
-  </el-form-item>
+  <a-form-item :label="i18nt('designer.setting.inactiveText')">
+    <a-input v-model:value="optionModel.inactiveText"></a-input>
+  </a-form-item>
 </template>
 
 <script>

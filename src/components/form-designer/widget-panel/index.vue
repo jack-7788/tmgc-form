@@ -1,52 +1,108 @@
 <template>
-  <div class="side-scroll-bar" :style="{height: scrollerHeight}">
+  <div class="side-scroll-bar" :style="{ height: scrollerHeight }">
     <div class="panel-container">
+      <a-tabs v-model:activeKey="firstTab" class="no-bottom-margin indent-left-margin">
+        <a-tab-pane key="componentLib">
+          <template #tab>
+            <span><svg-icon icon-class="el-set-up" /> {{ i18nt('designer.componentLib') }}</span>
+          </template>
 
-    <a-tabs v-model:activeKey="firstTab" class="no-bottom-margin indent-left-margin">
-      <a-tab-pane key="componentLib">
-        <template #tab>
-          <span><svg-icon icon-class="el-set-up" /> {{i18nt('designer.componentLib')}}</span>
-        </template>
+          <a-collapse v-model:activeKey="activeNames" class="widget-collapse">
+            <a-collapse-panel key="containerTitle" :header="i18nt('designer.containerTitle')">
+              <draggable
+                tag="ul"
+                :list="containers"
+                item-key="key"
+                :group="{ name: 'dragGroup', pull: 'clone', put: false }"
+                :clone="handleContainerWidgetClone"
+                ghost-class="ghost"
+                :sort="false"
+                :move="checkContainerMove"
+                @end="onContainerDragEnd"
+              >
+                <template #item="{ element: ctn }">
+                  <li
+                    class="container-widget-item"
+                    :title="ctn.displayName"
+                    @dblclick="addContainerByDbClick(ctn)"
+                  >
+                    <span
+                      ><svg-icon :icon-class="ctn.icon" class-name="color-svg-icon" />{{
+                        i18n2t(
+                          `designer.widgetLabel.${ctn.type}`,
+                          `extension.widgetLabel.${ctn.type}`
+                        )
+                      }}</span
+                    >
+                  </li>
+                </template>
+              </draggable>
+            </a-collapse-panel>
 
-      <a-collapse v-model:activeKey="activeNames" class="widget-collapse">
-        <a-collapse-panel key="containerTitle" :header="i18nt('designer.containerTitle')">
+            <a-collapse-panel key="basicFieldTitle" :header="i18nt('designer.basicFieldTitle')">
+              <draggable
+                tag="ul"
+                :list="basicFields"
+                item-key="key"
+                :group="{ name: 'dragGroup', pull: 'clone', put: false }"
+                :move="checkFieldMove"
+                :clone="handleFieldWidgetClone"
+                ghost-class="ghost"
+                :sort="false"
+              >
+                <template #item="{ element: fld }">
+                  <li
+                    class="field-widget-item"
+                    :title="fld.displayName"
+                    @dblclick="addFieldByDbClick(fld)"
+                  >
+                    <span
+                      ><svg-icon :icon-class="fld.icon" class-name="color-svg-icon" />{{
+                        i18n2t(
+                          `designer.widgetLabel.${fld.type}`,
+                          `extension.widgetLabel.${fld.type}`
+                        )
+                      }}</span
+                    >
+                  </li>
+                </template>
+              </draggable>
+            </a-collapse-panel>
 
-          <draggable tag="ul" :list="containers" item-key="key" :group="{name: 'dragGroup', pull: 'clone', put: false}"
-                     :clone="handleContainerWidgetClone" ghost-class="ghost" :sort="false"
-                     :move="checkContainerMove" @end="onContainerDragEnd">
-            <template #item="{ element: ctn }">
-              <li class="container-widget-item" :title="ctn.displayName" @dblclick="addContainerByDbClick(ctn)">
-                <span><svg-icon :icon-class="ctn.icon" class-name="color-svg-icon" />{{i18n2t(`designer.widgetLabel.${ctn.type}`, `extension.widgetLabel.${ctn.type}`)}}</span>
-              </li>
-            </template>
-          </draggable>
-        </a-collapse-panel>
+            <a-collapse-panel
+              key="advancedFieldTitle"
+              :header="i18nt('designer.advancedFieldTitle')"
+            >
+              <draggable
+                tag="ul"
+                :list="advancedFields"
+                item-key="key"
+                :group="{ name: 'dragGroup', pull: 'clone', put: false }"
+                :move="checkFieldMove"
+                :clone="handleFieldWidgetClone"
+                ghost-class="ghost"
+                :sort="false"
+              >
+                <template #item="{ element: fld }">
+                  <li
+                    class="field-widget-item"
+                    :title="fld.displayName"
+                    @dblclick="addFieldByDbClick(fld)"
+                  >
+                    <span
+                      ><svg-icon :icon-class="fld.icon" class-name="color-svg-icon" />{{
+                        i18n2t(
+                          `designer.widgetLabel.${fld.type}`,
+                          `extension.widgetLabel.${fld.type}`
+                        )
+                      }}</span
+                    >
+                  </li>
+                </template>
+              </draggable>
+            </a-collapse-panel>
 
-        <a-collapse-panel key="basicFieldTitle" :header="i18nt('designer.basicFieldTitle')">
-          <draggable tag="ul" :list="basicFields" item-key="key" :group="{name: 'dragGroup', pull: 'clone', put: false}"
-                     :move="checkFieldMove"
-                     :clone="handleFieldWidgetClone" ghost-class="ghost" :sort="false">
-            <template #item="{ element: fld }">
-              <li class="field-widget-item" :title="fld.displayName" @dblclick="addFieldByDbClick(fld)">
-                <span><svg-icon :icon-class="fld.icon" class-name="color-svg-icon" />{{i18n2t(`designer.widgetLabel.${fld.type}`, `extension.widgetLabel.${fld.type}`)}}</span>
-              </li>
-            </template>
-          </draggable>
-        </a-collapse-panel>
-
-        <a-collapse-panel  key="advancedFieldTitle"  :header="i18nt('designer.advancedFieldTitle')">
-          <draggable tag="ul" :list="advancedFields" item-key="key" :group="{name: 'dragGroup', pull: 'clone', put: false}"
-                     :move="checkFieldMove"
-                     :clone="handleFieldWidgetClone" ghost-class="ghost" :sort="false">
-            <template #item="{ element: fld }">
-              <li class="field-widget-item" :title="fld.displayName" @dblclick="addFieldByDbClick(fld)">
-                <span><svg-icon :icon-class="fld.icon" class-name="color-svg-icon" />{{i18n2t(`designer.widgetLabel.${fld.type}`, `extension.widgetLabel.${fld.type}`)}}</span>
-              </li>
-            </template>
-          </draggable>
-        </a-collapse-panel>
-
-        <!-- <a-collapse-panel key="customFieldTitle" :header="i18nt('designer.customFieldTitle')">
+            <!-- <a-collapse-panel key="customFieldTitle" :header="i18nt('designer.customFieldTitle')">
           <draggable tag="ul" :list="customFields" item-key="key" :group="{name: 'dragGroup', pull: 'clone', put: false}"
                      :move="checkFieldMove"
                      :clone="handleFieldWidgetClone" ghost-class="ghost" :sort="false">
@@ -58,64 +114,66 @@
             </template>
           </draggable>
         </a-collapse-panel> -->
+          </a-collapse>
+        </a-tab-pane>
 
-      </a-collapse>
+        <a-tab-pane v-if="false && showFormTemplates()" key="formLib" style="padding: 8px">
+          <template #tab>
+            <span><svg-icon icon-class="el-form-template" /> {{ i18nt('designer.formLib') }}</span>
+          </template>
 
-      </a-tab-pane>
-
-      <a-tab-pane v-if="showFormTemplates()" key="formLib" style="padding: 8px">
-        <template #tab>
-          <span><svg-icon icon-class="el-form-template" /> {{i18nt('designer.formLib')}}</span>
-        </template>
-
-        <template v-for="(ft, idx) in formTemplates">
-          <a-card :bord-style="{ padding: '0' }" shadow="hover" class="ft-card">
-            <a-popover placement="right" trigger="hover">
-              <template #content>
-                <img :src="ftImages[idx].imgUrl" style="width: 200px">
-              </template>
-              <img :src="ftImages[idx].imgUrl" style="height: 600px;width: 720px">
-            </a-popover>
-            <div class="bottom clear-fix">
-              <span class="ft-title">#{{idx+1}} {{ft.title}}</span>
-              <a-button type="text" class="right-button" @click="loadFormTemplate(ft.jsonUrl)">
-                {{i18nt('designer.hint.loadFormTemplate')}}</a-button>
-            </div>
-          </a-card>
-        </template>
-      </a-tab-pane>
-
-    </a-tabs>
-
+          <template v-for="(ft, idx) in formTemplates" :key="idx">
+            <a-card :bord-style="{ padding: '0' }" shadow="hover" class="ft-card">
+              <a-popover placement="right" trigger="hover">
+                <template #content>
+                  <img :src="ftImages[idx].imgUrl" style="width: 200px" />
+                </template>
+                <img :src="ftImages[idx].imgUrl" style="height: 600px; width: 720px" />
+              </a-popover>
+              <div class="bottom clear-fix">
+                <span class="ft-title">#{{ idx + 1 }} {{ ft.title }}</span>
+                <a-button type="text" class="right-button" @click="loadFormTemplate(ft.jsonUrl)">
+                  {{ i18nt('designer.hint.loadFormTemplate') }}</a-button
+                >
+              </div>
+            </a-card>
+          </template>
+        </a-tab-pane>
+      </a-tabs>
     </div>
   </div>
 </template>
 
 <script>
-  import SvgIcon from '@/components/svg-icon'
-  import {containers as CONS, basicFields as BFS, advancedFields as AFS, customFields as CFS} from "./widgetsConfig"
-  import {formTemplates} from './templatesConfig'
-  import {addWindowResizeHandler, generateId} from "@/utils/util"
-  import i18n from "@/utils/i18n"
-  import axios from 'axios'
+  import SvgIcon from '@/components/svg-icon';
+  import {
+    containers as CONS,
+    basicFields as BFS,
+    advancedFields as AFS,
+    customFields as CFS
+  } from './widgetsConfig';
+  import { formTemplates } from './templatesConfig';
+  import { addWindowResizeHandler, generateId } from '@/utils/util';
+  import i18n from '@/utils/i18n';
+  import axios from 'axios';
 
-  import ftImg1 from '@/assets/ft-images/t1.png'
-  import ftImg2 from '@/assets/ft-images/t2.png'
-  import ftImg3 from '@/assets/ft-images/t3.png'
-  import ftImg4 from '@/assets/ft-images/t4.png'
-  import ftImg5 from '@/assets/ft-images/t5.png'
-  import ftImg6 from '@/assets/ft-images/t6.png'
-  import ftImg7 from '@/assets/ft-images/t7.png'
-  import ftImg8 from '@/assets/ft-images/t8.png'
+  import ftImg1 from '@/assets/ft-images/t1.png';
+  import ftImg2 from '@/assets/ft-images/t2.png';
+  import ftImg3 from '@/assets/ft-images/t3.png';
+  import ftImg4 from '@/assets/ft-images/t4.png';
+  import ftImg5 from '@/assets/ft-images/t5.png';
+  import ftImg6 from '@/assets/ft-images/t6.png';
+  import ftImg7 from '@/assets/ft-images/t7.png';
+  import ftImg8 from '@/assets/ft-images/t8.png';
 
   export default {
-    name: "FieldPanel",
+    name: 'FieldPanel',
     mixins: [i18n],
     components: {
       SvgIcon
     },
     props: {
-      designer: Object,
+      designer: Object
     },
     inject: ['getBannedWidgets', 'getDesignerConfig'],
     data() {
@@ -126,7 +184,7 @@
 
         scrollerHeight: 0,
 
-        activeNames: ['containerTitle',"basicFieldTitle","advancedFieldTitle"],
+        activeNames: ['containerTitle', 'basicFieldTitle', 'advancedFieldTitle'],
 
         containers: [],
         basicFields: [],
@@ -135,47 +193,47 @@
 
         formTemplates: formTemplates,
         ftImages: [
-          {imgUrl: ftImg1},
-          {imgUrl: ftImg2},
-          {imgUrl: ftImg3},
-          {imgUrl: ftImg4},
-          {imgUrl: ftImg5},
-          {imgUrl: ftImg6},
-          {imgUrl: ftImg7},
-          {imgUrl: ftImg8},
+          { imgUrl: ftImg1 },
+          { imgUrl: ftImg2 },
+          { imgUrl: ftImg3 },
+          { imgUrl: ftImg4 },
+          { imgUrl: ftImg5 },
+          { imgUrl: ftImg6 },
+          { imgUrl: ftImg7 },
+          { imgUrl: ftImg8 }
         ]
-      }
+      };
     },
     computed: {
       //
     },
     created() {
-      this.loadWidgets()
+      this.loadWidgets();
     },
     mounted() {
       //this.loadWidgets()
 
-      this.scrollerHeight = window.innerHeight - 56 + 'px'
+      this.scrollerHeight = window.innerHeight - 56 + 'px';
       addWindowResizeHandler(() => {
         this.$nextTick(() => {
-          this.scrollerHeight = window.innerHeight - 56 + 'px'
+          this.scrollerHeight = window.innerHeight - 56 + 'px';
           //console.log(this.scrollerHeight)
-        })
-      })
+        });
+      });
     },
     methods: {
       isBanned(wName) {
-        return this.getBannedWidgets().indexOf(wName) > -1
+        return this.getBannedWidgets().indexOf(wName) > -1;
       },
 
       showFormTemplates() {
         //lucdt
         // return false;
         if (this.designerConfig['formTemplates'] === undefined) {
-          return true
+          return true;
         }
 
-        return !!this.designerConfig['formTemplates']
+        return !!this.designerConfig['formTemplates'];
       },
 
       loadWidgets() {
@@ -183,59 +241,71 @@
           return {
             key: generateId(),
             ...con,
-            displayName: this.i18n2t(`designer.widgetLabel.${con.type}`, `extension.widgetLabel.${con.type}`)
-          }
+            displayName: this.i18n2t(
+              `designer.widgetLabel.${con.type}`,
+              `extension.widgetLabel.${con.type}`
+            )
+          };
         }).filter(con => {
-          return !con.internal && !this.isBanned(con.type)
-        })
+          return !con.internal && !this.isBanned(con.type);
+        });
 
         this.basicFields = BFS.map(fld => {
           return {
             key: generateId(),
             ...fld,
-            displayName: this.i18n2t(`designer.widgetLabel.${fld.type}`, `extension.widgetLabel.${fld.type}`)
-          }
+            displayName: this.i18n2t(
+              `designer.widgetLabel.${fld.type}`,
+              `extension.widgetLabel.${fld.type}`
+            )
+          };
         }).filter(fld => {
-          return !this.isBanned(fld.type)
-        })
+          return !this.isBanned(fld.type);
+        });
 
         this.advancedFields = AFS.map(fld => {
           return {
             key: generateId(),
             ...fld,
-            displayName: this.i18n2t(`designer.widgetLabel.${fld.type}`, `extension.widgetLabel.${fld.type}`)
-          }
+            displayName: this.i18n2t(
+              `designer.widgetLabel.${fld.type}`,
+              `extension.widgetLabel.${fld.type}`
+            )
+          };
         }).filter(fld => {
-          return !this.isBanned(fld.type)
-        })
+          return !this.isBanned(fld.type);
+        });
 
         this.customFields = CFS.map(fld => {
           return {
             key: generateId(),
             ...fld,
-            displayName: this.i18n2t(`designer.widgetLabel.${fld.type}`, `extension.widgetLabel.${fld.type}`)
-          }
+            displayName: this.i18n2t(
+              `designer.widgetLabel.${fld.type}`,
+              `extension.widgetLabel.${fld.type}`
+            )
+          };
         }).filter(fld => {
-          return !this.isBanned(fld.type)
-        })
+          return !this.isBanned(fld.type);
+        });
       },
 
       handleContainerWidgetClone(origin) {
-        return this.designer.copyNewContainerWidget(origin)
+        return this.designer.copyNewContainerWidget(origin);
       },
 
       handleFieldWidgetClone(origin) {
-        return this.designer.copyNewFieldWidget(origin)
+        return this.designer.copyNewFieldWidget(origin);
       },
 
       /* draggable组件的move钩子是在内部子组件被拖放到其他draggable组件时触发！！ */
       checkContainerMove(evt) {
-        return this.designer.checkWidgetMove(evt)
+        return this.designer.checkWidgetMove(evt);
       },
 
       /* draggable组件的move钩子是在内部子组件被拖放到其他draggable组件时触发！！ */
       checkFieldMove(evt) {
-        return this.designer.checkFieldMove(evt)
+        return this.designer.checkFieldMove(evt);
       },
 
       onContainerDragEnd(evt) {
@@ -244,41 +314,50 @@
       },
 
       addContainerByDbClick(container) {
-        this.designer.addContainerByDbClick(container)
+        this.designer.addContainerByDbClick(container);
       },
 
       addFieldByDbClick(widget) {
-        this.designer.addFieldByDbClick(widget)
+        this.designer.addFieldByDbClick(widget);
       },
 
       loadFormTemplate(jsonUrl) {
-        this.$confirm(this.i18nt('designer.hint.loadFormTemplateHint'), this.i18nt('render.hint.prompt'), {
-          confirmButtonText: this.i18nt('render.hint.confirm'),
-          cancelButtonText: this.i18nt('render.hint.cancel')
-        }).then(() => {
-          axios.get(jsonUrl).then(res => {
-            let modifiedFlag = false
-            if (typeof res.data === 'string') {
-              modifiedFlag = this.designer.loadFormJson( JSON.parse(res.data) )
-            } else if (res.data.constructor === Object) {
-              modifiedFlag = this.designer.loadFormJson(res.data)
-            }
-            if (modifiedFlag) {
-              this.designer.emitHistoryChange()
-            }
+        this.$confirm(
+          this.i18nt('designer.hint.loadFormTemplateHint'),
+          this.i18nt('render.hint.prompt'),
+          {
+            confirmButtonText: this.i18nt('render.hint.confirm'),
+            cancelButtonText: this.i18nt('render.hint.cancel')
+          }
+        )
+          .then(() => {
+            axios
+              .get(jsonUrl)
+              .then(res => {
+                let modifiedFlag = false;
+                if (typeof res.data === 'string') {
+                  modifiedFlag = this.designer.loadFormJson(JSON.parse(res.data));
+                } else if (res.data.constructor === Object) {
+                  modifiedFlag = this.designer.loadFormJson(res.data);
+                }
+                if (modifiedFlag) {
+                  this.designer.emitHistoryChange();
+                }
 
-            this.$message.success(this.i18nt('designer.hint.loadFormTemplateSuccess'))
-          }).catch(error => {
-            this.$message.error(this.i18nt('designer.hint.loadFormTemplateFailed') + ':' + error)
+                this.$message.success(this.i18nt('designer.hint.loadFormTemplateSuccess'));
+              })
+              .catch(error => {
+                this.$message.error(
+                  this.i18nt('designer.hint.loadFormTemplateFailed') + ':' + error
+                );
+              });
           })
-        }).catch(error => {
-          console.error(error)
-        })
+          .catch(error => {
+            console.error(error);
+          });
       }
-
     }
-
-  }
+  };
 </script>
 
 <style lang="scss" scoped>
@@ -306,10 +385,9 @@
     :deep(.ant-tabs-nav) {
       margin-left: 20px;
     }
-    
   }
   // .el-collapse-item :deep(ul) > li ,
-  .ant-collapse-item :deep(ul) > li{
+  .ant-collapse-item :deep(ul) > li {
     list-style: none;
   }
 
@@ -325,14 +403,14 @@
     // :deep(.el-collapse-item__content) ,
     :deep(.ant-collapse-content) {
       padding-bottom: 6px;
-       > .ant-collapse-content-box {
+      > .ant-collapse-content-box {
         padding: 4px;
-       }
+      }
 
       ul {
         padding: 0;
         // padding-left: 10px;  /* 重置IE11默认样式 */
-        margin: 0;  /* 重置IE11默认样式 */
+        margin: 0; /* 重置IE11默认样式 */
         margin-block-start: 0;
         margin-block-end: 0.25em;
         // padding-inline-start: 10px;
@@ -340,12 +418,13 @@
         flex-wrap: wrap;
 
         &:after {
-          content: "";
+          content: '';
           display: block;
           clear: both;
         }
 
-        .container-widget-item, .field-widget-item {
+        .container-widget-item,
+        .field-widget-item {
           //text-align: center; // 居中显示不太美观
           display: inline-block;
           height: 28px;
@@ -360,8 +439,9 @@
           background: #f1f2f3;
         }
 
-        .container-widget-item:hover, .field-widget-item:hover {
-          background: #EBEEF5;
+        .container-widget-item:hover,
+        .field-widget-item:hover {
+          background: #ebeef5;
           outline: 1px solid $--color-primary;
         }
 
@@ -409,15 +489,14 @@
       float: right;
     }
 
-    .clear-fix:before, .clear-fix:after {
+    .clear-fix:before,
+    .clear-fix:after {
       display: table;
-      content: "";
+      content: '';
     }
 
     .clear-fix:after {
       clear: both;
     }
-
   }
-
 </style>

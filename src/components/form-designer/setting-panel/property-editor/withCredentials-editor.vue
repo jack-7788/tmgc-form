@@ -1,7 +1,7 @@
 <template>
-  <el-form-item :label="i18nt('designer.setting.withCredentials')">
-    <el-switch v-model="optionModel.withCredentials"></el-switch>
-  </el-form-item>
+  <a-form-item :label="i18nt('designer.setting.withCredentials')">
+    <a-switch v-model:checked="optionModel.withCredentials"></a-switch>
+  </a-form-item>
 </template>
 
 <script>

@@ -1,8 +1,7 @@
-
 export const containers = [
   {
     type: 'grid',
-    alias: '',  //组件别名，可以自定义
+    alias: '', //组件别名，可以自定义
     category: 'container',
     icon: 'grid',
     cols: [],
@@ -10,8 +9,8 @@ export const containers = [
       name: '',
       hidden: false,
       gutter: 12,
-      colHeight: null,  //栅格列统一高度属性，用于解决栅格列设置响应式布局浮动后被挂住的问题！！
-      customClass: '',  //自定义css类名
+      colHeight: null, //栅格列统一高度属性，用于解决栅格列设置响应式布局浮动后被挂住的问题！！
+      customClass: '' //自定义css类名
     }
   },
 
@@ -23,7 +22,7 @@ export const containers = [
     options: {
       name: '',
       hidden: false,
-      customClass: '',  //自定义css类名
+      customClass: '' //自定义css类名
     }
   },
 
@@ -36,8 +35,8 @@ export const containers = [
     options: {
       name: '',
       hidden: false,
-      customClass: '',  //自定义css类名
-      onTabClick: '',  //tab被选中时触发
+      customClass: '', //自定义css类名
+      onTabClick: '' //tab被选中时触发
     }
   },
 
@@ -52,17 +51,17 @@ export const containers = [
       showRowNumber: true,
       labelAlign: 'label-center-align',
       hidden: false,
-      actionColumnPosition: 'left',  //操作按钮列位置
-      customClass: '',  //自定义css类名
+      actionColumnPosition: 'left', //操作按钮列位置
+      customClass: '', //自定义css类名
       onSubFormRowAdd: '',
       onSubFormRowInsert: '',
       onSubFormRowDelete: '',
-      onSubFormRowChange: '',
+      onSubFormRowChange: ''
     }
   },
 
   // {
-  //   type: 'grid-sub-form',
+  //   type: 'grid-sub-form',// 多行子表单---未实现
   //   category: 'container',
   //   icon: 'grid-sub-form',
   //   widgetList: [],
@@ -71,12 +70,12 @@ export const containers = [
   //     showBlankRow: true,
   //     showRowNumber: true,
   //     hidden: false,
-  //     actionColumnPosition: 'left',  //操作按钮列位置
-  //     customClass: '',  //自定义css类名
+  //     actionColumnPosition: 'left', //操作按钮列位置
+  //     customClass: '', //自定义css类名
   //     onSubFormRowAdd: '',
   //     onSubFormRowInsert: '',
   //     onSubFormRowDelete: '',
-  //     onSubFormRowChange: '',
+  //     onSubFormRowChange: ''
   //   }
   // },
 
@@ -93,11 +92,11 @@ export const containers = [
       offset: 0,
       push: 0,
       pull: 0,
-      responsive: false,  //是否开启响应式布局
+      responsive: false, //是否开启响应式布局
       md: 12,
       sm: 12,
       xs: 12,
-      customClass: '',  //自定义css类名
+      customClass: '' //自定义css类名
     }
   },
 
@@ -114,7 +113,7 @@ export const containers = [
       cellHeight: '',
       colspan: 1,
       rowspan: 1,
-      customClass: '',  //自定义css类名
+      customClass: '' //自定义css类名
     }
   },
 
@@ -130,181 +129,154 @@ export const containers = [
       hidden: false,
       active: false,
       disabled: false,
-      customClass: '',  //自定义css类名
+      customClass: '' //自定义css类名
     }
   },
 
-  // {
-  //   type: 'data-table',//数据表格
-  //   category: 'container',
-  //   icon: 'data-table',
-  //   widgetList: [],
-  //   options: {
-  //     name: '',
-  //     label: 'data-table',
-  //     hidden: false,
-  //     rowSpacing: 8,
-  //     tableHeight: '300px', //高度，百分比或像素
-  //     tableWidth: '100%', //宽度，百分比或像素宽度
-  //     customClass: '', //自定义css样式
-  //     stripe: true, // 是否斑马线
-  //     showIndex: false, // 是否显示行号列
-  //     showCheckBox: true, // 是否显示复选框列
-  //     showPagination: true, // 是否分页
-  //     smallPagination: false, //是否显示小型分页
-  //     showSummary: false, // 是否合计
-  //     border: true, // 是否带有纵向边框（拖拽）
-  //     tableSize: 'default', // 表格大小，large大、default中、small小
-  //     tableColumns: [ //表格列信息
-  //       {columnId: 1, prop:'name', label:'姓名', width:'100', show:true, align:'left', fixed:'left', sortable:true},
-  //       {columnId: 2, prop:'date', label:'日期1', width:'160', show:true, align:'left', formatS:'d1'},
-  //       {columnId: 3, prop:'date2', label:'日期2',width:'160',show:true,align:'left',formatS:'d4'},
-  //       {columnId: 4, prop:'date3', label:'日期3',width:'160',show:true,align:'left',formatS:'d5'},
-  //       {columnId: 5, prop:'f1', label:'基金',width:'150',show:true,align:'right',sortable:true,formatS:'n1'},
-  //       {columnId: 6, prop:'f2',label:'股票',width:'150',show:true,align:'right',sortable:true,formatS:'n2'},
-  //       {columnId: 7, prop:'f3',label:'存款',width:'150',show:true,align:'right',sortable:true,formatS:'n3'},
-  //       {columnId: 8, prop:'f4',label:'基金2',width:'150',show:true,align:'right',sortable:true,formatS:'n4'},
-  //       {columnId: 9, prop:'f5',label:'股票2',width:'150',show:true,align:'right',sortable:true,formatS:'n5'},
-  //       {columnId: 10, prop:'f6',label:'存款2',width:'150',show:true,align:'right',sortable:true,formatS:'n6'},
-  //       {columnId: 11, prop:'f7',label:'成功率',width:'140',show:true,align:'right',sortable:true,formatS:'n7'},
-  //       {columnId: 12, prop:'add',label:'地址',width:'250',show:true, render: ''},
-  //       {columnId: 13, prop:'ss',label:'秘密',width:'100',show:false},
-  //     ],
-  //     showButtonsColumn: false, // 是否显示操作列
-  //     buttonsColumnFixed: 'right',
-  //     buttonsColumnTitle: '操作',
-  //     buttonsColumnWidth: 120,
-  //     operationButtons: [{ // 操作按钮配置
-  //       name: 'detail',
-  //       label: '详情',
-  //       type: 'text',
-  //       size: 'small',
-  //       round: false,
-  //       hidden: true,
-  //       disabled: false,
-  //     }, {
-  //       name: 'edit',
-  //       label: '编辑',
-  //       type: 'text',
-  //       size: 'small',
-  //       round: false,
-  //       hidden: false,
-  //       disabled: false,
-  //     }, {
-  //       name: 'delete',
-  //       label: '删除',
-  //       type: 'text',
-  //       size: 'small',
-  //       round: false,
-  //       hidden: false,
-  //       disabled: false,
-  //     },
-  //     ],
-  //     pagination: { // 分页信息
-  //       currentPage: 1,
-  //       pageSizes: [10, 15, 20, 30, 50, 100, 200],
-  //       pageSize: 20,
-  //       total: 366,
-  //     },
-  //     dsEnabled: false, //是否使用数据源数据
-  //     dsName: '',  //数据源名称
-  //     dataSetName: '',  //数据集名称
-  //     treeDataEnabled: false,  //是否允许加载树形数据
-  //     rowKey: 'id',  //树形数据数据row-key
-  //     childrenKey: 'children',  //树形数据children
-  //     tableData: [ //表格数据
-  //       {
-  //         date: '2016-05-02',
-  //         date2: '2016-05-02 23:12:12',
-  //         date3: '2016-05-02 9:11:12',
-  //         name: '小二',
-  //         f1: 10001000.2,
-  //         f2: 10001000.239567,
-  //         f3: 10001000.239567,
-  //         f4: 10001000.239567,
-  //         f5: 10001000.239567,
-  //         f6: 10001000.239567,
-  //         f7: 0.25,
-  //         add: '上海市普陀区金沙江路 1518 弄',
-  //         ss: 100,
-  //       }, {
-  //         date: '2016-05-04',
-  //         date2: '2016-05-02 11:12:12',
-  //         date3: '2016-05-02 9:11:12',
-  //         name: '王小虎2',
-  //         f1: 10001000.23,
-  //         f2: 10001000.23,
-  //         f3: 10001000.239567,
-  //         f4: 10001000.239567,
-  //         f5: 10001000.239567,
-  //         f6: 10001000.239567,
-  //         f7: 0.256,
-  //         add: '上海市普陀区金沙江路 1518 弄',
-  //         ss: 100,
-  //       }, {
-  //         date: '2016-05-01',
-  //         date2: '2016-05-02 12:12:12',
-  //         date3: '2016-05-02 9:11:12',
-  //         name: '王小虎3',
-  //         f1: 10001000.239,
-  //         f2: 10001000.239,
-  //         f3: 10001000.239567,
-  //         f4: 10001000.239567,
-  //         f5: 10001000.239567,
-  //         f6: 10001000.239567,
-  //         f7: 0.2569,
-  //         add: '上海市普陀区金沙江路 1518 弄',
-  //         ss: 100,
-  //       }, {
-  //         date: '2016-05-03',
-  //         date2: '2016-05-02 12:12:12',
-  //         date3: '2016-05-02 9:11:12',
-  //         name: '王小虎4',
-  //         f1: 10001000.239567,
-  //         f2: 10001000.239567,
-  //         f3: 10001000.239567,
-  //         f4: 10001000.239567,
-  //         f5: 10001000.239567,
-  //         f6: 10001000.239567,
-  //         f7: 1.9527102,
-  //         add: '上海市普陀区金沙江路 1518 弄',
-  //         ss: 100,
-  //       },
-  //     ],
+  {
+    type: 'data-table', //数据表格
+    category: 'container',
+    icon: 'data-table',
+    widgetList: [],
+    options: {
+      name: '',
+      label: 'data-table',
+      hidden: false,
+      rowSpacing: 8,
+      tableHeight: '300px', //高度，百分比或像素
+      tableWidth: '100%', //宽度，百分比或像素宽度
+      customClass: '', //自定义css样式
+      stripe: true, // 是否斑马线
+      showIndex: false, // 是否显示行号列
+      // showCheckBox: true, // 是否显示复选框列
+      showPagination: true, // 是否分页
+      // smallPagination: false, //是否显示小型分页
+      // showSummary: false, // 是否合计
+      border: true, // 是否带有纵向边框（拖拽）
+      tableSize: 'default', // 表格大小，large大、default中、small小
+      tableColumns: [
+        //表格列信息
+        {
+          columnId: 1,
+          dataIndex: 'name',
+          title: '姓名',
+          width: 100,
+          show: true,
+          align: 'left',
+          fixed: 'false',
+          sorter: true,
+          customRender: ''
+        }
+      ],
+      showButtonsColumn: false, // 是否显示操作列
+      buttonsColumnFixed: 'right',
+      buttonsColumnTitle: '操作',
+      buttonsColumnWidth: 200,
+      operationButtons: [
+        {
+          // 操作按钮配置
+          name: 'detail',
+          label: '详情',
+          type: 'text',
+          size: 'small',
+          round: false,
+          hidden: true,
+          disabled: false
+        },
+        {
+          name: 'edit',
+          label: '编辑',
+          type: 'text',
+          size: 'small',
+          round: false,
+          hidden: false,
+          disabled: false
+        },
+        {
+          name: 'delete',
+          label: '删除',
+          type: 'text',
+          size: 'small',
+          round: false,
+          hidden: false,
+          disabled: false
+        }
+      ],
+      dsEnabled: false, //是否使用数据源数据
+      dsName: '', //数据源名称
+      dataSetName: '', //数据集名称
+      treeDataEnabled: false, //是否允许加载树形数据
+      rowKey: 'name', //树形数据数据row-key
+      childrenKey: 'children', //树形数据children
+      dataSource: [
+        //表格数据
+        {
+          date: '2016-05-02',
+          date2: '2016-05-02 23:12:12',
+          date3: '2016-05-02 9:11:12',
+          name: '小二',
+          f1: 10001000.2,
+          f2: 10001000.239567,
+          f3: 10001000.239567,
+          f4: 10001000.239567,
+          f5: 10001000.239567,
+          f6: 10001000.239567,
+          f7: 0.25,
+          add: '上海市普陀区金沙江路 1518 弄',
+          ss: 100
+        }
+      ],
 
-  //     onCreated: '',
-  //     onMounted: '',
-  //     //分页大小改变事件
-  //     onPageSizeChange: '',
-  //     //当前页改变事件
-  //     onCurrentPageChange: '',
-  //     //选择项改变事件
-  //     onSelectionChange: '',
+      onCreated: '',
+      onMounted: '',
+      //分页大小改变事件
+      onPageSizeChange: '',
+      //当前页改变事件
+      onCurrentPageChange: '',
+      //选择项改变事件
+      onSelectionChange: '',
 
-  //     //设置操作按钮是否隐藏回调事件（必须有返回值）
-  //     onHideOperationButton: '',
-  //     //设置操作按钮是否禁用回调事件（必须有返回值）
-  //     onDisableOperationButton: '',
-  //     //设置操作按钮文本回调事件（必须有返回值）
-  //     onGetOperationButtonLabel: '',
-  //     //操作按钮点击事件
-  //     onOperationButtonClick: '',
+      //设置操作按钮是否隐藏回调事件（必须有返回值）
+      onHideOperationButton: '',
+      //设置操作按钮是否禁用回调事件（必须有返回值）
+      onDisableOperationButton: '',
+      //设置操作按钮文本回调事件（必须有返回值）
+      onGetOperationButtonLabel: '',
+      //操作按钮点击事件
+      onOperationButtonClick: '',
 
-  //     onHeaderClick: '',
-  //     onRowClick: '',
-  //     onRowDoubleClick: '',
-  //     onCellClick: '',
-  //     onCellDoubleClick: '',
+      onHeaderClick: '',
+      onRowClick: '',
+      onRowDoubleClick: '',
+      onCellClick: '',
+      onCellDoubleClick: '',
 
-  //     //获取行样式名称事件
-  //     onGetRowClassName: '',
-  //     //合并行、列事件
-  //     onGetSpanMethod: '',
-  //   }
-  // },
+      //获取行样式名称事件
+      onGetRowClassName: '',
+      //合并行、列事件
+      onGetSpanMethod: '',
+      onChange: '', //分页、排序、筛选变化时触发
+      pagination: {
+        current: 1, //当前页数
+        hideOnSinglePage: false, //只有一页时是否隐藏分页器
+        pageSize: 20, //每页条数
+        total: 0, //数据总数
+        showQuickJumper: true, //是否可以快速跳转至某页
+        showSizeChanger: true //是否展示 pageSize 切换器，当 total 大于 50 时默认为 true
+      },
+      rowSelection: {
+        hasRowSelection: false,
+        preserveSelectedRowKeys: false, //当数据被删除时仍然保留选项的 key
+        // type:"checkbox",//多选/单选，checkbox or radio
+        fixed: true, //把选择框列固定在左边
+        onChange: 'console.log(122222,selectedRowKeys, selectedRows)', //选中项发生变化时的回调 Function(selectedRowKeys, selectedRows)
+        columnWidth: 100
+      } //antd 功能的配置
+    }
+  }
 
   // {
-  //   type: 'vf-dialog',//弹窗
+  //   type: 'vf-dialog', //弹窗
   //   category: 'container',
   //   icon: 'vf-dialog',
   //   widgetList: [],
@@ -327,12 +299,12 @@ export const containers = [
   //     onOkButtonClick: '',
   //     onCancelButtonClick: '',
   //     onDialogOpened: '',
-  //     onDialogBeforeClose: '',
+  //     onDialogBeforeClose: ''
   //   }
   // },
 
   // {
-  //   type: 'vf-drawer',// 侧滑抽屉
+  //   type: 'vf-drawer', // 侧滑抽屉
   //   category: 'container',
   //   icon: 'vf-drawer',
   //   widgetList: [],
@@ -354,16 +326,15 @@ export const containers = [
   //     onOkButtonClick: '',
   //     onCancelButtonClick: '',
   //     onDrawerOpened: '',
-  //     onDrawerBeforeClose: '',
+  //     onDrawerBeforeClose: ''
   //   }
-  // },
-
-]
+  // }
+];
 
 export const basicFields = [
   {
     type: 'input',
-    alias: '',  //组件别名，可以自定义
+    alias: '', //组件别名，可以自定义
     icon: 'text-field',
     formItemFlag: true,
     options: {
@@ -380,14 +351,14 @@ export const basicFields = [
       readonly: false,
       disabled: false,
       hidden: false,
-      clearable: true,
+      allowClear: true,
       showPassword: false,
       required: false,
       requiredHint: '',
       validation: '',
       validationHint: '',
       //-------------------
-      customClass: '',  //自定义css类名
+      customClass: '', //自定义css类名
       labelIconClass: null,
       labelIconPosition: 'rear',
       labelTooltip: null,
@@ -407,8 +378,8 @@ export const basicFields = [
       onFocus: '',
       onBlur: '',
       onValidate: '',
-      onAppendButtonClick: '',
-    },
+      onAppendButtonClick: ''
+    }
   },
 
   {
@@ -434,7 +405,7 @@ export const basicFields = [
       validation: '',
       validationHint: '',
       //-------------------
-      customClass: '',  //自定义css类名
+      customClass: '', //自定义css类名
       labelIconClass: null,
       labelIconPosition: 'rear',
       labelTooltip: null,
@@ -448,8 +419,8 @@ export const basicFields = [
       onChange: '',
       onFocus: '',
       onBlur: '',
-      onValidate: '',
-    },
+      onValidate: ''
+    }
   },
 
   {
@@ -473,7 +444,7 @@ export const basicFields = [
       validation: '',
       validationHint: '',
       //-------------------
-      customClass: '',  //自定义css类名
+      customClass: '', //自定义css类名
       labelIconClass: null,
       labelIconPosition: 'rear',
       labelTooltip: null,
@@ -488,8 +459,8 @@ export const basicFields = [
       onChange: '',
       onFocus: '',
       onBlur: '',
-      onValidate: '',
-    },
+      onValidate: ''
+    }
   },
 
   {
@@ -512,20 +483,20 @@ export const basicFields = [
       hidden: false,
       dsEnabled: false, // 是否使用数据源数据
       dsName: '', // 数据源名称
-      dataSetName: '',  //数据集名称
+      dataSetName: '', //数据集名称
       labelKey: 'label',
       valueKey: 'value',
       optionItems: [
-        {label: 'radio 1', value: 1},
-        {label: 'radio 2', value: 2},
-        {label: 'radio 3', value: 3},
+        { label: 'radio 1', value: 1 },
+        { label: 'radio 2', value: 2 },
+        { label: 'radio 3', value: 3 }
       ],
       required: false,
       requiredHint: '',
       validation: '',
       validationHint: '',
       //-------------------
-      customClass: '',  //自定义css类名
+      customClass: '', //自定义css类名
       labelIconClass: null,
       labelIconPosition: 'rear',
       labelTooltip: null,
@@ -533,8 +504,8 @@ export const basicFields = [
       onCreated: '',
       onMounted: '',
       onChange: '',
-      onValidate: '',
-    },
+      onValidate: ''
+    }
   },
 
   {
@@ -557,20 +528,20 @@ export const basicFields = [
       hidden: false,
       dsEnabled: false, // 是否使用数据源数据
       dsName: '', // 数据源名称
-      dataSetName: '',  //数据集名称
+      dataSetName: '', //数据集名称
       labelKey: 'label',
       valueKey: 'value',
       optionItems: [
-        {label: 'check 1', value: 1},
-        {label: 'check 2', value: 2},
-        {label: 'check 3', value: 3},
+        { label: 'check 1', value: 1 },
+        { label: 'check 2', value: 2 },
+        { label: 'check 3', value: 3 }
       ],
       required: false,
       requiredHint: '',
       validation: '',
       validationHint: '',
       //-------------------
-      customClass: '',  //自定义css类名
+      customClass: '', //自定义css类名
       labelIconClass: null,
       labelIconPosition: 'rear',
       labelTooltip: null,
@@ -578,8 +549,8 @@ export const basicFields = [
       onCreated: '',
       onMounted: '',
       onChange: '',
-      onValidate: '',
-    },
+      onValidate: ''
+    }
   },
 
   {
@@ -598,29 +569,29 @@ export const basicFields = [
       labelHidden: false,
       disabled: false,
       hidden: false,
-      clearable: true,
+      allowClear: true,
       filterable: false,
       allowCreate: false,
       remote: false,
-      automaticDropdown: false,  //自动下拉
+      automaticDropdown: false, //自动下拉
       multiple: false,
       multipleLimit: 0,
       dsEnabled: false, // 是否使用数据源数据
       dsName: '', // 数据源名称
-      dataSetName: '',  //数据集名称
+      dataSetName: '', //数据集名称
       labelKey: 'label',
       valueKey: 'value',
       optionItems: [
-        {label: 'select 1', value: 1},
-        {label: 'select 2', value: 2},
-        {label: 'select 3', value: 3},
+        { label: 'select 1', value: 1 },
+        { label: 'select 2', value: 2 },
+        { label: 'select 3', value: 3 }
       ],
       required: false,
       requiredHint: '',
       validation: '',
       validationHint: '',
       //-------------------
-      customClass: '',  //自定义css类名
+      customClass: '', //自定义css类名
       labelIconClass: null,
       labelIconPosition: 'rear',
       labelTooltip: null,
@@ -631,8 +602,8 @@ export const basicFields = [
       onChange: '',
       onFocus: '',
       onBlur: '',
-      onValidate: '',
-    },
+      onValidate: ''
+    }
   },
 
   {
@@ -653,15 +624,15 @@ export const basicFields = [
       readonly: false,
       disabled: false,
       hidden: false,
-      clearable: true,
+      allowClear: true,
       editable: false,
-      format: 'HH:mm:ss',  //时间格式
+      format: 'HH:mm:ss', //时间格式
       required: false,
       requiredHint: '',
       validation: '',
       validationHint: '',
       //-------------------
-      customClass: '',  //自定义css类名
+      customClass: '', //自定义css类名
       labelIconClass: null,
       labelIconPosition: 'rear',
       labelTooltip: null,
@@ -671,8 +642,8 @@ export const basicFields = [
       onChange: '',
       onFocus: '',
       onBlur: '',
-      onValidate: '',
-    },
+      onValidate: ''
+    }
   },
 
   {
@@ -694,15 +665,15 @@ export const basicFields = [
       readonly: false,
       disabled: false,
       hidden: false,
-      clearable: true,
+      allowClear: true,
       editable: false,
-      format: 'HH:mm:ss',  //时间格式
+      format: 'HH:mm:ss', //时间格式
       required: false,
       requiredHint: '',
       validation: '',
       validationHint: '',
       //-------------------
-      customClass: '',  //自定义css类名
+      customClass: '', //自定义css类名
       labelIconClass: null,
       labelIconPosition: 'rear',
       labelTooltip: null,
@@ -712,8 +683,8 @@ export const basicFields = [
       onChange: '',
       onFocus: '',
       onBlur: '',
-      onValidate: '',
-    },
+      onValidate: ''
+    }
   },
 
   {
@@ -735,16 +706,16 @@ export const basicFields = [
       readonly: false,
       disabled: false,
       hidden: false,
-      clearable: true,
+      allowClear: true,
       editable: false,
-      format: 'YYYY-MM-DD',  //日期显示格式
-      valueFormat: 'YYYY-MM-DD',  //日期对象格式
+      format: 'YYYY-MM-DD', //日期显示格式
+      valueFormat: 'YYYY-MM-DD', //日期对象格式
       required: false,
       requiredHint: '',
       validation: '',
       validationHint: '',
       //-------------------
-      customClass: '',  //自定义css类名
+      customClass: '', //自定义css类名
       labelIconClass: null,
       labelIconPosition: 'rear',
       labelTooltip: null,
@@ -754,8 +725,8 @@ export const basicFields = [
       onChange: '',
       onFocus: '',
       onBlur: '',
-      onValidate: '',
-    },
+      onValidate: ''
+    }
   },
 
   {
@@ -778,16 +749,16 @@ export const basicFields = [
       readonly: false,
       disabled: false,
       hidden: false,
-      clearable: true,
+      allowClear: true,
       editable: false,
-      format: 'YYYY-MM-DD',  //日期显示格式
-      valueFormat: 'YYYY-MM-DD',  //日期对象格式
+      format: 'YYYY-MM-DD', //日期显示格式
+      valueFormat: 'YYYY-MM-DD', //日期对象格式
       required: false,
       requiredHint: '',
       validation: '',
       validationHint: '',
       //-------------------
-      customClass: '',  //自定义css类名
+      customClass: '', //自定义css类名
       labelIconClass: null,
       labelIconPosition: 'rear',
       labelTooltip: null,
@@ -797,8 +768,8 @@ export const basicFields = [
       onChange: '',
       onFocus: '',
       onBlur: '',
-      onValidate: '',
-    },
+      onValidate: ''
+    }
   },
 
   {
@@ -816,7 +787,7 @@ export const basicFields = [
       disabled: false,
       hidden: false,
       //-------------------
-      customClass: '',  //自定义css类名
+      customClass: '', //自定义css类名
       labelIconClass: null,
       labelIconPosition: 'rear',
       labelTooltip: null,
@@ -829,8 +800,8 @@ export const basicFields = [
       onCreated: '',
       onMounted: '',
       onChange: '',
-      onValidate: '',
-    },
+      onValidate: ''
+    }
   },
 
   {
@@ -852,7 +823,7 @@ export const basicFields = [
       validation: '',
       validationHint: '',
       //-------------------
-      customClass: '',  //自定义css类名
+      customClass: '', //自定义css类名
       labelIconClass: null,
       labelIconPosition: 'rear',
       labelTooltip: null,
@@ -866,8 +837,8 @@ export const basicFields = [
       onCreated: '',
       onMounted: '',
       onChange: '',
-      onValidate: '',
-    },
+      onValidate: ''
+    }
   },
 
   {
@@ -890,7 +861,7 @@ export const basicFields = [
       validation: '',
       validationHint: '',
       //-------------------
-      customClass: '',  //自定义css类名
+      customClass: '', //自定义css类名
       labelIconClass: null,
       labelIconPosition: 'rear',
       labelTooltip: null,
@@ -898,8 +869,8 @@ export const basicFields = [
       onCreated: '',
       onMounted: '',
       onChange: '',
-      onValidate: '',
-    },
+      onValidate: ''
+    }
   },
 
   {
@@ -922,7 +893,7 @@ export const basicFields = [
       validation: '',
       validationHint: '',
       //-------------------
-      customClass: '',  //自定义css类名
+      customClass: '', //自定义css类名
       labelIconClass: null,
       labelIconPosition: 'rear',
       labelTooltip: null,
@@ -936,8 +907,8 @@ export const basicFields = [
       onCreated: '',
       onMounted: '',
       onChange: '',
-      onValidate: '',
-    },
+      onValidate: ''
+    }
   },
 
   {
@@ -950,11 +921,11 @@ export const basicFields = [
       hidden: false,
       textContent: 'static text',
       //-------------------
-      customClass: '',  //自定义css类名
+      customClass: '', //自定义css类名
       //-------------------
       onCreated: '',
-      onMounted: '',
-    },
+      onMounted: ''
+    }
   },
 
   {
@@ -967,11 +938,11 @@ export const basicFields = [
       hidden: false,
       htmlContent: '<b>html text</b>',
       //-------------------
-      customClass: '',  //自定义css类名
+      customClass: '', //自定义css类名
       //-------------------
       onCreated: '',
-      onMounted: '',
-    },
+      onMounted: ''
+    }
   },
 
   {
@@ -992,12 +963,12 @@ export const basicFields = [
       circle: false,
       icon: null,
       //-------------------
-      customClass: '',  //自定义css类名
+      customClass: '', //自定义css类名
       //-------------------
       onCreated: '',
       onMounted: '',
-      onClick: '',
-    },
+      onClick: ''
+    }
   },
 
   {
@@ -1012,16 +983,15 @@ export const basicFields = [
       contentPosition: 'center',
       hidden: false,
       //-------------------
-      customClass: '',  //自定义css类名
+      customClass: '', //自定义css类名
       //-------------------
       onCreated: '',
-      onMounted: '',
-    },
-  },
+      onMounted: ''
+    }
+  }
 
   //
-
-]
+];
 
 export const advancedFields = [
   {
@@ -1052,7 +1022,7 @@ export const advancedFields = [
       fileTypes: ['jpg', 'jpeg', 'png'],
       //headers: [],
       //-------------------
-      customClass: '',  //自定义css类名
+      customClass: '', //自定义css类名
       labelIconClass: null,
       labelIconPosition: 'rear',
       labelTooltip: null,
@@ -1063,10 +1033,9 @@ export const advancedFields = [
       onUploadSuccess: '',
       onUploadError: '',
       onFileRemove: '',
-      onValidate: '',
+      onValidate: ''
       //onFileChange: '',
-    },
-
+    }
   },
 
   {
@@ -1097,7 +1066,7 @@ export const advancedFields = [
       fileTypes: ['doc', 'docx', 'xls', 'xlsx'],
       //headers: [],
       //-------------------
-      customClass: '',  //自定义css类名
+      customClass: '', //自定义css类名
       labelIconClass: null,
       labelIconPosition: 'rear',
       labelTooltip: null,
@@ -1108,9 +1077,9 @@ export const advancedFields = [
       onUploadSuccess: '',
       onUploadError: '',
       onFileRemove: '',
-      onValidate: '',
+      onValidate: ''
       //onFileChange: '',
-    },
+    }
   },
 
   {
@@ -1133,7 +1102,7 @@ export const advancedFields = [
       customRule: '',
       customRuleHint: '',
       //-------------------
-      customClass: '',  //自定义css类名
+      customClass: '', //自定义css类名
       labelIconClass: null,
       labelIconPosition: 'rear',
       labelTooltip: null,
@@ -1143,8 +1112,8 @@ export const advancedFields = [
       //-------------------
       onCreated: '',
       onMounted: '',
-      onValidate: '',
-    },
+      onValidate: ''
+    }
   },
 
   {
@@ -1163,28 +1132,28 @@ export const advancedFields = [
       columnWidth: '200px',
       disabled: false,
       hidden: false,
-      clearable: true,
+      allowClear: true,
       filterable: false,
       multiple: false,
-      checkStrictly: false,  //可选择任意一级选项，默认不开启
-      showAllLevels: true,  //显示完整路径
+      checkStrictly: false, //可选择任意一级选项，默认不开启
+      showAllLevels: true, //显示完整路径
       dsEnabled: false, // 是否使用数据源数据
       dsName: '', // 数据源名称
-      dataSetName: '',  //数据集名称
+      dataSetName: '', //数据集名称
       labelKey: 'label',
       valueKey: 'value',
       childrenKey: 'children',
       optionItems: [
-        {label: 'select 1', value: 1, children: [{label: 'child 1', value: 11}]},
-        {label: 'select 2', value: 2},
-        {label: 'select 3', value: 3},
+        { label: 'select 1', value: 1, children: [{ label: 'child 1', value: 11 }] },
+        { label: 'select 2', value: 2 },
+        { label: 'select 3', value: 3 }
       ],
       required: false,
       requiredHint: '',
       customRule: '',
       customRuleHint: '',
       //-------------------
-      customClass: '',  //自定义css类名
+      customClass: '', //自定义css类名
       labelIconClass: null,
       labelIconPosition: 'rear',
       labelTooltip: null,
@@ -1194,9 +1163,9 @@ export const advancedFields = [
       onChange: '',
       onFocus: '',
       onBlur: '',
-      onValidate: '',
-    },
-  },
+      onValidate: ''
+    }
+  }
 
   // {
   //   type: 'slot',
@@ -1208,25 +1177,22 @@ export const advancedFields = [
   //     customClass: '',  //自定义css类名
   //   }
   // },
+];
 
-]
-
-export const customFields = [
-
-]
+export const customFields = [];
 
 export function addContainerWidgetSchema(containerSchema) {
-  containers.push(containerSchema)
+  containers.push(containerSchema);
 }
 
 export function addBasicFieldSchema(fieldSchema) {
-  basicFields.push(fieldSchema)
+  basicFields.push(fieldSchema);
 }
 
 export function addAdvancedFieldSchema(fieldSchema) {
-  advancedFields.push(fieldSchema)
+  advancedFields.push(fieldSchema);
 }
 
 export function addCustomWidgetSchema(widgetSchema) {
-  customFields.push(widgetSchema)
+  customFields.push(widgetSchema);
 }

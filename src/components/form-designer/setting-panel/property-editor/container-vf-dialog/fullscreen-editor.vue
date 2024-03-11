@@ -1,7 +1,7 @@
 <template>
-  <el-form-item :label="i18nt('designer.setting.fullscreen')">
-    <el-switch v-model="optionModel.fullscreen"></el-switch>
-  </el-form-item>
+  <a-form-item :label="i18nt('designer.setting.fullscreen')">
+    <a-switch v-model:checked="optionModel.fullscreen"></a-switch>
+  </a-form-item>
 </template>
 
 <script>

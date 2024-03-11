@@ -2,10 +2,10 @@
   <static-content-wrapper :designer="designer" :field="field" :design-state="designState"
                           :parent-widget="parentWidget" :parent-list="parentList" :index-of-parent-list="indexOfParentList"
                           :sub-form-row-index="subFormRowIndex" :sub-form-col-index="subFormColIndex" :sub-form-row-id="subFormRowId">
-    <el-alert ref="fieldEditor" :title="field.options.title" :type="field.options.type"
+    <a-alert ref="fieldEditor" :message="field.options.title" :type="field.options.type"
               :description="field.options.description" :closable="field.options.closable"
               :center="field.options.center" :close-text="field.options.closeText"
-              :show-icon="field.options.showIcon" :effect="field.options.effect" @close="handleCloseCustomEvent"></el-alert>
+              :show-icon="field.options.showIcon" :effect="field.options.effect" @close="handleCloseCustomEvent"></a-alert>
   </static-content-wrapper>
 </template>
 

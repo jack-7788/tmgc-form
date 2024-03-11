@@ -1,73 +1,137 @@
 <template>
-  <td class="table-cell" :class="[selected ? 'selected' : '', customClass]"
-      :style="{width: widget.options.cellWidth + '!important' || '', height: widget.options.cellHeight + '!important' || ''}"
-      :colspan="widget.options.colspan || 1" :rowspan="widget.options.rowspan || 1"
-      @click.stop="selectWidget(widget)">
-    <draggable :list="widget.widgetList" item-key="id" v-bind="{group:'dragGroup', ghostClass: 'ghost',animation: 200}"
-               tag="transition-group" :component-data="{name: 'fade'}"
-               handle=".drag-handler" @end="(evt) => onTableDragEnd(evt, widget.widgetList)"
-               @add="(evt) => onTableDragAdd(evt, widget.widgetList)"
-               @update="onTableDragUpdate" :move="checkContainerMove">
+  <td
+    class="table-cell"
+    :class="[selected ? 'selected' : '', customClass]"
+    :style="{
+      width: widget.options.cellWidth + '!important' || '',
+      height: widget.options.cellHeight + '!important' || ''
+    }"
+    :colspan="widget.options.colspan || 1"
+    :rowspan="widget.options.rowspan || 1"
+    @click.stop="selectWidget(widget)"
+  >
+    <draggable
+      :list="widget.widgetList"
+      item-key="id"
+      v-bind="{ group: 'dragGroup', ghostClass: 'ghost', animation: 200 }"
+      tag="transition-group"
+      :component-data="{ name: 'fade' }"
+      handle=".drag-handler"
+      @end="evt => onTableDragEnd(evt, widget.widgetList)"
+      @add="evt => onTableDragAdd(evt, widget.widgetList)"
+      @update="onTableDragUpdate"
+      :move="checkContainerMove"
+    >
       <template #item="{ element: subWidget, index: swIdx }">
         <div class="form-widget-list">
           <template v-if="'container' === subWidget.category">
-            <component :is="subWidget.type + '-widget'" :widget="subWidget" :designer="designer" :key="subWidget.id" :parent-list="widget.widgetList"
-                              :index-of-parent-list="swIdx" :parent-widget="widget"></component>
+            <component
+              :is="subWidget.type + '-widget'"
+              :widget="subWidget"
+              :designer="designer"
+              :key="subWidget.id"
+              :parent-list="widget.widgetList"
+              :index-of-parent-list="swIdx"
+              :parent-widget="widget"
+            />
           </template>
           <template v-else>
-            <component :is="subWidget.type + '-widget'" :field="subWidget" :designer="designer" :key="subWidget.id" :parent-list="widget.widgetList"
-                          :index-of-parent-list="swIdx" :parent-widget="widget" :design-state="true"></component>
+            <component
+              :is="subWidget.type + '-widget'"
+              :field="subWidget"
+              :designer="designer"
+              :key="subWidget.id"
+              :parent-list="widget.widgetList"
+              :index-of-parent-list="swIdx"
+              :parent-widget="widget"
+              :design-state="true"
+            />
           </template>
         </div>
       </template>
     </draggable>
 
-    <div class="table-cell-action" v-if="designer.selectedId === widget.id && widget.type === 'table-cell'">
-      <i :title="i18nt('designer.hint.selectParentWidget')"
-         @click.stop="selectParentWidget()"><svg-icon icon-class="el-back" /></i>
-      <el-dropdown trigger="click" @command="handleTableCellCommand" size="small">
+    <div
+      class="table-cell-action"
+      v-if="designer.selectedId === widget.id && widget.type === 'table-cell'"
+    >
+      <i :title="i18nt('designer.hint.selectParentWidget')" @click.stop="selectParentWidget()">
+        <svg-icon icon-class="el-back" />
+      </i>
+      <a-dropdown trigger="click" @command="handleTableCellCommand" size="small">
         <i :title="i18nt('designer.hint.cellSetting')"><svg-icon icon-class="el-menu" /></i>
-        <template #dropdown>
-          <el-dropdown-menu>
-            <el-dropdown-item command="insertLeftCol">{{i18nt('designer.setting.insertColumnToLeft')}}</el-dropdown-item>
-            <el-dropdown-item command="insertRightCol">{{i18nt('designer.setting.insertColumnToRight')}}</el-dropdown-item>
-            <el-dropdown-item command="insertAboveRow">{{i18nt('designer.setting.insertRowAbove')}}</el-dropdown-item>
-            <el-dropdown-item command="insertBelowRow">{{i18nt('designer.setting.insertRowBelow')}}</el-dropdown-item>
-            <el-dropdown-item command="mergeLeftCol" :disabled="mergeLeftColDisabled" divided>{{i18nt('designer.setting.mergeLeftColumn')}}</el-dropdown-item>
-            <el-dropdown-item command="mergeRightCol" :disabled="mergeRightColDisabled">{{i18nt('designer.setting.mergeRightColumn')}}</el-dropdown-item>
-            <el-dropdown-item command="mergeWholeRow" :disabled="mergeWholeRowDisabled">{{i18nt('designer.setting.mergeEntireRow')}}</el-dropdown-item>
-            <el-dropdown-item command="mergeAboveRow" :disabled="mergeAboveRowDisabled" divided>{{i18nt('designer.setting.mergeRowAbove')}}</el-dropdown-item>
-            <el-dropdown-item command="mergeBelowRow" :disabled="mergeBelowRowDisabled">{{i18nt('designer.setting.mergeRowBelow')}}</el-dropdown-item>
-            <el-dropdown-item command="mergeWholeCol" :disabled="mergeWholeColDisabled">{{i18nt('designer.setting.mergeEntireColumn')}}</el-dropdown-item>
-            <el-dropdown-item command="undoMergeRow" :disabled="undoMergeRowDisabled" divided>{{i18nt('designer.setting.undoMergeRow')}}</el-dropdown-item>
-            <el-dropdown-item command="undoMergeCol" :disabled="undoMergeColDisabled">{{i18nt('designer.setting.undoMergeCol')}}</el-dropdown-item>
-            <el-dropdown-item command="deleteWholeCol" :disabled="deleteWholeColDisabled" divided>{{i18nt('designer.setting.deleteEntireCol')}}</el-dropdown-item>
-            <el-dropdown-item command="deleteWholeRow" :disabled="deleteWholeRowDisabled">{{i18nt('designer.setting.deleteEntireRow')}}</el-dropdown-item>
-          </el-dropdown-menu>
+        <template #overlay>
+          <a-menu @click="handleTableCellCommand">
+            <a-menu-item key="insertLeftCol">{{
+              i18nt('designer.setting.insertColumnToLeft')
+            }}</a-menu-item>
+            <a-menu-item key="insertRightCol">{{
+              i18nt('designer.setting.insertColumnToRight')
+            }}</a-menu-item>
+            <a-menu-item key="insertAboveRow">{{
+              i18nt('designer.setting.insertRowAbove')
+            }}</a-menu-item>
+            <a-menu-item key="insertBelowRow">{{
+              i18nt('designer.setting.insertRowBelow')
+            }}</a-menu-item>
+            <a-menu-item key="mergeLeftCol" :disabled="mergeLeftColDisabled" divided>{{
+              i18nt('designer.setting.mergeLeftColumn')
+            }}</a-menu-item>
+            <a-menu-item key="mergeRightCol" :disabled="mergeRightColDisabled">{{
+              i18nt('designer.setting.mergeRightColumn')
+            }}</a-menu-item>
+            <a-menu-item key="mergeWholeRow" :disabled="mergeWholeRowDisabled">{{
+              i18nt('designer.setting.mergeEntireRow')
+            }}</a-menu-item>
+            <a-menu-item key="mergeAboveRow" :disabled="mergeAboveRowDisabled" divided>{{
+              i18nt('designer.setting.mergeRowAbove')
+            }}</a-menu-item>
+            <a-menu-item key="mergeBelowRow" :disabled="mergeBelowRowDisabled">{{
+              i18nt('designer.setting.mergeRowBelow')
+            }}</a-menu-item>
+            <a-menu-item key="mergeWholeCol" :disabled="mergeWholeColDisabled">{{
+              i18nt('designer.setting.mergeEntireColumn')
+            }}</a-menu-item>
+            <a-menu-item key="undoMergeRow" :disabled="undoMergeRowDisabled" divided>{{
+              i18nt('designer.setting.undoMergeRow')
+            }}</a-menu-item>
+            <a-menu-item key="undoMergeCol" :disabled="undoMergeColDisabled">{{
+              i18nt('designer.setting.undoMergeCol')
+            }}</a-menu-item>
+            <a-menu-item key="deleteWholeCol" :disabled="deleteWholeColDisabled" divided>{{
+              i18nt('designer.setting.deleteEntireCol')
+            }}</a-menu-item>
+            <a-menu-item key="deleteWholeRow" :disabled="deleteWholeRowDisabled">{{
+              i18nt('designer.setting.deleteEntireRow')
+            }}</a-menu-item>
+          </a-menu>
         </template>
-      </el-dropdown>
+      </a-dropdown>
     </div>
 
-    <div class="table-cell-handler" v-if="designer.selectedId === widget.id && widget.type === 'table-cell'">
-      <i>{{i18nt('designer.widgetLabel.' + widget.type)}}</i>
+    <div
+      class="table-cell-handler"
+      v-if="designer.selectedId === widget.id && widget.type === 'table-cell'"
+    >
+      <i>{{ i18nt('designer.widgetLabel.' + widget.type) }}</i>
     </div>
   </td>
 </template>
 
 <script>
-  import i18n from "@/utils/i18n"
-  import FieldComponents from '@/components/form-designer/form-widget/field-widget/index'
-  import SvgIcon from '@/components/svg-icon'
-  import refMixinDesign from "@/components/form-designer/refMixinDesign"
+  import i18n from '@/utils/i18n';
+  import FieldComponents from '@/components/form-designer/form-widget/field-widget/index';
+  import SvgIcon from '@/components/svg-icon';
+  import refMixinDesign from '@/components/form-designer/refMixinDesign';
 
   export default {
-    name: "TableCellWidget",
-    componentName: "TableCellWidget",
+    name: 'TableCellWidget',
+    componentName: 'TableCellWidget',
     mixins: [i18n, refMixinDesign],
     inject: ['refList'],
     components: {
       ...FieldComponents,
-      SvgIcon,
+      SvgIcon
     },
     props: {
       widget: Object,
@@ -81,200 +145,264 @@
       colArray: Array,
       rowArray: Array,
 
-      designer: Object,
+      designer: Object
     },
     computed: {
       selected() {
-        return this.widget.id === this.designer.selectedId
+        return this.widget.id === this.designer.selectedId;
       },
 
       customClass() {
-        return this.widget.options.customClass || ''
+        return this.widget.options.customClass || '';
       },
 
       mergeLeftColDisabled() {
-        return (this.colIndex <= 0) || (this.colArray[this.colIndex - 1].options.rowspan !== this.widget.options.rowspan)
+        return (
+          this.colIndex <= 0 ||
+          this.colArray[this.colIndex - 1].options.rowspan !== this.widget.options.rowspan
+        );
       },
 
       mergeRightColDisabled() {
-        let rightColIndex = this.colIndex + this.widget.options.colspan
-        return (this.colIndex >= this.colLength - 1) || (rightColIndex > this.colLength -1)
-            || (this.colArray[rightColIndex].options.rowspan !== this.widget.options.rowspan)
+        const rightColIndex = this.colIndex + this.widget.options.colspan;
+        return (
+          this.colIndex >= this.colLength - 1 ||
+          rightColIndex > this.colLength - 1 ||
+          this.colArray[rightColIndex].options.rowspan !== this.widget.options.rowspan
+        );
       },
 
       mergeWholeRowDisabled() {
-        return (this.colLength <= 1) || (this.colLength === this.widget.options.colspan)
+        return this.colLength <= 1 || this.colLength === this.widget.options.colspan;
       },
 
       mergeAboveRowDisabled() {
-        return (this.rowIndex <= 0) || (this.rowArray[this.rowIndex - 1].cols[this.colIndex].options.colspan
-            !== this.widget.options.colspan)
+        return (
+          this.rowIndex <= 0 ||
+          this.rowArray[this.rowIndex - 1].cols[this.colIndex].options.colspan !==
+            this.widget.options.colspan
+        );
 
         //return this.rowIndex <= 0
         //return (this.rowIndex <= 0) || (this.widget.options.colspan !== this.rowArray) //TODO
       },
 
       mergeBelowRowDisabled() {
-        let belowRowIndex = this.rowIndex + this.widget.options.rowspan
-        return (this.rowIndex >= this.rowLength - 1) || (belowRowIndex > this.rowLength -1)
-            || (this.rowArray[belowRowIndex].cols[this.colIndex].options.colspan !== this.widget.options.colspan)
+        const belowRowIndex = this.rowIndex + this.widget.options.rowspan;
+        return (
+          this.rowIndex >= this.rowLength - 1 ||
+          belowRowIndex > this.rowLength - 1 ||
+          this.rowArray[belowRowIndex].cols[this.colIndex].options.colspan !==
+            this.widget.options.colspan
+        );
       },
 
       mergeWholeColDisabled() {
-        return (this.rowLength <= 1) || (this.rowLength === this.widget.options.rowspan)
+        return this.rowLength <= 1 || this.rowLength === this.widget.options.rowspan;
       },
 
       undoMergeColDisabled() {
-        return this.widget.merged || (this.widget.options.colspan <= 1)
+        return this.widget.merged || this.widget.options.colspan <= 1;
       },
 
       undoMergeRowDisabled() {
-        return this.widget.merged || (this.widget.options.rowspan <= 1)
+        return this.widget.merged || this.widget.options.rowspan <= 1;
       },
 
       deleteWholeColDisabled() {
         //return this.colLength === 1
-        return (this.colLength === 1) || (this.widget.options.colspan === this.colLength)
+        return this.colLength === 1 || this.widget.options.colspan === this.colLength;
       },
 
       deleteWholeRowDisabled() {
-        return (this.rowLength === 1) || (this.widget.options.rowspan === this.rowLength)
-      },
-
+        return this.rowLength === 1 || this.widget.options.rowspan === this.rowLength;
+      }
     },
     watch: {
       //
     },
     created() {
-      this.initRefList()
+      this.initRefList();
     },
     methods: {
       selectWidget(widget) {
-        this.designer.setSelected(widget)
+        this.designer.setSelected(widget);
       },
 
       checkContainerMove(evt) {
-        return this.designer.checkWidgetMove(evt)
+        return this.designer.checkWidgetMove(evt);
       },
 
       onTableDragEnd(obj, subList) {
         //
       },
 
-      onTableDragAdd(evt, subList) { //重复代码，可合并
-        const newIndex = evt.newIndex
+      onTableDragAdd(evt, subList) {
+        //重复代码，可合并
+        const newIndex = evt.newIndex;
         if (!!subList[newIndex]) {
-          this.designer.setSelected( subList[newIndex] )
+          this.designer.setSelected(subList[newIndex]);
         }
 
-        this.designer.emitHistoryChange()
-        this.designer.emitEvent('field-selected', this.widget)
+        this.designer.emitHistoryChange();
+        this.designer.emitEvent('field-selected', this.widget);
       },
 
       onTableDragUpdate() {
-        this.designer.emitHistoryChange()
+        this.designer.emitHistoryChange();
       },
 
       selectParentWidget() {
         if (this.parentWidget) {
-          this.designer.setSelected(this.parentWidget)
+          this.designer.setSelected(this.parentWidget);
         } else {
-          this.designer.clearSelected()
+          this.designer.clearSelected();
         }
       },
 
       handleTableCellCommand(command) {
         if (command === 'insertLeftCol') {
-          this.insertLeftCol()
+          this.insertLeftCol();
         } else if (command === 'insertRightCol') {
-          this.insertRightCol()
+          this.insertRightCol();
         } else if (command === 'insertAboveRow') {
-          this.insertAboveRow()
+          this.insertAboveRow();
         } else if (command === 'insertBelowRow') {
-          this.insertBelowRow()
+          this.insertBelowRow();
         } else if (command === 'mergeLeftCol') {
-          this.mergeLeftCol()
+          this.mergeLeftCol();
         } else if (command === 'mergeRightCol') {
-          this.mergeRightCol()
+          this.mergeRightCol();
         } else if (command === 'mergeWholeCol') {
-          this.mergeWholeCol()
+          this.mergeWholeCol();
         } else if (command === 'mergeAboveRow') {
-          this.mergeAboveRow()
+          this.mergeAboveRow();
         } else if (command === 'mergeBelowRow') {
-          this.mergeBelowRow()
+          this.mergeBelowRow();
         } else if (command === 'mergeWholeRow') {
-          this.mergeWholeRow()
+          this.mergeWholeRow();
         } else if (command === 'undoMergeCol') {
-          this.undoMergeCol()
+          this.undoMergeCol();
         } else if (command === 'undoMergeRow') {
-          this.undoMergeRow()
+          this.undoMergeRow();
         } else if (command === 'deleteWholeCol') {
-          this.deleteWholeCol()
+          this.deleteWholeCol();
         } else if (command === 'deleteWholeRow') {
-          this.deleteWholeRow()
+          this.deleteWholeRow();
         }
       },
 
       insertLeftCol() {
-        this.designer.insertTableCol(this.parentWidget, this.colIndex, this.rowIndex, true)
+        this.designer.insertTableCol(this.parentWidget, this.colIndex, this.rowIndex, true);
       },
 
       insertRightCol() {
-        this.designer.insertTableCol(this.parentWidget, this.colIndex, this.rowIndex, false)
+        this.designer.insertTableCol(this.parentWidget, this.colIndex, this.rowIndex, false);
       },
 
       insertAboveRow() {
-        this.designer.insertTableRow(this.parentWidget, this.rowIndex, this.rowIndex, this.colIndex, true)
+        this.designer.insertTableRow(
+          this.parentWidget,
+          this.rowIndex,
+          this.rowIndex,
+          this.colIndex,
+          true
+        );
       },
 
       insertBelowRow() {
-        this.designer.insertTableRow(this.parentWidget, this.rowIndex, this.rowIndex, this.colIndex, false)
+        this.designer.insertTableRow(
+          this.parentWidget,
+          this.rowIndex,
+          this.rowIndex,
+          this.colIndex,
+          false
+        );
       },
 
       mergeLeftCol() {
-        this.designer.mergeTableCol(this.rowArray, this.colArray, this.rowIndex, this.colIndex, true, this.widget)
+        this.designer.mergeTableCol(
+          this.rowArray,
+          this.colArray,
+          this.rowIndex,
+          this.colIndex,
+          true,
+          this.widget
+        );
       },
 
       mergeRightCol() {
-        this.designer.mergeTableCol(this.rowArray, this.colArray, this.rowIndex, this.colIndex, false, this.widget)
+        this.designer.mergeTableCol(
+          this.rowArray,
+          this.colArray,
+          this.rowIndex,
+          this.colIndex,
+          false,
+          this.widget
+        );
       },
 
       mergeWholeRow() {
-        this.designer.mergeTableWholeRow(this.rowArray, this.colArray, this.rowIndex, this.colIndex)
+        this.designer.mergeTableWholeRow(
+          this.rowArray,
+          this.colArray,
+          this.rowIndex,
+          this.colIndex
+        );
       },
 
       mergeAboveRow() {
-        this.designer.mergeTableRow(this.rowArray, this.rowIndex, this.colIndex, true, this.widget)
+        this.designer.mergeTableRow(this.rowArray, this.rowIndex, this.colIndex, true, this.widget);
       },
 
       mergeBelowRow() {
-        this.designer.mergeTableRow(this.rowArray, this.rowIndex, this.colIndex, false, this.widget)
+        this.designer.mergeTableRow(
+          this.rowArray,
+          this.rowIndex,
+          this.colIndex,
+          false,
+          this.widget
+        );
       },
 
       mergeWholeCol() {
-        this.designer.mergeTableWholeCol(this.rowArray, this.colArray, this.rowIndex, this.colIndex)
+        this.designer.mergeTableWholeCol(
+          this.rowArray,
+          this.colArray,
+          this.rowIndex,
+          this.colIndex
+        );
       },
 
       undoMergeCol() {
-        this.designer.undoMergeTableCol(this.rowArray, this.rowIndex, this.colIndex,
-            this.widget.options.colspan, this.widget.options.rowspan)
+        this.designer.undoMergeTableCol(
+          this.rowArray,
+          this.rowIndex,
+          this.colIndex,
+          this.widget.options.colspan,
+          this.widget.options.rowspan
+        );
       },
 
       undoMergeRow() {
-        this.designer.undoMergeTableRow(this.rowArray, this.rowIndex, this.colIndex,
-            this.widget.options.colspan, this.widget.options.rowspan)
+        this.designer.undoMergeTableRow(
+          this.rowArray,
+          this.rowIndex,
+          this.colIndex,
+          this.widget.options.colspan,
+          this.widget.options.rowspan
+        );
       },
 
       deleteWholeCol() {
-        this.designer.deleteTableWholeCol(this.rowArray, this.colIndex)
+        this.designer.deleteTableWholeCol(this.rowArray, this.colIndex);
       },
 
       deleteWholeRow() {
-        this.designer.deleteTableWholeRow(this.rowArray, this.rowIndex)
-      },
-
+        this.designer.deleteTableWholeRow(this.rowArray, this.rowIndex);
+      }
     }
-  }
+  };
 </script>
 
 <style lang="scss" scoped>
@@ -296,7 +424,7 @@
       //height: 100%;
     }
 
-    .table-cell-action{
+    .table-cell-action {
       position: absolute;
       //bottom: -30px;
       bottom: 0;
@@ -332,13 +460,13 @@
         font-style: normal;
         color: #fff;
         margin: 4px;
-        cursor: default;  //cursor: move;
+        cursor: default; //cursor: move;
       }
     }
-
   }
 
-  .table-cell-action, .table-cell-handler {
+  .table-cell-action,
+  .table-cell-handler {
     :deep(.svg-icon) {
       margin-left: 0.1em;
       margin-right: 0.1em;

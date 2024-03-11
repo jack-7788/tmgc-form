@@ -1,7 +1,7 @@
 <template>
-  <el-form-item :label="i18nt('designer.setting.activeText')">
-    <el-input v-model="optionModel.activeText"></el-input>
-  </el-form-item>
+  <a-form-item :label="i18nt('designer.setting.activeText')">
+    <a-input v-model:value="optionModel.activeText"></a-input>
+  </a-form-item>
 </template>
 
 <script>

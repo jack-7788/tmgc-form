@@ -1,8 +1,8 @@
 <template>
   <div>
-    <el-form-item :label="i18nt('designer.setting.widgetColumnWidth')" v-show="!!isSubFormChildWidget()">
-      <el-input type="text" v-model="optionModel.columnWidth"></el-input>
-    </el-form-item>
+    <a-form-item :label="i18nt('designer.setting.widgetColumnWidth')" v-show="!!isSubFormChildWidget()">
+      <a-input type="text" v-model:value="optionModel.columnWidth"></a-input>
+    </a-form-item>
   </div>
 </template>
 

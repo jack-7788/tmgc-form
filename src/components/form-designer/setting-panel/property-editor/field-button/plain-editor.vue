@@ -1,7 +1,7 @@
 <template>
-  <el-form-item :label="i18nt('designer.setting.plain')">
-    <el-switch v-model="optionModel.plain"></el-switch>
-  </el-form-item>
+  <a-form-item :label="i18nt('designer.setting.plain')">
+    <a-switch v-model:checked="optionModel.plain"></a-switch>
+  </a-form-item>
 </template>
 
 <script>

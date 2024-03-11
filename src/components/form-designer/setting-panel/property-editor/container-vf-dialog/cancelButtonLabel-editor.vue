@@ -1,7 +1,7 @@
 <template>
-  <el-form-item :label="i18nt('designer.setting.cancelButtonLabel')">
-    <el-input type="text" v-model="optionModel.cancelButtonLabel"></el-input>
-  </el-form-item>
+  <a-form-item :label="i18nt('designer.setting.cancelButtonLabel')">
+    <a-input type="text" v-model:value="optionModel.cancelButtonLabel"></a-input>
+  </a-form-item>
 </template>
 
 <script>

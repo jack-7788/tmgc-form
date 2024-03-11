@@ -1,0 +1,18 @@
+# 忽略格式化文件
+package-lock.json
+pnpm-lock.yaml
+
+/dist/*
+.local
+.output.js
+/node_modules/**
+
+**/assets/*
+public/*
+
+**/*.svg
+**/*.sh
+stats.html
+mock/**
+globalComponents.d.ts
+lib/*

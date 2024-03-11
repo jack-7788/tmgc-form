@@ -1,8 +1,8 @@
 <template>
-  <el-form-item :label="i18nt('designer.setting.defaultValue')">
-    <el-switch v-model="optionModel.defaultValue" @change="emitDefaultValueChange"
-               active-text="true" inactive-text="false"></el-switch>
-  </el-form-item>
+  <a-form-item :label="i18nt('designer.setting.defaultValue')">
+    <a-switch v-model:checked="optionModel.defaultValue" @change="emitDefaultValueChange"
+    checkedChildren="true" unCheckedValue="false"></a-switch>
+  </a-form-item>
 </template>
 
 <script>

@@ -1,7 +1,7 @@
 <template>
-  <el-form-item :label="i18nt('designer.setting.buttonIcon')">
-    <el-input type="text" v-model="optionModel.icon"></el-input>
-  </el-form-item>
+  <a-form-item :label="i18nt('designer.setting.buttonIcon')">
+    <a-input type="text" v-model:value="optionModel.icon"></a-input>
+  </a-form-item>
 </template>
 
 <script>

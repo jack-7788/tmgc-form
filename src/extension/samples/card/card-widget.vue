@@ -1,34 +1,63 @@
 <template>
-  <container-wrapper :designer="designer" :widget="widget" :parent-widget="parentWidget" :parent-list="parentList"
-                     :index-of-parent-list="indexOfParentList">
-    <a-card :key="widget.id" class="card-container" @click.stop="selectWidget(widget)"
-             :shadow="widget.options.shadow" :style="{width: widget.options.cardWidth + '!important' || ''}"
-             :class="[selected ? 'selected' : '', !!widget.options.folded ? 'folded' : '', customClass]">
+  <container-wrapper
+    :designer="designer"
+    :widget="widget"
+    :parent-widget="parentWidget"
+    :parent-list="parentList"
+    :index-of-parent-list="indexOfParentList"
+  >
+    <a-card
+      :key="widget.id"
+      class="card-container"
+      @click.stop="selectWidget(widget)"
+      :shadow="widget.options.shadow"
+      :style="{ width: widget.options.cardWidth + '!important' || '' }"
+      :class="[selected ? 'selected' : '', !!widget.options.folded ? 'folded' : '', customClass]"
+    >
       <template #title>
         <div class="clear-fix">
-          <span>{{widget.options.label}}</span>
+          <span>{{ widget.options.label }}</span>
           <i v-if="widget.options.showFold" class="float-right" @click="toggleCard">
-            <template v-if="!widget.options.folded">ArrowDown
-            </template>
-            <template v-else>
-              ArrowUp
-            </template>
+            <template v-if="!widget.options.folded">ArrowDown </template>
+            <template v-else> ArrowUp </template>
           </i>
         </div>
       </template>
-      <draggable :list="widget.widgetList" item-key="id" v-bind="{group:'dragGroup', ghostClass: 'ghost',animation: 200}"
-                 handle=".drag-handler" tag="transition-group" :component-data="{name: 'fade'}"
-                 @add="(evt) => onContainerDragAdd(evt, widget.widgetList)"
-                 @update="onContainerDragUpdate" :move="checkContainerMove">
+      <draggable
+        :list="widget.widgetList"
+        item-key="id"
+        v-bind="{ group: 'dragGroup', ghostClass: 'ghost', animation: 200 }"
+        handle=".drag-handler"
+        tag="transition-group"
+        :component-data="{ name: 'fade' }"
+        @add="evt => onContainerDragAdd(evt, widget.widgetList)"
+        @update="onContainerDragUpdate"
+        :move="checkContainerMove"
+      >
         <template #item="{ element: subWidget, index: swIdx }">
           <div class="form-widget-list">
             <template v-if="'container' === subWidget.category">
-              <component :is="subWidget.type + '-widget'" :widget="subWidget" :designer="designer" :key="subWidget.id" :parent-list="widget.widgetList"
-                         :index-of-parent-list="swIdx" :parent-widget="widget"></component>
+              <component
+                :is="subWidget.type + '-widget'"
+                :widget="subWidget"
+                :designer="designer"
+                :key="subWidget.id"
+                :parent-list="widget.widgetList"
+                :index-of-parent-list="swIdx"
+                :parent-widget="widget"
+              />
             </template>
             <template v-else>
-              <component :is="subWidget.type + '-widget'" :field="subWidget" :designer="designer" :key="subWidget.id" :parent-list="widget.widgetList"
-                         :index-of-parent-list="swIdx" :parent-widget="widget" :design-state="true"></component>
+              <component
+                :is="subWidget.type + '-widget'"
+                :field="subWidget"
+                :designer="designer"
+                :key="subWidget.id"
+                :parent-list="widget.widgetList"
+                :index-of-parent-list="swIdx"
+                :parent-widget="widget"
+                :design-state="true"
+              />
             </template>
           </div>
         </template>
@@ -38,43 +67,42 @@
 </template>
 
 <script>
-  import i18n from "@/utils/i18n"
-  import containerMixin from "@/components/form-designer/form-widget/container-widget/containerMixin"
-  import ContainerWrapper from "@/components/form-designer/form-widget/container-widget/container-wrapper"
-  import FieldComponents from '@/components/form-designer/form-widget/field-widget/index'
-  import refMixinDesign from "@/components/form-designer/refMixinDesign"
-  import { ArrowDown, ArrowUp } from '@element-plus/icons-vue'
+  import i18n from '@/utils/i18n';
+  import containerMixin from '@/components/form-designer/form-widget/container-widget/containerMixin';
+  import ContainerWrapper from '@/components/form-designer/form-widget/container-widget/container-wrapper';
+  import FieldComponents from '@/components/form-designer/form-widget/field-widget/index';
+  import refMixinDesign from '@/components/form-designer/refMixinDesign';
+  // import { ArrowDown, ArrowUp } from '@element-plus/icons-vue';
 
   export default {
-    name: "card-widget",
+    name: 'card-widget',
     componentName: 'ContainerWidget',
     mixins: [i18n, containerMixin, refMixinDesign],
     inject: ['refList'],
     components: {
       ContainerWrapper,
-      ...FieldComponents,
-      ArrowDown,
-      ArrowUp
+      ...FieldComponents
+      // ArrowDown,
+      // ArrowUp
     },
     props: {
       widget: Object,
       parentWidget: Object,
       parentList: Array,
       indexOfParentList: Number,
-      designer: Object,
+      designer: Object
     },
     computed: {
       selected() {
-        return this.widget.id === this.designer.selectedId
+        return this.widget.id === this.designer.selectedId;
       },
 
       customClass() {
-        return this.widget.options.customClass || ''
-      },
-
+        return this.widget.options.customClass || '';
+      }
     },
     created() {
-      this.initRefList()
+      this.initRefList();
     },
     methods: {
       /**
@@ -83,11 +111,11 @@
        * @returns {boolean}
        */
       checkContainerMove(evt) {
-        return true
+        return true;
       },
 
       toggleCard() {
-        this.widget.options.folded = !this.widget.options.folded
+        this.widget.options.folded = !this.widget.options.folded;
       },
 
       /**
@@ -95,11 +123,10 @@
        * @param folded
        */
       setFolded(folded) {
-        this.widget.options.folded = !!folded
+        this.widget.options.folded = !!folded;
       }
-
     }
-  }
+  };
 </script>
 
 <style lang="scss" scoped>
@@ -123,9 +150,10 @@
     display: none;
   }
 
-  .clear-fix:before, .clear-fix:after {
+  .clear-fix:before,
+  .clear-fix:after {
     display: table;
-    content: "";
+    content: '';
   }
 
   .clear-fix:after {
@@ -135,5 +163,4 @@
   .float-right {
     float: right;
   }
-
 </style>

@@ -1,7 +1,7 @@
 <template>
   <container-item-wrapper :widget="widget">
 
-    <el-row :key="widget.id" :gutter="widget.options.gutter" class="grid-container"
+    <a-row :key="widget.id" :gutter="widget.options.gutter" class="grid-container"
             :class="[customClass]"
             :ref="widget.id" v-show="!widget.options.hidden">
       <template v-for="(colWidget, colIdx) in widget.cols" :key="colIdx">
@@ -15,7 +15,7 @@
           </template>
         </grid-col-item>
       </template>
-    </el-row>
+    </a-row>
 
   </container-item-wrapper>
 </template>

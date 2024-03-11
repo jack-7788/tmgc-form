@@ -2,7 +2,7 @@ export default {
   extension: {
     widgetLabel: {
       card: '卡片',
-      alert: '提示',
+      alert: '提示'
     },
 
     setting: {
@@ -18,9 +18,7 @@ export default {
       closeText: '关闭按钮文字',
       center: '文字居中',
       showIcon: '显示图标',
-      effect: '显示效果',
-
-    },
-
+      effect: '显示效果'
+    }
   }
-}
+};

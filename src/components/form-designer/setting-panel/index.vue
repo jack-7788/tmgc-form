@@ -1,137 +1,212 @@
 <template>
   <a-config-provider component-size="small">
-  <a-layout class="panel-container">
-    <a-tabs v-model:activeKey="activeTab" style="height: 100%;width: 100%;overflow: hidden">
-      <a-tab-pane :tab="i18nt('designer.hint.widgetSetting')" key="1">
-        <div class="setting-scrollbar" :style="{height: scrollerHeight}">
+    <a-layout class="panel-container">
+      <a-tabs v-model:activeKey="activeTab" style="height: 100%; width: 100%; overflow: hidden">
+        <a-tab-pane :tab="i18nt('designer.hint.widgetSetting')" key="1">
+          <div class="setting-scrollbar" :style="{ height: scrollerHeight }">
+            <template v-if="!!designer.selectedWidget && !designer.selectedWidget.category">
+              <a-form
+                :model="optionModel"
+                labelAlign="left"
+                label-width="120px"
+                class="setting-form"
+                @submit.prevent
+              >
+                <a-collapse v-model:activeKey="widgetActiveCollapseNames" class="setting-collapse">
+                  <a-collapse-panel
+                    key="1"
+                    v-if="showCollapse(commonProps)"
+                    :header="i18nt('designer.setting.commonSetting')"
+                  >
+                    <template v-for="(editorName, propName) in commonProps">
+                      <component
+                        v-if="hasPropEditor(propName, editorName)"
+                        :key="propName"
+                        :is="getPropEditor(propName, editorName)"
+                        :designer="designer"
+                        :selected-widget="selectedWidget"
+                        :option-model="optionModel"
+                      />
+                    </template>
+                  </a-collapse-panel>
 
-          <template v-if="!!designer.selectedWidget && !designer.selectedWidget.category">
-            <a-form :model="optionModel"  labelAlign="left" label-width="120px" class="setting-form"
-                     @submit.prevent>
-              <a-collapse v-model:activeKey="widgetActiveCollapseNames" class="setting-collapse">
-                <a-collapse-panel key="1" v-if="showCollapse(commonProps)" :header="i18nt('designer.setting.commonSetting')">
-                  <template v-for="(editorName, propName) in commonProps">
-                    <component v-if="hasPropEditor(propName, editorName)" :is="getPropEditor(propName, editorName)"
-                               :designer="designer" :selected-widget="selectedWidget" :option-model="optionModel"></component>
-                  </template>
-                </a-collapse-panel>
+                  <a-collapse-panel
+                    key="2"
+                    v-if="showCollapse(advProps)"
+                    :header="i18nt('designer.setting.advancedSetting')"
+                  >
+                    <template v-for="(editorName, propName) in advProps">
+                      <component
+                        v-if="hasPropEditor(propName, editorName)"
+                        :key="propName"
+                        :is="getPropEditor(propName, editorName)"
+                        :designer="designer"
+                        :selected-widget="selectedWidget"
+                        :option-model="optionModel"
+                      />
+                    </template>
+                  </a-collapse-panel>
 
-                <a-collapse-panel key="2" v-if="showCollapse(advProps)" :header="i18nt('designer.setting.advancedSetting')">
-                  <template v-for="(editorName, propName) in advProps">
-                    <component v-if="hasPropEditor(propName, editorName)" :is="getPropEditor(propName, editorName)"
-                               :designer="designer" :selected-widget="selectedWidget" :option-model="optionModel"></component>
-                  </template>
-                </a-collapse-panel>
+                  <a-collapse-panel
+                    key="3"
+                    v-if="showEventCollapse() && showCollapse(eventProps)"
+                    :header="i18nt('designer.setting.eventSetting')"
+                  >
+                    <template v-for="(editorName, propName) in eventProps">
+                      <component
+                        v-if="hasPropEditor(propName, editorName)"
+                        :key="propName"
+                        :is="getPropEditor(propName, editorName)"
+                        :designer="designer"
+                        :selected-widget="selectedWidget"
+                        :option-model="optionModel"
+                        :event-handled="getEventHandled(propName)"
+                      />
+                    </template>
+                  </a-collapse-panel>
+                </a-collapse>
+              </a-form>
+            </template>
 
-                <a-collapse-panel key="3" v-if="showEventCollapse() && showCollapse(eventProps)" :header="i18nt('designer.setting.eventSetting')">
-                  <template v-for="(editorName, propName) in eventProps">
-                    <!-- {{ getPropEditor(propName, editorName) }} -->
+            <template v-if="!!designer.selectedWidget && !!designer.selectedWidget.category">
+              <a-form
+                :model="optionModel"
+                labelAlign="left"
+                label-width="120px"
+                class="setting-form"
+                @submit.prevent
+              >
+                <a-collapse v-model:activeKey="widgetActiveCollapseNames" class="setting-collapse">
+                  <a-collapse-panel
+                    key="1"
+                    v-if="showCollapse(commonProps)"
+                    :header="i18nt('designer.setting.commonSetting')"
+                  >
+                    <template v-for="(editorName, propName) in commonProps">
+                      <component
+                        v-if="hasPropEditor(propName, editorName)"
+                        :key="propName"
+                        :is="getPropEditor(propName, editorName)"
+                        :designer="designer"
+                        :selected-widget="selectedWidget"
+                        :option-model="optionModel"
+                      />
+                    </template>
+                  </a-collapse-panel>
 
-                    <component v-if="hasPropEditor(propName, editorName)" :is="getPropEditor(propName, editorName)"
-                               :designer="designer" :selected-widget="selectedWidget" :option-model="optionModel"
-                               :event-handled="getEventHandled(propName)"></component>
-                  </template>
-                </a-collapse-panel>
-              </a-collapse>
+                  <a-collapse-panel
+                    key="2"
+                    v-if="showCollapse(advProps)"
+                    :header="i18nt('designer.setting.advancedSetting')"
+                  >
+                    <template v-for="(editorName, propName) in advProps">
+                      <component
+                        v-if="hasPropEditor(propName, editorName)"
+                        :key="propName"
+                        :is="getPropEditor(propName, editorName)"
+                        :designer="designer"
+                        :selected-widget="selectedWidget"
+                        :option-model="optionModel"
+                      />
+                    </template>
+                  </a-collapse-panel>
 
-            </a-form>
-          </template>
+                  <a-collapse-panel
+                    key="3"
+                    v-if="showEventCollapse() && showCollapse(eventProps)"
+                    :header="i18nt('designer.setting.eventSetting')"
+                  >
+                    <template v-for="(editorName, propName) in eventProps">
+                      <component
+                        v-if="hasPropEditor(propName, editorName)"
+                        :key="propName"
+                        :is="getPropEditor(propName, editorName)"
+                        :designer="designer"
+                        :selected-widget="selectedWidget"
+                        :option-model="optionModel"
+                        :event-handled="getEventHandled(propName)"
+                      />
+                    </template>
+                  </a-collapse-panel>
+                </a-collapse>
+              </a-form>
+            </template>
 
-          <template v-if="(!!designer.selectedWidget && !!designer.selectedWidget.category)">
-            <a-form :model="optionModel"  labelAlign="left"   label-width="120px" class="setting-form"
-                     @submit.prevent>
-              <a-collapse v-model:activeKey="widgetActiveCollapseNames" class="setting-collapse">
-                <a-collapse-panel key="1" v-if="showCollapse(commonProps)" :header="i18nt('designer.setting.commonSetting')">
-                  <template v-for="(editorName, propName) in commonProps">
-                    {{ getPropEditor(propName, editorName) }}
-                    <component v-if="hasPropEditor(propName, editorName)" :is="getPropEditor(propName, editorName)"
-                               :designer="designer" :selected-widget="selectedWidget" :option-model="optionModel"></component>
-                  </template>
-                </a-collapse-panel>
+            <template v-if="!designer.selectedWidget">
+              <a-empty :description="i18nt('designer.hint.noSelectedWidgetHint')" />
+            </template>
+          </div>
+        </a-tab-pane>
 
-                <a-collapse-panel key="2" v-if="showCollapse(advProps)" :header="i18nt('designer.setting.advancedSetting')">
-                  <template v-for="(editorName, propName) in advProps">
-                    <component v-if="hasPropEditor(propName, editorName)" :is="getPropEditor(propName, editorName)"
-                               :designer="designer" :selected-widget="selectedWidget" :option-model="optionModel"></component>
-                  </template>
-                </a-collapse-panel>
+        <a-tab-pane v-if="!!designer" :tab="i18nt('designer.hint.formSetting')" key="2">
+          <div class="setting-scrollbar" :style="{ height: scrollerHeight }">
+            <form-setting :designer="designer" :form-config="formConfig" />
+          </div>
+        </a-tab-pane>
 
-                <a-collapse-panel key="3" v-if="showEventCollapse() && showCollapse(eventProps)" :header="i18nt('designer.setting.eventSetting')">
-                  <template v-for="(editorName, propName) in eventProps">
-                    <component v-if="hasPropEditor(propName, editorName)" :is="getPropEditor(propName, editorName)"
-                               :designer="designer" :selected-widget="selectedWidget" :option-model="optionModel"
-                               :event-handled="getEventHandled(propName)"></component>
-                  </template>
-                </a-collapse-panel>
-              </a-collapse>
-            </a-form>
-          </template>
+        <a-tab-pane :tab="i18nt('designer.setting.dataSource')" key="3">
+          <div class="ds-setting-scrollbar" :style="{ height: scrollerHeight }">
+            <data-source-setting :designer="designer" :form-config="formConfig" />
+          </div>
+        </a-tab-pane>
+      </a-tabs>
 
-          <template v-if="!designer.selectedWidget">
-            <a-empty :description="i18nt('designer.hint.noSelectedWidgetHint')"></a-empty>
-          </template>
-
-        </div>
-      </a-tab-pane>
-
-      <a-tab-pane v-if="!!designer" :tab="i18nt('designer.hint.formSetting')" key="2">
-        <div class="setting-scrollbar" :style="{height: scrollerHeight}">
-          <form-setting :designer="designer" :form-config="formConfig"></form-setting>
-        </div>
-      </a-tab-pane>
-
-      <a-tab-pane :tab="i18nt('designer.setting.dataSource')" key="3">
-        <div class="ds-setting-scrollbar" :style="{height: scrollerHeight}">
-          <data-source-setting :designer="designer" :form-config="formConfig">
-          </data-source-setting>
-        </div>
-      </a-tab-pane>
-    </a-tabs>
-
-      <a-modal :title="i18nt('designer.setting.editWidgetEventHandler')" v-model:visible="showWidgetEventDialogFlag"
-                 :show-close="true" custom-class="drag-dialog small-padding-dialog" append-to-body
-                 :close-on-click-modal="false" :close-on-press-escape="false" :destroy-on-close="true">
-        <a-alert type="info" :closable="false" :message="eventHeader"></a-alert>
-        <code-editor :mode="'javascript'" :readonly="false" v-model="eventHandlerCode" ref="ecEditor"></code-editor>
-        <a-alert type="info" :closable="false" message="}"></a-alert>
+      <a-modal
+        :title="i18nt('designer.setting.editWidgetEventHandler')"
+        v-model:visible="showWidgetEventDialogFlag"
+        :show-close="true"
+        custom-class="drag-dialog small-padding-dialog"
+        append-to-body
+        :close-on-click-modal="false"
+        :close-on-press-escape="false"
+        :destroy-on-close="true"
+      >
+        <a-alert type="info" :closable="false" :message="eventHeader" />
+        <code-editor
+          :mode="'javascript'"
+          :readonly="false"
+          v-model="eventHandlerCode"
+          ref="ecEditor"
+        />
+        <a-alert type="info" :closable="false" message="}" />
         <template #footer>
           <div class="dialog-footer">
             <a-button @click="showWidgetEventDialogFlag = false">
-              {{i18nt('designer.hint.cancel')}}</a-button>
+              {{ i18nt('designer.hint.cancel') }}</a-button
+            >
             <a-button type="primary" @click="saveEventHandler">
-              {{i18nt('designer.hint.confirm')}}</a-button>
+              {{ i18nt('designer.hint.confirm') }}</a-button
+            >
           </div>
         </template>
       </a-modal>
-
-  </a-layout>
-</a-config-provider>
+    </a-layout>
+  </a-config-provider>
 </template>
 
 <script>
-  import CodeEditor from '@/components/code-editor/index'
-  import PropertyEditors from './property-editor/index'
-  import FormSetting from './form-setting'
-  import DataSourceSetting from './data-source-setting'
-  import WidgetProperties from './propertyRegister'
-  import {
-    addWindowResizeHandler,
-  } from "@/utils/util"
-  import i18n from "@/utils/i18n"
-  import emitter from "@/utils/emitter";
-  import { propertyRegistered } from "@/components/form-designer/setting-panel/propertyRegister";
+  import CodeEditor from '@/components/code-editor/index';
+  import PropertyEditors from './property-editor/index';
+  import FormSetting from './form-setting';
+  import DataSourceSetting from './data-source-setting';
+  import WidgetProperties from './propertyRegister';
+  import { addWindowResizeHandler } from '@/utils/util';
+  import i18n from '@/utils/i18n';
+  import emitter from '@/utils/emitter';
+  import { propertyRegistered } from '@/components/form-designer/setting-panel/propertyRegister';
 
-  const {COMMON_PROPERTIES, ADVANCED_PROPERTIES, EVENT_PROPERTIES} = WidgetProperties
+  console.log('PropertyEditors: ', PropertyEditors);
+  const { COMMON_PROPERTIES, ADVANCED_PROPERTIES, EVENT_PROPERTIES } = WidgetProperties;
 
   export default {
-    name: "SettingPanel",
-    componentName: "SettingPanel",
+    name: 'SettingPanel',
+    componentName: 'SettingPanel',
     mixins: [i18n, emitter],
     components: {
       CodeEditor,
       FormSetting,
       DataSourceSetting,
-      ...PropertyEditors,
+      ...PropertyEditors
     },
     props: {
       designer: Object,
@@ -140,13 +215,13 @@
       globalDsv: {
         type: Object,
         default: () => ({})
-      },
+      }
     },
     provide() {
       return {
         isSubFormChildWidget: () => this.subFormChildWidgetFlag,
-        getGlobalDsv: () => this.globalDsv, // 全局数据源变量
-      }
+        getGlobalDsv: () => this.globalDsv // 全局数据源变量
+      };
     },
     inject: ['getDesignerConfig'],
     data() {
@@ -155,7 +230,7 @@
 
         scrollerHeight: 0,
 
-        activeTab: "2",
+        activeTab: '2',
         widgetActiveCollapseNames: ['1', '3'], //['1', '2', '3'],
         formActiveCollapseNames: ['1', '2'],
 
@@ -168,185 +243,186 @@
         curEventName: '',
         eventHeader: '',
 
-        subFormChildWidgetFlag: false,
-      }
+        subFormChildWidgetFlag: false
+      };
     },
     computed: {
       optionModel: {
         get() {
-          return this.selectedWidget.options
+          return this.selectedWidget.options;
         },
 
         set(newValue) {
-          this.selectedWidget.options = newValue
+          this.selectedWidget.options = newValue;
         }
-      },
-
+      }
     },
     watch: {
       'designer.selectedWidget': {
         handler(val) {
           if (!!val) {
-            this.activeTab = "1"
+            this.activeTab = '1';
           }
         }
       },
 
-      'selectedWidget.options': {  //组件属性变动后，立即保存表单JSON！！
+      'selectedWidget.options': {
+        //组件属性变动后，立即保存表单JSON！！
         deep: true,
         handler() {
-          this.designer.saveCurrentHistoryStep()
+          this.designer.saveCurrentHistoryStep();
         }
       },
 
       formConfig: {
         deep: true,
         handler() {
-          this.designer.saveCurrentHistoryStep()
+          this.designer.saveCurrentHistoryStep();
         }
-      },
-
+      }
     },
     created() {
-      this.on$('editEventHandler', (eventParams) => {
+      this.on$('editEventHandler', eventParams => {
         //debugger
-        this.editEventHandler(eventParams[0], eventParams[1])
-      })
+        this.editEventHandler(eventParams[0], eventParams[1]);
+      });
 
-      this.designer.handleEvent('form-css-updated', (cssClassList) => {
-        this.designer.setCssClassList(cssClassList)
-      })
+      this.designer.handleEvent('form-css-updated', cssClassList => {
+        this.designer.setCssClassList(cssClassList);
+      });
 
       //监听字段组件选中事件
-      this.designer.handleEvent('field-selected', (parentWidget) => {
-        this.subFormChildWidgetFlag = !!parentWidget && (parentWidget.type === 'sub-form');
-      })
+      this.designer.handleEvent('field-selected', parentWidget => {
+        this.subFormChildWidgetFlag = !!parentWidget && parentWidget.type === 'sub-form';
+      });
     },
     mounted() {
       if (!this.designer.selectedWidget) {
-        this.activeTab = "2"
+        this.activeTab = '2';
       } else {
-        this.activeTab = "1"
+        this.activeTab = '1';
       }
 
-      this.scrollerHeight = window.innerHeight - 56 - 48 + 'px'
+      this.scrollerHeight = window.innerHeight - 56 - 48 + 'px';
       addWindowResizeHandler(() => {
         this.$nextTick(() => {
-          this.scrollerHeight = window.innerHeight - 56 - 48 + 'px'
+          this.scrollerHeight = window.innerHeight - 56 - 48 + 'px';
           //console.log(this.scrollerHeight)
-        })
-      })
+        });
+      });
     },
     methods: {
       getEventHandled(eventName) {
-        return !!this.optionModel[eventName] && (this.optionModel[eventName].length > 0)
+        return !!this.optionModel[eventName] && this.optionModel[eventName].length > 0;
       },
 
       showEventCollapse() {
         if (this.designerConfig['eventCollapse'] === undefined) {
-          return true
+          return true;
         }
 
-        return !!this.designerConfig['eventCollapse']
+        return !!this.designerConfig['eventCollapse'];
       },
 
       hasPropEditor(propName, editorName) {
         if (!editorName) {
-          return false
+          return false;
         }
 
         /* alert组件注册了两个type属性编辑器，跳过第一个type属性编辑器，只显示第二个alert-type属性编辑器！！ */
         if (propName.indexOf('-') <= -1) {
-          let uniquePropName = this.selectedWidget.type + '-' + propName
+          const uniquePropName = this.selectedWidget.type + '-' + propName;
           if (propertyRegistered(uniquePropName)) {
-            return false
+            return false;
           }
         }
 
-        let originalPropName = propName.replace(this.selectedWidget.type + '-', '')  //去掉组件名称前缀-，如果有的话！！
-        return this.designer.hasConfig(this.selectedWidget, originalPropName)
+        const originalPropName = propName.replace(this.selectedWidget.type + '-', ''); //去掉组件名称前缀-，如果有的话！！
+        return this.designer.hasConfig(this.selectedWidget, originalPropName);
       },
 
       getPropEditor(propName, editorName) {
-        let originalPropName = propName.replace(this.selectedWidget.type + '-', '')  //去掉组件名称前缀-，如果有的话！！
-        let ownPropEditorName = `${this.selectedWidget.type}-${originalPropName}-editor`
+        const originalPropName = propName.replace(this.selectedWidget.type + '-', ''); //去掉组件名称前缀-，如果有的话！！
+        const ownPropEditorName = `${this.selectedWidget.type}-${originalPropName}-editor`;
         //console.log(ownPropEditorName, this.$options.components[ownPropEditorName])
-        if (!!this.$options.components[ownPropEditorName]) {  //局部注册的属性编辑器组件
-          return ownPropEditorName
+        if (!!this.$options.components[ownPropEditorName]) {
+          //局部注册的属性编辑器组件
+          return ownPropEditorName;
         }
 
         //return !!this.$root.$options.components[ownPropEditorName] ? ownPropEditorName : editorName  //Vue2全局注册的属性编辑器组件
-        return !!this.$root.$.appContext.components[ownPropEditorName] ? ownPropEditorName : editorName  //Vue3全局注册的属性编辑器组件
+        return !!this.$root.$.appContext.components[ownPropEditorName]
+          ? ownPropEditorName
+          : editorName; //Vue3全局注册的属性编辑器组件
       },
 
       showCollapse(propsObj) {
-        let result = false
+        let result = false;
 
-        for (let propName in propsObj) {
+        for (const propName in propsObj) {
           if (!propsObj.hasOwnProperty(propName)) {
-            continue
+            continue;
           }
 
           if (this.hasPropEditor(propName, propsObj[propName])) {
-            result = true
-            break
+            result = true;
+            break;
           }
         }
 
-        return result
+        return result;
       },
 
       editEventHandler(eventName, eventParams) {
         //debugger
 
-        this.curEventName = eventName
-        this.eventHeader = `${this.optionModel.name}.${eventName}(${eventParams.join(', ')}) {`
-        this.eventHandlerCode = this.selectedWidget.options[eventName] || ''
+        this.curEventName = eventName;
+        this.eventHeader = `${this.optionModel.name}.${eventName}(${eventParams.join(', ')}) {`;
+        this.eventHandlerCode = this.selectedWidget.options[eventName] || '';
 
         // 设置字段校验函数示例代码
-        if ((eventName === 'onValidate') && (!this.optionModel['onValidate'])) {
-          this.eventHandlerCode = "  /* sample code */\n  /*\n  if ((value > 100) || (value < 0)) {\n    callback(new Error('error message'))  //fail\n  } else {\n    callback();  //pass\n  }\n  */"
+        if (eventName === 'onValidate' && !this.optionModel['onValidate']) {
+          this.eventHandlerCode =
+            "  /* sample code */\n  /*\n  if ((value > 100) || (value < 0)) {\n    callback(new Error('error message'))  //fail\n  } else {\n    callback();  //pass\n  }\n  */";
         }
 
-        this.showWidgetEventDialogFlag = true
+        this.showWidgetEventDialogFlag = true;
       },
 
       saveEventHandler() {
-        const codeHints = this.$refs.ecEditor.getEditorAnnotations()
-        let syntaxErrorFlag = false
-        if (!!codeHints && (codeHints.length > 0)) {
-          codeHints.forEach((chItem) => {
+        const codeHints = this.$refs.ecEditor.getEditorAnnotations();
+        let syntaxErrorFlag = false;
+        if (!!codeHints && codeHints.length > 0) {
+          codeHints.forEach(chItem => {
             if (chItem.type === 'error') {
-              syntaxErrorFlag = true
+              syntaxErrorFlag = true;
             }
-          })
+          });
 
           if (syntaxErrorFlag) {
-            this.$message.error(this.i18nt('designer.setting.syntaxCheckWarning'))
-            return
+            this.$message.error(this.i18nt('designer.setting.syntaxCheckWarning'));
+            return;
           }
         }
 
-        this.selectedWidget.options[this.curEventName] = this.eventHandlerCode
-        this.showWidgetEventDialogFlag = false
-      },
-
+        this.selectedWidget.options[this.curEventName] = this.eventHandlerCode;
+        this.showWidgetEventDialogFlag = false;
+      }
     }
-  }
+  };
 </script>
 
 <style lang="scss" scoped>
   .panel-container {
     // padding: 0 8px;
     background-color: #fff;
-    :deep(.ant-tabs-content){
-      overflow: auto
+    :deep(.ant-tabs-content) {
+      overflow: auto;
     }
-    :deep(.ant-form-item){
+    :deep(.ant-form-item) {
       margin-bottom: 12px;
-
     }
-    :deep(.ant-collapse-content-box){
+    :deep(.ant-collapse-content-box) {
       padding: 5px;
     }
   }
@@ -395,7 +471,7 @@
   }
 
   /* 隐藏Firefox浏览器中el-input数字输入框右侧的上下调整小箭头 */
-  :deep(.hide-spin-button) input[type="number"] {
+  :deep(.hide-spin-button) input[type='number'] {
     -moz-appearance: textfield;
   }
 
@@ -425,12 +501,10 @@
     font-weight: bold;
     color: $--color-primary;
   }
-
 </style>
 
 <style lang="scss">
   .ds-setting-drawer {
     right: 320px !important;
   }
-
 </style>

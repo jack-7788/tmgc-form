@@ -7,7 +7,7 @@ export default {
     document: 'Docs',
     qqGroup: 'WeChat Group',
     deployment: 'Deployment',
-    subscription: 'Subscription',
+    subscription: 'Subscription'
   },
 
   designer: {
@@ -25,45 +25,45 @@ export default {
     noWidgetHint: 'Please select a widget from the left list, drag and drop to this container.',
 
     widgetLabel: {
-      grid:             'Grid',
-      table:            'Table',
-      tab:              'Tab',
-      section:          'Section',
-      'sub-form':       'SubForm',
-      'grid-sub-form':  'GridSubForm',
-      'grid-col':       'GridCol',
-      'table-cell':     'TableCell',
-      'tab-pane':       'TabPane',
-      'data-table':     'DataTable',
-      'vf-dialog':      'Dialog',
-      'vf-drawer':      'Drawer',
+      grid: 'Grid',
+      table: 'Table',
+      tab: 'Tab',
+      section: 'Section',
+      'sub-form': 'SubForm',
+      'grid-sub-form': 'GridSubForm',
+      'grid-col': 'GridCol',
+      'table-cell': 'TableCell',
+      'tab-pane': 'TabPane',
+      'data-table': 'DataTable',
+      'vf-dialog': 'Dialog',
+      'vf-drawer': 'Drawer',
 
-      input:          'Input',
-      textarea:       'Textarea',
-      number:         'InputNumber',
-      radio:          'Radio',
-      checkbox:       'Checkbox',
-      select:         'Select',
-      time:           'Time',
-      'time-range':   'Time range',
-      date:           'Date',
-      'date-range':   'Date range',
-      switch:         'Switch',
-      rate:           'Rate',
-      color:          'ColorPicker',
-      slider:         'Slider',
-      'static-text':  'Text',
-      'html-text':    'HTML',
-      button:         'Button',
-      divider:        'Divider',
+      input: 'Input',
+      textarea: 'Textarea',
+      number: 'InputNumber',
+      radio: 'Radio',
+      checkbox: 'Checkbox',
+      select: 'Select',
+      time: 'Time',
+      'time-range': 'Time range',
+      date: 'Date',
+      'date-range': 'Date range',
+      switch: 'Switch',
+      rate: 'Rate',
+      color: 'ColorPicker',
+      slider: 'Slider',
+      'static-text': 'Text',
+      'html-text': 'HTML',
+      button: 'Button',
+      divider: 'Divider',
 
       'picture-upload': 'Picture',
-      'file-upload':    'File',
-      'rich-editor':    'Rich Editor',
-      cascader:         'Cascader',
-      slot:             'Slot',
+      'file-upload': 'File',
+      'rich-editor': 'Rich Editor',
+      cascader: 'Cascader',
+      slot: 'Slot',
 
-      custom:           'Custom Component',
+      custom: 'Custom Component'
     },
 
     hint: {
@@ -146,12 +146,16 @@ export default {
       noChineseValidator: 'Non-Chinese',
       chineseValidator: 'Chinese',
 
-      rowspanNotConsistentForMergeEntireRow: 'Cells in this row don\'t have the same rowspan, operation failed.',
-      colspanNotConsistentForMergeEntireColumn: 'Cells in this column don\'t have the same colspan, operation failed.',
-      rowspanNotConsistentForDeleteEntireRow: 'Cells in this row don\'t have the same rowspan, operation failed.',
-      colspanNotConsistentForDeleteEntireColumn: 'Cells in this column don\'t have the same colspan, operation failed.',
+      rowspanNotConsistentForMergeEntireRow:
+        "Cells in this row don't have the same rowspan, operation failed.",
+      colspanNotConsistentForMergeEntireColumn:
+        "Cells in this column don't have the same colspan, operation failed.",
+      rowspanNotConsistentForDeleteEntireRow:
+        "Cells in this row don't have the same rowspan, operation failed.",
+      colspanNotConsistentForDeleteEntireColumn:
+        "Cells in this column don't have the same colspan, operation failed.",
       lastColCannotBeDeleted: 'The last col cannot be deleted.',
-      lastRowCannotBeDeleted: 'The last row cannot be deleted.',
+      lastRowCannotBeDeleted: 'The last row cannot be deleted.'
     },
 
     toolbar: {
@@ -169,7 +173,7 @@ export default {
       exportJson: 'Export',
       exportCode: 'Codes',
       generateCode: 'Generate Code',
-      generateSFC: 'Generate SFC',
+      generateSFC: 'Generate SFC'
     },
 
     setting: {
@@ -208,7 +212,7 @@ export default {
       hidden: 'Hidden',
       textContent: 'Text',
       htmlContent: 'HTML',
-      clearable: 'Clearable',
+      allowClear: 'AllowClear',
       editable: 'Editable',
       format: 'Format',
       valueFormat: 'Value Format',
@@ -454,8 +458,7 @@ export default {
       dsRequestNumberTypeError: 'Number value error',
       dsRequestBooleanTypeError: 'Boolean value error',
       dsValidationError: 'Datasource check failure.',
-      dsDuplicatedNameError: 'Duplicate datasource name.',
+      dsDuplicatedNameError: 'Duplicate datasource name.'
     }
-
   }
-}
+};

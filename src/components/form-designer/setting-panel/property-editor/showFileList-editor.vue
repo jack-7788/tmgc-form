@@ -1,7 +1,7 @@
 <template>
-  <el-form-item :label="i18nt('designer.setting.showFileList')">
-    <el-switch v-model="optionModel.showFileList"></el-switch>
-  </el-form-item>
+  <a-form-item :label="i18nt('designer.setting.showFileList')">
+    <a-switch v-model:checked="optionModel.showFileList"></a-switch>
+  </a-form-item>
 </template>
 
 <script>

@@ -1,20 +1,20 @@
 <template>
-  <el-form-item>
+  <a-form-item>
     <template #label>
       <span>{{i18nt('designer.setting.fileTypes')}}
-        <el-tooltip effect="light" :content="i18nt('designer.setting.fileTypesHelp')">
-          <svg-icon icon-class="el-info" /></el-tooltip>
+        <a-tooltip effect="light" :title="i18nt('designer.setting.fileTypesHelp')">
+          <svg-icon icon-class="el-info" /></a-tooltip>
       </span>
     </template>
-    <el-select multiple allow-create filterable default-first-option
-               v-model="optionModel.fileTypes" style="width: 100%">
-      <el-option v-for="(ft, ftIdx) in uploadFileTypes"
+    <a-select multiple allow-create filterable default-first-option
+               v-model:value="optionModel.fileTypes" style="width: 100%">
+      <a-select-option v-for="(ft, ftIdx) in uploadFileTypes"
                  :key="ftIdx"
                  :label="ft.label"
                  :value="ft.value">
-      </el-option>
-    </el-select>
-  </el-form-item>
+      </a-select-option>
+    </a-select>
+  </a-form-item>
 </template>
 
 <script>

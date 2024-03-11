@@ -1,7 +1,7 @@
 <template>
-  <el-form-item :label="i18nt('designer.setting.range')">
-    <el-switch v-model="optionModel.range"></el-switch>
-  </el-form-item>
+  <a-form-item :label="i18nt('designer.setting.range')">
+    <a-switch v-model:checked="optionModel.range"></a-switch>
+  </a-form-item>
 </template>
 
 <script>

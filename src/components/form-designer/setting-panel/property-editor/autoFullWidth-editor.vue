@@ -1,7 +1,7 @@
 <template>
-  <el-form-item :label="i18nt('designer.setting.autoFullWidth')">
-    <el-switch v-model="optionModel.autoFullWidth"></el-switch>
-  </el-form-item>
+  <a-form-item :label="i18nt('designer.setting.autoFullWidth')">
+    <a-switch v-model:checked="optionModel.autoFullWidth"></a-switch>
+  </a-form-item>
 </template>
 
 <script>

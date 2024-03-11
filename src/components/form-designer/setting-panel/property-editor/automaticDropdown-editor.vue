@@ -1,7 +1,7 @@
 <template>
-  <el-form-item :label="i18nt('designer.setting.automaticDropdown')">
-    <el-switch v-model="optionModel.automaticDropdown"></el-switch>
-  </el-form-item>
+  <a-form-item :label="i18nt('designer.setting.automaticDropdown')">
+    <a-switch v-model:checked="optionModel.automaticDropdown"></a-switch>
+  </a-form-item>
 </template>
 
 <script>

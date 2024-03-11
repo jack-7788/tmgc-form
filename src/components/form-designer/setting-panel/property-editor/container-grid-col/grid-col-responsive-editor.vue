@@ -1,7 +1,7 @@
 <template>
-  <el-form-item :label="i18nt('designer.setting.responsive')">
-    <el-switch v-model="optionModel.responsive"></el-switch>
-  </el-form-item>
+  <a-form-item :label="i18nt('designer.setting.responsive')">
+    <a-switch v-model:checked="optionModel.responsive"></a-switch>
+  </a-form-item>
 </template>
 
 <script>

@@ -1,5 +1,5 @@
 <template>
-  <el-drawer ref="drawerRef" :title="options.title" v-model="drawerVisible" custom-class="dynamic-drawer" append-to-body destroy-on-close
+  <a-drawer ref="drawerRef" :title="options.title" v-model:visible="drawerVisible" custom-class="dynamic-drawer" append-to-body destroy-on-close
              :size="options.size" :modal="options.showModal" :direction="options.direction"
              :show-close="options.showClose" :close-on-click-modal="options.closeOnClickModal"
              :close-on-press-escape="options.closeOnPressEscape"
@@ -10,13 +10,13 @@
     </VFormRender>
     <template #footer>
       <div style="float: right">
-        <el-button v-if="!options.cancelButtonHidden" @click="handleCancelClick">
-          {{cancelBtnLabel}}</el-button>
-        <el-button v-if="!options.okButtonHidden" type="primary" @click="handleOkClick">
-          {{okBtnLabel}}</el-button>
+        <a-button v-if="!options.cancelButtonHidden" @click="handleCancelClick">
+          {{cancelBtnLabel}}</a-button>
+        <a-button v-if="!options.okButtonHidden" type="primary" @click="handleOkClick">
+          {{okBtnLabel}}</a-button>
       </div>
     </template>
-  </el-drawer>
+  </a-drawer>
 </template>
 
 <script>

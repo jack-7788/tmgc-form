@@ -1,8 +1,8 @@
 <template>
-  <el-form-item :label="i18nt('designer.setting.colPullTitle')">
-    <el-input-number v-model.number="optionModel.pull" :min="0" :max="24"
-                     style="width: 100%"></el-input-number>
-  </el-form-item>
+  <a-form-item :label="i18nt('designer.setting.colPullTitle')">
+    <a-input-number v-model:value="optionModel.pull" :min="0" :max="24"
+                     style="width: 100%"></a-input-number>
+  </a-form-item>
 </template>
 
 <script>

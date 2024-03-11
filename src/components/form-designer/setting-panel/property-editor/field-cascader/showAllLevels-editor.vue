@@ -1,7 +1,7 @@
 <template>
-  <el-form-item :label="i18nt('designer.setting.showAllLevels')">
-    <el-switch v-model="optionModel.showAllLevels"></el-switch>
-  </el-form-item>
+  <a-form-item :label="i18nt('designer.setting.showAllLevels')">
+    <a-switch v-model:checked="optionModel.showAllLevels"></a-switch>
+  </a-form-item>
 </template>
 
 <script>

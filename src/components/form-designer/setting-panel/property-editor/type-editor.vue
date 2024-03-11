@@ -4,7 +4,7 @@
       <a-select-option   value="text">text</a-select-option>
       <!-- 当input的type设置为number时，如果输入非数字字符，则v-model拿到的值为空字符串，无法实现输入校验！故屏蔽之！！ -->
       <!--
-      <el-option label="number" value="number"></el-option>
+      <a-option label="number" value="number"></a-option>
       -->
       <a-select-option  value="password"> password </a-select-option>
     </a-select>

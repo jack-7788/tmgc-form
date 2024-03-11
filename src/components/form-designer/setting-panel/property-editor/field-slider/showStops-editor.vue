@@ -1,7 +1,7 @@
 <template>
-  <el-form-item :label="i18nt('designer.setting.showStops')">
-    <el-switch v-model="optionModel.showStops"></el-switch>
-  </el-form-item>
+  <a-form-item :label="i18nt('designer.setting.showStops')">
+    <a-switch v-model:checked="optionModel.showStops"></a-switch>
+  </a-form-item>
 </template>
 
 <script>

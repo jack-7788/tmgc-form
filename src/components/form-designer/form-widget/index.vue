@@ -1,115 +1,148 @@
 <template>
   <a-config-provider :component-size="size">
-  <div class="form-widget-container">
-    <a-form class="full-height-width widget-form" :layout=" ['horizontal','vertical','inline'].includes(labelPosition) ? labelPosition :'horizontal'"
-             :class="[customClass, layoutType + '-layout']" :size="size" :validate-on-rule-change="false">
+    <div class="form-widget-container">
+      <a-form
+        class="full-height-width widget-form"
+        :layout="
+          ['horizontal', 'vertical', 'inline'].includes(labelPosition)
+            ? labelPosition
+            : 'horizontal'
+        "
+        :class="[customClass, layoutType + '-layout']"
+        :size="size"
+        :validate-on-rule-change="false"
+      >
+        <template v-if="designer.widgetList.length === 0">
+          <div class="no-widget-hint">{{ i18nt('designer.noWidgetHint') }}</div>
+        </template>
 
-      <template v-if="designer.widgetList.length === 0">
-        <div class="no-widget-hint">{{i18nt('designer.noWidgetHint')}}</div>
-      </template>
-
-      <div class="form-widget-canvas" :style="{minHeight: canvasMinHeight}">
-        <draggable :list="designer.widgetList" item-key="id" v-bind="{group:'dragGroup', ghostClass: 'ghost',animation: 300}"
-                   tag="transition-group" :component-data="{name: 'fade'}"
-                   handle=".drag-handler" @end="onDragEnd" @add="onDragAdd" @update="onDragUpdate" :move="checkMove">
-          <template #item="{ element: widget, index }">
-            <div class="transition-group-el">
-              <template v-if="'container' === widget.category">
-                <component :is="getWidgetName(widget)" :widget="widget" :designer="designer" :key="widget.id" :parent-list="designer.widgetList"
-                                  :index-of-parent-list="index" :parent-widget="null"></component>
-              </template>
-              <template v-else>
-                <component :is="getWidgetName(widget)" :field="widget" :designer="designer" :key="widget.id" :parent-list="designer.widgetList"
-                              :index-of-parent-list="index" :parent-widget="null" :design-state="true"></component>
-              </template>
-            </div>
-          </template>
-        </draggable>
-      </div>
-
-    </a-form>
-
-  </div>
-</a-config-provider>
+        <div class="form-widget-canvas" :style="{ minHeight: canvasMinHeight }">
+          <draggable
+            :list="designer.widgetList"
+            item-key="id"
+            v-bind="{ group: 'dragGroup', ghostClass: 'ghost', animation: 300 }"
+            tag="transition-group"
+            :component-data="{ name: 'fade' }"
+            handle=".drag-handler"
+            @end="onDragEnd"
+            @add="onDragAdd"
+            @update="onDragUpdate"
+            :move="checkMove"
+          >
+            <template #item="{ element: widget, index }">
+              <div class="transition-group-el">
+                <template v-if="'container' === widget.category">
+                  <component
+                    :is="getWidgetName(widget)"
+                    :widget="widget"
+                    :designer="designer"
+                    :key="widget.id"
+                    :parent-list="designer.widgetList"
+                    :index-of-parent-list="index"
+                    :parent-widget="null"
+                  />
+                </template>
+                <template v-else>
+                  <component
+                    :is="getWidgetName(widget)"
+                    :field="widget"
+                    :designer="designer"
+                    :key="widget.id"
+                    :parent-list="designer.widgetList"
+                    :index-of-parent-list="index"
+                    :parent-widget="null"
+                    :design-state="true"
+                  />
+                </template>
+              </div>
+            </template>
+          </draggable>
+        </div>
+      </a-form>
+    </div>
+  </a-config-provider>
 </template>
 
 <script>
-  import '@/components/form-designer/form-widget/container-widget/index'
-  import FieldComponents from '@/components/form-designer/form-widget/field-widget/index'
-  import i18n from "@/utils/i18n"
+  import '@/components/form-designer/form-widget/container-widget/index';
+  import FieldComponents from '@/components/form-designer/form-widget/field-widget/index';
+  import i18n from '@/utils/i18n';
   export default {
-    name: "VFormWidget",
-    componentName: "VFormWidget",
+    name: 'VFormWidget',
+    componentName: 'VFormWidget',
     mixins: [i18n],
     components: {
-      ...FieldComponents,
+      ...FieldComponents
     },
     props: {
       designer: Object,
       formConfig: Object,
-      optionData: { //prop传入的选项数据
+      optionData: {
+        //prop传入的选项数据
         type: Object,
         default: () => ({})
       },
       globalDsv: {
         type: Object,
         default: () => ({})
-      },
+      }
     },
     provide() {
       return {
         refList: this.widgetRefList,
-        getFormConfig: () => this.formConfig,  /* 解决provide传递formConfig属性的响应式更新问题！！ */
+        getFormConfig: () =>
+          this.formConfig /* 解决provide传递formConfig属性的响应式更新问题！！ */,
         getGlobalDsv: () => this.globalDsv, // 全局数据源变量
         globalOptionData: this.optionData,
         getOptionData: () => this.optionData,
         getReadMode: () => false,
         globalModel: {
-          formModel: this.formModel,
+          formModel: this.formModel
         },
         getSubFormFieldFlag: () => false,
         getSubFormName: () => '',
-        getDSResultCache: () => this.dsResultCache,
-      }
+        getDSResultCache: () => this.dsResultCache
+      };
     },
     inject: ['getDesignerConfig'],
     data() {
       return {
         formModel: {},
         widgetRefList: {},
-        dsResultCache: {},
-      }
+        dsResultCache: {}
+      };
     },
     computed: {
       labelPosition() {
-        console.log(' this.designer.formConfig: ',  this.designer.formConfig);
+        console.log(' this.designer.formConfig: ', this.designer.formConfig);
         if (!!this.designer.formConfig && !!this.designer.formConfig.labelPosition) {
-          return this.designer.formConfig.labelPosition
+          return this.designer.formConfig.labelPosition;
         }
 
-        return 'horizontal'
+        return 'horizontal';
       },
 
       size() {
         if (!!this.designer.formConfig && !!this.designer.formConfig.size) {
-          return this.designer.formConfig.size
+          return this.designer.formConfig.size;
         }
 
-        return 'default'
+        return 'default';
       },
 
       customClass() {
-        return this.designer.formConfig.customClass || ''
+        return this.designer.formConfig.customClass || '';
       },
 
       layoutType() {
-        return this.designer.getLayoutType()
+        return this.designer.getLayoutType();
       },
 
       canvasMinHeight() {
-        return (this.getDesignerConfig().logoHeader !== false) ? 'calc(100vh - 56px - 68px)' : 'calc(100vh - 56px - 68px + 48px)'
+        return this.getDesignerConfig().logoHeader !== false
+          ? 'calc(100vh - 56px - 68px)'
+          : 'calc(100vh - 56px - 68px + 48px)';
       }
-
     },
     watch: {
       'designer.widgetList': {
@@ -124,29 +157,28 @@
         handler(val) {
           //
         }
-      },
-
+      }
     },
     created() {
-      this.designer.initDesigner( !!this.getDesignerConfig().resetFormJson )  //此行代码已移动到form-designer，以便提前赋值formConfig！！
-      this.designer.loadPresetCssCode( this.getDesignerConfig().presetCssCode )
+      this.designer.initDesigner(!!this.getDesignerConfig().resetFormJson); //此行代码已移动到form-designer，以便提前赋值formConfig！！
+      this.designer.loadPresetCssCode(this.getDesignerConfig().presetCssCode);
     },
     mounted() {
-      this.disableFirefoxDefaultDrop()  /* 禁用Firefox默认拖拽搜索功能!! */
-      this.designer.registerFormWidget(this)
+      this.disableFirefoxDefaultDrop(); /* 禁用Firefox默认拖拽搜索功能!! */
+      this.designer.registerFormWidget(this);
     },
     methods: {
       getWidgetName(widget) {
-        return widget.type + '-widget'
+        return widget.type + '-widget';
       },
 
       disableFirefoxDefaultDrop() {
-        let isFirefox = (navigator.userAgent.toLowerCase().indexOf("firefox") !== -1)
+        const isFirefox = navigator.userAgent.toLowerCase().indexOf('firefox') !== -1;
         if (isFirefox) {
           document.body.ondrop = function (event) {
             event.stopPropagation();
             event.preventDefault();
-          }
+          };
         }
       },
 
@@ -155,53 +187,54 @@
       },
 
       onDragAdd(evt) {
-        const newIndex = evt.newIndex
+        const newIndex = evt.newIndex;
         if (!!this.designer.widgetList[newIndex]) {
-          this.designer.setSelected( this.designer.widgetList[newIndex] )
+          this.designer.setSelected(this.designer.widgetList[newIndex]);
         }
 
-        this.designer.emitHistoryChange()
-        this.designer.emitEvent('field-selected', null)
+        this.designer.emitHistoryChange();
+        this.designer.emitEvent('field-selected', null);
       },
 
-      onDragUpdate() {  /* 在VueDraggable内拖拽组件发生位置变化时会触发update，未发生组件位置变化不会触发！！ */
-        this.designer.emitHistoryChange()
+      onDragUpdate() {
+        /* 在VueDraggable内拖拽组件发生位置变化时会触发update，未发生组件位置变化不会触发！！ */
+        this.designer.emitHistoryChange();
       },
 
       checkMove(evt) {
-        return this.designer.checkWidgetMove(evt)
+        return this.designer.checkWidgetMove(evt);
       },
 
       getFormData() {
-        return this.formModel
+        return this.formModel;
       },
 
       getWidgetRef(widgetName, showError = false) {
-        let foundRef = this.widgetRefList[widgetName]
+        const foundRef = this.widgetRefList[widgetName];
         if (!foundRef && !!showError) {
-          this.$message.error(this.i18nt('designer.hint.refNotFound') + widgetName)
+          this.$message.error(this.i18nt('designer.hint.refNotFound') + widgetName);
         }
-        return foundRef
+        return foundRef;
       },
 
       getSelectedWidgetRef() {
-        let wName = this.designer.selectedWidgetName
-        return this.getWidgetRef(wName)
+        const wName = this.designer.selectedWidgetName;
+        return this.getWidgetRef(wName);
       },
 
       clearWidgetRefList() {
         Object.keys(this.widgetRefList).forEach(key => {
-          delete this.widgetRefList[key]
-        })
-      },
-
+          delete this.widgetRefList[key];
+        });
+      }
     }
-  }
+  };
 </script>
 
 <style lang="scss" scoped>
   .container-scroll-bar {
-    :deep(.el-scrollbar__wrap), :deep(.el-scrollbar__view) {
+    :deep(.el-scrollbar__wrap),
+    :deep(.el-scrollbar__view) {
       overflow-x: hidden;
     }
   }
@@ -241,10 +274,11 @@
     }
 
     /* 隐藏组件拖拽状态中显示的黑点 */
-    :deep(li.container-widget-item), :deep(li.field-widget-item) {
+    :deep(li.container-widget-item),
+    :deep(li.field-widget-item) {
       list-style: none;
     }
-  .ant-form.PC-layout,
+    .ant-form.PC-layout,
     .el-form.PC-layout {
       //
     }
@@ -273,14 +307,15 @@
   .grid-cell {
     min-height: 30px;
     border-right: 1px dotted #cccccc;
-
   }
 
-  .fade-enter-active, .fade-leave-active {
-    transition: opacity .5s;
+  .fade-enter-active,
+  .fade-leave-active {
+    transition: opacity 0.5s;
   }
 
-  .fade-enter, .fade-leave-to {
+  .fade-enter,
+  .fade-leave-to {
     opacity: 0;
   }
 </style>

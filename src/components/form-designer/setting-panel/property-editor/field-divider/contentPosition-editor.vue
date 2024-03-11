@@ -1,11 +1,11 @@
 <template>
-  <el-form-item :label="i18nt('designer.setting.contentPosition')">
-    <el-select v-model="optionModel.contentPosition">
-      <el-option label="center" value="center"></el-option>
-      <el-option label="left" value="left"></el-option>
-      <el-option label="right" value="right"></el-option>
-    </el-select>
-  </el-form-item>
+  <a-form-item :label="i18nt('designer.setting.contentPosition')">
+    <a-select v-model:value="optionModel.contentPosition">
+      <a-select-option label="center" value="center">center</a-select-option>
+      <a-select-option label="left" value="left">left</a-select-option>
+      <a-select-option label="right" value="right">right</a-select-option>
+    </a-select>
+  </a-form-item>
 </template>
 
 <script>

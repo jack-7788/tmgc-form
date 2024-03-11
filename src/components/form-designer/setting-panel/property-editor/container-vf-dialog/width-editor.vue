@@ -1,7 +1,7 @@
 <template>
-  <el-form-item :label="i18nt('designer.setting.dialogWidth')">
-    <el-input type="text" v-model="optionModel.width"></el-input>
-  </el-form-item>
+  <a-form-item :label="i18nt('designer.setting.dialogWidth')">
+    <a-input type="text" v-model:value="optionModel.width"></a-input>
+  </a-form-item>
 </template>
 
 <script>

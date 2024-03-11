@@ -1,7 +1,7 @@
 <template>
-  <el-form-item :label="i18nt('designer.setting.closeOnClickModal')">
-    <el-switch v-model="optionModel.closeOnClickModal"></el-switch>
-  </el-form-item>
+  <a-form-item :label="i18nt('designer.setting.closeOnClickModal')">
+    <a-switch v-model:checked="optionModel.closeOnClickModal"></a-switch>
+  </a-form-item>
 </template>
 
 <script>

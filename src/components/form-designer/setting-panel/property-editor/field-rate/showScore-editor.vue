@@ -1,7 +1,7 @@
 <template>
-  <el-form-item :label="i18nt('designer.setting.showScore')">
-    <el-switch v-model="optionModel.showScore"></el-switch>
-  </el-form-item>
+  <a-form-item :label="i18nt('designer.setting.showScore')">
+    <a-switch v-model:checked="optionModel.showScore"></a-switch>
+  </a-form-item>
 </template>
 
 <script>

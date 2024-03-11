@@ -1,7 +1,7 @@
 <template>
-  <el-form-item :label="i18nt('designer.setting.border')">
-    <el-switch v-model="optionModel.border"></el-switch>
-  </el-form-item>
+  <a-form-item :label="i18nt('designer.setting.border')">
+    <a-switch v-model:checked="optionModel.border"></a-switch>
+  </a-form-item>
 </template>
 
 <script>

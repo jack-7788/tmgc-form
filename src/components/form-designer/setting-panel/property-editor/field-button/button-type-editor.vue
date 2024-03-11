@@ -1,15 +1,15 @@
 <template>
-  <el-form-item :label="i18nt('designer.setting.displayType')">
-    <el-select v-model="optionModel.type">
-      <el-option label="default" value=""></el-option>
-      <el-option label="primary" value="primary"></el-option>
-      <el-option label="success" value="success"></el-option>
-      <el-option label="warning" value="warning"></el-option>
-      <el-option label="danger" value="danger"></el-option>
-      <el-option label="info" value="info"></el-option>
-      <el-option label="text" value="text"></el-option>
-    </el-select>
-  </el-form-item>
+  <a-form-item :label="i18nt('designer.setting.displayType')">
+    <a-select v-model:value="optionModel.type">
+      <a-select-option label="default" value="">default </a-select-option>
+      <a-select-option label="primary" value="primary">primary</a-select-option>
+      <a-select-option label="success" value="success">success</a-select-option>
+      <a-select-option label="warning" value="warning">warning</a-select-option>
+      <a-select-option label="danger" value="danger">danger</a-select-option>
+      <a-select-option label="info" value="info">info</a-select-option>
+      <a-select-option label="text" value="text">text</a-select-option>
+    </a-select>
+  </a-form-item>
 </template>
 
 <script>

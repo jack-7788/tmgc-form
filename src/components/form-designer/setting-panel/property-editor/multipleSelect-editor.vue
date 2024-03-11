@@ -1,7 +1,7 @@
 <template>
-  <el-form-item :label="i18nt('designer.setting.multipleSelect')">
-    <el-switch v-model="optionModel.multipleSelect"></el-switch>
-  </el-form-item>
+  <a-form-item :label="i18nt('designer.setting.multipleSelect')">
+    <a-switch v-model:checked="optionModel.multipleSelect"></a-switch>
+  </a-form-item>
 </template>
 
 <script>

@@ -1,7 +1,7 @@
 <template>
-  <el-form-item :label="i18nt('designer.setting.cellHeight')">
-    <el-input type="text" v-model="optionModel.cellHeight"></el-input>
-  </el-form-item>
+  <a-form-item :label="i18nt('designer.setting.cellHeight')">
+    <a-input type="text" v-model:value="optionModel.cellHeight"></a-input>
+  </a-form-item>
 </template>
 
 <script>

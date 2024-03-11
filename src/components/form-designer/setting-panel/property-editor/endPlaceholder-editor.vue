@@ -1,7 +1,7 @@
 <template>
-  <el-form-item :label="i18nt('designer.setting.endPlaceholder')">
-    <el-input type="text" v-model="optionModel.endPlaceholder"></el-input>
-  </el-form-item>
+  <a-form-item :label="i18nt('designer.setting.endPlaceholder')">
+    <a-input type="text" v-model:value="optionModel.endPlaceholder"></a-input>
+  </a-form-item>
 </template>
 
 <script>

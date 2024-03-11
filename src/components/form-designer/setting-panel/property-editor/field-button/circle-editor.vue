@@ -1,7 +1,7 @@
 <template>
-  <el-form-item :label="i18nt('designer.setting.circle')">
-    <el-switch v-model="optionModel.circle"></el-switch>
-  </el-form-item>
+  <a-form-item :label="i18nt('designer.setting.circle')">
+    <a-switch v-model:checked="optionModel.circle"></a-switch>
+  </a-form-item>
 </template>
 
 <script>

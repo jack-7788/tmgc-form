@@ -1,7 +1,7 @@
 <template>
-  <el-form-item :label="i18nt('designer.setting.readMode')">
-    <el-switch v-model="optionModel.readMode"></el-switch>
-  </el-form-item>
+  <a-form-item :label="i18nt('designer.setting.readMode')">
+    <a-switch v-model:checked="optionModel.readMode"></a-switch>
+  </a-form-item>
 </template>
 
 <script>

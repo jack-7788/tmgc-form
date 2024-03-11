@@ -1,10 +1,10 @@
 <template>
-  <el-form-item :label="i18nt('designer.setting.controlsPosition')">
-    <el-select v-model="optionModel.controlsPosition">
-      <el-option label="default" value=""></el-option>
-      <el-option label="right" value="right"></el-option>
-    </el-select>
-  </el-form-item>
+  <a-form-item :label="i18nt('designer.setting.controlsPosition')">
+    <a-select v-model:value="optionModel.controlsPosition">
+      <a-select-option label="default" value="">default</a-select-option>
+      <a-select-option label="right" value="right">right</a-select-option>
+    </a-select>
+  </a-form-item>
 </template>
 
 <script>

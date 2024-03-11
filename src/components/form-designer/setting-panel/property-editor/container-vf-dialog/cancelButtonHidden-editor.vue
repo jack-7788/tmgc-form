@@ -1,7 +1,7 @@
 <template>
-  <el-form-item :label="i18nt('designer.setting.cancelButtonHidden')">
-    <el-switch v-model="optionModel.cancelButtonHidden"></el-switch>
-  </el-form-item>
+  <a-form-item :label="i18nt('designer.setting.cancelButtonHidden')">
+    <a-switch v-model:checked="optionModel.cancelButtonHidden"></a-switch>
+  </a-form-item>
 </template>
 
 <script>

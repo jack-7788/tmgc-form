@@ -1,7 +1,7 @@
 <template>
-  <el-form-item :label="i18nt('designer.setting.buttonStyle')">
-    <el-switch v-model="optionModel.buttonStyle"></el-switch>
-  </el-form-item>
+  <a-form-item :label="i18nt('designer.setting.buttonStyle')">
+    <a-switch v-model:checked="optionModel.buttonStyle"></a-switch>
+  </a-form-item>
 </template>
 
 <script>

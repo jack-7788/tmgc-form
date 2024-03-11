@@ -1,7 +1,7 @@
 <template>
-  <el-form-item :label="i18nt('designer.setting.showModal')">
-    <el-switch v-model="optionModel.showModal"></el-switch>
-  </el-form-item>
+  <a-form-item :label="i18nt('designer.setting.showModal')">
+    <a-switch v-model:checked="optionModel.showModal"></a-switch>
+  </a-form-item>
 </template>
 
 <script>

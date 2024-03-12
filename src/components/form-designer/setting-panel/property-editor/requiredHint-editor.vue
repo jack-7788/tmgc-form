@@ -1,6 +1,6 @@
 <template>
-  <a-form-item :label="i18nt('designer.setting.requiredHint')">
-    <a-input type="text" v-model:value="optionModel.requiredHint" />
+  <a-form-item size="small" :label="i18nt('designer.setting.requiredHint')">
+    <a-input size="small" v-model:value="optionModel.requiredHint" allowClear />
   </a-form-item>
 </template>
 

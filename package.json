@@ -38,6 +38,7 @@
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-vue": "^9.22.0",
+    "less": "^4.2.0",
     "mvdir": "^1.0.21",
     "prettier": "^2.8.8",
     "rollup-plugin-external-globals": "^0.6.1",

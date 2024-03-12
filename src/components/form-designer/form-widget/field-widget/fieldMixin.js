@@ -178,6 +178,7 @@ export default {
       });
 
       this.on$('field-value-changed', values => {
+        console.log('field-value-changed: ', values);
         if (!!this.subFormItemFlag) {
           const subFormData = this.formModel[this.subFormName];
           this.handleOnChangeForSubForm(values[0], values[1], subFormData, this.subFormRowId);

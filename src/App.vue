@@ -1,5 +1,5 @@
 <template>
-  <a-config-provider :locale="elLocale">
+  <a-config-provider :locale="elLocale" :input="{ autocomplete: 'off' }">
     <div id="app">
       <VFormDesigner :designer-config="designerConfig" :global-dsv="globalDsv" />
     </div>
@@ -85,4 +85,8 @@
   #app {
     height: 100%;
   }
+</style>
+
+<style lang="less">
+  @import url('ant-design-vue/dist/antd.variable.less');
 </style>

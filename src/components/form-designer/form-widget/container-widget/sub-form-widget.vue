@@ -12,7 +12,7 @@
       :class="{ selected: selected }"
       @click.stop="selectWidget(widget)"
     >
-      <a-form layout="horizontal">
+      <a-form layout="horizontal" class="tpf-form">
         <div class="sub-form-table">
           <draggable
             :list="widget.widgetList"

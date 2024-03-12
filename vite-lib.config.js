@@ -46,6 +46,12 @@ export default defineConfig({
       plugins: [autoprefixer(), tailwindcss()]
     },
     preprocessorOptions: {
+      less: {
+        modifyVars: {
+          hack: `true; @import (reference) "${resolve('./src/styles/breakpoint.less')}";`
+        },
+        javascriptEnabled: true
+      },
       scss: {
         /* 自动引入全局scss文件 */
         additionalData: '@import "./src/styles/global.scss";'

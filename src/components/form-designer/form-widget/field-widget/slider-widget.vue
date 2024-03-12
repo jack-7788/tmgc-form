@@ -16,7 +16,6 @@
       v-model:value="fieldModel"
       v-show="!isReadMode"
       :disabled="field.options.disabled"
-      :show-stops="field.options.showStops"
       :min="field.options.min"
       :max="field.options.max"
       :step="field.options.step"
@@ -98,8 +97,26 @@
     beforeUnmount() {
       this.unregisterFromRefList();
     },
+    watch: {
+      'field.options.range': {
+        immediate: true,
+        handler() {
+          if (this.field.options.range) {
+            this.fieldModel = [];
+          } else {
+            this.fieldModel = null;
+          }
+        }
+      }
+    },
 
-    methods: {}
+    methods: {
+      selfInitFieldModel() {
+        if (this.field.options.range) {
+          this.fieldModel = [];
+        }
+      }
+    }
   };
 </script>
 

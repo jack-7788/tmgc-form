@@ -1,9 +1,9 @@
 <template>
-  <a-config-provider :component-size="size">
+  <a-config-provider :component-size="size" :input="{ autocomplete: 'off' }">
     <a-form
       :layout="labelPosition"
       :class="[customClass, readModeFlag ? 'readonly-mode-form' : '']"
-      class="render-form"
+      class="render-form tpf-form"
       :label-width="labelWidth"
       :validate-on-rule-change="false"
       :model="formDataModel"

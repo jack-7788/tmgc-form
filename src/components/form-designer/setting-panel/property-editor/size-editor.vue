@@ -1,6 +1,6 @@
 <template>
   <a-form-item :label="i18nt('designer.setting.widgetSize')">
-    <a-select v-model:value="optionModel.size" :options="widgetSizes" />
+    <a-select v-model:value="optionModel.size" :options="widgetSizes" allowClear />
   </a-form-item>
 </template>
 
@@ -18,7 +18,7 @@
     data() {
       return {
         widgetSizes: [
-          { label: 'default', value: '' },
+          { label: 'default', value: 'default' },
           { label: 'large', value: 'large' },
           { label: 'small', value: 'small' }
         ]

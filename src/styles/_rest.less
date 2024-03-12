@@ -1,0 +1,292 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+img {
+    border: none;
+    border: 0;
+}
+
+img[src=''],
+img:not([src]) {
+    outline: none;
+}
+
+body {
+    padding-right: 0 !important;
+    line-height: 1.2;
+}
+
+div,
+span,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+abbr,
+address,
+cite,
+code,
+del,
+dfn,
+em,
+img:not([src]),
+ins,
+kbd,
+q,
+samp,
+small,
+strong,
+sub,
+sup,
+var,
+b,
+i,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+figcaption,
+figure,
+footer,
+header,
+menu,
+nav,
+section,
+summary,
+time,
+mark,
+audio,
+video,
+button {
+    font-weight: normal;
+    font-size: 100%;
+    font-family: 'Helvetica Neue', Helvetica, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei',
+        '微软雅黑', Arial, sans-serif;
+    font-style: normal;
+    background: transparent;
+    border: 0;
+    outline: 0;
+    margin: 0;
+    padding: 0;
+}
+
+
+input,
+textarea,
+select {
+    font-family: 'Helvetica Neue', Helvetica, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei',
+        '微软雅黑', Arial, sans-serif;
+
+    &::placeholder {
+        font-family: 'Helvetica Neue', Helvetica, 'PingFang SC', 'Hiragino Sans GB',
+            'Microsoft YaHei', '微软雅黑', Arial, sans-serif;
+    }
+}
+
+*:focus {
+    outline: none;
+}
+
+ul,
+li {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+a {
+    text-decoration: none;
+}
+
+
+.cursor{
+    cursor: pointer;
+}
+
+// 固定table头部
+.tpf-table {
+    // margin-top: 10px;
+    flex: 1 0 0;
+
+    .ant-spin-nested-loading,
+    .ant-spin-container {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+
+        .ant-table {
+            overflow: auto;
+            flex: 1 0 0;
+            // height: 100%;
+        }
+    }
+
+    .ant-table {
+        overflow: hidden;
+
+
+        .ant-table-tbody .colorRowClassName td {
+            background: var(--ant-primary-2);
+        }
+
+
+        .colorRowClassName {
+            background: var(--ant-primary-2);
+            // .ant-table-cell-fix-left, .ant-table-cell-fix-right{
+            //     background: var(--ant-primary-1);
+            // }
+            .ant-table-cell{
+                &.ant-table-cell-row-hover{
+                    background: var(--ant-primary-2);
+                }
+            }
+        }
+
+        .ant-table-container {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+
+            .ant-table-body {
+                min-height: 0;
+                max-height:unset !important;
+                // max-height: calc(100% - 41px) !important;
+                flex:1 0 0;
+
+            }
+        }
+
+    }
+
+    .table-striped td {
+        background-color: #fafafa;
+    }
+}
+// 链接
+.tpf-link{
+    color:var(--ant-primary-color);
+    cursor: pointer;
+}
+
+// 暂无数据
+.noData{
+    position: relative;
+    min-height: 40px;
+
+    &::after{
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        top: 0;
+        font-size: 14px;
+        content: '----暂无数据----';
+        display: flex;
+        color:rgba(0, 0, 0, 0.25);
+        justify-content: center;
+        align-items: center;
+        z-index: 9;
+    }
+
+}
+
+.noData.en{
+    &::after{
+        content: '----no Data----';
+    }
+
+}
+// 必填
+.required{
+    font-weight: 500;
+
+    &::before{
+        display: inline-block;
+        margin-right: 2px;
+        color: #ff4d4f;
+        font-size: 14px;
+        line-height: 1;
+        content: '*';
+        position: relative;
+        top:3px
+    }
+}
+
+// 校验error
+.error-border{
+    background-color: #fff;
+    border-color: var(--ant-error-color);
+
+    [class^='ant-']{
+        background-color: #fff;
+        border-color: var(--ant-error-color) !important;
+
+    }
+
+}
+
+.table-form {
+    display: flex;
+    flex: 1 0 0;
+    // table 中内嵌form
+    .tpf-table-form {
+        .ant-table-cell {
+            .ant-form-item {
+                margin-bottom: 0;
+
+                .ant-form-item-control {
+                    position: relative;
+                }
+
+                .ant-form-item-explain {
+                    position: absolute;
+                    bottom: -14px;
+                }
+            }
+        }
+    }
+}
+
+
+// 空组件
+.ant-empty{
+    .ant-empty-description{
+        color:rgba(0, 0, 0, 0.25)
+    }
+}
+

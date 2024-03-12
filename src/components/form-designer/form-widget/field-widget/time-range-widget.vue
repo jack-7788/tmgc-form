@@ -19,12 +19,13 @@
     >
       <a-time-range-picker
         ref="fieldEditor"
+        :size="size"
         v-model:value="fieldModel"
         :class="[!!field.options.autoFullWidth ? 'full-width-input' : '']"
         :disabled="field.options.disabled"
         :readonly="field.options.readonly"
+        :inputReadOnly="field.options.readonly"
         :allowClear="field.options.allowClear"
-        :editable="field.options.editable"
         :format="field.options.format"
         value-format="HH:mm:ss"
         :placeholder="[
@@ -88,6 +89,16 @@
       };
     },
     computed: {
+      size() {
+        if (!!this.field.options && !!this.field.options.size) {
+          return this.field.options.size;
+        }
+        if (!!this.designer) {
+          return this.designer.formConfig.size || 'middle';
+        } else {
+          return this.formConfig.size || 'middle';
+        }
+      },
       contentForReadMode() {
         if (!this.fieldModel) {
           return '--';
@@ -129,19 +140,13 @@
   .auto-full-width {
     width: 100%;
 
-    :deep(.el-date-editor) {
+    :deep(.ant-picker) {
       width: 100% !important;
-      padding-left: 0;
-      padding-right: 0;
-    }
-
-    :deep(.el-range__icon) {
-      margin-left: 10px;
     }
   }
 
   .readonly-mode-time-range {
-    :deep(.el-date-editor) {
+    :deep(.ant-picker) {
       display: none;
     }
   }

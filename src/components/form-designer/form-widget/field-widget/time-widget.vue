@@ -18,12 +18,13 @@
       ]"
     >
       <a-time-picker
+        :size="size"
         ref="fieldEditor"
         v-model:value="fieldModel"
         :disabled="field.options.disabled"
-        :readonly="true || field.options.readonly"
+        :inputReadOnly="field.options.readonly"
+        :readonly="field.options.readonly"
         :allowClear="field.options.allowClear"
-        :editable="field.options.editable"
         :format="field.options.format"
         value-format="HH:mm:ss"
         :placeholder="field.options.placeholder || i18nt('render.hint.timePlaceholder')"
@@ -83,7 +84,18 @@
         rules: []
       };
     },
-    computed: {},
+    computed: {
+      size() {
+        if (!!this.field.options && !!this.field.options.size) {
+          return this.field.options.size;
+        }
+        if (!!this.designer) {
+          return this.designer.formConfig.size || 'middle';
+        } else {
+          return this.formConfig.size || 'middle';
+        }
+      }
+    },
     beforeCreate() {
       /* 这里不能访问方法和属性！！ */
     },
@@ -117,13 +129,13 @@
   .auto-full-width {
     width: 100%;
 
-    :deep(.el-date-editor) {
+    :deep(.ant-picker) {
       width: 100% !important;
     }
   }
 
   .readonly-mode-time {
-    :deep(.el-date-editor) {
+    :deep(.ant-picker) {
       display: none;
     }
   }

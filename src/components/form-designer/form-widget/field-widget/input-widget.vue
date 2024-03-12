@@ -17,17 +17,16 @@
       v-show="!isReadMode"
       :disabled="field.options.disabled"
       :readonly="field.options.readonly"
-      :size="field.options.size"
+      :size="size"
       class="hide-spin-button"
       :type="inputType"
       :show-password="field.options.showPassword"
       :placeholder="field.options.placeholder"
       :allowClear="field.options.allowClear"
-      :minlength="field.options.minLength"
       :maxlength="field.options.maxLength"
-      :show-word-limit="field.options.showWordLimit"
-      :prefix-icon="field.options.prefixIcon"
-      :suffix-icon="field.options.suffixIcon"
+      :showCount="field.options.showCount"
+      :addonBefore="field.options.addonBefore"
+      :addonAfter="field.options.addonAfter"
       @focus="handleFocusCustomEvent"
       @blur="handleBlurCustomEvent"
       @input="handleInputCustomEvent"
@@ -96,6 +95,16 @@
       };
     },
     computed: {
+      size() {
+        if (!!this.field.options && !!this.field.options.size) {
+          return this.field.options.size;
+        }
+        if (!!this.designer) {
+          return this.designer.formConfig.size || 'middle';
+        } else {
+          return this.formConfig.size || 'middle';
+        }
+      },
       inputType() {
         if (this.field.options.type === 'number') {
           return 'text'; //当input的type设置为number时，如果输入非数字字符，则v-model拿到的值为空字符串，无法实现输入校验！故屏蔽之！！

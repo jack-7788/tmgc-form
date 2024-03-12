@@ -16,12 +16,10 @@
       v-model:checked="fieldModel"
       :class="[isReadMode ? 'readonly-mode-switch' : '']"
       :disabled="field.options.disabled"
-      :checkedChildren="field.options.activeText"
-      :unCheckedChildren="field.options.inactiveText"
-      :active-color="field.options.activeColor"
-      :inactive-color="field.options.inactiveColor"
-      :width="field.options.switchWidth"
+      :checkedChildren="field.options.checkedChildren"
+      :unCheckedChildren="field.options.unCheckedChildren"
       @change="handleChangeEvent"
+      :style="{ width: field.options.switchWidth + 'px' }"
     />
     <template v-if="isReadMode">
       <span class="readonly-mode-field">{{ contentForReadMode }}</span>
@@ -77,10 +75,12 @@
     computed: {
       contentForReadMode() {
         if (!!this.fieldModel) {
-          return this.field.options.activeText || this.i18nt('render.hint.defaultActiveText');
+          return this.field.options.checkedChildren || this.i18nt('render.hint.defaultActiveText');
         }
 
-        return this.field.options.inactiveText || this.i18nt('render.hint.defaultInactiveText');
+        return (
+          this.field.options.unCheckedChildren || this.i18nt('render.hint.defaultInactiveText')
+        );
       }
     },
     beforeCreate() {

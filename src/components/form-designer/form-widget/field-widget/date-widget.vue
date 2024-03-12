@@ -18,6 +18,7 @@
       ]"
     >
       <a-date-picker
+        :size="size"
         ref="fieldEditor"
         :picker="field.options.type"
         v-model:value="fieldModel"
@@ -25,7 +26,7 @@
         :readonly="field.options.readonly"
         :disabled="field.options.disabled"
         :allowClear="field.options.allowClear"
-        :editable="field.options.editable"
+        :show-time="field.options.showTime"
         :format="field.options.format"
         :value-format="field.options.valueFormat"
         :placeholder="field.options.placeholder || i18nt('render.hint.datePlaceholder')"
@@ -85,7 +86,18 @@
         rules: []
       };
     },
-    computed: {},
+    computed: {
+      size() {
+        if (!!this.field.options && !!this.field.options.size) {
+          return this.field.options.size;
+        }
+        if (!!this.designer) {
+          return this.designer.formConfig.size || 'middle';
+        } else {
+          return this.formConfig.size || 'middle';
+        }
+      }
+    },
     beforeCreate() {
       /* 这里不能访问方法和属性！！ */
     },
@@ -119,13 +131,13 @@
   .auto-full-width {
     width: 100%;
 
-    :deep(.el-date-editor) {
+    :deep(.ant-picker) {
       width: 100% !important;
     }
   }
 
   .readonly-mode-date {
-    :deep(.el-date-editor) {
+    :deep(.ant-picker) {
       display: none;
     }
   }

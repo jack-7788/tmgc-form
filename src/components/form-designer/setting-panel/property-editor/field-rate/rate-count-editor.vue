@@ -1,6 +1,12 @@
 <template>
-  <a-form-item :label="i18nt('designer.setting.labelHidden')">
-    <a-switch v-model:checked="optionModel.labelHidden" />
+  <a-form-item :label="i18nt('designer.setting.maxStars')">
+    <a-input-number
+      v-model:value="optionModel.count"
+      :min="1"
+      :max="10"
+      class="hide-spin-button"
+      style="width: 100%"
+    />
   </a-form-item>
 </template>
 
@@ -8,7 +14,7 @@
   import i18n from '@/utils/i18n';
 
   export default {
-    name: 'labelHidden-editor',
+    name: 'rate-count-editor',
     mixins: [i18n],
     props: {
       designer: Object,

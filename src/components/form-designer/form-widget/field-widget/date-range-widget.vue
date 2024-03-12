@@ -24,7 +24,7 @@
         :disabled="field.options.disabled"
         :readonly="field.options.readonly"
         :allowClear="field.options.allowClear"
-        :editable="field.options.editable"
+        :show-time="field.options.showTime"
         :format="field.options.format"
         :value-format="field.options.valueFormat"
         :start-placeholder="

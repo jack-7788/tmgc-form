@@ -1,8 +1,8 @@
 <template>
-  <a-config-provider :component-size="size">
+  <a-config-provider :component-size="size" :input="{ autocomplete: 'off' }">
     <div class="form-widget-container">
       <a-form
-        class="full-height-width widget-form"
+        class="full-height-width widget-form tpf-form"
         :layout="
           ['horizontal', 'vertical', 'inline'].includes(labelPosition)
             ? labelPosition

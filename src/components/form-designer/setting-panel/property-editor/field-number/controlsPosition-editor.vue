@@ -8,20 +8,17 @@
 </template>
 
 <script>
-  import i18n from "@/utils/i18n"
+  import i18n from '@/utils/i18n';
 
   export default {
-    name: "controlsPosition-editor",
+    name: 'controlsPosition-editor',
     mixins: [i18n],
     props: {
       designer: Object,
       selectedWidget: Object,
-      optionModel: Object,
-    },
-
-  }
+      optionModel: Object
+    }
+  };
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

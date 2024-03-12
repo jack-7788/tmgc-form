@@ -22,7 +22,7 @@
       :rows="field.options.rows"
       :minlength="field.options.minLength"
       :maxlength="field.options.maxLength"
-      :show-word-limit="field.options.showWordLimit"
+      :showCount="field.options.showCount"
       @focus="handleFocusCustomEvent"
       @blur="handleBlurCustomEvent"
       @input="handleInputCustomEvent"

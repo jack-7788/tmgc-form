@@ -1,0 +1,54 @@
+//自定义less方法
+
+.line(@num:1) {
+    word-break: break-word;
+    display: -webkit-box;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: @num;
+    -webkit-box-orient: vertical;
+}
+
+.font(@size:@font-size-base , @color:@text-color){
+    font-size:@size;
+    color: @color;
+}
+.flex(){
+    display: flex;
+}
+
+.flex_column(){
+    .flex();
+
+    flex-direction: column;
+}
+
+.justify_align(@justify:center,@align:center){
+    .flex();
+
+    justify-content: @justify;
+    align-items: @align;
+}
+
+.text(@color:#1D2129){
+    background: #fff;
+    color:@color;
+    transition: all 0s;
+
+    &:hover{
+        background:var(--ant-primary-color);
+        color:#fff;
+
+        .ant-tabs-tab-remove{
+            color:#fff
+
+        }
+    }
+
+}
+
+.tpf-button(){
+    padding-left: 8px;
+    padding-right: 8px;
+    border-radius: 4px;
+}

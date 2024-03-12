@@ -30,7 +30,7 @@
     },
     data() {
       return {
-        eventParams: ['rule', 'value', 'callback']
+        eventParams: ['rule', 'value']
       };
     }
   };

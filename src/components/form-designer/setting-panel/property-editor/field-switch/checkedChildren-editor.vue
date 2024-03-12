@@ -1,6 +1,6 @@
 <template>
-  <a-form-item :label="i18nt('designer.setting.labelHidden')">
-    <a-switch v-model:checked="optionModel.labelHidden" />
+  <a-form-item :label="i18nt('designer.setting.checkedChildren')">
+    <a-input v-model:value="optionModel.checkedChildren" />
   </a-form-item>
 </template>
 
@@ -8,7 +8,7 @@
   import i18n from '@/utils/i18n';
 
   export default {
-    name: 'labelHidden-editor',
+    name: 'checkedChildren-editor',
     mixins: [i18n],
     props: {
       designer: Object,

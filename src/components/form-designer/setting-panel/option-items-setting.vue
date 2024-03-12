@@ -17,15 +17,10 @@
         <template #item="{ element: option, index: idx }">
           <li>
             <a-radio :value="option.value">
-              <a-input v-model:value="option.value" size="small" style="width: 80px" />
-              <a-input v-model:value="option.label" size="small" style="width: 80px" />
+              <a-input v-model:value="option.value" size="small" style="width: 60px" />
+              <a-input v-model:value="option.label" size="small" style="width: 70px" />
               <i class="iconfont icon-drag drag-option"></i>
-              <a-button
-                size="small"
-                type="danger"
-                @click="deleteOption(option, idx)"
-                class="col-delete-button"
-              >
+              <a-button size="small" type="danger" @click="deleteOption(option, idx)">
                 删除
               </a-button>
             </a-radio>
@@ -40,6 +35,7 @@
       "
       v-model:value="optionModel.defaultValue"
       @change="emitDefaultValueChange"
+      style="width: 100%"
     >
       <draggable
         tag="ul"
@@ -50,15 +46,10 @@
         <template #item="{ element: option, index: idx }">
           <li>
             <a-checkbox :value="option.value">
-              <a-input v-model:value="option.value" size="small" style="width: 80px" />
+              <a-input v-model:value="option.value" size="small" style="width: 60px" />
               <a-input v-model:value="option.label" size="small" style="width: 80px" />
               <i class="iconfont icon-drag drag-option"></i>
-              <a-button
-                size="small"
-                type="danger"
-                @click="deleteOption(option, idx)"
-                class="col-delete-button"
-              >
+              <a-button size="small" type="danger" @click="deleteOption(option, idx)">
                 删除
               </a-button>
             </a-checkbox>

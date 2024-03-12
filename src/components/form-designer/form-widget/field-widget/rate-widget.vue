@@ -15,10 +15,9 @@
       ref="fieldEditor"
       v-model:value="fieldModel"
       :disabled="field.options.disabled"
-      :count="field.options.max"
+      :allowClear="field.options.allowClear"
+      :count="field.options.count"
       :allow-half="field.options.allowHalf"
-      :show-text="field.options.showText"
-      :show-score="field.options.showScore"
       @change="handleChangeEvent"
     />
   </form-item-wrapper>

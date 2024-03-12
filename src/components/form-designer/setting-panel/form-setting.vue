@@ -4,13 +4,13 @@
       :model="formConfig"
       labelAlign="left"
       label-width="120px"
-      class="setting-form"
+      class="setting-form tpf-form"
       @submit.prevent
     >
       <a-collapse v-model:activeKey="formActiveCollapseNames" class="setting-collapse">
         <a-collapse-panel key="1" :header="i18nt('designer.setting.basicSetting')">
           <a-form-item :label="i18nt('designer.setting.formSize')">
-            <a-select v-model:value="formConfig.size" :options="formSizes" />
+            <a-select v-model:value="formConfig.size" :options="formSizes" allowClear />
           </a-form-item>
           <a-form-item :label="i18nt('designer.setting.labelPosition')">
             <a-radio-group v-model:value="formConfig.labelPosition" class="radio-group-custom">
@@ -21,19 +21,21 @@
           </a-form-item>
           <a-form-item :label="i18nt('designer.setting.labelAlign')">
             <a-radio-group v-model:value="formConfig.labelAlign" class="radio-group-custom">
-              <a-radio-button value="left"
-                >{{ i18nt('designer.setting.leftAlign') }}
+              <a-radio-button value="left">
+                {{ i18nt('designer.setting.leftAlign') }}
               </a-radio-button>
-              <!-- <a-radio-button value="label-center-align">{{
-                i18nt('designer.setting.centerAlign')
-              }}</a-radio-button> -->
               <a-radio-button value="right">
                 {{ i18nt('designer.setting.rightAlign') }}
               </a-radio-button>
             </a-radio-group>
           </a-form-item>
           <a-form-item :label="i18nt('designer.setting.labelWidth')">
-            <a-input-number v-model:value="formConfig.labelWidth" :min="0" style="width: 100%" />
+            <a-input-number
+              v-model:value="formConfig.labelWidth"
+              :min="0"
+              style="width: 100%"
+              allowClear
+            />
           </a-form-item>
           <a-form-item :label="i18nt('designer.setting.formCss')">
             <a-button
@@ -246,11 +248,9 @@
         formActiveCollapseNames: ['1', '2'],
 
         formSizes: [
-          { label: 'default', value: '' },
+          { label: 'default', value: 'middle' },
           { label: 'large', value: 'large' },
-          //{label: 'medium', value: 'medium'},
           { label: 'small', value: 'small' }
-          //{label: 'mini', value: 'mini'},
         ],
 
         showEditFormCssDialogFlag: false,

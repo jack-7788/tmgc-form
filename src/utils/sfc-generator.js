@@ -493,9 +493,9 @@ function getElAttrs(widget, formConfig, parentWidget) {
       isNotNull(wop.minLength) && !isNaN(wop.minLength) ? `:minlength="${wop.minLength}"` : '',
     maxlength:
       isNotNull(wop.maxLength) && !isNaN(wop.maxLength) ? `:maxlength="${wop.maxLength}"` : '',
-    showWordLimit: !!wop.showWordLimit ? `:show-word-limit="true"` : '',
-    prefixIcon: !!wop.prefixIcon ? `prefix-icon="${wop.prefixIcon}"` : '',
-    suffixIcon: !!wop.suffixIcon ? `suffix-icon="${wop.suffixIcon}"` : '',
+    showCount: !!wop.showCount ? `:show-word-limit="true"` : '',
+    addonBefore: !!wop.addonBefore ? `prefix-icon="${wop.addonBefore}"` : '',
+    addonAfter: !!wop.addonAfter ? `suffix-icon="${wop.addonAfter}"` : '',
     controlsPosition: wop.controlsPosition === 'right' ? `controls-position="right"` : '',
     min: isNotNull(wop.min) && !isNaN(wop.min) ? `:min="${wop.min}"` : '',
     max: isNotNull(wop.max) && !isNaN(wop.max) ? `:max="${wop.max}"` : '',
@@ -518,8 +518,8 @@ function getElAttrs(widget, formConfig, parentWidget) {
     startPlaceholder: !!wop.startPlaceholder ? `start-placeholder="${wop.startPlaceholder}"` : '',
     endPlaceholder: !!wop.endPlaceholder ? `end-placeholder="${wop.endPlaceholder}"` : '',
 
-    activeText: !!wop.activeText ? `active-text="${wop.activeText}"` : '',
-    inactiveText: !!wop.inactiveText ? `inactive-text="${wop.inactiveText}"` : '',
+    checkedChildren: !!wop.checkedChildren ? `active-text="${wop.checkedChildren}"` : '',
+    unCheckedChildren: !!wop.unCheckedChildren ? `inactive-text="${wop.unCheckedChildren}"` : '',
     activeColor: !!wop.activeColor ? `active-color="${wop.activeColor}"` : '',
     inactiveColor: !!wop.inactiveColor ? `inactive-color="${wop.inactiveColor}"` : '',
     switchWidth:
@@ -613,13 +613,13 @@ const elTemplates = {
       allowClear,
       minlength,
       maxlength,
-      showWordLimit,
-      prefixIcon,
-      suffixIcon,
+      showCount,
+      addonBefore,
+      addonAfter,
       appendButtonChild
     } = getElAttrs(widget, formConfig, parentWidget);
     return `<a-input ${vModel} ${readonly} ${disabled} ${size} ${type} ${showPassword} ${placeholder} ${allowClear}
-            ${minlength} ${maxlength} ${showWordLimit} ${prefixIcon} ${suffixIcon}>${appendButtonChild}</a-input>`;
+            ${minlength} ${maxlength} ${showCount} ${addonBefore} ${addonAfter}>${appendButtonChild}</a-input>`;
   },
 
   textarea: (widget, formConfig, parentWidget) => {
@@ -635,10 +635,10 @@ const elTemplates = {
       allowClear,
       minlength,
       maxlength,
-      showWordLimit
+      showCount
     } = getElAttrs(widget, formConfig, parentWidget);
     return `<a-input type="textarea" ${vModel} ${readonly} ${disabled} ${size} ${type} ${showPassword} ${placeholder}
-            ${rows} ${allowClear} ${minlength} ${maxlength} ${showWordLimit}></a-input>`;
+            ${rows} ${allowClear} ${minlength} ${maxlength} ${showCount}></a-input>`;
   },
 
   number: (widget, formConfig, parentWidget) => {
@@ -751,9 +751,16 @@ const elTemplates = {
   },
 
   switch: (widget, formConfig, parentWidget) => {
-    const { vModel, disabled, activeText, inactiveText, activeColor, inactiveColor, switchWidth } =
-      getElAttrs(widget, formConfig, parentWidget);
-    return `<a-switch ${vModel} ${disabled} ${activeText} ${inactiveText} ${activeColor} ${inactiveColor}
+    const {
+      vModel,
+      disabled,
+      checkedChildren,
+      unCheckedChildren,
+      activeColor,
+      inactiveColor,
+      switchWidth
+    } = getElAttrs(widget, formConfig, parentWidget);
+    return `<a-switch ${vModel} ${disabled} ${checkedChildren} ${unCheckedChildren} ${activeColor} ${inactiveColor}
             ${switchWidth}></a-switch>`;
   },
 

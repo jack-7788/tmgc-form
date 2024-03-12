@@ -3,9 +3,9 @@
     <template #label>
       <span>
         {{ i18nt('designer.setting.validation') }}
-        <a-tooltip effect="light" :title="i18nt('designer.setting.validationHelp')">
+        <!-- <a-tooltip effect="light" :title="i18nt('designer.setting.validationHelp')">
           <svg-icon icon-class="el-info" />
-        </a-tooltip>
+        </a-tooltip> -->
       </span>
     </template>
     <a-select v-model:value="optionModel.validation" allowClear :options="fieldValidators" />
@@ -13,14 +13,14 @@
 </template>
 
 <script>
-  import SvgIcon from '@/components/svg-icon';
+  // import SvgIcon from '@/components/svg-icon';
   import i18n from '@/utils/i18n';
 
   export default {
     name: 'validation-editor',
     mixins: [i18n],
     components: {
-      SvgIcon
+      // SvgIcon
     },
     props: {
       designer: Object,

@@ -2,26 +2,24 @@
   <div class="field-wrapper" :class="{ 'design-time-bottom-margin': !!this.designer }">
     <a-form-item
       v-if="!!field.formItemFlag && (!field.options.hidden || designState === true)"
-      :label="label"
       :labelCol="{ style: { width: labelWidth + 'px' } }"
       :title="field.options.labelTooltip"
-      :size="field.options.size"
+      :size="size"
       :rules="rules"
       :name="getPropName()"
       :labelAlign="labelAlign"
-      :class="[
-        selected ? 'selected' : '',
-        labelAlign,
-        customClass,
-        field.options.required ? 'required' : ''
-      ]"
+      :class="[selected ? 'selected' : '', customClass]"
       @click.stop="selectField(field)"
     >
       <template #label>
         <span v-if="!!field.options.labelIconClass" class="custom-label">
           <template v-if="field.options.labelIconPosition === 'front'">
             <template v-if="!!field.options.labelTooltip">
-              <a-tooltip :title="field.options.labelTooltip" effect="light">
+              <a-tooltip
+                :title="field.options.labelTooltip"
+                effect="light"
+                :overlayStyle="{ zIndex: 1000 }"
+              >
                 <svg-icon :icon-class="field.options.labelIconClass" />
               </a-tooltip>
               {{ label }}
@@ -33,15 +31,21 @@
           <template v-else-if="field.options.labelIconPosition === 'rear'">
             <template v-if="!!field.options.labelTooltip">
               {{ label }}
-              <a-tooltip :title="field.options.labelTooltip" effect="light">
-                <svg-icon :icon-class="field.options.labelIconClass" /> </a-tooltip
-            ></template>
+              <a-tooltip
+                :title="field.options.labelTooltip"
+                effect="light"
+                :overlayStyle="{ zIndex: 1000 }"
+              >
+                <svg-icon :icon-class="field.options.labelIconClass" />
+              </a-tooltip>
+            </template>
             <template v-else>
               {{ label }}
               <svg-icon :icon-class="field.options.labelIconClass" />
             </template>
           </template>
         </span>
+        <template v-else> {{ label }} </template>
       </template>
       <slot></slot>
     </a-form-item>
@@ -163,6 +167,16 @@
           return this.designer.formConfig.labelAlign || 'right';
         } else {
           return this.formConfig.labelAlign || 'right';
+        }
+      },
+      size() {
+        if (!!this.field.options.size) {
+          return this.field.options.size;
+        }
+        if (!!this.designer) {
+          return this.designer.formConfig.size || 'middle';
+        } else {
+          return this.formConfig.size || 'middle';
         }
       },
 
@@ -334,11 +348,11 @@
     }
   }
 
-  .required :deep(.ant-form-item-label)::before {
-    content: '*';
-    color: #f56c6c;
-    margin-right: 4px;
-  }
+  // .required :deep(.ant-form-item-label)::before {
+  //   content: '*';
+  //   color: #f56c6c;
+  //   margin-right: 4px;
+  // }
 
   .static-content-item {
     min-height: 20px;

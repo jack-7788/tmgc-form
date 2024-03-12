@@ -1,5 +1,5 @@
 <template>
-  <a-config-provider component-size="small">
+  <a-config-provider component-size="small" :input="{ autocomplete: 'off' }">
     <a-layout class="panel-container">
       <a-tabs v-model:activeKey="activeTab" style="height: 100%; width: 100%; overflow: hidden">
         <a-tab-pane :tab="i18nt('designer.hint.widgetSetting')" key="1">
@@ -9,7 +9,7 @@
                 :model="optionModel"
                 labelAlign="left"
                 label-width="120px"
-                class="setting-form"
+                class="setting-form tpf-form"
                 @submit.prevent
               >
                 <a-collapse v-model:activeKey="widgetActiveCollapseNames" class="setting-collapse">
@@ -231,7 +231,7 @@
         scrollerHeight: 0,
 
         activeTab: '2',
-        widgetActiveCollapseNames: ['1', '3'], //['1', '2', '3'],
+        widgetActiveCollapseNames: ['1', '2', '3'],
         formActiveCollapseNames: ['1', '2'],
 
         commonProps: COMMON_PROPERTIES,
@@ -383,7 +383,7 @@
         // 设置字段校验函数示例代码
         if (eventName === 'onValidate' && !this.optionModel['onValidate']) {
           this.eventHandlerCode =
-            "  /* sample code */\n  /*\n  if ((value > 100) || (value < 0)) {\n    callback(new Error('error message'))  //fail\n  } else {\n    callback();  //pass\n  }\n  */";
+            "  /* sample code */\n  /*\n  if ((value > 100) || (value < 0)) {\n    return Promise.reject('error message')  //fail\n  } else {\n    return Promise.resolve();  //pass\n  }\n  */";
         }
 
         this.showWidgetEventDialogFlag = true;

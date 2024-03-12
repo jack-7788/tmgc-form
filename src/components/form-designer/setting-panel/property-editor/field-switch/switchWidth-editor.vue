@@ -1,23 +1,21 @@
 <template>
   <a-form-item :label="i18nt('designer.setting.switchWidth')">
-    <a-input-number v-model:value="optionModel.switchWidth" style="width: 100%"></a-input-number>
+    <a-input-number v-model:value="optionModel.switchWidth" style="width: 100%" />
   </a-form-item>
 </template>
 
 <script>
-  import i18n from "@/utils/i18n"
+  import i18n from '@/utils/i18n';
 
   export default {
-    name: "switchWidth-editor",
+    name: 'switchWidth-editor',
     mixins: [i18n],
     props: {
       designer: Object,
       selectedWidget: Object,
-      optionModel: Object,
-    },
-  }
+      optionModel: Object
+    }
+  };
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

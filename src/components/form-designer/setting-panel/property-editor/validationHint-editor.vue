@@ -1,6 +1,6 @@
 <template>
-  <a-form-item :label="i18nt('designer.setting.validationHint')">
-    <a-input type="text" v-model:value="optionModel.validationHint" />
+  <a-form-item size="small" :label="i18nt('designer.setting.validationHint')">
+    <a-input size="small" v-model:value="optionModel.validationHint" allowClear />
   </a-form-item>
 </template>
 

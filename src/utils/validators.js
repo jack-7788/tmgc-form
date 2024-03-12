@@ -100,17 +100,16 @@ const FormValidators = {
   },
 
   /*测试
-  test(rule, value, callback, errorMsg) {
+  test(rule, value) {
     //空值不校验
     if (isNull(value) || (value.length <= 0)) {
-      callback()
-      return
+      return Promise.resolve()
     }
 
     if (value < 100) {
-      callback(new Error('[' + rule.label + ']不能小于100'))
+      return Promise.reject('[' + rule.label + ']不能小于100')
     } else {
-      callback()
+      return Promise.resolve()
     }
   },
   */

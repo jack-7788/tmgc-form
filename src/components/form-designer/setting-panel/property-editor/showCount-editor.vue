@@ -1,6 +1,6 @@
 <template>
-  <a-form-item :label="i18nt('designer.setting.suffixIcon')">
-    <a-input type="text" v-model:value="optionModel.suffixIcon" />
+  <a-form-item :label="i18nt('designer.setting.showCount')">
+    <a-switch v-model:checked="optionModel.showCount" />
   </a-form-item>
 </template>
 
@@ -8,7 +8,7 @@
   import i18n from '@/utils/i18n';
 
   export default {
-    name: 'suffixIcon-editor',
+    name: 'showCount-editor',
     mixins: [i18n],
     props: {
       designer: Object,

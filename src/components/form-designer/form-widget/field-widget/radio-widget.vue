@@ -14,6 +14,7 @@
     <a-radio-group
       ref="fieldEditor"
       v-model:value="fieldModel"
+      :size="size"
       v-show="!isReadMode"
       :disabled="field.options.disabled"
       :style="{ display: field.options.displayStyle + ' !important' }"
@@ -93,7 +94,19 @@
         rules: []
       };
     },
-    computed: {},
+    computed: {
+      size() {
+        let s = 'default';
+        if (!!this.field.options && !!this.field.options.size) {
+          s = this.field.options.size;
+        } else if (!!this.designer) {
+          s = this.designer.formConfig.size || 'default';
+        } else {
+          s = this.formConfig.size || 'default';
+        }
+        return s === 'middle' ? 'default' : s;
+      }
+    },
     beforeCreate() {
       /* 这里不能访问方法和属性！！ */
     },

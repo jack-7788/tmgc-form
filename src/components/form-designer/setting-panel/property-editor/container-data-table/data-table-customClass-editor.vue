@@ -19,18 +19,10 @@
     <a-form-item :label="i18nt('designer.setting.customClass')">
       <a-select
         v-model:value="optionModel.customClass"
-        multiple
-        filterable
-        allow-create
-        default-first-option
-      >
-        <a-select-option
-          v-for="(item, idx) in cssClassList"
-          :key="idx"
-          :label="item"
-          :value="item"
-        />
-      </a-select>
+        allowClear
+        mode="tags"
+        :options="cssClassList"
+      />
     </a-form-item>
     <a-form-item :label="i18nt('designer.setting.showIndex')">
       <a-switch v-model:checked="optionModel.showIndex" />
@@ -497,6 +489,7 @@
   import CodeEditor from '@/components/code-editor/index';
   import SelectionsEditor from './data-table-selections-editor.vue';
   import RowKeyEditor from './data-table-rowKey-editor.vue';
+  import { TpfConfirm } from '@/hooks/TpfConfirm';
 
   export default {
     name: 'data-table-customClass-editor',
@@ -730,14 +723,13 @@
       },
 
       deleteOperationButton(idx) {
-        this.$confirm(
-          this.i18nt('designer.setting.deleteOperationButtonHint'),
-          this.i18nt('render.hint.prompt'),
-          {
-            confirmButtonText: this.i18nt('render.hint.confirm'),
-            cancelButtonText: this.i18nt('render.hint.cancel')
-          }
-        )
+        TpfConfirm({
+          type: 'confirm',
+          content: this.i18nt('designer.setting.deleteOperationButtonHint'),
+          title: this.i18nt('render.hint.prompt'),
+          okText: this.i18nt('render.hint.confirm'),
+          cancelText: this.i18nt('render.hint.cancel')
+        })
           .then(() => {
             this.optionModel.operationButtons.splice(idx, 1);
           })

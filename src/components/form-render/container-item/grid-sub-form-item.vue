@@ -101,6 +101,7 @@
   import ContainerItemWrapper from './container-item-wrapper';
   import containerItemMixin from './containerItemMixin';
   import FieldComponents from '@/components/form-designer/form-widget/field-widget/index';
+  import { TpfConfirm } from '@/hooks/TpfConfirm';
 
   export default {
     name: 'grid-sub-form-item',
@@ -329,14 +330,13 @@
       },
 
       deleteSubFormRow(formRowIndex) {
-        this.$confirm(
-          this.i18nt('render.hint.deleteSubFormRow') + '?',
-          this.i18nt('render.hint.prompt'),
-          {
-            confirmButtonText: this.i18nt('render.hint.confirm'),
-            cancelButtonText: this.i18nt('render.hint.cancel')
-          }
-        )
+        TpfConfirm({
+          type: 'confirm',
+          content: this.i18nt('render.hint.deleteSubFormRow') + '?',
+          title: this.i18nt('render.hint.prompt'),
+          okText: this.i18nt('render.hint.confirm'),
+          cancelText: this.i18nt('render.hint.cancel')
+        })
           .then(() => {
             const oldSubFormData = this.formModel[this.widget.options.name] || [];
             const deletedDataRow = deepClone(oldSubFormData[formRowIndex]);

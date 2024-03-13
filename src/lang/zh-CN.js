@@ -215,7 +215,7 @@ export default {
       showPassword: '可显示密码',
       filterable: '可搜索选项',
       allowCreate: '允许创建选项',
-      remote: '可远程搜索',
+      showSearch: '可远程搜索',
       automaticDropdown: '自动弹出选项',
       multiple: '选项可多选',
       multipleLimit: '多选数量限制',

@@ -948,7 +948,7 @@
                         required: true,
                         validation: '',
                         validationHint: '',
-                        customClass: '',
+                        customClass: [],
                         labelIconClass: null,
                         labelIconPosition: 'rear',
                         labelTooltip: null,
@@ -982,7 +982,7 @@
                     md: 12,
                     sm: 12,
                     xs: 12,
-                    customClass: ''
+                    customClass: []
                   },
                   id: 'grid-col-25125'
                 },
@@ -1006,7 +1006,7 @@
                         labelHidden: false,
                         disabled: false,
                         hidden: false,
-                        customClass: '',
+                        customClass: [],
                         labelIconClass: null,
                         labelIconPosition: 'rear',
                         labelTooltip: null,
@@ -1034,7 +1034,7 @@
                     md: 12,
                     sm: 12,
                     xs: 12,
-                    customClass: ''
+                    customClass: []
                   },
                   id: 'grid-col-44470'
                 },
@@ -1065,7 +1065,8 @@
                         required: true,
                         validation: '',
                         validationHint: '',
-                        customClass: '',
+                        customClass: [],
+
                         labelIconClass: null,
                         labelIconPosition: 'rear',
                         labelTooltip: null,
@@ -1094,12 +1095,12 @@
                     md: 12,
                     sm: 12,
                     xs: 12,
-                    customClass: ''
+                    customClass: []
                   },
                   id: 'grid-col-98223'
                 }
               ],
-              options: { name: 'grid35834', hidden: false, gutter: 12, customClass: '' },
+              options: { name: 'grid35834', hidden: false, gutter: 12, customClass: [] },
               id: 'grid35834'
             },
             {
@@ -1113,7 +1114,7 @@
                 direction: 'horizontal',
                 contentPosition: 'center',
                 hidden: false,
-                customClass: '',
+                customClass: [],
                 onCreated: '',
                 onMounted: ''
               },
@@ -1187,7 +1188,7 @@
                     md: 12,
                     sm: 12,
                     xs: 12,
-                    customClass: ''
+                    customClass: []
                   },
                   id: 'grid-col-47242'
                 },
@@ -1220,7 +1221,7 @@
                         required: true,
                         validation: '',
                         validationHint: '',
-                        customClass: '',
+                        customClass: [],
                         labelIconClass: null,
                         labelIconPosition: 'rear',
                         labelTooltip: null,
@@ -1254,7 +1255,7 @@
                     md: 12,
                     sm: 12,
                     xs: 12,
-                    customClass: ''
+                    customClass: []
                   },
                   id: 'grid-col-27970'
                 },
@@ -1290,7 +1291,7 @@
                         required: true,
                         validation: '',
                         validationHint: '',
-                        customClass: '',
+                        customClass: [],
                         labelIconClass: null,
                         labelIconPosition: 'rear',
                         labelTooltip: null,
@@ -1313,7 +1314,7 @@
                     md: 12,
                     sm: 12,
                     xs: 12,
-                    customClass: ''
+                    customClass: []
                   },
                   id: 'grid-col-74653'
                 },
@@ -1346,7 +1347,7 @@
                         required: true,
                         validation: '',
                         validationHint: '',
-                        customClass: '',
+                        customClass: [],
                         labelIconClass: null,
                         labelIconPosition: 'rear',
                         labelTooltip: null,
@@ -1380,12 +1381,12 @@
                     md: 12,
                     sm: 12,
                     xs: 12,
-                    customClass: ''
+                    customClass: []
                   },
                   id: 'grid-col-63781'
                 }
               ],
-              options: { name: 'grid114672', hidden: false, gutter: 12, customClass: '' },
+              options: { name: 'grid114672', hidden: false, gutter: 12, customClass: [] },
               id: 'grid114672'
             },
             {
@@ -1440,7 +1441,7 @@
                         required: true,
                         validation: '',
                         validationHint: '',
-                        customClass: '',
+                        customClass: [],
                         labelIconClass: null,
                         labelIconPosition: 'rear',
                         labelTooltip: null,
@@ -1465,7 +1466,7 @@
                     md: 12,
                     sm: 12,
                     xs: 12,
-                    customClass: ''
+                    customClass: []
                   },
                   id: 'grid-col-109912'
                 },
@@ -1521,7 +1522,7 @@
                     md: 12,
                     sm: 12,
                     xs: 12,
-                    customClass: ''
+                    customClass: []
                   },
                   id: 'grid-col-114653'
                 },
@@ -1552,7 +1553,7 @@
                         required: false,
                         validation: '',
                         validationHint: '',
-                        customClass: '',
+                        customClass: [],
                         labelIconClass: null,
                         labelIconPosition: 'rear',
                         labelTooltip: null,
@@ -1581,12 +1582,12 @@
                     md: 12,
                     sm: 12,
                     xs: 12,
-                    customClass: ''
+                    customClass: []
                   },
                   id: 'grid-col-80867'
                 }
               ],
-              options: { name: 'grid28709', hidden: false, gutter: 12, customClass: '' },
+              options: { name: 'grid28709', hidden: false, gutter: 12, customClass: [] },
               id: 'grid28709'
             }
           ],

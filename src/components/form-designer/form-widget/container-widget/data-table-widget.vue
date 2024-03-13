@@ -124,11 +124,11 @@
       //
     },
     computed: {
-      paginationLayout() {
-        return !!this.widget.options.smallPagination
-          ? 'prev, pager, next'
-          : 'total, sizes, prev, pager, next, jumper';
-      },
+      // paginationLayout() {
+      //   return !!this.widget.options.smallPagination
+      //     ? 'prev, pager, next'
+      //     : 'total, sizes, prev, pager, next, jumper';
+      // },
 
       selected() {
         return this.widget.id === this.designer.selectedId;
@@ -142,15 +142,15 @@
         return this.widget.options.tableSize || 'default';
       },
 
-      buttonsColumnFixed() {
-        if (this.widget.options.buttonsColumnFixed === undefined) {
-          return 'right';
-        }
+      // buttonsColumnFixed() {
+      //   if (this.widget.options.buttonsColumnFixed === undefined) {
+      //     return 'right';
+      //   }
 
-        return !this.widget.options.buttonsColumnFixed
-          ? false
-          : this.widget.options.buttonsColumnFixed;
-      },
+      //   return !this.widget.options.buttonsColumnFixed
+      //     ? false
+      //     : this.widget.options.buttonsColumnFixed;
+      // },
 
       tableHeight() {
         return this.widget.options.tableHeight || undefined;
@@ -173,7 +173,6 @@
         return {
           ...res,
           customRender: ({ text, record, index, column }) => {
-            console.log('customRender: ', text, record, index, column);
             const cusFunc = new Function('text', 'record', 'index', 'column', customRenderFn);
             return cusFunc.call(this, text, record, index, column);
           }
@@ -229,13 +228,6 @@
         return index + 1;
       },
       handleTablePageChange(pagination, filters, sorter, { currentDataSource }) {
-        console.log(
-          'pagination, filters, sorter,currentDataSource: ',
-          pagination,
-          filters,
-          sorter,
-          currentDataSource
-        );
         const fn = this.widget.options.onChange;
         this.widget.options.pagination.current = pagination.current;
         this.widget.options.pagination.pageSize = pagination.pageSize;
@@ -259,7 +251,6 @@
         return {
           ...omit(info, ['onChange']),
           onChange: (selectedRowKeys, selectedRows) => {
-            console.log('选择了操作: ', selectedRowKeys, selectedRows);
             const rcFunc = new Function('selectedRowKeys', 'selectedRows', info.onChange);
             rcFunc.call(this, selectedRowKeys, selectedRows);
           }

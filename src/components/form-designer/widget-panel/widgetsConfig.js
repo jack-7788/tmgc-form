@@ -10,7 +10,7 @@ export const containers = [
       hidden: false,
       gutter: 12,
       colHeight: null, //栅格列统一高度属性，用于解决栅格列设置响应式布局浮动后被挂住的问题！！
-      customClass: '' //自定义css类名
+      customClass: [] //自定义css类名
     }
   },
 
@@ -22,23 +22,23 @@ export const containers = [
     options: {
       name: '',
       hidden: false,
-      customClass: '' //自定义css类名
+      customClass: [] //自定义css类名
     }
   },
 
-  {
-    type: 'tab',
-    category: 'container',
-    icon: 'tab',
-    displayType: 'border-card',
-    tabs: [],
-    options: {
-      name: '',
-      hidden: false,
-      customClass: '', //自定义css类名
-      onTabClick: '' //tab被选中时触发
-    }
-  },
+  // {
+  //   type: 'tab',
+  //   category: 'container',
+  //   icon: 'tab',
+  //   displayType: 'border-card',
+  //   tabs: [],
+  //   options: {
+  //     name: '',
+  //     hidden: false,
+  //     customClass: [], //自定义css类名
+  //     onTabClick: '' //tab被选中时触发
+  //   }
+  // },
 
   {
     type: 'sub-form',
@@ -52,7 +52,7 @@ export const containers = [
       labelAlign: 'label-center-align',
       hidden: false,
       actionColumnPosition: 'left', //操作按钮列位置
-      customClass: '', //自定义css类名
+      customClass: [], //自定义css类名
       onSubFormRowAdd: '',
       onSubFormRowInsert: '',
       onSubFormRowDelete: '',
@@ -71,7 +71,7 @@ export const containers = [
   //     showRowNumber: true,
   //     hidden: false,
   //     actionColumnPosition: 'left', //操作按钮列位置
-  //     customClass: '', //自定义css类名
+  //     customClass: [], //自定义css类名
   //     onSubFormRowAdd: '',
   //     onSubFormRowInsert: '',
   //     onSubFormRowDelete: '',
@@ -96,7 +96,7 @@ export const containers = [
       md: 12,
       sm: 12,
       xs: 12,
-      customClass: '' //自定义css类名
+      customClass: [] //自定义css类名
     }
   },
 
@@ -113,7 +113,7 @@ export const containers = [
       cellHeight: '',
       colspan: 1,
       rowspan: 1,
-      customClass: '' //自定义css类名
+      customClass: [] //自定义css类名
     }
   },
 
@@ -129,7 +129,7 @@ export const containers = [
       hidden: false,
       active: false,
       disabled: false,
-      customClass: '' //自定义css类名
+      customClass: [] //自定义css类名
     }
   },
 
@@ -145,7 +145,7 @@ export const containers = [
       rowSpacing: 8,
       tableHeight: '300px', //高度，百分比或像素
       tableWidth: '100%', //宽度，百分比或像素宽度
-      customClass: '', //自定义css样式
+      customClass: [], //自定义css样式
       stripe: true, // 是否斑马线
       showIndex: false, // 是否显示行号列
       // showCheckBox: true, // 是否显示复选框列
@@ -169,7 +169,7 @@ export const containers = [
         }
       ],
       showButtonsColumn: false, // 是否显示操作列
-      buttonsColumnFixed: 'right',
+      // buttonsColumnFixed: 'right',
       buttonsColumnTitle: '操作',
       buttonsColumnWidth: 200,
       operationButtons: [
@@ -273,62 +273,62 @@ export const containers = [
         columnWidth: 100
       } //antd 功能的配置
     }
+  },
+
+  {
+    type: 'vf-dialog', //弹窗
+    category: 'container',
+    icon: 'vf-dialog',
+    widgetList: [],
+    options: {
+      name: '',
+      title: '标题',
+      width: '50%',
+      // fullscreen: false,
+      // showModal: true,
+      showClose: true,
+      closeOnClickModal: false,
+      closeOnPressEscape: false,
+      // center: false,
+      readMode: false,
+      disabledMode: false,
+      okButtonLabel: '',
+      okButtonHidden: false,
+      cancelButtonLabel: '',
+      cancelButtonHidden: false,
+      onOkButtonClick: '',
+      onCancelButtonClick: '',
+      onDialogOpened: '',
+      onDialogBeforeClose: ''
+    }
+  },
+
+  {
+    type: 'vf-drawer', // 侧滑抽屉
+    category: 'container',
+    icon: 'vf-drawer',
+    widgetList: [],
+    options: {
+      name: '',
+      title: '标题',
+      size: '50%',
+      showModal: true,
+      showClose: true,
+      closeOnClickModal: false,
+      closeOnPressEscape: false,
+      direction: 'rtl',
+      readMode: false,
+      disabledMode: false,
+      okButtonLabel: '',
+      okButtonHidden: false,
+      cancelButtonLabel: '',
+      cancelButtonHidden: false,
+      onOkButtonClick: '',
+      onCancelButtonClick: '',
+      onDrawerOpened: '',
+      onDrawerBeforeClose: ''
+    }
   }
-
-  // {
-  //   type: 'vf-dialog', //弹窗
-  //   category: 'container',
-  //   icon: 'vf-dialog',
-  //   widgetList: [],
-  //   options: {
-  //     name: '',
-  //     title: '',
-  //     width: '50%',
-  //     fullscreen: false,
-  //     showModal: true,
-  //     showClose: true,
-  //     closeOnClickModal: false,
-  //     closeOnPressEscape: false,
-  //     center: false,
-  //     readMode: false,
-  //     disabledMode: false,
-  //     okButtonLabel: '',
-  //     okButtonHidden: false,
-  //     cancelButtonLabel: '',
-  //     cancelButtonHidden: false,
-  //     onOkButtonClick: '',
-  //     onCancelButtonClick: '',
-  //     onDialogOpened: '',
-  //     onDialogBeforeClose: ''
-  //   }
-  // },
-
-  // {
-  //   type: 'vf-drawer', // 侧滑抽屉
-  //   category: 'container',
-  //   icon: 'vf-drawer',
-  //   widgetList: [],
-  //   options: {
-  //     name: '',
-  //     title: '',
-  //     size: '50%',
-  //     showModal: true,
-  //     showClose: true,
-  //     closeOnClickModal: false,
-  //     closeOnPressEscape: false,
-  //     direction: 'rtl',
-  //     readMode: false,
-  //     disabledMode: false,
-  //     okButtonLabel: '',
-  //     okButtonHidden: false,
-  //     cancelButtonLabel: '',
-  //     cancelButtonHidden: false,
-  //     onOkButtonClick: '',
-  //     onCancelButtonClick: '',
-  //     onDrawerOpened: '',
-  //     onDrawerBeforeClose: ''
-  //   }
-  // }
 ];
 
 export const basicFields = [
@@ -357,7 +357,7 @@ export const basicFields = [
       validation: '',
       validationHint: '',
       //-------------------
-      customClass: '', //自定义css类名
+      customClass: [], //自定义css类名
       labelIconClass: null,
       labelIconPosition: 'rear',
       labelTooltip: null,
@@ -403,7 +403,7 @@ export const basicFields = [
       validation: '',
       validationHint: '',
       //-------------------
-      customClass: '', //自定义css类名
+      customClass: [], //自定义css类名
       labelIconClass: null,
       labelIconPosition: 'rear',
       labelTooltip: null,
@@ -442,7 +442,7 @@ export const basicFields = [
       validation: '',
       validationHint: '',
       //-------------------
-      customClass: '', //自定义css类名
+      customClass: [], //自定义css类名
       labelIconClass: null,
       labelIconPosition: 'rear',
       labelTooltip: null,
@@ -494,7 +494,7 @@ export const basicFields = [
       validation: '',
       validationHint: '',
       //-------------------
-      customClass: '', //自定义css类名
+      customClass: [], //自定义css类名
       labelIconClass: null,
       labelIconPosition: 'rear',
       labelTooltip: null,
@@ -539,7 +539,7 @@ export const basicFields = [
       validation: '',
       validationHint: '',
       //-------------------
-      customClass: '', //自定义css类名
+      customClass: [], //自定义css类名
       labelIconClass: null,
       labelIconPosition: 'rear',
       labelTooltip: null,
@@ -568,12 +568,14 @@ export const basicFields = [
       disabled: false,
       hidden: false,
       allowClear: true,
-      filterable: false,
-      allowCreate: false,
-      remote: false,
-      automaticDropdown: false, //自动下拉
-      multiple: false,
-      multipleLimit: 0,
+      maxTagCount: 'responsive',
+      mode: 'combobox',
+      // filterable: false,
+      // allowCreate: false,
+      showSearch: false,
+      // automaticDropdown: false, //自动下拉
+      // multiple: false,
+      // multipleLimit: 0,
       dsEnabled: false, // 是否使用数据源数据
       dsName: '', // 数据源名称
       dataSetName: '', //数据集名称
@@ -589,7 +591,7 @@ export const basicFields = [
       validation: '',
       validationHint: '',
       //-------------------
-      customClass: '', //自定义css类名
+      customClass: [], //自定义css类名
       labelIconClass: null,
       labelIconPosition: 'rear',
       labelTooltip: null,
@@ -630,7 +632,7 @@ export const basicFields = [
       validation: '',
       validationHint: '',
       //-------------------
-      customClass: '', //自定义css类名
+      customClass: [], //自定义css类名
       labelIconClass: null,
       labelIconPosition: 'rear',
       labelTooltip: null,
@@ -671,7 +673,7 @@ export const basicFields = [
       validation: '',
       validationHint: '',
       //-------------------
-      customClass: '', //自定义css类名
+      customClass: [], //自定义css类名
       labelIconClass: null,
       labelIconPosition: 'rear',
       labelTooltip: null,
@@ -714,7 +716,7 @@ export const basicFields = [
       validation: '',
       validationHint: '',
       //-------------------
-      customClass: '', //自定义css类名
+      customClass: [], //自定义css类名
       labelIconClass: null,
       labelIconPosition: 'rear',
       labelTooltip: null,
@@ -758,7 +760,7 @@ export const basicFields = [
       validation: '',
       validationHint: '',
       //-------------------
-      customClass: '', //自定义css类名
+      customClass: [], //自定义css类名
       labelIconClass: null,
       labelIconPosition: 'rear',
       labelTooltip: null,
@@ -787,7 +789,7 @@ export const basicFields = [
       disabled: false,
       hidden: false,
       //-------------------
-      customClass: '', //自定义css类名
+      customClass: [], //自定义css类名
       labelIconClass: null,
       labelIconPosition: 'rear',
       labelTooltip: null,
@@ -824,7 +826,7 @@ export const basicFields = [
       validation: '',
       validationHint: '',
       //-------------------
-      customClass: '', //自定义css类名
+      customClass: [], //自定义css类名
       labelIconClass: null,
       labelIconPosition: 'rear',
       labelTooltip: null,
@@ -862,7 +864,7 @@ export const basicFields = [
       validation: '',
       validationHint: '',
       //-------------------
-      customClass: '', //自定义css类名
+      customClass: [], //自定义css类名
       labelIconClass: null,
       labelIconPosition: 'rear',
       labelTooltip: null,
@@ -894,7 +896,7 @@ export const basicFields = [
       validation: '',
       validationHint: '',
       //-------------------
-      customClass: '', //自定义css类名
+      customClass: [], //自定义css类名
       labelIconClass: null,
       labelIconPosition: 'rear',
       labelTooltip: null,
@@ -922,7 +924,7 @@ export const basicFields = [
       hidden: false,
       textContent: 'static text',
       //-------------------
-      customClass: '', //自定义css类名
+      customClass: [], //自定义css类名
       //-------------------
       onCreated: '',
       onMounted: ''
@@ -939,7 +941,7 @@ export const basicFields = [
       hidden: false,
       htmlContent: '<b>html text</b>',
       //-------------------
-      customClass: '', //自定义css类名
+      customClass: [], //自定义css类名
       //-------------------
       onCreated: '',
       onMounted: ''
@@ -964,7 +966,7 @@ export const basicFields = [
       circle: false,
       icon: null,
       //-------------------
-      customClass: '', //自定义css类名
+      customClass: [], //自定义css类名
       //-------------------
       onCreated: '',
       onMounted: '',
@@ -984,7 +986,7 @@ export const basicFields = [
       contentPosition: 'center',
       hidden: false,
       //-------------------
-      customClass: '', //自定义css类名
+      customClass: [], //自定义css类名
       //-------------------
       onCreated: '',
       onMounted: ''
@@ -1023,7 +1025,7 @@ export const advancedFields = [
       fileTypes: ['jpg', 'jpeg', 'png'],
       //headers: [],
       //-------------------
-      customClass: '', //自定义css类名
+      customClass: [], //自定义css类名
       labelIconClass: null,
       labelIconPosition: 'rear',
       labelTooltip: null,
@@ -1067,7 +1069,7 @@ export const advancedFields = [
       fileTypes: ['doc', 'docx', 'xls', 'xlsx'],
       //headers: [],
       //-------------------
-      customClass: '', //自定义css类名
+      customClass: [], //自定义css类名
       labelIconClass: null,
       labelIconPosition: 'rear',
       labelTooltip: null,
@@ -1103,7 +1105,7 @@ export const advancedFields = [
       customRule: '',
       customRuleHint: '',
       //-------------------
-      customClass: '', //自定义css类名
+      customClass: [], //自定义css类名
       labelIconClass: null,
       labelIconPosition: 'rear',
       labelTooltip: null,
@@ -1134,7 +1136,7 @@ export const advancedFields = [
       disabled: false,
       hidden: false,
       allowClear: true,
-      filterable: false,
+      // filterable: false,
       multiple: false,
       checkStrictly: false, //可选择任意一级选项，默认不开启
       showAllLevels: true, //显示完整路径
@@ -1154,7 +1156,7 @@ export const advancedFields = [
       customRule: '',
       customRuleHint: '',
       //-------------------
-      customClass: '', //自定义css类名
+      customClass: [], //自定义css类名
       labelIconClass: null,
       labelIconPosition: 'rear',
       labelTooltip: null,
@@ -1175,7 +1177,7 @@ export const advancedFields = [
   //   options: {
   //     name: '',
   //     label: '',
-  //     customClass: '',  //自定义css类名
+  //     customClass: [],  //自定义css类名
   //   }
   // },
 ];

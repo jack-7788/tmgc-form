@@ -218,7 +218,7 @@ export default {
       showPassword: 'Show Reveal',
       filterable: 'Filterable',
       allowCreate: 'Allow Create',
-      remote: 'Remote Query',
+      showSearch: 'showSearch Query',
       automaticDropdown: 'Automatic Dropdown',
       multiple: 'Multiple',
       multipleLimit: 'Multiple Limit',

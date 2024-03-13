@@ -14,8 +14,8 @@
             @click="addSubFormRow"
             :title="i18nt('render.hint.subFormAddActionHint')"
           >
-            {{ i18nt('render.hint.subFormAddAction') }}<svg-icon icon-class="el-plus"
-          /></a-button>
+            {{ i18nt('render.hint.subFormAddAction') }}<svg-icon icon-class="el-plus" />
+          </a-button>
         </div>
         <div v-if="!leftActionColumn && widget.options.showRowNumber" class="row-no-header-column">
           <span>{{ i18nt('render.hint.subFormRowNo') }}</span>
@@ -34,32 +34,33 @@
               <template v-if="subWidget.options.labelIconPosition === 'front'">
                 <template v-if="!!subWidget.options.labelTooltip">
                   <a-tooltip :title="subWidget.options.labelTooltip" effect="light">
-                    <svg-icon :icon-class="subWidget.options.labelIconClass" /></a-tooltip
-                  >{{ subWidget.options.label }}</template
-                >
+                    <svg-icon :icon-class="subWidget.options.labelIconClass" />
+                  </a-tooltip>
+                  {{ subWidget.options.label }}
+                </template>
                 <template v-else>
-                  <svg-icon :icon-class="subWidget.options.labelIconClass" />{{
-                    subWidget.options.label
-                  }}</template
-                >
+                  <svg-icon :icon-class="subWidget.options.labelIconClass" />
+                  {{ subWidget.options.label }}
+                </template>
               </template>
               <template v-else-if="subWidget.options.labelIconPosition === 'rear'">
                 <template v-if="!!subWidget.options.labelTooltip">
-                  {{ subWidget.options.label
-                  }}<a-tooltip :title="subWidget.options.labelTooltip" effect="light">
-                    <svg-icon :icon-class="subWidget.options.labelIconClass" /></a-tooltip
-                ></template>
+                  {{ subWidget.options.label }}
+                  <a-tooltip :title="subWidget.options.labelTooltip" effect="light">
+                    <svg-icon :icon-class="subWidget.options.labelIconClass" />
+                  </a-tooltip>
+                </template>
                 <template v-else>
-                  {{ subWidget.options.label
-                  }}<svg-icon :icon-class="subWidget.options.labelIconClass"
-                /></template>
+                  {{ subWidget.options.label }}
+                  <svg-icon :icon-class="subWidget.options.labelIconClass" />
+                </template>
               </template>
             </span>
             <template v-else>
-              <span :title="subWidget.options.labelTooltip">{{
-                subWidget.options.label
-              }}</span></template
-            >
+              <span :title="subWidget.options.labelTooltip">
+                {{ subWidget.options.label }}
+              </span>
+            </template>
           </div>
         </template>
         <div v-if="!leftActionColumn" class="action-header-column">
@@ -74,8 +75,9 @@
             @click="addSubFormRow"
             :title="i18nt('render.hint.subFormAddActionHint')"
           >
-            {{ i18nt('render.hint.subFormAddAction') }}<svg-icon icon-class="el-plus"
-          /></a-button>
+            {{ i18nt('render.hint.subFormAddAction') }}
+            <svg-icon icon-class="el-plus" />
+          </a-button>
         </div>
       </a-row>
       <a-row v-for="(subFormRowId, sfrIdx) in rowIdData" class="sub-form-row" :key="subFormRowId">
@@ -87,19 +89,21 @@
               @click="insertSubFormRow(sfrIdx)"
               v-show="!isReadMode"
               :title="i18nt('render.hint.insertSubFormRow')"
-              ><svg-icon icon-class="el-plus"
-            /></a-button>
+            >
+              <svg-icon icon-class="el-plus" />
+            </a-button>
             <a-button
               :disabled="actionDisabled || deleteDisabled"
               shape="circle"
               @click="deleteSubFormRow(sfrIdx)"
               v-show="!isReadMode"
               :title="i18nt('render.hint.deleteSubFormRow')"
-              ><svg-icon icon-class="el-delete"
-            /></a-button>
-            <span v-if="widget.options.showRowNumber" class="row-number-span"
-              >#{{ sfrIdx + 1 }}</span
             >
+              <svg-icon icon-class="el-delete" />
+            </a-button>
+            <span v-if="widget.options.showRowNumber" class="row-number-span">
+              #{{ sfrIdx + 1 }}
+            </span>
           </div>
         </div>
         <div v-if="!leftActionColumn && widget.options.showRowNumber" class="row-no-column">
@@ -157,11 +161,12 @@
   import emitter from '@/utils/emitter';
   import i18n from '@/utils/i18n';
   import { deepClone, generateId } from '@/utils/util';
-  import refMixin from '../../../components/form-render/refMixin';
+  import refMixin from '@/components/form-render/refMixin';
   import ContainerItemWrapper from './container-item-wrapper';
   import containerItemMixin from './containerItemMixin';
   import FieldComponents from '@/components/form-designer/form-widget/field-widget/index';
   import SvgIcon from '@/components/svg-icon';
+  import { TpfConfirm } from '@/hooks/TpfConfirm';
 
   export default {
     name: 'sub-form-item',
@@ -370,14 +375,13 @@
       },
 
       deleteSubFormRow(formRowIndex) {
-        this.$confirm(
-          this.i18nt('render.hint.deleteSubFormRow') + '?',
-          this.i18nt('render.hint.prompt'),
-          {
-            confirmButtonText: this.i18nt('render.hint.confirm'),
-            cancelButtonText: this.i18nt('render.hint.cancel')
-          }
-        )
+        TpfConfirm({
+          type: 'confirm',
+          content: this.i18nt('render.hint.deleteSubFormRow') + '?',
+          title: this.i18nt('render.hint.prompt'),
+          okText: this.i18nt('render.hint.confirm'),
+          cancelText: this.i18nt('render.hint.cancel')
+        })
           .then(() => {
             const oldSubFormData = this.formModel[this.widget.options.name] || [];
             const deletedDataRow = deepClone(oldSubFormData[formRowIndex]);
@@ -570,6 +574,7 @@
   div.row-no-column {
     display: flex;
     align-items: center;
+    justify-content: center;
     width: 50px;
     border: 1px solid #e1e2e3;
   }

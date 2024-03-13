@@ -133,7 +133,7 @@ body {
       size: '',
       labelAlign: 'right',
       cssCode: '',
-      customClass: '',
+      customClass: [],
       functions: '',
       layoutType: 'PC',
       jsonVersion: 3,

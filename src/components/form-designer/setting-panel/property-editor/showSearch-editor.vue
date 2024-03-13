@@ -1,6 +1,6 @@
 <template>
-  <a-form-item :label="i18nt('designer.setting.allowCreate')">
-    <a-switch v-model:checked="optionModel.allowCreate" @change="onAllowCreateChange" />
+  <a-form-item :label="i18nt('designer.setting.showSearch')">
+    <a-switch v-model:checked="optionModel.showSearch" @change="onRemoteChange" />
   </a-form-item>
 </template>
 
@@ -9,7 +9,7 @@
   import propertyMixin from '@/components/form-designer/setting-panel/property-editor/propertyMixin';
 
   export default {
-    name: 'allowCreate-editor',
+    name: 'showSearch-editor', //showSearch-editor.vue
     mixins: [i18n, propertyMixin],
     props: {
       designer: Object,
@@ -18,5 +18,3 @@
     }
   };
 </script>
-
-<style scoped></style>

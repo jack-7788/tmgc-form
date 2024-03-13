@@ -3,7 +3,7 @@
     <a-radio-group
       v-if="
         selectedWidget.type === 'radio' ||
-        (selectedWidget.type === 'select' && !selectedWidget.options.multiple)
+        (selectedWidget.type === 'select' && ['combobox'].includes(selectedWidget.options.mode))
       "
       v-model:value="optionModel.defaultValue"
       @change="emitDefaultValueChange"
@@ -31,7 +31,8 @@
     <a-checkbox-group
       v-else-if="
         selectedWidget.type === 'checkbox' ||
-        (selectedWidget.type === 'select' && selectedWidget.options.multiple)
+        (selectedWidget.type === 'select' &&
+          ['multiple', 'tags'].includes(selectedWidget.options.mode))
       "
       v-model:value="optionModel.defaultValue"
       @change="emitDefaultValueChange"

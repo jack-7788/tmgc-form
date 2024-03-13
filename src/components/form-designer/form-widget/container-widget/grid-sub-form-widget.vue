@@ -26,7 +26,6 @@
           :move="checkContainerMove"
         >
           <template #item="{ element: subWidget, index: swIdx }">
-            {{ subWidget.category }}
             <template v-if="'container' === subWidget.category">
               <component
                 :is="subWidget.type + '-widget'"

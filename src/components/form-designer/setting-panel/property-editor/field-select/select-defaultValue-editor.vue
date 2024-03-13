@@ -4,15 +4,13 @@
 
 <script>
   export default {
-    name: "select-defaultValue-editor",
+    name: 'select-defaultValue-editor',
     props: {
       designer: Object,
       selectedWidget: Object,
-      optionModel: Object,
-    },
-  }
+      optionModel: Object
+    }
+  };
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

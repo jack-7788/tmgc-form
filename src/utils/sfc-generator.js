@@ -511,7 +511,7 @@ function getElAttrs(widget, formConfig, parentWidget) {
         ? `:multiple-limit="${wop.multipleLimit}"`
         : '',
     automaticDropdown: !!wop.automaticDropdown ? `automatic-dropdown` : '',
-    remote: !!wop.remote ? `remote` : '',
+    showSearch: !!wop.showSearch ? `showSearch` : '',
     format: !!wop.format ? `format="${wop.format}"` : '',
     valueFormat: !!wop.valueFormat ? `value-format="${wop.valueFormat}"` : '',
     editable: !!wop.editable ? `:editable="${wop.editable}"` : '',
@@ -683,13 +683,13 @@ const elTemplates = {
       automaticDropdown,
       multiple,
       multipleLimit,
-      remote,
+      showSearch,
       placeholder
     } = getElAttrs(widget, formConfig, parentWidget);
     const selectOptions = buildSelectChildren(widget, formConfig);
     return `<a-select ${vModel} class="full-width-input" ${disabled} ${size} ${allowClear} ${filterable}
             ${allowCreate} ${defaultFirstOption} ${automaticDropdown} ${multiple} ${multipleLimit} ${placeholder}
-            ${remote}>${selectOptions}</a-select>`;
+            ${showSearch}>${selectOptions}</a-select>`;
   },
 
   time: (widget, formConfig, parentWidget) => {

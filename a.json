@@ -1,0 +1,381 @@
+{
+  "widgetList": [
+    {
+      "type": "grid",
+      "category": "container",
+      "icon": "grid",
+      "cols": [
+        {
+          "type": "grid-col",
+          "category": "container",
+          "icon": "grid-col",
+          "internal": true,
+          "widgetList": [
+            {
+              "type": "static-text",
+              "icon": "static-text",
+              "formItemFlag": false,
+              "options": {
+                "name": "static-text55175",
+                "columnWidth": "200px",
+                "hidden": false,
+                "textContent": "子表单、计算字段演示",
+                "customClass": [],
+                "onCreated": "",
+                "onMounted": "",
+                "label": "static-text"
+              },
+              "displayName": "静态文字",
+              "id": "static-text55175"
+            }
+          ],
+          "options": {
+            "name": "gridCol114213",
+            "hidden": false,
+            "span": 12
+          },
+          "id": "grid-col-114213"
+        },
+        {
+          "type": "grid-col",
+          "category": "container",
+          "icon": "grid-col",
+          "internal": true,
+          "widgetList": [],
+          "options": {
+            "name": "gridCol80092",
+            "hidden": false,
+            "span": 12
+          },
+          "id": "grid-col-80092"
+        }
+      ],
+      "options": {
+        "name": "grid115477",
+        "hidden": false,
+        "gutter": 12,
+        "customClass": []
+      },
+      "displayName": "栅格",
+      "id": "grid115477"
+    },
+    {
+      "type": "sub-form",
+      "category": "container",
+      "icon": "sub-form",
+      "widgetList": [
+        {
+          "type": "input",
+          "icon": "text-field",
+          "formItemFlag": true,
+          "options": {
+            "name": "pName",
+            "label": "产品名称",
+            "type": "text",
+            "defaultValue": "",
+            "placeholder": "",
+            "columnWidth": "150px",
+            "size": "",
+            "labelWidth": null,
+            "labelHidden": false,
+            "readonly": false,
+            "disabled": false,
+            "hidden": false,
+            "clearable": true,
+            "showPassword": false,
+            "required": false,
+            "validation": "",
+            "validationHint": "",
+            "customClass": [],
+            "labelIconClass": null,
+            "labelIconPosition": "rear",
+            "labelTooltip": null,
+            "minLength": null,
+            "maxLength": null,
+            "showWordLimit": false,
+            "prefixIcon": "",
+            "suffixIcon": "",
+            "appendButton": false,
+            "buttonDisabled": false,
+            "buttonIcon": "el-icon-search",
+            "onCreated": "",
+            "onMounted": "",
+            "onChange": "",
+            "onValidate": ""
+          },
+          "displayName": "Input",
+          "id": "input65393"
+        },
+        {
+          "type": "number",
+          "icon": "number-field",
+          "formItemFlag": true,
+          "options": {
+            "name": "pNum",
+            "label": "数量",
+            "defaultValue": "1",
+            "placeholder": "",
+            "columnWidth": "200px",
+            "size": "",
+            "labelWidth": null,
+            "labelHidden": false,
+            "readonly": false,
+            "disabled": false,
+            "hidden": false,
+            "required": false,
+            "validation": "",
+            "validationHint": "",
+            "customClass": [],
+            "labelIconClass": null,
+            "labelIconPosition": "rear",
+            "labelTooltip": null,
+            "min": 0,
+            "max": 100,
+            "precision": 0,
+            "step": 1,
+            "controlsPosition": "right",
+            "onCreated": "",
+            "onMounted": "",
+            "onChange": "recalcRowAmount(this, rowId)",
+            "onValidate": ""
+          },
+          "displayName": "Number",
+          "id": "number81340"
+        },
+        {
+          "type": "number",
+          "icon": "number-field",
+          "formItemFlag": true,
+          "options": {
+            "name": "pPrice",
+            "label": "单价",
+            "defaultValue": "100",
+            "placeholder": "",
+            "columnWidth": "200px",
+            "size": "",
+            "labelWidth": null,
+            "labelHidden": false,
+            "readonly": false,
+            "disabled": false,
+            "hidden": false,
+            "required": false,
+            "validation": "",
+            "validationHint": "",
+            "customClass": [],
+            "labelIconClass": null,
+            "labelIconPosition": "rear",
+            "labelTooltip": null,
+            "min": 0,
+            "max": 10000,
+            "precision": 2,
+            "step": 1,
+            "controlsPosition": "right",
+            "onCreated": "",
+            "onMounted": "",
+            "onChange": "recalcRowAmount(this, rowId)\n",
+            "onValidate": ""
+          },
+          "displayName": "Number",
+          "id": "number114595"
+        },
+        {
+          "type": "number",
+          "icon": "number-field",
+          "formItemFlag": true,
+          "options": {
+            "name": "pAmount",
+            "label": "小计金额",
+            "defaultValue": 0,
+            "placeholder": "",
+            "columnWidth": "200px",
+            "size": "",
+            "labelWidth": null,
+            "labelHidden": false,
+            "readonly": true,
+            "disabled": true,
+            "hidden": false,
+            "required": false,
+            "validation": "",
+            "validationHint": "",
+            "customClass": [],
+            "labelIconClass": null,
+            "labelIconPosition": "rear",
+            "labelTooltip": null,
+            "min": 0,
+            "max": 1000000,
+            "precision": 2,
+            "step": 1,
+            "controlsPosition": "right",
+            "onCreated": "",
+            "onMounted": "",
+            "onChange": "let taRef = this.getWidgetRef('totalAmount')\nrecalcSubFormTotal(subFormData, 'pAmount', taRef)\n",
+            "onValidate": ""
+          },
+          "displayName": "Number",
+          "id": "number35019"
+        }
+      ],
+      "options": {
+        "name": "sub-form7238",
+        "showBlankRow": true,
+        "showRowNumber": true,
+        "labelAlign": "center",
+        "hidden": false,
+        "customClass": [],
+        "onSubFormRowChange": "let taRef = this.getWidgetRef('totalAmount')\nrecalcSubFormTotal(subFormData, 'pAmount', taRef)\n",
+        "onSubFormRowDelete": "",
+        "onSubFormRowAdd": "",
+        "onSubFormRowInsert": ""
+      },
+      "displayName": "SubForm",
+      "id": "sub-form7238"
+    },
+    {
+      "type": "grid",
+      "category": "container",
+      "icon": "grid",
+      "cols": [
+        {
+          "type": "grid-col",
+          "category": "container",
+          "icon": "grid-col",
+          "internal": true,
+          "widgetList": [
+            {
+              "type": "input",
+              "icon": "text-field",
+              "formItemFlag": true,
+              "options": {
+                "name": "totalAmount",
+                "label": "总计金额",
+                "type": "text",
+                "defaultValue": "",
+                "placeholder": "",
+                "columnWidth": "200px",
+                "size": "",
+                "labelWidth": null,
+                "labelHidden": false,
+                "readonly": true,
+                "disabled": true,
+                "hidden": false,
+                "clearable": true,
+                "showPassword": false,
+                "required": false,
+                "validation": "",
+                "validationHint": "",
+                "customClass": [],
+                "labelIconClass": null,
+                "labelIconPosition": "rear",
+                "labelTooltip": null,
+                "minLength": null,
+                "maxLength": null,
+                "showWordLimit": false,
+                "prefixIcon": "",
+                "suffixIcon": "",
+                "appendButton": false,
+                "buttonDisabled": false,
+                "buttonIcon": "el-icon-search",
+                "onCreated": "",
+                "onMounted": "",
+                "onChange": "",
+                "onValidate": ""
+              },
+              "displayName": "Input",
+              "id": "input55898"
+            }
+          ],
+          "options": {
+            "name": "gridCol33828",
+            "hidden": false,
+            "span": 12
+          },
+          "id": "grid-col-33828"
+        },
+        {
+          "type": "grid-col",
+          "category": "container",
+          "icon": "grid-col",
+          "internal": true,
+          "widgetList": [
+            {
+              "type": "input",
+              "icon": "text-field",
+              "formItemFlag": true,
+              "options": {
+                "name": "totalCount",
+                "label": "total count",
+                "type": "text",
+                "defaultValue": "",
+                "placeholder": "",
+                "columnWidth": "200px",
+                "size": "",
+                "labelWidth": null,
+                "labelHidden": false,
+                "readonly": true,
+                "disabled": false,
+                "hidden": true,
+                "clearable": true,
+                "showPassword": false,
+                "required": false,
+                "validation": "",
+                "validationHint": "",
+                "customClass": [],
+                "labelIconClass": null,
+                "labelIconPosition": "rear",
+                "labelTooltip": null,
+                "minLength": null,
+                "maxLength": null,
+                "showWordLimit": false,
+                "prefixIcon": "",
+                "suffixIcon": "",
+                "appendButton": false,
+                "buttonDisabled": false,
+                "buttonIcon": "el-icon-search",
+                "onCreated": "",
+                "onMounted": "",
+                "onChange": "",
+                "onValidate": ""
+              },
+              "displayName": "Input",
+              "id": "input77431"
+            }
+          ],
+          "options": {
+            "name": "gridCol69043",
+            "hidden": false,
+            "span": 12,
+            "customClass": []
+          },
+          "id": "grid-col-69043"
+        }
+      ],
+      "options": {
+        "name": "grid55046",
+        "hidden": false,
+        "gutter": 12,
+        "customClass": []
+      },
+      "displayName": "Grid",
+      "id": "grid55046"
+    }
+  ],
+  "formConfig": {
+    "modelName": "formData",
+    "refName": "vForm",
+    "rulesName": "rules",
+    "labelWidth": 80,
+    "labelPosition": "horizontal",
+    "size": "",
+    "labelAlign": "left",
+    "cssCode": "",
+    "customClass": [],
+    "functions": "function myAlert(msg) {\n  alert(msg)\n}\n\nfunction recalcRowAmount(changeObj, rowId) {\n  let numR = changeObj.getWidgetRef('pNum' + '@row' + rowId)\n  let priceR = changeObj.getWidgetRef('pPrice' + '@row' + rowId)\n  let amountR = changeObj.getWidgetRef('pAmount' + '@row' + rowId)\n  let amountMoney = numR.getValue() * 1 * priceR.getValue()\n  amountR.setValue(amountMoney)\n}\n\nfunction recalcSubFormTotal(subFormData, rowFieldName, totalFieldRef) {\n  let tc = 0\n  if (!!subFormData && (subFormData.length > 0)) {\n    subFormData.forEach(function(row) {\n      tc += row[rowFieldName] * 1\n    })\n  }\n  totalFieldRef.setValue(tc)\n}\n",
+    "layoutType": "PC",
+    "jsonVersion": 3,
+    "dataSources": [],
+    "onFormCreated": "",
+    "onFormMounted": "111",
+    "onFormDataChange": "",
+    "onFormValidate": ""
+  }
+}

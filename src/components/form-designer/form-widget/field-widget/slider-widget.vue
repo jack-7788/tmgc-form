@@ -99,7 +99,6 @@
     },
     watch: {
       'field.options.range': {
-        immediate: true,
         handler() {
           if (this.field.options.range) {
             this.fieldModel = [];

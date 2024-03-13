@@ -531,6 +531,7 @@
   import i18n from '@/utils/i18n';
   import CodeEditor from '@/components/code-editor/index';
   import { copyToClipboard, deepClone, generateId, runDataSourceRequest } from '@/utils/util';
+  import { TpfConfirm } from '@/hooks/TpfConfirm';
 
   export default {
     name: 'data-source-setting',
@@ -719,14 +720,13 @@
       },
 
       deleteDataSource(dsIdx) {
-        this.$confirm(
-          this.i18nt('designer.setting.deleteDataSourceHint'),
-          this.i18nt('render.hint.prompt'),
-          {
-            confirmButtonText: this.i18nt('render.hint.confirm'),
-            cancelButtonText: this.i18nt('render.hint.cancel')
-          }
-        )
+        TpfConfirm({
+          type: 'confirm',
+          content: this.i18nt('designer.setting.deleteDataSourceHint'),
+          title: this.i18nt('render.hint.prompt'),
+          okText: this.i18nt('render.hint.confirm'),
+          cancelText: this.i18nt('render.hint.cancel')
+        })
           .then(() => {
             this.formConfig.dataSources.splice(dsIdx, 1);
           })

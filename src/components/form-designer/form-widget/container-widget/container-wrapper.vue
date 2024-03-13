@@ -25,20 +25,23 @@
         v-if="widget.type === 'table'"
         :title="i18nt('designer.hint.insertRow')"
         @click.stop="appendTableRow(widget)"
-        ><svg-icon icon-class="el-insert-row"
-      /></i>
+      >
+        <svg-icon icon-class="el-insert-row" />
+      </i>
       <i
         v-if="widget.type === 'table'"
         :title="i18nt('designer.hint.insertColumn')"
         @click.stop="appendTableCol(widget)"
-        ><svg-icon icon-class="el-insert-column"
-      /></i>
+      >
+        <svg-icon icon-class="el-insert-column" />
+      </i>
       <i
         v-if="widget.type === 'grid' || widget.type === 'table'"
         :title="i18nt('designer.hint.cloneWidget')"
         @click.stop="cloneContainer(widget)"
-        ><svg-icon icon-class="el-clone"
-      /></i>
+      >
+        <svg-icon icon-class="el-clone" />
+      </i>
       <i :title="i18nt('designer.hint.remove')" @click.stop="removeWidget">
         <svg-icon icon-class="el-delete" />
       </i>

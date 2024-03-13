@@ -1,21 +1,22 @@
 <template>
   <a-modal
     :title="options.title"
+    :centered="true"
     v-model:visible="dialogVisible"
-    append-to-body
     destroy-on-close
-    draggable
     :width="options.width"
-    :fullscreen="options.fullscreen"
-    :modal="options.showModal"
-    :show-close="options.showClose"
-    :close-on-click-modal="options.closeOnClickModal"
-    :close-on-press-escape="options.closeOnPressEscape"
-    :center="options.center"
-    :before-close="handleBeforeClose"
-    @close="handleCloseEvent"
-    @opened="handleOpenedEvent"
+    :mask="options.showModal"
+    :maskClosable="options.closeOnClickModal"
+    :keyboard="options.closeOnPressEscape"
+    @cancel="handleCloseEvent"
   >
+    <!--
+      :fullscreen="options.fullscreen"
+      @opened="handleOpenedEvent"
+      :show-close="options.showClose"
+      :center="options.center"
+      :before-close="handleBeforeClose"
+  -->
     <VFormRender
       ref="dFormRef"
       :form-json="formJson"
@@ -112,6 +113,7 @@
 
           this.$refs['dFormRef'].setDialogOrDrawerRef(this);
           this.parentFormRef.setChildFormRef(this.$refs['dFormRef']);
+          this.handleOpenedEvent();
         });
       },
 
@@ -135,15 +137,15 @@
         }
       },
 
-      handleBeforeClose(done) {
-        if (!!this.options.onDialogBeforeClose) {
-          const customFn = new Function('done', this.options.onDialogBeforeClose);
-          const closeResult = customFn.call(this);
-          return closeResult === false ? closeResult : done();
-        }
+      // handleBeforeClose(done) {
+      //   if (!!this.options.onDialogBeforeClose) {
+      //     const customFn = new Function('done', this.options.onDialogBeforeClose);
+      //     const closeResult = customFn.call(this);
+      //     return closeResult === false ? closeResult : done();
+      //   }
 
-        return done();
-      },
+      //   return done();
+      // },
 
       handleCloseEvent() {
         this.dialogVisible = false;

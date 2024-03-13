@@ -1,23 +1,21 @@
 <template>
   <a-form-item :label="i18nt('designer.setting.appendButtonIcon')">
-    <a-input type="text" v-model:value="optionModel.buttonIcon"></a-input>
+    <a-input type="text" v-model:value="optionModel.buttonIcon" />
   </a-form-item>
 </template>
 
 <script>
-  import i18n from "@/utils/i18n"
+  import i18n from '@/utils/i18n';
 
   export default {
-    name: "buttonIcon-editor",
+    name: 'buttonIcon-editor',
     mixins: [i18n],
     props: {
       designer: Object,
       selectedWidget: Object,
-      optionModel: Object,
-    },
-  }
+      optionModel: Object
+    }
+  };
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

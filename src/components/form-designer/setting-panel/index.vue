@@ -73,7 +73,7 @@
                 :model="optionModel"
                 labelAlign="left"
                 label-width="120px"
-                class="setting-form"
+                class="setting-form tpf-form"
                 @submit.prevent
               >
                 <a-collapse v-model:activeKey="widgetActiveCollapseNames" class="setting-collapse">

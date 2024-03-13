@@ -20,7 +20,7 @@
     "lodash-es": "^4.17.21",
     "mitt": "^3.0.0",
     "sortablejs": "1.14.0",
-    "vue": "^3.2.26",
+    "vue": "3.3.11",
     "vue3-quill": "^0.2.6"
   },
   "devDependencies": {

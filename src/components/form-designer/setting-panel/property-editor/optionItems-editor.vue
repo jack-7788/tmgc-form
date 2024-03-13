@@ -17,7 +17,7 @@
     <a-switch v-model:checked="optionModel.dsEnabled" />
   </a-form-item>
   <a-form-item v-if="!!optionModel.dsEnabled" :label="i18nt('designer.setting.dsName')">
-    <a-select v-model:value="optionModel.dsName" filterable allowClear @change="getDataSetList">
+    <a-select v-model:value="optionModel.dsName" allowClear @change="getDataSetList">
       <a-select-option
         v-for="(item, idx) in dataSourceList"
         :key="idx"
@@ -28,7 +28,7 @@
     </a-select>
   </a-form-item>
   <a-form-item v-if="!!optionModel.dsEnabled" :label="i18nt('designer.setting.dataSetName')">
-    <a-select v-model:value="optionModel.dataSetName" filterable allowClear>
+    <a-select v-model:value="optionModel.dataSetName" allowClear>
       <a-select-option
         v-for="(item, idx) in dataSetList"
         :key="idx"

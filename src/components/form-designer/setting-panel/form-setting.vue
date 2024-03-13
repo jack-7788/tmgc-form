@@ -51,23 +51,20 @@
           <a-form-item :label="i18nt('designer.setting.customClass')">
             <a-select
               v-model:value="formConfig.customClass"
-              multiple
               allowClear
+              mode="tags"
               @change="extractCssClass"
-            >
-              <a-select-option
-                v-for="(item, idx) in cssClassList"
-                :key="idx"
-                :label="item"
-                :value="item"
-              >
-                {{ item }}
-              </a-select-option>
-            </a-select>
+              :options="cssClassList"
+            />
           </a-form-item>
           <!-- -->
           <a-form-item :label="i18nt('designer.setting.globalFunctions')">
-            <a-button type="info" plain shape="round" @click="editGlobalFunctions">
+            <a-button
+              type="info"
+              :class="[{ 'button-text-highlight': !!formConfig.functions }]"
+              shape="round"
+              @click="editGlobalFunctions"
+            >
               {{ i18nt('designer.setting.addEventHandler') }}
             </a-button>
           </a-form-item>
@@ -197,6 +194,7 @@
       <a-modal
         :title="i18nt('designer.setting.globalFunctions')"
         v-model:visible="showEditFunctionsDialogFlag"
+        :width="600"
         :show-close="true"
         custom-class="drag-dialog small-padding-dialog"
         append-to-body
@@ -255,7 +253,7 @@
 
         showEditFormCssDialogFlag: false,
         formCssCode: '',
-        cssClassList: ['t-text-[#f99]'],
+        cssClassList: [],
 
         showEditFunctionsDialogFlag: false,
         functionsCode: '',

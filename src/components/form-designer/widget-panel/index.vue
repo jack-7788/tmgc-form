@@ -165,6 +165,7 @@
   import ftImg6 from '@/assets/ft-images/t6.png';
   import ftImg7 from '@/assets/ft-images/t7.png';
   import ftImg8 from '@/assets/ft-images/t8.png';
+  import { TpfConfirm } from '@/hooks/TpfConfirm';
 
   export default {
     name: 'FieldPanel',
@@ -322,14 +323,13 @@
       },
 
       loadFormTemplate(jsonUrl) {
-        this.$confirm(
-          this.i18nt('designer.hint.loadFormTemplateHint'),
-          this.i18nt('render.hint.prompt'),
-          {
-            confirmButtonText: this.i18nt('render.hint.confirm'),
-            cancelButtonText: this.i18nt('render.hint.cancel')
-          }
-        )
+        TpfConfirm({
+          type: 'confirm',
+          content: this.i18nt('designer.setting.loadFormTemplateHint'),
+          title: this.i18nt('render.hint.prompt'),
+          okText: this.i18nt('render.hint.confirm'),
+          cancelText: this.i18nt('render.hint.cancel')
+        })
           .then(() => {
             axios
               .get(jsonUrl)

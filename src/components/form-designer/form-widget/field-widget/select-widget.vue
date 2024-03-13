@@ -18,19 +18,22 @@
       class="full-width-input"
       :disabled="field.options.disabled"
       :allowClear="field.options.allowClear"
-      :filterable="field.options.filterable"
-      :allow-create="field.options.allowCreate"
-      :default-first-option="allowDefaultFirstOption"
-      :automatic-dropdown="field.options.automaticDropdown"
-      :multiple="field.options.multiple"
-      :multiple-limit="field.options.multipleLimit"
+      :showArrow="true"
+      :dropdownMatchSelectWidth="false"
+      :mode="field.options.mode"
+      :maxTagCount="field.options.maxTagCount"
       :placeholder="field.options.placeholder || i18nt('render.hint.selectPlaceholder')"
-      :remote="field.options.remote"
-      :remote-method="remoteQuery"
+      :showSearch="field.options.showSearch"
+      @search="remoteQuery"
       @focus="handleFocusCustomEvent"
       @blur="handleBlurCustomEvent"
       @change="handleChangeEvent"
       :options="field.options.optionItems"
+      :fieldNames="{
+        label: field.options.labelKey || 'label',
+        value: field.options.valueKey || 'value',
+        options: 'options'
+      }"
     />
     <template v-if="isReadMode">
       <span class="readonly-mode-field">{{ optionLabel }}</span>

@@ -5,12 +5,12 @@
 <template>
   <div>
     <a-form-item :label="i18nt('designer.setting.customClass')">
-      {{ optionModel }}
-      <a-select v-model:value="optionModel.customClass" multiple filterable allow-create>
-        <a-select-option v-for="(item, idx) in cssClassList" :key="idx" :label="item" :value="item">
-          {{ item }}
-        </a-select-option>
-      </a-select>
+      <a-select
+        v-model:value="optionModel.customClass"
+        allowClear
+        mode="tags"
+        :options="cssClassList"
+      />
     </a-form-item>
     <a-form-item :label="i18nt('designer.setting.tabPaneSetting')" />
     <a-form-item label-width="0" class="panes-setting">

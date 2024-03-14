@@ -31,6 +31,25 @@ export default defineConfig({
       symbolId: 'icon-[dir]-[name]'
     })
   ],
+  server: {
+    proxy: {
+      '/api': {
+        target: process.env.VITE_APP_API_ROOT,
+        changeOrigin: true,
+        logLevel: 'debug',
+        ws: true,
+        bypass(req, res, proxyRes) {
+          //这里的req.url是经过路径重写后的url
+          const realUrl = new URL(req.url || '', process.env.VITE_APP_API_ROOT)?.href || '';
+          res.setHeader('x-res-proxyUrl', realUrl);
+        },
+        rewrite: path => path.replace('/api', '')
+      }
+    },
+    open: true,
+    port: 12000,
+    host: '0.0.0.0'
+  },
 
   resolve: {
     alias: {

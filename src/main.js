@@ -21,6 +21,7 @@ import { loadExtension } from '@/extension/extension-loader';
 if (typeof window !== 'undefined') {
   window.axios = axios;
 }
+console.log(`======当前后端域名-vform：${import.meta.env.VITE_APP_API_ROOT} ===========`);
 
 const vfApp = createApp(App);
 vfApp.use(Antd);

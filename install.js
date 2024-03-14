@@ -39,7 +39,14 @@ import StaticContentWrapper from '@/components/form-designer/form-widget/field-w
 import FormItemWrapper from '@/components/form-designer/form-widget/field-widget/form-item-wrapper';
 import emitter from '@/utils/emitter';
 import fieldMixin from '@/components/form-designer/form-widget/field-widget/fieldMixin';
+import http from '@/utils/request/http';
 // sdk import end
+const VFormRegisterHttp = h => {
+  window.$vform = {
+    ...(window.$vform || {}),
+    $http: h || http
+  };
+};
 
 VFormDesigner.install = function (app) {
   console.error('VFormDesigner.install');
@@ -66,11 +73,13 @@ VFormRender.install = function (app) {
 
 const components = [VFormDesigner, VFormRender];
 
-const install = app => {
+const install = (app, h) => {
   console.error('install');
-
   addDirective(app);
   loadExtension(app);
+
+  app.config.globalProperties.$http = h || http;
+  VFormRegisterHttp(h || http);
 
   app.use(ContainerWidgets);
   app.use(ContainerItems);

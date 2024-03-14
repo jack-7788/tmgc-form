@@ -8,7 +8,14 @@ import 'virtual:svg-icons-register';
 import '@/iconfont/iconfont.css';
 
 import { loadExtension } from '@/extension/extension-loader';
+import http from '@/utils/request/http';
 
+const VFormRegisterHttp = h => {
+  window.$vform = {
+    ...(window.$vform || {}),
+    $http: h || http
+  };
+};
 VFormRender.install = function (app) {
   loadExtension(app);
 
@@ -19,8 +26,10 @@ VFormRender.install = function (app) {
 
 const components = [VFormRender];
 
-const install = app => {
+const install = (app, h) => {
   loadExtension(app);
+  app.config.globalProperties.$http = h || http;
+  VFormRegisterHttp(h || http);
 
   app.use(ContainerItems);
   registerIcon(app);

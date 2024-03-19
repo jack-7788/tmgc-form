@@ -8,7 +8,7 @@ export const handleErrorStatus = {
 
     const returnUrl = window.location.href.toString();
 
-    window.location.href = `/login?returnUrl=${returnUrl}`;
+    // window.location.href = `/login?returnUrl=${returnUrl}`;
   },
   403: (data: AxiosResponse) => {
     message.error(data.statusText);

@@ -6,6 +6,7 @@ import {
   translateOptionItems
 } from '@/utils/util';
 import FormValidators from '@/utils/validators';
+import { getHttp } from '@/utils/request/http';
 
 export default {
   inject: [
@@ -257,34 +258,45 @@ export default {
       if (this.designState) {
         return;
       }
-
-      if (['radio', 'checkbox', 'select', 'cascader'].includes(this.field.type)) {
+      console.log('222', this.field.type);
+      if (['radio', 'checkbox', 'select', 'cascader', 'treeSelect'].includes(this.field.type)) {
         /* 首先处理数据源选项加载 */
-        if (!!this.field.options.dsEnabled) {
+        if (!!this.field.options.dsEnabled && this.field.options.http?.url) {
           this.field.options.optionItems.splice(0, this.field.options.optionItems.length); // 清空原有选项
-          const curDSName = this.field.options.dsName;
-          const curDSetName = this.field.options.dataSetName;
-          const curDS = getDSByName(this.formConfig, curDSName);
-          if (!!curDS && !curDSetName) {
-            const gDsv = this.getGlobalDsv() || {};
-            //console.log('Global DSV is: ', gDsv)
-            const localDsv = new Object({});
-            overwriteObj(localDsv, gDsv);
-            localDsv['widgetName'] = this.field.options.name;
-            let dsResult = null;
-            try {
-              dsResult = await runDataSourceRequest(
-                curDS,
-                localDsv,
-                this.getFormRef(),
-                false,
-                this.$message
-              );
-              this.loadOptions(dsResult);
-            } catch (err) {
-              this.$message.error(err.message);
+          try {
+            let dsResult = await getHttp()(this.field.options.http);
+            if (this.field.options.dataHandlerCode) {
+              const dhFn = new Function('data', this.field.options.dataHandlerCode);
+              dsResult = dhFn.call(this, dsResult);
             }
+            this.loadOptions(dsResult);
+          } catch (err) {
+            this.$message.error(err);
           }
+
+          // const curDSName = this.field.options.dsName;
+          // const curDSetName = this.field.options.dataSetName;
+          // const curDS = getDSByName(this.formConfig, curDSName);
+          // if (!!curDS && !curDSetName) {
+          //   const gDsv = this.getGlobalDsv() || {};
+          //   //console.log('Global DSV is: ', gDsv)
+          //   const localDsv = new Object({});
+          //   overwriteObj(localDsv, gDsv);
+          //   localDsv['widgetName'] = this.field.options.name;
+          //   let dsResult = null;
+          //   try {
+          //     dsResult = await runDataSourceRequest(
+          //       curDS,
+          //       localDsv,
+          //       this.getFormRef(),
+          //       false,
+          //       this.$message
+          //     );
+          //     this.loadOptions(dsResult);
+          //   } catch (err) {
+          //     this.$message.error(err.message);
+          //   }
+          // }
 
           return;
         }

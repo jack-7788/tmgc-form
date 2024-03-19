@@ -1,12 +1,12 @@
 /* 全局css变量 */
-$--color-primary: #409EFF;
+$--color-primary: var(--ant-primary-color); ;
 
 .primary-color {
-  color: $--color-primary;
+  color: var(--ant-primary-color);
 }
 
 .background-opacity {
-  background: rgba(64, 158, 255, 0.6);
+  background: var(--ant-primary-4);
 }
 
 .form-widget-list {

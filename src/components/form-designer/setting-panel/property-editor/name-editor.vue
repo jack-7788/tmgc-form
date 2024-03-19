@@ -23,11 +23,9 @@
         :disabled="widgetNameReadonly"
         @change="updateWidgetNameAndRef"
         :title="i18nt('designer.setting.editNameHelp')"
-      >
-        <a-select-option v-for="(sf, sfIdx) in serverFieldList" :key="sfIdx" :value="sf.name">
-          {{ sf.label }}
-        </a-select-option>
-      </a-select>
+        :options="fieldList"
+        :fieldNames="{ label: 'showName', value: 'fieldCode' }"
+      />
     </template>
   </a-form-item>
 </template>
@@ -51,12 +49,32 @@
     inject: ['serverFieldList', 'getDesignerConfig'],
     data() {
       return {
-        nameRequiredRule: [{ required: true, message: 'name required' }]
+        nameRequiredRule: [{ required: true, message: '名称必填' }]
       };
     },
+    watch: {
+      fieldList: {
+        deep: true,
+        immediate: true,
+        handler(val) {
+          if (val.length) {
+            this.optionModel.name = '';
+          }
+        }
+      }
+    },
     computed: {
+      fieldList() {
+        if (this.serverFieldList) {
+          return this.serverFieldList() || [];
+        }
+        return [];
+      },
       noFieldList() {
-        return !this.serverFieldList || this.serverFieldList.length <= 0;
+        if (this.fieldList) {
+          return this.fieldList.length <= 0;
+        }
+        return true;
       },
 
       widgetNameReadonly() {
@@ -64,11 +82,15 @@
       }
     },
     methods: {
-      updateWidgetNameAndRef(newName) {
+      updateWidgetNameAndRef(newName, ops) {
+        if (ops) {
+          console.log(ops);
+          this.optionModel.label = ops.showName;
+        }
         const oldName = this.designer.selectedWidgetName;
         if (isEmptyStr(newName)) {
           this.selectedWidget.options.name = oldName;
-          this.$message.info(this.i18nt('designer.hint.nameRequired'));
+          this.$message.warning(this.i18nt('designer.hint.nameRequired'));
           return;
         }
 
@@ -76,7 +98,7 @@
           const foundRef = this.designer.formWidget.getWidgetRef(newName); // 检查newName是否已存在！！
           if (!!foundRef) {
             this.selectedWidget.options.name = oldName;
-            this.$message.info(this.i18nt('designer.hint.duplicateName') + newName);
+            this.$message.warning(this.i18nt('designer.hint.duplicateName') + newName);
             return;
           }
 

@@ -17,6 +17,8 @@ const VFormRegisterHttp = h => {
   };
 };
 VFormRender.install = function (app) {
+  console.warn('VFormRender.install:成功');
+
   loadExtension(app);
 
   app.use(ContainerItems);
@@ -27,6 +29,8 @@ VFormRender.install = function (app) {
 const components = [VFormRender];
 
 const install = (app, h) => {
+  console.warn('install:成功');
+
   loadExtension(app);
   app.config.globalProperties.$http = h || http;
   VFormRegisterHttp(h || http);

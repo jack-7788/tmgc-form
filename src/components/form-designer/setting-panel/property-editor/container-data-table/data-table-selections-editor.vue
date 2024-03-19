@@ -30,6 +30,7 @@
 
 <script>
   export default {
+    name: 'rowSelection-editor',
     props: {
       designer: Object,
       selectedWidget: Object,

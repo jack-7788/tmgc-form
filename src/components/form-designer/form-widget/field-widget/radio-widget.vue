@@ -24,23 +24,25 @@
         <a-radio-button
           v-for="(item, index) in field.options.optionItems"
           :key="index"
-          :value="item.value"
+          :value="item[field.options.valueKey]"
           :disabled="item.disabled"
           :border="field.options.border"
           :style="{ display: field.options.displayStyle }"
-          >{{ item.label }}</a-radio-button
         >
+          {{ item[field.options.labelKey] }}
+        </a-radio-button>
       </template>
       <template v-else>
         <a-radio
           v-for="(item, index) in field.options.optionItems"
           :key="index"
-          :value="item.value"
+          :value="item[field.options.valueKey]"
           :disabled="item.disabled"
           :border="field.options.border"
           :style="{ display: field.options.displayStyle }"
-          >{{ item.label }}</a-radio
         >
+          {{ item[field.options.labelKey] }}
+        </a-radio>
       </template>
     </a-radio-group>
     <template v-if="isReadMode">

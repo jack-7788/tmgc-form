@@ -1,5 +1,5 @@
 <template>
-  <div class="side-scroll-bar" :style="{ height: scrollerHeight }">
+  <div class="side-scroll-bar">
     <div class="panel-container">
       <a-tabs v-model:activeKey="firstTab" class="no-bottom-margin indent-left-margin">
         <a-tab-pane key="componentLib">
@@ -26,14 +26,15 @@
                     :title="ctn.displayName"
                     @dblclick="addContainerByDbClick(ctn)"
                   >
-                    <span
-                      ><svg-icon :icon-class="ctn.icon" class-name="color-svg-icon" />{{
+                    <span>
+                      <svg-icon :icon-class="ctn.icon" class-name="color-svg-icon" />
+                      {{
                         i18n2t(
                           `designer.widgetLabel.${ctn.type}`,
                           `extension.widgetLabel.${ctn.type}`
                         )
-                      }}</span
-                    >
+                      }}
+                    </span>
                   </li>
                 </template>
               </draggable>
@@ -56,14 +57,14 @@
                     :title="fld.displayName"
                     @dblclick="addFieldByDbClick(fld)"
                   >
-                    <span
-                      ><svg-icon :icon-class="fld.icon" class-name="color-svg-icon" />{{
+                    <span>
+                      <svg-icon :icon-class="fld.icon" class-name="color-svg-icon" />{{
                         i18n2t(
                           `designer.widgetLabel.${fld.type}`,
                           `extension.widgetLabel.${fld.type}`
                         )
-                      }}</span
-                    >
+                      }}
+                    </span>
                   </li>
                 </template>
               </draggable>
@@ -397,7 +398,6 @@
         margin: 0; /* 重置IE11默认样式 */
         margin-block-start: 0;
         margin-block-end: 0.25em;
-        // padding-inline-start: 10px;
         display: flex;
         flex-wrap: wrap;
 
@@ -410,23 +410,28 @@
         .container-widget-item,
         .field-widget-item {
           //text-align: center; // 居中显示不太美观
-          display: inline-block;
-          height: 28px;
-          line-height: 28px;
-          width: 115px;
-          float: left;
-          margin: 2px 6px 6px 0;
+          // height: 28px;
+          // line-height: 28px;
+          // width: 115px;
+          width: calc(50% - 5px);
+          padding: 5px;
+          margin-bottom: 5px;
+
           cursor: move;
           white-space: nowrap;
           text-overflow: ellipsis;
           overflow: hidden;
           background: #f1f2f3;
+          border: 1px solid transparent;
+          &:nth-child(2n) {
+            margin-left: 5px;
+          }
         }
 
         .container-widget-item:hover,
         .field-widget-item:hover {
           background: #ebeef5;
-          outline: 1px solid $--color-primary;
+          border: 1px solid $--color-primary;
         }
 
         .drag-handler {
@@ -476,6 +481,26 @@
 
     .clear-fix:after {
       clear: both;
+    }
+  }
+  .side-scroll-bar {
+    height: 100%;
+    overflow: auto;
+
+    .panel-container {
+      height: 100%;
+      overflow: auto;
+
+      & > .ant-tabs {
+        height: 100%;
+        overflow: auto;
+        display: flex;
+        flex-direction: column;
+        :deep(.ant-tabs-content-holder) {
+          flex: 1 0 0;
+          overflow: auto;
+        }
+      }
     }
   }
 </style>

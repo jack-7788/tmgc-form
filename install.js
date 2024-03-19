@@ -49,7 +49,7 @@ const VFormRegisterHttp = h => {
 };
 
 VFormDesigner.install = function (app) {
-  console.error('VFormDesigner.install');
+  console.warn('VFormDesigner.install:成功');
 
   addDirective(app);
   loadExtension(app);
@@ -63,6 +63,8 @@ VFormDesigner.install = function (app) {
 };
 
 VFormRender.install = function (app) {
+  console.warn('VFormRender.install:成功');
+
   loadExtension(app);
 
   app.use(ContainerItems);
@@ -74,7 +76,7 @@ VFormRender.install = function (app) {
 const components = [VFormDesigner, VFormRender];
 
 const install = (app, h) => {
-  console.error('install');
+  console.warn('install:成功');
   addDirective(app);
   loadExtension(app);
 
@@ -93,11 +95,6 @@ const install = (app, h) => {
 
   window.axios = axios;
 };
-
-if (typeof window !== 'undefined' && window.Vue) {
-  /* script方式引入时赋值axios！！ */
-  //window.axios = axios
-}
 
 /**
  * 导出二开组件所需的所有对象、工具方法及组件

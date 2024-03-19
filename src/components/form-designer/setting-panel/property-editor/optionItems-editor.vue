@@ -1,43 +1,27 @@
 <template>
   <a-form-item label-width="0">
-    <a-divider class="custom-divider-margin-top">{{
-      i18nt('designer.setting.optionsSetting')
-    }}</a-divider>
+    <a-divider class="custom-divider-margin-top">
+      {{ i18nt('designer.setting.optionsSetting') }}
+    </a-divider>
   </a-form-item>
   <a-form-item :label="i18nt('designer.setting.labelKeyName')">
-    <a-input v-model:value="optionModel.labelKey" />
+    <a-input size="small" v-model:value="optionModel.labelKey" allowClear />
   </a-form-item>
   <a-form-item :label="i18nt('designer.setting.valueKeyName')">
-    <a-input v-model:value="optionModel.valueKey" />
+    <a-input size="small" v-model:value="optionModel.valueKey" allowClear />
   </a-form-item>
   <a-form-item v-if="hasConfig('childrenKey')" :label="i18nt('designer.setting.childrenKeyName')">
-    <a-input v-model:value="optionModel.childrenKey" />
+    <a-input size="small" v-model:value="optionModel.childrenKey" allowClear />
   </a-form-item>
   <a-form-item :label="i18nt('designer.setting.dsEnabled')">
     <a-switch v-model:checked="optionModel.dsEnabled" />
   </a-form-item>
-  <a-form-item v-if="!!optionModel.dsEnabled" :label="i18nt('designer.setting.dsName')">
-    <a-select v-model:value="optionModel.dsName" allowClear @change="getDataSetList">
-      <a-select-option
-        v-for="(item, idx) in dataSourceList"
-        :key="idx"
-        :title="item.description"
-        :label="item.uniqueName"
-        :value="item.uniqueName"
-      />
-    </a-select>
-  </a-form-item>
-  <a-form-item v-if="!!optionModel.dsEnabled" :label="i18nt('designer.setting.dataSetName')">
-    <a-select v-model:value="optionModel.dataSetName" allowClear>
-      <a-select-option
-        v-for="(item, idx) in dataSetList"
-        :key="idx"
-        :title="item.remark"
-        :label="item.name"
-        :value="item.name"
-      />
-    </a-select>
-  </a-form-item>
+  <HttpEditor
+    v-if="!!optionModel.dsEnabled"
+    :designer="designer"
+    :selected-widget="selectedWidget"
+    :optionModel="optionModel"
+  />
   <a-form-item v-if="!optionModel.dsEnabled" label-width="0">
     <option-items-setting :designer="designer" :selected-widget="selectedWidget" />
   </a-form-item>
@@ -48,7 +32,7 @@
   import OptionItemsSetting from '@/components/form-designer/setting-panel/option-items-setting';
   import propertyMixin from '@/components/form-designer/setting-panel/property-editor/propertyMixin';
   import { getDSByName } from '@/utils/util';
-
+  import HttpEditor from '@/components/http-editor/index.vue';
   export default {
     name: 'optionItems-editor',
     mixins: [i18n, propertyMixin],
@@ -58,7 +42,8 @@
       optionModel: Object
     },
     components: {
-      OptionItemsSetting
+      OptionItemsSetting,
+      HttpEditor
     },
     data() {
       return {

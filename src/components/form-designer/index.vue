@@ -18,7 +18,7 @@
     </a-layout-header>
 
     <a-layout>
-      <a-layout-sider :width="260" class="side-panel">
+      <a-layout-sider :width="270" class="side-panel">
         <widget-panel :designer="designer" />
       </a-layout-sider>
 
@@ -87,7 +87,7 @@
     props: {
       /* 后端字段列表API */
       fieldListApi: {
-        type: Object,
+        type: Function,
         default: null
       },
 
@@ -153,7 +153,7 @@
     },
     provide() {
       return {
-        serverFieldList: this.fieldList,
+        serverFieldList: () => this.fieldList,
         getDesignerConfig: () => this.designerConfig,
         getBannedWidgets: () => this.bannedWidgets
       };
@@ -249,29 +249,28 @@
         this.changeLanguage(this.curLocale);
       },
 
-      loadFieldListFromServer() {
+      async loadFieldListFromServer() {
         if (!this.fieldListApi) {
           return;
         }
-
-        const headers = this.fieldListApi.headers || {};
-        axios
-          .get(this.fieldListApi.URL, { headers: headers })
-          .then(res => {
-            const labelKey = this.fieldListApi.labelKey || 'label';
-            const nameKey = this.fieldListApi.nameKey || 'name';
-
-            this.fieldList.splice(0, this.fieldList.length); //清空已有
-            res.data.forEach(fieldItem => {
-              this.fieldList.push({
-                label: fieldItem[labelKey],
-                name: fieldItem[nameKey]
-              });
-            });
-          })
-          .catch(error => {
-            this.$message.error(error);
-          });
+        this.fieldList = await this.fieldListApi();
+        // const headers = this.fieldListApi.headers || {};
+        // axios
+        //   .get(this.fieldListApi.URL, { headers: headers })
+        //   .then(res => {
+        //     const labelKey = this.fieldListApi.labelKey || 'label';
+        //     const nameKey = this.fieldListApi.nameKey || 'name';
+        //     this.fieldList.splice(0, this.fieldList.length); //清空已有
+        //     res.data.forEach(fieldItem => {
+        //       this.fieldList.push({
+        //         label: fieldItem[labelKey],
+        //         name: fieldItem[nameKey]
+        //       });
+        //     });
+        //   })
+        //   .catch(error => {
+        //     this.$message.error(error);
+        //   });
       },
 
       handleLanguageChanged(command) {

@@ -97,17 +97,6 @@
     beforeUnmount() {
       this.unregisterFromRefList();
     },
-    watch: {
-      'field.options.range': {
-        handler() {
-          if (this.field.options.range) {
-            this.fieldModel = [];
-          } else {
-            this.fieldModel = null;
-          }
-        }
-      }
-    },
 
     methods: {
       selfInitFieldModel() {

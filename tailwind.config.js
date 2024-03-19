@@ -2,7 +2,7 @@
 
 module.exports = {
   prefix: 't-',
-  content: ['./src/**/*.{vue,js,ts,jsx,tsx}'],
+  content: ['./src/**/*.{vue,js,jsx}'],
   theme: {
     extend: {},
     colors: {}

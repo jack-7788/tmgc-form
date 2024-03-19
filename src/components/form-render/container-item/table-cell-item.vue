@@ -98,6 +98,7 @@
 
 <style lang="scss" scoped>
   td.table-cell {
+    padding: 10px 10px 0 0;
     display: table-cell;
     height: 36px;
     //border: 1px dashed #336699;

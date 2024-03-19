@@ -1,7 +1,11 @@
 <template>
   <a-config-provider :locale="elLocale" :input="{ autocomplete: 'off' }">
     <div id="app">
-      <VFormDesigner :designer-config="designerConfig" :global-dsv="globalDsv" />
+      <VFormDesigner
+        :fieldListApi="fieldListApi"
+        :designer-config="designerConfig"
+        :global-dsv="globalDsv"
+      />
     </div>
   </a-config-provider>
 </template>
@@ -11,6 +15,7 @@
   import zhCN from 'ant-design-vue/es/locale/zh_CN';
   import dayjs from 'dayjs';
   import 'dayjs/locale/zh-cn';
+  import { getHttp } from '@/utils/request/http';
   dayjs.locale('zh-cn');
 
   export default {
@@ -65,6 +70,13 @@
       }
     },
     methods: {
+      async fieldListApi() {
+        return await getHttp()({
+          methods: 'get',
+          url: '/api/tmgc2-mgt/pageFieldConfig/queryPageFieldOptions',
+          params: { pageCode: 'TransportOrderDetail' }
+        }).then(res => res.data.list || []);
+      },
       submitForm() {
         this.$refs.vFormRef
           .getFormData()

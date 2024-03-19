@@ -135,7 +135,7 @@
           <a-button @click="showPreviewDialogFlag = false">
             {{ i18nt('designer.hint.closePreview') }}
           </a-button>
-          <a-button v-if="true" @click="testLoadForm">Test Load</a-button>
+          <!-- <a-button v-if="true" @click="testLoadForm">Test Load</a-button> -->
           <a-button v-if="true" @click="testSetFormJson">Test SFJ</a-button>
           <a-button v-if="true" @click="testSetFormData">Test SFD</a-button>
           <a-button v-if="true" @click="testReloadOptionData">Test ROD</a-button>

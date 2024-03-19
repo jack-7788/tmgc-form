@@ -28,14 +28,15 @@
             : null
         "
         :rowSelection="handleRowSelection(widget.options.rowSelection)"
-        :pagination="widget.options.pagination"
+        :pagination="widget.options.showPagination && widget.options.pagination"
         @change="handleTablePageChange"
+        :customRow="handleCustomRow"
       >
         <a-table-column
           v-if="widget.options.showIndex"
           title="序号"
           align="left"
-          :width="100"
+          :width="80"
           fixed="left"
           :customRender="customRenderIndex"
         />
@@ -53,14 +54,16 @@
               <a-space>
                 <a-button
                   v-for="(ob, inx) in widget.options.operationButtons"
+                  v-show="showOperationButton(ob, scope.index, scope.record)"
                   :key="inx"
                   :type="ob.type"
                   :size="ob.size"
-                  :round="ob.round"
-                  :disabled="disableOperationButton(ob, scope.rowIndex, scope.row)"
-                  @click="handleOperationButtonClick(ob.name, scope.rowIndex, scope.record)"
+                  :shape="ob.shape"
+                  :disabled="disableOperationButton(ob, scope.index, scope.record)"
+                  @click="handleOperationButtonClick(ob.name, scope.index, scope.record, scope, ob)"
+                  :class="['data-table-' + ob.name + '-button']"
                 >
-                  {{ getOperationButtonLabel(ob, scope.rowIndex, scope.row) }}
+                  {{ getOperationButtonLabel(ob, scope.index, scope.record) }}
                 </a-button>
               </a-space>
             </template>
@@ -83,7 +86,7 @@
   export default {
     name: 'DataTableWidget',
     componentName: 'DataTableWidget',
-    mixins: [i18n, containerMixin, refMixinDesign],
+    mixins: [i18n, containerMixin, refMixinDesign, emitter],
     inject: ['refList'],
     components: {
       ContainerWrapper,
@@ -165,6 +168,27 @@
       }
     },
     methods: {
+      handleCustomRow(record) {
+        const { customRow } = this.widget.options;
+        return {
+          onClick: event => {
+            const customFn = new Function('record', 'event', customRow.onClick);
+            customFn.call(this, record, event);
+          },
+          onDblclick: event => {
+            const customFn = new Function('record', 'event', customRow.onDblclick);
+            customFn.call(this, record, event);
+          },
+          onMouseenter: event => {
+            const customFn = new Function('record', 'event', customRow.onMouseenter);
+            customFn.call(this, record, event);
+          },
+          onMouseleave: event => {
+            const customFn = new Function('record', 'event', customRow.onMouseleave);
+            customFn.call(this, record, event);
+          }
+        };
+      },
       handleColumnItem(item) {
         const res = omit(item, ['customRender']);
         const customRenderFn = item.customRender;
@@ -192,9 +216,15 @@
           return buttonConfig.label;
         }
       },
-      handleOperationButtonClick(btnName, rowIndex, row) {
+      handleOperationButtonClick(btnName, rowIndex, row, scope, ob) {
         this.skipSelectionChangeEvent = true;
         try {
+          if (ob.onClick) {
+            const clcFn = new Function('record', 'index', 'column', 'btn', ob.onClick);
+            clcFn.call(this, row, rowIndex, scope.column, ob);
+
+            return;
+          }
           if (!!this.widget.options.onOperationButtonClick) {
             const customFn = new Function(
               'buttonName',
@@ -210,6 +240,20 @@
           this.skipSelectionChangeEvent = false;
         }
       },
+      showOperationButton(buttonConfig, rowIndex, row) {
+        if (!!this.widget.options.onHideOperationButton) {
+          const customFn = new Function(
+            'buttonConfig',
+            'rowIndex',
+            'row',
+            this.widget.options.onHideOperationButton
+          );
+          return !customFn.call(this, buttonConfig, rowIndex, row);
+        } else {
+          return !buttonConfig.hidden;
+        }
+      },
+
       disableOperationButton(buttonConfig, rowIndex, row) {
         if (!!this.widget.options.onDisableOperationButton) {
           const customFn = new Function(
@@ -228,7 +272,7 @@
         return index + 1;
       },
       handleTablePageChange(pagination, filters, sorter, { currentDataSource }) {
-        const fn = this.widget.options.onChange;
+        const fn = this.widget.options.onTableChange;
         this.widget.options.pagination.current = pagination.current;
         this.widget.options.pagination.pageSize = pagination.pageSize;
         if (fn) {
@@ -239,9 +283,7 @@
             'currentDataSource',
             fn
           );
-          changeFunc.call(this, pagination, filters, sorter, {
-            currentDataSource
-          });
+          changeFunc.call(this, pagination, filters, sorter, currentDataSource);
         }
       },
       handleRowSelection(info) {

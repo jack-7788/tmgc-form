@@ -11,26 +11,27 @@
     :sub-form-col-index="subFormColIndex"
     :sub-form-row-id="subFormRowId"
   >
+    <!--
+        :filterable="field.options.filterable"
+        :show-all-levels="showFullPath"
+  :props="{
+          checkStrictly: field.options.checkStrictly
+        }"
+         @visible-change="hideDropDownOnClick"
+        @expand-change="hideDropDownOnClick"
+   -->
     <div class="full-width-input" :class="{ 'readonly-mode-cascader': isReadMode }">
       <a-cascader
         ref="fieldEditor"
+        :size="size"
         :options="field.options.optionItems"
         v-model:value="fieldModel"
         :disabled="field.options.disabled"
         :allowClear="field.options.allowClear"
-        :filterable="field.options.filterable"
         :placeholder="field.options.placeholder || i18nt('render.hint.selectPlaceholder')"
-        :show-all-levels="showFullPath"
-        :props="{
-          checkStrictly: field.options.checkStrictly,
-          multiple: field.options.multiple,
-          expandTrigger: 'hover',
-          value: valueKey,
-          label: labelKey,
-          children: childrenKey
-        }"
-        @visible-change="hideDropDownOnClick"
-        @expand-change="hideDropDownOnClick"
+        :fieldNames="{ value: valueKey, label: labelKey, children: childrenKey }"
+        :expandTrigger="'hover'"
+        :multiple="field.options.multiple"
         @focus="handleFocusCustomEvent"
         @blur="handleBlurCustomEvent"
         @change="handleChangeEvent"
@@ -88,6 +89,16 @@
       };
     },
     computed: {
+      size() {
+        if (!!this.field.options && !!this.field.options.size) {
+          return this.field.options.size;
+        }
+        if (!!this.designer) {
+          return this.designer.formConfig.size || 'middle';
+        } else {
+          return this.formConfig.size || 'middle';
+        }
+      },
       labelKey() {
         return this.field.options.labelKey || 'label';
       },
@@ -100,9 +111,9 @@
         return this.field.options.childrenKey || 'children';
       },
 
-      showFullPath() {
-        return this.field.options.showAllLevels === undefined || !!this.field.options.showAllLevels;
-      },
+      // showFullPath() {
+      //   return this.field.options.showAllLevels === undefined || !!this.field.options.showAllLevels;
+      // },
 
       contentForReadMode() {
         if (!!this.field.options.multiple) {
@@ -145,14 +156,14 @@
     methods: {
       /* 开启任意级节点可选后，点击radio隐藏下拉框 */
       hideDropDownOnClick() {
-        setTimeout(() => {
-          document.querySelectorAll('.el-cascader-panel .el-radio').forEach(el => {
-            el.onclick = () => {
-              console.log('test====', 1111);
-              this.$refs.fieldEditor.popperVisible = false; // 单选框部分点击隐藏下拉框
-            };
-          });
-        }, 100);
+        // setTimeout(() => {
+        //   document.querySelectorAll('.el-cascader-panel .el-radio').forEach(el => {
+        //     el.onclick = () => {
+        //       console.log('test====', 1111);
+        //       this.$refs.fieldEditor.popperVisible = false; // 单选框部分点击隐藏下拉框
+        //     };
+        //   });
+        // }, 100);
       }
     }
   };
@@ -164,12 +175,12 @@
   .full-width-input {
     width: 100% !important;
 
-    :deep(.el-cascader) {
-      width: 100% !important;
-    }
+    // :deep(.ant-cascader) {
+    //   width: 100% !important;
+    // }
   }
 
-  .readonly-mode-cascader :deep(.el-cascader) {
+  .readonly-mode-cascader :deep(.ant-cascader) {
     display: none;
   }
 </style>

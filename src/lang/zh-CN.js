@@ -61,6 +61,7 @@ export default {
       'file-upload': '附件',
       'rich-editor': '富文本',
       cascader: '级联选择',
+      treeSelect: '树形选择',
       slot: '插槽',
 
       custom: 'Custom Component'
@@ -355,7 +356,7 @@ export default {
       //data-table
       tableWidth: '宽度(px/%)',
       tableHeight: '高度(px/%)',
-      showCheckBox: '是否显示复选框列',
+      // showCheckBox: '是否显示复选框列',
       showIndex: '是否显示行号',
       showPagination: '是否显示分页',
       smallPagination: '小型分页',
@@ -370,7 +371,7 @@ export default {
       columnWidth: '列宽(px/%)',
       visibleColumn: '是否显示',
       sortableColumn: '是否排序',
-      fixedColumn: '是否固定',
+      fixedColumn: '固定方式',
       alignTypeOfColumn: '对齐方式',
       formatOfColumn: '格式化',
       customRenderGroup: '动态渲染',

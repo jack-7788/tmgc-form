@@ -17,10 +17,16 @@
     },
     methods: {
       changeRange(val) {
-        if (val === true) {
-          this.optionModel.defaultValue = [];
-        } else {
-          this.optionModel.defaultValue = null;
+        if (!!this.designer && !!this.designer.formWidget) {
+          const fieldWidget = this.designer.formWidget.getWidgetRef(this.optionModel.name);
+          if (!!fieldWidget && !!fieldWidget.refreshDefaultValue) {
+            if (val) {
+              this.optionModel.defaultValue = [];
+            } else {
+              this.optionModel.defaultValue = null;
+            }
+            fieldWidget.refreshDefaultValue();
+          }
         }
       }
     }

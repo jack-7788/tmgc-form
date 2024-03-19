@@ -61,6 +61,7 @@ export default {
       'file-upload': 'File',
       'rich-editor': 'Rich Editor',
       cascader: 'Cascader',
+      treeSelect: 'treeSelect',
       slot: 'Slot',
 
       custom: 'Custom Component'

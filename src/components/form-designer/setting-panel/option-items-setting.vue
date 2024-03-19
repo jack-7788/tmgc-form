@@ -58,6 +58,7 @@
         </template>
       </draggable>
     </a-checkbox-group>
+    <!-- 设置联级选择默认值 -->
     <div v-else-if="selectedWidget.type === 'cascader'" class="full-width-input">
       <a-cascader
         v-model:value="optionModel.defaultValue"
@@ -66,7 +67,16 @@
         :placeholder="i18nt('render.hint.selectPlaceholder')"
       />
     </div>
-    <div v-if="selectedWidget.type === 'cascader'">
+    <!-- 设置树的默认值 -->
+    <div v-else-if="selectedWidget.type === 'treeSelect'" class="full-width-input">
+      <a-tree-select
+        v-model:value="optionModel.defaultValue"
+        :treeData="optionModel.optionItems"
+        @change="emitDefaultValueChange"
+        :placeholder="i18nt('render.hint.selectPlaceholder')"
+      />
+    </div>
+    <div v-if="['cascader', 'treeSelect'].includes(selectedWidget.type)">
       <a-button type="text" @click="importCascaderOptions">
         {{ i18nt('designer.setting.importOptions') }}
       </a-button>
@@ -280,6 +290,9 @@
     ul {
       padding-inline-start: 6px;
       padding-left: 6px; /* 重置IE11默认样式 */
+      > li {
+        margin-bottom: 5px;
+      }
     }
   }
 

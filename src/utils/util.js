@@ -498,7 +498,7 @@ export function cloneFormConfigWithoutEventHandler(formConfig) {
  * @returns {[]}
  */
 export function translateOptionItems(rawData, widgetType, labelKey, valueKey) {
-  if (widgetType === 'cascader') {
+  if (['cascader', 'treeSelect', 'select'].includes(widgetType)) {
     // 级联选择不转译
     return deepClone(rawData);
   }
@@ -513,7 +513,7 @@ export function translateOptionItems(rawData, widgetType, labelKey, valueKey) {
     });
   }
 
-  return result;
+  return rawData; //result;
 }
 
 /**

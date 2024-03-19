@@ -1,30 +1,31 @@
 export const containers = [
   {
-    type: 'grid',
+    type: 'grid', // 组件类型
     alias: '', //组件别名，可以自定义
-    category: 'container',
-    icon: 'grid',
-    cols: [],
+    category: 'container', //容器类型
+    icon: 'grid', //icon
+    cols: [], // 列配置
     options: {
-      name: '',
-      hidden: false,
-      gutter: 12,
+      // 配置
+      name: '', //名称
+      hidden: false, //是否隐藏
+      gutter: 12, //'栅格间隔',
       colHeight: null, //栅格列统一高度属性，用于解决栅格列设置响应式布局浮动后被挂住的问题！！
       customClass: [] //自定义css类名
     }
   },
 
-  {
-    type: 'table',
-    category: 'container',
-    icon: 'table',
-    rows: [],
-    options: {
-      name: '',
-      hidden: false,
-      customClass: [] //自定义css类名
-    }
-  },
+  // {
+  //   type: 'table',
+  //   category: 'container',
+  //   icon: 'table',
+  //   rows: [],
+  //   options: {
+  //     name: '',
+  //     hidden: false,
+  //     customClass: [] //自定义css类名
+  //   }
+  // },
 
   // {
   //   type: 'tab',
@@ -40,25 +41,25 @@ export const containers = [
   //   }
   // },
 
-  {
-    type: 'sub-form',
-    category: 'container',
-    icon: 'sub-form',
-    widgetList: [],
-    options: {
-      name: '',
-      showBlankRow: true,
-      showRowNumber: true,
-      labelAlign: 'label-center-align',
-      hidden: false,
-      actionColumnPosition: 'left', //操作按钮列位置
-      customClass: [], //自定义css类名
-      onSubFormRowAdd: '',
-      onSubFormRowInsert: '',
-      onSubFormRowDelete: '',
-      onSubFormRowChange: ''
-    }
-  },
+  // {
+  //   type: 'sub-form',
+  //   category: 'container',
+  //   icon: 'sub-form',
+  //   widgetList: [],
+  //   options: {
+  //     name: '',
+  //     showBlankRow: true,
+  //     showRowNumber: true,
+  //     labelAlign: 'label-center-align',
+  //     hidden: false,
+  //     actionColumnPosition: 'left', //操作按钮列位置
+  //     customClass: [], //自定义css类名
+  //     onSubFormRowAdd: '',
+  //     onSubFormRowInsert: '',
+  //     onSubFormRowDelete: '',
+  //     onSubFormRowChange: ''
+  //   }
+  // },
 
   // {
   //   type: 'grid-sub-form',// 多行子表单---未实现
@@ -118,22 +119,6 @@ export const containers = [
   },
 
   {
-    type: 'tab-pane',
-    category: 'container',
-    icon: 'tab-pane',
-    internal: true,
-    widgetList: [],
-    options: {
-      name: '',
-      label: '',
-      hidden: false,
-      active: false,
-      disabled: false,
-      customClass: [] //自定义css类名
-    }
-  },
-
-  {
     type: 'data-table', //数据表格
     category: 'container',
     icon: 'data-table',
@@ -142,7 +127,7 @@ export const containers = [
       name: '',
       label: 'data-table',
       hidden: false,
-      rowSpacing: 8,
+      // rowSpacing: 8,
       tableHeight: '300px', //高度，百分比或像素
       tableWidth: '100%', //宽度，百分比或像素宽度
       customClass: [], //自定义css样式
@@ -160,12 +145,13 @@ export const containers = [
           columnId: 1,
           dataIndex: 'name',
           title: '姓名',
-          width: 100,
+          width: 150,
           show: true,
-          align: 'left',
-          fixed: 'false',
+          align: 'center',
+          fixed: '',
           sorter: true,
-          customRender: ''
+          customRender: '',
+          ellipsis: true
         }
       ],
       showButtonsColumn: false, // 是否显示操作列
@@ -177,34 +163,19 @@ export const containers = [
           // 操作按钮配置
           name: 'detail',
           label: '详情',
-          type: 'text',
+          type: 'link',
+          shape: 'default',
           size: 'small',
-          round: false,
-          hidden: true,
-          disabled: false
-        },
-        {
-          name: 'edit',
-          label: '编辑',
-          type: 'text',
-          size: 'small',
-          round: false,
           hidden: false,
-          disabled: false
-        },
-        {
-          name: 'delete',
-          label: '删除',
-          type: 'text',
-          size: 'small',
-          round: false,
-          hidden: false,
-          disabled: false
+          disabled: false,
+          onClick: ''
         }
       ],
       dsEnabled: false, //是否使用数据源数据
-      dsName: '', //数据源名称
-      dataSetName: '', //数据集名称
+      http: { url: '', method: 'get', data: {}, params: {} },
+
+      // dsName: '', //数据源名称
+      // dataSetName: '', //数据集名称
       treeDataEnabled: false, //是否允许加载树形数据
       rowKey: 'name', //树形数据数据row-key
       childrenKey: 'children', //树形数据children
@@ -215,54 +186,49 @@ export const containers = [
           date2: '2016-05-02 23:12:12',
           date3: '2016-05-02 9:11:12',
           name: '小二',
-          f1: 10001000.2,
-          f2: 10001000.239567,
-          f3: 10001000.239567,
-          f4: 10001000.239567,
-          f5: 10001000.239567,
-          f6: 10001000.239567,
-          f7: 0.25,
           add: '上海市普陀区金沙江路 1518 弄',
-          ss: 100
+          age: 100
         }
       ],
-
       onCreated: '',
       onMounted: '',
       //分页大小改变事件
-      onPageSizeChange: '',
+      // onPageSizeChange: '',
       //当前页改变事件
-      onCurrentPageChange: '',
+      // onCurrentPageChange: '',
       //选择项改变事件
-      onSelectionChange: '',
+      // onSelectionChange: '',
 
       //设置操作按钮是否隐藏回调事件（必须有返回值）
       onHideOperationButton: '',
       //设置操作按钮是否禁用回调事件（必须有返回值）
       onDisableOperationButton: '',
       //设置操作按钮文本回调事件（必须有返回值）
-      onGetOperationButtonLabel: '',
+      // onGetOperationButtonLabel: '',
       //操作按钮点击事件
       onOperationButtonClick: '',
+      customRow: { onClick: '', onDblclick: '', onMouseenter: '', onMouseleave: '' },
 
-      onHeaderClick: '',
-      onRowClick: '',
-      onRowDoubleClick: '',
-      onCellClick: '',
-      onCellDoubleClick: '',
+      // onHeaderClick: '',
+      // onRowClick: '',
+      // onRowDoubleClick: '',
+      // onCellClick: '',
+      // onCellDoubleClick: '',
 
       //获取行样式名称事件
-      onGetRowClassName: '',
+      // onGetRowClassName: '',
       //合并行、列事件
-      onGetSpanMethod: '',
-      onChange: '', //分页、排序、筛选变化时触发
+      // onGetSpanMethod: '',
+      onTableChange: '', //分页、排序、筛选变化时触发
       pagination: {
+        pageSizeOptions: ['10', '20', '50', '100'],
         current: 1, //当前页数
         hideOnSinglePage: false, //只有一页时是否隐藏分页器
         pageSize: 20, //每页条数
         total: 0, //数据总数
         showQuickJumper: true, //是否可以快速跳转至某页
-        showSizeChanger: true //是否展示 pageSize 切换器，当 total 大于 50 时默认为 true
+        showSizeChanger: true, //是否展示 pageSize 切换器，当 total 大于 50 时默认为 true
+        position: ['bottomRight']
       },
       rowSelection: {
         hasRowSelection: false,
@@ -273,62 +239,62 @@ export const containers = [
         columnWidth: 100
       } //antd 功能的配置
     }
-  },
-
-  {
-    type: 'vf-dialog', //弹窗
-    category: 'container',
-    icon: 'vf-dialog',
-    widgetList: [],
-    options: {
-      name: '',
-      title: '标题',
-      width: '50%',
-      // fullscreen: false,
-      // showModal: true,
-      showClose: true,
-      closeOnClickModal: false,
-      closeOnPressEscape: false,
-      // center: false,
-      readMode: false,
-      disabledMode: false,
-      okButtonLabel: '',
-      okButtonHidden: false,
-      cancelButtonLabel: '',
-      cancelButtonHidden: false,
-      onOkButtonClick: '',
-      onCancelButtonClick: '',
-      onDialogOpened: '',
-      onDialogBeforeClose: ''
-    }
-  },
-
-  {
-    type: 'vf-drawer', // 侧滑抽屉
-    category: 'container',
-    icon: 'vf-drawer',
-    widgetList: [],
-    options: {
-      name: '',
-      title: '标题',
-      size: '50%',
-      showModal: true,
-      showClose: true,
-      closeOnClickModal: false,
-      closeOnPressEscape: false,
-      direction: 'rtl',
-      readMode: false,
-      disabledMode: false,
-      okButtonLabel: '',
-      okButtonHidden: false,
-      cancelButtonLabel: '',
-      cancelButtonHidden: false,
-      onOkButtonClick: '',
-      onCancelButtonClick: '',
-      onDrawerOpened: '',
-      onDrawerBeforeClose: ''
-    }
   }
+
+  // {
+  //   type: 'vf-dialog', //弹窗
+  //   category: 'container',
+  //   icon: 'vf-dialog',
+  //   widgetList: [],
+  //   options: {
+  //     name: '',
+  //     title: '标题',
+  //     width: '50%',
+  //     // fullscreen: false,
+  //     // showModal: true,
+  //     showClose: true,
+  //     closeOnClickModal: false,
+  //     closeOnPressEscape: false,
+  //     // center: false,
+  //     readMode: false,
+  //     disabledMode: false,
+  //     okButtonLabel: '',
+  //     okButtonHidden: false,
+  //     cancelButtonLabel: '',
+  //     cancelButtonHidden: false,
+  //     onOkButtonClick: '',
+  //     onCancelButtonClick: '',
+  //     onDialogOpened: '',
+  //     onDialogBeforeClose: ''
+  //   }
+  // },
+
+  // {
+  //   type: 'vf-drawer', // 侧滑抽屉
+  //   category: 'container',
+  //   icon: 'vf-drawer',
+  //   widgetList: [],
+  //   options: {
+  //     name: '',
+  //     title: '标题',
+  //     size: '50%',
+  //     showModal: true,
+  //     showClose: true,
+  //     closeOnClickModal: false,
+  //     closeOnPressEscape: false,
+  //     direction: 'rtl',
+  //     readMode: false,
+  //     disabledMode: false,
+  //     okButtonLabel: '',
+  //     okButtonHidden: false,
+  //     cancelButtonLabel: '',
+  //     cancelButtonHidden: false,
+  //     onOkButtonClick: '',
+  //     onCancelButtonClick: '',
+  //     onDrawerOpened: '',
+  //     onDrawerBeforeClose: ''
+  //   }
+  // }
 ];
 
 export const basicFields = [
@@ -479,9 +445,9 @@ export const basicFields = [
       labelHidden: false,
       disabled: false,
       hidden: false,
-      dsEnabled: false, // 是否使用数据源数据
-      dsName: '', // 数据源名称
-      dataSetName: '', //数据集名称
+      // dsEnabled: false, // 是否使用数据源数据
+      // dsName: '', // 数据源名称
+      // dataSetName: '', //数据集名称
       labelKey: 'label',
       valueKey: 'value',
       optionItems: [
@@ -489,6 +455,8 @@ export const basicFields = [
         { label: 'radio 2', value: 2 },
         { label: 'radio 3', value: 3 }
       ],
+      http: { url: '', method: 'get', data: {}, params: {} },
+      dataHandlerCode: 'console.log(data.data);\nreturn data.data;\n ',
       required: false,
       requiredHint: '',
       validation: '',
@@ -524,9 +492,9 @@ export const basicFields = [
       labelHidden: false,
       disabled: false,
       hidden: false,
-      dsEnabled: false, // 是否使用数据源数据
-      dsName: '', // 数据源名称
-      dataSetName: '', //数据集名称
+      // dsEnabled: false, // 是否使用数据源数据
+      // dsName: '', // 数据源名称
+      // dataSetName: '', //数据集名称
       labelKey: 'label',
       valueKey: 'value',
       optionItems: [
@@ -534,6 +502,8 @@ export const basicFields = [
         { label: 'check 2', value: 2 },
         { label: 'check 3', value: 3 }
       ],
+      http: { url: '', method: 'get', data: {}, params: {} },
+      dataHandlerCode: 'console.log(data.data);\nreturn data.data;\n ',
       required: false,
       requiredHint: '',
       validation: '',
@@ -576,7 +546,7 @@ export const basicFields = [
       // automaticDropdown: false, //自动下拉
       // multiple: false,
       // multipleLimit: 0,
-      dsEnabled: false, // 是否使用数据源数据
+      // dsEnabled: false, // 是否使用数据源数据
       dsName: '', // 数据源名称
       dataSetName: '', //数据集名称
       labelKey: 'label',
@@ -586,6 +556,8 @@ export const basicFields = [
         { label: 'select 2', value: 2 },
         { label: 'select 3', value: 3 }
       ],
+      http: { url: '', method: 'get', data: {}, params: {} },
+      dataHandlerCode: 'console.log(data.data);\nreturn data.data;\n ',
       required: false,
       requiredHint: '',
       validation: '',
@@ -955,15 +927,18 @@ export const basicFields = [
     options: {
       name: '',
       label: '',
-      columnWidth: '200px',
+      // columnWidth: '200px',
       size: '',
       displayStyle: 'block',
       disabled: false,
       hidden: false,
-      type: '',
-      plain: false,
-      round: false,
-      circle: false,
+      type: 'primary',
+      shape: '',
+      danger: false,
+      ghost: false,
+      // plain: false,
+      // round: false,
+      // circle: false,
       icon: null,
       //-------------------
       customClass: [], //自定义css类名
@@ -1138,19 +1113,74 @@ export const advancedFields = [
       allowClear: true,
       // filterable: false,
       multiple: false,
-      checkStrictly: false, //可选择任意一级选项，默认不开启
-      showAllLevels: true, //显示完整路径
-      dsEnabled: false, // 是否使用数据源数据
-      dsName: '', // 数据源名称
-      dataSetName: '', //数据集名称
+      // checkStrictly: false, //可选择任意一级选项，默认不开启
+      // showAllLevels: true, //显示完整路径
+      // dsEnabled: true, // 是否使用数据源数据
+      // dsName: '', // 数据源名称
+      // dataSetName: '', //数据集名称
       labelKey: 'label',
       valueKey: 'value',
       childrenKey: 'children',
+      http: { url: '', method: 'get', data: {}, params: {} },
       optionItems: [
         { label: 'select 1', value: 1, children: [{ label: 'child 1', value: 11 }] },
         { label: 'select 2', value: 2 },
         { label: 'select 3', value: 3 }
       ],
+      dataHandlerCode: 'console.log(data.data);\nreturn data.data;\n ',
+      required: false,
+      requiredHint: '',
+      customRule: '',
+      customRuleHint: '',
+      //-------------------
+      customClass: [], //自定义css类名
+      labelIconClass: null,
+      labelIconPosition: 'rear',
+      labelTooltip: null,
+      //-------------------
+      onCreated: '',
+      onMounted: '',
+      onChange: '',
+      onFocus: '',
+      onBlur: '',
+      onValidate: ''
+    }
+  },
+  {
+    type: 'treeSelect',
+    icon: 'cascader-field',
+    formItemFlag: true,
+    options: {
+      name: '',
+      label: '',
+      labelAlign: '',
+      defaultValue: '',
+      placeholder: '',
+      size: '',
+      labelWidth: null,
+      labelHidden: false,
+      columnWidth: '200px',
+      disabled: false,
+      hidden: false,
+      allowClear: true,
+      // filterable: false,
+      multiple: false,
+      treeDefaultExpandAll: false,
+      // checkStrictly: false, //可选择任意一级选项，默认不开启
+      // showAllLevels: true, //显示完整路径
+      // dsEnabled: true, // 是否使用数据源数据
+      // dsName: '', // 数据源名称
+      // dataSetName: '', //数据集名称
+      labelKey: 'label',
+      valueKey: 'value',
+      childrenKey: 'children',
+      http: { url: '', method: 'get', data: {}, params: {} },
+      optionItems: [
+        { label: 'select 1', value: 1, children: [{ label: 'child 1', value: 11 }] },
+        { label: 'select 2', value: 2 },
+        { label: 'select 3', value: 3 }
+      ],
+      dataHandlerCode: 'console.log(data.data);\nreturn data.data;\n ',
       required: false,
       requiredHint: '',
       customRule: '',

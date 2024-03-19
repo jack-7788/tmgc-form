@@ -6,6 +6,7 @@
 
 <script>
   export default {
+    name: 'rowKey-editor',
     props: {
       designer: Object,
       selectedWidget: Object,

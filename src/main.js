@@ -3,8 +3,8 @@ import axios from 'axios';
 import App from './App.vue';
 import Antd from 'ant-design-vue';
 
-import '@/styles/index.scss';
 import '@/styles/breakpoint.less';
+import '@/styles/index.scss';
 import '@/iconfont/iconfont.css';
 import Draggable from '@/../lib/vuedraggable/dist/vuedraggable.umd.js';
 //import Draggable from 'vuedraggable'

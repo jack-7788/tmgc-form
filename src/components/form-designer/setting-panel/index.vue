@@ -405,7 +405,12 @@
           }
         }
 
-        this.selectedWidget.options[this.curEventName] = this.eventHandlerCode;
+        if (this.curEventName.includes('.')) {
+          const [a, b] = this.curEventName.split('.');
+          this.selectedWidget.options[a][b] = this.eventHandlerCode;
+        } else {
+          this.selectedWidget.options[this.curEventName] = this.eventHandlerCode;
+        }
         this.showWidgetEventDialogFlag = false;
       }
     }

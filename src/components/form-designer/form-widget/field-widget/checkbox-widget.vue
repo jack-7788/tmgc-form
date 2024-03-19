@@ -18,22 +18,16 @@
       :disabled="field.options.disabled"
       @change="handleChangeEvent"
     >
-      <!-- <template v-if="!!field.options.buttonStyle">
-        <a-checkbox-button v-for="(item, index) in field.options.optionItems" :key="index" :label="item.value"
-                            :disabled="item.disabled" :border="field.options.border"
-                            :style="{display: field.options.displayStyle}">{{item.label}}</a-checkbox-button>
-      </template>
-      <template v-else> -->
       <a-checkbox
         v-for="(item, index) in field.options.optionItems"
         :key="index"
-        :value="item.value"
+        :value="item[field.options.valueKey]"
         :disabled="item.disabled"
         :border="field.options.border"
         :style="{}"
-        >{{ item.label }}</a-checkbox
       >
-      <!-- </template> -->
+        {{ item[field.options.labelKey] }}
+      </a-checkbox>
     </a-checkbox-group>
     <template v-if="isReadMode">
       <span class="readonly-mode-field">{{ optionLabel }}</span>

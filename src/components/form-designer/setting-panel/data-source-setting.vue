@@ -89,8 +89,9 @@
               <a-select-option
                 :label="i18nt('designer.setting.dsURLVariableType')"
                 value="Variable"
-                >{{ i18nt('designer.setting.dsURLVariableType') }}</a-select-option
               >
+                {{ i18nt('designer.setting.dsURLVariableType') }}
+              </a-select-option>
             </a-select>
           </a-form-item>
         </a-col>
@@ -529,7 +530,7 @@
 
 <script>
   import i18n from '@/utils/i18n';
-  import CodeEditor from '@/components/code-editor/index';
+  import CodeEditor from '@/components/code-editor/index.vue';
   import { copyToClipboard, deepClone, generateId, runDataSourceRequest } from '@/utils/util';
   import { TpfConfirm } from '@/hooks/TpfConfirm';
 

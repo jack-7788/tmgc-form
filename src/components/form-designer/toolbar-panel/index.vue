@@ -586,31 +586,31 @@
       },
 
       saveAsFile(fileContent, defaultFileName) {
-        this.$prompt(
-          this.i18nt('designer.hint.fileNameForSave'),
-          this.i18nt('designer.hint.saveFileTitle'),
-          {
-            inputValue: defaultFileName,
-            closeOnClickModal: false,
-            inputPlaceholder: this.i18nt('designer.hint.fileNameInputPlaceholder')
-          }
-        )
-          .then(({ value }) => {
-            if (!value) {
-              value = defaultFileName;
-            }
+        // this.$prompt(
+        //   this.i18nt('designer.hint.fileNameForSave'),
+        //   this.i18nt('designer.hint.saveFileTitle'),
+        //   {
+        //     inputValue: defaultFileName,
+        //     closeOnClickModal: false,
+        //     inputPlaceholder: this.i18nt('designer.hint.fileNameInputPlaceholder')
+        //   }
+        // )
+        //   .then(({ value }) => {
+        // if (!value) {
+        const value = 'json.json' || defaultFileName;
+        // }
 
-            if (getQueryParam('vscode') == 1) {
-              this.vsSaveFile(value, fileContent);
-              return;
-            }
+        if (getQueryParam('vscode') == 1) {
+          this.vsSaveFile(value, fileContent);
+          return;
+        }
 
-            const fileBlob = new Blob([fileContent], { type: 'text/plain;charset=utf-8' });
-            saveAs(fileBlob, value);
-          })
-          .catch(() => {
-            //
-          });
+        const fileBlob = new Blob([fileContent], { type: 'text/plain;charset=utf-8' });
+        saveAs(fileBlob, value);
+        // })
+        // .catch(() => {
+        //   //
+        // });
       },
 
       vsSaveFile(fileName, fileContent) {

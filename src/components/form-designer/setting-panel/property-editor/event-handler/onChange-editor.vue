@@ -30,7 +30,7 @@
     },
     data() {
       return {
-        eventParams: ['value', 'oldValue', 'subFormData', 'rowId']
+        eventParams: ['value', 'oldValue', 'ops', 'subFormData', 'rowId']
       };
     }
   };

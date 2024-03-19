@@ -17,7 +17,7 @@
   import 'dayjs/locale/zh-cn';
   import { getHttp } from '@/utils/request/http';
   dayjs.locale('zh-cn');
-
+  import { getLocat } from '@/utils/util';
   export default {
     name: 'App',
     components: {
@@ -71,10 +71,11 @@
     },
     methods: {
       async fieldListApi() {
+        const { pageCode } = getLocat();
         return await getHttp()({
           methods: 'get',
           url: '/api/tmgc2-mgt/pageFieldConfig/queryPageFieldOptions',
-          params: { pageCode: 'TransportOrderDetail' }
+          params: { pageCode }
         }).then(res => res.data.list || []);
       },
       submitForm() {

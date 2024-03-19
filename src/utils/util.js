@@ -608,3 +608,23 @@ export function getDSByName(formConfig, dsName) {
 
   return resultDS;
 }
+
+export function replaceVars(str, vars) {
+  return str.replace(/\$\{([^}]+)\}/g, (match, varName) => vars[varName] || match);
+}
+/**
+ *  获取地址栏查询参数
+ * @returns
+ */
+export function getLocat(url) {
+  url = url || window.location.search; //获取url中"?"符后的字串
+  const theRequest = {};
+  if (url.indexOf('?') !== -1) {
+    const str = url.substr(1);
+    const strs = str.split('&');
+    for (let i = 0; i < strs.length; i++) {
+      theRequest[strs[i].split('=')[0]] = decodeURI(strs[i].split('=')[1]);
+    }
+  }
+  return theRequest;
+}

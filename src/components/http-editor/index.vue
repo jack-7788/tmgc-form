@@ -159,6 +159,7 @@
   import { isArray } from 'lodash-es';
   import { getHttp } from '@/utils/request/http';
   import CodeModalEditor from '@/components/code-editor/code-modal-editor.vue';
+  import { replaceVars, getLocat } from '@/utils/util';
 
   export default {
     name: 'http-editor',
@@ -254,8 +255,9 @@
       testDataSource() {
         this.saveHttpData();
         this.saveHttpParams();
-        // const globalDsv = this.getGlobalDsv() || {};
-        this.dsvJson = JSON.stringify(this.optionModel.http, null, '  ');
+        const sendParams = JSON.stringify(this.optionModel.http, null, '  ');
+        const paramsMap = { fieldCode: this.optionModel.name, ...getLocat() };
+        this.dsvJson = replaceVars(sendParams, paramsMap);
         this.dsResultJson = '';
         this.showTestDataSourceDialogFlag = true;
       },
@@ -270,7 +272,8 @@
           }
           this.$refs.dsResultEditor.setValue(JSON.stringify(dsResult, null, '  '));
         } catch (error) {
-          this.$message.error(error);
+          console.log('doDataSourceRequest: ', error);
+          // this.$message.error(error);
         }
       },
       clearRequestResult() {

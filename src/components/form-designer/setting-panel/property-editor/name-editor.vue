@@ -55,7 +55,6 @@
     watch: {
       fieldList: {
         deep: true,
-        immediate: true,
         handler(val) {
           if (val.length) {
             this.optionModel.name = '';

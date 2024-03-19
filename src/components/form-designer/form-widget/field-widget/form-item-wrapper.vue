@@ -12,41 +12,67 @@
       @click.stop="selectField(field)"
     >
       <template #label>
-        <span v-if="!!field.options.labelIconClass" class="custom-label">
-          <template v-if="field.options.labelIconPosition === 'front'">
-            <template v-if="!!field.options.labelTooltip">
-              <a-tooltip
-                :title="field.options.labelTooltip"
-                effect="light"
-                :overlayStyle="{ zIndex: 1000 }"
-              >
+        <div class="label-box">
+          <span v-if="!!field.options.labelIconClass" class="custom-label">
+            <template v-if="field.options.labelIconPosition === 'front'">
+              <template v-if="!!field.options.labelTooltip">
+                <a-tooltip
+                  :title="field.options.labelTooltip"
+                  effect="light"
+                  :overlayStyle="{ zIndex: 1000 }"
+                >
+                  <svg-icon :icon-class="field.options.labelIconClass" />
+                </a-tooltip>
+                <a-tooltip :title="label" effect="light" :overlayStyle="{ zIndex: 1000 }">
+                  <div class="label-text">
+                    {{ label }}
+                  </div>
+                </a-tooltip>
+              </template>
+              <template v-else>
                 <svg-icon :icon-class="field.options.labelIconClass" />
-              </a-tooltip>
-              {{ label }}
+                <a-tooltip :title="label" effect="light" :overlayStyle="{ zIndex: 1000 }">
+                  <div class="label-text">
+                    {{ label }}
+                  </div>
+                </a-tooltip>
+              </template>
             </template>
-            <template v-else>
-              <svg-icon :icon-class="field.options.labelIconClass" />{{ label }}</template
-            >
-          </template>
-          <template v-else-if="field.options.labelIconPosition === 'rear'">
-            <template v-if="!!field.options.labelTooltip">
-              {{ label }}
-              <a-tooltip
-                :title="field.options.labelTooltip"
-                effect="light"
-                :overlayStyle="{ zIndex: 1000 }"
-              >
+            <template v-else-if="field.options.labelIconPosition === 'rear'">
+              <template v-if="!!field.options.labelTooltip">
+                <a-tooltip :title="label" effect="light" :overlayStyle="{ zIndex: 1000 }">
+                  <div class="label-text">
+                    {{ label }}
+                  </div>
+                </a-tooltip>
+                <a-tooltip
+                  :title="field.options.labelTooltip"
+                  effect="light"
+                  :overlayStyle="{ zIndex: 1000 }"
+                >
+                  <svg-icon :icon-class="field.options.labelIconClass" />
+                </a-tooltip>
+              </template>
+              <template v-else>
+                <a-tooltip :title="label" effect="light" :overlayStyle="{ zIndex: 1000 }">
+                  <div class="label-text">
+                    {{ label }}
+                  </div>
+                </a-tooltip>
                 <svg-icon :icon-class="field.options.labelIconClass" />
-              </a-tooltip>
+              </template>
             </template>
-            <template v-else>
-              {{ label }}
-              <svg-icon :icon-class="field.options.labelIconClass" />
-            </template>
+          </span>
+          <template v-else>
+            <a-tooltip :title="label" effect="light" :overlayStyle="{ zIndex: 1000 }">
+              <div class="label-text">
+                {{ label }}
+              </div>
+            </a-tooltip>
           </template>
-        </span>
-        <template v-else> {{ label }} </template>
+        </div>
       </template>
+
       <slot></slot>
     </a-form-item>
 
@@ -268,12 +294,11 @@
 
     .field-action {
       position: absolute;
-      //bottom: -24px;
       bottom: 0;
       right: -2px;
       height: 22px;
       line-height: 22px;
-      background: $--color-primary;
+      background: var(--ant-primary-color);
       z-index: 9;
 
       i {
@@ -287,11 +312,9 @@
     .drag-handler {
       position: absolute;
       top: 0;
-      //bottom: -22px;  /* 拖拽手柄位于组件下方，有时无法正常拖动，原因未明？？ */
       left: -1px;
       height: 20px;
       line-height: 20px;
-      //background: $--color-primary;
       z-index: 9;
 
       i {
@@ -303,8 +326,7 @@
       }
 
       &:hover {
-        //opacity: 1;
-        background: $--color-primary;
+        background: var(--ant-primary-color);
       }
     }
   }
@@ -317,10 +339,6 @@
     }
   }
   .ant-form-item {
-    //margin-bottom: 0 !important;
-    //margin-bottom: 6px;
-
-    //margin-top: 2px;
     position: relative;
 
     :deep(.ant-form-item-label) {
@@ -328,12 +346,11 @@
       text-overflow: ellipsis;
     }
 
-    :deep(.ant-form-item-content) {
-      //position: unset;  /* TODO: 忘了这个样式设置是为了解决什么问题？？ */
-    }
-
-    span.custom-label i {
-      margin: 0 3px;
+    span.custom-label {
+      display: flex;
+      i {
+        margin: 0 3px;
+      }
     }
 
     /* 隐藏Chrome浏览器中el-input数字输入框右侧的上下调整小箭头 */
@@ -341,30 +358,15 @@
     :deep(.hide-spin-button) input::-webkit-inner-spin-button {
       -webkit-appearance: none !important;
     }
-
-    /* 隐藏Firefox浏览器中el-input数字输入框右侧的上下调整小箭头 */
-    :deep(.hide-spin-button) input[type='number'] {
-      -moz-appearance: textfield;
-    }
   }
-
-  // .required :deep(.ant-form-item-label)::before {
-  //   content: '*';
-  //   color: #f56c6c;
-  //   margin-right: 4px;
-  // }
 
   .static-content-item {
     min-height: 20px;
     display: flex; /* 垂直居中 */
     align-items: center; /* 垂直居中 */
-
-    :deep(.el-divider--horizontal) {
-      margin: 0;
-    }
   }
   .ant-form-item.selected,
   .static-content-item.selected {
-    outline: 2px solid $--color-primary;
+    outline: 2px solid var(--ant-primary-color);
   }
 </style>

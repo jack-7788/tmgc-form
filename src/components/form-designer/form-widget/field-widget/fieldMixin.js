@@ -3,7 +3,9 @@ import {
   getDSByName,
   overwriteObj,
   runDataSourceRequest,
-  translateOptionItems
+  translateOptionItems,
+  replaceVars,
+  getLocat
 } from '@/utils/util';
 import FormValidators from '@/utils/validators';
 import { getHttp } from '@/utils/request/http';
@@ -126,6 +128,7 @@ export default {
           this.handleOnChangeForSubForm(
             this.fieldModel,
             this.oldFieldValue,
+            [],
             subFormData,
             this.subFormRowId
           );
@@ -182,9 +185,15 @@ export default {
         console.log('field-value-changed: ', values);
         if (!!this.subFormItemFlag) {
           const subFormData = this.formModel[this.subFormName];
-          this.handleOnChangeForSubForm(values[0], values[1], subFormData, this.subFormRowId);
+          this.handleOnChangeForSubForm(
+            values[0],
+            values[1],
+            values[2],
+            subFormData,
+            this.subFormRowId
+          );
         } else {
-          this.handleOnChange(values[0], values[1]);
+          this.handleOnChange(values[0], values[1], values[2]);
         }
       });
 
@@ -258,47 +267,27 @@ export default {
       if (this.designState) {
         return;
       }
-      console.log('222', this.field.type);
       if (['radio', 'checkbox', 'select', 'cascader', 'treeSelect'].includes(this.field.type)) {
         /* 首先处理数据源选项加载 */
         if (!!this.field.options.dsEnabled && this.field.options.http?.url) {
           this.field.options.optionItems.splice(0, this.field.options.optionItems.length); // 清空原有选项
           try {
-            let dsResult = await getHttp()(this.field.options.http);
+            const sendParams = JSON.stringify(this.field.options.http);
+
+            const paramsMap = { fieldCode: this.field.options.name, ...getLocat() };
+
+            const res = replaceVars(sendParams, paramsMap);
+
+            let dsResult = await getHttp()(JSON.parse(res));
             if (this.field.options.dataHandlerCode) {
               const dhFn = new Function('data', this.field.options.dataHandlerCode);
               dsResult = dhFn.call(this, dsResult);
             }
             this.loadOptions(dsResult);
           } catch (err) {
-            this.$message.error(err);
+            console.error('err: ', err);
+            // this.$message.error(err);
           }
-
-          // const curDSName = this.field.options.dsName;
-          // const curDSetName = this.field.options.dataSetName;
-          // const curDS = getDSByName(this.formConfig, curDSName);
-          // if (!!curDS && !curDSetName) {
-          //   const gDsv = this.getGlobalDsv() || {};
-          //   //console.log('Global DSV is: ', gDsv)
-          //   const localDsv = new Object({});
-          //   overwriteObj(localDsv, gDsv);
-          //   localDsv['widgetName'] = this.field.options.name;
-          //   let dsResult = null;
-          //   try {
-          //     dsResult = await runDataSourceRequest(
-          //       curDS,
-          //       localDsv,
-          //       this.getFormRef(),
-          //       false,
-          //       this.$message
-          //     );
-          //     this.loadOptions(dsResult);
-          //   } catch (err) {
-          //     this.$message.error(err.message);
-          //   }
-          // }
-
-          return;
         }
 
         /* 异步更新option-data之后globalOptionData不能获取到最新值，改用provide的getOptionData()方法 */
@@ -464,12 +453,12 @@ export default {
 
     //--------------------- 事件处理 begin ------------------//
 
-    emitFieldDataChange(newValue, oldValue) {
+    emitFieldDataChange(newValue, oldValue, args) {
       if (newValue) {
         newValue = newValue.target ? newValue.target.value : newValue;
       }
 
-      this.emit$('field-value-changed', [newValue, oldValue]);
+      this.emit$('field-value-changed', [newValue, oldValue, args]);
 
       /* 必须用dispatch向指定父组件派发消息！！ */
       this.dispatch('VFormRender', 'fieldChange', [
@@ -498,8 +487,10 @@ export default {
       }
     },
 
-    handleChangeEvent(value) {
-      value = value.target ? value.target.value : value;
+    handleChangeEvent(value, ...args) {
+      if (value) {
+        value = value.target ? value.target.value : value;
+      }
 
       if (!!this.designState) {
         //设计状态不触发事件
@@ -507,7 +498,7 @@ export default {
       }
 
       this.syncUpdateFormModel(value);
-      this.emitFieldDataChange(value, this.oldFieldValue);
+      this.emitFieldDataChange(value, this.oldFieldValue, args);
 
       //number组件一般不会触发focus事件，故此处需要手工赋值oldFieldValue！！
       this.oldFieldValue = deepClone(value); /* oldFieldValue需要在initFieldModel()方法中赋初值!! */
@@ -543,7 +534,9 @@ export default {
     },
 
     handleInputCustomEvent(value) {
-      value = value.target ? value.target.value : value;
+      if (value) {
+        value = value.target ? value.target.value : value;
+      }
 
       if (!!this.designState) {
         //设计状态不触发事件
@@ -576,7 +569,8 @@ export default {
       }
     },
 
-    handleOnChange(val, oldVal) {
+    handleOnChange(val, oldVal, ops = []) {
+      console.log('ops:111 ', ops);
       //自定义onChange事件
       if (!!this.designState) {
         //设计状态不触发事件
@@ -584,12 +578,12 @@ export default {
       }
 
       if (!!this.field.options.onChange) {
-        const changeFn = new Function('value', 'oldValue', this.field.options.onChange);
-        changeFn.call(this, val, oldVal);
+        const changeFn = new Function('value', 'oldValue', 'ops', this.field.options.onChange);
+        changeFn.call(this, val, oldVal, ops[0]);
       }
     },
 
-    handleOnChangeForSubForm(val, oldVal, subFormData, rowId) {
+    handleOnChangeForSubForm(val, oldVal, ops = [], subFormData, rowId) {
       //子表单自定义onChange事件
       if (!!this.designState) {
         //设计状态不触发事件
@@ -600,11 +594,12 @@ export default {
         const changeFn = new Function(
           'value',
           'oldValue',
+          'ops',
           'subFormData',
           'rowId',
           this.field.options.onChange
         );
-        changeFn.call(this, val, oldVal, subFormData, rowId);
+        changeFn.call(this, val, oldVal, ops[0], subFormData, rowId);
       }
     },
 

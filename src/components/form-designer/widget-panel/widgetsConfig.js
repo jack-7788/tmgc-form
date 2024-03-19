@@ -172,7 +172,12 @@ export const containers = [
         }
       ],
       dsEnabled: false, //是否使用数据源数据
-      http: { url: '', method: 'get', data: {}, params: {} },
+      http: {
+        url: '/api/tmgc2-mgt/pageFieldConfig/queryPageFieldValueOptions',
+        method: 'get',
+        data: {},
+        params: { pageCode: '${pageCode}', fieldCode: '${fieldCode}' }
+      },
 
       // dsName: '', //数据源名称
       // dataSetName: '', //数据集名称
@@ -455,7 +460,12 @@ export const basicFields = [
         { label: 'radio 2', value: 2 },
         { label: 'radio 3', value: 3 }
       ],
-      http: { url: '', method: 'get', data: {}, params: {} },
+      http: {
+        url: '/api/tmgc2-mgt/pageFieldConfig/queryPageFieldValueOptions',
+        method: 'get',
+        data: {},
+        params: { pageCode: '${pageCode}', fieldCode: '${fieldCode}' }
+      },
       dataHandlerCode: 'console.log(data.data);\nreturn data.data;\n ',
       required: false,
       requiredHint: '',
@@ -502,7 +512,12 @@ export const basicFields = [
         { label: 'check 2', value: 2 },
         { label: 'check 3', value: 3 }
       ],
-      http: { url: '', method: 'get', data: {}, params: {} },
+      http: {
+        url: '/api/tmgc2-mgt/pageFieldConfig/queryPageFieldValueOptions',
+        method: 'get',
+        data: {},
+        params: { pageCode: '${pageCode}', fieldCode: '${fieldCode}' }
+      },
       dataHandlerCode: 'console.log(data.data);\nreturn data.data;\n ',
       required: false,
       requiredHint: '',
@@ -556,7 +571,12 @@ export const basicFields = [
         { label: 'select 2', value: 2 },
         { label: 'select 3', value: 3 }
       ],
-      http: { url: '', method: 'get', data: {}, params: {} },
+      http: {
+        url: '/api/tmgc2-mgt/pageFieldConfig/queryPageFieldValueOptions',
+        method: 'get',
+        data: {},
+        params: { pageCode: '${pageCode}', fieldCode: '${fieldCode}' }
+      },
       dataHandlerCode: 'console.log(data.data);\nreturn data.data;\n ',
       required: false,
       requiredHint: '',
@@ -681,8 +701,8 @@ export const basicFields = [
       allowClear: true,
       showTime: false,
       // editable: false,
-      format: 'YYYY:MM:DD', //日期显示格式
-      valueFormat: 'YYYY:MM:DD', //日期对象格式
+      format: 'YYYY-MM-DD', //日期显示格式
+      valueFormat: 'YYYY-MM-DD', //日期对象格式
       required: false,
       requiredHint: '',
       validation: '',
@@ -725,8 +745,8 @@ export const basicFields = [
       allowClear: true,
       showTime: false,
       // editable: false,
-      format: 'YYYY:MM:DD', //日期显示格式
-      valueFormat: 'YYYY:MM:DD', //日期对象格式
+      format: 'YYYY-MM-DD', //日期显示格式
+      valueFormat: 'YYYY-MM-DD', //日期对象格式
       required: false,
       requiredHint: '',
       validation: '',
@@ -1121,7 +1141,12 @@ export const advancedFields = [
       labelKey: 'label',
       valueKey: 'value',
       childrenKey: 'children',
-      http: { url: '', method: 'get', data: {}, params: {} },
+      http: {
+        url: '/api/tmgc2-mgt/pageFieldConfig/queryPageFieldValueOptions',
+        method: 'get',
+        data: {},
+        params: { pageCode: '${pageCode}', fieldCode: '${fieldCode}' }
+      },
       optionItems: [
         { label: 'select 1', value: 1, children: [{ label: 'child 1', value: 11 }] },
         { label: 'select 2', value: 2 },
@@ -1174,7 +1199,12 @@ export const advancedFields = [
       labelKey: 'label',
       valueKey: 'value',
       childrenKey: 'children',
-      http: { url: '', method: 'get', data: {}, params: {} },
+      http: {
+        url: '/api/tmgc2-mgt/pageFieldConfig/queryPageFieldValueOptions',
+        method: 'get',
+        data: {},
+        params: { pageCode: '${pageCode}', fieldCode: '${fieldCode}' }
+      },
       optionItems: [
         { label: 'select 1', value: 1, children: [{ label: 'child 1', value: 11 }] },
         { label: 'select 2', value: 2 },

@@ -10,7 +10,6 @@
     :destroy-on-close="true"
   >
     <a-alert type="info" :closable="false" :message="eventHeader" v-if="eventHeader" />
-    {{ eventHandlerCode }}-{{ modelValue }} 212
     <code-editor :mode="mode" :readonly="readonly" v-model="eventHandlerCode" ref="ecEditor" />
     <a-alert type="info" :closable="false" message="}" v-if="eventHeader" />
     <template #footer>

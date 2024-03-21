@@ -13,6 +13,7 @@
   >
     <div class="full-width-input" :class="{ 'readonly-mode-cascader': isReadMode }">
       <a-tree-select
+        v-show="!isReadMode"
         :tree-default-expand-all="field.options.treeDefaultExpandAll"
         ref="fieldEditor"
         :size="size"
@@ -28,7 +29,9 @@
         @change="handleChangeEvent"
       />
       <template v-if="isReadMode">
-        <span class="readonly-mode-field">{{ contentForReadMode }}</span>
+        <a-tooltip placement="topLeft" :title="contentForReadMode" :overlayStyle="{ zIndex: 1000 }">
+          <span class="readonly-mode-field">{{ contentForReadMode }}</span>
+        </a-tooltip>
       </template>
     </div>
   </form-item-wrapper>
@@ -39,6 +42,8 @@
   import emitter from '@/utils/emitter';
   import i18n, { translate } from '@/utils/i18n';
   import fieldMixin from '@/components/form-designer/form-widget/field-widget/fieldMixin';
+  import { formateTreeToName } from '@/utils/format';
+  import { isArray } from 'lodash-es';
 
   export default {
     name: 'treeSelect-widget',
@@ -107,17 +112,15 @@
       // },
 
       contentForReadMode() {
-        if (!!this.field.options.multiple) {
-          //console.log('test======', this.$refs.fieldEditor.presentTags)
-          const curTags = this.$refs.fieldEditor.presentTags;
-          if (!curTags || curTags.length <= 0) {
-            return '--';
-          } else {
-            return curTags.map(tagItem => tagItem.text).join(', ');
-          }
-        } else {
-          return this.$refs.fieldEditor.presentText || '--';
-        }
+        if (!this.fieldModel) return '';
+
+        const val = isArray(this.fieldModel) ? this.fieldModel : [this.fieldModel];
+
+        return formateTreeToName(val, this.field.options.optionItems, {
+          label: this.labelKey,
+          value: this.valueKey,
+          children: this.childrenKey
+        });
       }
     },
     beforeCreate() {

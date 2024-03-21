@@ -37,7 +37,9 @@
         @change="handleChangeEvent"
       />
       <template v-if="isReadMode">
-        <span class="readonly-mode-field">{{ contentForReadMode }}</span>
+        <a-tooltip placement="topLeft" :title="contentForReadMode" :overlayStyle="{ zIndex: 1000 }">
+          <span class="readonly-mode-field">{{ contentForReadMode }}</span>
+        </a-tooltip>
       </template>
     </div>
   </form-item-wrapper>
@@ -47,6 +49,7 @@
   import FormItemWrapper from './form-item-wrapper';
   import emitter from '@/utils/emitter';
   import i18n, { translate } from '@/utils/i18n';
+  import { formateCascaderCode } from '@/utils/format';
   import fieldMixin from '@/components/form-designer/form-widget/field-widget/fieldMixin';
 
   export default {
@@ -116,17 +119,12 @@
       // },
 
       contentForReadMode() {
-        if (!!this.field.options.multiple) {
-          //console.log('test======', this.$refs.fieldEditor.presentTags)
-          const curTags = this.$refs.fieldEditor.presentTags;
-          if (!curTags || curTags.length <= 0) {
-            return '--';
-          } else {
-            return curTags.map(tagItem => tagItem.text).join(', ');
-          }
-        } else {
-          return this.$refs.fieldEditor.presentText || '--';
-        }
+        if (!this.fieldModel) return '';
+        return formateCascaderCode(this.field.options.optionItems, this.fieldModel, {
+          label: this.labelKey,
+          value: this.valueKey,
+          children: this.childrenKey
+        });
       }
     },
     beforeCreate() {
@@ -174,10 +172,6 @@
 
   .full-width-input {
     width: 100% !important;
-
-    // :deep(.ant-cascader) {
-    //   width: 100% !important;
-    // }
   }
 
   .readonly-mode-cascader :deep(.ant-cascader) {

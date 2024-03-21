@@ -36,7 +36,9 @@
       }"
     />
     <template v-if="isReadMode">
-      <span class="readonly-mode-field">{{ optionLabel }}</span>
+      <a-tooltip placement="topLeft" :title="optionLabel" :overlayStyle="{ zIndex: 1000 }">
+        <span class="readonly-mode-field">{{ optionLabel }}</span>
+      </a-tooltip>
     </template>
   </form-item-wrapper>
 </template>

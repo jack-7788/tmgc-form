@@ -8,7 +8,6 @@
         :max-height="maxHeight"
         border
         stripe
-        tooltip-effect="light"
         @selection-change="handleSelectionChange"
         :size="tableSize"
         :style="{ width: tableWidth }"

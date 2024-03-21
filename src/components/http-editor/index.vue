@@ -1,11 +1,11 @@
 <template>
-  <a-form-item label="编辑接口配置" labelAlign="left" label-width="150px">
+  <a-form-item :label="label" labelAlign="left" label-width="150px">
     <a-button type="info" shape="round" @click="addDataSource" :class="['button-text-highlight']">
-      编辑接口配置
+      {{ buttonName || label }}
     </a-button>
   </a-form-item>
   <a-drawer
-    :title="i18nt('designer.setting.dataSourceSetting')"
+    :title="drawerTitle || i18nt('designer.setting.dataSourceSetting')"
     v-model:visible="showDataSourceDialogFlag"
     :width="520"
     :destroy-on-close="true"
@@ -163,6 +163,7 @@
 
   export default {
     name: 'http-editor',
+    inheritAttrs: false,
     mixins: [i18n],
     inject: ['getGlobalDsv'],
     components: {
@@ -170,9 +171,19 @@
       CodeModalEditor
     },
     props: {
-      designer: Object,
-      selectedWidget: Object,
-      optionModel: Object
+      optionModel: Object,
+      drawerTitle: {
+        type: String,
+        default: ''
+      },
+      buttonName: {
+        type: String,
+        default: ''
+      },
+      label: {
+        type: String,
+        default: '编辑接口配置'
+      }
     },
     data() {
       return {

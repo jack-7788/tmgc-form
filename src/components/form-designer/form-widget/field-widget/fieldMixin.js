@@ -55,16 +55,18 @@ export default {
 
     optionLabel() {
       if (this.fieldModel === null) {
-        return '--';
+        return '';
       } else {
-        let resultContent = '--';
+        let resultContent = '';
+
+        const { valueKey, labelKey } = this.field.options;
         this.field.options.optionItems.forEach(oItem => {
           if (
-            oItem.value === this.fieldModel ||
-            this.findInArray(this.fieldModel, oItem.value) !== -1
+            oItem[valueKey] === this.fieldModel ||
+            this.findInArray(this.fieldModel, oItem[valueKey]) !== -1
           ) {
             resultContent =
-              resultContent === '--' ? oItem.label : resultContent + ' ' + oItem.label;
+              resultContent === '' ? oItem[labelKey] : resultContent + ' ' + oItem[labelKey];
           }
         });
 
@@ -185,15 +187,9 @@ export default {
         console.log('field-value-changed: ', values);
         if (!!this.subFormItemFlag) {
           const subFormData = this.formModel[this.subFormName];
-          this.handleOnChangeForSubForm(
-            values[0],
-            values[1],
-            values[2],
-            subFormData,
-            this.subFormRowId
-          );
+          this.handleOnChangeForSubForm(values[0], values[1], subFormData, this.subFormRowId);
         } else {
-          this.handleOnChange(values[0], values[1], values[2]);
+          this.handleOnChange(values[0], values[1]);
         }
       });
 
@@ -453,12 +449,12 @@ export default {
 
     //--------------------- 事件处理 begin ------------------//
 
-    emitFieldDataChange(newValue, oldValue, args) {
+    emitFieldDataChange(newValue, oldValue) {
       if (newValue) {
         newValue = newValue.target ? newValue.target.value : newValue;
       }
 
-      this.emit$('field-value-changed', [newValue, oldValue, args]);
+      this.emit$('field-value-changed', [newValue, oldValue]);
 
       /* 必须用dispatch向指定父组件派发消息！！ */
       this.dispatch('VFormRender', 'fieldChange', [
@@ -487,7 +483,7 @@ export default {
       }
     },
 
-    handleChangeEvent(value, ...args) {
+    handleChangeEvent(value) {
       if (value) {
         value = value.target ? value.target.value : value;
       }
@@ -498,7 +494,7 @@ export default {
       }
 
       this.syncUpdateFormModel(value);
-      this.emitFieldDataChange(value, this.oldFieldValue, args);
+      this.emitFieldDataChange(value, this.oldFieldValue);
 
       //number组件一般不会触发focus事件，故此处需要手工赋值oldFieldValue！！
       this.oldFieldValue = deepClone(value); /* oldFieldValue需要在initFieldModel()方法中赋初值!! */

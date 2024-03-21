@@ -62,7 +62,8 @@
         this.eventHandlerCode = value.trim();
       },
       saveEventHandler() {
-        this.$emit('update:modelValue', this.eventHandlerCode.trim());
+        const val = this.eventHandlerCode.trim();
+        this.$emit('update:modelValue', val);
         this.showWidgetEventDialogFlag = false;
         this.$emit('save');
       }

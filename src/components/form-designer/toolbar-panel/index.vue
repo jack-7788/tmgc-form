@@ -73,13 +73,6 @@
         <a-button v-if="showToolButton('exportCodeButton')" type="link" @click="exportCode">
           {{ i18nt('designer.toolbar.exportCode') }}</a-button
         >
-        <!-- <a-button
-          v-if="true || showToolButton('generateSFCButton')"
-          type="link"
-          @click="generateSFC"
-        >
-          <svg-icon icon-class="vue-sfc" />{{ i18nt('designer.toolbar.generateSFC') }}
-        </a-button> -->
         <template v-for="(idx, slotName) in $slots">
           <slot :name="slotName"></slot>
         </template>
@@ -120,6 +113,8 @@
       </div>
       <template #footer>
         <div class="dialog-footer">
+          <a-button @click="insertData">新增一个数据</a-button>
+          <a-button @click="showData(1848)">数据回显 _id 1848</a-button>
           <a-button type="primary" @click="getFormData">
             {{ i18nt('designer.hint.getFormData') }}--获取数据
           </a-button>
@@ -139,6 +134,7 @@
           <a-button v-if="true" @click="testSetFormJson">Test SFJ</a-button>
           <a-button v-if="true" @click="testSetFormData">Test SFD</a-button>
           <a-button v-if="true" @click="testReloadOptionData">Test ROD</a-button>
+          <a-button v-if="true" @click="setReadMode">只读</a-button>
         </div>
       </template>
     </a-modal>
@@ -329,6 +325,8 @@
   import { saveAs } from 'file-saver';
   import axios from 'axios';
   import SvgIcon from '@/components/svg-icon/index';
+  import { getLocat, replaceVars } from '@/utils/util';
+  import { getHttp } from '@/utils/request/http';
 
   export default {
     name: 'ToolbarPanel',
@@ -457,6 +455,9 @@
       });
     },
     methods: {
+      setReadMode() {
+        this.$refs.preForm.setReadMode(!this.$refs.preForm.getReadMode());
+      },
       showToolButton(configName) {
         if (this.designerConfig[configName] === undefined) {
           return true;
@@ -751,11 +752,55 @@
       saveV3SFC() {
         this.saveAsFile(this.sfcCodeV3, `vformV3-${generateId()}.vue`);
       },
+      async insertData() {
+        const data = await this.$refs['preForm'].getFormData();
+        const paramsMap = { ...getLocat() };
+
+        const formConfig = this.designer.formConfig;
+        if (!formConfig.useInnerLogic) {
+          const dhFn = new Function('data', formConfig.onVformAdd);
+          dhFn.call(this, { ...data, ...paramsMap });
+          return;
+        }
+
+        const vformAdd = formConfig.serveList.vformAdd;
+        const sendParams = JSON.stringify({
+          ...vformAdd.http,
+          data: { ...vformAdd.http.data, ...data }
+        });
+        const res = replaceVars(sendParams, paramsMap);
+        console.log(JSON.parse(res));
+        const dsResult = await getHttp()(JSON.parse(res));
+
+        if (vformAdd.dataHandlerCode) {
+          const dhFn = new Function('data', vformAdd.dataHandlerCode);
+          dhFn.call(this, dsResult);
+        }
+      },
+      async showData(_id) {
+        const formConfig = this.designer.formConfig;
+        const vformDetail = formConfig.serveList.vformDetail;
+        const sendParams = JSON.stringify(vformDetail.http);
+
+        const paramsMap = { ...getLocat(), _id };
+
+        const res = replaceVars(sendParams, paramsMap);
+
+        let dsResult = await getHttp()(JSON.parse(res));
+
+        if (vformDetail.dataHandlerCode) {
+          const dhFn = new Function('data', vformDetail.dataHandlerCode);
+          dsResult = dhFn.call(this, dsResult);
+        }
+        this.$refs.preForm.setFormData({ ...dsResult });
+        this.$refs.preForm.setReadMode(true);
+      },
 
       getFormData() {
         this.$refs['preForm']
           .getFormData()
           .then(formData => {
+            console.log('formData: ', formData);
             this.formDataJson = JSON.stringify(formData, null, '  ');
             this.formDataRawJson = JSON.stringify(formData);
             this.showFormDataDialogFlag = true;
@@ -1640,13 +1685,13 @@
 
       handleFormChange(fieldName, newValue, oldValue, formModel) {
         /*
-        console.log('---formChange start---')
-        console.log('fieldName', fieldName)
-        console.log('newValue', newValue)
-        console.log('oldValue', oldValue)
-        console.log('formModel', formModel)
-        console.log('---formChange end---')
-        */
+            console.log('---formChange start---')
+            console.log('fieldName', fieldName)
+            console.log('newValue', newValue)
+            console.log('oldValue', oldValue)
+            console.log('formModel', formModel)
+            console.log('---formChange end---')
+            */
 
         console.log('formModel', formModel);
       },

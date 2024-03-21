@@ -16,14 +16,10 @@
           <span v-if="!!field.options.labelIconClass" class="custom-label">
             <template v-if="field.options.labelIconPosition === 'front'">
               <template v-if="!!field.options.labelTooltip">
-                <a-tooltip
-                  :title="field.options.labelTooltip"
-                  effect="light"
-                  :overlayStyle="{ zIndex: 1000 }"
-                >
+                <a-tooltip :title="field.options.labelTooltip" :overlayStyle="{ zIndex: 1000 }">
                   <svg-icon :icon-class="field.options.labelIconClass" />
                 </a-tooltip>
-                <a-tooltip :title="label" effect="light" :overlayStyle="{ zIndex: 1000 }">
+                <a-tooltip :title="label" :overlayStyle="{ zIndex: 1000 }">
                   <div class="label-text">
                     {{ label }}
                   </div>
@@ -31,7 +27,7 @@
               </template>
               <template v-else>
                 <svg-icon :icon-class="field.options.labelIconClass" />
-                <a-tooltip :title="label" effect="light" :overlayStyle="{ zIndex: 1000 }">
+                <a-tooltip :title="label" :overlayStyle="{ zIndex: 1000 }">
                   <div class="label-text">
                     {{ label }}
                   </div>
@@ -40,21 +36,17 @@
             </template>
             <template v-else-if="field.options.labelIconPosition === 'rear'">
               <template v-if="!!field.options.labelTooltip">
-                <a-tooltip :title="label" effect="light" :overlayStyle="{ zIndex: 1000 }">
+                <a-tooltip :title="label" :overlayStyle="{ zIndex: 1000 }">
                   <div class="label-text">
                     {{ label }}
                   </div>
                 </a-tooltip>
-                <a-tooltip
-                  :title="field.options.labelTooltip"
-                  effect="light"
-                  :overlayStyle="{ zIndex: 1000 }"
-                >
+                <a-tooltip :title="field.options.labelTooltip" :overlayStyle="{ zIndex: 1000 }">
                   <svg-icon :icon-class="field.options.labelIconClass" />
                 </a-tooltip>
               </template>
               <template v-else>
-                <a-tooltip :title="label" effect="light" :overlayStyle="{ zIndex: 1000 }">
+                <a-tooltip :title="label" :overlayStyle="{ zIndex: 1000 }">
                   <div class="label-text">
                     {{ label }}
                   </div>
@@ -64,7 +56,7 @@
             </template>
           </span>
           <template v-else>
-            <a-tooltip :title="label" effect="light" :overlayStyle="{ zIndex: 1000 }">
+            <a-tooltip :title="label" :overlayStyle="{ zIndex: 1000 }">
               <div class="label-text">
                 {{ label }}
               </div>

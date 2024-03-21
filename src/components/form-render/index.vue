@@ -677,6 +677,7 @@
       },
 
       setFormData(formData) {
+        console.log('setFormData: ', formData);
         //设置表单数据
         Object.keys(this.formDataModel).forEach(propName => {
           if (!!formData && formData.hasOwnProperty(propName)) {

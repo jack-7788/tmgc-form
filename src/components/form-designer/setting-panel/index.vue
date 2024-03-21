@@ -144,9 +144,9 @@
           </div>
         </a-tab-pane>
 
-        <a-tab-pane :tab="i18nt('designer.setting.dataSource')" key="3" v-if="false">
+        <a-tab-pane :tab="'增删改查配置'" key="3">
           <div class="ds-setting-scrollbar" :style="{ height: scrollerHeight }">
-            <data-source-setting :designer="designer" :form-config="formConfig" />
+            <FormCrudSetting :designer="designer" :form-config="formConfig" />
           </div>
         </a-tab-pane>
       </a-tabs>
@@ -188,7 +188,8 @@
   import CodeEditor from '@/components/code-editor/index';
   import PropertyEditors from './property-editor/index';
   import FormSetting from './form-setting';
-  import DataSourceSetting from './data-source-setting';
+  import DataSourceSetting from './data-source-setting.vue';
+  import FormCrudSetting from './form-crud-setting.vue';
   import WidgetProperties from './propertyRegister';
   import { addWindowResizeHandler } from '@/utils/util';
   import i18n from '@/utils/i18n';
@@ -206,6 +207,7 @@
       CodeEditor,
       FormSetting,
       DataSourceSetting,
+      FormCrudSetting,
       ...PropertyEditors
     },
     props: {
@@ -338,7 +340,9 @@
         }
 
         const originalPropName = propName.replace(this.selectedWidget.type + '-', ''); //去掉组件名称前缀-，如果有的话！！
-        return this.designer.hasConfig(this.selectedWidget, originalPropName);
+        const res = this.designer.hasConfig(this.selectedWidget, originalPropName);
+
+        return res;
       },
 
       getPropEditor(propName, editorName) {
@@ -420,6 +424,9 @@
 <style lang="scss" scoped>
   .panel-container {
     background-color: #fff;
+    :deep(.ant-tabs-nav) {
+      padding-left: 10px;
+    }
     :deep(.ant-tabs-content) {
       overflow: auto;
     }

@@ -29,7 +29,9 @@
       @change="handleChangeEvent"
     />
     <template v-if="isReadMode">
-      <span class="readonly-mode-field">{{ fieldModel }}</span>
+      <a-tooltip placement="topLeft" :title="fieldModel" :overlayStyle="{ zIndex: 1000 }">
+        <span class="readonly-mode-field">{{ fieldModel }}</span>
+      </a-tooltip>
     </template>
   </form-item-wrapper>
 </template>

@@ -453,6 +453,11 @@ export function getQueryParam(variable) {
 
 export function getDefaultFormConfig() {
   return {
+    useInnerLogic: true, //使用内置逻辑
+    onVformAdd: 'console.log(data)',
+    onVformUpdate: '',
+    onVformDetail: '',
+    onVformDel: '',
     modelName: 'formData',
     refName: 'vForm',
     rulesName: 'rules',
@@ -469,7 +474,45 @@ export function getDefaultFormConfig() {
 
     onFormCreated: '',
     onFormMounted: '',
-    onFormDataChange: ''
+    onFormDataChange: '',
+    serveList: {
+      vformAdd: {
+        http: {
+          url: '/api/tmgc2-query/pageDataCud/createOrUpdate/${pageCode}',
+          method: 'post',
+          data: { _id: '${_id}' },
+          params: {}
+        },
+        dataHandlerCode: ''
+      },
+      vformUpdate: {
+        http: {
+          url: '/api/tmgc2-query/pageDataCud/createOrUpdate/${pageCode}',
+          method: 'post',
+          data: { _id: '${_id}' },
+          params: {}
+        },
+        dataHandlerCode: ''
+      },
+      vformDetail: {
+        http: {
+          url: '/api/tmgc2-query/dataQuery/detail/${pageCode}',
+          method: 'get',
+          data: {},
+          params: { _id: '${_id}' }
+        },
+        dataHandlerCode: 'console.log(data.data);\nreturn data.data.object;\n '
+      },
+      vformDel: {
+        http: {
+          url: '/api/tmgc2-query/pageDataCud/batch/${pageCode}',
+          method: 'delete',
+          data: { ids: '${ids}' },
+          params: {}
+        },
+        dataHandlerCode: ''
+      }
+    }
   };
 }
 

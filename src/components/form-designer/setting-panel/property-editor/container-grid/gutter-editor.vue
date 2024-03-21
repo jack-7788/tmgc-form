@@ -84,11 +84,11 @@
   li.col-item {
     list-style: none;
     margin-bottom: 5px;
-
+    display: flex;
     span.col-span-title {
       display: inline-block;
       font-size: 13px;
-      width: 120px;
+      width: 80px;
     }
 
     .col-delete-button {

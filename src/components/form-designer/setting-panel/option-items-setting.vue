@@ -62,6 +62,7 @@
     <div v-else-if="selectedWidget.type === 'cascader'" class="full-width-input">
       <a-cascader
         v-model:value="optionModel.defaultValue"
+        :multiple="optionModel.multiple"
         :options="optionModel.optionItems"
         @change="emitDefaultValueChange"
         :placeholder="i18nt('render.hint.selectPlaceholder')"

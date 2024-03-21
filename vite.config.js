@@ -14,6 +14,7 @@ export default defineConfig(({ command, mode }) => {
   return {
     base: '',
     plugins: [
+      // commonjs(),
       vue(),
 
       //添加jsx/tsx支持
@@ -79,11 +80,13 @@ export default defineConfig(({ command, mode }) => {
           /* 自动引入全局scss文件 */
           additionalData: '@import "./src/styles/global.scss";'
         }
-      }
+      },
+      devSourcemap: true
     },
 
     build: {
       //minify: false,
+      chunkSizeWarningLimit: 1500,
       commonjsOptions: {
         exclude: [
           'lib/vuedraggable/dist/vuedraggable.umd.js,' //引号前的逗号不能删，不知何故？？
@@ -96,6 +99,41 @@ export default defineConfig(({ command, mode }) => {
         // 指定生产打包入口文件为index.htm
         input: {
           main: resolve(__dirname, 'index.html')
+        },
+        output: {
+          manualChunks(id) {
+            if (id.includes('node_modules')) {
+              if (id.includes('ant-design-vue')) {
+                return 'ant-design-vue';
+              }
+              if (id.includes('lodash-es')) {
+                return 'lodash-es';
+              }
+              if (id.includes('quill')) {
+                return 'quill';
+              }
+              if (id.includes('axios')) {
+                return 'axios';
+              }
+              if (id.includes('axios')) {
+                return 'axios';
+              }
+              return 'vendor';
+            }
+            return 'index';
+          },
+          entryFileNames: 'js/[name].[hash].js',
+          chunkFileNames: 'js/[name].[hash].js',
+          assetFileNames(assetInfo) {
+            if (assetInfo.name.endsWith('.css')) {
+              return 'css/[name].[hash].css';
+            }
+            const imgs = ['.png', '.jpg', '.jpeg', '.svg'];
+            if (imgs.some(ext => assetInfo.name.endsWith(ext))) {
+              return 'imgs/[name].[hash].[ext]';
+            }
+            return 'assets/[name].[hash].[ext]';
+          }
         }
 
         // // 确保外部化处理那些你不想打包进库的依赖

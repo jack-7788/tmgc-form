@@ -3,7 +3,7 @@
     <template #label>
       <span>
         {{ i18nt('designer.setting.validation') }}
-        <!-- <a-tooltip effect="light" :title="i18nt('designer.setting.validationHelp')">
+        <!-- <a-tooltip :title="i18nt('designer.setting.validationHelp')">
           <svg-icon icon-class="el-info" />
         </a-tooltip> -->
       </span>

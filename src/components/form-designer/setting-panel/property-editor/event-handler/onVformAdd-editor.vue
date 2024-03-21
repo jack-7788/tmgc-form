@@ -1,11 +1,11 @@
 <template>
-  <a-form-item label="onChange" labelAlign="left" label-width="150px">
+  <a-form-item label="onCreated" labelAlign="left" label-width="150px">
     <a-button
       type="info"
       plain
       shape="round"
       :class="[eventHandled ? 'button-text-highlight' : '']"
-      @click="editEventHandler('onChange', eventParams)"
+      @click="editEventHandler('onCreated', eventParams)"
     >
       {{ i18nt('designer.setting.addEventHandler') }}</a-button
     >
@@ -17,7 +17,7 @@
   import eventMixin from '@/components/form-designer/setting-panel/property-editor/event-handler/eventMixin';
 
   export default {
-    name: 'onChange-editor',
+    name: 'onVformAdd-editor',
     mixins: [i18n, eventMixin],
     props: {
       designer: Object,
@@ -30,7 +30,7 @@
     },
     data() {
       return {
-        eventParams: ['value', 'oldValue', 'subFormData', 'rowId']
+        eventParams: []
       };
     }
   };

@@ -369,6 +369,7 @@ export const basicFields = [
       readonly: false,
       disabled: false,
       hidden: false,
+      allowClear: true,
       required: false,
       requiredHint: '',
       validation: '',
@@ -1081,40 +1082,6 @@ export const advancedFields = [
   },
 
   {
-    type: 'rich-editor',
-    icon: 'rich-editor-field',
-    formItemFlag: true,
-    options: {
-      name: '',
-      label: '',
-      labelAlign: '',
-      placeholder: '',
-      labelWidth: null,
-      labelHidden: false,
-      columnWidth: '200px',
-      contentHeight: '200px',
-      disabled: false,
-      hidden: false,
-      required: false,
-      requiredHint: '',
-      customRule: '',
-      customRuleHint: '',
-      //-------------------
-      customClass: [], //自定义css类名
-      labelIconClass: null,
-      labelIconPosition: 'rear',
-      labelTooltip: null,
-      // minLength: null,
-      maxLength: null,
-      showCount: false,
-      //-------------------
-      onCreated: '',
-      onMounted: '',
-      onValidate: ''
-    }
-  },
-
-  {
     type: 'cascader',
     icon: 'cascader-field',
     formItemFlag: true,
@@ -1226,6 +1193,39 @@ export const advancedFields = [
       onChange: '',
       onFocus: '',
       onBlur: '',
+      onValidate: ''
+    }
+  },
+  {
+    type: 'rich-editor',
+    icon: 'rich-editor-field',
+    formItemFlag: true,
+    options: {
+      name: '',
+      label: '',
+      labelAlign: '',
+      placeholder: '',
+      labelWidth: null,
+      labelHidden: false,
+      columnWidth: '200px',
+      contentHeight: '200px',
+      disabled: false,
+      hidden: false,
+      required: false,
+      requiredHint: '',
+      customRule: '',
+      customRuleHint: '',
+      //-------------------
+      customClass: [], //自定义css类名
+      labelIconClass: null,
+      labelIconPosition: 'rear',
+      labelTooltip: null,
+      // minLength: null,
+      maxLength: null,
+      showCount: false,
+      //-------------------
+      onCreated: '',
+      onMounted: '',
       onValidate: ''
     }
   }

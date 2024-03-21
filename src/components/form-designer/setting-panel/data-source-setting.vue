@@ -43,10 +43,6 @@
       <a-button type="primary" plain @click="addDataSource">
         {{ i18nt('designer.setting.addDataSource') }}</a-button
       >
-      <!-- <a-button   plain :title="i18nt('designer.setting.importDataSource')"
-                   @click="importDataSource"></a-button>
-        <a-button   plain :title="i18nt('designer.setting.exportDataSource')"
-                   @click="exportDataSource"></a-button> -->
     </div>
   </div>
 

@@ -33,7 +33,7 @@
             <span v-if="!!subWidget.options.labelIconClass" class="custom-label">
               <template v-if="subWidget.options.labelIconPosition === 'front'">
                 <template v-if="!!subWidget.options.labelTooltip">
-                  <a-tooltip :title="subWidget.options.labelTooltip" effect="light">
+                  <a-tooltip :title="subWidget.options.labelTooltip">
                     <svg-icon :icon-class="subWidget.options.labelIconClass" />
                   </a-tooltip>
                   {{ subWidget.options.label }}
@@ -46,7 +46,7 @@
               <template v-else-if="subWidget.options.labelIconPosition === 'rear'">
                 <template v-if="!!subWidget.options.labelTooltip">
                   {{ subWidget.options.label }}
-                  <a-tooltip :title="subWidget.options.labelTooltip" effect="light">
+                  <a-tooltip :title="subWidget.options.labelTooltip">
                     <svg-icon :icon-class="subWidget.options.labelIconClass" />
                   </a-tooltip>
                 </template>

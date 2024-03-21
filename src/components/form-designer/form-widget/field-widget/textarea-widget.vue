@@ -17,6 +17,7 @@
       v-model:value="fieldModel"
       v-show="!isReadMode"
       :disabled="field.options.disabled"
+      :allowClear="field.options.allowClear"
       :readonly="field.options.readonly"
       :placeholder="field.options.placeholder"
       :rows="field.options.rows"
@@ -29,7 +30,9 @@
       @change="handleChangeEvent"
     />
     <template v-if="isReadMode">
-      <div v-html="fieldModel" class="readonly-mode-field"></div>
+      <a-tooltip placement="topLeft" :title="fieldModel" :overlayStyle="{ zIndex: 1000 }">
+        <div v-html="fieldModel" class="readonly-mode-field"></div>
+      </a-tooltip>
     </template>
   </form-item-wrapper>
 </template>

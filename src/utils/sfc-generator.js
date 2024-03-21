@@ -36,7 +36,7 @@ export function getCustomLabel(subWidget) {
     html.push(`<span class="custom-label">`);
     if (subWidget.options.labelIconPosition === 'front') {
       html.push(
-        `<a-tooltip message="${subWidget.options.labelTooltip}" effect="light"><i class="${subWidget.options.labelIconClass}"></i></el-tooltip>${subWidget.options.label}`
+        `<a-tooltip message="${subWidget.options.labelTooltip}" ><i class="${subWidget.options.labelIconClass}"></i></el-tooltip>${subWidget.options.label}`
       );
     } else {
       html.push(`<i class="${subWidget.options.labelIconClass}"></i>${subWidget.options.label}`);
@@ -895,10 +895,10 @@ export function buildFieldWidget(widget, formConfig, parentWidget, vue3Flag = fa
   let customLabelDom = `<template #label><span class="custom-label">${
     wop.labelIconPosition === 'front'
       ? !!wop.labelTooltip
-        ? `<a-tooltip message="${wop.labelTooltip}" effect="light"><i class="${wop.labelIconClass}"></i></a-tooltip>${wop.label}`
+        ? `<a-tooltip message="${wop.labelTooltip}" ><i class="${wop.labelIconClass}"></i></a-tooltip>${wop.label}`
         : `<i class="${wop.labelIconClass}"></i>${wop.label}`
       : !!wop.labelTooltip
-      ? `${wop.label}<a-tooltip content="${wop.labelTooltip}" effect="light"><i class="${wop.labelIconClass}"></i></a-tooltip>`
+      ? `${wop.label}<a-tooltip content="${wop.labelTooltip}" ><i class="${wop.labelIconClass}"></i></a-tooltip>`
       : `${wop.label}<i class="${wop.labelIconClass}"></i>`
   }
 </span></template>`;
@@ -944,10 +944,10 @@ export function buildSubFormFieldWidget(widget, formConfig, subformWidget, vue3F
   let customLabelDom = `<template #label><span class="custom-label">${
     wop.labelIconPosition === 'front'
       ? !!wop.labelTooltip
-        ? `<a-tooltip message="${wop.labelTooltip}" effect="light"><i class="${wop.labelIconClass}"></i></a-tooltip>${wop.label}`
+        ? `<a-tooltip message="${wop.labelTooltip}" ><i class="${wop.labelIconClass}"></i></a-tooltip>${wop.label}`
         : `<i class="${wop.labelIconClass}"></i>${wop.label}`
       : !!wop.labelTooltip
-      ? `${wop.label}<a-tooltip message="${wop.labelTooltip}" effect="light"><i class="${wop.labelIconClass}"></i></a-tooltip>`
+      ? `${wop.label}<a-tooltip message="${wop.labelTooltip}" ><i class="${wop.labelIconClass}"></i></a-tooltip>`
       : `${wop.label}<i class="${wop.labelIconClass}"></i>`
   }
 </span></template>`;

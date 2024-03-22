@@ -102,26 +102,20 @@ export default defineConfig(({ command, mode }) => {
         },
         output: {
           manualChunks(id) {
-            if (id.includes('node_modules')) {
-              if (id.includes('ant-design-vue')) {
-                return 'ant-design-vue';
+            try {
+              if (id.includes('node_modules')) {
+                const name = id.split('node_modules/')[1].split('/');
+                if (name[0] === '.pnpm') {
+                  return name[1];
+                } else {
+                  return name[0];
+                }
               }
-              if (id.includes('lodash-es')) {
-                return 'lodash-es';
-              }
-              if (id.includes('quill')) {
-                return 'quill';
-              }
-              if (id.includes('axios')) {
-                return 'axios';
-              }
-              if (id.includes('axios')) {
-                return 'axios';
-              }
-              return 'vendor';
+            } catch (error) {
+              console.error(error);
             }
-            return 'index';
           },
+
           entryFileNames: 'js/[name].[hash].js',
           chunkFileNames: 'js/[name].[hash].js',
           assetFileNames(assetInfo) {

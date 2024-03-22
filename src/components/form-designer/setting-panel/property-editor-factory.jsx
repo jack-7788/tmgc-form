@@ -125,15 +125,7 @@ export const createSelectEditor = function (propName, propLabelKey, configs) {
     render(h) {
       return (
         <a-form-item label={translate(propLabelKey)}>
-          <a-select v-model:value={this.optionModel[propName]}>
-            {configs.optionItems.map(item => {
-              return (
-                <a-select-option label={item.label} value={item.value}>
-                  {item.label}{' '}
-                </a-select-option>
-              );
-            })}
-          </a-select>
+          <a-select v-model:value={this.optionModel[propName]} options={configs.optionItems} />
         </a-form-item>
       );
     }

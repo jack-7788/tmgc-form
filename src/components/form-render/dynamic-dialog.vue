@@ -10,13 +10,6 @@
     :keyboard="options.closeOnPressEscape"
     @cancel="handleCloseEvent"
   >
-    <!--
-      :fullscreen="options.fullscreen"
-      @opened="handleOpenedEvent"
-      :show-close="options.showClose"
-      :center="options.center"
-      :before-close="handleBeforeClose"
-  -->
     <VFormRender
       ref="dFormRef"
       :form-json="formJson"

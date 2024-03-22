@@ -21,7 +21,7 @@ export default defineConfig(({ command, mode }) => {
       vueJsx({}),
 
       /* 开启externalGlobals后，
-         报错：TypeError: Cannot read properties of null (reading 'nodeType')，不知何故？？ */
+       报错：TypeError: Cannot read properties of null (reading 'nodeType')，不知何故？？ */
       // externalGlobals({
       //   vue: "Vue",
       //   'element-plus': 'ElementPlus',
@@ -80,16 +80,14 @@ export default defineConfig(({ command, mode }) => {
           /* 自动引入全局scss文件 */
           additionalData: '@import "./src/styles/global.scss";'
         }
-      },
-      devSourcemap: true
+      }
     },
 
     build: {
       //minify: false,
-      chunkSizeWarningLimit: 1500,
       commonjsOptions: {
         exclude: [
-          'lib/vuedraggable/dist/vuedraggable.umd.js,' //引号前的逗号不能删，不知何故？？
+          // 'lib/vuedraggable/dist/vuedraggable.umd.js,',  //引号前的逗号不能删，不知何故？？
           //'vue/dist/*.js'
         ],
         include: []
@@ -99,35 +97,6 @@ export default defineConfig(({ command, mode }) => {
         // 指定生产打包入口文件为index.htm
         input: {
           main: resolve(__dirname, 'index.html')
-        },
-        output: {
-          manualChunks(id) {
-            try {
-              if (id.includes('node_modules')) {
-                const name = id.split('node_modules/')[1].split('/');
-                if (name[0] === '.pnpm') {
-                  return name[1];
-                } else {
-                  return name[0];
-                }
-              }
-            } catch (error) {
-              console.error(error);
-            }
-          },
-
-          entryFileNames: 'js/[name].[hash].js',
-          chunkFileNames: 'js/[name].[hash].js',
-          assetFileNames(assetInfo) {
-            if (assetInfo.name.endsWith('.css')) {
-              return 'css/[name].[hash].css';
-            }
-            const imgs = ['.png', '.jpg', '.jpeg', '.svg'];
-            if (imgs.some(ext => assetInfo.name.endsWith(ext))) {
-              return 'imgs/[name].[hash].[ext]';
-            }
-            return 'assets/[name].[hash].[ext]';
-          }
         }
 
         // // 确保外部化处理那些你不想打包进库的依赖

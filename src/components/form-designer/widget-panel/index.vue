@@ -103,18 +103,40 @@
               </draggable>
             </a-collapse-panel>
 
-            <!-- <a-collapse-panel key="customFieldTitle" :header="i18nt('designer.customFieldTitle')">
-          <draggable tag="ul" :list="customFields" item-key="key" :group="{name: 'dragGroup', pull: 'clone', put: false}"
-                     :move="checkFieldMove"
-                     :clone="handleFieldWidgetClone" ghost-class="ghost" :sort="false">
-            <template #item="{ element: fld }">
-              <li class="field-widget-item" :title="fld.displayName" @dblclick="addFieldByDbClick(fld)">
-                <span>
-                  <svg-icon :icon-class="fld.icon" class-name="color-svg-icon" />{{i18n2t(`designer.widgetLabel.${fld.type}`, `extension.widgetLabel.${fld.type}`)}}</span>
-              </li>
-            </template>
-          </draggable>
-        </a-collapse-panel> -->
+            <a-collapse-panel
+              v-if="customFields.length"
+              key="customFieldTitle"
+              :header="i18nt('designer.customFieldTitle')"
+            >
+              <draggable
+                tag="ul"
+                :list="customFields"
+                item-key="key"
+                :group="{ name: 'dragGroup', pull: 'clone', put: false }"
+                :move="checkFieldMove"
+                :clone="handleFieldWidgetClone"
+                ghost-class="ghost"
+                :sort="false"
+              >
+                <template #item="{ element: fld }">
+                  <li
+                    class="field-widget-item"
+                    :title="fld.displayName"
+                    @dblclick="addFieldByDbClick(fld)"
+                  >
+                    <span>
+                      <svg-icon :icon-class="fld.icon" class-name="color-svg-icon" />
+                      {{
+                        i18n2t(
+                          `designer.widgetLabel.${fld.type}`,
+                          `extension.widgetLabel.${fld.type}`
+                        )
+                      }}
+                    </span>
+                  </li>
+                </template>
+              </draggable>
+            </a-collapse-panel>
           </a-collapse>
         </a-tab-pane>
 
@@ -134,8 +156,8 @@
               <div class="bottom clear-fix">
                 <span class="ft-title">#{{ idx + 1 }} {{ ft.title }}</span>
                 <a-button type="text" class="right-button" @click="loadFormTemplate(ft.jsonUrl)">
-                  {{ i18nt('designer.hint.loadFormTemplate') }}</a-button
-                >
+                  {{ i18nt('designer.hint.loadFormTemplate') }}
+                </a-button>
               </div>
             </a-card>
           </template>
@@ -186,7 +208,12 @@
 
         scrollerHeight: 0,
 
-        activeNames: ['containerTitle', 'basicFieldTitle', 'advancedFieldTitle'],
+        activeNames: [
+          'containerTitle',
+          'basicFieldTitle',
+          'advancedFieldTitle',
+          'customFieldTitle'
+        ],
 
         containers: [],
         basicFields: [],

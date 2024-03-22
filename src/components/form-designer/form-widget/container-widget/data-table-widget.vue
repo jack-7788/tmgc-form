@@ -170,6 +170,7 @@
     methods: {
       handleCustomRow(record) {
         const { customRow } = this.widget.options;
+        if (!customRow) return {};
         return {
           onClick: event => {
             const customFn = new Function('record', 'event', customRow.onClick);

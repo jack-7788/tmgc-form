@@ -10,19 +10,13 @@
       v-show="!widget.options.hidden"
     >
       <template #title>
-        <div class="clear-fix">
-          <span>{{ widget.options.label }}</span>
-          <i v-if="widget.options.showFold" class="float-right" @click="toggleCard">
-            <template v-if="!widget.options.folded">
-              ArrowDown
-              <!-- <el-icon><ArrowDown /></el-icon> -->
-            </template>
-            <template v-else>
-              ArrowUp
-              <!-- <el-icon><ArrowUp /></el-icon> -->
-            </template>
-          </i>
-        </div>
+        <span>{{ widget.options.label }}</span>
+      </template>
+      <template #extra>
+        <i v-if="widget.options.showFold" @click="toggleCard">
+          <template v-if="!widget.options.folded">ArrowDown </template>
+          <template v-else> ArrowUp </template>
+        </i>
       </template>
       <template v-if="!!widget.widgetList && widget.widgetList.length > 0">
         <template v-for="(subWidget, swIdx) in widget.widgetList">
@@ -121,25 +115,7 @@
 </script>
 
 <style lang="scss" scoped>
-  :deep(.el-card__header) {
-    padding: 10px 12px;
-  }
-
-  .folded :deep(.el-card__body) {
+  .folded :deep(.ant-card-body) {
     display: none;
-  }
-
-  .clear-fix:before,
-  .clear-fix:after {
-    display: table;
-    content: '';
-  }
-
-  .clear-fix:after {
-    clear: both;
-  }
-
-  .float-right {
-    float: right;
   }
 </style>

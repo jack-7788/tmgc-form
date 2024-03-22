@@ -15,13 +15,13 @@
       :class="[selected ? 'selected' : '', !!widget.options.folded ? 'folded' : '', customClass]"
     >
       <template #title>
-        <div class="clear-fix">
-          <span>{{ widget.options.label }}</span>
-          <i v-if="widget.options.showFold" class="float-right" @click="toggleCard">
-            <template v-if="!widget.options.folded">ArrowDown </template>
-            <template v-else> ArrowUp </template>
-          </i>
-        </div>
+        <span>{{ widget.options.label }}</span>
+      </template>
+      <template #extra>
+        <i v-if="widget.options.showFold" @click="toggleCard">
+          <template v-if="!widget.options.folded">ArrowDown </template>
+          <template v-else> ArrowUp </template>
+        </i>
       </template>
       <draggable
         :list="widget.widgetList"
@@ -147,19 +147,5 @@
 
   .folded :deep(.ant-card-body) {
     display: none;
-  }
-
-  .clear-fix:before,
-  .clear-fix:after {
-    display: table;
-    content: '';
-  }
-
-  .clear-fix:after {
-    clear: both;
-  }
-
-  .float-right {
-    float: right;
   }
 </style>

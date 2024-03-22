@@ -16,6 +16,7 @@
       ref="fieldEditor"
       v-model:value="fieldModel"
       v-show="!isReadMode"
+      :size="size"
       :disabled="field.options.disabled"
       :allowClear="field.options.allowClear"
       :readonly="field.options.readonly"
@@ -82,7 +83,18 @@
         rules: []
       };
     },
-    computed: {},
+    computed: {
+      size() {
+        if (!!this.field.options && !!this.field.options.size) {
+          return this.field.options.size;
+        }
+        if (!!this.designer) {
+          return this.designer.formConfig.size || 'middle';
+        } else {
+          return this.formConfig.size || 'middle';
+        }
+      }
+    },
     beforeCreate() {
       /* 这里不能访问方法和属性！！ */
     },

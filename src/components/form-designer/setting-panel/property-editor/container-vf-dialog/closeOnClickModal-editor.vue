@@ -1,23 +1,21 @@
 <template>
   <a-form-item :label="i18nt('designer.setting.closeOnClickModal')">
-    <a-switch v-model:checked="optionModel.closeOnClickModal"></a-switch>
+    <a-switch v-model:checked="optionModel.closeOnClickModal" />
   </a-form-item>
 </template>
 
 <script>
-  import i18n from "@/utils/i18n"
+  import i18n from '@/utils/i18n';
 
   export default {
-    name: "closeOnClickModal-editor",
+    name: 'closeOnClickModal-editor',
     mixins: [i18n],
     props: {
       designer: Object,
       selectedWidget: Object,
-      optionModel: Object,
-    },
-  }
+      optionModel: Object
+    }
+  };
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

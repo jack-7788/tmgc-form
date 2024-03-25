@@ -32,6 +32,6 @@ addDirective(vfApp);
 vfApp.use(ContainerWidgets);
 vfApp.use(ContainerItems);
 vfApp.component('VFormRender', VFormRender);
-loadExtension(vfApp);
+// loadExtension(vfApp);
 
 vfApp.mount('#app');

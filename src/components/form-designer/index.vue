@@ -274,7 +274,6 @@
       },
 
       handleLanguageChanged(command) {
-        console.log('command: ', command);
         this.changeLanguage(command);
         this.curLangName = this.i18nt('application.' + command);
       },

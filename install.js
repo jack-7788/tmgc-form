@@ -52,7 +52,7 @@ VFormDesigner.install = function (app) {
   console.warn('VFormDesigner.install:成功');
 
   addDirective(app);
-  loadExtension(app);
+  // loadExtension(app);
 
   app.use(ContainerWidgets);
   app.use(ContainerItems);
@@ -65,7 +65,7 @@ VFormDesigner.install = function (app) {
 VFormRender.install = function (app) {
   console.warn('VFormRender.install:成功');
 
-  loadExtension(app);
+  // loadExtension(app);
 
   app.use(ContainerItems);
 
@@ -78,7 +78,7 @@ const components = [VFormDesigner, VFormRender];
 const install = (app, h) => {
   console.warn('install:成功');
   addDirective(app);
-  loadExtension(app);
+  // loadExtension(app);
 
   app.config.globalProperties.$http = h || http;
   VFormRegisterHttp(h || http);

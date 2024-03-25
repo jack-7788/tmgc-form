@@ -26,13 +26,11 @@
     },
     methods: {
       changeMode(val) {
-        console.log('val: ', val);
         if (['multiple', 'tags'].includes(val)) {
           this.optionModel.defaultValue = [];
         } else {
           this.optionModel.defaultValue = null;
         }
-        console.log(' this.optionModel: ', this.optionModel);
       }
     }
   };

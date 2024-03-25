@@ -845,7 +845,6 @@
             // let newFormData = {'input30696': '668899'}
             // this.$refs.preForm.setFormData(newFormData)
 
-            console.log('test', 'aaaaaaaa');
             this.$nextTick(() => {
               const newFormData = { input30696: '668899' };
               this.$refs.preForm.setFormData(newFormData);

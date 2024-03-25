@@ -83,7 +83,6 @@
     methods: {
       updateWidgetNameAndRef(newName, ops) {
         if (ops) {
-          console.log(ops);
           this.optionModel.label = ops.showName;
         }
         const oldName = this.designer.selectedWidgetName;

@@ -43,7 +43,6 @@
     },
     methods: {
       editSelections() {
-        console.log(1212);
         this.visible = true;
       }
     }

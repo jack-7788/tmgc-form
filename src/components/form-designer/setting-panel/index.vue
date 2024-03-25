@@ -196,7 +196,6 @@
   import emitter from '@/utils/emitter';
   import { propertyRegistered } from '@/components/form-designer/setting-panel/propertyRegister';
 
-  console.log('PropertyEditors: ', PropertyEditors);
   const { COMMON_PROPERTIES, ADVANCED_PROPERTIES, EVENT_PROPERTIES } = WidgetProperties;
 
   export default {

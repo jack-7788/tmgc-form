@@ -180,14 +180,14 @@
   import i18n from '@/utils/i18n';
   import axios from 'axios';
 
-  import ftImg1 from '@/assets/ft-images/t1.png';
-  import ftImg2 from '@/assets/ft-images/t2.png';
-  import ftImg3 from '@/assets/ft-images/t3.png';
-  import ftImg4 from '@/assets/ft-images/t4.png';
-  import ftImg5 from '@/assets/ft-images/t5.png';
-  import ftImg6 from '@/assets/ft-images/t6.png';
-  import ftImg7 from '@/assets/ft-images/t7.png';
-  import ftImg8 from '@/assets/ft-images/t8.png';
+  // import ftImg1 from '@/assets/ft-images/t1.png';
+  // import ftImg2 from '@/assets/ft-images/t2.png';
+  // import ftImg3 from '@/assets/ft-images/t3.png';
+  // import ftImg4 from '@/assets/ft-images/t4.png';
+  // import ftImg5 from '@/assets/ft-images/t5.png';
+  // import ftImg6 from '@/assets/ft-images/t6.png';
+  // import ftImg7 from '@/assets/ft-images/t7.png';
+  // import ftImg8 from '@/assets/ft-images/t8.png';
   import { TpfConfirm } from '@/hooks/TpfConfirm';
 
   export default {
@@ -222,14 +222,14 @@
 
         formTemplates: formTemplates,
         ftImages: [
-          { imgUrl: ftImg1 },
-          { imgUrl: ftImg2 },
-          { imgUrl: ftImg3 },
-          { imgUrl: ftImg4 },
-          { imgUrl: ftImg5 },
-          { imgUrl: ftImg6 },
-          { imgUrl: ftImg7 },
-          { imgUrl: ftImg8 }
+          // { imgUrl: ftImg1 },
+          // { imgUrl: ftImg2 },
+          // { imgUrl: ftImg3 },
+          // { imgUrl: ftImg4 },
+          // { imgUrl: ftImg5 },
+          // { imgUrl: ftImg6 },
+          // { imgUrl: ftImg7 },
+          // { imgUrl: ftImg8 }
         ]
       };
     },

@@ -51,7 +51,7 @@ const VFormRegisterHttp = h => {
 VFormDesigner.install = function (app) {
   console.warn('VFormDesigner.install:成功');
 
-  addDirective(app);
+  // addDirective(app);
   // loadExtension(app);
 
   app.use(ContainerWidgets);
@@ -77,7 +77,7 @@ const components = [VFormDesigner, VFormRender];
 
 const install = (app, h) => {
   console.warn('install:成功');
-  addDirective(app);
+  // addDirective(app);
   // loadExtension(app);
 
   app.config.globalProperties.$http = h || http;

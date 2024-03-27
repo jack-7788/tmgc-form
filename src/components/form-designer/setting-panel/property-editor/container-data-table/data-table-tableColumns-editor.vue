@@ -143,6 +143,7 @@
 
   <CodeModalEditor
     v-model="renderJson"
+    @save="saveColumnRender"
     ref="CodeModalEditorRef"
     :title="i18nt('designer.setting.renderFunction')"
     :event-header="`function customRender(text, record, index, column) {`"
@@ -208,6 +209,7 @@
       },
       saveColumnRender() {
         this.currentTableColumn.customRender = this.renderJson;
+        console.log('this.renderJson: ', this.renderJson);
         this.showRenderDialogFlag = false;
       },
       addCol() {

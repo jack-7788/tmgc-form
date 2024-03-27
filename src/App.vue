@@ -72,6 +72,7 @@
     methods: {
       async fieldListApi() {
         const { pageCode } = getLocat();
+        if (!pageCode) return [];
         return await getHttp()({
           methods: 'get',
           url: '/api/tmgc2-mgt/pageFieldConfig/queryPageFieldOptions',

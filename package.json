@@ -1,6 +1,6 @@
 {
-  "name": "vform3",
-  "version": "0.0.7",
+  "name": "tmgc-form",
+  "version": "0.0.1",
   "private": false,
   "scripts": {
     "serve": "vite",

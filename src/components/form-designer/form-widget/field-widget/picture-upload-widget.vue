@@ -41,24 +41,19 @@
       <div class="uploader-icon"><svg-icon icon-class="el-plus" /></div>
     </a-upload>
 
-    <div
-      v-if="showPreviewDialogFlag"
-      v-drag="['.drag-dialog.a-dialog', '.drag-dialog .a-dialog__header']"
+    <a-modal
+      title=""
+      v-model:visible="showPreviewDialogFlag"
+      append-to-body
+      width="60%"
+      :show-close="true"
+      custom-class="drag-dialog small-padding-dialog"
+      :close-on-click-modal="true"
+      :close-on-press-escape="true"
+      :destroy-on-close="true"
     >
-      <a-modal
-        title=""
-        v-model:visible="showPreviewDialogFlag"
-        append-to-body
-        width="60%"
-        :show-close="true"
-        custom-class="drag-dialog small-padding-dialog"
-        :close-on-click-modal="true"
-        :close-on-press-escape="true"
-        :destroy-on-close="true"
-      >
-        <img :src="previewUrl" style="width: 100%" alt="" />
-      </a-modal>
-    </div>
+      <img :src="previewUrl" style="width: 100%" alt="" />
+    </a-modal>
   </form-item-wrapper>
 </template>
 

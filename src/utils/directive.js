@@ -2,10 +2,10 @@
 
 export function addDirective(app) {
   /**
-   * 拖拽指令使用方式：v-drag="[dragDom, dragHeader]"，如 `<div v-drag="['.drag-container .el-dialog', '.drag-container .el-dialog__header']"></div>`
+   * 拖拽指令使用方式：v-dragDialog="[dragDom, dragHeader]"，如 `<div v-drag="['.drag-container .el-dialog', '.drag-container .el-dialog__header']"></div>`
    */
 
-  app.directive('drag', {
+  app.directive('dragDialog', {
     mounted(el, binding) {
       if (!binding.value) return false;
 

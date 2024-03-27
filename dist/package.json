@@ -1,8 +1,8 @@
 {
   "name": "tmgc-form",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "private": false,
-  "main": "./designer.umd.js",
+  "main": "./tmgc-form.umd.js",
   "description": "tmgc-form Online Form Designer",
   "homepage": "",
   "keywords": [ ]

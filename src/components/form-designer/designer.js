@@ -1066,12 +1066,12 @@ export function createDesigner(vueInstance) {
     },
 
     loadFormContentFromStorage() {
-      const widgetListBackup = window.localStorage.getItem('widget__list__backup');
+      const widgetListBackup = ''; //window.localStorage.getItem('widget__list__backup');
       if (!!widgetListBackup) {
         this.widgetList = JSON.parse(widgetListBackup);
       }
 
-      const formConfigBackup = window.localStorage.getItem('form__config__backup');
+      const formConfigBackup = ''; //window.localStorage.getItem('form__config__backup');
       if (!!formConfigBackup) {
         //this.formConfig = JSON.parse(formConfigBackup)
         overwriteObj(

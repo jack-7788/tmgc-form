@@ -566,7 +566,6 @@ export default {
     },
 
     handleOnChange(val, oldVal, ops = []) {
-      console.log('ops:111 ', ops);
       //自定义onChange事件
       if (!!this.designState) {
         //设计状态不触发事件

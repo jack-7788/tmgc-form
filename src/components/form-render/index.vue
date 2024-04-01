@@ -1079,7 +1079,13 @@
 </script>
 
 <style lang="scss" scoped>
-  .ant-form :deep(.ant-row)， .el-form :deep(.el-row) {
+  .ant-form {
+    &.render-form {
+      height: 100%;
+    }
+  }
+
+  .ant-form :deep(.ant-row) {
     padding: 8px;
   }
 </style>

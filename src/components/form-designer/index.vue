@@ -24,7 +24,12 @@
 
       <a-layout-content class="center-layout-container">
         <a-layout-header class="toolbar-header">
-          <toolbar-panel :designer="designer" :global-dsv="globalDsv" ref="toolbarRef">
+          <toolbar-panel
+            :saveJsonApi="saveJsonApi"
+            :designer="designer"
+            :global-dsv="globalDsv"
+            ref="toolbarRef"
+          >
             <template v-for="(idx, slotName) in $slots" #[slotName]>
               <slot :name="slotName"></slot>
             </template>
@@ -64,15 +69,13 @@
   import {
     addWindowResizeHandler,
     deepClone,
-    getQueryParam,
     getAllContainerWidgets,
     getAllFieldWidgets,
     traverseAllWidgets
   } from '@/utils/util';
-  import { MOCK_CASE_URL, VARIANT_FORM_VERSION } from '@/utils/config';
+  import { VARIANT_FORM_VERSION } from '@/utils/config';
   import i18n, { changeLocale } from '@/utils/i18n';
-  import axios from 'axios';
-  import SvgIcon from '@/components/svg-icon/index';
+  import { isEmpty } from 'lodash-es';
 
   export default {
     name: 'VFormDesigner',
@@ -85,6 +88,12 @@
       VFormWidget
     },
     props: {
+      /* 保存jsonApi */
+
+      saveJsonApi: {
+        type: Function,
+        default: null
+      },
       /* 后端字段列表API */
       fieldListApi: {
         type: Function,
@@ -102,8 +111,8 @@
         default: () => {
           return {
             languageMenu: true, //是否显示语言切换菜单
-            externalLink: true, //是否显示GitHub、文档等外部链接
-            formTemplates: true, //是否显示表单模板
+            // externalLink: true, //是否显示GitHub、文档等外部链接
+            // formTemplates: true, //是否显示表单模板
             eventCollapse: true, //是否显示组件事件属性折叠面板
             widgetNameReadonly: false, //禁止修改组件名称
 
@@ -112,7 +121,7 @@
             importJsonButton: true, //是否显示导入JSON按钮
             exportJsonButton: true, //是否显示导出JSON器按钮
             exportCodeButton: true, //是否显示导出代码按钮
-            generateSFCButton: true, //是否显示生成SFC按钮
+            // generateSFCButton: true, //是否显示生成SFC按钮
 
             toolbarMaxWidth: 450, //设计器工具按钮栏最大宽度（单位像素）
             toolbarMinWidth: 300, //设计器工具按钮栏最小宽度（单位像素）
@@ -159,8 +168,8 @@
       };
     },
     created() {
-      this.vsCodeFlag = getQueryParam('vscode') == 1;
-      this.caseName = getQueryParam('case');
+      // this.vsCodeFlag = getQueryParam('vscode') == 1;
+      // this.caseName = getQueryParam('case');
     },
     mounted() {
       this.initLocale();
@@ -176,6 +185,31 @@
       this.loadFieldListFromServer();
     },
     methods: {
+      /**
+       * json回填
+       * @param {*} importObj
+       */
+      setJsonImport(importObj = {}) {
+        if (isEmpty(importObj)) return;
+        try {
+          if (!importObj || !importObj.formConfig) {
+            throw new Error(this.i18nt('designer.hint.invalidJsonFormat'));
+          }
+
+          // const fJsonVer = importObj?.formConfig?.jsonVersion || '';
+          // if (!fJsonVer || fJsonVer !== 3) {
+          //   throw new Error(this.i18nt('designer.hint.jsonVersionMismatch'));
+          // }
+
+          this.designer.loadFormJson(importObj);
+
+          this.designer.emitHistoryChange();
+
+          this.designer.emitEvent('form-json-imported', []);
+        } catch (ex) {
+          this.$message.error(ex + '');
+        }
+      },
       testEEH(eventName, eventParams) {
         console.log('test', eventName);
         console.log('test222222', eventParams);
@@ -222,20 +256,20 @@
           return;
         }
 
-        axios
-          .get(MOCK_CASE_URL + this.caseName + '.txt')
-          .then(res => {
-            if (!!res.data.code) {
-              this.$message.error(this.i18nt('designer.hint.sampleLoadedFail'));
-              return;
-            }
+        // axios
+        //   .get(MOCK_CASE_URL + this.caseName + '.txt')
+        //   .then(res => {
+        //     if (!!res.data.code) {
+        //       this.$message.error(this.i18nt('designer.hint.sampleLoadedFail'));
+        //       return;
+        //     }
 
-            this.setFormJson(res.data);
-            this.$message.success(this.i18nt('designer.hint.sampleLoadedSuccess'));
-          })
-          .catch(error => {
-            this.$message.error(this.i18nt('designer.hint.sampleLoadedFail') + ':' + error);
-          });
+        //     this.setFormJson(res.data);
+        //     this.$message.success(this.i18nt('designer.hint.sampleLoadedSuccess'));
+        //   })
+        //   .catch(error => {
+        //     this.$message.error(this.i18nt('designer.hint.sampleLoadedFail') + ':' + error);
+        //   });
       },
 
       initLocale() {

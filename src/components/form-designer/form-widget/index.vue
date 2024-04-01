@@ -114,7 +114,6 @@
     },
     computed: {
       labelPosition() {
-        console.log(' this.designer.formConfig: ', this.designer.formConfig);
         if (!!this.designer.formConfig && !!this.designer.formConfig.labelPosition) {
           return this.designer.formConfig.labelPosition;
         }
@@ -234,12 +233,14 @@
 <style lang="scss" scoped>
   .form-widget-container {
     padding: 10px;
+    padding-right: 0px;
     background: #f1f2f3;
 
     overflow-x: hidden;
     overflow-y: auto;
 
     .ant-form.full-height-width {
+      overflow-y: auto;
       height: 100%;
       padding: 3px;
       background: #ffffff;

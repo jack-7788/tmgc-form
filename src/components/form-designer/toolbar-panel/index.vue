@@ -59,20 +59,20 @@
     <div class="right-toolbar">
       <div class="right-toolbar-con">
         <a-button v-if="showToolButton('clearDesignerButton')" type="link" @click="clearFormWidget">
-          <svg-icon icon-class="el-delete" />{{ i18nt('designer.toolbar.clear') }}</a-button
-        >
+          <svg-icon icon-class="el-delete" />{{ i18nt('designer.toolbar.clear') }}
+        </a-button>
         <a-button v-if="showToolButton('previewFormButton')" type="link" @click="previewForm">
-          <svg-icon icon-class="el-view" />{{ i18nt('designer.toolbar.preview') }}</a-button
-        >
+          <svg-icon icon-class="el-view" />{{ i18nt('designer.toolbar.preview') }}
+        </a-button>
         <a-button v-if="showToolButton('importJsonButton')" type="link" @click="importJson">
-          {{ i18nt('designer.toolbar.importJson') }}</a-button
-        >
+          {{ i18nt('designer.toolbar.importJson') }}
+        </a-button>
         <a-button v-if="showToolButton('exportJsonButton')" type="link" @click="exportJson">
-          {{ i18nt('designer.toolbar.exportJson') }}</a-button
-        >
-        <a-button v-if="showToolButton('exportCodeButton')" type="link" @click="exportCode">
-          {{ i18nt('designer.toolbar.exportCode') }}</a-button
-        >
+          {{ i18nt('designer.toolbar.exportJson') }}
+        </a-button>
+        <a-button v-if="showToolButton('exportCodeButton')" type="link" @click="saveJson">
+          保存
+        </a-button>
         <template v-for="(idx, slotName) in $slots">
           <slot :name="slotName"></slot>
         </template>
@@ -113,10 +113,10 @@
       </div>
       <template #footer>
         <div class="dialog-footer">
-          <a-button @click="insertData">新增一个数据</a-button>
-          <a-button @click="showData(1848)">数据回显 _id 1848</a-button>
+          <!-- <a-button @click="insertData">新增一个数据</a-button> -->
+          <!-- <a-button @click="showData(1848)">数据回显 _id 1848</a-button> -->
           <a-button type="primary" @click="getFormData">
-            {{ i18nt('designer.hint.getFormData') }}--获取数据
+            {{ i18nt('designer.hint.getFormData') }}
           </a-button>
           <a-button type="primary" @click="resetForm">
             {{ i18nt('designer.hint.resetForm') }}
@@ -130,11 +130,10 @@
           <a-button @click="showPreviewDialogFlag = false">
             {{ i18nt('designer.hint.closePreview') }}
           </a-button>
-          <!-- <a-button v-if="true" @click="testLoadForm">Test Load</a-button> -->
-          <a-button v-if="true" @click="testSetFormJson">Test SFJ</a-button>
-          <a-button v-if="true" @click="testSetFormData">Test SFD</a-button>
-          <a-button v-if="true" @click="testReloadOptionData">Test ROD</a-button>
-          <a-button v-if="true" @click="setReadMode">只读</a-button>
+          <!-- <a-button v-if="true" @click="testSetFormJson">Test SFJ</a-button> -->
+          <!-- <a-button v-if="true" @click="testSetFormData">Test SFD</a-button> -->
+          <!-- <a-button v-if="true" @click="testReloadOptionData">Test ROD</a-button> -->
+          <a-button v-if="true" @click="setReadMode">测试变只读</a-button>
         </div>
       </template>
     </a-modal>
@@ -160,11 +159,11 @@
       <template #footer>
         <div class="dialog-footer">
           <a-button type="primary" @click="doJsonImport">
-            {{ i18nt('designer.hint.import') }}</a-button
-          >
+            {{ i18nt('designer.hint.import') }}
+          </a-button>
           <a-button @click="showImportJsonDialogFlag = false">
-            {{ i18nt('designer.hint.cancel') }}</a-button
-          >
+            {{ i18nt('designer.hint.cancel') }}
+          </a-button>
         </div>
       </template>
     </a-modal>
@@ -198,31 +197,6 @@
         </div>
       </template>
     </a-modal>
-
-    <!--  <a-modal :title="i18nt('designer.toolbar.exportCode')" v-model:visible="showExportCodeDialogFlag"
-                 :show-close="true" class="drag-dialog small-padding-dialog" center append-to-body
-                 width="65%" :close-on-click-modal="false" :close-on-press-escape="false" :destroy-on-close="true">
-        <a-tabs type="border-card" class="no-box-shadow no-padding" v-model="activeCodeTab">
-          <a-tab-pane label="Vue" name="vue">
-            <code-editor :mode="'html'" :readonly="true" v-model="vueCode" :user-worker="false"></code-editor>
-          </a-tab-pane>
-          <a-tab-pane label="HTML" name="html">
-            <code-editor :mode="'html'" :readonly="true" v-model="htmlCode" :user-worker="false"></code-editor>
-          </a-tab-pane>
-        </a-tabs>
-        <template #footer>
-          <div class="dialog-footer">
-            <a-button type="primary" class="copy-vue-btn" :data-clipboard-text="vueCode" @click="copyVueCode">
-              {{i18nt('designer.hint.copyVueCode')}}</a-button>
-            <a-button type="primary" class="copy-html-btn" :data-clipboard-text="htmlCode" @click="copyHtmlCode">
-              {{i18nt('designer.hint.copyHtmlCode')}}</a-button>
-            <a-button @click="saveVueCode">{{i18nt('designer.hint.saveVueCode')}}</a-button>
-            <a-button @click="saveHtmlCode">{{i18nt('designer.hint.saveHtmlCode')}}</a-button>
-            <a-button @click="showExportCodeDialogFlag = false">
-              {{i18nt('designer.hint.closePreview')}}</a-button>
-          </div>
-        </template>
-      </a-modal>  -->
 
     <a-modal
       :title="i18nt('designer.hint.exportFormData')"
@@ -309,7 +283,6 @@
 <script>
   import VFormRender from '@/components/form-render/index.vue';
   import CodeEditor from '@/components/code-editor/index';
-  import Clipboard from 'clipboard';
   import {
     deepClone,
     copyToClipboard,
@@ -320,7 +293,7 @@
   } from '@/utils/util';
   import i18n from '@/utils/i18n';
   import { generateCode } from '@/utils/code-generator';
-  import { genSFC } from '@/utils/sfc-generator';
+  // import { genSFC } from '@/utils/sfc-generator';
   import loadBeautifier from '@/utils/beautifierLoader';
   import { saveAs } from 'file-saver';
   import axios from 'axios';
@@ -339,6 +312,7 @@
     },
     props: {
       designer: Object,
+      saveJsonApi: Function,
       globalDsv: {
         type: Object,
         default: () => ({})
@@ -455,6 +429,11 @@
       });
     },
     methods: {
+      saveJson() {
+        if (this.saveJsonApi) {
+          this.saveJsonApi(this.formJson);
+        }
+      },
       setReadMode() {
         this.$refs.preForm.setReadMode(!this.$refs.preForm.getReadMode());
       },
@@ -638,10 +617,10 @@
             throw new Error(this.i18nt('designer.hint.invalidJsonFormat'));
           }
 
-          const fJsonVer = importObj.formConfig.jsonVersion;
-          if (!fJsonVer || fJsonVer !== 3) {
-            throw new Error(this.i18nt('designer.hint.jsonVersionMismatch'));
-          }
+          // const fJsonVer = importObj.formConfig.jsonVersion;
+          // if (!fJsonVer || fJsonVer !== 3) {
+          //   throw new Error(this.i18nt('designer.hint.jsonVersionMismatch'));
+          // }
 
           this.designer.loadFormJson(importObj);
 
@@ -713,16 +692,16 @@
       },
 
       generateSFC() {
-        loadBeautifier(beautifier => {
-          this.sfcCode = genSFC(this.designer.formConfig, this.designer.widgetList, beautifier);
-          this.sfcCodeV3 = genSFC(
-            this.designer.formConfig,
-            this.designer.widgetList,
-            beautifier,
-            true
-          );
-          this.showExportSFCDialogFlag = true;
-        });
+        // loadBeautifier(beautifier => {
+        //   this.sfcCode = genSFC(this.designer.formConfig, this.designer.widgetList, beautifier);
+        //   this.sfcCodeV3 = genSFC(
+        //     this.designer.formConfig,
+        //     this.designer.widgetList,
+        //     beautifier,
+        //     true
+        //   );
+        //   this.showExportSFCDialogFlag = true;
+        // });
       },
 
       copyV2SFC(e) {
@@ -1647,7 +1626,7 @@
             customClass: [],
             functions: '',
             layoutType: 'PC',
-            jsonVersion: 3,
+            // jsonVersion: 3,
             onFormCreated: '',
             onFormMounted: '',
             onFormDataChange: '',

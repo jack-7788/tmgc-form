@@ -1,6 +1,6 @@
 import require$$0$2, { openBlock, createElementBlock, normalizeClass, createElementVNode, toDisplayString, createCommentVNode, reactive, createVNode, resolveComponent, withCtx, createTextVNode, createBlock, renderSlot, normalizeStyle, withModifiers, Fragment, withDirectives, renderList, vShow, createSlots, watch, ref, onBeforeUnmount, onMounted, onUnmounted, mergeProps, resolveDynamicComponent, normalizeProps, guardReactiveProps, pushScopeId, popScopeId, render, defineComponent, isVNode } from "vue";
 import { Modal, message } from "ant-design-vue";
-import { isArray as isArray$1, omit } from "lodash-es";
+import { isArray as isArray$1, omit, isEmpty } from "lodash-es";
 function bind(fn, thisArg) {
   return function wrap() {
     return fn.apply(thisArg, arguments);
@@ -2244,7 +2244,6 @@ const containers = [
       ],
       showButtonsColumn: false,
       // 是否显示操作列
-      // buttonsColumnFixed: 'right',
       buttonsColumnTitle: "操作",
       buttonsColumnWidth: 200,
       operationButtons: [
@@ -2268,10 +2267,6 @@ const containers = [
         data: {},
         params: { pageCode: "${pageCode}", fieldCode: "${fieldCode}" }
       },
-      // dsName: '', //数据源名称
-      // dataSetName: '', //数据集名称
-      treeDataEnabled: false,
-      //是否允许加载树形数据
       rowKey: "name",
       //树形数据数据row-key
       childrenKey: "children",
@@ -2419,7 +2414,6 @@ const basicFields = [
       disabled: false,
       hidden: false,
       allowClear: true,
-      // showPassword: false,
       required: false,
       requiredHint: "",
       validation: "",
@@ -2434,9 +2428,6 @@ const basicFields = [
       showCount: false,
       addonBefore: "",
       addonAfter: "",
-      // appendButton: false,
-      // appendButtonDisabled: false,
-      // buttonIcon: 'custom-search',
       //-------------------
       onCreated: "",
       onMounted: "",
@@ -2445,7 +2436,6 @@ const basicFields = [
       onFocus: "",
       onBlur: "",
       onValidate: ""
-      // onAppendButtonClick: ''
     }
   },
   {
@@ -2520,7 +2510,6 @@ const basicFields = [
       max: 99999999,
       precision: 0,
       step: 1,
-      // controlsPosition: 'right',
       //-------------------
       onCreated: "",
       onMounted: "",
@@ -2548,9 +2537,8 @@ const basicFields = [
       labelHidden: false,
       disabled: false,
       hidden: false,
-      // dsEnabled: false, // 是否使用数据源数据
-      // dsName: '', // 数据源名称
-      // dataSetName: '', //数据集名称
+      dsEnabled: false,
+      // 是否使用数据源数据
       labelKey: "label",
       valueKey: "value",
       optionItems: [
@@ -2593,14 +2581,10 @@ const basicFields = [
       defaultValue: [],
       columnWidth: "200px",
       size: "",
-      // displayStyle: 'inline',
-      // buttonStyle: false,
-      // border: false,
       labelWidth: null,
       labelHidden: false,
       disabled: false,
       hidden: false,
-      // dsEnabled: false, // 是否使用数据源数据
       // dsName: '', // 数据源名称
       // dataSetName: '', //数据集名称
       labelKey: "label",
@@ -2653,17 +2637,9 @@ const basicFields = [
       allowClear: true,
       maxTagCount: "responsive",
       mode: "combobox",
-      // filterable: false,
-      // allowCreate: false,
       showSearch: false,
-      // automaticDropdown: false, //自动下拉
-      // multiple: false,
-      // multipleLimit: 0,
-      // dsEnabled: false, // 是否使用数据源数据
-      dsName: "",
-      // 数据源名称
-      dataSetName: "",
-      //数据集名称
+      dsEnabled: false,
+      // 是否使用数据源数据
       labelKey: "label",
       valueKey: "value",
       optionItems: [
@@ -3112,8 +3088,8 @@ const advancedFields = [
   //     hidden: false,
   //     required: false,
   //     requiredHint: '',
-  //     customRule: '',
-  //     customRuleHint: '',
+  //    validation: '',
+  //    validationHint: '',
   //     //-------------------
   //     uploadURL: '',
   //     uploadTip: '',
@@ -3155,8 +3131,8 @@ const advancedFields = [
   //     hidden: false,
   //     required: false,
   //     requiredHint: '',
-  //     customRule: '',
-  //     customRuleHint: '',
+  //    validation: '',
+  //    validationHint: '',
   //     //-------------------
   //     uploadURL: '',
   //     uploadTip: '',
@@ -3200,13 +3176,9 @@ const advancedFields = [
       disabled: false,
       hidden: false,
       allowClear: true,
-      // filterable: false,
       multiple: false,
-      // checkStrictly: false, //可选择任意一级选项，默认不开启
-      // showAllLevels: true, //显示完整路径
-      // dsEnabled: true, // 是否使用数据源数据
-      // dsName: '', // 数据源名称
-      // dataSetName: '', //数据集名称
+      dsEnabled: true,
+      // 是否使用数据源数据
       labelKey: "label",
       valueKey: "value",
       childrenKey: "children",
@@ -3224,8 +3196,8 @@ const advancedFields = [
       dataHandlerCode: "console.log(data.data);\nreturn data.data;\n ",
       required: false,
       requiredHint: "",
-      customRule: "",
-      customRuleHint: "",
+      validation: "",
+      validationHint: "",
       //-------------------
       customClass: [],
       //自定义css类名
@@ -3258,14 +3230,10 @@ const advancedFields = [
       disabled: false,
       hidden: false,
       allowClear: true,
-      // filterable: false,
       multiple: false,
       treeDefaultExpandAll: false,
-      // checkStrictly: false, //可选择任意一级选项，默认不开启
-      // showAllLevels: true, //显示完整路径
-      // dsEnabled: true, // 是否使用数据源数据
-      // dsName: '', // 数据源名称
-      // dataSetName: '', //数据集名称
+      dsEnabled: true,
+      // 是否使用数据源数据
       labelKey: "label",
       valueKey: "value",
       childrenKey: "children",
@@ -3283,8 +3251,8 @@ const advancedFields = [
       dataHandlerCode: "console.log(data.data);\nreturn data.data;\n ",
       required: false,
       requiredHint: "",
-      customRule: "",
-      customRuleHint: "",
+      validation: "",
+      validationHint: "",
       //-------------------
       customClass: [],
       //自定义css类名
@@ -3317,8 +3285,10 @@ const advancedFields = [
       hidden: false,
       required: false,
       requiredHint: "",
-      customRule: "",
-      customRuleHint: "",
+      validation: "",
+      // 自定义校验选项
+      validationHint: "",
+      //自定义校验提示语
       //-------------------
       customClass: [],
       //自定义css类名
@@ -4065,9 +4035,6 @@ const Clipboard = /* @__PURE__ */ getDefaultExportFromCjs(clipboardExports);
 function isNull(value2) {
   return value2 === null || value2 === void 0;
 }
-function isNotNull(value2) {
-  return value2 !== null && value2 !== void 0;
-}
 function isEmptyStr(str) {
   return str === void 0 || !str && str !== 0 && str !== "0" || !/[^\s]/.test(str);
 }
@@ -4131,29 +4098,11 @@ const insertGlobalFunctionsToHtml = function(functionsCode, formId = "") {
   newScriptEle.innerHTML = functionsCode;
   bodyEle.appendChild(newScriptEle);
 };
-const loadRemoteScript = function(srcPath, callback) {
-  const sid = encodeURIComponent(srcPath);
-  const oldScriptEle = document.getElementById(sid);
-  if (!oldScriptEle) {
-    let s = document.createElement("script");
-    s.src = srcPath;
-    s.id = sid;
-    document.body.appendChild(s);
-    s.onload = s.onreadystatechange = function(_, isAbort) {
-      if (isAbort || !s.readyState || s.readyState === "loaded" || s.readyState === "complete") {
-        s = s.onload = s.onreadystatechange = null;
-        if (!isAbort) {
-          callback();
-        }
-      }
-    };
-  }
-};
-function traverseFieldWidgets(widgetList2, handler, parent = null, staticWidgetsIncluded = false) {
-  if (!widgetList2) {
+function traverseFieldWidgets(widgetList, handler, parent = null, staticWidgetsIncluded = false) {
+  if (!widgetList) {
     return;
   }
-  widgetList2.map((w) => {
+  widgetList.map((w) => {
     if (w.formItemFlag || w.formItemFlag === false && staticWidgetsIncluded) {
       handler(w, parent);
     } else if (w.type === "grid") {
@@ -4177,11 +4126,11 @@ function traverseFieldWidgets(widgetList2, handler, parent = null, staticWidgets
     }
   });
 }
-function traverseContainerWidgets(widgetList2, handler) {
-  if (!widgetList2) {
+function traverseContainerWidgets(widgetList, handler) {
+  if (!widgetList) {
     return;
   }
-  widgetList2.map((w) => {
+  widgetList.map((w) => {
     if (w.category === "container") {
       handler(w);
     }
@@ -4206,11 +4155,11 @@ function traverseContainerWidgets(widgetList2, handler) {
     }
   });
 }
-function traverseAllWidgets(widgetList2, handler) {
-  if (!widgetList2) {
+function traverseAllWidgets(widgetList, handler) {
+  if (!widgetList) {
     return;
   }
-  widgetList2.map((w) => {
+  widgetList.map((w) => {
     handler(w);
     if (w.type === "grid") {
       w.cols.map((col) => {
@@ -4311,8 +4260,8 @@ function traverseWidgetsOfContainer(con, fieldHandler, containerHandler) {
     });
   }
 }
-function getAllFieldWidgets(widgetList2, staticWidgetsIncluded = false) {
-  if (!widgetList2) {
+function getAllFieldWidgets(widgetList, staticWidgetsIncluded = false) {
+  if (!widgetList) {
     return [];
   }
   const result2 = [];
@@ -4323,11 +4272,11 @@ function getAllFieldWidgets(widgetList2, staticWidgetsIncluded = false) {
       field: w
     });
   };
-  traverseFieldWidgets(widgetList2, handlerFn, null, staticWidgetsIncluded);
+  traverseFieldWidgets(widgetList, handlerFn, null, staticWidgetsIncluded);
   return result2;
 }
-function getAllContainerWidgets(widgetList2) {
-  if (!widgetList2) {
+function getAllContainerWidgets(widgetList) {
+  if (!widgetList) {
     return [];
   }
   const result2 = [];
@@ -4338,11 +4287,11 @@ function getAllContainerWidgets(widgetList2) {
       container: w
     });
   };
-  traverseContainerWidgets(widgetList2, handlerFn);
+  traverseContainerWidgets(widgetList, handlerFn);
   return result2;
 }
-function getFieldWidgetByName(widgetList2, fieldName, staticWidgetsIncluded) {
-  if (!widgetList2) {
+function getFieldWidgetByName(widgetList, fieldName, staticWidgetsIncluded) {
+  if (!widgetList) {
     return null;
   }
   let foundWidget = null;
@@ -4351,11 +4300,11 @@ function getFieldWidgetByName(widgetList2, fieldName, staticWidgetsIncluded) {
       foundWidget = widget;
     }
   };
-  traverseFieldWidgets(widgetList2, handlerFn, null, staticWidgetsIncluded);
+  traverseFieldWidgets(widgetList, handlerFn, null, staticWidgetsIncluded);
   return foundWidget;
 }
-function getContainerWidgetByName(widgetList2, containerName) {
-  if (!widgetList2) {
+function getContainerWidgetByName(widgetList, containerName) {
+  if (!widgetList) {
     return null;
   }
   let foundContainer = null;
@@ -4364,7 +4313,7 @@ function getContainerWidgetByName(widgetList2, containerName) {
       foundContainer = con;
     }
   };
-  traverseContainerWidgets(widgetList2, handlerFn);
+  traverseContainerWidgets(widgetList, handlerFn);
   return foundContainer;
 }
 function copyToClipboard(content, clickEvent, $message, successMsg, errorMsg) {
@@ -4399,7 +4348,7 @@ function getDefaultFormConfig() {
     onVformAdd: "console.log(data)",
     onVformUpdate: "",
     onVformDetail: "",
-    onVformDel: "",
+    // onVformDel: '',
     modelName: "formData",
     refName: "vForm",
     rulesName: "rules",
@@ -4413,7 +4362,7 @@ function getDefaultFormConfig() {
     functions: "",
     //全局函数
     layoutType: "PC",
-    jsonVersion: 3,
+    // jsonVersion: 3,
     dataSources: [],
     //数据源集合
     onFormCreated: "",
@@ -4446,16 +4395,16 @@ function getDefaultFormConfig() {
           params: { _id: "${_id}" }
         },
         dataHandlerCode: "console.log(data.data);\nreturn data.data.object;\n "
-      },
-      vformDel: {
-        http: {
-          url: "/api/tmgc2-query/pageDataCud/batch/${pageCode}",
-          method: "delete",
-          data: { ids: "${ids}" },
-          params: {}
-        },
-        dataHandlerCode: ""
       }
+      // vformDel: {
+      //   http: {
+      //     url: '/api/tmgc2-query/pageDataCud/batch/${pageCode}',
+      //     method: 'delete',
+      //     data: { ids: '${ids}' },
+      //     params: {}
+      //   },
+      //   dataHandlerCode: ''
+      // }
     }
   };
 }
@@ -4465,8 +4414,8 @@ function buildDefaultFormJson() {
     formConfig: deepClone(getDefaultFormConfig())
   };
 }
-function cloneFormConfigWithoutEventHandler(formConfig2) {
-  const newFC = deepClone(formConfig2);
+function cloneFormConfigWithoutEventHandler(formConfig) {
+  const newFC = deepClone(formConfig);
   newFC.onFormCreated = "";
   newFC.onFormMounted = "";
   newFC.onFormDataChange = "";
@@ -4546,10 +4495,10 @@ async function runDataSourceRequest(dataSource2, DSV2, VFR2, isSandbox2, $messag
     console.error(err);
   }
 }
-function getDSByName(formConfig2, dsName) {
+function getDSByName(formConfig, dsName) {
   let resultDS = null;
-  if (!!dsName && !!formConfig2.dataSources) {
-    formConfig2.dataSources.forEach((ds) => {
+  if (!!dsName && !!formConfig.dataSources) {
+    formConfig.dataSources.forEach((ds) => {
       if (ds.uniqueName === dsName) {
         resultDS = ds;
       }
@@ -9111,10 +9060,10 @@ const fieldMixin = {
         });
       }
       if (!!this.field.options.validation) {
-        const vldName2 = this.field.options.validation;
-        if (!!FormValidators[vldName2]) {
+        const vldName = this.field.options.validation;
+        if (!!FormValidators[vldName]) {
           this.rules.push({
-            validator: FormValidators[vldName2],
+            validator: FormValidators[vldName],
             trigger: ["blur", "change"],
             label: this.field.options.label,
             errorMsg: this.field.options.validationHint
@@ -9123,7 +9072,7 @@ const fieldMixin = {
           this.rules.push({
             validator: FormValidators["regExp"],
             trigger: ["blur", "change"],
-            regExp: vldName2,
+            regExp: vldName,
             label: this.field.options.label,
             errorMsg: this.field.options.validationHint
           });
@@ -9272,7 +9221,6 @@ const fieldMixin = {
       }
     },
     handleOnChange(val, oldVal, ops = []) {
-      console.log("ops:111 ", ops);
       if (!!this.designState) {
         return;
       }
@@ -9281,7 +9229,7 @@ const fieldMixin = {
         changeFn.call(this, val, oldVal, ops[0]);
       }
     },
-    handleOnChangeForSubForm(val, oldVal, ops = [], subFormData, rowId2) {
+    handleOnChangeForSubForm(val, oldVal, ops = [], subFormData, rowId) {
       if (!!this.designState) {
         return;
       }
@@ -9294,7 +9242,7 @@ const fieldMixin = {
           "rowId",
           this.field.options.onChange
         );
-        changeFn.call(this, val, oldVal, ops[0], subFormData, rowId2);
+        changeFn.call(this, val, oldVal, ops[0], subFormData, rowId);
       }
     },
     handleButtonWidgetClick() {
@@ -24972,8 +24920,8 @@ const containerItemMixin = {
     /* 提示：用户可自行扩充这些方法！！！ */
     setHidden(flag) {
       this.widget.options.hidden = flag;
-      const clearRulesFn = (fieldWidget2) => {
-        const fwName = fieldWidget2.options.name;
+      const clearRulesFn = (fieldWidget) => {
+        const fwName = fieldWidget.options.name;
         const fwRef = this.getWidgetRef(fwName);
         if (flag && !!fwRef && !!fwRef.clearFieldRules) {
           fwRef.clearFieldRules();
@@ -25039,9 +24987,9 @@ const containerItemMixin = {
     getSubFormRowCount() {
       return !this.rowIdData ? 0 : this.rowIdData.length;
     },
-    setGridSubFormRowDisabled(rowId2, disabledFlag) {
+    setGridSubFormRowDisabled(rowId, disabledFlag) {
       const fwHandler = (fw) => {
-        const fwName = fw.options.name + "@row" + rowId2;
+        const fwName = fw.options.name + "@row" + rowId;
         const fwRef = this.getWidgetRef(fwName);
         if (!!fwRef && !!fwRef.setDisabled) {
           fwRef.setDisabled(disabledFlag);
@@ -26712,9 +26660,9 @@ const _sfc_main$3G = {
     deleteFromFieldSchemaData(rowIndex) {
       this.fieldSchemaData.splice(rowIndex, 1);
     },
-    cloneFieldSchema(fieldWidget2) {
-      const newFieldSchema = deepClone(fieldWidget2);
-      newFieldSchema.id = fieldWidget2.type + generateId();
+    cloneFieldSchema(fieldWidget) {
+      const newFieldSchema = deepClone(fieldWidget);
+      newFieldSchema.id = fieldWidget.type + generateId();
       return newFieldSchema;
     },
     initEventHandler() {
@@ -28067,9 +28015,9 @@ const _sfc_main$3y = {
         );
       }
     },
-    buildFormModel(widgetList2) {
-      if (!!widgetList2 && widgetList2.length > 0) {
-        widgetList2.forEach((wItem) => {
+    buildFormModel(widgetList) {
+      if (!!widgetList && widgetList.length > 0) {
+        widgetList.forEach((wItem) => {
           this.buildDataFromWidget(wItem);
         });
       }
@@ -28809,7 +28757,7 @@ function _sfc_render$3y(_ctx, _cache, $props, $setup, $data, $options) {
     _: 3
   }, 8, ["component-size"]);
 }
-const VFormRender = /* @__PURE__ */ _export_sfc$1(_sfc_main$3y, [["render", _sfc_render$3y], ["__scopeId", "data-v-4fe8d975"]]);
+const VFormRender = /* @__PURE__ */ _export_sfc$1(_sfc_main$3y, [["render", _sfc_render$3y], ["__scopeId", "data-v-1bb143fe"]]);
 var ace$2 = { exports: {} };
 (function(module, exports) {
   (function() {
@@ -29957,7 +29905,7 @@ var ace$2 = { exports: {} };
         };
       }
     };
-    exports2.version = "1.32.7";
+    exports2.version = "1.32.8";
   });
   ace.define("ace/loader_build", ["require", "exports", "module", "ace/lib/fixoldbrowsers", "ace/config"], function(require2, exports2, module2) {
     require2("./lib/fixoldbrowsers");
@@ -39926,6 +39874,14 @@ var ace$2 = { exports: {} };
             return [screenColumn, column];
           };
         };
+        EditSession2.prototype.getPrecedingCharacter = function() {
+          var pos = this.selection.getCursor();
+          if (pos.column === 0) {
+            return pos.row === 0 ? "" : this.doc.getNewLineCharacter();
+          }
+          var currentLine = this.getLine(pos.row);
+          return currentLine[pos.column - 1];
+        };
         EditSession2.prototype.destroy = function() {
           if (!this.destroyed) {
             this.bgTokenizer.setDocument(null);
@@ -48536,7 +48492,7 @@ var ace$2 = { exports: {} };
             if (ghostTextHeight < height) {
               this.scrollBy(0, (textLines.length - 1) * this.lineHeight);
             } else {
-              this.scrollBy(0, pixelPosition.top);
+              this.scrollToRow(insertPosition.row);
             }
           }
         };
@@ -51756,11 +51712,11 @@ var extLanguage_tools = { exports: {} };
           !r2 && e4 && (r2 = this.retrievePrecedingIdentifier(n2, t2.column, e4));
         }).bind(this));
       }).bind(this)), r2 || this.retrievePrecedingIdentifier(n2, t2.column);
-    }, t.triggerAutocomplete = function(e2) {
-      var t2 = e2.getCursorPosition(), n2 = e2.session.getLine(t2.row), r2 = t2.column === 0 ? 0 : t2.column - 1, i = n2[r2];
+    }, t.triggerAutocomplete = function(e2, t2) {
+      var t2 = t2 == null ? e2.session.getPrecedingCharacter() : t2;
       return e2.completers.some(function(e3) {
         if (e3.triggerCharacters && Array.isArray(e3.triggerCharacters))
-          return e3.triggerCharacters.includes(i);
+          return e3.triggerCharacters.includes(t2);
       });
     };
   }), ace.define("ace/autocomplete", ["require", "exports", "module", "ace/keyboard/hash_handler", "ace/autocomplete/popup", "ace/autocomplete/inline", "ace/autocomplete/popup", "ace/autocomplete/util", "ace/lib/lang", "ace/lib/dom", "ace/snippets", "ace/config", "ace/lib/event", "ace/lib/scroll"], function(e, t, n) {
@@ -51862,7 +51818,7 @@ var extLanguage_tools = { exports: {} };
           var a2 = this.popup.getData(this.popup.getRow());
           this.$updateGhostText(a2);
         }
-        n2 ? n2 && !t2 && this.detach() : (this.popup.setTheme(e3.getTheme()), this.popup.setFontSize(e3.getFontSize()), this.$updatePopupPosition(), this.tooltipNode && this.updateDocTooltip()), this.changeTimer.cancel(), this.observeLayoutChanges();
+        n2 || (this.popup.setTheme(e3.getTheme()), this.popup.setFontSize(e3.getFontSize()), this.$updatePopupPosition(), this.tooltipNode && this.updateDocTooltip()), this.changeTimer.cancel(), this.observeLayoutChanges();
       }, e2.prototype.detach = function() {
         this.editor && (this.editor.keyBinding.removeKeyboardHandler(this.keyboardHandler), this.editor.off("changeSelection", this.changeListener), this.editor.off("blur", this.blurListener), this.editor.off("mousedown", this.mousedownListener), this.editor.off("mousewheel", this.mousewheelListener)), this.$firstOpenTimer.cancel(), this.changeTimer.cancel(), this.hideDocTooltip(), this.completionProvider && this.completionProvider.detach(), this.popup && this.popup.isOpen && this.popup.hide(), this.popup && this.popup.renderer && this.popup.renderer.off("afterRender", this.$onPopupRender), this.base && this.base.detach(), this.activated = false, this.completionProvider = this.completions = this.base = null, this.unObserveLayoutChanges();
       }, e2.prototype.changeListener = function(e3) {
@@ -52004,6 +51960,10 @@ var extLanguage_tools = { exports: {} };
       if (!!t2 || !!e2.tabstopManager)
         return t2;
       e2.completer.goTo("down");
+    }, Backspace: function(e2) {
+      e2.execCommand("backspace");
+      var t2 = u.getCompletionPrefix(e2);
+      !t2 && e2.completer && e2.completer.detach();
     }, PageUp: function(e2) {
       e2.completer.popup.gotoPageUp();
     }, PageDown: function(e2) {
@@ -52216,10 +52176,10 @@ var extLanguage_tools = { exports: {} };
     }, y, b = o.delayedCall(function() {
       w(y);
     }, 0), w = function(e2) {
-      var t2 = e2.editor, n2 = u.getCompletionPrefix(t2), r2 = u.triggerAutocomplete(t2);
-      if (n2 && n2.length >= t2.$liveAutocompletionThreshold || r2) {
-        var s2 = i.for(t2);
-        s2.autoShown = true, s2.showPopup(t2);
+      var t2 = e2.editor, n2 = u.getCompletionPrefix(t2), r2 = e2.args, s2 = u.triggerAutocomplete(t2, r2);
+      if (n2 && n2.length >= t2.$liveAutocompletionThreshold || s2) {
+        var o2 = i.for(t2);
+        o2.autoShown = true, o2.showPopup(t2);
       }
     }, E = e("../editor").Editor;
     e("../config").defineOptions(E.prototype, "editor", { enableBasicAutocompletion: { set: function(e2) {
@@ -52239,9 +52199,7 @@ var extLanguage_tools = { exports: {} };
   })();
 })(extLanguage_tools);
 const VARIANT_FORM_VERSION = "3.1.6";
-const MOCK_CASE_URL = "https://ks3-cn-beijing.ksyuncs.com/vform-static/vcase/";
 const ACE_BASE_PATH = "https://ks3-cn-beijing.ksyun.com/vform2021/ace-mini";
-const BEAUTIFIER_PATH = "https://ks3-cn-beijing.ksyun.com/vform2021/js-beautify/1.14.0/beautifier.min.js";
 const _sfc_main$3x = {
   name: "CodeEditor",
   props: {
@@ -52443,1878 +52401,6 @@ const generateCode = function(formJson, codeType = "vue") {
 <\/script>`;
   }
 };
-function emptyAttr(attrName, attrValue) {
-  if (attrValue)
-    return `${attrName}="${attrValue}"`;
-  else
-    return "";
-}
-function sfcTraverseSubformWidgets(widgetList2, handler) {
-  widgetList2.forEach((w) => {
-    handler(w);
-  });
-}
-function sfcTraverseFieldWidgets(widgetList2, handler, parent = null) {
-  widgetList2.forEach((w) => {
-    if (w.formItemFlag) {
-      handler(w, parent);
-    } else if (w.type === "grid") {
-      w.cols.forEach((col) => {
-        sfcTraverseFieldWidgets(col.widgetList, handler, w);
-      });
-    } else if (w.type === "table") {
-      w.rows.forEach((row) => {
-        row.cols.forEach((cell) => {
-          sfcTraverseFieldWidgets(cell.widgetList, handler, w);
-        });
-      });
-    } else if (w.type === "tab") {
-      w.tabs.forEach((tab) => {
-        sfcTraverseFieldWidgets(tab.widgetList, handler, w);
-      });
-    } else if (w.type === "sub-form" || w.type === "grid-sub-form") {
-      handler(w, parent);
-    } else if (w.type === "data-table") {
-      handler(w, parent);
-    } else if (w.category === "container") {
-      sfcTraverseFieldWidgets(w.widgetList, handler, w);
-    }
-  });
-}
-function sfcTraverseContainerWidgets(widgetList2, handler) {
-  widgetList2.forEach((w) => {
-    if (w.category === "container") {
-      handler(w);
-    }
-    if (w.type === "grid") {
-      w.cols.forEach((col) => {
-        sfcTraverseContainerWidgets(col.widgetList, handler);
-      });
-    } else if (w.type === "table") {
-      w.rows.forEach((row) => {
-        row.cols.forEach((cell) => {
-          sfcTraverseContainerWidgets(cell.widgetList, handler);
-        });
-      });
-    } else if (w.type === "tab") {
-      w.tabs.forEach((tab) => {
-        sfcTraverseContainerWidgets(tab.widgetList, handler);
-      });
-    } else if (w.type === "sub-form" || w.type === "grid-sub-form") {
-      traverseAllWidgets(w.widgetList, handler);
-    } else if (w.category === "container") {
-      sfcTraverseContainerWidgets(w.widgetList, handler);
-    }
-  });
-}
-function buildDefaultValueListFn(formConfig2, widgetList2, resultList2) {
-  return function(fieldWidget2) {
-    const fop2 = fieldWidget2.options;
-    const fd = fop2.defaultValue;
-    if (fieldWidget2.type === "sub-form" || fieldWidget2.type === "grid-sub-form") {
-      const resultSubList = {};
-      sfcTraverseSubformWidgets(fieldWidget2.widgetList, (result2) => {
-        resultSubList[result2.options.name] = result2.options.defaultValue;
-      });
-      resultList2.push(`${fop2.name}: [${JSON.stringify(resultSubList)}],`);
-    } else if (fieldWidget2.type === "data-table") {
-      const tableData = {
-        tableData: fop2.tableData,
-        tableColumns: fop2.tableColumns
-      };
-      resultList2.push(`${fop2.name}: ${JSON.stringify(tableData)},`);
-    } else {
-      if (isNotNull(fd)) {
-        resultList2.push(`${fop2.name}: ${JSON.stringify(fd)},`);
-      } else {
-        resultList2.push(`${fop2.name}: null,`);
-      }
-    }
-  };
-}
-function buildRulesListFn(formConfig, widgetList, resultList) {
-  return function(fieldWidget) {
-    const fop = fieldWidget.options;
-    const fieldRules = [];
-    if (fieldWidget.type !== "sub-form" && fieldWidget.type !== "grid-sub-form") {
-      if (!!fop.required) {
-        fieldRules.push(`{
-          required: true,
-          message: '${translate("render.hint.fieldRequired")}',
-        }`);
-      }
-      if (!!fop.validation) {
-        const vldName = fop.validation;
-        if (!!FormValidators[vldName]) {
-          fieldRules.push(`{
-            pattern: ${eval(getRegExp(vldName))},
-            trigger: ['blur', 'change'],
-            message: '${fop.validationHint}'
-          }`);
-        } else {
-          fieldRules.push(`{
-            pattern: '${eval(vldName)}',
-            trigger: ['blur', 'change'],
-            message: '${fop.validationHint}'
-          }`);
-        }
-      }
-      fieldRules.length > 0 && resultList.push(`${fop.name}: [${fieldRules.join(",")}],`);
-    } else {
-      const resultSubList = [];
-      fieldWidget.widgetList.forEach((subWidget) => {
-        buildRulesListFn(formConfig, fieldWidget.widgetList, resultSubList)(subWidget);
-      });
-      resultList.push(resultSubList);
-    }
-  };
-}
-function buildFieldOptionsFn(formConfig2, widgetList2, resultList2) {
-  return function(fieldWidget2) {
-    const fop2 = fieldWidget2.options;
-    const ft = fieldWidget2.type;
-    if (["radio", "checkbox", "select", "cascader"].includes(ft)) {
-      resultList2.push(`${fop2.name}Options: ${JSON.stringify(fop2.optionItems)},`);
-    } else if (ft === "sub-form" || ft === "grid-sub-form") {
-      const resultSubList = [];
-      fieldWidget2.widgetList.forEach((subWidget) => {
-        buildFieldOptionsFn(formConfig2, fop2.widgetList, resultSubList)(subWidget);
-      });
-      resultList2.push(...resultSubList);
-    } else if (ft === "grid") {
-      const resultSubList = [];
-      fieldWidget2.cols.forEach((col) => {
-        col.widgetList.forEach((subWidget) => {
-          buildFieldOptionsFn(formConfig2, fop2.widgetList, resultSubList)(subWidget);
-        });
-      });
-      resultList2.push(...resultSubList);
-    }
-  };
-}
-function buildUploadDataFn(formConfig2, widgetList2, resultList2) {
-  return function(fieldWidget2) {
-    const fop2 = fieldWidget2.options;
-    const ft = fieldWidget2.type;
-    if (ft === "picture-upload" || ft === "file-upload") {
-      resultList2.push(`${fop2.name}FileList: [],`);
-      resultList2.push(`${fop2.name}UploadHeaders: {},`);
-      resultList2.push(`${fop2.name}UploadData: {},`);
-    }
-  };
-}
-function buildActiveTabs(formConfig2, widgetList2) {
-  const resultList2 = [];
-  const handlerFn = function(cw) {
-    const cop = cw.options;
-    const ct = cw.type;
-    if (ct === "tab") {
-      cw.tabs.length > 0 && resultList2.push(`'${cop.name}ActiveTab': '${cw.tabs[0].options.name}',`);
-    }
-  };
-  sfcTraverseContainerWidgets(widgetList2, handlerFn);
-  return resultList2;
-}
-function buildSubFormMethods$1(widgetList2) {
-  let template = ``;
-  const widget = widgetList2.find((x) => x.type === "sub-form" || x.type === "grid-sub-form");
-  if (widget) {
-    template = `
-   addSubFormRow(widgetId){
-    this.formData[widgetId].push({})
-   },
-   insertSubFormRow(widgetId,sfrIdx){
-    this.formData[widgetId].splice(sfrIdx,0,{})
-   },
-   deleteSubFormRow(widgetId,sfrIdx){
-    this.formData[widgetId].splice(sfrIdx,1)
-   },
-   `;
-  }
-  return template;
-}
-function buildDataTableMethods$1(widgetList2) {
-  let template = ``;
-  const widget = widgetList2.find((x) => x.type === "data-table");
-  if (widget) {
-    template = `
-    formatterValue(row, column, cellValue) {
-      if (!cellValue) {
-        return ''
-      }
-
-      let date=cellValue;      
-      let v=cellValue;
-      let y,m,d,res,length
-
-      if(!!column.formatS) {
-        switch(column.formatS) {
-          case 'd1':
-              if (new Date(Date.parse(date.replace(/-/g, "/"))) === "Invalid Date") {
-                return date;
-              }
-              date = new Date(Date.parse(date.replace(/-/g, "/"))); //转换成Date
-              y = date.getFullYear();
-              m = date.getMonth() + 1;
-              m = m < 10 ? '0' + m : m;
-              d = date.getDate();
-              d = d < 10 ? ('0' + d) : d;
-              return y + '-' + m + '-' + d;
-          case 'd2':
-            if (new Date(Date.parse(date.replace(/-/g, "/"))) === "Invalid Date") {
-              return date;
-            }
-            date = new Date(Date.parse(date.replace(/-/g, "/"))); //转换成Date
-            y = date.getFullYear();
-            m = date.getMonth() + 1;
-            m = m < 10 ? '0' + m : m;
-            d = date.getDate();
-            d = d < 10 ? ('0' + d) : d;
-            return y + '/' + m + '/' + d;
-          case 'd3':
-            if (new Date(Date.parse(date.replace(/-/g, "/"))) === "Invalid Date") {
-              return date;
-            }
-            date = new Date(Date.parse(date.replace(/-/g, "/"))); //转换成Date
-            y = date.getFullYear();
-            m = date.getMonth() + 1;
-            m = m < 10 ? '0' + m : m;
-            d = date.getDate();
-            d = d < 10 ? ('0' + d) : d;
-            return y + '年' + m + '月' + d +'日';
-          case 'd4':
-            if (new Date(Date.parse(date.replace(/-/g, "/"))) === "Invalid Date"){
-              return date;
-            }
-            date = new Date(Date.parse(date.replace(/-/g, "/"))); //转换成Date
-            return date.toLocaleString()
-          case 'd5':
-            if (new Date(Date.parse(date.replace(/-/g, "/"))) === "Invalid Date") {
-              return date;
-            }
-            date = new Date(Date.parse(date.replace(/-/g, "/"))); //转换成Data();
-            return date.toLocaleString('chinese', { hour12: false })
-          case 'n1':
-            if (typeof(v) != "number") {
-              return v;
-            }
-          
-            length = v.toString().split(".")[1].length;
-            switch(length){
-              case 0:
-                  v = v.toFixed(0)
-                  break;
-              case 1:
-                  v = v.toFixed(1)
-                  break;
-              case 2:
-                  v = v.toFixed(2)
-                  break;
-              case 3:
-                  v = v.toFixed(3)
-                  break;
-              case 4:
-                  v = v.toFixed(4)
-                  break;
-              case 5:
-                  v = v.toFixed(5)
-                  break;
-              default:
-                  v = v.toFixed(6)
-            }
-            res = v.toString().replace(/d+/, function(n){ // 先提取整数部分
-              return n.replace(/(d)(?=(d{3})+$)/g,function($1){
-                return $1+",";
-                });
-              })
-            return res;
-          case 'n2':
-            if (typeof(v) != "number") {
-              return v;
-            }
-          
-            length = v.toString().split(".")[1].length;
-            switch(length){
-              case 0:
-              case 1:
-              case 2:
-                  v = v.toFixed(2)
-                  break;
-              case 3:
-                  v = v.toFixed(3)
-                  break;
-              case 4:
-                  v = v.toFixed(4)
-                  break;
-              case 5:
-                  v = v.toFixed(5)
-                  break;
-              default:
-                  v = v.toFixed(6)
-            }
-          
-            res = v.toString().replace(/d+/, function(n){ // 先提取整数部分
-              return n.replace(/(d)(?=(d{3})+$)/g,function($1){
-                return $1+",";
-                });
-              })
-            return res;
-          case 'n3':
-            if (typeof(v) != "number") {
-              return v;
-            }
-          
-            v = v.toFixed(6)
-            res = v.toString().replace(/d+/, function(n){ // 先提取整数部分
-              return n.replace(/(d)(?=(d{3})+$)/g,function($1){
-                return $1+",";
-                });
-              })
-            return res;
-          case 'n4':
-            if (typeof(v) != "number") {
-              return v;
-            }
-          
-            v = v.toFixed(3)
-            res = v.toString().replace(/d+/, function(n){ // 先提取整数部分
-              return n.replace(/(d)(?=(d{3})+$)/g,function($1){
-                return $1+",";
-                });
-              })
-            return res;
-          case 'n5':
-            if (typeof(v) != "number") {
-              return v;
-            }
-          
-            v = v.toFixed(2)
-            res = v.toString().replace(/d+/, function(n){ // 先提取整数部分
-              return n.replace(/(d)(?=(d{3})+$)/g,function($1){
-                return $1+",";
-                });
-              })
-            return res;
-          case 'n6':
-            if (typeof(v) != "number") {
-              return v;
-            }
-          
-            v = v.toFixed(0)
-            res = v.toString().replace(/d+/, function(n){ // 先提取整数部分
-              return n.replace(/(d)(?=(d{3})+$)/g,function($1){
-                return $1+",";
-                });
-              })
-            return res;
-          case 'n7':
-            if (typeof(v) != "number") {
-              return v;
-            }
-          
-            length = v.toString().split(".")[1].length;
-            v = v*100
-            switch(length){
-              case 0:
-              case 1:
-              case 2:
-                  v = v.toFixed(2)
-                  break;
-              case 3:
-                  v = v.toFixed(3)
-                  break;
-              default:
-                  v = v.toFixed(4)
-            }
-          
-            res = v.toString().replace(/d+/, function(n){ // 先提取整数部分
-              return n.replace(/(d)(?=(d{3})+$)/g,function($1){
-                return $1+",";
-                });
-              })
-            return res+'%';
-        }
-      }
-      return cellValue;
-    },
-   `;
-  }
-  return template;
-}
-const genVue2JS = function(formConfig2, widgetList2) {
-  const defaultValueList = [];
-  const rulesList = [];
-  const fieldOptions = [];
-  const uploadData = [];
-  sfcTraverseFieldWidgets(widgetList2, (widget) => {
-    buildDefaultValueListFn(formConfig2, widgetList2, defaultValueList)(widget);
-    buildRulesListFn(formConfig2, widgetList2, rulesList)(widget);
-    buildFieldOptionsFn(formConfig2, widgetList2, fieldOptions)(widget);
-    buildUploadDataFn(formConfig2, widgetList2, uploadData)(widget);
-  });
-  const activeTabs = buildActiveTabs(formConfig2, widgetList2);
-  const v2JSTemplate = `  export default {
-    components: {},
-    props: {},
-    data() {
-      return {
-        ${formConfig2.modelName}: {
-          ${defaultValueList.join("\n")}
-        },
-        
-        ${formConfig2.rulesName}: {
-          ${rulesList.join("\n")}
-        },
-        
-        ${activeTabs.join("\n")}
-        
-        ${fieldOptions.join("\n")}
-        
-        ${uploadData.join("\n")}
-      }
-    },
-    computed: {},
-    watch: {},
-    created() {
-    },
-    mounted() {
-    },
-    methods: {
-      ${buildSubFormMethods$1(widgetList2)}
-      ${buildDataTableMethods$1(widgetList2)}
-      
-      submitForm() {
-        this.$refs['vForm'].validate(valid => {
-          if (!valid) return
-          
-          //TODO: 提交表单
-        })
-      },
-      
-      resetForm() {
-        this.$refs['vForm'].resetFields()
-      }
-    }
-  }`;
-  return v2JSTemplate;
-};
-let beautifierObj;
-const beautifierOpts = {
-  html: {
-    indent_size: "2",
-    indent_char: " ",
-    max_preserve_newlines: "-1",
-    preserve_newlines: false,
-    keep_array_indentation: false,
-    break_chained_methods: false,
-    indent_scripts: "separate",
-    brace_style: "end-expand",
-    space_before_conditional: true,
-    unescape_strings: false,
-    jslint_happy: false,
-    end_with_newline: true,
-    wrap_line_length: "110",
-    indent_inner_html: true,
-    comma_first: false,
-    e4x: true,
-    indent_empty_lines: true
-  },
-  js: {
-    indent_size: "2",
-    indent_char: " ",
-    max_preserve_newlines: "-1",
-    preserve_newlines: false,
-    keep_array_indentation: false,
-    break_chained_methods: false,
-    indent_scripts: "normal",
-    brace_style: "end-expand",
-    space_before_conditional: true,
-    unescape_strings: false,
-    jslint_happy: true,
-    end_with_newline: true,
-    wrap_line_length: "110",
-    indent_inner_html: true,
-    comma_first: false,
-    e4x: true,
-    indent_empty_lines: true
-  },
-  css: {
-    indent_size: "2",
-    indent_char: " ",
-    max_preserve_newlines: "-1",
-    preserve_newlines: false,
-    keep_array_indentation: false,
-    break_chained_methods: false,
-    indent_scripts: "normal",
-    brace_style: "end-expand",
-    space_before_conditional: true,
-    unescape_strings: false,
-    jslint_happy: true,
-    end_with_newline: true,
-    wrap_line_length: "110",
-    indent_inner_html: true,
-    comma_first: false,
-    e4x: true,
-    indent_empty_lines: true
-  }
-};
-function loadBeautifier(callback) {
-  if (beautifierObj) {
-    callback(beautifierObj);
-    return;
-  }
-  loadRemoteScript(BEAUTIFIER_PATH, () => {
-    beautifierObj = beautifier;
-    callback(beautifierObj);
-  });
-}
-function buildSubFormMethods(widgetList2) {
-  let template = ``;
-  let widget = widgetList2.find(
-    (x) => x.type === "sub-form" || x.type === "grid-sub-form"
-  );
-  if (widget) {
-    template = `
-    methods.addSubFormRow=(widgetId)=>{
-    state.formData[widgetId].push({})
-   };
-
-   methods.insertSubFormRow=(widgetId,sfrIdx)=>{
-    state.formData[widgetId].splice(sfrIdx,0,{})
-   };
-
-   methods.deleteSubFormRow=(widgetId,sfrIdx)=>{
-    state.formData[widgetId].splice(sfrIdx,1)
-   };
-   `;
-  }
-  return template;
-}
-function buildDataTableMethods(widgetList2) {
-  let template = ``;
-  let widget = widgetList2.find((x) => x.type === "data-table");
-  if (widget) {
-    template = `
-    methods.formatterValue=(row, column, cellValue)=> {
-      if (!cellValue) {
-        return ''
-      }
-
-      let date=cellValue;      
-      let v=cellValue;
-      let y,m,d,res,length
-
-      if(!!column.formatS) {
-        switch(column.formatS) {
-          case 'd1':
-              if (new Date(Date.parse(date.replace(/-/g, "/"))) === "Invalid Date") {
-                return date;
-              }
-              date = new Date(Date.parse(date.replace(/-/g, "/"))); //转换成Date
-              y = date.getFullYear();
-              m = date.getMonth() + 1;
-              m = m < 10 ? '0' + m : m;
-              d = date.getDate();
-              d = d < 10 ? ('0' + d) : d;
-              return y + '-' + m + '-' + d;
-          case 'd2':
-            if (new Date(Date.parse(date.replace(/-/g, "/"))) === "Invalid Date") {
-              return date;
-            }
-            date = new Date(Date.parse(date.replace(/-/g, "/"))); //转换成Date
-            y = date.getFullYear();
-            m = date.getMonth() + 1;
-            m = m < 10 ? '0' + m : m;
-            d = date.getDate();
-            d = d < 10 ? ('0' + d) : d;
-            return y + '/' + m + '/' + d;
-          case 'd3':
-            if (new Date(Date.parse(date.replace(/-/g, "/"))) === "Invalid Date") {
-              return date;
-            }
-            date = new Date(Date.parse(date.replace(/-/g, "/"))); //转换成Date
-            y = date.getFullYear();
-            m = date.getMonth() + 1;
-            m = m < 10 ? '0' + m : m;
-            d = date.getDate();
-            d = d < 10 ? ('0' + d) : d;
-            return y + '年' + m + '月' + d +'日';
-          case 'd4':
-            if (new Date(Date.parse(date.replace(/-/g, "/"))) === "Invalid Date"){
-              return date;
-            }
-            date = new Date(Date.parse(date.replace(/-/g, "/"))); //转换成Date
-            return date.toLocaleString()
-          case 'd5':
-            if (new Date(Date.parse(date.replace(/-/g, "/"))) === "Invalid Date") {
-              return date;
-            }
-            date = new Date(Date.parse(date.replace(/-/g, "/"))); //转换成Data();
-            return date.toLocaleString('chinese', { hour12: false })
-          case 'n1':
-            if (typeof(v) != "number") {
-              return v;
-            }
-          
-            length = v.toString().split(".")[1].length;
-            switch(length){
-              case 0:
-                  v = v.toFixed(0)
-                  break;
-              case 1:
-                  v = v.toFixed(1)
-                  break;
-              case 2:
-                  v = v.toFixed(2)
-                  break;
-              case 3:
-                  v = v.toFixed(3)
-                  break;
-              case 4:
-                  v = v.toFixed(4)
-                  break;
-              case 5:
-                  v = v.toFixed(5)
-                  break;
-              default:
-                  v = v.toFixed(6)
-            }
-            res = v.toString().replace(/d+/, function(n){ // 先提取整数部分
-              return n.replace(/(d)(?=(d{3})+$)/g,function($1){
-                return $1+",";
-                });
-              })
-            return res;
-          case 'n2':
-            if (typeof(v) != "number") {
-              return v;
-            }
-          
-            length = v.toString().split(".")[1].length;
-            switch(length){
-              case 0:
-              case 1:
-              case 2:
-                  v = v.toFixed(2)
-                  break;
-              case 3:
-                  v = v.toFixed(3)
-                  break;
-              case 4:
-                  v = v.toFixed(4)
-                  break;
-              case 5:
-                  v = v.toFixed(5)
-                  break;
-              default:
-                  v = v.toFixed(6)
-            }
-          
-            res = v.toString().replace(/d+/, function(n){ // 先提取整数部分
-              return n.replace(/(d)(?=(d{3})+$)/g,function($1){
-                return $1+",";
-                });
-              })
-            return res;
-          case 'n3':
-            if (typeof(v) != "number") {
-              return v;
-            }
-          
-            v = v.toFixed(6)
-            res = v.toString().replace(/d+/, function(n){ // 先提取整数部分
-              return n.replace(/(d)(?=(d{3})+$)/g,function($1){
-                return $1+",";
-                });
-              })
-            return res;
-          case 'n4':
-            if (typeof(v) != "number") {
-              return v;
-            }
-          
-            v = v.toFixed(3)
-            res = v.toString().replace(/d+/, function(n){ // 先提取整数部分
-              return n.replace(/(d)(?=(d{3})+$)/g,function($1){
-                return $1+",";
-                });
-              })
-            return res;
-          case 'n5':
-            if (typeof(v) != "number") {
-              return v;
-            }
-          
-            v = v.toFixed(2)
-            res = v.toString().replace(/d+/, function(n){ // 先提取整数部分
-              return n.replace(/(d)(?=(d{3})+$)/g,function($1){
-                return $1+",";
-                });
-              })
-            return res;
-          case 'n6':
-            if (typeof(v) != "number") {
-              return v;
-            }
-          
-            v = v.toFixed(0)
-            res = v.toString().replace(/d+/, function(n){ // 先提取整数部分
-              return n.replace(/(d)(?=(d{3})+$)/g,function($1){
-                return $1+",";
-                });
-              })
-            return res;
-          case 'n7':
-            if (typeof(v) != "number") {
-              return v;
-            }
-          
-            length = v.toString().split(".")[1].length;
-            v = v*100
-            switch(length){
-              case 0:
-              case 1:
-              case 2:
-                  v = v.toFixed(2)
-                  break;
-              case 3:
-                  v = v.toFixed(3)
-                  break;
-              default:
-                  v = v.toFixed(4)
-            }
-          
-            res = v.toString().replace(/d+/, function(n){ // 先提取整数部分
-              return n.replace(/(d)(?=(d{3})+$)/g,function($1){
-                return $1+",";
-                });
-              })
-            return res+'%';
-        }
-      }
-      return cellValue;
-    }
-   `;
-  }
-  return template;
-}
-const genVue3JS = function(formConfig2, widgetList2) {
-  let defaultValueList = [];
-  let rulesList = [];
-  let fieldOptions = [];
-  let uploadData = [];
-  sfcTraverseFieldWidgets(widgetList2, (widget) => {
-    buildDefaultValueListFn(formConfig2, widgetList2, defaultValueList)(widget);
-    buildRulesListFn(formConfig2, widgetList2, rulesList)(widget);
-    buildFieldOptionsFn(formConfig2, widgetList2, fieldOptions)(widget);
-    buildUploadDataFn(formConfig2, widgetList2, uploadData)(widget);
-  });
-  const activeTabs = buildActiveTabs(formConfig2, widgetList2);
-  const v3JSTemplate = `  import { defineComponent, toRefs, reactive, getCurrentInstance } from 'vue'
-  
-  export default defineComponent({
-    components: {},
-    props: {},
-    setup() {
-      const state = reactive({
-        ${formConfig2.modelName}: {
-          ${defaultValueList.join("\n")}
-        },
-        
-        ${formConfig2.rulesName}: {
-          ${rulesList.join("\n")}
-        },
-        
-        ${activeTabs.join("\n")}
-        
-        ${fieldOptions.join("\n")}
-        
-        ${uploadData.join("\n")}
-      })
-    
-      const methods = {}
-      
-      const instance = getCurrentInstance()
-      
-      const submitForm = () => {
-        instance.proxy.$refs['vForm'].validate(valid => {
-          if (!valid) return
-          
-          //TODO: 提交表单
-        })
-      }
-      
-      const resetForm = () => {
-        instance.proxy.$refs['vForm'].resetFields()
-      }
-      
-      ${buildSubFormMethods(widgetList2)}
-      ${buildDataTableMethods(widgetList2)}
-      
-      return {
-        ...toRefs(state),
-        ...methods,
-        submitForm,
-        resetForm
-      }
-    }
-  })`;
-  return v3JSTemplate;
-};
-function buildClassAttr(ctn, defaultClass) {
-  const cop = ctn.options;
-  const gridClassArray = [];
-  !!defaultClass && gridClassArray.push(defaultClass);
-  !!cop.customClass && cop.customClass.length > 0 && gridClassArray.push(cop.customClass.join(" "));
-  return gridClassArray.length > 0 ? `class="${gridClassArray.join(" ")}"` : "";
-}
-function getLabelAlign(widget, subWidget) {
-  return subWidget.options.labelAlign || widget.options.labelAlign;
-}
-function getCustomLabel(subWidget) {
-  const html = [];
-  if (!!subWidget.options.labelIconClass) {
-    html.push(`<span class="custom-label">`);
-    if (subWidget.options.labelIconPosition === "front") {
-      html.push(
-        `<a-tooltip message="${subWidget.options.labelTooltip}" ><i class="${subWidget.options.labelIconClass}"></i></el-tooltip>${subWidget.options.label}`
-      );
-    } else {
-      html.push(`<i class="${subWidget.options.labelIconClass}"></i>${subWidget.options.label}`);
-    }
-    html.push(`</span>`);
-  } else {
-    html.push(
-      `<span title="${subWidget.options.labelTooltip || ""}">${subWidget.options.label}</span>`
-    );
-  }
-  return html.join("");
-}
-const rowId = () => {
-  return `id${generateId()}`;
-};
-const containerTemplates = {
-  //容器组件属性
-  grid: (ctn, formConfig2) => {
-    const gridClassAttr = buildClassAttr(ctn);
-    const gridTemplate = `<a-row ${gridClassAttr}>
-${ctn.cols.map((col) => {
-      const colOpt = col.options;
-      const spanAttr = !!colOpt.responsive ? "" : `:span="${colOpt.span}"`;
-      const mdAttr = !colOpt.responsive ? "" : `:md="${colOpt.md}"`;
-      const smAttr = !colOpt.responsive ? "" : `:sm="${colOpt.sm}"`;
-      const xsAttr = !colOpt.responsive ? "" : `:xs="${colOpt.xs}"`;
-      const offsetAttr = !!colOpt.offset ? `:offset="${colOpt.offset}"` : "";
-      const pushAttr = !!colOpt.push ? `:push="${colOpt.push}"` : "";
-      const pullAttr = !!colOpt.pull ? `:pull="${colOpt.pull}"` : "";
-      const colClassAttr = buildClassAttr(col, "grid-cell");
-      return `<a-col ${spanAttr} ${mdAttr} ${smAttr} ${xsAttr} ${offsetAttr} ${pushAttr} ${pullAttr} ${colClassAttr}>
-    ${col.widgetList.map((cw) => {
-        if (cw.category === "container") {
-          return buildContainerWidget(cw, formConfig2);
-        } else {
-          return buildFieldWidget(cw, formConfig2);
-        }
-      }).join("")}
-    </a-col>`;
-    }).join("")}
-</a-row>`;
-    return gridTemplate;
-  },
-  table: (ctn, formConfig2) => {
-    const tableClassAttr = buildClassAttr(ctn, "table-layout");
-    const tableTemplate = `<div class="table-container">
-  <table ${tableClassAttr}><tbody>
-  ${ctn.rows.map((tr) => {
-      return `<tr>${tr.cols.filter((td) => !td.merged).map((td) => {
-        const tdOpt = td.options;
-        const tdClassAttr = buildClassAttr(td, "table-cell");
-        const colspanAttr = !isNaN(tdOpt.colspan) && tdOpt.colspan !== 1 ? `colspan="${tdOpt.colspan}"` : "";
-        const rowspanAttr = !isNaN(tdOpt.rowspan) && tdOpt.rowspan !== 1 ? `rowspan="${tdOpt.rowspan}"` : "";
-        const tdStyleArray = [];
-        !!tdOpt.cellWidth && tdStyleArray.push("width: " + tdOpt.cellWidth + " !important");
-        !!tdOpt.cellHeight && tdStyleArray.push("height: " + tdOpt.cellHeight + " !important");
-        const tdStyleAttr = tdStyleArray.length > 0 ? `style="${tdStyleArray.join(";")}"` : "";
-        return `<td ${tdClassAttr} ${colspanAttr} ${rowspanAttr} ${tdStyleAttr}>${td.widgetList.map((tw) => {
-          if (tw.category === "container") {
-            return buildContainerWidget(tw, formConfig2);
-          } else {
-            return buildFieldWidget(tw, formConfig2);
-          }
-        }).join("")}
-                    </td>`;
-      }).join("")}</tr>`;
-    }).join("")}
-  </tbody></table>
-</div>`;
-    return tableTemplate;
-  },
-  tab: (ctn, formConfig2) => {
-    const tabClassAttr = buildClassAttr(ctn);
-    const vModel = ctn.tabs && ctn.tabs.length > 0 ? `v-model="${ctn.options.name}ActiveTab"` : "";
-    const tabTemplate = `<div class="tab-container">
-  <a-tabs ${vModel} type="${ctn.displayType}" ${tabClassAttr}>
-    ${ctn.tabs.map((tab) => {
-      const tabOpt = tab.options;
-      const disabledAttr = tabOpt.disabled === true ? `disabled` : "";
-      return `<a-tab-pane key="${tabOpt.name}" tab="${tabOpt.label}" ${disabledAttr}>
-        ${tab.widgetList.map((tw) => {
-        if (tw.category === "container") {
-          return buildContainerWidget(tw, formConfig2);
-        } else {
-          return buildFieldWidget(tw, formConfig2);
-        }
-      }).join("")}</a-tab-pane>`;
-    }).join("")}
-  </a-tabs>
-</div>`;
-    return tabTemplate;
-  },
-  "sub-form": (ctn, formConfig2, vue3Flag = false) => {
-    const tabClassAttr = buildClassAttr(ctn);
-    const tableTemplate = `<div class="container-wrapper"  ${emptyAttr("class", tabClassAttr)}>
-      <div key="${ctn.id}" class="sub-form-container">
-        <a-row class="header-row">
-        <div class="action-header-column">
-          <span class="action-label">操作</span>
-          <a-button round type="primary" size="mini" class="action-button" @click="addSubFormRow('${ctn.id}')" title="新增行">新增${vue3Flag ? ` <Plus style="width:1em; height:1em;" />` : `<i class="el-icon-plus el-icon-right"></i>`}
-          </a-button>
-        </div>
-
-          ${ctn.widgetList.map((subWidget) => {
-      const subWidgetContainer = `<div key="${subWidget.id + "thc"}" class="field-header-column"
-
-            ${emptyAttr(
-        "class",
-        (getLabelAlign(ctn, subWidget), !!subWidget.options.required ? "is-required" : "")
-      )}
-            style="width: ${subWidget.options.columnWidth}">
-              ${getCustomLabel(subWidget)}
-            </div>`;
-      return subWidgetContainer;
-    }).join("")}
-        </a-row>
-
-        ${(() => {
-      const rowHtml = [];
-      rowHtml.push(
-        `<a-row class="sub-form-row" v-for="(subWidget,sfrIdx) in formData.${ctn.id}" :key="sfrIdx">`
-      );
-      rowHtml.push(`<div class="sub-form-action-column hide-label">
-            <div class="action-button-column">
-              <a-button circle type="" ${vue3Flag ? `icon="Plus"` : `icon="el-icon-circle-plus-outline"`} @click="insertSubFormRow('${ctn.id}',sfrIdx)"
-                         title="插入行"></el-button>
-              <a-button circle type="" ${vue3Flag ? `icon="Delete"` : `icon="el-icon-delete"`} @click="deleteSubFormRow('${ctn.id}',sfrIdx)"
-                         title="删除行"></a-button>
-              <span class="row-number-span">#{{sfrIdx+1}}</span>
-            </div>
-          </div>`);
-      ctn.widgetList.map((subWidget, swIdx) => {
-        rowHtml.push(
-          `<div class="sub-form-table-column hide-label" key="${subWidget.id + "tc" + rowId()}"  style="width: ${subWidget.options.columnWidth}">`
-        );
-        rowHtml.push(buildSubFormFieldWidget(subWidget, formConfig2, ctn));
-        rowHtml.push(`</div>`);
-      });
-      rowHtml.push(`</el-row>`);
-      return rowHtml.join("");
-    })()}
-      </div>
-    </div>`;
-    return tableTemplate;
-  },
-  "grid-sub-form": (ctn, formConfig2, vue3Flag = false) => {
-    const tabClassAttr = buildClassAttr(ctn);
-    const tableTemplate = `<div class="container-wrapper"  ${emptyAttr("class", tabClassAttr)}>
-      <div key="${ctn.id}" class="sub-form-container">
-        <a-row class="header-row">
-        <div class="grid-sub-form action-header-column">
-          <span class="action-label">操作</span>
-          <a-button  round type="primary" size="mini" class="action-button" @click="addSubFormRow('${ctn.id}')"
-          title="新增行">新增${vue3Flag ? ` <Plus style="width:1em; height:1em;" />` : `<i class="el-icon-plus el-icon-right"></i>`}
-          </a-button>
-        </div>
-        </a-row>
-
-        ${(() => {
-      const rowHtml = [];
-      rowHtml.push(
-        `<div class="grid-sub-form sub-form-row" v-for="(subWidget,sfrIdx) in formData.${ctn.id}" :key="sfrIdx">`
-      );
-      rowHtml.push(`<div class="grid-sub-form sub-form-action-column hide-label">
-            <div class="action-button-column">
-              <a-button circle type="" ${vue3Flag ? `icon="Plus"` : `icon="el-icon-circle-plus-outline"`} @click="insertSubFormRow('${ctn.id}',sfrIdx)"
-                         title="插入行"></a-button>
-              <a-button circle type="" ${vue3Flag ? `icon="Delete"` : `icon="el-icon-delete"`} @click="deleteSubFormRow('${ctn.id}',sfrIdx)"
-                         title="删除行"></a-button>
-              <span class="row-number-span">#{{sfrIdx+1}}</span>
-            </div>
-          </div>`);
-      rowHtml.push(`<div class="grid-sub-form grid-sub-form-data-row">`);
-      ctn.widgetList.map((subWidget) => {
-        rowHtml.push(containerTemplates["grid"](subWidget, formConfig2, ctn, vue3Flag));
-      }).join("");
-      rowHtml.push(`  </div>`);
-      rowHtml.push(`</div>`);
-      return rowHtml.join("");
-    })()}
-      </div>
-    </div>`;
-    return tableTemplate;
-  },
-  "data-table": (ctn, formConfig2, vue3Flag = false) => {
-    const tabClassAttr = buildClassAttr(ctn, "container-wrapper");
-    const buttonsColumnFixed = () => {
-      if (ctn.options.buttonsColumnFixed === void 0) {
-        return "right";
-      }
-      return !ctn.options.buttonsColumnFixed ? false : ctn.options.buttonsColumnFixed;
-    };
-    const paginationLayout = () => {
-      return !!ctn.options.smallPagination ? "prev, pager, next" : "total, prev, pager, next, jumper";
-    };
-    const tableTemplate = `<div ${tabClassAttr}>
-    <a-table ref="dataTable" :data="formData.${ctn.id}.tableData" ${emptyAttr(
-      "class",
-      ctn.options.customClass.toString().replace(/,/g, " ")
-    )}
-								height="${ctn.options.tableHeight}" :style="{width: '${ctn.options.tableWidth}'}"
-								:border="${ctn.options.border}" :show-summary="${ctn.options.showSummary}"
-								size="${ctn.options.tableSize}" :stripe="${ctn.options.stripe}"
-                :highlight-current-row="${!ctn.options.showCheckBox}"
-								:cell-style="{padding: '${ctn.options.rowSpacing + "px 0"} '}" >
-
-      ${(() => {
-      if (!!ctn.options.showIndex) {
-        return ` <a-table-column  type="index" width="50" fixed="left"></a-table-column>`;
-      } else {
-        return ``;
-      }
-    })()}
-
-      ${(() => {
-      if (!!ctn.options.showCheckBox) {
-        return `<a-table-column type="selection" :width="${!ctn.options.showSummary ? 50 : 55}"  fixed="left"></a-table-column>`;
-      } else {
-        return ``;
-      }
-    })()}
-
-
-      ${(() => {
-      const html = [];
-      ctn.options.tableColumns.forEach((item, index2) => {
-        html.push(`<a-table-column
-                      prop="${item.prop}"
-                      label="${item.label}"
-                      ${emptyAttr(":sortable", item.sortable)}
-                      ${!item.fixed ? ":fixed" : "fixed"}="${!item.fixed ? "false" : item.fixed}"
-                      align="${item.align ? item.align : "center"}"
-                      :formatter="formatterValue"
-                      ${emptyAttr("format", item.format)}
-                      :show-overflow-tooltip="true"
-                      :min-width="${item.width}"
-                      >`);
-        if (item.formatS === "render" && !!item.render) {
-          html.push(`<template ${vue3Flag ? `#default="scope">` : `slot-scope="scope">`}`);
-          html.push(`自定义render`);
-          html.push(`</el-table-column>`);
-        } else if (!!item.formatS) {
-          html.push(`<template ${vue3Flag ? `#default="scope">` : `slot-scope="scope">`}`);
-          html.push(
-            `<span>{{formatterValue(scope.row, formData.${ctn.id}.tableColumns[${index2}], scope.row['${item.prop}'])}}</span>`
-          );
-          html.push(`</template>`);
-        } else {
-          html.push(`<template ${vue3Flag ? `#default="scope">` : `slot-scope="scope">`}`);
-          html.push(`<span>{{scope.row['${item.prop}']}}</span>`);
-          html.push(`</template>`);
-        }
-        html.push(`</a-table-column>`);
-      });
-      return html.join("");
-    })()}
-
-
-      ${(() => {
-      if (!!ctn.options.showButtonsColumn)
-        return `
-            <a-table-column fixed="${buttonsColumnFixed()}"
-                            class-name="data-table-buttons-column" align="'center'"
-                            label="${ctn.options.buttonsColumnTitle}"
-                            :width="${ctn.options.buttonsColumnWidth}">
-              <template #default="scope">
-                  ${(() => {
-          const buttons = [];
-          for (let i = 0; i < ctn.options.operationButtons.length; i++) {
-            const ob = ctn.options.operationButtons[i];
-            if (!ob.hidden) {
-              buttons.push(`<a-button type="${ob.type}" size="${ob.size}" :round="${ob.round}"
-                          :disabled="${ob.disabled}"
-                          :class="['${"data-table-" + ob.name + "-button"}']">${ob.label}</a-button>`);
-            }
-          }
-          return buttons.join("");
-        })()}
-              </template>
-            </a-table-column>
-        `;
-      else {
-        return "";
-      }
-    })()}
-
-			</a-table>
-
-      ${(() => {
-      if (!!ctn.options.showPagination)
-        return `
-              <a-pagination :small="${ctn.options.smallPagination}"
-                            ${vue3Flag ? `current-page="1"` : `:current-page="1"`}
-                            :page-sizes="[10,20,50,100]"
-                            :page-size="10"
-                            layout="${paginationLayout()}"
-                            :total="${ctn.options.tableData.length}">
-              </a-pagination>
-         `;
-    })()}
-
-    </div>`;
-    return tableTemplate;
-  }
-};
-function buildContainerWidget(widget, formConfig2, vue3Flag = false) {
-  return containerTemplates[widget.type] ? containerTemplates[widget.type](widget, formConfig2, vue3Flag) : null;
-}
-function getElAttrs(widget, formConfig2, parentWidget) {
-  const wop = widget.options;
-  let vModel = "";
-  if (!parentWidget) {
-    vModel = `v-model="${formConfig2.modelName}.${wop.name}"`;
-  } else {
-    vModel = `v-model="subWidget.${wop.name}"`;
-  }
-  return {
-    vModel,
-    readonly: wop.readonly ? `readonly="true"` : "",
-    disabled: wop.disabled ? `:disabled="true"` : "",
-    size: !!wop.size ? `size="${wop.size}"` : "",
-    type: !!wop.type ? `type="${wop.type === "number" ? "text" : wop.type}"` : "",
-    showPassword: !!wop.showPassword ? `:show-password="${wop.showPassword}"` : "",
-    placeholder: !!wop.placeholder ? `placeholder="${wop.placeholder}"` : "",
-    rows: isNotNull(wop.rows) && !isNaN(wop.rows) ? `rows="${wop.rows}"` : "",
-    allowClear: !!wop.allowClear ? "allowClear" : "",
-    minlength: isNotNull(wop.minLength) && !isNaN(wop.minLength) ? `:minlength="${wop.minLength}"` : "",
-    maxlength: isNotNull(wop.maxLength) && !isNaN(wop.maxLength) ? `:maxlength="${wop.maxLength}"` : "",
-    showCount: !!wop.showCount ? `:show-word-limit="true"` : "",
-    addonBefore: !!wop.addonBefore ? `prefix-icon="${wop.addonBefore}"` : "",
-    addonAfter: !!wop.addonAfter ? `suffix-icon="${wop.addonAfter}"` : "",
-    controlsPosition: wop.controlsPosition === "right" ? `controls-position="right"` : "",
-    min: isNotNull(wop.min) && !isNaN(wop.min) ? `:min="${wop.min}"` : "",
-    max: isNotNull(wop.max) && !isNaN(wop.max) ? `:max="${wop.max}"` : "",
-    precision: isNotNull(wop.precision) && !isNaN(wop.precision) ? `:precision="${wop.precision}"` : "",
-    step: isNotNull(wop.step) && !isNaN(wop.step) ? `:step="${wop.step}"` : "",
-    filterable: !!wop.filterable ? `filterable` : "",
-    allowCreate: !!wop.allowCreate ? `allow-create` : "",
-    defaultFirstOption: !!wop.filterable && !!wop.allowCreate ? `default-first-option` : "",
-    multiple: !!wop.multiple ? `multiple` : "",
-    multipleLimit: !isNaN(wop.multipleLimit) && wop.multipleLimit > 0 ? `:multiple-limit="${wop.multipleLimit}"` : "",
-    automaticDropdown: !!wop.automaticDropdown ? `automatic-dropdown` : "",
-    showSearch: !!wop.showSearch ? `showSearch` : "",
-    format: !!wop.format ? `format="${wop.format}"` : "",
-    valueFormat: !!wop.valueFormat ? `value-format="${wop.valueFormat}"` : "",
-    editable: !!wop.editable ? `:editable="${wop.editable}"` : "",
-    startPlaceholder: !!wop.startPlaceholder ? `start-placeholder="${wop.startPlaceholder}"` : "",
-    endPlaceholder: !!wop.endPlaceholder ? `end-placeholder="${wop.endPlaceholder}"` : "",
-    checkedChildren: !!wop.checkedChildren ? `active-text="${wop.checkedChildren}"` : "",
-    unCheckedChildren: !!wop.unCheckedChildren ? `inactive-text="${wop.unCheckedChildren}"` : "",
-    activeColor: !!wop.activeColor ? `active-color="${wop.activeColor}"` : "",
-    inactiveColor: !!wop.inactiveColor ? `inactive-color="${wop.inactiveColor}"` : "",
-    switchWidth: !isNaN(wop.switchWidth) && wop.switchWidth !== 40 ? `:width="${wop.switchWidth}"` : "",
-    rateMax: !isNaN(wop.max) && wop.max !== 5 ? `:max="${wop.max}"` : "",
-    lowThreshold: !isNaN(wop.lowThreshold) && wop.lowThreshold !== 2 ? `:low-threshold="${wop.lowThreshold}"` : "",
-    highThreshold: !isNaN(wop.highThreshold) && wop.highThreshold !== 4 ? `:high-threshold="${wop.highThreshold}"` : "",
-    allowHalf: !!wop.allowHalf ? `allow-half` : "",
-    showText: !!wop.showText ? `show-text` : "",
-    showScore: !!wop.showScore ? `show-score` : "",
-    sliderMin: !isNaN(wop.min) && wop.min !== 0 ? `:min="${wop.min}"` : "",
-    sliderMax: !isNaN(wop.max) && wop.max !== 100 ? `:max="${wop.max}"` : "",
-    sliderStep: !isNaN(wop.step) && wop.step !== 1 ? `:step="${wop.step}"` : "",
-    sliderRange: !!wop.range ? `range` : "",
-    sliderVertical: !!wop.vertical ? `vertical` : "",
-    uploadAction: !!wop.uploadURL ? `action="${wop.uploadURL}"` : "",
-    withCredentials: !!wop.withCredentials ? `with-credentials` : "",
-    multipleSelect: !!wop.multipleSelect ? `multiple` : "",
-    showFileList: !!wop.showFileList ? `show-file-list` : "",
-    limit: !isNaN(wop.limit) ? `:limit="${wop.limit}"` : "",
-    uploadTipSlotChild: !!wop.uploadTip ? `<template #tip><div class="el-upload__tip">${wop.uploadTip}</div></template>` : "",
-    pictureUploadIconChild: `<template #default><i class="el-icon-plus"></i></template>`,
-    fileUploadIconChild: `<template #default><i class="el-icon-plus"></i></template>`,
-    buttonType: !!wop.type ? `type="${wop.type}"` : "",
-    buttonPlain: !!wop.plain ? `plain` : "",
-    buttonRound: !!wop.round ? `round` : "",
-    buttonCircle: !!wop.circle ? `circle` : "",
-    buttonIcon: !!wop.icon ? `icon="${wop.icon}"` : "",
-    contentPosition: !!wop.contentPosition && wop.contentPosition !== "center" ? `content-position="${wop.contentPosition}"` : "",
-    appendButtonChild: !!wop.appendButton ? `<template #append><a-button class="${wop.buttonIcon}" ${!!wop.appendButtonDisabled ? "disabled" : ""}></a-button></template>` : ""
-  };
-}
-function buildRadioChildren(widget, formConfig2) {
-  const wop = widget.options;
-  const childTag = !!wop.buttonStyle ? "el-radio-button" : "el-radio";
-  const borderAttr = !!wop.border ? `border` : "";
-  const styleAttr = `style="{display: ${wop.displayStyle}}"`;
-  return `<${childTag} v-for="(item, index) in ${wop.name}Options" :key="index" :label="item.value"
-          :disabled="item.disabled" ${borderAttr} ${styleAttr}>{{item.label}}</${childTag}>`;
-}
-function buildCheckboxChildren(widget, formConfig2) {
-  const wop = widget.options;
-  const childTag = !!wop.buttonStyle ? "el-checkbox-button" : "el-checkbox";
-  const borderAttr = !!wop.border ? `border` : "";
-  const styleAttr = `style="{display: ${wop.displayStyle}}"`;
-  return `<${childTag} v-for="(item, index) in ${wop.name}Options" :key="index" :label="item.value"
-          :disabled="item.disabled" ${borderAttr} ${styleAttr}>{{item.label}}</${childTag}>`;
-}
-function buildSelectChildren(widget, formConfig2) {
-  const wop = widget.options;
-  const childTag = "el-option";
-  return `<${childTag} v-for="(item, index) in ${wop.name}Options" :key="index" :label="item.label"
-          :value="item.value" :disabled="item.disabled"></${childTag}>`;
-}
-const elTemplates = {
-  //字段组件属性
-  input: (widget, formConfig2, parentWidget) => {
-    const {
-      vModel,
-      readonly,
-      disabled,
-      size,
-      type,
-      showPassword,
-      placeholder,
-      allowClear,
-      minlength,
-      maxlength,
-      showCount,
-      addonBefore,
-      addonAfter,
-      appendButtonChild
-    } = getElAttrs(widget, formConfig2, parentWidget);
-    return `<a-input ${vModel} ${readonly} ${disabled} ${size} ${type} ${showPassword} ${placeholder} ${allowClear}
-            ${minlength} ${maxlength} ${showCount} ${addonBefore} ${addonAfter}>${appendButtonChild}</a-input>`;
-  },
-  textarea: (widget, formConfig2, parentWidget) => {
-    const {
-      vModel,
-      readonly,
-      disabled,
-      size,
-      type,
-      showPassword,
-      placeholder,
-      rows,
-      allowClear,
-      minlength,
-      maxlength,
-      showCount
-    } = getElAttrs(widget, formConfig2, parentWidget);
-    return `<a-input type="textarea" ${vModel} ${readonly} ${disabled} ${size} ${type} ${showPassword} ${placeholder}
-            ${rows} ${allowClear} ${minlength} ${maxlength} ${showCount}></a-input>`;
-  },
-  number: (widget, formConfig2, parentWidget) => {
-    const {
-      vModel,
-      disabled,
-      size,
-      type,
-      showPassword,
-      placeholder,
-      controlsPosition,
-      min,
-      max,
-      precision,
-      step
-    } = getElAttrs(widget, formConfig2, parentWidget);
-    return `<a-input-number ${vModel} class="full-width-input" ${disabled} ${size} ${type} ${showPassword}
-            ${placeholder} ${controlsPosition} ${min} ${max} ${precision} ${step}></a-input-number>`;
-  },
-  radio: (widget, formConfig2, parentWidget) => {
-    const { vModel, disabled, size } = getElAttrs(widget, formConfig2, parentWidget);
-    const radioOptions = buildRadioChildren(widget);
-    return `<a-radio-group ${vModel} ${disabled} ${size}>${radioOptions}</a-radio-group>`;
-  },
-  checkbox: (widget, formConfig2, parentWidget) => {
-    const { vModel, disabled, size } = getElAttrs(widget, formConfig2, parentWidget);
-    const checkboxOptions = buildCheckboxChildren(widget);
-    return `<a-checkbox-group ${vModel} ${disabled} ${size}>${checkboxOptions}</a-checkbox-group>`;
-  },
-  select: (widget, formConfig2, parentWidget) => {
-    const {
-      vModel,
-      disabled,
-      size,
-      allowClear,
-      filterable,
-      allowCreate,
-      defaultFirstOption,
-      automaticDropdown,
-      multiple,
-      multipleLimit,
-      showSearch,
-      placeholder
-    } = getElAttrs(widget, formConfig2, parentWidget);
-    const selectOptions = buildSelectChildren(widget);
-    return `<a-select ${vModel} class="full-width-input" ${disabled} ${size} ${allowClear} ${filterable}
-            ${allowCreate} ${defaultFirstOption} ${automaticDropdown} ${multiple} ${multipleLimit} ${placeholder}
-            ${showSearch}>${selectOptions}</a-select>`;
-  },
-  time: (widget, formConfig2, parentWidget) => {
-    const { vModel, readonly, disabled, size, placeholder, allowClear, format, editable } = getElAttrs(widget, formConfig2, parentWidget);
-    return `<a-time-picker ${vModel} class="full-width-input" ${readonly} ${disabled} ${size} ${format}
-            value-format="HH:mm:ss" ${placeholder} ${allowClear} ${editable}></a-time-picker>`;
-  },
-  "time-range": (widget, formConfig2, parentWidget) => {
-    const {
-      vModel,
-      readonly,
-      disabled,
-      size,
-      startPlaceholder,
-      endPlaceholder,
-      allowClear,
-      format,
-      editable
-    } = getElAttrs(widget, formConfig2, parentWidget);
-    return `<a-time-picker is-range ${vModel} class="full-width-input" ${readonly} ${disabled} ${size} ${format}
-            value-format="HH:mm:ss" ${startPlaceholder} ${endPlaceholder} ${allowClear} ${editable}></a-time-picker>`;
-  },
-  date: (widget, formConfig2, parentWidget) => {
-    const {
-      vModel,
-      readonly,
-      disabled,
-      size,
-      type,
-      placeholder,
-      allowClear,
-      format,
-      valueFormat,
-      editable
-    } = getElAttrs(widget, formConfig2, parentWidget);
-    return `<a-date-picker ${vModel} ${type} class="full-width-input" ${readonly} ${disabled} ${size} ${format}
-              ${valueFormat} ${placeholder} ${allowClear} ${editable}></a-date-picker>`;
-  },
-  "date-range": (widget, formConfig2, parentWidget) => {
-    const {
-      vModel,
-      readonly,
-      disabled,
-      size,
-      type,
-      startPlaceholder,
-      endPlaceholder,
-      allowClear,
-      format,
-      valueFormat,
-      editable
-    } = getElAttrs(widget, formConfig2, parentWidget);
-    return `<a-date-picker is-range ${vModel} ${type} class="full-width-input" ${readonly} ${disabled} ${size} ${format}
-            ${valueFormat} ${startPlaceholder} ${endPlaceholder} ${allowClear} ${editable}></a-date-picker>`;
-  },
-  switch: (widget, formConfig2, parentWidget) => {
-    const {
-      vModel,
-      disabled,
-      checkedChildren,
-      unCheckedChildren,
-      activeColor,
-      inactiveColor,
-      switchWidth
-    } = getElAttrs(widget, formConfig2, parentWidget);
-    return `<a-switch ${vModel} ${disabled} ${checkedChildren} ${unCheckedChildren} ${activeColor} ${inactiveColor}
-            ${switchWidth}></a-switch>`;
-  },
-  rate: (widget, formConfig2, parentWidget) => {
-    const {
-      vModel,
-      disabled,
-      rateMax,
-      lowThreshold,
-      highThreshold,
-      allowHalf,
-      showText,
-      showScore
-    } = getElAttrs(widget, formConfig2, parentWidget);
-    return `<a-rate ${vModel} ${disabled} ${rateMax} ${lowThreshold} ${highThreshold} ${allowHalf}
-            ${showText} ${showScore}></a-rate>`;
-  },
-  color: (widget, formConfig2, parentWidget) => {
-    const { vModel, disabled, size } = getElAttrs(widget, formConfig2, parentWidget);
-    return `<a-color-picker ${vModel} ${disabled} ${size}></a-color-picker>`;
-  },
-  slider: (widget, formConfig2, parentWidget) => {
-    const { vModel, disabled, sliderMin, sliderMax, sliderStep, sliderRange, sliderVertical } = getElAttrs(widget, formConfig2, parentWidget);
-    return `<a-slider ${vModel} ${disabled} ${sliderMin} ${sliderMax} ${sliderStep} ${sliderRange}
-            ${sliderVertical}></a-slider>`;
-  },
-  "picture-upload": (widget, formConfig2, parentWidget) => {
-    const {
-      vModel,
-      disabled,
-      uploadAction,
-      withCredentials,
-      multipleSelect,
-      showFileList,
-      limit,
-      uploadTipSlotChild,
-      pictureUploadIconChild
-    } = getElAttrs(widget, formConfig2, parentWidget);
-    const wop = widget.options;
-    return `<a-upload :file-list="${wop.name}FileList" :headers="${wop.name}UploadHeaders" :data="${wop.name}UploadData"
-            ${disabled} ${uploadAction} list-type="picture-card" ${withCredentials} ${multipleSelect} ${showFileList}
-            ${limit}>${uploadTipSlotChild} ${pictureUploadIconChild}</a-upload>`;
-  },
-  "file-upload": (widget, formConfig2, parentWidget) => {
-    const {
-      vModel,
-      disabled,
-      uploadAction,
-      withCredentials,
-      multipleSelect,
-      showFileList,
-      limit,
-      uploadTipSlotChild,
-      fileUploadIconChild
-    } = getElAttrs(widget, formConfig2, parentWidget);
-    const wop = widget.options;
-    return `<a-upload :file-list="${wop.name}FileList" :headers="${wop.name}UploadHeaders" :data="${wop.name}UploadData"
-            ${disabled} ${uploadAction} list-type="picture-card" ${withCredentials} ${multipleSelect} ${showFileList}
-            ${limit}>${uploadTipSlotChild} ${fileUploadIconChild}</a-upload>`;
-  },
-  "rich-editor": (widget, formConfig2, parentWidget) => {
-    const { vModel, disabled, placeholder } = getElAttrs(widget, formConfig2, parentWidget);
-    return `<vue-editor ${vModel} ${disabled} ${placeholder}></vue-editor>`;
-  },
-  cascader: (widget, formConfig2, parentWidget) => {
-    const { vModel, disabled, size, allowClear, filterable, placeholder } = getElAttrs(
-      widget,
-      formConfig2,
-      parentWidget
-    );
-    const wop = widget.options;
-    const optionsAttr = `:options="${wop.name}Options"`;
-    return `<a-cascader ${vModel} class="full-width-input" ${optionsAttr} ${disabled} ${size} ${allowClear}
-            ${filterable} ${placeholder}></a-cascader>`;
-  },
-  "static-text": (widget, formConfig2) => {
-    return `<div>${widget.options.textContent}</div>`;
-  },
-  "html-text": (widget, formConfig2) => {
-    return `<div v-html="${widget.options.htmlContent}"></div>`;
-  },
-  button: (widget, formConfig2, parentWidget) => {
-    const { buttonType, buttonPlain, buttonRound, buttonCircle, buttonIcon, disabled } = getElAttrs(
-      widget,
-      formConfig2,
-      parentWidget
-    );
-    return `<a-button ${buttonType} ${buttonPlain} ${buttonRound} ${buttonCircle} ${buttonIcon}
-            ${disabled}>${widget.options.label}</a-button>`;
-  },
-  divider: (widget, formConfig2, parentWidget) => {
-    const { contentPosition } = getElAttrs(widget, formConfig2, parentWidget);
-    return `<a-divider direction="horizontal" ${contentPosition}></a-divider>`;
-  }
-};
-function buildFieldWidget(widget, formConfig2, parentWidget, vue3Flag = false) {
-  const wop = widget.options;
-  const label = wop.labelHidden ? "" : wop.label;
-  const labelWidthAttr = wop.labelHidden ? `label-width="0"` : !!wop.labelWidth ? `label-width="${wop.labelWidth}px"` : "";
-  const labelTooltipAttr = wop.labelTooltip ? `title="${wop.labelTooltip}"` : "";
-  const propAttr = `prop="${wop.name}"`;
-  const classArray = [];
-  !!wop.required && classArray.push("required");
-  !!wop.customClass && wop.customClass.length > 0 && classArray.push(wop.customClass.join(" "));
-  if (!!wop.labelAlign) {
-    wop.labelAlign !== "left" && classArray.push(wop.labelAlign);
-  } else if (!!widget.formItemFlag) {
-    formConfig2.labelAlign !== "left" && classArray.push(formConfig2.labelAlign);
-  }
-  if (!widget.formItemFlag) {
-    classArray.push("static-content-item");
-  }
-  const classAttr = classArray.length > 0 ? `class="${classArray.join(" ")}"` : "";
-  let customLabelDom = `<template #label><span class="custom-label">${wop.labelIconPosition === "front" ? !!wop.labelTooltip ? `<a-tooltip message="${wop.labelTooltip}" ><i class="${wop.labelIconClass}"></i></a-tooltip>${wop.label}` : `<i class="${wop.labelIconClass}"></i>${wop.label}` : !!wop.labelTooltip ? `${wop.label}<a-tooltip content="${wop.labelTooltip}" ><i class="${wop.labelIconClass}"></i></a-tooltip>` : `${wop.label}<i class="${wop.labelIconClass}"></i>`}
-</span></template>`;
-  !wop.labelIconClass && (customLabelDom = "");
-  const fwDom = elTemplates[widget.type] ? elTemplates[widget.type](widget, formConfig2, parentWidget, vue3Flag) : null;
-  const isFormItem = !!widget.formItemFlag;
-  const vShowAttr = !!wop.hidden ? `v-show="false"` : "";
-  return isFormItem ? `<a-form-item label="${label}" ${labelWidthAttr} ${labelTooltipAttr} ${propAttr} ${classAttr}>
-  ${customLabelDom}
-  ${fwDom}
-</a-form-item>` : `<div ${classAttr} ${vShowAttr}>${fwDom}</div>`;
-}
-function buildSubFormFieldWidget(widget, formConfig2, subformWidget, vue3Flag = false) {
-  const wop = widget.options;
-  wop.labelHidden ? "" : wop.label;
-  wop.labelHidden ? `label-width="0"` : !!wop.labelWidth ? `label-width="${wop.labelWidth}px"` : "";
-  wop.labelTooltip ? `title="${wop.labelTooltip}"` : "";
-  `prop="${wop.name}"`;
-  const classArray = [];
-  !!wop.required && classArray.push("required");
-  !!wop.customClass && wop.customClass.length > 0 && classArray.push(wop.customClass.join(" "));
-  if (!!wop.labelAlign) {
-    wop.labelAlign !== "left" && classArray.push(wop.labelAlign);
-  } else if (!!widget.formItemFlag) {
-    formConfig2.labelAlign !== "left" && classArray.push(formConfig2.labelAlign);
-  }
-  if (!widget.formItemFlag) {
-    classArray.push("static-content-item");
-  }
-  let customLabelDom = `<template #label><span class="custom-label">${wop.labelIconPosition === "front" ? !!wop.labelTooltip ? `<a-tooltip message="${wop.labelTooltip}" ><i class="${wop.labelIconClass}"></i></a-tooltip>${wop.label}` : `<i class="${wop.labelIconClass}"></i>${wop.label}` : !!wop.labelTooltip ? `${wop.label}<a-tooltip message="${wop.labelTooltip}" ><i class="${wop.labelIconClass}"></i></a-tooltip>` : `${wop.label}<i class="${wop.labelIconClass}"></i>`}
-</span></template>`;
-  !wop.labelIconClass && (customLabelDom = "");
-  const fwDom = elTemplates[widget.type] ? elTemplates[widget.type](widget, formConfig2, subformWidget) : null;
-  !!widget.formItemFlag;
-  !!wop.hidden ? `v-show="false"` : "";
-  return `${customLabelDom} ${fwDom}`;
-}
-function genTemplate(formConfig2, widgetList2, vue3Flag = false) {
-  const submitAttr = !!vue3Flag ? `@submit.prevent` : `@submit.native.prevent`;
-  const childrenList = [];
-  widgetList2.forEach((wgt) => {
-    if (wgt.category === "container") {
-      childrenList.push(buildContainerWidget(wgt, formConfig2, vue3Flag));
-    } else {
-      childrenList.push(buildFieldWidget(wgt, formConfig2, null, vue3Flag));
-    }
-  });
-  const formTemplate = `  <a-form :model="${formConfig2.modelName}" ref="${formConfig2.refName}" :rules="${formConfig2.rulesName}"
-    label-position="${formConfig2.labelPosition}" label-width="${formConfig2.labelWidth}px" size="${formConfig2.size || "default"}"
-    ${submitAttr}>
-  ${!!childrenList ? childrenList.join("\n") : ""}
-</a-form>`;
-  return formTemplate;
-}
-const genGlobalCSS = function(formConfig2) {
-  const globalCssTemplate = `  .el-input-number.full-width-input, .el-cascader.full-width-input {
-    width: 100% !important;
-  }
-
-  .el-form-item--medium {
-    .el-radio {
-      line-height: 36px !important;
-    }
-
-    .el-rate{
-      margin-top: 8px;
-    }
-  }
-
-  .el-form-item--small {
-    .el-radio {
-      line-height: 32px !important;
-    }
-
-    .el-rate{
-      margin-top: 6px;
-    }
-  }
-
-  .el-form-item--mini {
-    .el-radio {
-      line-height: 28px !important;
-    }
-
-    .el-rate{
-      margin-top: 4px;
-    }
-  }
-
-  .clear-fix:before, .clear-fix:after {
-    display: table;
-    content: "";
-  }
-
-  .clear-fix:after {
-    clear: both;
-  }
-
-  .float-right {
-    float: right;
-  }
-
-${formConfig2.cssCode}`;
-  return globalCssTemplate;
-};
-const genScopedCSS = function(formConfig2, vue3Flag = false) {
-  const cssTemplate = `  div.table-container {
-    table.table-layout {
-      width: 100%;
-      table-layout: fixed;
-      border-collapse: collapse;
-
-      td.table-cell {
-        display: table-cell;
-        height: 36px;
-        border: 1px solid #e1e2e3;
-      }
-    }
-  }
-
-  div.tab-container {
-  }
-
-  .label-left-align ${!!vue3Flag ? `:deep(.el-form-item__label)` : `::v-deep .el-form-item__label`} {
-    text-align: left;
-  }
-
-  .label-center-align ${!!vue3Flag ? `:deep(.el-form-item__label)` : `::v-deep .el-form-item__label`} {
-    text-align: center;
-  }
-
-  .label-right-align ${!!vue3Flag ? `:deep(.el-form-item__label)` : `::v-deep .el-form-item__label`} {
-    text-align: right;
-  }
-
-  .custom-label {
-  }
-
-  .static-content-item {
-    min-height: 20px;
-    display: flex;
-    align-items: center;
-
-    ${!!vue3Flag ? `:deep(.el-divider--horizontal)` : `::v-deep .el-divider--horizontal`} {
-      margin: 0;
-    }
-  }`;
-  return cssTemplate;
-};
-const genSubformScopedCSS = function(formConfig2, vue3Flag = false) {
-  const cssTemplate = `
-  .sub-form-container {
-    margin-bottom: 8px;
-    text-align: left; //IE浏览器强制居左对齐
-
-    ${vue3Flag ? `:deep(.el-row)` : `::v-deep .el-row`}.header-row {
-      padding: 0;
-      display: flex;
-    }
-
-    ${vue3Flag ? `:deep(.el-form-item)` : `::v-deep .el-form-item`} {
-    margin-bottom: 0;
-  }
-  ${vue3Flag ? `:deep(.el-row)` : `::v-deep .el-row`}.sub-form-row {
-      padding: 0;
-      display: flex;
-
-      .row-number-span {
-        margin-left: 16px;
-      }
-    }
-  }
-
-  div.action-header-column {
-    display: inline-block;
-    width: 120px;
-    border: 1px solid #e1e2e3;
-    background: #f1f2f3;
-    padding: 8px;
-
-    .action-label {
-      margin-right: 12px;
-    }
-
-    .action-button {
-      padding-left: 8px;
-      padding-right: 8px;
-    }
-  }
-
-  div.field-header-column {
-    display: inline-block;
-    //overflow: hidden;
-    //white-space: nowrap;  //文字超出长度不自动换行
-    //text-overflow: ellipsis;  //文字超出长度显示省略号
-    border: 1px solid #e1e2e3;
-    background: #f1f2f3;
-    padding: 8px;
-
-    span.custom-label i {
-      margin: 0 3px;
-    }
-  }
-
-  div.field-header-column.is-required:before {
-    content: '*';
-    color: #F56C6C;
-    margin-right: 4px;
-  }
-
-  div.label-center-left {
-    text-align: left;
-  }
-
-  div.label-center-align {
-    text-align: center;
-  }
-
-  div.label-right-align {
-    text-align: right;
-  }
-
-  div.sub-form-action-column {
-    display: flex;
-    align-items: center;
-    width: 120px;
-    border: 1px solid #e1e2e3;
-    padding: 8px;
-
-    ${vue3Flag ? `:deep(.el-form-item)` : `::v-deep .el-form-item`} {
-      margin-bottom: 0;
-    }
-
-    ${vue3Flag ? `:deep(.el-button)` : `::v-deep .el-button`} {
-      font-size: 18px;
-      padding: 0;
-      background: #DCDFE6;
-      border: 4px solid #DCDFE6;
-      height:30px;
-      width:30px;
-    }
-
-  }
-
-  div.sub-form-action-column.hide-label {
-    ${vue3Flag ? `:deep(.el-form-item__label)` : `::v-deep .el-form-item__label`} {
-      display: none;
-    }
-  }
-
-  div.sub-form-table-column {
-    display: inline-block;
-    //width: 200px;
-    border: 1px solid #e1e2e3;
-    padding: 8px;
-
-    ${vue3Flag ? `:deep(.el-form-item)` : `::v-deep .el-form-item`} {
-      margin-left: 4px;
-      margin-right: 4px;
-      margin-bottom: 0;
-    }
-
-    ${vue3Flag ? `:deep(.el-form-item__content)` : `::v-deep .el-form-item__content`} {
-      margin-left: 0 !important;
-    }
-  }
-
-  div.sub-form-table-column.hide-label {
-    ${vue3Flag ? `:deep(.el-form-item__label)` : `::v-deep .el-form-item__label`} {
-      display: none;
-    }
-  }
-  `;
-  return cssTemplate;
-};
-const genGridSubformScopedCSS = function(formConfig2, vue3Flag = false) {
-  const cssTemplate = `
-  .sub-form-container {
-    ${vue3Flag ? `:deep( div.grid-sub-form.sub-form-row)` : `::v-deep  div.grid-sub-form.sub-form-row`} {
-      display:flex;
-      align-items: center;
-      border: 1px solid #e1e2e3;
-    }
-  }
-
-  div.grid-sub-form.action-header-column {
-    width: 100%;
-  }
-
-
-  div.grid-sub-form.sub-form-action-column {
-    display: inline-block;
-    align-items: center;
-    justify-content: initial;
-    text-align: center;
-    border:initial;
-    .action-button-column{
-      display:flex;
-      justify-content:space-between;
-
-      .row-number-span{
-        line-height:30px;
-      }
-    }
-  }
-
-  div.grid-sub-form.grid-sub-form-data-row {
-    display: inline-block;
-    width: 100%;
-    border-left: 1px solid #e1e2e3;
-    border-right: 1px solid #e1e2e3;
-  }
-  `;
-  return cssTemplate;
-};
-const registerCWGenerator = function(containerType, ctGenerator) {
-  containerTemplates[containerType] = ctGenerator;
-};
-const registerFWGenerator = function(fieldType, ftGenerator) {
-  elTemplates[fieldType] = ftGenerator;
-};
-const genSFC = function(formConfig2, widgetList2, beautifier2, vue3Flag = false) {
-  const html = beautifier2.html(genTemplate(formConfig2, widgetList2, vue3Flag), beautifierOpts.html);
-  const js = beautifier2.js(
-    !!vue3Flag ? genVue3JS(formConfig2, widgetList2) : genVue2JS(formConfig2, widgetList2),
-    beautifierOpts.js
-  );
-  const globalCss = beautifier2.css(genGlobalCSS(formConfig2), beautifierOpts.css);
-  const scopedCss = beautifier2.css(genScopedCSS(formConfig2, vue3Flag), beautifierOpts.css);
-  let scopedSubformCss = "";
-  let scopedGridSubformCss = "";
-  let widget = widgetList2.find((x) => x.type === "sub-form");
-  if (widget) {
-    scopedSubformCss = beautifier2.css(
-      genSubformScopedCSS(formConfig2, vue3Flag),
-      beautifierOpts.css
-    );
-  }
-  widget = widgetList2.find((x) => x.type === "grid-sub-form");
-  if (widget) {
-    scopedSubformCss = beautifier2.css(
-      genSubformScopedCSS(formConfig2, vue3Flag),
-      beautifierOpts.css
-    );
-    scopedGridSubformCss = beautifier2.css(
-      genGridSubformScopedCSS(formConfig2, vue3Flag),
-      beautifierOpts.css
-    );
-  }
-  return `<!--
-Codes Generated By VForm:
-https://www.vform666.com
--->
-
-<template>
-${html}
-</template>
-
-<script>
-${js}
-<\/script>
-
-<style lang="scss">
-${globalCss}
-</style>
-
-<style lang="scss" scoped>
-${scopedCss}
-${scopedSubformCss}
-${scopedGridSubformCss}
-</style>`;
-};
 var FileSaver_min = { exports: {} };
 (function(module, exports) {
   (function(a, b) {
@@ -54399,6 +52485,7 @@ const _sfc_main$3w = {
   },
   props: {
     designer: Object,
+    saveJsonApi: Function,
     globalDsv: {
       type: Object,
       default: () => ({})
@@ -54492,6 +52579,11 @@ const _sfc_main$3w = {
     });
   },
   methods: {
+    saveJson() {
+      if (this.saveJsonApi) {
+        this.saveJsonApi(this.formJson);
+      }
+    },
     setReadMode() {
       this.$refs.preForm.setReadMode(!this.$refs.preForm.getReadMode());
     },
@@ -54632,10 +52724,6 @@ const _sfc_main$3w = {
         if (!importObj || !importObj.formConfig) {
           throw new Error(this.i18nt("designer.hint.invalidJsonFormat"));
         }
-        const fJsonVer = importObj.formConfig.jsonVersion;
-        if (!fJsonVer || fJsonVer !== 3) {
-          throw new Error(this.i18nt("designer.hint.jsonVersionMismatch"));
-        }
         this.designer.loadFormJson(importObj);
         this.showImportJsonDialogFlag = false;
         this.$message.success(this.i18nt("designer.hint.importJsonSuccess"));
@@ -54646,10 +52734,10 @@ const _sfc_main$3w = {
       }
     },
     exportJson() {
-      const widgetList2 = deepClone(this.designer.widgetList);
-      const formConfig2 = deepClone(this.designer.formConfig);
-      this.jsonContent = JSON.stringify({ widgetList: widgetList2, formConfig: formConfig2 }, null, "  ");
-      this.jsonRawContent = JSON.stringify({ widgetList: widgetList2, formConfig: formConfig2 });
+      const widgetList = deepClone(this.designer.widgetList);
+      const formConfig = deepClone(this.designer.formConfig);
+      this.jsonContent = JSON.stringify({ widgetList, formConfig }, null, "  ");
+      this.jsonRawContent = JSON.stringify({ widgetList, formConfig });
       this.showExportJsonDialogFlag = true;
     },
     copyFormJson(e) {
@@ -54694,16 +52782,6 @@ const _sfc_main$3w = {
       this.saveAsFile(this.htmlCode, `vform${generateId()}.html`);
     },
     generateSFC() {
-      loadBeautifier((beautifier2) => {
-        this.sfcCode = genSFC(this.designer.formConfig, this.designer.widgetList, beautifier2);
-        this.sfcCodeV3 = genSFC(
-          this.designer.formConfig,
-          this.designer.widgetList,
-          beautifier2,
-          true
-        );
-        this.showExportSFCDialogFlag = true;
-      });
     },
     copyV2SFC(e) {
       copyToClipboard(
@@ -54732,13 +52810,13 @@ const _sfc_main$3w = {
     async insertData() {
       const data = await this.$refs["preForm"].getFormData();
       const paramsMap = { ...getLocat() };
-      const formConfig2 = this.designer.formConfig;
-      if (!formConfig2.useInnerLogic) {
-        const dhFn = new Function("data", formConfig2.onVformAdd);
+      const formConfig = this.designer.formConfig;
+      if (!formConfig.useInnerLogic) {
+        const dhFn = new Function("data", formConfig.onVformAdd);
         dhFn.call(this, { ...data, ...paramsMap });
         return;
       }
-      const vformAdd = formConfig2.serveList.vformAdd;
+      const vformAdd = formConfig.serveList.vformAdd;
       const sendParams = JSON.stringify({
         ...vformAdd.http,
         data: { ...vformAdd.http.data, ...data }
@@ -54752,8 +52830,8 @@ const _sfc_main$3w = {
       }
     },
     async showData(_id) {
-      const formConfig2 = this.designer.formConfig;
-      const vformDetail = formConfig2.serveList.vformDetail;
+      const formConfig = this.designer.formConfig;
+      const vformDetail = formConfig.serveList.vformDetail;
       const sendParams = JSON.stringify(vformDetail.http);
       const paramsMap = { ...getLocat(), _id };
       const res = replaceVars(sendParams, paramsMap);
@@ -55598,7 +53676,7 @@ const _sfc_main$3w = {
           customClass: [],
           functions: "",
           layoutType: "PC",
-          jsonVersion: 3,
+          // jsonVersion: 3,
           onFormCreated: "",
           onFormMounted: "",
           onFormDataChange: "",
@@ -55815,10 +53893,10 @@ function _sfc_render$3w(_ctx, _cache, $props, $setup, $data, $options) {
         $options.showToolButton("exportCodeButton") ? (openBlock(), createBlock(_component_a_button, {
           key: 4,
           type: "link",
-          onClick: $options.exportCode
+          onClick: $options.saveJson
         }, {
           default: withCtx(() => [
-            createTextVNode(toDisplayString(_ctx.i18nt("designer.toolbar.exportCode")), 1)
+            createTextVNode(" 保存 ")
           ]),
           _: 1
         }, 8, ["onClick"])) : createCommentVNode("", true),
@@ -55830,7 +53908,7 @@ function _sfc_render$3w(_ctx, _cache, $props, $setup, $data, $options) {
     createVNode(_component_a_modal, {
       title: _ctx.i18nt("designer.toolbar.preview"),
       visible: $data.showPreviewDialogFlag,
-      "onUpdate:visible": _cache[6] || (_cache[6] = ($event) => $data.showPreviewDialogFlag = $event),
+      "onUpdate:visible": _cache[5] || (_cache[5] = ($event) => $data.showPreviewDialogFlag = $event),
       "show-close": true,
       "close-on-click-modal": false,
       "close-on-press-escape": false,
@@ -55843,26 +53921,12 @@ function _sfc_render$3w(_ctx, _cache, $props, $setup, $data, $options) {
     }, {
       footer: withCtx(() => [
         createElementVNode("div", _hoisted_5$7, [
-          createVNode(_component_a_button, { onClick: $options.insertData }, {
-            default: withCtx(() => [
-              createTextVNode("新增一个数据")
-            ]),
-            _: 1
-          }, 8, ["onClick"]),
-          createVNode(_component_a_button, {
-            onClick: _cache[4] || (_cache[4] = ($event) => $options.showData(1848))
-          }, {
-            default: withCtx(() => [
-              createTextVNode("数据回显 _id 1848")
-            ]),
-            _: 1
-          }),
           createVNode(_component_a_button, {
             type: "primary",
             onClick: $options.getFormData
           }, {
             default: withCtx(() => [
-              createTextVNode(toDisplayString(_ctx.i18nt("designer.hint.getFormData")) + "--获取数据 ", 1)
+              createTextVNode(toDisplayString(_ctx.i18nt("designer.hint.getFormData")), 1)
             ]),
             _: 1
           }, 8, ["onClick"]),
@@ -55894,7 +53958,7 @@ function _sfc_render$3w(_ctx, _cache, $props, $setup, $data, $options) {
             _: 1
           }, 8, ["onClick"]),
           createVNode(_component_a_button, {
-            onClick: _cache[5] || (_cache[5] = ($event) => $data.showPreviewDialogFlag = false)
+            onClick: _cache[4] || (_cache[4] = ($event) => $data.showPreviewDialogFlag = false)
           }, {
             default: withCtx(() => [
               createTextVNode(toDisplayString(_ctx.i18nt("designer.hint.closePreview")), 1)
@@ -55903,37 +53967,10 @@ function _sfc_render$3w(_ctx, _cache, $props, $setup, $data, $options) {
           }),
           (openBlock(), createBlock(_component_a_button, {
             key: 0,
-            onClick: $options.testSetFormJson
-          }, {
-            default: withCtx(() => [
-              createTextVNode("Test SFJ")
-            ]),
-            _: 1
-          }, 8, ["onClick"])),
-          (openBlock(), createBlock(_component_a_button, {
-            key: 1,
-            onClick: $options.testSetFormData
-          }, {
-            default: withCtx(() => [
-              createTextVNode("Test SFD")
-            ]),
-            _: 1
-          }, 8, ["onClick"])),
-          (openBlock(), createBlock(_component_a_button, {
-            key: 2,
-            onClick: $options.testReloadOptionData
-          }, {
-            default: withCtx(() => [
-              createTextVNode("Test ROD")
-            ]),
-            _: 1
-          }, 8, ["onClick"])),
-          (openBlock(), createBlock(_component_a_button, {
-            key: 3,
             onClick: $options.setReadMode
           }, {
             default: withCtx(() => [
-              createTextVNode("只读")
+              createTextVNode("测试变只读")
             ]),
             _: 1
           }, 8, ["onClick"]))
@@ -55964,7 +54001,7 @@ function _sfc_render$3w(_ctx, _cache, $props, $setup, $data, $options) {
     createVNode(_component_a_modal, {
       title: _ctx.i18nt("designer.toolbar.importJson"),
       visible: $data.showImportJsonDialogFlag,
-      "onUpdate:visible": _cache[9] || (_cache[9] = ($event) => $data.showImportJsonDialogFlag = $event),
+      "onUpdate:visible": _cache[8] || (_cache[8] = ($event) => $data.showImportJsonDialogFlag = $event),
       "show-close": true,
       class: "drag-dialog small-padding-dialog",
       "append-to-body": true,
@@ -55985,7 +54022,7 @@ function _sfc_render$3w(_ctx, _cache, $props, $setup, $data, $options) {
             _: 1
           }, 8, ["onClick"]),
           createVNode(_component_a_button, {
-            onClick: _cache[8] || (_cache[8] = ($event) => $data.showImportJsonDialogFlag = false)
+            onClick: _cache[7] || (_cache[7] = ($event) => $data.showImportJsonDialogFlag = false)
           }, {
             default: withCtx(() => [
               createTextVNode(toDisplayString(_ctx.i18nt("designer.hint.cancel")), 1)
@@ -56005,7 +54042,7 @@ function _sfc_render$3w(_ctx, _cache, $props, $setup, $data, $options) {
           mode: "json",
           readonly: false,
           modelValue: $data.importTemplate,
-          "onUpdate:modelValue": _cache[7] || (_cache[7] = ($event) => $data.importTemplate = $event)
+          "onUpdate:modelValue": _cache[6] || (_cache[6] = ($event) => $data.importTemplate = $event)
         }, null, 8, ["modelValue"])
       ]),
       _: 1
@@ -56013,7 +54050,7 @@ function _sfc_render$3w(_ctx, _cache, $props, $setup, $data, $options) {
     createVNode(_component_a_modal, {
       title: _ctx.i18nt("designer.toolbar.exportJson"),
       visible: $data.showExportJsonDialogFlag,
-      "onUpdate:visible": _cache[12] || (_cache[12] = ($event) => $data.showExportJsonDialogFlag = $event),
+      "onUpdate:visible": _cache[11] || (_cache[11] = ($event) => $data.showExportJsonDialogFlag = $event),
       "show-close": true,
       class: "drag-dialog small-padding-dialog",
       center: "",
@@ -56042,7 +54079,7 @@ function _sfc_render$3w(_ctx, _cache, $props, $setup, $data, $options) {
             _: 1
           }, 8, ["onClick"]),
           createVNode(_component_a_button, {
-            onClick: _cache[11] || (_cache[11] = ($event) => $data.showExportJsonDialogFlag = false)
+            onClick: _cache[10] || (_cache[10] = ($event) => $data.showExportJsonDialogFlag = false)
           }, {
             default: withCtx(() => [
               createTextVNode(toDisplayString(_ctx.i18nt("designer.hint.closePreview")), 1)
@@ -56056,7 +54093,7 @@ function _sfc_render$3w(_ctx, _cache, $props, $setup, $data, $options) {
           mode: "json",
           readonly: true,
           modelValue: $data.jsonContent,
-          "onUpdate:modelValue": _cache[10] || (_cache[10] = ($event) => $data.jsonContent = $event)
+          "onUpdate:modelValue": _cache[9] || (_cache[9] = ($event) => $data.jsonContent = $event)
         }, null, 8, ["modelValue"])
       ]),
       _: 1
@@ -56064,7 +54101,7 @@ function _sfc_render$3w(_ctx, _cache, $props, $setup, $data, $options) {
     createVNode(_component_a_modal, {
       title: _ctx.i18nt("designer.hint.exportFormData"),
       visible: $data.showFormDataDialogFlag,
-      "onUpdate:visible": _cache[15] || (_cache[15] = ($event) => $data.showFormDataDialogFlag = $event),
+      "onUpdate:visible": _cache[14] || (_cache[14] = ($event) => $data.showFormDataDialogFlag = $event),
       "show-close": true,
       class: "nested-drag-dialog dialog-title-light-bg",
       center: "",
@@ -56093,7 +54130,7 @@ function _sfc_render$3w(_ctx, _cache, $props, $setup, $data, $options) {
             _: 1
           }, 8, ["onClick"]),
           createVNode(_component_a_button, {
-            onClick: _cache[14] || (_cache[14] = ($event) => $data.showFormDataDialogFlag = false)
+            onClick: _cache[13] || (_cache[13] = ($event) => $data.showFormDataDialogFlag = false)
           }, {
             default: withCtx(() => [
               createTextVNode(toDisplayString(_ctx.i18nt("designer.hint.closePreview")), 1)
@@ -56108,7 +54145,7 @@ function _sfc_render$3w(_ctx, _cache, $props, $setup, $data, $options) {
             mode: "json",
             readonly: true,
             modelValue: $data.formDataJson,
-            "onUpdate:modelValue": _cache[13] || (_cache[13] = ($event) => $data.formDataJson = $event)
+            "onUpdate:modelValue": _cache[12] || (_cache[12] = ($event) => $data.formDataJson = $event)
           }, null, 8, ["modelValue"])
         ])
       ]),
@@ -56118,7 +54155,7 @@ function _sfc_render$3w(_ctx, _cache, $props, $setup, $data, $options) {
       key: 0,
       title: _ctx.i18nt("designer.toolbar.generateSFC"),
       visible: $data.showExportSFCDialogFlag,
-      "onUpdate:visible": _cache[20] || (_cache[20] = ($event) => $data.showExportSFCDialogFlag = $event),
+      "onUpdate:visible": _cache[19] || (_cache[19] = ($event) => $data.showExportSFCDialogFlag = $event),
       "append-to-body": "",
       "show-close": true,
       class: "drag-dialog small-padding-dialog",
@@ -56165,7 +54202,7 @@ function _sfc_render$3w(_ctx, _cache, $props, $setup, $data, $options) {
             _: 1
           }, 8, ["onClick"]),
           createVNode(_component_a_button, {
-            onClick: _cache[19] || (_cache[19] = ($event) => $data.showExportSFCDialogFlag = false)
+            onClick: _cache[18] || (_cache[18] = ($event) => $data.showExportSFCDialogFlag = false)
           }, {
             default: withCtx(() => [
               createTextVNode(toDisplayString(_ctx.i18nt("designer.hint.closePreview")), 1)
@@ -56179,7 +54216,7 @@ function _sfc_render$3w(_ctx, _cache, $props, $setup, $data, $options) {
           type: "border-card",
           class: "no-box-shadow no-padding",
           activeKey: $data.activeSFCTab,
-          "onUpdate:activeKey": _cache[18] || (_cache[18] = ($event) => $data.activeSFCTab = $event)
+          "onUpdate:activeKey": _cache[17] || (_cache[17] = ($event) => $data.activeSFCTab = $event)
         }, {
           default: withCtx(() => [
             createVNode(_component_a_tab_pane, {
@@ -56191,7 +54228,7 @@ function _sfc_render$3w(_ctx, _cache, $props, $setup, $data, $options) {
                   mode: "html",
                   readonly: true,
                   modelValue: $data.sfcCode,
-                  "onUpdate:modelValue": _cache[16] || (_cache[16] = ($event) => $data.sfcCode = $event),
+                  "onUpdate:modelValue": _cache[15] || (_cache[15] = ($event) => $data.sfcCode = $event),
                   "user-worker": false
                 }, null, 8, ["modelValue"])
               ]),
@@ -56206,7 +54243,7 @@ function _sfc_render$3w(_ctx, _cache, $props, $setup, $data, $options) {
                   mode: "html",
                   readonly: true,
                   modelValue: $data.sfcCodeV3,
-                  "onUpdate:modelValue": _cache[17] || (_cache[17] = ($event) => $data.sfcCodeV3 = $event),
+                  "onUpdate:modelValue": _cache[16] || (_cache[16] = ($event) => $data.sfcCodeV3 = $event),
                   "user-worker": false
                 }, null, 8, ["modelValue"])
               ]),
@@ -56220,7 +54257,7 @@ function _sfc_render$3w(_ctx, _cache, $props, $setup, $data, $options) {
     }, 8, ["title", "visible"])) : createCommentVNode("", true)
   ]);
 }
-const ToolbarPanel = /* @__PURE__ */ _export_sfc$1(_sfc_main$3w, [["render", _sfc_render$3w], ["__scopeId", "data-v-f69966a3"]]);
+const ToolbarPanel = /* @__PURE__ */ _export_sfc$1(_sfc_main$3w, [["render", _sfc_render$3w], ["__scopeId", "data-v-05d88047"]]);
 const _sfc_main$3v = {
   name: "actionColumnPosition-editor",
   mixins: [i18n$1],
@@ -61441,11 +59478,11 @@ const propertyMixin = {
     emitDefaultValueChange() {
       if (!!this.designer) {
         if (!!this.designer.formWidget) {
-          const fieldWidget2 = this.designer.formWidget.getWidgetRef(
+          const fieldWidget = this.designer.formWidget.getWidgetRef(
             this.designer.selectedWidget.options.name
           );
-          if (!!fieldWidget2 && !!fieldWidget2.refreshDefaultValue) {
-            fieldWidget2.refreshDefaultValue();
+          if (!!fieldWidget && !!fieldWidget.refreshDefaultValue) {
+            fieldWidget.refreshDefaultValue();
           }
         }
       }
@@ -66129,14 +64166,14 @@ const _sfc_main$1k = {
   methods: {
     changeRange(val) {
       if (!!this.designer && !!this.designer.formWidget) {
-        const fieldWidget2 = this.designer.formWidget.getWidgetRef(this.optionModel.name);
-        if (!!fieldWidget2 && !!fieldWidget2.refreshDefaultValue) {
+        const fieldWidget = this.designer.formWidget.getWidgetRef(this.optionModel.name);
+        if (!!fieldWidget && !!fieldWidget.refreshDefaultValue) {
           if (val) {
             this.optionModel.defaultValue = [];
           } else {
             this.optionModel.defaultValue = null;
           }
-          fieldWidget2.refreshDefaultValue();
+          fieldWidget.refreshDefaultValue();
         }
       }
     }
@@ -67174,14 +65211,14 @@ const _sfc_main$U = {
   methods: {
     changeMultiple(val) {
       if (!!this.designer && !!this.designer.formWidget) {
-        const fieldWidget2 = this.designer.formWidget.getWidgetRef(this.optionModel.name);
-        if (!!fieldWidget2 && !!fieldWidget2.refreshDefaultValue) {
+        const fieldWidget = this.designer.formWidget.getWidgetRef(this.optionModel.name);
+        if (!!fieldWidget && !!fieldWidget.refreshDefaultValue) {
           if (val) {
             this.optionModel.defaultValue = [];
           } else {
             this.optionModel.defaultValue = null;
           }
-          fieldWidget2.refreshDefaultValue();
+          fieldWidget.refreshDefaultValue();
         }
       }
     }
@@ -67403,11 +65440,11 @@ const _sfc_main$R = {
   methods: {
     emitDefaultValueChange() {
       if (!!this.designer && !!this.designer.formWidget) {
-        const fieldWidget2 = this.designer.formWidget.getWidgetRef(
+        const fieldWidget = this.designer.formWidget.getWidgetRef(
           this.selectedWidget.options.name
         );
-        if (!!fieldWidget2 && !!fieldWidget2.refreshDefaultValue) {
-          fieldWidget2.refreshDefaultValue();
+        if (!!fieldWidget && !!fieldWidget.refreshDefaultValue) {
+          fieldWidget.refreshDefaultValue();
         }
       }
     },
@@ -70683,8 +68720,8 @@ const _sfc_main$t = {
       eventParamsMap: {
         onVformAdd: "onVformAdd(data) {",
         onVformUpdate: "onVformUpdate(data) {",
-        onVformDetail: "onVformUpdate(data) {",
-        onVformDel: "onVformUpdate(data) {"
+        onVformDetail: "onVformUpdate(data) {"
+        // onVformDel: 'onVformUpdate(data) {'
       }
     };
   },
@@ -70755,12 +68792,6 @@ function _sfc_render$t(_ctx, _cache, $props, $setup, $data, $options) {
           buttonName: "编辑",
           drawerTitle: "表单配置",
           optionModel: $props.formConfig.serveList.vformDetail
-        }, null, 8, ["optionModel"]),
-        createVNode(_component_HttpEditor, {
-          label: "设置表单删除api",
-          buttonName: "编辑",
-          drawerTitle: "表单配置",
-          optionModel: $props.formConfig.serveList.vformDel
         }, null, 8, ["optionModel"])
       ]),
       _: 1
@@ -73702,7 +71733,6 @@ const _sfc_main$g = {
   },
   computed: {
     labelPosition() {
-      console.log(" this.designer.formConfig: ", this.designer.formConfig);
       if (!!this.designer.formConfig && !!this.designer.formConfig.labelPosition) {
         return this.designer.formConfig.labelPosition;
       }
@@ -73865,7 +71895,7 @@ function _sfc_render$g(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["component-size"]);
 }
-const VFormWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$g, [["render", _sfc_render$g], ["__scopeId", "data-v-cfc820ef"]]);
+const VFormWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$g, [["render", _sfc_render$g], ["__scopeId", "data-v-ea48c627"]]);
 function mitt(n) {
   return { all: n = n || /* @__PURE__ */ new Map(), on: function(t, e) {
     var i = n.get(t);
@@ -74733,17 +72763,6 @@ function createDesigner(vueInstance) {
       window.localStorage.setItem("form__config__backup", JSON.stringify(this.formConfig));
     },
     loadFormContentFromStorage() {
-      const widgetListBackup = window.localStorage.getItem("widget__list__backup");
-      if (!!widgetListBackup) {
-        this.widgetList = JSON.parse(widgetListBackup);
-      }
-      const formConfigBackup = window.localStorage.getItem("form__config__backup");
-      if (!!formConfigBackup) {
-        overwriteObj(
-          this.formConfig,
-          JSON.parse(formConfigBackup)
-        );
-      }
     }
   };
 }
@@ -74758,6 +72777,11 @@ const _sfc_main$f = {
     VFormWidget
   },
   props: {
+    /* 保存jsonApi */
+    saveJsonApi: {
+      type: Function,
+      default: null
+    },
     /* 后端字段列表API */
     fieldListApi: {
       type: Function,
@@ -74775,10 +72799,8 @@ const _sfc_main$f = {
         return {
           languageMenu: true,
           //是否显示语言切换菜单
-          externalLink: true,
-          //是否显示GitHub、文档等外部链接
-          formTemplates: true,
-          //是否显示表单模板
+          // externalLink: true, //是否显示GitHub、文档等外部链接
+          // formTemplates: true, //是否显示表单模板
           eventCollapse: true,
           //是否显示组件事件属性折叠面板
           widgetNameReadonly: false,
@@ -74793,8 +72815,7 @@ const _sfc_main$f = {
           //是否显示导出JSON器按钮
           exportCodeButton: true,
           //是否显示导出代码按钮
-          generateSFCButton: true,
-          //是否显示生成SFC按钮
+          // generateSFCButton: true, //是否显示生成SFC按钮
           toolbarMaxWidth: 450,
           //设计器工具按钮栏最大宽度（单位像素）
           toolbarMinWidth: 300,
@@ -74836,8 +72857,6 @@ const _sfc_main$f = {
     };
   },
   created() {
-    this.vsCodeFlag = getQueryParam("vscode") == 1;
-    this.caseName = getQueryParam("case");
   },
   mounted() {
     this.initLocale();
@@ -74851,6 +72870,24 @@ const _sfc_main$f = {
     this.loadFieldListFromServer();
   },
   methods: {
+    /**
+     * json回填
+     * @param {*} importObj
+     */
+    setJsonImport(importObj = {}) {
+      if (isEmpty(importObj))
+        return;
+      try {
+        if (!importObj || !importObj.formConfig) {
+          throw new Error(this.i18nt("designer.hint.invalidJsonFormat"));
+        }
+        this.designer.loadFormJson(importObj);
+        this.designer.emitHistoryChange();
+        this.designer.emitEvent("form-json-imported", []);
+      } catch (ex) {
+        this.$message.error(ex + "");
+      }
+    },
     testEEH(eventName, eventParams) {
       console.log("test", eventName);
       console.log("test222222", eventParams);
@@ -74890,16 +72927,6 @@ const _sfc_main$f = {
       if (!this.caseName) {
         return;
       }
-      axios.get(MOCK_CASE_URL + this.caseName + ".txt").then((res) => {
-        if (!!res.data.code) {
-          this.$message.error(this.i18nt("designer.hint.sampleLoadedFail"));
-          return;
-        }
-        this.setFormJson(res.data);
-        this.$message.success(this.i18nt("designer.hint.sampleLoadedSuccess"));
-      }).catch((error) => {
-        this.$message.error(this.i18nt("designer.hint.sampleLoadedFail") + ":" + error);
-      });
     },
     initLocale() {
       this.curLocale = localStorage.getItem("v_form_locale");
@@ -74988,15 +73015,15 @@ const _sfc_main$f = {
      * 获取所有字段组件
      * @returns {*[]}
      */
-    getFieldWidgets(widgetList2 = null) {
-      return !!widgetList2 ? getAllFieldWidgets(widgetList2) : getAllFieldWidgets(this.designer.widgetList);
+    getFieldWidgets(widgetList = null) {
+      return !!widgetList ? getAllFieldWidgets(widgetList) : getAllFieldWidgets(this.designer.widgetList);
     },
     /**
      * 获取所有容器组件
      * @returns {*[]}
      */
-    getContainerWidgets(widgetList2 = null) {
-      return !!widgetList2 ? getAllContainerWidgets(widgetList2) : getAllContainerWidgets(this.designer.widgetList);
+    getContainerWidgets(widgetList = null) {
+      return !!widgetList ? getAllContainerWidgets(widgetList) : getAllContainerWidgets(this.designer.widgetList);
     },
     /**
      * 升级表单json，以补充最新的组件属性
@@ -75084,6 +73111,7 @@ function _sfc_render$f(_ctx, _cache, $props, $setup, $data, $options) {
               createVNode(_component_a_layout_header, { class: "toolbar-header" }, {
                 default: withCtx(() => [
                   createVNode(_component_toolbar_panel, {
+                    saveJsonApi: $props.saveJsonApi,
                     designer: $data.designer,
                     "global-dsv": $props.globalDsv,
                     ref: "toolbarRef"
@@ -75096,7 +73124,7 @@ function _sfc_render$f(_ctx, _cache, $props, $setup, $data, $options) {
                         ])
                       };
                     })
-                  ]), 1032, ["designer", "global-dsv"])
+                  ]), 1032, ["saveJsonApi", "designer", "global-dsv"])
                 ]),
                 _: 3
               }),
@@ -75135,7 +73163,7 @@ function _sfc_render$f(_ctx, _cache, $props, $setup, $data, $options) {
     _: 3
   });
 }
-const VFormDesigner = /* @__PURE__ */ _export_sfc$1(_sfc_main$f, [["render", _sfc_render$f], ["__scopeId", "data-v-6787c9a1"]]);
+const VFormDesigner = /* @__PURE__ */ _export_sfc$1(_sfc_main$f, [["render", _sfc_render$f], ["__scopeId", "data-v-6be11786"]]);
 var vuedraggable_umd = { exports: {} };
 (function(module, exports) {
   (function webpackUniversalModuleDefinition(root, factory) {
@@ -79693,13 +77721,13 @@ function registerIcon(app) {
 if (typeof window !== "undefined") {
   let loadSvg = function() {
     var body = document.body;
-    var svgDom = document.getElementById("__svg__icons__dom__1711517523934__");
+    var svgDom = document.getElementById("__svg__icons__dom__1711699467699__");
     if (!svgDom) {
       svgDom = document.createElementNS("http://www.w3.org/2000/svg", "svg");
       svgDom.style.position = "absolute";
       svgDom.style.width = "0";
       svgDom.style.height = "0";
-      svgDom.id = "__svg__icons__dom__1711517523934__";
+      svgDom.id = "__svg__icons__dom__1711699467699__";
       svgDom.setAttribute("xmlns", "http://www.w3.org/2000/svg");
       svgDom.setAttribute("xmlns:link", "http://www.w3.org/1999/xlink");
     }
@@ -80021,6 +78049,10 @@ const PEFactory = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.definePro
     }
   }
 });
+const registerCWGenerator = function(containerType, ctGenerator) {
+};
+const registerFWGenerator = function(fieldType, ftGenerator) {
+};
 const VFormRegisterHttp = (h) => {
   window.$vform = {
     ...window.$vform || {},

@@ -60,11 +60,16 @@ export default defineConfig({
   },
 
   build: {
-    minify: false,
+    minify: 'terser',
     lib: {
       entry: resolve(__dirname, 'install.js'),
       name: 'VFormDesigner',
       fileName: format => `tmgc-form.${format}.js`
+    },
+    terserOptions: {
+      compress: {
+        drop_console: true
+      }
     },
     rollupOptions: {
       // 确保外部化处理那些你不想打包进库的依赖

@@ -22,12 +22,12 @@
         drawerTitle="表单配置"
         :optionModel="formConfig.serveList.vformDetail"
       />
-      <HttpEditor
+      <!-- <HttpEditor
         label="设置表单删除api"
         buttonName="编辑"
         drawerTitle="表单配置"
         :optionModel="formConfig.serveList.vformDel"
-      />
+      /> -->
     </a-form-item>
     <a-form-item v-if="!formConfig.useInnerLogic">
       <a-form-item
@@ -99,8 +99,8 @@
         eventParamsMap: {
           onVformAdd: 'onVformAdd(data) {',
           onVformUpdate: 'onVformUpdate(data) {',
-          onVformDetail: 'onVformUpdate(data) {',
-          onVformDel: 'onVformUpdate(data) {'
+          onVformDetail: 'onVformUpdate(data) {'
+          // onVformDel: 'onVformUpdate(data) {'
         }
       };
     },

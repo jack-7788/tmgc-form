@@ -457,7 +457,7 @@ export function getDefaultFormConfig() {
     onVformAdd: 'console.log(data)',
     onVformUpdate: '',
     onVformDetail: '',
-    onVformDel: '',
+    // onVformDel: '',
     modelName: 'formData',
     refName: 'vForm',
     rulesName: 'rules',
@@ -469,7 +469,7 @@ export function getDefaultFormConfig() {
     customClass: [],
     functions: '', //全局函数
     layoutType: 'PC',
-    jsonVersion: 3,
+    // jsonVersion: 3,
     dataSources: [], //数据源集合
 
     onFormCreated: '',
@@ -502,16 +502,16 @@ export function getDefaultFormConfig() {
           params: { _id: '${_id}' }
         },
         dataHandlerCode: 'console.log(data.data);\nreturn data.data.object;\n '
-      },
-      vformDel: {
-        http: {
-          url: '/api/tmgc2-query/pageDataCud/batch/${pageCode}',
-          method: 'delete',
-          data: { ids: '${ids}' },
-          params: {}
-        },
-        dataHandlerCode: ''
       }
+      // vformDel: {
+      //   http: {
+      //     url: '/api/tmgc2-query/pageDataCud/batch/${pageCode}',
+      //     method: 'delete',
+      //     data: { ids: '${ids}' },
+      //     params: {}
+      //   },
+      //   dataHandlerCode: ''
+      // }
     }
   };
 }

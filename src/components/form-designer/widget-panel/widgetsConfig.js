@@ -155,7 +155,6 @@ export const containers = [
         }
       ],
       showButtonsColumn: false, // 是否显示操作列
-      // buttonsColumnFixed: 'right',
       buttonsColumnTitle: '操作',
       buttonsColumnWidth: 200,
       operationButtons: [
@@ -179,9 +178,6 @@ export const containers = [
         params: { pageCode: '${pageCode}', fieldCode: '${fieldCode}' }
       },
 
-      // dsName: '', //数据源名称
-      // dataSetName: '', //数据集名称
-      treeDataEnabled: false, //是否允许加载树形数据
       rowKey: 'name', //树形数据数据row-key
       childrenKey: 'children', //树形数据children
       dataSource: [
@@ -322,7 +318,6 @@ export const basicFields = [
       disabled: false,
       hidden: false,
       allowClear: true,
-      // showPassword: false,
       required: false,
       requiredHint: '',
       validation: '',
@@ -336,9 +331,6 @@ export const basicFields = [
       showCount: false,
       addonBefore: '',
       addonAfter: '',
-      // appendButton: false,
-      // appendButtonDisabled: false,
-      // buttonIcon: 'custom-search',
       //-------------------
       onCreated: '',
       onMounted: '',
@@ -347,7 +339,6 @@ export const basicFields = [
       onFocus: '',
       onBlur: '',
       onValidate: ''
-      // onAppendButtonClick: ''
     }
   },
 
@@ -422,7 +413,6 @@ export const basicFields = [
       max: 99999999,
       precision: 0,
       step: 1,
-      // controlsPosition: 'right',
       //-------------------
       onCreated: '',
       onMounted: '',
@@ -451,9 +441,7 @@ export const basicFields = [
       labelHidden: false,
       disabled: false,
       hidden: false,
-      // dsEnabled: false, // 是否使用数据源数据
-      // dsName: '', // 数据源名称
-      // dataSetName: '', //数据集名称
+      dsEnabled: false, // 是否使用数据源数据
       labelKey: 'label',
       valueKey: 'value',
       optionItems: [
@@ -496,14 +484,10 @@ export const basicFields = [
       defaultValue: [],
       columnWidth: '200px',
       size: '',
-      // displayStyle: 'inline',
-      // buttonStyle: false,
-      // border: false,
       labelWidth: null,
       labelHidden: false,
       disabled: false,
       hidden: false,
-      // dsEnabled: false, // 是否使用数据源数据
       // dsName: '', // 数据源名称
       // dataSetName: '', //数据集名称
       labelKey: 'label',
@@ -556,15 +540,8 @@ export const basicFields = [
       allowClear: true,
       maxTagCount: 'responsive',
       mode: 'combobox',
-      // filterable: false,
-      // allowCreate: false,
       showSearch: false,
-      // automaticDropdown: false, //自动下拉
-      // multiple: false,
-      // multipleLimit: 0,
-      // dsEnabled: false, // 是否使用数据源数据
-      dsName: '', // 数据源名称
-      dataSetName: '', //数据集名称
+      dsEnabled: false, // 是否使用数据源数据
       labelKey: 'label',
       valueKey: 'value',
       optionItems: [
@@ -1008,8 +985,8 @@ export const advancedFields = [
   //     hidden: false,
   //     required: false,
   //     requiredHint: '',
-  //     customRule: '',
-  //     customRuleHint: '',
+  //    validation: '',
+  //    validationHint: '',
   //     //-------------------
   //     uploadURL: '',
   //     uploadTip: '',
@@ -1052,8 +1029,8 @@ export const advancedFields = [
   //     hidden: false,
   //     required: false,
   //     requiredHint: '',
-  //     customRule: '',
-  //     customRuleHint: '',
+  //    validation: '',
+  //    validationHint: '',
   //     //-------------------
   //     uploadURL: '',
   //     uploadTip: '',
@@ -1098,13 +1075,8 @@ export const advancedFields = [
       disabled: false,
       hidden: false,
       allowClear: true,
-      // filterable: false,
       multiple: false,
-      // checkStrictly: false, //可选择任意一级选项，默认不开启
-      // showAllLevels: true, //显示完整路径
-      // dsEnabled: true, // 是否使用数据源数据
-      // dsName: '', // 数据源名称
-      // dataSetName: '', //数据集名称
+      dsEnabled: true, // 是否使用数据源数据
       labelKey: 'label',
       valueKey: 'value',
       childrenKey: 'children',
@@ -1122,8 +1094,8 @@ export const advancedFields = [
       dataHandlerCode: 'console.log(data.data);\nreturn data.data;\n ',
       required: false,
       requiredHint: '',
-      customRule: '',
-      customRuleHint: '',
+      validation: '',
+      validationHint: '',
       //-------------------
       customClass: [], //自定义css类名
       labelIconClass: null,
@@ -1155,14 +1127,9 @@ export const advancedFields = [
       disabled: false,
       hidden: false,
       allowClear: true,
-      // filterable: false,
       multiple: false,
       treeDefaultExpandAll: false,
-      // checkStrictly: false, //可选择任意一级选项，默认不开启
-      // showAllLevels: true, //显示完整路径
-      // dsEnabled: true, // 是否使用数据源数据
-      // dsName: '', // 数据源名称
-      // dataSetName: '', //数据集名称
+      dsEnabled: true, // 是否使用数据源数据
       labelKey: 'label',
       valueKey: 'value',
       childrenKey: 'children',
@@ -1180,8 +1147,8 @@ export const advancedFields = [
       dataHandlerCode: 'console.log(data.data);\nreturn data.data;\n ',
       required: false,
       requiredHint: '',
-      customRule: '',
-      customRuleHint: '',
+      validation: '',
+      validationHint: '',
       //-------------------
       customClass: [], //自定义css类名
       labelIconClass: null,
@@ -1213,8 +1180,8 @@ export const advancedFields = [
       hidden: false,
       required: false,
       requiredHint: '',
-      customRule: '',
-      customRuleHint: '',
+      validation: '', // 自定义校验选项
+      validationHint: '', //自定义校验提示语
       //-------------------
       customClass: [], //自定义css类名
       labelIconClass: null,

@@ -19,7 +19,7 @@ const COMMON_PROPERTIES = {
   columnWidth: 'columnWidth-editor',
   autoFullWidth: 'autoFullWidth-editor',
   size: 'size-editor',
-  displayStyle: 'displayStyle-editor',
+  // displayStyle: 'displayStyle-editor',
   buttonStyle: 'buttonStyle-editor',
   border: 'border-editor',
   labelWidth: 'labelWidth-editor',

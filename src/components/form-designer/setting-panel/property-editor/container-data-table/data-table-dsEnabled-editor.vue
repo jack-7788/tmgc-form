@@ -1,6 +1,5 @@
 <template>
   <a-form-item :label="i18nt('designer.setting.dsEnabled')">
-    {{ tableDataOptions }}
     <a-switch v-model:checked="optionModel.dsEnabled" />
   </a-form-item>
   <a-form-item v-if="!optionModel.dsEnabled" :label="i18nt('designer.setting.tableDataEdit')">

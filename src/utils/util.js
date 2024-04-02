@@ -453,14 +453,14 @@ export function getQueryParam(variable) {
 
 export function getDefaultFormConfig() {
   return {
-    useInnerLogic: true, //使用内置逻辑
-    onVformAdd: 'console.log(data)',
-    onVformUpdate: '',
-    onVformDetail: '',
+    // useInnerLogic: true, //使用内置逻辑
+    // onVformAdd: 'console.log(data)',
+    // onVformUpdate: '',
+    // onVformDetail: '',
     // onVformDel: '',
-    modelName: 'formData',
-    refName: 'vForm',
-    rulesName: 'rules',
+    // modelName: 'formData',
+    // refName: 'vForm',
+    // rulesName: 'rules',
     labelWidth: 80,
     labelPosition: 'horizontal', //'left',
     size: '',
@@ -470,38 +470,38 @@ export function getDefaultFormConfig() {
     functions: '', //全局函数
     layoutType: 'PC',
     // jsonVersion: 3,
-    dataSources: [], //数据源集合
+    // dataSources: [], //数据源集合
 
     onFormCreated: '',
     onFormMounted: '',
     onFormDataChange: '',
     serveList: {
-      vformAdd: {
-        http: {
-          url: '/api/tmgc2-query/pageDataCud/createOrUpdate/${pageCode}',
-          method: 'post',
-          data: { _id: '${_id}' },
-          params: {}
-        },
-        dataHandlerCode: ''
-      },
+      // vformAdd: {
+      //   http: {
+      //     url: '/api/tmgc2-query/pageDataCud/createOrUpdate/${pageCode}',
+      //     method: 'post',
+      //     data: { _id: '${_id}' },
+      //     params: {}
+      //   },
+      //   dataHandlerCode: ''
+      // },
       vformUpdate: {
         http: {
-          url: '/api/tmgc2-query/pageDataCud/createOrUpdate/${pageCode}',
+          url: '', //'/api/tmgc2-query/pageDataCud/createOrUpdate/${pageCode}',
           method: 'post',
-          data: { _id: '${_id}' },
+          data: {}, //{ _id: '${_id}' },
           params: {}
         },
         dataHandlerCode: ''
       },
       vformDetail: {
         http: {
-          url: '/api/tmgc2-query/dataQuery/detail/${pageCode}',
+          url: {}, // '/api/tmgc2-query/dataQuery/detail/${pageCode}',
           method: 'get',
           data: {},
-          params: { _id: '${_id}' }
+          params: {} // { _id: '${_id}' }
         },
-        dataHandlerCode: 'console.log(data.data);\nreturn data.data.object;\n '
+        dataHandlerCode: '' //'console.log(data.data);\nreturn data.data.object;\n '
       }
       // vformDel: {
       //   http: {

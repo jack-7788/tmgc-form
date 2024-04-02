@@ -16,7 +16,7 @@
             <a-radio-group v-model:value="formConfig.labelPosition" class="radio-group-custom">
               <a-radio-button value="horizontal">水平</a-radio-button>
               <a-radio-button value="vertical">垂直</a-radio-button>
-              <a-radio-button value="inline">行内</a-radio-button>
+              <!-- <a-radio-button value="inline">行内</a-radio-button> -->
             </a-radio-group>
           </a-form-item>
           <a-form-item :label="i18nt('designer.setting.labelAlign')">
@@ -68,7 +68,7 @@
               {{ i18nt('designer.setting.addEventHandler') }}
             </a-button>
           </a-form-item>
-          <a-form-item label-width="0">
+          <!-- <a-form-item label-width="0">
             <a-divider class="custom-divider">
               {{ i18nt('designer.setting.formSFCSetting') }}
             </a-divider>
@@ -81,7 +81,7 @@
           </a-form-item>
           <a-form-item :label="i18nt('designer.setting.formRulesName')">
             <a-input type="text" v-model:value="formConfig.rulesName" />
-          </a-form-item>
+          </a-form-item> -->
         </a-collapse-panel>
 
         <a-collapse-panel

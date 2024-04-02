@@ -7,8 +7,8 @@
       :class="[eventHandled ? 'button-text-highlight' : '']"
       @click="editEventHandler('onCreated', eventParams)"
     >
-      {{ i18nt('designer.setting.addEventHandler') }}</a-button
-    >
+      {{ i18nt('designer.setting.addEventHandler') }}
+    </a-button>
   </a-form-item>
 </template>
 

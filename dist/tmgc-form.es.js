@@ -2262,10 +2262,12 @@ const containers = [
       dsEnabled: false,
       //是否使用数据源数据
       http: {
-        url: "/api/tmgc2-mgt/pageFieldConfig/queryPageFieldValueOptions",
+        url: {},
+        //'/api/tmgc2-mgt/pageFieldConfig/queryPageFieldValueOptions',
         method: "get",
         data: {},
-        params: { pageCode: "${pageCode}", fieldCode: "${fieldCode}" }
+        params: {}
+        //{ pageCode: '${pageCode}', fieldCode: '${fieldCode}' }
       },
       rowKey: "name",
       //树形数据数据row-key
@@ -2547,10 +2549,12 @@ const basicFields = [
         { label: "radio 3", value: 3 }
       ],
       http: {
-        url: "/api/tmgc2-mgt/pageFieldConfig/queryPageFieldValueOptions",
+        url: {},
+        // '/api/tmgc2-mgt/pageFieldConfig/queryPageFieldValueOptions',
         method: "get",
         data: {},
-        params: { pageCode: "${pageCode}", fieldCode: "${fieldCode}" }
+        params: {}
+        // { pageCode: '${pageCode}', fieldCode: '${fieldCode}' }
       },
       dataHandlerCode: "console.log(data.data);\nreturn data.data;\n ",
       required: false,
@@ -2595,10 +2599,12 @@ const basicFields = [
         { label: "check 3", value: 3 }
       ],
       http: {
-        url: "/api/tmgc2-mgt/pageFieldConfig/queryPageFieldValueOptions",
+        url: {},
+        // '/api/tmgc2-mgt/pageFieldConfig/queryPageFieldValueOptions',
         method: "get",
         data: {},
-        params: { pageCode: "${pageCode}", fieldCode: "${fieldCode}" }
+        params: {}
+        // { pageCode: '${pageCode}', fieldCode: '${fieldCode}' }
       },
       dataHandlerCode: "console.log(data.data);\nreturn data.data;\n ",
       required: false,
@@ -2648,10 +2654,12 @@ const basicFields = [
         { label: "select 3", value: 3 }
       ],
       http: {
-        url: "/api/tmgc2-mgt/pageFieldConfig/queryPageFieldValueOptions",
+        url: {},
+        //'/api/tmgc2-mgt/pageFieldConfig/queryPageFieldValueOptions',
         method: "get",
         data: {},
-        params: { pageCode: "${pageCode}", fieldCode: "${fieldCode}" }
+        params: {}
+        // { pageCode: '${pageCode}', fieldCode: '${fieldCode}' }
       },
       dataHandlerCode: "console.log(data.data);\nreturn data.data;\n ",
       required: false,
@@ -3183,10 +3191,12 @@ const advancedFields = [
       valueKey: "value",
       childrenKey: "children",
       http: {
-        url: "/api/tmgc2-mgt/pageFieldConfig/queryPageFieldValueOptions",
+        url: {},
+        //'/api/tmgc2-mgt/pageFieldConfig/queryPageFieldValueOptions',
         method: "get",
         data: {},
-        params: { pageCode: "${pageCode}", fieldCode: "${fieldCode}" }
+        params: {}
+        // { pageCode: '${pageCode}', fieldCode: '${fieldCode}' }
       },
       optionItems: [
         { label: "select 1", value: 1, children: [{ label: "child 1", value: 11 }] },
@@ -3238,10 +3248,12 @@ const advancedFields = [
       valueKey: "value",
       childrenKey: "children",
       http: {
-        url: "/api/tmgc2-mgt/pageFieldConfig/queryPageFieldValueOptions",
+        url: {},
+        // '/api/tmgc2-mgt/pageFieldConfig/queryPageFieldValueOptions',
         method: "get",
         data: {},
-        params: { pageCode: "${pageCode}", fieldCode: "${fieldCode}" }
+        params: {}
+        // { pageCode: '${pageCode}', fieldCode: '${fieldCode}' }
       },
       optionItems: [
         { label: "select 1", value: 1, children: [{ label: "child 1", value: 11 }] },
@@ -4343,15 +4355,14 @@ function getQueryParam(variable) {
 }
 function getDefaultFormConfig() {
   return {
-    useInnerLogic: true,
-    //使用内置逻辑
-    onVformAdd: "console.log(data)",
-    onVformUpdate: "",
-    onVformDetail: "",
+    // useInnerLogic: true, //使用内置逻辑
+    // onVformAdd: 'console.log(data)',
+    // onVformUpdate: '',
+    // onVformDetail: '',
     // onVformDel: '',
-    modelName: "formData",
-    refName: "vForm",
-    rulesName: "rules",
+    // modelName: 'formData',
+    // refName: 'vForm',
+    // rulesName: 'rules',
     labelWidth: 80,
     labelPosition: "horizontal",
     //'left',
@@ -4363,38 +4374,42 @@ function getDefaultFormConfig() {
     //全局函数
     layoutType: "PC",
     // jsonVersion: 3,
-    dataSources: [],
-    //数据源集合
+    // dataSources: [], //数据源集合
     onFormCreated: "",
     onFormMounted: "",
     onFormDataChange: "",
     serveList: {
-      vformAdd: {
-        http: {
-          url: "/api/tmgc2-query/pageDataCud/createOrUpdate/${pageCode}",
-          method: "post",
-          data: { _id: "${_id}" },
-          params: {}
-        },
-        dataHandlerCode: ""
-      },
+      // vformAdd: {
+      //   http: {
+      //     url: '/api/tmgc2-query/pageDataCud/createOrUpdate/${pageCode}',
+      //     method: 'post',
+      //     data: { _id: '${_id}' },
+      //     params: {}
+      //   },
+      //   dataHandlerCode: ''
+      // },
       vformUpdate: {
         http: {
-          url: "/api/tmgc2-query/pageDataCud/createOrUpdate/${pageCode}",
+          url: "",
+          //'/api/tmgc2-query/pageDataCud/createOrUpdate/${pageCode}',
           method: "post",
-          data: { _id: "${_id}" },
+          data: {},
+          //{ _id: '${_id}' },
           params: {}
         },
         dataHandlerCode: ""
       },
       vformDetail: {
         http: {
-          url: "/api/tmgc2-query/dataQuery/detail/${pageCode}",
+          url: {},
+          // '/api/tmgc2-query/dataQuery/detail/${pageCode}',
           method: "get",
           data: {},
-          params: { _id: "${_id}" }
+          params: {}
+          // { _id: '${_id}' }
         },
-        dataHandlerCode: "console.log(data.data);\nreturn data.data.object;\n "
+        dataHandlerCode: ""
+        //'console.log(data.data);\nreturn data.data.object;\n '
       }
       // vformDel: {
       //   http: {
@@ -9645,7 +9660,8 @@ const _sfc_main$47 = {
       }
     },
     customClass() {
-      return !!this.field.options.customClass ? this.field.options.customClass.join(" ") : "";
+      console.log(" this.field.options.customClass: ", this.field.options.customClass);
+      return this.field.options.customClass.join(" ");
     },
     subFormName() {
       return !!this.getSubFormName ? this.getSubFormName() : "";
@@ -9884,7 +9900,7 @@ function _sfc_render$47(_ctx, _cache, $props, $setup, $data, $options) {
     ], 64)) : createCommentVNode("", true)
   ], 2);
 }
-const FormItemWrapper = /* @__PURE__ */ _export_sfc$1(_sfc_main$47, [["render", _sfc_render$47], ["__scopeId", "data-v-ad89c2b1"]]);
+const FormItemWrapper = /* @__PURE__ */ _export_sfc$1(_sfc_main$47, [["render", _sfc_render$47], ["__scopeId", "data-v-2b4ba062"]]);
 const __vite_glob_0_8$3 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: FormItemWrapper
@@ -27976,6 +27992,41 @@ const _sfc_main$3y = {
     this.handleOnMounted();
   },
   methods: {
+    async onFormDetail() {
+      const paramsMap = { ...getLocat() };
+      const formConfig = this.designer.formConfig;
+      const { http: http2, dataHandlerCode } = formConfig.serveList.vformDetail;
+      const sendParams = JSON.stringify({
+        ...http2
+        // params: http.method === 'get' ? { ...http.params, ...modelForm } : { ...http.params },
+        // data: http.method === 'post' ? { ...http.data, ...modelForm } : { ...http.data }
+      });
+      const res = replaceVars(sendParams, paramsMap);
+      console.log(JSON.parse(res));
+      const dsResult = await getHttp()(JSON.parse(res));
+      if (dataHandlerCode) {
+        const dhFn = new Function("data", dataHandlerCode);
+        dhFn.call(this, dsResult);
+      }
+    },
+    async onFormUpdate() {
+      const modelForm = await this.getFormData();
+      const paramsMap = { ...getLocat() };
+      const formConfig = this.designer.formConfig;
+      const { http: http2, dataHandlerCode } = formConfig.serveList.vformUpdate;
+      const sendParams = JSON.stringify({
+        ...http2,
+        params: http2.method === "get" ? { ...http2.params, ...modelForm } : { ...http2.params },
+        data: http2.method === "post" ? { ...http2.data, ...modelForm } : { ...http2.data }
+      });
+      const res = replaceVars(sendParams, paramsMap);
+      console.log(JSON.parse(res));
+      const dsResult = await getHttp()(JSON.parse(res));
+      if (dataHandlerCode) {
+        const dhFn = new Function("data", dataHandlerCode);
+        dhFn.call(this, dsResult);
+      }
+    },
     initFormObject(insertHtmlCodeFlag = true) {
       this.formId = "vfRender" + generateId();
       if (!!insertHtmlCodeFlag && !this.dynamicCreation) {
@@ -28757,7 +28808,7 @@ function _sfc_render$3y(_ctx, _cache, $props, $setup, $data, $options) {
     _: 3
   }, 8, ["component-size"]);
 }
-const VFormRender = /* @__PURE__ */ _export_sfc$1(_sfc_main$3y, [["render", _sfc_render$3y], ["__scopeId", "data-v-1bb143fe"]]);
+const VFormRender = /* @__PURE__ */ _export_sfc$1(_sfc_main$3y, [["render", _sfc_render$3y], ["__scopeId", "data-v-a2a3aa2a"]]);
 var ace$2 = { exports: {} };
 (function(module, exports) {
   (function() {
@@ -52811,21 +52862,16 @@ const _sfc_main$3w = {
       const data = await this.$refs["preForm"].getFormData();
       const paramsMap = { ...getLocat() };
       const formConfig = this.designer.formConfig;
-      if (!formConfig.useInnerLogic) {
-        const dhFn = new Function("data", formConfig.onVformAdd);
-        dhFn.call(this, { ...data, ...paramsMap });
-        return;
-      }
-      const vformAdd = formConfig.serveList.vformAdd;
+      const vformUpdate = formConfig.serveList.vformUpdate;
       const sendParams = JSON.stringify({
-        ...vformAdd.http,
-        data: { ...vformAdd.http.data, ...data }
+        ...vformUpdate.http,
+        data: { ...vformUpdate.http.data, ...data }
       });
       const res = replaceVars(sendParams, paramsMap);
       console.log(JSON.parse(res));
       const dsResult = await getHttp()(JSON.parse(res));
-      if (vformAdd.dataHandlerCode) {
-        const dhFn = new Function("data", vformAdd.dataHandlerCode);
+      if (vformUpdate.dataHandlerCode) {
+        const dhFn = new Function("data", vformUpdate.dataHandlerCode);
         dhFn.call(this, dsResult);
       }
     },
@@ -53665,9 +53711,9 @@ const _sfc_main$3w = {
           }
         ],
         formConfig: {
-          modelName: "formData",
-          refName: "vForm",
-          rulesName: "rules",
+          // modelName: 'formData',
+          // refName: 'vForm',
+          // rulesName: 'rules',
           labelWidth: 150,
           labelPosition: "horizontal",
           size: "",
@@ -54257,7 +54303,7 @@ function _sfc_render$3w(_ctx, _cache, $props, $setup, $data, $options) {
     }, 8, ["title", "visible"])) : createCommentVNode("", true)
   ]);
 }
-const ToolbarPanel = /* @__PURE__ */ _export_sfc$1(_sfc_main$3w, [["render", _sfc_render$3w], ["__scopeId", "data-v-05d88047"]]);
+const ToolbarPanel = /* @__PURE__ */ _export_sfc$1(_sfc_main$3w, [["render", _sfc_render$3w], ["__scopeId", "data-v-674362f1"]]);
 const _sfc_main$3v = {
   name: "actionColumnPosition-editor",
   mixins: [i18n$1],
@@ -55525,7 +55571,6 @@ function _sfc_render$3g(_ctx, _cache, $props, $setup, $data, $options) {
       label: _ctx.i18nt("designer.setting.dsEnabled")
     }, {
       default: withCtx(() => [
-        createTextVNode(toDisplayString($data.tableDataOptions) + " ", 1),
         createVNode(_component_a_switch, {
           checked: $props.optionModel.dsEnabled,
           "onUpdate:checked": _cache[0] || (_cache[0] = ($event) => $props.optionModel.dsEnabled = $event)
@@ -55809,6 +55854,8 @@ const __vite_glob_0_15 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.de
 }, Symbol.toStringTag, { value: "Module" }));
 const _sfc_main$3d = {
   name: "rowSelection-editor",
+  mixins: [i18n$1],
+  components: { CodeModalEditor },
   props: {
     designer: Object,
     selectedWidget: Object,
@@ -55816,12 +55863,16 @@ const _sfc_main$3d = {
   },
   data() {
     return {
-      visible: false
+      visible: false,
+      eventParams: []
     };
   },
   methods: {
     editSelections() {
       this.visible = true;
+    },
+    editOnChange() {
+      this.$refs.CodeModalEditorRef.open(this.optionModel.rowSelection.onChange);
     }
   }
 };
@@ -55833,6 +55884,7 @@ function _sfc_render$3d(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_input = resolveComponent("a-input");
   const _component_a_form = resolveComponent("a-form");
   const _component_a_drawer = resolveComponent("a-drawer");
+  const _component_CodeModalEditor = resolveComponent("CodeModalEditor");
   return openBlock(), createElementBlock(Fragment, null, [
     createVNode(_component_a_form_item, { label: "启用左侧勾选设置" }, {
       default: withCtx(() => [
@@ -55913,13 +55965,37 @@ function _sfc_render$3d(_ctx, _cache, $props, $setup, $data, $options) {
                 }, null, 8, ["value"])
               ]),
               _: 1
+            }),
+            createVNode(_component_a_form_item, { label: "onChange" }, {
+              default: withCtx(() => [
+                createVNode(_component_a_button, {
+                  type: "info",
+                  plain: "",
+                  shape: "round",
+                  class: normalizeClass([!!$props.optionModel.rowSelection.onChange ? "button-text-highlight" : ""]),
+                  onClick: $options.editOnChange
+                }, {
+                  default: withCtx(() => [
+                    createTextVNode(toDisplayString(_ctx.i18nt("designer.setting.addEventHandler")), 1)
+                  ]),
+                  _: 1
+                }, 8, ["class", "onClick"])
+              ]),
+              _: 1
             })
           ]),
           _: 1
         }, 8, ["model"])
       ]),
       _: 1
-    }, 8, ["visible"])
+    }, 8, ["visible"]),
+    createVNode(_component_CodeModalEditor, {
+      modelValue: $props.optionModel.rowSelection.onChange,
+      "onUpdate:modelValue": _cache[6] || (_cache[6] = ($event) => $props.optionModel.rowSelection.onChange = $event),
+      ref: "CodeModalEditorRef",
+      title: `onChange事件`,
+      "event-header": `function onChange(selectedRowKeys, selectedRows) {`
+    }, null, 8, ["modelValue", "event-header"])
   ], 64);
 }
 const dataTableSelectionsEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3d, [["render", _sfc_render$3d]]);
@@ -60441,12 +60517,12 @@ function _sfc_render$2F(_ctx, _cache, $props, $setup, $data, $options) {
   }, {
     default: withCtx(() => [
       createVNode(_component_a_select, {
-        modelValue: $props.optionModel.customClass,
-        "onUpdate:modelValue": _cache[0] || (_cache[0] = ($event) => $props.optionModel.customClass = $event),
+        value: $props.optionModel.customClass,
+        "onUpdate:value": _cache[0] || (_cache[0] = ($event) => $props.optionModel.customClass = $event),
         allowClear: "",
         mode: "tags",
         options: $data.cssClassList
-      }, null, 8, ["modelValue", "options"])
+      }, null, 8, ["value", "options"])
     ]),
     _: 1
   }, 8, ["label"]);
@@ -66814,8 +66890,6 @@ function _sfc_render$v(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_radio_group = resolveComponent("a-radio-group");
   const _component_a_input_number = resolveComponent("a-input-number");
   const _component_a_button = resolveComponent("a-button");
-  const _component_a_divider = resolveComponent("a-divider");
-  const _component_a_input = resolveComponent("a-input");
   const _component_a_collapse_panel = resolveComponent("a-collapse-panel");
   const _component_a_collapse = resolveComponent("a-collapse");
   const _component_a_form = resolveComponent("a-form");
@@ -66828,13 +66902,13 @@ function _sfc_render$v(_ctx, _cache, $props, $setup, $data, $options) {
       labelAlign: "left",
       "label-width": "120px",
       class: "setting-form tpf-form",
-      onSubmit: _cache[12] || (_cache[12] = withModifiers(() => {
+      onSubmit: _cache[9] || (_cache[9] = withModifiers(() => {
       }, ["prevent"]))
     }, {
       default: withCtx(() => [
         createVNode(_component_a_collapse, {
           activeKey: $data.formActiveCollapseNames,
-          "onUpdate:activeKey": _cache[11] || (_cache[11] = ($event) => $data.formActiveCollapseNames = $event),
+          "onUpdate:activeKey": _cache[8] || (_cache[8] = ($event) => $data.formActiveCollapseNames = $event),
           class: "setting-collapse"
         }, {
           default: withCtx(() => [
@@ -66875,12 +66949,6 @@ function _sfc_render$v(_ctx, _cache, $props, $setup, $data, $options) {
                         createVNode(_component_a_radio_button, { value: "vertical" }, {
                           default: withCtx(() => [
                             createTextVNode("垂直")
-                          ]),
-                          _: 1
-                        }),
-                        createVNode(_component_a_radio_button, { value: "inline" }, {
-                          default: withCtx(() => [
-                            createTextVNode("行内")
                           ]),
                           _: 1
                         })
@@ -66982,53 +67050,6 @@ function _sfc_render$v(_ctx, _cache, $props, $setup, $data, $options) {
                     }, 8, ["class", "onClick"])
                   ]),
                   _: 1
-                }, 8, ["label"]),
-                createVNode(_component_a_form_item, { "label-width": "0" }, {
-                  default: withCtx(() => [
-                    createVNode(_component_a_divider, { class: "custom-divider" }, {
-                      default: withCtx(() => [
-                        createTextVNode(toDisplayString(_ctx.i18nt("designer.setting.formSFCSetting")), 1)
-                      ]),
-                      _: 1
-                    })
-                  ]),
-                  _: 1
-                }),
-                createVNode(_component_a_form_item, {
-                  label: _ctx.i18nt("designer.setting.formModelName")
-                }, {
-                  default: withCtx(() => [
-                    createVNode(_component_a_input, {
-                      type: "text",
-                      value: $props.formConfig.modelName,
-                      "onUpdate:value": _cache[5] || (_cache[5] = ($event) => $props.formConfig.modelName = $event)
-                    }, null, 8, ["value"])
-                  ]),
-                  _: 1
-                }, 8, ["label"]),
-                createVNode(_component_a_form_item, {
-                  label: _ctx.i18nt("designer.setting.formRefName")
-                }, {
-                  default: withCtx(() => [
-                    createVNode(_component_a_input, {
-                      type: "text",
-                      value: $props.formConfig.refName,
-                      "onUpdate:value": _cache[6] || (_cache[6] = ($event) => $props.formConfig.refName = $event)
-                    }, null, 8, ["value"])
-                  ]),
-                  _: 1
-                }, 8, ["label"]),
-                createVNode(_component_a_form_item, {
-                  label: _ctx.i18nt("designer.setting.formRulesName")
-                }, {
-                  default: withCtx(() => [
-                    createVNode(_component_a_input, {
-                      type: "text",
-                      value: $props.formConfig.rulesName,
-                      "onUpdate:value": _cache[7] || (_cache[7] = ($event) => $props.formConfig.rulesName = $event)
-                    }, null, 8, ["value"])
-                  ]),
-                  _: 1
                 }, 8, ["label"])
               ]),
               _: 1
@@ -67048,7 +67069,7 @@ function _sfc_render$v(_ctx, _cache, $props, $setup, $data, $options) {
                       plain: "",
                       shape: "round",
                       class: normalizeClass([$options.getFormEventHandled("onFormCreated") ? "button-text-highlight" : ""]),
-                      onClick: _cache[8] || (_cache[8] = ($event) => $options.editFormEventHandler("onFormCreated"))
+                      onClick: _cache[5] || (_cache[5] = ($event) => $options.editFormEventHandler("onFormCreated"))
                     }, {
                       default: withCtx(() => [
                         createTextVNode(toDisplayString(_ctx.i18nt("designer.setting.addEventHandler")), 1)
@@ -67067,7 +67088,7 @@ function _sfc_render$v(_ctx, _cache, $props, $setup, $data, $options) {
                       type: "info",
                       shape: "round",
                       class: normalizeClass([$options.getFormEventHandled("onFormMounted") ? "button-text-highlight" : ""]),
-                      onClick: _cache[9] || (_cache[9] = ($event) => $options.editFormEventHandler("onFormMounted"))
+                      onClick: _cache[6] || (_cache[6] = ($event) => $options.editFormEventHandler("onFormMounted"))
                     }, {
                       default: withCtx(() => [
                         createTextVNode(toDisplayString(_ctx.i18nt("designer.setting.addEventHandler")), 1)
@@ -67087,7 +67108,7 @@ function _sfc_render$v(_ctx, _cache, $props, $setup, $data, $options) {
                       plain: "",
                       shape: "round",
                       class: normalizeClass([$options.getFormEventHandled("onFormDataChange") ? "button-text-highlight" : ""]),
-                      onClick: _cache[10] || (_cache[10] = ($event) => $options.editFormEventHandler("onFormDataChange"))
+                      onClick: _cache[7] || (_cache[7] = ($event) => $options.editFormEventHandler("onFormDataChange"))
                     }, {
                       default: withCtx(() => [
                         createTextVNode(toDisplayString(_ctx.i18nt("designer.setting.addEventHandler")), 1)
@@ -67110,7 +67131,7 @@ function _sfc_render$v(_ctx, _cache, $props, $setup, $data, $options) {
       createVNode(_component_a_modal, {
         title: _ctx.i18nt("designer.setting.editFormEventHandler"),
         visible: $data.showFormEventDialogFlag,
-        "onUpdate:visible": _cache[15] || (_cache[15] = ($event) => $data.showFormEventDialogFlag = $event),
+        "onUpdate:visible": _cache[12] || (_cache[12] = ($event) => $data.showFormEventDialogFlag = $event),
         "show-close": true,
         "custom-class": "drag-dialog small-padding-dialog",
         "append-to-body": "",
@@ -67121,7 +67142,7 @@ function _sfc_render$v(_ctx, _cache, $props, $setup, $data, $options) {
         footer: withCtx(() => [
           createElementVNode("div", _hoisted_2$l, [
             createVNode(_component_a_button, {
-              onClick: _cache[14] || (_cache[14] = ($event) => $data.showFormEventDialogFlag = false)
+              onClick: _cache[11] || (_cache[11] = ($event) => $data.showFormEventDialogFlag = false)
             }, {
               default: withCtx(() => [
                 createTextVNode(toDisplayString(_ctx.i18nt("designer.hint.cancel")), 1)
@@ -67149,7 +67170,7 @@ function _sfc_render$v(_ctx, _cache, $props, $setup, $data, $options) {
             mode: "javascript",
             readonly: false,
             modelValue: $data.formEventHandlerCode,
-            "onUpdate:modelValue": _cache[13] || (_cache[13] = ($event) => $data.formEventHandlerCode = $event),
+            "onUpdate:modelValue": _cache[10] || (_cache[10] = ($event) => $data.formEventHandlerCode = $event),
             ref: "ecEditor"
           }, null, 8, ["modelValue"]),
           createVNode(_component_a_alert, {
@@ -67165,7 +67186,7 @@ function _sfc_render$v(_ctx, _cache, $props, $setup, $data, $options) {
       createVNode(_component_a_modal, {
         title: _ctx.i18nt("designer.setting.formCss"),
         visible: $data.showEditFormCssDialogFlag,
-        "onUpdate:visible": _cache[18] || (_cache[18] = ($event) => $data.showEditFormCssDialogFlag = $event),
+        "onUpdate:visible": _cache[15] || (_cache[15] = ($event) => $data.showEditFormCssDialogFlag = $event),
         "show-close": true,
         "custom-class": "drag-dialog small-padding-dialog",
         "append-to-body": "",
@@ -67176,7 +67197,7 @@ function _sfc_render$v(_ctx, _cache, $props, $setup, $data, $options) {
         footer: withCtx(() => [
           createElementVNode("div", _hoisted_4$a, [
             createVNode(_component_a_button, {
-              onClick: _cache[17] || (_cache[17] = ($event) => $data.showEditFormCssDialogFlag = false)
+              onClick: _cache[14] || (_cache[14] = ($event) => $data.showEditFormCssDialogFlag = false)
             }, {
               default: withCtx(() => [
                 createTextVNode(toDisplayString(_ctx.i18nt("designer.hint.cancel")), 1)
@@ -67199,7 +67220,7 @@ function _sfc_render$v(_ctx, _cache, $props, $setup, $data, $options) {
             mode: "css",
             readonly: false,
             modelValue: $data.formCssCode,
-            "onUpdate:modelValue": _cache[16] || (_cache[16] = ($event) => $data.formCssCode = $event)
+            "onUpdate:modelValue": _cache[13] || (_cache[13] = ($event) => $data.formCssCode = $event)
           }, null, 8, ["modelValue"])
         ]),
         _: 1
@@ -67209,7 +67230,7 @@ function _sfc_render$v(_ctx, _cache, $props, $setup, $data, $options) {
       createVNode(_component_a_modal, {
         title: _ctx.i18nt("designer.setting.globalFunctions"),
         visible: $data.showEditFunctionsDialogFlag,
-        "onUpdate:visible": _cache[21] || (_cache[21] = ($event) => $data.showEditFunctionsDialogFlag = $event),
+        "onUpdate:visible": _cache[18] || (_cache[18] = ($event) => $data.showEditFunctionsDialogFlag = $event),
         width: 600,
         "show-close": true,
         "custom-class": "drag-dialog small-padding-dialog",
@@ -67221,7 +67242,7 @@ function _sfc_render$v(_ctx, _cache, $props, $setup, $data, $options) {
         footer: withCtx(() => [
           createElementVNode("div", _hoisted_6$4, [
             createVNode(_component_a_button, {
-              onClick: _cache[20] || (_cache[20] = ($event) => $data.showEditFunctionsDialogFlag = false)
+              onClick: _cache[17] || (_cache[17] = ($event) => $data.showEditFunctionsDialogFlag = false)
             }, {
               default: withCtx(() => [
                 createTextVNode(toDisplayString(_ctx.i18nt("designer.hint.cancel")), 1)
@@ -67244,7 +67265,7 @@ function _sfc_render$v(_ctx, _cache, $props, $setup, $data, $options) {
             mode: "javascript",
             readonly: false,
             modelValue: $data.functionsCode,
-            "onUpdate:modelValue": _cache[19] || (_cache[19] = ($event) => $data.functionsCode = $event),
+            "onUpdate:modelValue": _cache[16] || (_cache[16] = ($event) => $data.functionsCode = $event),
             ref: "gfEditor"
           }, null, 8, ["modelValue"])
         ]),
@@ -68718,9 +68739,9 @@ const _sfc_main$t = {
       formEventHandlerCode: "",
       showFormEventDialogFlag: false,
       eventParamsMap: {
-        onVformAdd: "onVformAdd(data) {",
-        onVformUpdate: "onVformUpdate(data) {",
-        onVformDetail: "onVformUpdate(data) {"
+        // onVformAdd: 'onVformAdd(data) {',
+        // onVformUpdate: 'onVformUpdate(data) {',
+        // onVformDetail: 'onVformUpdate(data) {'
         // onVformDel: 'onVformUpdate(data) {'
       }
     };
@@ -68756,31 +68777,15 @@ const _sfc_main$t = {
 const _hoisted_1$q = { class: "t-p-[10px]" };
 const _hoisted_2$j = { class: "dialog-footer" };
 function _sfc_render$t(_ctx, _cache, $props, $setup, $data, $options) {
-  const _component_a_switch = resolveComponent("a-switch");
-  const _component_a_form_item = resolveComponent("a-form-item");
   const _component_HttpEditor = resolveComponent("HttpEditor");
+  const _component_a_form_item = resolveComponent("a-form-item");
   const _component_a_button = resolveComponent("a-button");
   const _component_a_alert = resolveComponent("a-alert");
   const _component_code_editor = resolveComponent("code-editor");
   const _component_a_modal = resolveComponent("a-modal");
   return openBlock(), createElementBlock("div", _hoisted_1$q, [
-    createVNode(_component_a_form_item, { label: "使用内置逻辑" }, {
+    createVNode(_component_a_form_item, null, {
       default: withCtx(() => [
-        createVNode(_component_a_switch, {
-          checked: $props.formConfig.useInnerLogic,
-          "onUpdate:checked": _cache[0] || (_cache[0] = ($event) => $props.formConfig.useInnerLogic = $event)
-        }, null, 8, ["checked"])
-      ]),
-      _: 1
-    }),
-    $props.formConfig.useInnerLogic ? (openBlock(), createBlock(_component_a_form_item, { key: 0 }, {
-      default: withCtx(() => [
-        createVNode(_component_HttpEditor, {
-          label: "设置表单新增api",
-          buttonName: "编辑",
-          drawerTitle: "表单配置",
-          optionModel: $props.formConfig.serveList.vformAdd
-        }, null, 8, ["optionModel"]),
         createVNode(_component_HttpEditor, {
           label: "设置表单编辑api",
           buttonName: "编辑",
@@ -68795,38 +68800,12 @@ function _sfc_render$t(_ctx, _cache, $props, $setup, $data, $options) {
         }, null, 8, ["optionModel"])
       ]),
       _: 1
-    })) : createCommentVNode("", true),
-    !$props.formConfig.useInnerLogic ? (openBlock(), createBlock(_component_a_form_item, { key: 1 }, {
-      default: withCtx(() => [
-        (openBlock(true), createElementBlock(Fragment, null, renderList($data.eventParamsMap, (eventValue, eventName) => {
-          return openBlock(), createBlock(_component_a_form_item, {
-            label: eventName,
-            "label-width": "150px",
-            key: eventName
-          }, {
-            default: withCtx(() => [
-              createVNode(_component_a_button, {
-                type: "info",
-                shape: "round",
-                class: normalizeClass([$options.getFormEventHandled(eventName) ? "button-text-highlight" : ""]),
-                onClick: ($event) => $options.editFormEventHandler(eventName)
-              }, {
-                default: withCtx(() => [
-                  createTextVNode(toDisplayString(_ctx.i18nt("designer.setting.addEventHandler")), 1)
-                ]),
-                _: 2
-              }, 1032, ["class", "onClick"])
-            ]),
-            _: 2
-          }, 1032, ["label"]);
-        }), 128))
-      ]),
-      _: 1
-    })) : createCommentVNode("", true),
+    }),
+    createCommentVNode("", true),
     createVNode(_component_a_modal, {
       title: _ctx.i18nt("designer.setting.editFormEventHandler"),
       visible: $data.showFormEventDialogFlag,
-      "onUpdate:visible": _cache[3] || (_cache[3] = ($event) => $data.showFormEventDialogFlag = $event),
+      "onUpdate:visible": _cache[2] || (_cache[2] = ($event) => $data.showFormEventDialogFlag = $event),
       "show-close": true,
       "append-to-body": "",
       "close-on-click-modal": false,
@@ -68836,7 +68815,7 @@ function _sfc_render$t(_ctx, _cache, $props, $setup, $data, $options) {
       footer: withCtx(() => [
         createElementVNode("div", _hoisted_2$j, [
           createVNode(_component_a_button, {
-            onClick: _cache[2] || (_cache[2] = ($event) => $data.showFormEventDialogFlag = false)
+            onClick: _cache[1] || (_cache[1] = ($event) => $data.showFormEventDialogFlag = false)
           }, {
             default: withCtx(() => [
               createTextVNode(toDisplayString(_ctx.i18nt("designer.hint.cancel")), 1)
@@ -68864,7 +68843,7 @@ function _sfc_render$t(_ctx, _cache, $props, $setup, $data, $options) {
           mode: "javascript",
           readonly: false,
           modelValue: $data.formEventHandlerCode,
-          "onUpdate:modelValue": _cache[1] || (_cache[1] = ($event) => $data.formEventHandlerCode = $event),
+          "onUpdate:modelValue": _cache[0] || (_cache[0] = ($event) => $data.formEventHandlerCode = $event),
           ref: "ecEditor"
         }, null, 8, ["modelValue"]),
         createVNode(_component_a_alert, {
@@ -68894,7 +68873,7 @@ const COMMON_PROPERTIES$1 = {
   columnWidth: "columnWidth-editor",
   autoFullWidth: "autoFullWidth-editor",
   size: "size-editor",
-  displayStyle: "displayStyle-editor",
+  // displayStyle: 'displayStyle-editor',
   buttonStyle: "buttonStyle-editor",
   border: "border-editor",
   labelWidth: "labelWidth-editor",
@@ -69495,7 +69474,7 @@ function _sfc_render$s(_ctx, _cache, $props, $setup, $data, $options) {
                 _: 1
               }, 8, ["tab"])) : createCommentVNode("", true),
               createVNode(_component_a_tab_pane, {
-                tab: "增删改查配置",
+                tab: "表单api配置",
                 key: "3"
               }, {
                 default: withCtx(() => [
@@ -69574,7 +69553,7 @@ function _sfc_render$s(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   });
 }
-const SettingPanel = /* @__PURE__ */ _export_sfc$1(_sfc_main$s, [["render", _sfc_render$s], ["__scopeId", "data-v-d8786f6b"]]);
+const SettingPanel = /* @__PURE__ */ _export_sfc$1(_sfc_main$s, [["render", _sfc_render$s], ["__scopeId", "data-v-b4ea9120"]]);
 const containerMixin = {
   inject: ["getFormConfig"],
   computed: {
@@ -77721,13 +77700,13 @@ function registerIcon(app) {
 if (typeof window !== "undefined") {
   let loadSvg = function() {
     var body = document.body;
-    var svgDom = document.getElementById("__svg__icons__dom__1711699467699__");
+    var svgDom = document.getElementById("__svg__icons__dom__1712046937500__");
     if (!svgDom) {
       svgDom = document.createElementNS("http://www.w3.org/2000/svg", "svg");
       svgDom.style.position = "absolute";
       svgDom.style.width = "0";
       svgDom.style.height = "0";
-      svgDom.id = "__svg__icons__dom__1711699467699__";
+      svgDom.id = "__svg__icons__dom__1712046937500__";
       svgDom.setAttribute("xmlns", "http://www.w3.org/2000/svg");
       svgDom.setAttribute("xmlns:link", "http://www.w3.org/1999/xlink");
     }

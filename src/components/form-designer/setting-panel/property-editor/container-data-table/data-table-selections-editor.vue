@@ -24,13 +24,35 @@
       <a-form-item label="自定义列表选择框标题">
         <a-input v-model:value="optionModel.rowSelection.columnTitle" />
       </a-form-item>
+      <a-form-item label="onChange">
+        <a-button
+          type="info"
+          plain
+          shape="round"
+          :class="[!!optionModel.rowSelection.onChange ? 'button-text-highlight' : '']"
+          @click="editOnChange"
+        >
+          {{ i18nt('designer.setting.addEventHandler') }}
+        </a-button>
+      </a-form-item>
     </a-form>
   </a-drawer>
+  <CodeModalEditor
+    v-model="optionModel.rowSelection.onChange"
+    ref="CodeModalEditorRef"
+    :title="`onChange事件`"
+    :event-header="`function onChange(selectedRowKeys, selectedRows) {`"
+  />
 </template>
 
 <script>
+  import i18n from '@/utils/i18n';
+  import CodeModalEditor from '@/components/code-editor/code-modal-editor.vue';
+
   export default {
     name: 'rowSelection-editor',
+    mixins: [i18n],
+    components: { CodeModalEditor },
     props: {
       designer: Object,
       selectedWidget: Object,
@@ -38,12 +60,16 @@
     },
     data() {
       return {
-        visible: false
+        visible: false,
+        eventParams: []
       };
     },
     methods: {
       editSelections() {
         this.visible = true;
+      },
+      editOnChange() {
+        this.$refs.CodeModalEditorRef.open(this.optionModel.rowSelection.onChange);
       }
     }
   };

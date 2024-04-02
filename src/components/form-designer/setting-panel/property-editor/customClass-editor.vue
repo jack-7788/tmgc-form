@@ -1,6 +1,11 @@
 <template>
   <a-form-item :label="i18nt('designer.setting.customClass')">
-    <a-select v-model="optionModel.customClass" allowClear mode="tags" :options="cssClassList" />
+    <a-select
+      v-model:value="optionModel.customClass"
+      allowClear
+      mode="tags"
+      :options="cssClassList"
+    />
   </a-form-item>
 </template>
 

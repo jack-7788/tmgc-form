@@ -736,23 +736,23 @@
         const paramsMap = { ...getLocat() };
 
         const formConfig = this.designer.formConfig;
-        if (!formConfig.useInnerLogic) {
-          const dhFn = new Function('data', formConfig.onVformAdd);
-          dhFn.call(this, { ...data, ...paramsMap });
-          return;
-        }
+        // if (!formConfig.useInnerLogic) {
+        //   const dhFn = new Function('data', formConfig.onVformAdd);
+        //   dhFn.call(this, { ...data, ...paramsMap });
+        //   return;
+        // }
 
-        const vformAdd = formConfig.serveList.vformAdd;
+        const vformUpdate = formConfig.serveList.vformUpdate;
         const sendParams = JSON.stringify({
-          ...vformAdd.http,
-          data: { ...vformAdd.http.data, ...data }
+          ...vformUpdate.http,
+          data: { ...vformUpdate.http.data, ...data }
         });
         const res = replaceVars(sendParams, paramsMap);
         console.log(JSON.parse(res));
         const dsResult = await getHttp()(JSON.parse(res));
 
-        if (vformAdd.dataHandlerCode) {
-          const dhFn = new Function('data', vformAdd.dataHandlerCode);
+        if (vformUpdate.dataHandlerCode) {
+          const dhFn = new Function('data', vformUpdate.dataHandlerCode);
           dhFn.call(this, dsResult);
         }
       },
@@ -1615,9 +1615,9 @@
             }
           ],
           formConfig: {
-            modelName: 'formData',
-            refName: 'vForm',
-            rulesName: 'rules',
+            // modelName: 'formData',
+            // refName: 'vForm',
+            // rulesName: 'rules',
             labelWidth: 150,
             labelPosition: 'horizontal',
             size: '',

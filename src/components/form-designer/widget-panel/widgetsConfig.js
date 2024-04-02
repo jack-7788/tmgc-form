@@ -172,10 +172,10 @@ export const containers = [
       ],
       dsEnabled: false, //是否使用数据源数据
       http: {
-        url: '/api/tmgc2-mgt/pageFieldConfig/queryPageFieldValueOptions',
+        url: {}, //'/api/tmgc2-mgt/pageFieldConfig/queryPageFieldValueOptions',
         method: 'get',
         data: {},
-        params: { pageCode: '${pageCode}', fieldCode: '${fieldCode}' }
+        params: {} //{ pageCode: '${pageCode}', fieldCode: '${fieldCode}' }
       },
 
       rowKey: 'name', //树形数据数据row-key
@@ -450,10 +450,10 @@ export const basicFields = [
         { label: 'radio 3', value: 3 }
       ],
       http: {
-        url: '/api/tmgc2-mgt/pageFieldConfig/queryPageFieldValueOptions',
+        url: {}, // '/api/tmgc2-mgt/pageFieldConfig/queryPageFieldValueOptions',
         method: 'get',
         data: {},
-        params: { pageCode: '${pageCode}', fieldCode: '${fieldCode}' }
+        params: {} // { pageCode: '${pageCode}', fieldCode: '${fieldCode}' }
       },
       dataHandlerCode: 'console.log(data.data);\nreturn data.data;\n ',
       required: false,
@@ -498,10 +498,10 @@ export const basicFields = [
         { label: 'check 3', value: 3 }
       ],
       http: {
-        url: '/api/tmgc2-mgt/pageFieldConfig/queryPageFieldValueOptions',
+        url: {}, // '/api/tmgc2-mgt/pageFieldConfig/queryPageFieldValueOptions',
         method: 'get',
         data: {},
-        params: { pageCode: '${pageCode}', fieldCode: '${fieldCode}' }
+        params: {} // { pageCode: '${pageCode}', fieldCode: '${fieldCode}' }
       },
       dataHandlerCode: 'console.log(data.data);\nreturn data.data;\n ',
       required: false,
@@ -550,10 +550,10 @@ export const basicFields = [
         { label: 'select 3', value: 3 }
       ],
       http: {
-        url: '/api/tmgc2-mgt/pageFieldConfig/queryPageFieldValueOptions',
+        url: {}, //'/api/tmgc2-mgt/pageFieldConfig/queryPageFieldValueOptions',
         method: 'get',
         data: {},
-        params: { pageCode: '${pageCode}', fieldCode: '${fieldCode}' }
+        params: {} // { pageCode: '${pageCode}', fieldCode: '${fieldCode}' }
       },
       dataHandlerCode: 'console.log(data.data);\nreturn data.data;\n ',
       required: false,
@@ -1081,10 +1081,10 @@ export const advancedFields = [
       valueKey: 'value',
       childrenKey: 'children',
       http: {
-        url: '/api/tmgc2-mgt/pageFieldConfig/queryPageFieldValueOptions',
+        url: {}, //'/api/tmgc2-mgt/pageFieldConfig/queryPageFieldValueOptions',
         method: 'get',
         data: {},
-        params: { pageCode: '${pageCode}', fieldCode: '${fieldCode}' }
+        params: {} // { pageCode: '${pageCode}', fieldCode: '${fieldCode}' }
       },
       optionItems: [
         { label: 'select 1', value: 1, children: [{ label: 'child 1', value: 11 }] },
@@ -1134,10 +1134,10 @@ export const advancedFields = [
       valueKey: 'value',
       childrenKey: 'children',
       http: {
-        url: '/api/tmgc2-mgt/pageFieldConfig/queryPageFieldValueOptions',
+        url: {}, // '/api/tmgc2-mgt/pageFieldConfig/queryPageFieldValueOptions',
         method: 'get',
         data: {},
-        params: { pageCode: '${pageCode}', fieldCode: '${fieldCode}' }
+        params: {} // { pageCode: '${pageCode}', fieldCode: '${fieldCode}' }
       },
       optionItems: [
         { label: 'select 1', value: 1, children: [{ label: 'child 1', value: 11 }] },

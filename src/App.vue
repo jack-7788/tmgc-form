@@ -28,9 +28,9 @@
         formJson: {
           widgetList: [],
           formConfig: {
-            modelName: 'formData',
-            refName: 'vForm',
-            rulesName: 'rules',
+            // modelName: 'formData',
+            // refName: 'vForm',
+            // rulesName: 'rules',
             labelWidth: 80,
             labelPosition: 'left',
             size: '',

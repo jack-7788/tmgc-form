@@ -144,7 +144,7 @@
           </div>
         </a-tab-pane>
 
-        <a-tab-pane :tab="'增删改查配置'" key="3">
+        <a-tab-pane :tab="'表单api配置'" key="3">
           <div class="ds-setting-scrollbar" :style="{ height: scrollerHeight }">
             <FormCrudSetting :designer="designer" :form-config="formConfig" />
           </div>

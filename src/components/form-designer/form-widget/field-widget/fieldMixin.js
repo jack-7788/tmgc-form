@@ -3,12 +3,10 @@ import {
   getDSByName,
   overwriteObj,
   runDataSourceRequest,
-  translateOptionItems,
-  replaceVars,
-  getLocat
+  translateOptionItems
 } from '@/utils/util';
 import FormValidators from '@/utils/validators';
-import { getHttp } from '@/utils/request/http';
+import { fmtHttpParams } from '@/utils/request/fmtHttpParams';
 
 export default {
   inject: [
@@ -268,17 +266,20 @@ export default {
         if (!!this.field.options.dsEnabled && this.field.options.http?.url) {
           this.field.options.optionItems.splice(0, this.field.options.optionItems.length); // 清空原有选项
           try {
-            const sendParams = JSON.stringify(this.field.options.http);
+            // const sendParams = JSON.stringify(this.field.options.http);
+            const dsResult = await fmtHttpParams(this.field.options.http, {
+              fieldCode: this.field.options.name
+            });
 
-            const paramsMap = { fieldCode: this.field.options.name, ...getLocat() };
+            // const paramsMap = { fieldCode: this.field.options.name, ...getLocat() };
 
-            const res = replaceVars(sendParams, paramsMap);
+            // const res = replaceVars(sendParams, paramsMap);
 
-            let dsResult = await getHttp()(JSON.parse(res));
-            if (this.field.options.dataHandlerCode) {
-              const dhFn = new Function('data', this.field.options.dataHandlerCode);
-              dsResult = dhFn.call(this, dsResult);
-            }
+            // let dsResult = await getHttp()(JSON.parse(res));
+            // if (this.field.options.dataHandlerCode) {
+            //   const dhFn = new Function('data', this.field.options.dataHandlerCode);
+            //   dsResult = dhFn.call(this, dsResult);
+            // }
             this.loadOptions(dsResult);
           } catch (err) {
             console.error('err: ', err);

@@ -73,8 +73,7 @@
   import i18n, { changeLocale } from '@/utils/i18n';
   import DynamicDialog from './dynamic-dialog';
   import DynamicDrawer from './dynamic-drawer';
-  import { getLocat, replaceVars } from '@/utils/util';
-  import { getHttp } from '@/utils/request/http';
+  import { fmtHttpParams } from '@/utils/request/fmtHttpParams';
 
   export default {
     name: 'VFormRender',
@@ -226,47 +225,14 @@
     },
     methods: {
       async onFormDetail() {
-        const paramsMap = { ...getLocat() };
-
         const formConfig = this.designer.formConfig;
-
-        const { http, dataHandlerCode } = formConfig.serveList.vformDetail;
-
-        const sendParams = JSON.stringify({
-          ...http
-          // params: http.method === 'get' ? { ...http.params, ...modelForm } : { ...http.params },
-          // data: http.method === 'post' ? { ...http.data, ...modelForm } : { ...http.data }
-        });
-        const res = replaceVars(sendParams, paramsMap);
-        console.log(JSON.parse(res));
-        const dsResult = await getHttp()(JSON.parse(res));
-
-        if (dataHandlerCode) {
-          const dhFn = new Function('data', dataHandlerCode);
-          dhFn.call(this, dsResult);
-        }
+        const res = await fmtHttpParams(formConfig.serveList.vformDetail);
+        console.log('res: ', res);
       },
       async onFormUpdate() {
         const modelForm = await this.getFormData();
-        const paramsMap = { ...getLocat() };
-
         const formConfig = this.designer.formConfig;
-        const { http, dataHandlerCode } = formConfig.serveList.vformUpdate;
-
-        const sendParams = JSON.stringify({
-          ...http,
-          params: http.method === 'get' ? { ...http.params, ...modelForm } : { ...http.params },
-          data: http.method === 'post' ? { ...http.data, ...modelForm } : { ...http.data }
-        });
-
-        const res = replaceVars(sendParams, paramsMap);
-        console.log(JSON.parse(res));
-        const dsResult = await getHttp()(JSON.parse(res));
-
-        if (dataHandlerCode) {
-          const dhFn = new Function('data', dataHandlerCode);
-          dhFn.call(this, dsResult);
-        }
+        await fmtHttpParams(formConfig.serveList.vformUpdate, modelForm);
       },
 
       initFormObject(insertHtmlCodeFlag = true) {

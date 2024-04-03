@@ -298,8 +298,7 @@
   import { saveAs } from 'file-saver';
   import axios from 'axios';
   import SvgIcon from '@/components/svg-icon/index';
-  import { getLocat, replaceVars } from '@/utils/util';
-  import { getHttp } from '@/utils/request/http';
+  import { fmtHttpParams } from '@/utils/request/fmtHttpParams';
 
   export default {
     name: 'ToolbarPanel',
@@ -733,44 +732,15 @@
       },
       async insertData() {
         const data = await this.$refs['preForm'].getFormData();
-        const paramsMap = { ...getLocat() };
 
         const formConfig = this.designer.formConfig;
-        // if (!formConfig.useInnerLogic) {
-        //   const dhFn = new Function('data', formConfig.onVformAdd);
-        //   dhFn.call(this, { ...data, ...paramsMap });
-        //   return;
-        // }
-
-        const vformUpdate = formConfig.serveList.vformUpdate;
-        const sendParams = JSON.stringify({
-          ...vformUpdate.http,
-          data: { ...vformUpdate.http.data, ...data }
-        });
-        const res = replaceVars(sendParams, paramsMap);
-        console.log(JSON.parse(res));
-        const dsResult = await getHttp()(JSON.parse(res));
-
-        if (vformUpdate.dataHandlerCode) {
-          const dhFn = new Function('data', vformUpdate.dataHandlerCode);
-          dhFn.call(this, dsResult);
-        }
+        const res = await fmtHttpParams(formConfig.serveList.vformUpdate, data);
+        console.log('res: insertData', res);
       },
       async showData(_id) {
         const formConfig = this.designer.formConfig;
-        const vformDetail = formConfig.serveList.vformDetail;
-        const sendParams = JSON.stringify(vformDetail.http);
+        const dsResult = await fmtHttpParams(formConfig.serveList.vformDetail, { _id });
 
-        const paramsMap = { ...getLocat(), _id };
-
-        const res = replaceVars(sendParams, paramsMap);
-
-        let dsResult = await getHttp()(JSON.parse(res));
-
-        if (vformDetail.dataHandlerCode) {
-          const dhFn = new Function('data', vformDetail.dataHandlerCode);
-          dsResult = dhFn.call(this, dsResult);
-        }
         this.$refs.preForm.setFormData({ ...dsResult });
         this.$refs.preForm.setReadMode(true);
       },

@@ -8809,6 +8809,22 @@ const getHttp = () => {
   var _a;
   return ((_a = window.$vform) == null ? void 0 : _a.$http) || http;
 };
+const fmtHttpParams = async (req, data) => {
+  const { http: http2, dataHandlerCode } = req;
+  const paramsMap = { ...getLocat(), ...data };
+  const sendParams = JSON.stringify({
+    ...http2,
+    params: http2.method === "get" ? { ...http2.params, ...data } : { ...http2.params },
+    data: http2.method === "post" ? { ...http2.data, ...data } : { ...http2.data }
+  });
+  const res = replaceVars(sendParams, paramsMap);
+  let dsResult = await getHttp()(JSON.parse(res));
+  if (dataHandlerCode) {
+    const dhFn = new Function("data", dataHandlerCode);
+    dsResult = dhFn.call(void 0, dsResult);
+  }
+  return dsResult;
+};
 const fieldMixin = {
   inject: [
     "refList",
@@ -9008,14 +9024,9 @@ const fieldMixin = {
         if (!!this.field.options.dsEnabled && ((_a = this.field.options.http) == null ? void 0 : _a.url)) {
           this.field.options.optionItems.splice(0, this.field.options.optionItems.length);
           try {
-            const sendParams = JSON.stringify(this.field.options.http);
-            const paramsMap = { fieldCode: this.field.options.name, ...getLocat() };
-            const res = replaceVars(sendParams, paramsMap);
-            let dsResult = await getHttp()(JSON.parse(res));
-            if (this.field.options.dataHandlerCode) {
-              const dhFn = new Function("data", this.field.options.dataHandlerCode);
-              dsResult = dhFn.call(this, dsResult);
-            }
+            const dsResult = await fmtHttpParams(this.field.options.http, {
+              fieldCode: this.field.options.name
+            });
             this.loadOptions(dsResult);
           } catch (err) {
             console.error("err: ", err);
@@ -27993,39 +28004,14 @@ const _sfc_main$3y = {
   },
   methods: {
     async onFormDetail() {
-      const paramsMap = { ...getLocat() };
       const formConfig = this.designer.formConfig;
-      const { http: http2, dataHandlerCode } = formConfig.serveList.vformDetail;
-      const sendParams = JSON.stringify({
-        ...http2
-        // params: http.method === 'get' ? { ...http.params, ...modelForm } : { ...http.params },
-        // data: http.method === 'post' ? { ...http.data, ...modelForm } : { ...http.data }
-      });
-      const res = replaceVars(sendParams, paramsMap);
-      console.log(JSON.parse(res));
-      const dsResult = await getHttp()(JSON.parse(res));
-      if (dataHandlerCode) {
-        const dhFn = new Function("data", dataHandlerCode);
-        dhFn.call(this, dsResult);
-      }
+      const res = await fmtHttpParams(formConfig.serveList.vformDetail);
+      console.log("res: ", res);
     },
     async onFormUpdate() {
       const modelForm = await this.getFormData();
-      const paramsMap = { ...getLocat() };
       const formConfig = this.designer.formConfig;
-      const { http: http2, dataHandlerCode } = formConfig.serveList.vformUpdate;
-      const sendParams = JSON.stringify({
-        ...http2,
-        params: http2.method === "get" ? { ...http2.params, ...modelForm } : { ...http2.params },
-        data: http2.method === "post" ? { ...http2.data, ...modelForm } : { ...http2.data }
-      });
-      const res = replaceVars(sendParams, paramsMap);
-      console.log(JSON.parse(res));
-      const dsResult = await getHttp()(JSON.parse(res));
-      if (dataHandlerCode) {
-        const dhFn = new Function("data", dataHandlerCode);
-        dhFn.call(this, dsResult);
-      }
+      await fmtHttpParams(formConfig.serveList.vformUpdate, modelForm);
     },
     initFormObject(insertHtmlCodeFlag = true) {
       this.formId = "vfRender" + generateId();
@@ -28808,7 +28794,7 @@ function _sfc_render$3y(_ctx, _cache, $props, $setup, $data, $options) {
     _: 3
   }, 8, ["component-size"]);
 }
-const VFormRender = /* @__PURE__ */ _export_sfc$1(_sfc_main$3y, [["render", _sfc_render$3y], ["__scopeId", "data-v-a2a3aa2a"]]);
+const VFormRender = /* @__PURE__ */ _export_sfc$1(_sfc_main$3y, [["render", _sfc_render$3y], ["__scopeId", "data-v-3b2f0de3"]]);
 var ace$2 = { exports: {} };
 (function(module, exports) {
   (function() {
@@ -52860,32 +52846,13 @@ const _sfc_main$3w = {
     },
     async insertData() {
       const data = await this.$refs["preForm"].getFormData();
-      const paramsMap = { ...getLocat() };
       const formConfig = this.designer.formConfig;
-      const vformUpdate = formConfig.serveList.vformUpdate;
-      const sendParams = JSON.stringify({
-        ...vformUpdate.http,
-        data: { ...vformUpdate.http.data, ...data }
-      });
-      const res = replaceVars(sendParams, paramsMap);
-      console.log(JSON.parse(res));
-      const dsResult = await getHttp()(JSON.parse(res));
-      if (vformUpdate.dataHandlerCode) {
-        const dhFn = new Function("data", vformUpdate.dataHandlerCode);
-        dhFn.call(this, dsResult);
-      }
+      const res = await fmtHttpParams(formConfig.serveList.vformUpdate, data);
+      console.log("res: insertData", res);
     },
     async showData(_id) {
       const formConfig = this.designer.formConfig;
-      const vformDetail = formConfig.serveList.vformDetail;
-      const sendParams = JSON.stringify(vformDetail.http);
-      const paramsMap = { ...getLocat(), _id };
-      const res = replaceVars(sendParams, paramsMap);
-      let dsResult = await getHttp()(JSON.parse(res));
-      if (vformDetail.dataHandlerCode) {
-        const dhFn = new Function("data", vformDetail.dataHandlerCode);
-        dsResult = dhFn.call(this, dsResult);
-      }
+      const dsResult = await fmtHttpParams(formConfig.serveList.vformDetail, { _id });
       this.$refs.preForm.setFormData({ ...dsResult });
       this.$refs.preForm.setReadMode(true);
     },
@@ -54303,7 +54270,7 @@ function _sfc_render$3w(_ctx, _cache, $props, $setup, $data, $options) {
     }, 8, ["title", "visible"])) : createCommentVNode("", true)
   ]);
 }
-const ToolbarPanel = /* @__PURE__ */ _export_sfc$1(_sfc_main$3w, [["render", _sfc_render$3w], ["__scopeId", "data-v-674362f1"]]);
+const ToolbarPanel = /* @__PURE__ */ _export_sfc$1(_sfc_main$3w, [["render", _sfc_render$3w], ["__scopeId", "data-v-14a1201d"]]);
 const _sfc_main$3v = {
   name: "actionColumnPosition-editor",
   mixins: [i18n$1],
@@ -77700,13 +77667,13 @@ function registerIcon(app) {
 if (typeof window !== "undefined") {
   let loadSvg = function() {
     var body = document.body;
-    var svgDom = document.getElementById("__svg__icons__dom__1712046937500__");
+    var svgDom = document.getElementById("__svg__icons__dom__1712133472429__");
     if (!svgDom) {
       svgDom = document.createElementNS("http://www.w3.org/2000/svg", "svg");
       svgDom.style.position = "absolute";
       svgDom.style.width = "0";
       svgDom.style.height = "0";
-      svgDom.id = "__svg__icons__dom__1712046937500__";
+      svgDom.id = "__svg__icons__dom__1712133472429__";
       svgDom.setAttribute("xmlns", "http://www.w3.org/2000/svg");
       svgDom.setAttribute("xmlns:link", "http://www.w3.org/1999/xlink");
     }

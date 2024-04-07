@@ -172,7 +172,7 @@ export const containers = [
       ],
       dsEnabled: false, //是否使用数据源数据
       http: {
-        url: {}, //'/api/tmgc2-mgt/pageFieldConfig/queryPageFieldValueOptions',
+        url: '', //'/api/tmgc2-mgt/pageFieldConfig/queryPageFieldValueOptions',
         method: 'get',
         data: {},
         params: {} //{ pageCode: '${pageCode}', fieldCode: '${fieldCode}' }
@@ -450,7 +450,7 @@ export const basicFields = [
         { label: 'radio 3', value: 3 }
       ],
       http: {
-        url: {}, // '/api/tmgc2-mgt/pageFieldConfig/queryPageFieldValueOptions',
+        url: '', // '/api/tmgc2-mgt/pageFieldConfig/queryPageFieldValueOptions',
         method: 'get',
         data: {},
         params: {} // { pageCode: '${pageCode}', fieldCode: '${fieldCode}' }
@@ -498,7 +498,7 @@ export const basicFields = [
         { label: 'check 3', value: 3 }
       ],
       http: {
-        url: {}, // '/api/tmgc2-mgt/pageFieldConfig/queryPageFieldValueOptions',
+        url: '', // '/api/tmgc2-mgt/pageFieldConfig/queryPageFieldValueOptions',
         method: 'get',
         data: {},
         params: {} // { pageCode: '${pageCode}', fieldCode: '${fieldCode}' }
@@ -550,7 +550,7 @@ export const basicFields = [
         { label: 'select 3', value: 3 }
       ],
       http: {
-        url: {}, //'/api/tmgc2-mgt/pageFieldConfig/queryPageFieldValueOptions',
+        url: '', //'/api/tmgc2-mgt/pageFieldConfig/queryPageFieldValueOptions',
         method: 'get',
         data: {},
         params: {} // { pageCode: '${pageCode}', fieldCode: '${fieldCode}' }
@@ -1081,7 +1081,7 @@ export const advancedFields = [
       valueKey: 'value',
       childrenKey: 'children',
       http: {
-        url: {}, //'/api/tmgc2-mgt/pageFieldConfig/queryPageFieldValueOptions',
+        url: '', //'/api/tmgc2-mgt/pageFieldConfig/queryPageFieldValueOptions',
         method: 'get',
         data: {},
         params: {} // { pageCode: '${pageCode}', fieldCode: '${fieldCode}' }
@@ -1134,7 +1134,7 @@ export const advancedFields = [
       valueKey: 'value',
       childrenKey: 'children',
       http: {
-        url: {}, // '/api/tmgc2-mgt/pageFieldConfig/queryPageFieldValueOptions',
+        url: '', // '/api/tmgc2-mgt/pageFieldConfig/queryPageFieldValueOptions',
         method: 'get',
         data: {},
         params: {} // { pageCode: '${pageCode}', fieldCode: '${fieldCode}' }

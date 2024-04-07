@@ -18,7 +18,7 @@
         <svg-icon icon-class="redo"
       /></a-button>
       <!-- <div  style="margin-left: 20px"> -->
-      <a-button :type="layoutType === 'PC' ? 'primary' : ''" @click="changeLayoutType('PC')">
+      <!-- <a-button :type="layoutType === 'PC' ? 'primary' : ''" @click="changeLayoutType('PC')">
         {{ i18nt('designer.toolbar.pcLayout') }}</a-button
       >
       <a-button :type="layoutType === 'Pad' ? 'primary' : ''" @click="changeLayoutType('Pad')">
@@ -26,15 +26,15 @@
       >
       <a-button :type="layoutType === 'H5' ? 'primary' : ''" @click="changeLayoutType('H5')">
         {{ i18nt('designer.toolbar.mobileLayout') }}</a-button
-      >
+      > -->
       <!-- </div > -->
-      <a-button
+      <!-- <a-button
         style="margin-left: 20px"
         :title="i18nt('designer.toolbar.nodeTreeHint')"
         @click="showNodeTreeDrawer"
       >
         <svg-icon icon-class="node-tree"
-      /></a-button>
+      /></a-button> -->
     </div>
 
     <a-drawer

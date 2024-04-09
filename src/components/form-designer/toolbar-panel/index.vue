@@ -1,7 +1,7 @@
 <template>
   <div class="toolbar-container">
     <div class="left-toolbar">
-      <a-button
+      <!-- <a-button
         type="link"
         :disabled="undoDisabled"
         :title="i18nt('designer.toolbar.undoHint')"
@@ -16,7 +16,7 @@
         @click="redoHistory"
       >
         <svg-icon icon-class="redo"
-      /></a-button>
+      /></a-button> -->
       <!-- <div  style="margin-left: 20px"> -->
       <!-- <a-button :type="layoutType === 'PC' ? 'primary' : ''" @click="changeLayoutType('PC')">
         {{ i18nt('designer.toolbar.pcLayout') }}</a-button

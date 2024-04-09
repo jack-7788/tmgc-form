@@ -21,6 +21,7 @@ import {
   addAdvancedFieldSchema,
   addCustomWidgetSchema
 } from '@/components/form-designer/widget-panel/widgetsConfig';
+import { basicFieldsEnums } from '@/components/form-designer/widget-panel/basicFieldsEnums';
 import * as PERegister from '@/components/form-designer/setting-panel/propertyRegister';
 import * as PEFactory from '@/components/form-designer/setting-panel/property-editor-factory.jsx';
 import { registerCWGenerator, registerFWGenerator } from '@/utils/sfc-generator';
@@ -100,6 +101,7 @@ const install = (app, h) => {
  * 导出二开组件所需的所有对象、工具方法及组件
  */
 const VFormSDK = {
+  basicFieldsEnums,
   addContainerWidgetSchema,
   addBasicFieldSchema,
   addAdvancedFieldSchema,

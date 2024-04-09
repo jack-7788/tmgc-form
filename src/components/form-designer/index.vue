@@ -64,7 +64,7 @@
   import WidgetPanel from './widget-panel/index.vue';
   import ToolbarPanel from './toolbar-panel/index.vue';
   import SettingPanel from './setting-panel/index.vue';
-  import VFormWidget from './form-widget/index';
+  import VFormWidget from './form-widget/index.vue';
   import { createDesigner } from '@/components/form-designer/designer';
   import {
     addWindowResizeHandler,
@@ -317,9 +317,11 @@
       },
 
       setFormJson(formJson) {
+        console.log('formJson: ', formJson);
         let modifiedFlag = false;
         if (!!formJson) {
           if (typeof formJson === 'string') {
+            //TODO
             modifiedFlag = this.designer.loadFormJson(JSON.parse(formJson));
           } else if (formJson.constructor === Object) {
             modifiedFlag = this.designer.loadFormJson(formJson);

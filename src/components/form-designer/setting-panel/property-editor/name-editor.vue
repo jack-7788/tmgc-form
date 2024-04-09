@@ -14,7 +14,11 @@
         v-model:value="optionModel.name"
         :readonly="widgetNameReadonly"
         @change="updateWidgetNameAndRef"
-      />
+      >
+        <template #suffix>
+          <a @click="copyFormJson">复制</a>
+        </template>
+      </a-input>
     </template>
     <template v-else>
       <a-select
@@ -33,7 +37,7 @@
 <script>
   import SvgIcon from '@/components/svg-icon';
   import i18n from '@/utils/i18n';
-  import { isEmptyStr } from '@/utils/util';
+  import { isEmptyStr, copyToClipboard } from '@/utils/util';
 
   export default {
     name: 'name-editor',
@@ -81,6 +85,9 @@
       }
     },
     methods: {
+      copyFormJson(e) {
+        copyToClipboard(this.optionModel.name, e, this.$message, '复制成功', '复制失败');
+      },
       updateWidgetNameAndRef(newName, ops) {
         if (ops) {
           this.optionModel.label = ops.showName;

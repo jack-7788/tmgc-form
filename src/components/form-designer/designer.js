@@ -94,6 +94,7 @@ export function createDesigner(vueInstance) {
       }
       if (!!formJson && !!formJson.formConfig) {
         //this.formConfig = importObj.formConfig
+        //TODO
         overwriteObj(
           this.formConfig,
           formJson.formConfig

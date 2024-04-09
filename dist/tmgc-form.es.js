@@ -1281,7 +1281,7 @@ function progressEventReducer(listener, isDownloadStream) {
     const loaded = e.loaded;
     const total = e.lengthComputable ? e.total : void 0;
     const progressBytes = loaded - bytesNotified;
-    const rate = _speedometer(progressBytes);
+    const rate2 = _speedometer(progressBytes);
     const inRange = loaded <= total;
     bytesNotified = loaded;
     const data = {
@@ -1289,8 +1289,8 @@ function progressEventReducer(listener, isDownloadStream) {
       total,
       progress: total ? loaded / total : void 0,
       bytes: progressBytes,
-      rate: rate ? rate : void 0,
-      estimated: rate && total && inRange ? (total - loaded) / rate : void 0,
+      rate: rate2 ? rate2 : void 0,
+      estimated: rate2 && total && inRange ? (total - loaded) / rate2 : void 0,
       event: e
     };
     data[isDownloadStream ? "download" : "upload"] = true;
@@ -2071,6 +2071,761 @@ function _sfc_render$4c(_ctx, _cache, $props, $setup, $data, $options) {
   ], 2);
 }
 const SvgIcon = /* @__PURE__ */ _export_sfc$1(_sfc_main$4c, [["render", _sfc_render$4c], ["__scopeId", "data-v-db5a1437"]]);
+const input = (ops = {}) => {
+  return {
+    type: "input",
+    icon: "text-field",
+    formItemFlag: true,
+    options: {
+      name: "",
+      label: "",
+      labelAlign: "",
+      type: "text",
+      defaultValue: "",
+      placeholder: "",
+      columnWidth: "200px",
+      size: "",
+      labelWidth: null,
+      labelHidden: false,
+      readonly: false,
+      disabled: false,
+      hidden: false,
+      allowClear: true,
+      required: false,
+      requiredHint: "",
+      validation: "",
+      validationHint: "",
+      //-------------------
+      customClass: [],
+      //自定义css类名
+      labelIconClass: null,
+      labelIconPosition: "rear",
+      labelTooltip: null,
+      maxLength: null,
+      showCount: false,
+      addonBefore: "",
+      addonAfter: "",
+      //-------------------
+      onCreated: "",
+      onMounted: "",
+      onInput: "",
+      onChange: "",
+      onFocus: "",
+      onBlur: "",
+      onValidate: "",
+      ...ops
+    }
+  };
+};
+const textarea = (ops = {}) => {
+  return {
+    type: "textarea",
+    icon: "textarea-field",
+    formItemFlag: true,
+    options: {
+      name: "",
+      label: "",
+      labelAlign: "",
+      rows: 3,
+      defaultValue: "",
+      placeholder: "",
+      columnWidth: "200px",
+      size: "",
+      labelWidth: null,
+      labelHidden: false,
+      readonly: false,
+      disabled: false,
+      hidden: false,
+      allowClear: true,
+      required: false,
+      requiredHint: "",
+      validation: "",
+      validationHint: "",
+      //-------------------
+      customClass: [],
+      //自定义css类名
+      labelIconClass: null,
+      labelIconPosition: "rear",
+      labelTooltip: null,
+      // minLength: null,
+      maxLength: null,
+      showCount: false,
+      //-------------------
+      onCreated: "",
+      onMounted: "",
+      onInput: "",
+      onChange: "",
+      onFocus: "",
+      onBlur: "",
+      onValidate: "",
+      ...ops
+    }
+  };
+};
+const number = (ops = {}) => {
+  return {
+    type: "number",
+    icon: "number-field",
+    formItemFlag: true,
+    options: {
+      name: "",
+      label: "",
+      labelAlign: "",
+      defaultValue: "",
+      placeholder: "",
+      columnWidth: "200px",
+      size: "",
+      labelWidth: null,
+      labelHidden: false,
+      disabled: false,
+      hidden: false,
+      required: false,
+      requiredHint: "",
+      validation: "",
+      validationHint: "",
+      //-------------------
+      customClass: [],
+      //自定义css类名
+      labelIconClass: null,
+      labelIconPosition: "rear",
+      labelTooltip: null,
+      min: -99999999,
+      max: 99999999,
+      precision: 0,
+      step: 1,
+      //-------------------
+      onCreated: "",
+      onMounted: "",
+      onChange: "",
+      onFocus: "",
+      onBlur: "",
+      onValidate: "",
+      ...ops
+    }
+  };
+};
+const radio = (ops = {}) => {
+  return {
+    type: "radio",
+    icon: "radio-field",
+    formItemFlag: true,
+    options: {
+      name: "",
+      label: "",
+      labelAlign: "",
+      defaultValue: null,
+      columnWidth: "200px",
+      size: "",
+      displayStyle: "inline",
+      buttonStyle: false,
+      border: false,
+      labelWidth: null,
+      labelHidden: false,
+      disabled: false,
+      hidden: false,
+      dsEnabled: false,
+      // 是否使用数据源数据
+      labelKey: "label",
+      valueKey: "value",
+      optionItems: [
+        { label: "radio 1", value: 1 },
+        { label: "radio 2", value: 2 },
+        { label: "radio 3", value: 3 }
+      ],
+      http: {
+        url: "",
+        // '/api/tmgc2-mgt/pageFieldConfig/queryPageFieldValueOptions',
+        method: "get",
+        data: {},
+        params: {}
+        // { pageCode: '${pageCode}', fieldCode: '${fieldCode}' }
+      },
+      dataHandlerCode: "console.log(data.data);\nreturn data.data;\n ",
+      required: false,
+      requiredHint: "",
+      validation: "",
+      validationHint: "",
+      //-------------------
+      customClass: [],
+      //自定义css类名
+      labelIconClass: null,
+      labelIconPosition: "rear",
+      labelTooltip: null,
+      //-------------------
+      onCreated: "",
+      onMounted: "",
+      onChange: "",
+      onValidate: "",
+      ...ops
+    }
+  };
+};
+const checkbox = (ops = {}) => {
+  return {
+    type: "checkbox",
+    icon: "checkbox-field",
+    formItemFlag: true,
+    options: {
+      name: "",
+      label: "",
+      labelAlign: "",
+      defaultValue: [],
+      columnWidth: "200px",
+      size: "",
+      labelWidth: null,
+      labelHidden: false,
+      disabled: false,
+      hidden: false,
+      // dsName: '', // 数据源名称
+      // dataSetName: '', //数据集名称
+      labelKey: "label",
+      valueKey: "value",
+      optionItems: [
+        { label: "check 1", value: 1 },
+        { label: "check 2", value: 2 },
+        { label: "check 3", value: 3 }
+      ],
+      http: {
+        url: "",
+        // '/api/tmgc2-mgt/pageFieldConfig/queryPageFieldValueOptions',
+        method: "get",
+        data: {},
+        params: {}
+        // { pageCode: '${pageCode}', fieldCode: '${fieldCode}' }
+      },
+      dataHandlerCode: "console.log(data.data);\nreturn data.data;\n ",
+      required: false,
+      requiredHint: "",
+      validation: "",
+      validationHint: "",
+      //-------------------
+      customClass: [],
+      //自定义css类名
+      labelIconClass: null,
+      labelIconPosition: "rear",
+      labelTooltip: null,
+      //-------------------
+      onCreated: "",
+      onMounted: "",
+      onChange: "",
+      onValidate: "",
+      ...ops
+    }
+  };
+};
+const select = (ops = {}) => {
+  return {
+    type: "select",
+    icon: "select-field",
+    formItemFlag: true,
+    options: {
+      name: "",
+      label: "",
+      labelAlign: "",
+      defaultValue: "",
+      placeholder: "",
+      columnWidth: "200px",
+      size: "",
+      labelWidth: null,
+      labelHidden: false,
+      disabled: false,
+      hidden: false,
+      allowClear: true,
+      maxTagCount: "responsive",
+      mode: "combobox",
+      showSearch: false,
+      dsEnabled: false,
+      // 是否使用数据源数据
+      labelKey: "label",
+      valueKey: "value",
+      optionItems: [
+        { label: "select 1", value: 1 },
+        { label: "select 2", value: 2 },
+        { label: "select 3", value: 3 }
+      ],
+      http: {
+        url: "",
+        //'/api/tmgc2-mgt/pageFieldConfig/queryPageFieldValueOptions',
+        method: "get",
+        data: {},
+        params: {}
+        // { pageCode: '${pageCode}', fieldCode: '${fieldCode}' }
+      },
+      dataHandlerCode: "console.log(data.data);\nreturn data.data;\n ",
+      required: false,
+      requiredHint: "",
+      validation: "",
+      validationHint: "",
+      //-------------------
+      customClass: [],
+      //自定义css类名
+      labelIconClass: null,
+      labelIconPosition: "rear",
+      labelTooltip: null,
+      //-------------------
+      onCreated: "",
+      onMounted: "",
+      onRemoteQuery: "",
+      onChange: "",
+      onFocus: "",
+      onBlur: "",
+      onValidate: "",
+      ...ops
+    }
+  };
+};
+const time = (ops = {}) => {
+  return {
+    type: "time",
+    icon: "time-field",
+    formItemFlag: true,
+    options: {
+      name: "",
+      label: "",
+      labelAlign: "",
+      defaultValue: null,
+      placeholder: "",
+      columnWidth: "200px",
+      size: "",
+      autoFullWidth: true,
+      labelWidth: null,
+      labelHidden: false,
+      readonly: false,
+      disabled: false,
+      hidden: false,
+      allowClear: true,
+      // editable: false,
+      format: "HH:mm:ss",
+      //时间格式
+      required: false,
+      requiredHint: "",
+      validation: "",
+      validationHint: "",
+      //-------------------
+      customClass: [],
+      //自定义css类名
+      labelIconClass: null,
+      labelIconPosition: "rear",
+      labelTooltip: null,
+      //-------------------
+      onCreated: "",
+      onMounted: "",
+      onChange: "",
+      onFocus: "",
+      onBlur: "",
+      onValidate: "",
+      ...ops
+    }
+  };
+};
+const timeRange = (ops = {}) => {
+  return {
+    type: "time-range",
+    icon: "time-range-field",
+    formItemFlag: true,
+    options: {
+      name: "",
+      label: "",
+      labelAlign: "",
+      defaultValue: null,
+      startPlaceholder: "",
+      endPlaceholder: "",
+      columnWidth: "200px",
+      size: "",
+      autoFullWidth: true,
+      labelWidth: null,
+      labelHidden: false,
+      readonly: false,
+      disabled: false,
+      hidden: false,
+      allowClear: true,
+      // editable: false,
+      format: "HH:mm:ss",
+      //时间格式
+      required: false,
+      requiredHint: "",
+      validation: "",
+      validationHint: "",
+      //-------------------
+      customClass: [],
+      //自定义css类名
+      labelIconClass: null,
+      labelIconPosition: "rear",
+      labelTooltip: null,
+      //-------------------
+      onCreated: "",
+      onMounted: "",
+      onChange: "",
+      onFocus: "",
+      onBlur: "",
+      onValidate: "",
+      ...ops
+    }
+  };
+};
+const date = (ops = {}) => {
+  return {
+    type: "date",
+    icon: "date-field",
+    formItemFlag: true,
+    options: {
+      name: "",
+      label: "",
+      labelAlign: "",
+      type: "date",
+      defaultValue: null,
+      placeholder: "",
+      columnWidth: "200px",
+      size: "",
+      autoFullWidth: true,
+      labelWidth: null,
+      labelHidden: false,
+      readonly: false,
+      disabled: false,
+      hidden: false,
+      allowClear: true,
+      showTime: false,
+      // editable: false,
+      format: "YYYY-MM-DD",
+      //日期显示格式
+      valueFormat: "YYYY-MM-DD",
+      //日期对象格式
+      required: false,
+      requiredHint: "",
+      validation: "",
+      validationHint: "",
+      //-------------------
+      customClass: [],
+      //自定义css类名
+      labelIconClass: null,
+      labelIconPosition: "rear",
+      labelTooltip: null,
+      //-------------------
+      onCreated: "",
+      onMounted: "",
+      onChange: "",
+      onFocus: "",
+      onBlur: "",
+      onValidate: "",
+      ...ops
+    }
+  };
+};
+const dataRange = (ops = {}) => {
+  return {
+    type: "date-range",
+    icon: "date-range-field",
+    formItemFlag: true,
+    options: {
+      name: "",
+      label: "",
+      labelAlign: "",
+      type: "daterange",
+      defaultValue: null,
+      startPlaceholder: "",
+      endPlaceholder: "",
+      columnWidth: "200px",
+      size: "",
+      autoFullWidth: true,
+      labelWidth: null,
+      labelHidden: false,
+      readonly: false,
+      disabled: false,
+      hidden: false,
+      allowClear: true,
+      showTime: false,
+      // editable: false,
+      format: "YYYY-MM-DD",
+      //日期显示格式
+      valueFormat: "YYYY-MM-DD",
+      //日期对象格式
+      required: false,
+      requiredHint: "",
+      validation: "",
+      validationHint: "",
+      //-------------------
+      customClass: [],
+      //自定义css类名
+      labelIconClass: null,
+      labelIconPosition: "rear",
+      labelTooltip: null,
+      //-------------------
+      onCreated: "",
+      onMounted: "",
+      onChange: "",
+      onFocus: "",
+      onBlur: "",
+      onValidate: "",
+      ...ops
+    }
+  };
+};
+const switchCom = (ops = {}) => {
+  return {
+    type: "switch",
+    icon: "switch-field",
+    formItemFlag: true,
+    options: {
+      name: "",
+      label: "",
+      labelAlign: "",
+      defaultValue: null,
+      columnWidth: "200px",
+      labelWidth: null,
+      labelHidden: false,
+      disabled: false,
+      hidden: false,
+      //-------------------
+      customClass: [],
+      //自定义css类名
+      labelIconClass: null,
+      labelIconPosition: "rear",
+      labelTooltip: null,
+      switchWidth: 40,
+      checkedChildren: "",
+      unCheckedChildren: "",
+      // activeColor: null,
+      // inactiveColor: null,
+      //-------------------
+      onCreated: "",
+      onMounted: "",
+      onChange: "",
+      onValidate: "",
+      ...ops
+    }
+  };
+};
+const rate = (ops = {}) => {
+  return {
+    type: "rate",
+    icon: "rate-field",
+    formItemFlag: true,
+    options: {
+      name: "",
+      label: "",
+      labelAlign: "",
+      defaultValue: null,
+      columnWidth: "200px",
+      allowClear: true,
+      labelWidth: null,
+      labelHidden: false,
+      disabled: false,
+      hidden: false,
+      required: false,
+      requiredHint: "",
+      validation: "",
+      validationHint: "",
+      //-------------------
+      customClass: [],
+      //自定义css类名
+      labelIconClass: null,
+      labelIconPosition: "rear",
+      labelTooltip: null,
+      count: 5,
+      // lowThreshold: 2,
+      // highThreshold: 4,
+      allowHalf: false,
+      // showText: false,
+      // showScore: false,
+      //-------------------
+      onCreated: "",
+      onMounted: "",
+      onChange: "",
+      onValidate: "",
+      ...ops
+    }
+  };
+};
+const color = (ops = {}) => {
+  return {
+    type: "color",
+    icon: "color-field",
+    formItemFlag: true,
+    options: {
+      name: "",
+      label: "",
+      labelAlign: "",
+      defaultValue: null,
+      columnWidth: "200px",
+      size: "",
+      labelWidth: null,
+      labelHidden: false,
+      disabled: false,
+      hidden: false,
+      required: false,
+      requiredHint: "",
+      validation: "",
+      validationHint: "",
+      //-------------------
+      customClass: [],
+      //自定义css类名
+      labelIconClass: null,
+      labelIconPosition: "rear",
+      labelTooltip: null,
+      //-------------------
+      onCreated: "",
+      onMounted: "",
+      onChange: "",
+      onValidate: "",
+      ...ops
+    }
+  };
+};
+const slider = (ops = {}) => {
+  return {
+    type: "slider",
+    icon: "slider-field",
+    formItemFlag: true,
+    options: {
+      name: "",
+      label: "",
+      labelAlign: "",
+      columnWidth: "200px",
+      // showStops: true,
+      size: "",
+      labelWidth: null,
+      labelHidden: false,
+      disabled: false,
+      hidden: false,
+      required: false,
+      requiredHint: "",
+      validation: "",
+      validationHint: "",
+      //-------------------
+      customClass: [],
+      //自定义css类名
+      labelIconClass: null,
+      labelIconPosition: "rear",
+      labelTooltip: null,
+      min: 0,
+      max: 100,
+      step: 1,
+      range: false,
+      //vertical: false,
+      height: null,
+      //-------------------
+      onCreated: "",
+      onMounted: "",
+      onChange: "",
+      onValidate: "",
+      ...ops
+    }
+  };
+};
+const staticText = (ops = {}) => {
+  return {
+    type: "static-text",
+    icon: "static-text",
+    formItemFlag: false,
+    options: {
+      name: "",
+      columnWidth: "200px",
+      hidden: false,
+      textContent: "static text",
+      //-------------------
+      customClass: [],
+      //自定义css类名
+      //-------------------
+      onCreated: "",
+      onMounted: "",
+      ...ops
+    }
+  };
+};
+const htmlText = (ops = {}) => {
+  return {
+    type: "html-text",
+    icon: "html-text",
+    formItemFlag: false,
+    options: {
+      name: "",
+      columnWidth: "200px",
+      hidden: false,
+      htmlContent: "<b>html text</b>",
+      //-------------------
+      customClass: [],
+      //自定义css类名
+      //-------------------
+      onCreated: "",
+      onMounted: "",
+      ...ops
+    }
+  };
+};
+const button = (ops = {}) => {
+  return {
+    type: "button",
+    icon: "button",
+    formItemFlag: false,
+    options: {
+      name: "",
+      label: "",
+      // columnWidth: '200px',
+      size: "",
+      displayStyle: "block",
+      disabled: false,
+      hidden: false,
+      type: "primary",
+      shape: "",
+      danger: false,
+      ghost: false,
+      // plain: false,
+      // round: false,
+      // circle: false,
+      icon: null,
+      //-------------------
+      customClass: [],
+      //自定义css类名
+      //-------------------
+      onCreated: "",
+      onMounted: "",
+      onClick: "",
+      ...ops
+    }
+  };
+};
+const divider = (ops = {}) => {
+  return {
+    type: "divider",
+    icon: "divider",
+    formItemFlag: false,
+    options: {
+      name: "",
+      label: "",
+      columnWidth: "200px",
+      direction: "horizontal",
+      contentPosition: "center",
+      hidden: false,
+      //-------------------
+      customClass: [],
+      //自定义css类名
+      //-------------------
+      onCreated: "",
+      onMounted: "",
+      ...ops
+    }
+  };
+};
+const basicFieldsEnums = {
+  input,
+  textarea,
+  number,
+  radio,
+  checkbox,
+  select,
+  time,
+  "time-range": timeRange,
+  date,
+  "date-range": dataRange,
+  switch: switchCom,
+  rate,
+  color,
+  slider,
+  staticText,
+  htmlText,
+  button,
+  divider
+};
 const containers = [
   {
     type: "grid",
@@ -2262,7 +3017,7 @@ const containers = [
       dsEnabled: false,
       //是否使用数据源数据
       http: {
-        url: {},
+        url: "",
         //'/api/tmgc2-mgt/pageFieldConfig/queryPageFieldValueOptions',
         method: "get",
         data: {},
@@ -2396,690 +3151,7 @@ const containers = [
   //   }
   // }
 ];
-const basicFields = [
-  {
-    type: "input",
-    icon: "text-field",
-    formItemFlag: true,
-    options: {
-      name: "",
-      label: "",
-      labelAlign: "",
-      type: "text",
-      defaultValue: "",
-      placeholder: "",
-      columnWidth: "200px",
-      size: "",
-      labelWidth: null,
-      labelHidden: false,
-      readonly: false,
-      disabled: false,
-      hidden: false,
-      allowClear: true,
-      required: false,
-      requiredHint: "",
-      validation: "",
-      validationHint: "",
-      //-------------------
-      customClass: [],
-      //自定义css类名
-      labelIconClass: null,
-      labelIconPosition: "rear",
-      labelTooltip: null,
-      maxLength: null,
-      showCount: false,
-      addonBefore: "",
-      addonAfter: "",
-      //-------------------
-      onCreated: "",
-      onMounted: "",
-      onInput: "",
-      onChange: "",
-      onFocus: "",
-      onBlur: "",
-      onValidate: ""
-    }
-  },
-  {
-    type: "textarea",
-    icon: "textarea-field",
-    formItemFlag: true,
-    options: {
-      name: "",
-      label: "",
-      labelAlign: "",
-      rows: 3,
-      defaultValue: "",
-      placeholder: "",
-      columnWidth: "200px",
-      size: "",
-      labelWidth: null,
-      labelHidden: false,
-      readonly: false,
-      disabled: false,
-      hidden: false,
-      allowClear: true,
-      required: false,
-      requiredHint: "",
-      validation: "",
-      validationHint: "",
-      //-------------------
-      customClass: [],
-      //自定义css类名
-      labelIconClass: null,
-      labelIconPosition: "rear",
-      labelTooltip: null,
-      // minLength: null,
-      maxLength: null,
-      showCount: false,
-      //-------------------
-      onCreated: "",
-      onMounted: "",
-      onInput: "",
-      onChange: "",
-      onFocus: "",
-      onBlur: "",
-      onValidate: ""
-    }
-  },
-  {
-    type: "number",
-    icon: "number-field",
-    formItemFlag: true,
-    options: {
-      name: "",
-      label: "",
-      labelAlign: "",
-      defaultValue: "",
-      placeholder: "",
-      columnWidth: "200px",
-      size: "",
-      labelWidth: null,
-      labelHidden: false,
-      disabled: false,
-      hidden: false,
-      required: false,
-      requiredHint: "",
-      validation: "",
-      validationHint: "",
-      //-------------------
-      customClass: [],
-      //自定义css类名
-      labelIconClass: null,
-      labelIconPosition: "rear",
-      labelTooltip: null,
-      min: -99999999,
-      max: 99999999,
-      precision: 0,
-      step: 1,
-      //-------------------
-      onCreated: "",
-      onMounted: "",
-      onChange: "",
-      onFocus: "",
-      onBlur: "",
-      onValidate: ""
-    }
-  },
-  {
-    type: "radio",
-    icon: "radio-field",
-    formItemFlag: true,
-    options: {
-      name: "",
-      label: "",
-      labelAlign: "",
-      defaultValue: null,
-      columnWidth: "200px",
-      size: "",
-      displayStyle: "inline",
-      buttonStyle: false,
-      border: false,
-      labelWidth: null,
-      labelHidden: false,
-      disabled: false,
-      hidden: false,
-      dsEnabled: false,
-      // 是否使用数据源数据
-      labelKey: "label",
-      valueKey: "value",
-      optionItems: [
-        { label: "radio 1", value: 1 },
-        { label: "radio 2", value: 2 },
-        { label: "radio 3", value: 3 }
-      ],
-      http: {
-        url: {},
-        // '/api/tmgc2-mgt/pageFieldConfig/queryPageFieldValueOptions',
-        method: "get",
-        data: {},
-        params: {}
-        // { pageCode: '${pageCode}', fieldCode: '${fieldCode}' }
-      },
-      dataHandlerCode: "console.log(data.data);\nreturn data.data;\n ",
-      required: false,
-      requiredHint: "",
-      validation: "",
-      validationHint: "",
-      //-------------------
-      customClass: [],
-      //自定义css类名
-      labelIconClass: null,
-      labelIconPosition: "rear",
-      labelTooltip: null,
-      //-------------------
-      onCreated: "",
-      onMounted: "",
-      onChange: "",
-      onValidate: ""
-    }
-  },
-  {
-    type: "checkbox",
-    icon: "checkbox-field",
-    formItemFlag: true,
-    options: {
-      name: "",
-      label: "",
-      labelAlign: "",
-      defaultValue: [],
-      columnWidth: "200px",
-      size: "",
-      labelWidth: null,
-      labelHidden: false,
-      disabled: false,
-      hidden: false,
-      // dsName: '', // 数据源名称
-      // dataSetName: '', //数据集名称
-      labelKey: "label",
-      valueKey: "value",
-      optionItems: [
-        { label: "check 1", value: 1 },
-        { label: "check 2", value: 2 },
-        { label: "check 3", value: 3 }
-      ],
-      http: {
-        url: {},
-        // '/api/tmgc2-mgt/pageFieldConfig/queryPageFieldValueOptions',
-        method: "get",
-        data: {},
-        params: {}
-        // { pageCode: '${pageCode}', fieldCode: '${fieldCode}' }
-      },
-      dataHandlerCode: "console.log(data.data);\nreturn data.data;\n ",
-      required: false,
-      requiredHint: "",
-      validation: "",
-      validationHint: "",
-      //-------------------
-      customClass: [],
-      //自定义css类名
-      labelIconClass: null,
-      labelIconPosition: "rear",
-      labelTooltip: null,
-      //-------------------
-      onCreated: "",
-      onMounted: "",
-      onChange: "",
-      onValidate: ""
-    }
-  },
-  {
-    type: "select",
-    icon: "select-field",
-    formItemFlag: true,
-    options: {
-      name: "",
-      label: "",
-      labelAlign: "",
-      defaultValue: "",
-      placeholder: "",
-      columnWidth: "200px",
-      size: "",
-      labelWidth: null,
-      labelHidden: false,
-      disabled: false,
-      hidden: false,
-      allowClear: true,
-      maxTagCount: "responsive",
-      mode: "combobox",
-      showSearch: false,
-      dsEnabled: false,
-      // 是否使用数据源数据
-      labelKey: "label",
-      valueKey: "value",
-      optionItems: [
-        { label: "select 1", value: 1 },
-        { label: "select 2", value: 2 },
-        { label: "select 3", value: 3 }
-      ],
-      http: {
-        url: {},
-        //'/api/tmgc2-mgt/pageFieldConfig/queryPageFieldValueOptions',
-        method: "get",
-        data: {},
-        params: {}
-        // { pageCode: '${pageCode}', fieldCode: '${fieldCode}' }
-      },
-      dataHandlerCode: "console.log(data.data);\nreturn data.data;\n ",
-      required: false,
-      requiredHint: "",
-      validation: "",
-      validationHint: "",
-      //-------------------
-      customClass: [],
-      //自定义css类名
-      labelIconClass: null,
-      labelIconPosition: "rear",
-      labelTooltip: null,
-      //-------------------
-      onCreated: "",
-      onMounted: "",
-      onRemoteQuery: "",
-      onChange: "",
-      onFocus: "",
-      onBlur: "",
-      onValidate: ""
-    }
-  },
-  {
-    type: "time",
-    icon: "time-field",
-    formItemFlag: true,
-    options: {
-      name: "",
-      label: "",
-      labelAlign: "",
-      defaultValue: null,
-      placeholder: "",
-      columnWidth: "200px",
-      size: "",
-      autoFullWidth: true,
-      labelWidth: null,
-      labelHidden: false,
-      readonly: false,
-      disabled: false,
-      hidden: false,
-      allowClear: true,
-      // editable: false,
-      format: "HH:mm:ss",
-      //时间格式
-      required: false,
-      requiredHint: "",
-      validation: "",
-      validationHint: "",
-      //-------------------
-      customClass: [],
-      //自定义css类名
-      labelIconClass: null,
-      labelIconPosition: "rear",
-      labelTooltip: null,
-      //-------------------
-      onCreated: "",
-      onMounted: "",
-      onChange: "",
-      onFocus: "",
-      onBlur: "",
-      onValidate: ""
-    }
-  },
-  {
-    type: "time-range",
-    icon: "time-range-field",
-    formItemFlag: true,
-    options: {
-      name: "",
-      label: "",
-      labelAlign: "",
-      defaultValue: null,
-      startPlaceholder: "",
-      endPlaceholder: "",
-      columnWidth: "200px",
-      size: "",
-      autoFullWidth: true,
-      labelWidth: null,
-      labelHidden: false,
-      readonly: false,
-      disabled: false,
-      hidden: false,
-      allowClear: true,
-      // editable: false,
-      format: "HH:mm:ss",
-      //时间格式
-      required: false,
-      requiredHint: "",
-      validation: "",
-      validationHint: "",
-      //-------------------
-      customClass: [],
-      //自定义css类名
-      labelIconClass: null,
-      labelIconPosition: "rear",
-      labelTooltip: null,
-      //-------------------
-      onCreated: "",
-      onMounted: "",
-      onChange: "",
-      onFocus: "",
-      onBlur: "",
-      onValidate: ""
-    }
-  },
-  {
-    type: "date",
-    icon: "date-field",
-    formItemFlag: true,
-    options: {
-      name: "",
-      label: "",
-      labelAlign: "",
-      type: "date",
-      defaultValue: null,
-      placeholder: "",
-      columnWidth: "200px",
-      size: "",
-      autoFullWidth: true,
-      labelWidth: null,
-      labelHidden: false,
-      readonly: false,
-      disabled: false,
-      hidden: false,
-      allowClear: true,
-      showTime: false,
-      // editable: false,
-      format: "YYYY-MM-DD",
-      //日期显示格式
-      valueFormat: "YYYY-MM-DD",
-      //日期对象格式
-      required: false,
-      requiredHint: "",
-      validation: "",
-      validationHint: "",
-      //-------------------
-      customClass: [],
-      //自定义css类名
-      labelIconClass: null,
-      labelIconPosition: "rear",
-      labelTooltip: null,
-      //-------------------
-      onCreated: "",
-      onMounted: "",
-      onChange: "",
-      onFocus: "",
-      onBlur: "",
-      onValidate: ""
-    }
-  },
-  {
-    type: "date-range",
-    icon: "date-range-field",
-    formItemFlag: true,
-    options: {
-      name: "",
-      label: "",
-      labelAlign: "",
-      type: "daterange",
-      defaultValue: null,
-      startPlaceholder: "",
-      endPlaceholder: "",
-      columnWidth: "200px",
-      size: "",
-      autoFullWidth: true,
-      labelWidth: null,
-      labelHidden: false,
-      readonly: false,
-      disabled: false,
-      hidden: false,
-      allowClear: true,
-      showTime: false,
-      // editable: false,
-      format: "YYYY-MM-DD",
-      //日期显示格式
-      valueFormat: "YYYY-MM-DD",
-      //日期对象格式
-      required: false,
-      requiredHint: "",
-      validation: "",
-      validationHint: "",
-      //-------------------
-      customClass: [],
-      //自定义css类名
-      labelIconClass: null,
-      labelIconPosition: "rear",
-      labelTooltip: null,
-      //-------------------
-      onCreated: "",
-      onMounted: "",
-      onChange: "",
-      onFocus: "",
-      onBlur: "",
-      onValidate: ""
-    }
-  },
-  {
-    type: "switch",
-    icon: "switch-field",
-    formItemFlag: true,
-    options: {
-      name: "",
-      label: "",
-      labelAlign: "",
-      defaultValue: null,
-      columnWidth: "200px",
-      labelWidth: null,
-      labelHidden: false,
-      disabled: false,
-      hidden: false,
-      //-------------------
-      customClass: [],
-      //自定义css类名
-      labelIconClass: null,
-      labelIconPosition: "rear",
-      labelTooltip: null,
-      switchWidth: 40,
-      checkedChildren: "",
-      unCheckedChildren: "",
-      // activeColor: null,
-      // inactiveColor: null,
-      //-------------------
-      onCreated: "",
-      onMounted: "",
-      onChange: "",
-      onValidate: ""
-    }
-  },
-  {
-    type: "rate",
-    icon: "rate-field",
-    formItemFlag: true,
-    options: {
-      name: "",
-      label: "",
-      labelAlign: "",
-      defaultValue: null,
-      columnWidth: "200px",
-      allowClear: true,
-      labelWidth: null,
-      labelHidden: false,
-      disabled: false,
-      hidden: false,
-      required: false,
-      requiredHint: "",
-      validation: "",
-      validationHint: "",
-      //-------------------
-      customClass: [],
-      //自定义css类名
-      labelIconClass: null,
-      labelIconPosition: "rear",
-      labelTooltip: null,
-      count: 5,
-      // lowThreshold: 2,
-      // highThreshold: 4,
-      allowHalf: false,
-      // showText: false,
-      // showScore: false,
-      //-------------------
-      onCreated: "",
-      onMounted: "",
-      onChange: "",
-      onValidate: ""
-    }
-  },
-  {
-    type: "color",
-    icon: "color-field",
-    formItemFlag: true,
-    options: {
-      name: "",
-      label: "",
-      labelAlign: "",
-      defaultValue: null,
-      columnWidth: "200px",
-      size: "",
-      labelWidth: null,
-      labelHidden: false,
-      disabled: false,
-      hidden: false,
-      required: false,
-      requiredHint: "",
-      validation: "",
-      validationHint: "",
-      //-------------------
-      customClass: [],
-      //自定义css类名
-      labelIconClass: null,
-      labelIconPosition: "rear",
-      labelTooltip: null,
-      //-------------------
-      onCreated: "",
-      onMounted: "",
-      onChange: "",
-      onValidate: ""
-    }
-  },
-  {
-    type: "slider",
-    icon: "slider-field",
-    formItemFlag: true,
-    options: {
-      name: "",
-      label: "",
-      labelAlign: "",
-      columnWidth: "200px",
-      // showStops: true,
-      size: "",
-      labelWidth: null,
-      labelHidden: false,
-      disabled: false,
-      hidden: false,
-      required: false,
-      requiredHint: "",
-      validation: "",
-      validationHint: "",
-      //-------------------
-      customClass: [],
-      //自定义css类名
-      labelIconClass: null,
-      labelIconPosition: "rear",
-      labelTooltip: null,
-      min: 0,
-      max: 100,
-      step: 1,
-      range: false,
-      //vertical: false,
-      height: null,
-      //-------------------
-      onCreated: "",
-      onMounted: "",
-      onChange: "",
-      onValidate: ""
-    }
-  },
-  {
-    type: "static-text",
-    icon: "static-text",
-    formItemFlag: false,
-    options: {
-      name: "",
-      columnWidth: "200px",
-      hidden: false,
-      textContent: "static text",
-      //-------------------
-      customClass: [],
-      //自定义css类名
-      //-------------------
-      onCreated: "",
-      onMounted: ""
-    }
-  },
-  {
-    type: "html-text",
-    icon: "html-text",
-    formItemFlag: false,
-    options: {
-      name: "",
-      columnWidth: "200px",
-      hidden: false,
-      htmlContent: "<b>html text</b>",
-      //-------------------
-      customClass: [],
-      //自定义css类名
-      //-------------------
-      onCreated: "",
-      onMounted: ""
-    }
-  },
-  {
-    type: "button",
-    icon: "button",
-    formItemFlag: false,
-    options: {
-      name: "",
-      label: "",
-      // columnWidth: '200px',
-      size: "",
-      displayStyle: "block",
-      disabled: false,
-      hidden: false,
-      type: "primary",
-      shape: "",
-      danger: false,
-      ghost: false,
-      // plain: false,
-      // round: false,
-      // circle: false,
-      icon: null,
-      //-------------------
-      customClass: [],
-      //自定义css类名
-      //-------------------
-      onCreated: "",
-      onMounted: "",
-      onClick: ""
-    }
-  },
-  {
-    type: "divider",
-    icon: "divider",
-    formItemFlag: false,
-    options: {
-      name: "",
-      label: "",
-      columnWidth: "200px",
-      direction: "horizontal",
-      contentPosition: "center",
-      hidden: false,
-      //-------------------
-      customClass: [],
-      //自定义css类名
-      //-------------------
-      onCreated: "",
-      onMounted: ""
-    }
-  }
-  //
-];
+const basicFields = Object.values(basicFieldsEnums).map((fn) => fn());
 const advancedFields = [
   // {
   //   type: 'picture-upload',
@@ -3191,7 +3263,7 @@ const advancedFields = [
       valueKey: "value",
       childrenKey: "children",
       http: {
-        url: {},
+        url: "",
         //'/api/tmgc2-mgt/pageFieldConfig/queryPageFieldValueOptions',
         method: "get",
         data: {},
@@ -3248,7 +3320,7 @@ const advancedFields = [
       valueKey: "value",
       childrenKey: "children",
       http: {
-        url: {},
+        url: "",
         // '/api/tmgc2-mgt/pageFieldConfig/queryPageFieldValueOptions',
         method: "get",
         data: {},
@@ -3903,7 +3975,7 @@ var clipboard = { exports: {} };
           817: (
             /***/
             function(module2) {
-              function select(element) {
+              function select2(element) {
                 var selectedText;
                 if (element.nodeName === "SELECT") {
                   element.focus();
@@ -3932,7 +4004,7 @@ var clipboard = { exports: {} };
                 }
                 return selectedText;
               }
-              module2.exports = select;
+              module2.exports = select2;
             }
           ),
           /***/
@@ -8503,8 +8575,8 @@ var json_parse$1 = function(options) {
     ch = text.charAt(at);
     at += 1;
     return ch;
-  }, number = function() {
-    var number2, string2 = "";
+  }, number2 = function() {
+    var number3, string2 = "";
     if (ch === "-") {
       string2 = "-";
       next("-");
@@ -8531,8 +8603,8 @@ var json_parse$1 = function(options) {
         next();
       }
     }
-    number2 = +string2;
-    if (!isFinite(number2)) {
+    number3 = +string2;
+    if (!isFinite(number3)) {
       error("Bad number");
     } else {
       if (BigNumber == null)
@@ -8540,7 +8612,7 @@ var json_parse$1 = function(options) {
       if (string2.length > 15)
         return _options.storeAsString ? string2 : _options.useNativeBigInt ? BigInt(string2) : new BigNumber(string2);
       else
-        return !_options.alwaysParseAsBig ? number2 : _options.useNativeBigInt ? BigInt(number2) : new BigNumber(number2);
+        return !_options.alwaysParseAsBig ? number3 : _options.useNativeBigInt ? BigInt(number3) : new BigNumber(number3);
     }
   }, string = function() {
     var hex, i, string2 = "", uffff;
@@ -8681,9 +8753,9 @@ var json_parse$1 = function(options) {
       case '"':
         return string();
       case "-":
-        return number();
+        return number2();
       default:
-        return ch >= "0" && ch <= "9" ? number() : word();
+        return ch >= "0" && ch <= "9" ? number2() : word();
     }
   };
   return function(source, reviver) {
@@ -12063,15 +12135,15 @@ var quill = { exports: {} };
             Scope2[Scope2["INLINE_ATTRIBUTE"] = 5] = "INLINE_ATTRIBUTE";
             Scope2[Scope2["ANY"] = 15] = "ANY";
           })(Scope = exports2.Scope || (exports2.Scope = {}));
-          function create(input, value2) {
-            var match = query(input);
+          function create(input2, value2) {
+            var match = query(input2);
             if (match == null) {
-              throw new ParchmentError("Unable to create " + input + " blot");
+              throw new ParchmentError("Unable to create " + input2 + " blot");
             }
             var BlotClass = match;
             var node = (
               // @ts-ignore
-              input instanceof Node || input["nodeType"] === Node.TEXT_NODE ? input : BlotClass.create(value2)
+              input2 instanceof Node || input2["nodeType"] === Node.TEXT_NODE ? input2 : BlotClass.create(value2)
             );
             return new BlotClass(node, value2);
           }
@@ -17471,10 +17543,10 @@ var quill = { exports: {} };
             element.setAttribute(attribute, !(element.getAttribute(attribute) === "true"));
           }
           var Picker = function() {
-            function Picker2(select) {
+            function Picker2(select2) {
               var _this = this;
               _classCallCheck(this, Picker2);
-              this.select = select;
+              this.select = select2;
               this.container = document.createElement("span");
               this.buildPicker();
               this.select.style.display = "none";
@@ -18820,8 +18892,8 @@ var quill = { exports: {} };
             }, {
               key: "buildButtons",
               value: function buildButtons(buttons, icons) {
-                buttons.forEach(function(button) {
-                  var className = button.getAttribute("class") || "";
+                buttons.forEach(function(button2) {
+                  var className = button2.getAttribute("class") || "";
                   className.split(/\s+/).forEach(function(name) {
                     if (!name.startsWith("ql-"))
                       return;
@@ -18829,13 +18901,13 @@ var quill = { exports: {} };
                     if (icons[name] == null)
                       return;
                     if (name === "direction") {
-                      button.innerHTML = icons[name][""] + icons[name]["rtl"];
+                      button2.innerHTML = icons[name][""] + icons[name]["rtl"];
                     } else if (typeof icons[name] === "string") {
-                      button.innerHTML = icons[name];
+                      button2.innerHTML = icons[name];
                     } else {
-                      var value2 = button.value || "";
+                      var value2 = button2.value || "";
                       if (value2 != null && icons[name][value2]) {
-                        button.innerHTML = icons[name][value2];
+                        button2.innerHTML = icons[name][value2];
                       }
                     }
                   });
@@ -18845,29 +18917,29 @@ var quill = { exports: {} };
               key: "buildPickers",
               value: function buildPickers(selects, icons) {
                 var _this2 = this;
-                this.pickers = selects.map(function(select) {
-                  if (select.classList.contains("ql-align")) {
-                    if (select.querySelector("option") == null) {
-                      fillSelect(select, ALIGNS);
+                this.pickers = selects.map(function(select2) {
+                  if (select2.classList.contains("ql-align")) {
+                    if (select2.querySelector("option") == null) {
+                      fillSelect(select2, ALIGNS);
                     }
-                    return new _iconPicker2.default(select, icons.align);
-                  } else if (select.classList.contains("ql-background") || select.classList.contains("ql-color")) {
-                    var format = select.classList.contains("ql-background") ? "background" : "color";
-                    if (select.querySelector("option") == null) {
-                      fillSelect(select, COLORS, format === "background" ? "#ffffff" : "#000000");
+                    return new _iconPicker2.default(select2, icons.align);
+                  } else if (select2.classList.contains("ql-background") || select2.classList.contains("ql-color")) {
+                    var format = select2.classList.contains("ql-background") ? "background" : "color";
+                    if (select2.querySelector("option") == null) {
+                      fillSelect(select2, COLORS, format === "background" ? "#ffffff" : "#000000");
                     }
-                    return new _colorPicker2.default(select, icons[format]);
+                    return new _colorPicker2.default(select2, icons[format]);
                   } else {
-                    if (select.querySelector("option") == null) {
-                      if (select.classList.contains("ql-font")) {
-                        fillSelect(select, FONTS);
-                      } else if (select.classList.contains("ql-header")) {
-                        fillSelect(select, HEADERS);
-                      } else if (select.classList.contains("ql-size")) {
-                        fillSelect(select, SIZES);
+                    if (select2.querySelector("option") == null) {
+                      if (select2.classList.contains("ql-font")) {
+                        fillSelect(select2, FONTS);
+                      } else if (select2.classList.contains("ql-header")) {
+                        fillSelect(select2, HEADERS);
+                      } else if (select2.classList.contains("ql-size")) {
+                        fillSelect(select2, SIZES);
                       }
                     }
-                    return new _picker2.default(select);
+                    return new _picker2.default(select2);
                   }
                 });
                 var update = function update2() {
@@ -19021,7 +19093,7 @@ var quill = { exports: {} };
             }
             return url;
           }
-          function fillSelect(select, values) {
+          function fillSelect(select2, values) {
             var defaultValue = arguments.length > 2 && arguments[2] !== void 0 ? arguments[2] : false;
             values.forEach(function(value2) {
               var option2 = document.createElement("option");
@@ -19030,7 +19102,7 @@ var quill = { exports: {} };
               } else {
                 option2.setAttribute("value", value2);
               }
-              select.appendChild(option2);
+              select2.appendChild(option2);
             });
           }
           exports2.BaseTooltip = BaseTooltip;
@@ -21074,8 +21146,8 @@ var quill = { exports: {} };
               Object.keys(_this.options.handlers).forEach(function(format) {
                 _this.addHandler(format, _this.options.handlers[format]);
               });
-              [].forEach.call(_this.container.querySelectorAll("button, select"), function(input) {
-                _this.attach(input);
+              [].forEach.call(_this.container.querySelectorAll("button, select"), function(input2) {
+                _this.attach(input2);
               });
               _this.quill.on(_quill2.default.events.EDITOR_CHANGE, function(type, range) {
                 if (type === _quill2.default.events.SELECTION_CHANGE) {
@@ -21095,44 +21167,44 @@ var quill = { exports: {} };
               }
             }, {
               key: "attach",
-              value: function attach(input) {
+              value: function attach(input2) {
                 var _this2 = this;
-                var format = [].find.call(input.classList, function(className) {
+                var format = [].find.call(input2.classList, function(className) {
                   return className.indexOf("ql-") === 0;
                 });
                 if (!format)
                   return;
                 format = format.slice("ql-".length);
-                if (input.tagName === "BUTTON") {
-                  input.setAttribute("type", "button");
+                if (input2.tagName === "BUTTON") {
+                  input2.setAttribute("type", "button");
                 }
                 if (this.handlers[format] == null) {
                   if (this.quill.scroll.whitelist != null && this.quill.scroll.whitelist[format] == null) {
-                    debug.warn("ignoring attaching to disabled format", format, input);
+                    debug.warn("ignoring attaching to disabled format", format, input2);
                     return;
                   }
                   if (_parchment2.default.query(format) == null) {
-                    debug.warn("ignoring attaching to nonexistent format", format, input);
+                    debug.warn("ignoring attaching to nonexistent format", format, input2);
                     return;
                   }
                 }
-                var eventName = input.tagName === "SELECT" ? "change" : "click";
-                input.addEventListener(eventName, function(e) {
+                var eventName = input2.tagName === "SELECT" ? "change" : "click";
+                input2.addEventListener(eventName, function(e) {
                   var value2 = void 0;
-                  if (input.tagName === "SELECT") {
-                    if (input.selectedIndex < 0)
+                  if (input2.tagName === "SELECT") {
+                    if (input2.selectedIndex < 0)
                       return;
-                    var selected = input.options[input.selectedIndex];
+                    var selected = input2.options[input2.selectedIndex];
                     if (selected.hasAttribute("selected")) {
                       value2 = false;
                     } else {
                       value2 = selected.value || false;
                     }
                   } else {
-                    if (input.classList.contains("ql-active")) {
+                    if (input2.classList.contains("ql-active")) {
                       value2 = false;
                     } else {
-                      value2 = input.value || !input.hasAttribute("value");
+                      value2 = input2.value || !input2.hasAttribute("value");
                     }
                     e.preventDefault();
                   }
@@ -21150,41 +21222,41 @@ var quill = { exports: {} };
                   }
                   _this2.update(range);
                 });
-                this.controls.push([format, input]);
+                this.controls.push([format, input2]);
               }
             }, {
               key: "update",
               value: function update(range) {
                 var formats = range == null ? {} : this.quill.getFormat(range);
                 this.controls.forEach(function(pair) {
-                  var _pair = _slicedToArray(pair, 2), format = _pair[0], input = _pair[1];
-                  if (input.tagName === "SELECT") {
+                  var _pair = _slicedToArray(pair, 2), format = _pair[0], input2 = _pair[1];
+                  if (input2.tagName === "SELECT") {
                     var option2 = void 0;
                     if (range == null) {
                       option2 = null;
                     } else if (formats[format] == null) {
-                      option2 = input.querySelector("option[selected]");
+                      option2 = input2.querySelector("option[selected]");
                     } else if (!Array.isArray(formats[format])) {
                       var value2 = formats[format];
                       if (typeof value2 === "string") {
                         value2 = value2.replace(/\"/g, '\\"');
                       }
-                      option2 = input.querySelector('option[value="' + value2 + '"]');
+                      option2 = input2.querySelector('option[value="' + value2 + '"]');
                     }
                     if (option2 == null) {
-                      input.value = "";
-                      input.selectedIndex = -1;
+                      input2.value = "";
+                      input2.selectedIndex = -1;
                     } else {
                       option2.selected = true;
                     }
                   } else {
                     if (range == null) {
-                      input.classList.remove("ql-active");
-                    } else if (input.hasAttribute("value")) {
-                      var isActive = formats[format] === input.getAttribute("value") || formats[format] != null && formats[format].toString() === input.getAttribute("value") || formats[format] == null && !input.getAttribute("value");
-                      input.classList.toggle("ql-active", isActive);
+                      input2.classList.remove("ql-active");
+                    } else if (input2.hasAttribute("value")) {
+                      var isActive = formats[format] === input2.getAttribute("value") || formats[format] != null && formats[format].toString() === input2.getAttribute("value") || formats[format] == null && !input2.getAttribute("value");
+                      input2.classList.toggle("ql-active", isActive);
                     } else {
-                      input.classList.toggle("ql-active", formats[format] != null);
+                      input2.classList.toggle("ql-active", formats[format] != null);
                     }
                   }
                 });
@@ -21194,13 +21266,13 @@ var quill = { exports: {} };
           }(_module2.default);
           Toolbar.DEFAULTS = {};
           function addButton(container, format, value2) {
-            var input = document.createElement("button");
-            input.setAttribute("type", "button");
-            input.classList.add("ql-" + format);
+            var input2 = document.createElement("button");
+            input2.setAttribute("type", "button");
+            input2.classList.add("ql-" + format);
             if (value2 != null) {
-              input.value = value2;
+              input2.value = value2;
             }
-            container.appendChild(input);
+            container.appendChild(input2);
           }
           function addControls(container, groups) {
             if (!Array.isArray(groups[0])) {
@@ -21226,8 +21298,8 @@ var quill = { exports: {} };
             });
           }
           function addSelect(container, format, values) {
-            var input = document.createElement("select");
-            input.classList.add("ql-" + format);
+            var input2 = document.createElement("select");
+            input2.classList.add("ql-" + format);
             values.forEach(function(value2) {
               var option2 = document.createElement("option");
               if (value2 !== false) {
@@ -21235,9 +21307,9 @@ var quill = { exports: {} };
               } else {
                 option2.setAttribute("selected", "selected");
               }
-              input.appendChild(option2);
+              input2.appendChild(option2);
             });
-            container.appendChild(input);
+            container.appendChild(input2);
           }
           Toolbar.DEFAULTS = {
             container: null,
@@ -21379,9 +21451,9 @@ var quill = { exports: {} };
           }
           var ColorPicker = function(_Picker) {
             _inherits(ColorPicker2, _Picker);
-            function ColorPicker2(select, label) {
+            function ColorPicker2(select2, label) {
               _classCallCheck(this, ColorPicker2);
-              var _this = _possibleConstructorReturn(this, (ColorPicker2.__proto__ || Object.getPrototypeOf(ColorPicker2)).call(this, select));
+              var _this = _possibleConstructorReturn(this, (ColorPicker2.__proto__ || Object.getPrototypeOf(ColorPicker2)).call(this, select2));
               _this.label.innerHTML = label;
               _this.container.classList.add("ql-color-picker");
               [].slice.call(_this.container.querySelectorAll(".ql-picker-item"), 0, 7).forEach(function(item) {
@@ -21487,9 +21559,9 @@ var quill = { exports: {} };
           }
           var IconPicker = function(_Picker) {
             _inherits(IconPicker2, _Picker);
-            function IconPicker2(select, icons) {
+            function IconPicker2(select2, icons) {
               _classCallCheck(this, IconPicker2);
-              var _this = _possibleConstructorReturn(this, (IconPicker2.__proto__ || Object.getPrototypeOf(IconPicker2)).call(this, select));
+              var _this = _possibleConstructorReturn(this, (IconPicker2.__proto__ || Object.getPrototypeOf(IconPicker2)).call(this, select2));
               _this.container.classList.add("ql-icon-picker");
               [].forEach.call(_this.container.querySelectorAll(".ql-picker-item"), function(item) {
                 item.innerHTML = icons[item.getAttribute("data-value") || ""];
@@ -26419,10 +26491,10 @@ const _sfc_main$3H = {
     }
   }
 };
-const _withScopeId$4 = (n) => (pushScopeId("data-v-50d62ca2"), n = n(), popScopeId(), n);
+const _withScopeId$5 = (n) => (pushScopeId("data-v-50d62ca2"), n = n(), popScopeId(), n);
 const _hoisted_1$I = { class: "action-header-column" };
 const _hoisted_2$t = { class: "action-label" };
-const _hoisted_3$o = /* @__PURE__ */ _withScopeId$4(() => /* @__PURE__ */ createElementVNode("i", { class: "el-icon-plus el-icon-right" }, null, -1));
+const _hoisted_3$o = /* @__PURE__ */ _withScopeId$5(() => /* @__PURE__ */ createElementVNode("i", { class: "el-icon-plus el-icon-right" }, null, -1));
 const _hoisted_4$e = {
   key: 0,
   class: "sub-form-action-column hide-label"
@@ -30733,14 +30805,14 @@ var ace$2 = { exports: {} };
         var isFocused = document.activeElement === text;
       } catch (e) {
       }
-      this.setNumberOfExtraLines = function(number) {
+      this.setNumberOfExtraLines = function(number2) {
         rowStart = Number.MAX_SAFE_INTEGER;
         rowEnd = Number.MIN_SAFE_INTEGER;
-        if (number < 0) {
+        if (number2 < 0) {
           numberOfExtraLines = 0;
           return;
         }
-        numberOfExtraLines = number;
+        numberOfExtraLines = number2;
       };
       this.setAriaOptions = function(options) {
         if (options.activeDescendant) {
@@ -31390,13 +31462,13 @@ var ace$2 = { exports: {} };
           var pos = ev.getDocumentPosition();
           this.mousedownEvent = ev;
           var editor = this.editor;
-          var button = ev.getButton();
-          if (button !== 0) {
+          var button2 = ev.getButton();
+          if (button2 !== 0) {
             var selectionRange = editor.getSelectionRange();
             var selectionEmpty = selectionRange.isEmpty();
-            if (selectionEmpty || button == 1)
+            if (selectionEmpty || button2 == 1)
               editor.selection.moveToPosition(pos);
-            if (button == 2) {
+            if (button2 == 2) {
               editor.textInput.onContextMenu(ev.domEvent);
               if (!useragent.isMozilla)
                 ev.preventDefault();
@@ -31483,8 +31555,8 @@ var ace$2 = { exports: {} };
         };
         DefaultHandlers2.prototype.focusWait = function() {
           var distance = calcDistance(this.mousedownEvent.x, this.mousedownEvent.y, this.x, this.y);
-          var time = Date.now();
-          if (distance > DRAG_OFFSET || time - this.mousedownEvent.time > this.$focusTimeout)
+          var time2 = Date.now();
+          if (distance > DRAG_OFFSET || time2 - this.mousedownEvent.time > this.$focusTimeout)
             this.startSelect(this.mousedownEvent.getDocumentPosition());
         };
         DefaultHandlers2.prototype.onDoubleClick = function(ev) {
@@ -32590,9 +32662,9 @@ var ace$2 = { exports: {} };
         this.mousedownEvent = e;
         var editor = this.editor;
         var inSelection = e.inSelection();
-        var button = e.getButton();
+        var button2 = e.getButton();
         var clickCount = e.domEvent.detail || 1;
-        if (clickCount === 1 && button === 0 && inSelection) {
+        if (clickCount === 1 && button2 === 0 && inSelection) {
           if (e.editor.inMultiSelectMode && (e.getAccelKey() || e.getShiftKey()))
             return;
           this.mousedownEvent.time = Date.now();
@@ -32752,8 +32824,8 @@ var ace$2 = { exports: {} };
       event.addListener(el, "contextmenu", function(e) {
         if (!pressed)
           return;
-        var textarea = editor.textInput.getElement();
-        textarea.focus();
+        var textarea2 = editor.textInput.getElement();
+        textarea2.focus();
       }, editor);
       event.addListener(el, "touchstart", function(e) {
         var touches = e.touches;
@@ -35782,7 +35854,7 @@ var ace$2 = { exports: {} };
       this.getNextLineIndent = function(state, line, tab) {
         return this.$getIndent(line);
       };
-      this.checkOutdent = function(state, line, input) {
+      this.checkOutdent = function(state, line, input2) {
         return false;
       };
       this.autoOutdent = function(state, doc, row) {
@@ -40194,24 +40266,24 @@ var ace$2 = { exports: {} };
           }
           return ranges;
         };
-        Search2.prototype.replace = function(input, replacement) {
+        Search2.prototype.replace = function(input2, replacement) {
           var options = this.$options;
           var re = this.$assembleRegExp(options);
           if (options.$isMultiLine)
             return replacement;
           if (!re)
             return;
-          var match = re.exec(input);
-          if (!match || match[0].length != input.length)
+          var match = re.exec(input2);
+          if (!match || match[0].length != input2.length)
             return null;
           if (!options.regExp) {
             replacement = replacement.replace(/\$/g, "$$$$");
           }
-          replacement = input.replace(re, replacement);
+          replacement = input2.replace(re, replacement);
           if (options.preserveCase) {
             replacement = replacement.split("");
-            for (var i = Math.min(input.length, input.length); i--; ) {
-              var ch = input[i];
+            for (var i = Math.min(input2.length, input2.length); i--; ) {
+              var ch = input2[i];
               if (ch && ch.toLowerCase() != ch)
                 replacement[i] = replacement[i].toUpperCase();
               else
@@ -43588,12 +43660,12 @@ var ace$2 = { exports: {} };
           while (_numberRx.lastIndex < column) {
             var m = _numberRx.exec(s);
             if (m.index <= column && m.index + m[0].length >= column) {
-              var number = {
+              var number2 = {
                 value: m[0],
                 start: m.index,
                 end: m.index + m[0].length
               };
-              return number;
+              return number2;
             }
           }
           return null;
@@ -43834,21 +43906,21 @@ var ace$2 = { exports: {} };
         Editor2.prototype.$getVisibleRowCount = function() {
           return this.renderer.getScrollBottomRow() - this.renderer.getScrollTopRow() + 1;
         };
-        Editor2.prototype.$moveByPage = function(dir, select) {
+        Editor2.prototype.$moveByPage = function(dir, select2) {
           var renderer = this.renderer;
           var config3 = this.renderer.layerConfig;
           var rows = dir * Math.floor(config3.height / config3.lineHeight);
-          if (select === true) {
+          if (select2 === true) {
             this.selection.$moveSelection(function() {
               this.moveCursorBy(rows, 0);
             });
-          } else if (select === false) {
+          } else if (select2 === false) {
             this.selection.moveCursorBy(rows, 0);
             this.selection.clearSelection();
           }
           var scrollTop = renderer.scrollTop;
           renderer.scrollBy(0, rows * config3.lineHeight);
-          if (select != null)
+          if (select2 != null)
             renderer.scrollCursorIntoView(null, 0.5);
           renderer.animateScrolling(scrollTop);
         };
@@ -43905,7 +43977,7 @@ var ace$2 = { exports: {} };
         Editor2.prototype.moveCursorToPosition = function(pos) {
           this.selection.moveCursorToPosition(pos);
         };
-        Editor2.prototype.jumpToMatching = function(select, expand) {
+        Editor2.prototype.jumpToMatching = function(select2, expand) {
           var cursor = this.getCursorPosition();
           var iterator = new TokenIterator(this.session, cursor.row, cursor.column);
           var prevToken = iterator.getCurrentToken();
@@ -44011,7 +44083,7 @@ var ace$2 = { exports: {} };
           }
           pos = range && range.cursor || pos;
           if (pos) {
-            if (select) {
+            if (select2) {
               if (range && expand) {
                 this.selection.setRange(range);
               } else if (range && range.isEqual(this.getSelectionRange())) {
@@ -44132,8 +44204,8 @@ var ace$2 = { exports: {} };
           return replaced;
         };
         Editor2.prototype.$tryReplace = function(range, replacement) {
-          var input = this.session.getTextRange(range);
-          replacement = this.$search.replace(input, replacement);
+          var input2 = this.session.getTextRange(range);
+          replacement = this.$search.replace(input2, replacement);
           if (replacement !== null) {
             range.end = this.session.replace(range, replacement);
             return range;
@@ -49264,19 +49336,19 @@ var ace$2 = { exports: {} };
       var shift = ev.shiftKey;
       var ctrl = ev.ctrlKey;
       var accel = e.getAccelKey();
-      var button = e.getButton();
+      var button2 = e.getButton();
       if (ctrl && useragent.isMac)
-        button = ev.button;
-      if (e.editor.inMultiSelectMode && button == 2) {
+        button2 = ev.button;
+      if (e.editor.inMultiSelectMode && button2 == 2) {
         e.editor.textInput.onContextMenu(e.domEvent);
         return;
       }
       if (!ctrl && !alt && !accel) {
-        if (button === 0 && e.editor.inMultiSelectMode)
+        if (button2 === 0 && e.editor.inMultiSelectMode)
           e.editor.exitMultiSelectMode();
         return;
       }
-      if (button !== 0)
+      if (button2 !== 0)
         return;
       var editor = e.editor;
       var selection = editor.selection;
@@ -53726,8 +53798,8 @@ const _sfc_main$3w = {
     testOnAppendButtonClick(clickedWidget) {
       console.log("test", clickedWidget);
     },
-    testOnButtonClick(button) {
-      console.log("test", button);
+    testOnButtonClick(button2) {
+      console.log("test", button2);
     },
     onMyEmitTest(aaa) {
       console.log("-----", aaa);
@@ -53754,8 +53826,9 @@ const _sfc_main$3w = {
     }
   }
 };
+const _withScopeId$4 = (n) => (pushScopeId("data-v-72a78523"), n = n(), popScopeId(), n);
 const _hoisted_1$D = { class: "toolbar-container" };
-const _hoisted_2$q = { class: "left-toolbar" };
+const _hoisted_2$q = /* @__PURE__ */ _withScopeId$4(() => /* @__PURE__ */ createElementVNode("div", { class: "left-toolbar" }, null, -1));
 const _hoisted_3$m = { class: "right-toolbar" };
 const _hoisted_4$c = { class: "right-toolbar-con" };
 const _hoisted_5$7 = { class: "dialog-footer" };
@@ -53765,10 +53838,10 @@ const _hoisted_8$4 = { style: { "border": "1px solid #dcdfe6" } };
 const _hoisted_9$3 = { class: "dialog-footer" };
 const _hoisted_10$2 = { class: "dialog-footer" };
 function _sfc_render$3w(_ctx, _cache, $props, $setup, $data, $options) {
-  const _component_svg_icon = resolveComponent("svg-icon");
-  const _component_a_button = resolveComponent("a-button");
   const _component_a_tree = resolveComponent("a-tree");
   const _component_a_drawer = resolveComponent("a-drawer");
+  const _component_svg_icon = resolveComponent("svg-icon");
+  const _component_a_button = resolveComponent("a-button");
   const _component_VFormRender = resolveComponent("VFormRender");
   const _component_a_modal = resolveComponent("a-modal");
   const _component_a_alert = resolveComponent("a-alert");
@@ -53776,72 +53849,12 @@ function _sfc_render$3w(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_tab_pane = resolveComponent("a-tab-pane");
   const _component_a_tabs = resolveComponent("a-tabs");
   return openBlock(), createElementBlock("div", _hoisted_1$D, [
-    createElementVNode("div", _hoisted_2$q, [
-      createVNode(_component_a_button, {
-        type: "link",
-        disabled: $options.undoDisabled,
-        title: _ctx.i18nt("designer.toolbar.undoHint"),
-        onClick: $options.undoHistory
-      }, {
-        default: withCtx(() => [
-          createVNode(_component_svg_icon, { "icon-class": "undo" })
-        ]),
-        _: 1
-      }, 8, ["disabled", "title", "onClick"]),
-      createVNode(_component_a_button, {
-        type: "link",
-        disabled: $options.redoDisabled,
-        title: _ctx.i18nt("designer.toolbar.redoHint"),
-        onClick: $options.redoHistory
-      }, {
-        default: withCtx(() => [
-          createVNode(_component_svg_icon, { "icon-class": "redo" })
-        ]),
-        _: 1
-      }, 8, ["disabled", "title", "onClick"]),
-      createVNode(_component_a_button, {
-        type: $options.layoutType === "PC" ? "primary" : "",
-        onClick: _cache[0] || (_cache[0] = ($event) => $options.changeLayoutType("PC"))
-      }, {
-        default: withCtx(() => [
-          createTextVNode(toDisplayString(_ctx.i18nt("designer.toolbar.pcLayout")), 1)
-        ]),
-        _: 1
-      }, 8, ["type"]),
-      createVNode(_component_a_button, {
-        type: $options.layoutType === "Pad" ? "primary" : "",
-        onClick: _cache[1] || (_cache[1] = ($event) => $options.changeLayoutType("Pad"))
-      }, {
-        default: withCtx(() => [
-          createTextVNode(toDisplayString(_ctx.i18nt("designer.toolbar.padLayout")), 1)
-        ]),
-        _: 1
-      }, 8, ["type"]),
-      createVNode(_component_a_button, {
-        type: $options.layoutType === "H5" ? "primary" : "",
-        onClick: _cache[2] || (_cache[2] = ($event) => $options.changeLayoutType("H5"))
-      }, {
-        default: withCtx(() => [
-          createTextVNode(toDisplayString(_ctx.i18nt("designer.toolbar.mobileLayout")), 1)
-        ]),
-        _: 1
-      }, 8, ["type"]),
-      createVNode(_component_a_button, {
-        style: { "margin-left": "20px" },
-        title: _ctx.i18nt("designer.toolbar.nodeTreeHint"),
-        onClick: $options.showNodeTreeDrawer
-      }, {
-        default: withCtx(() => [
-          createVNode(_component_svg_icon, { "icon-class": "node-tree" })
-        ]),
-        _: 1
-      }, 8, ["title", "onClick"])
-    ]),
+    _hoisted_2$q,
     createVNode(_component_a_drawer, {
       title: _ctx.i18nt("designer.toolbar.nodeTreeTitle"),
       direction: "ltr",
       visible: $data.showNodeTreeDrawerFlag,
-      "onUpdate:visible": _cache[3] || (_cache[3] = ($event) => $data.showNodeTreeDrawerFlag = $event),
+      "onUpdate:visible": _cache[0] || (_cache[0] = ($event) => $data.showNodeTreeDrawerFlag = $event),
       width: 280,
       "destroy-on-close": true,
       class: "node-tree-drawer"
@@ -53921,7 +53934,7 @@ function _sfc_render$3w(_ctx, _cache, $props, $setup, $data, $options) {
     createVNode(_component_a_modal, {
       title: _ctx.i18nt("designer.toolbar.preview"),
       visible: $data.showPreviewDialogFlag,
-      "onUpdate:visible": _cache[5] || (_cache[5] = ($event) => $data.showPreviewDialogFlag = $event),
+      "onUpdate:visible": _cache[2] || (_cache[2] = ($event) => $data.showPreviewDialogFlag = $event),
       "show-close": true,
       "close-on-click-modal": false,
       "close-on-press-escape": false,
@@ -53971,7 +53984,7 @@ function _sfc_render$3w(_ctx, _cache, $props, $setup, $data, $options) {
             _: 1
           }, 8, ["onClick"]),
           createVNode(_component_a_button, {
-            onClick: _cache[4] || (_cache[4] = ($event) => $data.showPreviewDialogFlag = false)
+            onClick: _cache[1] || (_cache[1] = ($event) => $data.showPreviewDialogFlag = false)
           }, {
             default: withCtx(() => [
               createTextVNode(toDisplayString(_ctx.i18nt("designer.hint.closePreview")), 1)
@@ -54014,7 +54027,7 @@ function _sfc_render$3w(_ctx, _cache, $props, $setup, $data, $options) {
     createVNode(_component_a_modal, {
       title: _ctx.i18nt("designer.toolbar.importJson"),
       visible: $data.showImportJsonDialogFlag,
-      "onUpdate:visible": _cache[8] || (_cache[8] = ($event) => $data.showImportJsonDialogFlag = $event),
+      "onUpdate:visible": _cache[5] || (_cache[5] = ($event) => $data.showImportJsonDialogFlag = $event),
       "show-close": true,
       class: "drag-dialog small-padding-dialog",
       "append-to-body": true,
@@ -54035,7 +54048,7 @@ function _sfc_render$3w(_ctx, _cache, $props, $setup, $data, $options) {
             _: 1
           }, 8, ["onClick"]),
           createVNode(_component_a_button, {
-            onClick: _cache[7] || (_cache[7] = ($event) => $data.showImportJsonDialogFlag = false)
+            onClick: _cache[4] || (_cache[4] = ($event) => $data.showImportJsonDialogFlag = false)
           }, {
             default: withCtx(() => [
               createTextVNode(toDisplayString(_ctx.i18nt("designer.hint.cancel")), 1)
@@ -54055,7 +54068,7 @@ function _sfc_render$3w(_ctx, _cache, $props, $setup, $data, $options) {
           mode: "json",
           readonly: false,
           modelValue: $data.importTemplate,
-          "onUpdate:modelValue": _cache[6] || (_cache[6] = ($event) => $data.importTemplate = $event)
+          "onUpdate:modelValue": _cache[3] || (_cache[3] = ($event) => $data.importTemplate = $event)
         }, null, 8, ["modelValue"])
       ]),
       _: 1
@@ -54063,7 +54076,7 @@ function _sfc_render$3w(_ctx, _cache, $props, $setup, $data, $options) {
     createVNode(_component_a_modal, {
       title: _ctx.i18nt("designer.toolbar.exportJson"),
       visible: $data.showExportJsonDialogFlag,
-      "onUpdate:visible": _cache[11] || (_cache[11] = ($event) => $data.showExportJsonDialogFlag = $event),
+      "onUpdate:visible": _cache[8] || (_cache[8] = ($event) => $data.showExportJsonDialogFlag = $event),
       "show-close": true,
       class: "drag-dialog small-padding-dialog",
       center: "",
@@ -54092,7 +54105,7 @@ function _sfc_render$3w(_ctx, _cache, $props, $setup, $data, $options) {
             _: 1
           }, 8, ["onClick"]),
           createVNode(_component_a_button, {
-            onClick: _cache[10] || (_cache[10] = ($event) => $data.showExportJsonDialogFlag = false)
+            onClick: _cache[7] || (_cache[7] = ($event) => $data.showExportJsonDialogFlag = false)
           }, {
             default: withCtx(() => [
               createTextVNode(toDisplayString(_ctx.i18nt("designer.hint.closePreview")), 1)
@@ -54106,7 +54119,7 @@ function _sfc_render$3w(_ctx, _cache, $props, $setup, $data, $options) {
           mode: "json",
           readonly: true,
           modelValue: $data.jsonContent,
-          "onUpdate:modelValue": _cache[9] || (_cache[9] = ($event) => $data.jsonContent = $event)
+          "onUpdate:modelValue": _cache[6] || (_cache[6] = ($event) => $data.jsonContent = $event)
         }, null, 8, ["modelValue"])
       ]),
       _: 1
@@ -54114,7 +54127,7 @@ function _sfc_render$3w(_ctx, _cache, $props, $setup, $data, $options) {
     createVNode(_component_a_modal, {
       title: _ctx.i18nt("designer.hint.exportFormData"),
       visible: $data.showFormDataDialogFlag,
-      "onUpdate:visible": _cache[14] || (_cache[14] = ($event) => $data.showFormDataDialogFlag = $event),
+      "onUpdate:visible": _cache[11] || (_cache[11] = ($event) => $data.showFormDataDialogFlag = $event),
       "show-close": true,
       class: "nested-drag-dialog dialog-title-light-bg",
       center: "",
@@ -54143,7 +54156,7 @@ function _sfc_render$3w(_ctx, _cache, $props, $setup, $data, $options) {
             _: 1
           }, 8, ["onClick"]),
           createVNode(_component_a_button, {
-            onClick: _cache[13] || (_cache[13] = ($event) => $data.showFormDataDialogFlag = false)
+            onClick: _cache[10] || (_cache[10] = ($event) => $data.showFormDataDialogFlag = false)
           }, {
             default: withCtx(() => [
               createTextVNode(toDisplayString(_ctx.i18nt("designer.hint.closePreview")), 1)
@@ -54158,7 +54171,7 @@ function _sfc_render$3w(_ctx, _cache, $props, $setup, $data, $options) {
             mode: "json",
             readonly: true,
             modelValue: $data.formDataJson,
-            "onUpdate:modelValue": _cache[12] || (_cache[12] = ($event) => $data.formDataJson = $event)
+            "onUpdate:modelValue": _cache[9] || (_cache[9] = ($event) => $data.formDataJson = $event)
           }, null, 8, ["modelValue"])
         ])
       ]),
@@ -54168,7 +54181,7 @@ function _sfc_render$3w(_ctx, _cache, $props, $setup, $data, $options) {
       key: 0,
       title: _ctx.i18nt("designer.toolbar.generateSFC"),
       visible: $data.showExportSFCDialogFlag,
-      "onUpdate:visible": _cache[19] || (_cache[19] = ($event) => $data.showExportSFCDialogFlag = $event),
+      "onUpdate:visible": _cache[16] || (_cache[16] = ($event) => $data.showExportSFCDialogFlag = $event),
       "append-to-body": "",
       "show-close": true,
       class: "drag-dialog small-padding-dialog",
@@ -54215,7 +54228,7 @@ function _sfc_render$3w(_ctx, _cache, $props, $setup, $data, $options) {
             _: 1
           }, 8, ["onClick"]),
           createVNode(_component_a_button, {
-            onClick: _cache[18] || (_cache[18] = ($event) => $data.showExportSFCDialogFlag = false)
+            onClick: _cache[15] || (_cache[15] = ($event) => $data.showExportSFCDialogFlag = false)
           }, {
             default: withCtx(() => [
               createTextVNode(toDisplayString(_ctx.i18nt("designer.hint.closePreview")), 1)
@@ -54229,7 +54242,7 @@ function _sfc_render$3w(_ctx, _cache, $props, $setup, $data, $options) {
           type: "border-card",
           class: "no-box-shadow no-padding",
           activeKey: $data.activeSFCTab,
-          "onUpdate:activeKey": _cache[17] || (_cache[17] = ($event) => $data.activeSFCTab = $event)
+          "onUpdate:activeKey": _cache[14] || (_cache[14] = ($event) => $data.activeSFCTab = $event)
         }, {
           default: withCtx(() => [
             createVNode(_component_a_tab_pane, {
@@ -54241,7 +54254,7 @@ function _sfc_render$3w(_ctx, _cache, $props, $setup, $data, $options) {
                   mode: "html",
                   readonly: true,
                   modelValue: $data.sfcCode,
-                  "onUpdate:modelValue": _cache[15] || (_cache[15] = ($event) => $data.sfcCode = $event),
+                  "onUpdate:modelValue": _cache[12] || (_cache[12] = ($event) => $data.sfcCode = $event),
                   "user-worker": false
                 }, null, 8, ["modelValue"])
               ]),
@@ -54256,7 +54269,7 @@ function _sfc_render$3w(_ctx, _cache, $props, $setup, $data, $options) {
                   mode: "html",
                   readonly: true,
                   modelValue: $data.sfcCodeV3,
-                  "onUpdate:modelValue": _cache[16] || (_cache[16] = ($event) => $data.sfcCodeV3 = $event),
+                  "onUpdate:modelValue": _cache[13] || (_cache[13] = ($event) => $data.sfcCodeV3 = $event),
                   "user-worker": false
                 }, null, 8, ["modelValue"])
               ]),
@@ -54270,7 +54283,7 @@ function _sfc_render$3w(_ctx, _cache, $props, $setup, $data, $options) {
     }, 8, ["title", "visible"])) : createCommentVNode("", true)
   ]);
 }
-const ToolbarPanel = /* @__PURE__ */ _export_sfc$1(_sfc_main$3w, [["render", _sfc_render$3w], ["__scopeId", "data-v-14a1201d"]]);
+const ToolbarPanel = /* @__PURE__ */ _export_sfc$1(_sfc_main$3w, [["render", _sfc_render$3w], ["__scopeId", "data-v-72a78523"]]);
 const _sfc_main$3v = {
   name: "actionColumnPosition-editor",
   mixins: [i18n$1],
@@ -57041,7 +57054,7 @@ function AnimationStateManager() {
       }
       var animating = false, animationTime = 0;
       animationStates.forEach(function(state) {
-        var time = 0, target = state.target, fromRect = target.fromRect, toRect = getRect(target), prevFromRect = target.prevFromRect, prevToRect = target.prevToRect, animatingRect = state.rect, targetMatrix = matrix(target, true);
+        var time2 = 0, target = state.target, fromRect = target.fromRect, toRect = getRect(target), prevFromRect = target.prevFromRect, prevToRect = target.prevToRect, animatingRect = state.rect, targetMatrix = matrix(target, true);
         if (targetMatrix) {
           toRect.top -= targetMatrix.f;
           toRect.left -= targetMatrix.e;
@@ -57050,20 +57063,20 @@ function AnimationStateManager() {
         if (target.thisAnimationDuration) {
           if (isRectEqual(prevFromRect, toRect) && !isRectEqual(fromRect, toRect) && // Make sure animatingRect is on line between toRect & fromRect
           (animatingRect.top - toRect.top) / (animatingRect.left - toRect.left) === (fromRect.top - toRect.top) / (fromRect.left - toRect.left)) {
-            time = calculateRealTime(animatingRect, prevFromRect, prevToRect, _this.options);
+            time2 = calculateRealTime(animatingRect, prevFromRect, prevToRect, _this.options);
           }
         }
         if (!isRectEqual(toRect, fromRect)) {
           target.prevFromRect = fromRect;
           target.prevToRect = toRect;
-          if (!time) {
-            time = _this.options.animation;
+          if (!time2) {
+            time2 = _this.options.animation;
           }
-          _this.animate(target, animatingRect, toRect, time);
+          _this.animate(target, animatingRect, toRect, time2);
         }
-        if (time) {
+        if (time2) {
           animating = true;
-          animationTime = Math.max(animationTime, time);
+          animationTime = Math.max(animationTime, time2);
           clearTimeout(target.animationResetTimer);
           target.animationResetTimer = setTimeout(function() {
             target.animationTime = 0;
@@ -57071,8 +57084,8 @@ function AnimationStateManager() {
             target.fromRect = null;
             target.prevToRect = null;
             target.thisAnimationDuration = null;
-          }, time);
-          target.thisAnimationDuration = time;
+          }, time2);
+          target.thisAnimationDuration = time2;
         }
       });
       clearTimeout(animationCallbackId);
@@ -65362,6 +65375,9 @@ const _sfc_main$S = {
     }
   },
   methods: {
+    copyFormJson(e) {
+      copyToClipboard(this.optionModel.name, e, this.$message, "复制成功", "复制失败");
+    },
     updateWidgetNameAndRef(newName, ops) {
       if (ops) {
         this.optionModel.label = ops.showName;
@@ -65425,13 +65441,20 @@ function _sfc_render$S(_ctx, _cache, $props, $setup, $data, $options) {
         key: 0,
         type: "text",
         value: $props.optionModel.name,
-        "onUpdate:value": _cache[0] || (_cache[0] = ($event) => $props.optionModel.name = $event),
+        "onUpdate:value": _cache[1] || (_cache[1] = ($event) => $props.optionModel.name = $event),
         readonly: $options.widgetNameReadonly,
         onChange: $options.updateWidgetNameAndRef
-      }, null, 8, ["value", "readonly", "onChange"])) : (openBlock(), createBlock(_component_a_select, {
+      }, {
+        suffix: withCtx(() => [
+          createElementVNode("a", {
+            onClick: _cache[0] || (_cache[0] = (...args) => $options.copyFormJson && $options.copyFormJson(...args))
+          }, "复制")
+        ]),
+        _: 1
+      }, 8, ["value", "readonly", "onChange"])) : (openBlock(), createBlock(_component_a_select, {
         key: 1,
         value: $props.optionModel.name,
-        "onUpdate:value": _cache[1] || (_cache[1] = ($event) => $props.optionModel.name = $event),
+        "onUpdate:value": _cache[2] || (_cache[2] = ($event) => $props.optionModel.name = $event),
         allowClear: "",
         disabled: $options.widgetNameReadonly,
         onChange: $options.updateWidgetNameAndRef,
@@ -72898,6 +72921,7 @@ const _sfc_main$f = {
       changeLocale(langName);
     },
     setFormJson(formJson) {
+      console.log("formJson: ", formJson);
       let modifiedFlag = false;
       if (!!formJson) {
         if (typeof formJson === "string") {
@@ -73109,7 +73133,7 @@ function _sfc_render$f(_ctx, _cache, $props, $setup, $data, $options) {
     _: 3
   });
 }
-const VFormDesigner = /* @__PURE__ */ _export_sfc$1(_sfc_main$f, [["render", _sfc_render$f], ["__scopeId", "data-v-6be11786"]]);
+const VFormDesigner = /* @__PURE__ */ _export_sfc$1(_sfc_main$f, [["render", _sfc_render$f], ["__scopeId", "data-v-2e25f789"]]);
 var vuedraggable_umd = { exports: {} };
 (function(module, exports) {
   (function webpackUniversalModuleDefinition(root, factory) {
@@ -75670,15 +75694,15 @@ var vuedraggable_umd = { exports: {} };
           /***/
           function(module2, exports2, __webpack_require__) {
             var isObject2 = __webpack_require__("861d");
-            module2.exports = function(input, PREFERRED_STRING) {
-              if (!isObject2(input))
-                return input;
+            module2.exports = function(input2, PREFERRED_STRING) {
+              if (!isObject2(input2))
+                return input2;
               var fn, val;
-              if (PREFERRED_STRING && typeof (fn = input.toString) == "function" && !isObject2(val = fn.call(input)))
+              if (PREFERRED_STRING && typeof (fn = input2.toString) == "function" && !isObject2(val = fn.call(input2)))
                 return val;
-              if (typeof (fn = input.valueOf) == "function" && !isObject2(val = fn.call(input)))
+              if (typeof (fn = input2.valueOf) == "function" && !isObject2(val = fn.call(input2)))
                 return val;
-              if (!PREFERRED_STRING && typeof (fn = input.toString) == "function" && !isObject2(val = fn.call(input)))
+              if (!PREFERRED_STRING && typeof (fn = input2.toString) == "function" && !isObject2(val = fn.call(input2)))
                 return val;
               throw TypeError("Can't convert object to primitive value");
             };
@@ -77667,13 +77691,13 @@ function registerIcon(app) {
 if (typeof window !== "undefined") {
   let loadSvg = function() {
     var body = document.body;
-    var svgDom = document.getElementById("__svg__icons__dom__1712133472429__");
+    var svgDom = document.getElementById("__svg__icons__dom__1712648814171__");
     if (!svgDom) {
       svgDom = document.createElementNS("http://www.w3.org/2000/svg", "svg");
       svgDom.style.position = "absolute";
       svgDom.style.width = "0";
       svgDom.style.height = "0";
-      svgDom.id = "__svg__icons__dom__1712133472429__";
+      svgDom.id = "__svg__icons__dom__1712648814171__";
       svgDom.setAttribute("xmlns", "http://www.w3.org/2000/svg");
       svgDom.setAttribute("xmlns:link", "http://www.w3.org/1999/xlink");
     }
@@ -78034,6 +78058,7 @@ const install = (app, h) => {
   window.axios = axios;
 };
 const VFormSDK = {
+  basicFieldsEnums,
   addContainerWidgetSchema,
   addBasicFieldSchema,
   addAdvancedFieldSchema,

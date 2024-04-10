@@ -22,7 +22,7 @@
   >
     <a-form class="editor-Selection-form" :model="optionModel.pagination" layout="horizontal">
       <a-form-item label="默认的每页条数">
-        <a-select v-model:value="optionModel.pagination.pageSize" @change="pageSizeOptionsChange">
+        <a-select v-model:value="optionModel.pagination.pageSize">
           <a-select-option v-for="item in pageSizeList" :key="item" :value="item">
             {{ item }}
           </a-select-option>

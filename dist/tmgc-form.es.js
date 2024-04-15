@@ -3223,6 +3223,7 @@ const getUuidKey = () => {
 const input = (ops = {}) => {
   return {
     key: getUuidKey(),
+    id: ops.name,
     type: "input",
     icon: "text-field",
     formItemFlag: true,
@@ -3270,6 +3271,7 @@ const input = (ops = {}) => {
 const textarea = (ops = {}) => {
   return {
     key: getUuidKey(),
+    id: ops.name,
     type: "textarea",
     icon: "textarea-field",
     formItemFlag: true,
@@ -3316,6 +3318,7 @@ const textarea = (ops = {}) => {
 const number = (ops = {}) => {
   return {
     key: getUuidKey(),
+    id: ops.name,
     type: "number",
     icon: "number-field",
     formItemFlag: true,
@@ -3359,6 +3362,7 @@ const number = (ops = {}) => {
 const radio = (ops = {}) => {
   return {
     key: getUuidKey(),
+    id: ops.name,
     type: "radio",
     icon: "radio-field",
     formItemFlag: true,
@@ -3416,6 +3420,7 @@ const radio = (ops = {}) => {
 const checkbox = (ops = {}) => {
   return {
     key: getUuidKey(),
+    id: ops.name,
     type: "checkbox",
     icon: "checkbox-field",
     formItemFlag: true,
@@ -3470,6 +3475,7 @@ const checkbox = (ops = {}) => {
 const select = (ops = {}) => {
   return {
     key: getUuidKey(),
+    id: ops.name,
     type: "select",
     icon: "select-field",
     formItemFlag: true,
@@ -3532,6 +3538,7 @@ const select = (ops = {}) => {
 const time = (ops = {}) => {
   return {
     key: getUuidKey(),
+    id: ops.name,
     type: "time",
     icon: "time-field",
     formItemFlag: true,
@@ -3577,6 +3584,7 @@ const time = (ops = {}) => {
 const timeRange = (ops = {}) => {
   return {
     key: getUuidKey(),
+    id: ops.name,
     type: "time-range",
     icon: "time-range-field",
     formItemFlag: true,
@@ -3623,6 +3631,7 @@ const timeRange = (ops = {}) => {
 const date = (ops = {}) => {
   return {
     key: getUuidKey(),
+    id: ops.name,
     type: "date",
     icon: "date-field",
     formItemFlag: true,
@@ -3672,6 +3681,7 @@ const date = (ops = {}) => {
 const dataRange = (ops = {}) => {
   return {
     key: getUuidKey(),
+    id: ops.name,
     type: "date-range",
     icon: "date-range-field",
     formItemFlag: true,
@@ -3722,6 +3732,7 @@ const dataRange = (ops = {}) => {
 const switchCom = (ops = {}) => {
   return {
     key: getUuidKey(),
+    id: ops.name,
     type: "switch",
     icon: "switch-field",
     formItemFlag: true,
@@ -3758,6 +3769,7 @@ const switchCom = (ops = {}) => {
 const rate = (ops = {}) => {
   return {
     key: getUuidKey(),
+    id: ops.name,
     type: "rate",
     icon: "rate-field",
     formItemFlag: true,
@@ -3800,6 +3812,7 @@ const rate = (ops = {}) => {
 const color = (ops = {}) => {
   return {
     key: getUuidKey(),
+    id: ops.name,
     type: "color",
     icon: "color-field",
     formItemFlag: true,
@@ -3836,6 +3849,7 @@ const color = (ops = {}) => {
 const slider = (ops = {}) => {
   return {
     key: getUuidKey(),
+    id: ops.name,
     type: "slider",
     icon: "slider-field",
     formItemFlag: true,
@@ -3878,6 +3892,7 @@ const slider = (ops = {}) => {
 const staticText = (ops = {}) => {
   return {
     key: getUuidKey(),
+    id: ops.name,
     type: "static-text",
     icon: "static-text",
     formItemFlag: false,
@@ -3899,6 +3914,7 @@ const staticText = (ops = {}) => {
 const htmlText = (ops = {}) => {
   return {
     key: getUuidKey(),
+    id: ops.name,
     type: "html-text",
     icon: "html-text",
     formItemFlag: false,
@@ -3920,6 +3936,7 @@ const htmlText = (ops = {}) => {
 const button = (ops = {}) => {
   return {
     key: getUuidKey(),
+    id: ops.name,
     type: "button",
     icon: "button",
     formItemFlag: false,
@@ -3953,6 +3970,7 @@ const button = (ops = {}) => {
 const divider = (ops = {}) => {
   return {
     key: getUuidKey(),
+    id: ops.name,
     type: "divider",
     icon: "divider",
     formItemFlag: false,
@@ -77736,13 +77754,13 @@ function registerIcon(app) {
 if (typeof window !== "undefined") {
   let loadSvg = function() {
     var body = document.body;
-    var svgDom = document.getElementById("__svg__icons__dom__1713170923103__");
+    var svgDom = document.getElementById("__svg__icons__dom__1713173234265__");
     if (!svgDom) {
       svgDom = document.createElementNS("http://www.w3.org/2000/svg", "svg");
       svgDom.style.position = "absolute";
       svgDom.style.width = "0";
       svgDom.style.height = "0";
-      svgDom.id = "__svg__icons__dom__1713170923103__";
+      svgDom.id = "__svg__icons__dom__1713173234265__";
       svgDom.setAttribute("xmlns", "http://www.w3.org/2000/svg");
       svgDom.setAttribute("xmlns:link", "http://www.w3.org/1999/xlink");
     }

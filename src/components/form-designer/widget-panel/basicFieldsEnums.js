@@ -3,6 +3,7 @@ import { getUuidKey } from '@/utils/util';
 export const input = (ops = {}) => {
   return {
     key: getUuidKey(),
+    id: ops.name,
     type: 'input',
     icon: 'text-field',
     formItemFlag: true,
@@ -50,6 +51,7 @@ export const input = (ops = {}) => {
 export const textarea = (ops = {}) => {
   return {
     key: getUuidKey(),
+    id: ops.name,
     type: 'textarea',
     icon: 'textarea-field',
     formItemFlag: true,
@@ -96,6 +98,7 @@ export const textarea = (ops = {}) => {
 export const number = (ops = {}) => {
   return {
     key: getUuidKey(),
+    id: ops.name,
     type: 'number',
     icon: 'number-field',
     formItemFlag: true,
@@ -139,6 +142,7 @@ export const number = (ops = {}) => {
 export const radio = (ops = {}) => {
   return {
     key: getUuidKey(),
+    id: ops.name,
     type: 'radio',
     icon: 'radio-field',
     formItemFlag: true,
@@ -193,6 +197,7 @@ export const radio = (ops = {}) => {
 export const checkbox = (ops = {}) => {
   return {
     key: getUuidKey(),
+    id: ops.name,
     type: 'checkbox',
     icon: 'checkbox-field',
     formItemFlag: true,
@@ -245,6 +250,7 @@ export const checkbox = (ops = {}) => {
 export const select = (ops = {}) => {
   return {
     key: getUuidKey(),
+    id: ops.name,
     type: 'select',
     icon: 'select-field',
     formItemFlag: true,
@@ -304,6 +310,7 @@ export const select = (ops = {}) => {
 export const time = (ops = {}) => {
   return {
     key: getUuidKey(),
+    id: ops.name,
     type: 'time',
     icon: 'time-field',
     formItemFlag: true,
@@ -348,6 +355,7 @@ export const time = (ops = {}) => {
 export const timeRange = (ops = {}) => {
   return {
     key: getUuidKey(),
+    id: ops.name,
     type: 'time-range',
     icon: 'time-range-field',
     formItemFlag: true,
@@ -393,6 +401,7 @@ export const timeRange = (ops = {}) => {
 export const date = (ops = {}) => {
   return {
     key: getUuidKey(),
+    id: ops.name,
     type: 'date',
     icon: 'date-field',
     formItemFlag: true,
@@ -440,6 +449,7 @@ export const date = (ops = {}) => {
 export const dataRange = (ops = {}) => {
   return {
     key: getUuidKey(),
+    id: ops.name,
     type: 'date-range',
     icon: 'date-range-field',
     formItemFlag: true,
@@ -488,6 +498,7 @@ export const dataRange = (ops = {}) => {
 export const switchCom = (ops = {}) => {
   return {
     key: getUuidKey(),
+    id: ops.name,
     type: 'switch',
     icon: 'switch-field',
     formItemFlag: true,
@@ -523,6 +534,7 @@ export const switchCom = (ops = {}) => {
 export const rate = (ops = {}) => {
   return {
     key: getUuidKey(),
+    id: ops.name,
     type: 'rate',
     icon: 'rate-field',
     formItemFlag: true,
@@ -565,6 +577,7 @@ export const rate = (ops = {}) => {
 export const color = (ops = {}) => {
   return {
     key: getUuidKey(),
+    id: ops.name,
     type: 'color',
     icon: 'color-field',
     formItemFlag: true,
@@ -601,6 +614,7 @@ export const color = (ops = {}) => {
 export const slider = (ops = {}) => {
   return {
     key: getUuidKey(),
+    id: ops.name,
     type: 'slider',
     icon: 'slider-field',
     formItemFlag: true,
@@ -642,6 +656,7 @@ export const slider = (ops = {}) => {
 export const staticText = (ops = {}) => {
   return {
     key: getUuidKey(),
+    id: ops.name,
     type: 'static-text',
     icon: 'static-text',
     formItemFlag: false,
@@ -663,6 +678,7 @@ export const staticText = (ops = {}) => {
 export const htmlText = (ops = {}) => {
   return {
     key: getUuidKey(),
+    id: ops.name,
     type: 'html-text',
     icon: 'html-text',
     formItemFlag: false,
@@ -684,6 +700,7 @@ export const htmlText = (ops = {}) => {
 export const button = (ops = {}) => {
   return {
     key: getUuidKey(),
+    id: ops.name,
     type: 'button',
     icon: 'button',
     formItemFlag: false,
@@ -717,6 +734,7 @@ export const button = (ops = {}) => {
 export const divider = (ops = {}) => {
   return {
     key: getUuidKey(),
+    id: ops.name,
     type: 'divider',
     icon: 'divider',
     formItemFlag: false,

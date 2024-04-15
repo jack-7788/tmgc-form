@@ -104,6 +104,17 @@
         return !!this.field.options.filterable && !!this.field.options.allowCreate;
       }
     },
+    watch: {
+      'field.options.dsEnabled': {
+        deep: true,
+        handler(val) {
+          if (val) {
+            this.initOptionItems();
+          }
+          //
+        }
+      }
+    },
     beforeCreate() {
       /* 这里不能访问方法和属性！！ */
     },

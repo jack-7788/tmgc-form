@@ -267,7 +267,7 @@ export default {
           this.field.options.optionItems.splice(0, this.field.options.optionItems.length); // 清空原有选项
           try {
             // const sendParams = JSON.stringify(this.field.options.http);
-            const dsResult = await fmtHttpParams(this.field.options.http, {
+            const dsResult = await fmtHttpParams(this.field.options, {
               fieldCode: this.field.options.name
             });
 

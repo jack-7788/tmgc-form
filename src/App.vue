@@ -5,6 +5,7 @@
         :fieldListApi="fieldListApi"
         :designer-config="designerConfig"
         :global-dsv="globalDsv"
+        ref="vfdRef"
       />
     </div>
   </a-config-provider>
@@ -16,8 +17,11 @@
   import dayjs from 'dayjs';
   import 'dayjs/locale/zh-cn';
   import { getHttp } from '@/utils/request/http';
+  import { basicFieldsEnums } from '@/components/form-designer/widget-panel/basicFieldsEnums';
   dayjs.locale('zh-cn');
   import { getLocat } from '@/utils/util';
+  const { entityCode = '', terminalType = '', formCode = '', id = '' } = getLocat();
+
   export default {
     name: 'App',
     components: {
@@ -70,14 +74,57 @@
       }
     },
     methods: {
+      getInitRenderJSON(list) {
+        return list.reduce((t, v) => {
+          const fn = basicFieldsEnums[v.componentType];
+          if (fn) {
+            const json = fn({
+              name: v.entityPropertyCode,
+              label: v.entityPropertyName,
+              ...(v.options || {})
+            });
+            t = [...t, json];
+          }
+          return t;
+        }, []);
+      },
+      async getComponentJson(list) {
+        let json = { widgetList: {}, formConfig: {} };
+        if (id && entityCode) {
+          const res = await getHttp()({
+            method: 'get',
+            url: `/api/tmgc2-query/dataQuery/detail/${entityCode}`,
+            params: { id }
+          });
+          json = JSON.parse(res.frontendDefinition || '{}');
+        } else {
+          json.widgetList = this.getInitRenderJSON(list);
+        }
+
+        this.$refs.vfdRef.setJsonImport(json);
+      },
       async fieldListApi() {
-        const { pageCode } = getLocat();
-        if (!pageCode) return [];
-        return await getHttp()({
-          methods: 'get',
-          url: '/api/tmgc2-mgt/pageFieldConfig/queryPageFieldOptions',
-          params: { pageCode }
-        }).then(res => res.data.list || []);
+        const { entityCode } = getLocat();
+        if (!entityCode) return [];
+        const p = {
+          pageCode: 'EntityPropertyFormItem',
+          conditions: [{ fieldCode: 'entityCode', type: 'EQ', value: entityCode }],
+          requiredFields: [
+            'entityPropertyCode',
+            'entityPropertyName',
+            'valueType',
+            'valueTypeLength'
+          ],
+          page: 1,
+          pageSize: null,
+          sorts: []
+        };
+        const list = await getHttp()({
+          method: 'post',
+          url: '/api/tmgc2-query/dataQuery/execute',
+          data: p
+        }).then(res => res.data.object.list || []);
+        return this.getComponentJson(list);
       },
       submitForm() {
         this.$refs.vFormRef

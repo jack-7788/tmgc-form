@@ -2059,1409 +2059,18 @@ const _sfc_main$4c = {
     }
   }
 };
-const _hoisted_1$15 = ["xlink:href"];
+const _hoisted_1$16 = ["xlink:href"];
 const _hoisted_2$A = { key: 0 };
 function _sfc_render$4c(_ctx, _cache, $props, $setup, $data, $options) {
   return openBlock(), createElementBlock("svg", {
     class: normalizeClass($options.svgClass),
     "aria-hidden": "true"
   }, [
-    createElementVNode("use", { "xlink:href": $options.iconName }, null, 8, _hoisted_1$15),
+    createElementVNode("use", { "xlink:href": $options.iconName }, null, 8, _hoisted_1$16),
     !!$props.title ? (openBlock(), createElementBlock("title", _hoisted_2$A, toDisplayString($props.title), 1)) : createCommentVNode("", true)
   ], 2);
 }
 const SvgIcon = /* @__PURE__ */ _export_sfc$1(_sfc_main$4c, [["render", _sfc_render$4c], ["__scopeId", "data-v-db5a1437"]]);
-const input = (ops = {}) => {
-  return {
-    type: "input",
-    icon: "text-field",
-    formItemFlag: true,
-    options: {
-      name: "",
-      label: "",
-      labelAlign: "",
-      type: "text",
-      defaultValue: "",
-      placeholder: "",
-      columnWidth: "200px",
-      size: "",
-      labelWidth: null,
-      labelHidden: false,
-      readonly: false,
-      disabled: false,
-      hidden: false,
-      allowClear: true,
-      required: false,
-      requiredHint: "",
-      validation: "",
-      validationHint: "",
-      //-------------------
-      customClass: [],
-      //自定义css类名
-      labelIconClass: null,
-      labelIconPosition: "rear",
-      labelTooltip: null,
-      maxLength: null,
-      showCount: false,
-      addonBefore: "",
-      addonAfter: "",
-      //-------------------
-      onCreated: "",
-      onMounted: "",
-      onInput: "",
-      onChange: "",
-      onFocus: "",
-      onBlur: "",
-      onValidate: "",
-      ...ops
-    }
-  };
-};
-const textarea = (ops = {}) => {
-  return {
-    type: "textarea",
-    icon: "textarea-field",
-    formItemFlag: true,
-    options: {
-      name: "",
-      label: "",
-      labelAlign: "",
-      rows: 3,
-      defaultValue: "",
-      placeholder: "",
-      columnWidth: "200px",
-      size: "",
-      labelWidth: null,
-      labelHidden: false,
-      readonly: false,
-      disabled: false,
-      hidden: false,
-      allowClear: true,
-      required: false,
-      requiredHint: "",
-      validation: "",
-      validationHint: "",
-      //-------------------
-      customClass: [],
-      //自定义css类名
-      labelIconClass: null,
-      labelIconPosition: "rear",
-      labelTooltip: null,
-      // minLength: null,
-      maxLength: null,
-      showCount: false,
-      //-------------------
-      onCreated: "",
-      onMounted: "",
-      onInput: "",
-      onChange: "",
-      onFocus: "",
-      onBlur: "",
-      onValidate: "",
-      ...ops
-    }
-  };
-};
-const number = (ops = {}) => {
-  return {
-    type: "number",
-    icon: "number-field",
-    formItemFlag: true,
-    options: {
-      name: "",
-      label: "",
-      labelAlign: "",
-      defaultValue: "",
-      placeholder: "",
-      columnWidth: "200px",
-      size: "",
-      labelWidth: null,
-      labelHidden: false,
-      disabled: false,
-      hidden: false,
-      required: false,
-      requiredHint: "",
-      validation: "",
-      validationHint: "",
-      //-------------------
-      customClass: [],
-      //自定义css类名
-      labelIconClass: null,
-      labelIconPosition: "rear",
-      labelTooltip: null,
-      min: -99999999,
-      max: 99999999,
-      precision: 0,
-      step: 1,
-      //-------------------
-      onCreated: "",
-      onMounted: "",
-      onChange: "",
-      onFocus: "",
-      onBlur: "",
-      onValidate: "",
-      ...ops
-    }
-  };
-};
-const radio = (ops = {}) => {
-  return {
-    type: "radio",
-    icon: "radio-field",
-    formItemFlag: true,
-    options: {
-      name: "",
-      label: "",
-      labelAlign: "",
-      defaultValue: null,
-      columnWidth: "200px",
-      size: "",
-      displayStyle: "inline",
-      buttonStyle: false,
-      border: false,
-      labelWidth: null,
-      labelHidden: false,
-      disabled: false,
-      hidden: false,
-      dsEnabled: false,
-      // 是否使用数据源数据
-      labelKey: "label",
-      valueKey: "value",
-      optionItems: [
-        { label: "radio 1", value: 1 },
-        { label: "radio 2", value: 2 },
-        { label: "radio 3", value: 3 }
-      ],
-      http: {
-        url: "",
-        // '/api/tmgc2-mgt/pageFieldConfig/queryPageFieldValueOptions',
-        method: "get",
-        data: {},
-        params: {}
-        // { pageCode: '${pageCode}', fieldCode: '${fieldCode}' }
-      },
-      dataHandlerCode: "console.log(data.data);\nreturn data.data;\n ",
-      required: false,
-      requiredHint: "",
-      validation: "",
-      validationHint: "",
-      //-------------------
-      customClass: [],
-      //自定义css类名
-      labelIconClass: null,
-      labelIconPosition: "rear",
-      labelTooltip: null,
-      //-------------------
-      onCreated: "",
-      onMounted: "",
-      onChange: "",
-      onValidate: "",
-      ...ops
-    }
-  };
-};
-const checkbox = (ops = {}) => {
-  return {
-    type: "checkbox",
-    icon: "checkbox-field",
-    formItemFlag: true,
-    options: {
-      name: "",
-      label: "",
-      labelAlign: "",
-      defaultValue: [],
-      columnWidth: "200px",
-      size: "",
-      labelWidth: null,
-      labelHidden: false,
-      disabled: false,
-      hidden: false,
-      // dsName: '', // 数据源名称
-      // dataSetName: '', //数据集名称
-      labelKey: "label",
-      valueKey: "value",
-      optionItems: [
-        { label: "check 1", value: 1 },
-        { label: "check 2", value: 2 },
-        { label: "check 3", value: 3 }
-      ],
-      http: {
-        url: "",
-        // '/api/tmgc2-mgt/pageFieldConfig/queryPageFieldValueOptions',
-        method: "get",
-        data: {},
-        params: {}
-        // { pageCode: '${pageCode}', fieldCode: '${fieldCode}' }
-      },
-      dataHandlerCode: "console.log(data.data);\nreturn data.data;\n ",
-      required: false,
-      requiredHint: "",
-      validation: "",
-      validationHint: "",
-      //-------------------
-      customClass: [],
-      //自定义css类名
-      labelIconClass: null,
-      labelIconPosition: "rear",
-      labelTooltip: null,
-      //-------------------
-      onCreated: "",
-      onMounted: "",
-      onChange: "",
-      onValidate: "",
-      ...ops
-    }
-  };
-};
-const select = (ops = {}) => {
-  return {
-    type: "select",
-    icon: "select-field",
-    formItemFlag: true,
-    options: {
-      name: "",
-      label: "",
-      labelAlign: "",
-      defaultValue: "",
-      placeholder: "",
-      columnWidth: "200px",
-      size: "",
-      labelWidth: null,
-      labelHidden: false,
-      disabled: false,
-      hidden: false,
-      allowClear: true,
-      maxTagCount: "responsive",
-      mode: "combobox",
-      showSearch: false,
-      dsEnabled: false,
-      // 是否使用数据源数据
-      labelKey: "label",
-      valueKey: "value",
-      optionItems: [
-        { label: "select 1", value: 1 },
-        { label: "select 2", value: 2 },
-        { label: "select 3", value: 3 }
-      ],
-      http: {
-        url: "",
-        //'/api/tmgc2-mgt/pageFieldConfig/queryPageFieldValueOptions',
-        method: "get",
-        data: {},
-        params: {}
-        // { pageCode: '${pageCode}', fieldCode: '${fieldCode}' }
-      },
-      dataHandlerCode: "console.log(data.data);\nreturn data.data;\n ",
-      required: false,
-      requiredHint: "",
-      validation: "",
-      validationHint: "",
-      //-------------------
-      customClass: [],
-      //自定义css类名
-      labelIconClass: null,
-      labelIconPosition: "rear",
-      labelTooltip: null,
-      //-------------------
-      onCreated: "",
-      onMounted: "",
-      onRemoteQuery: "",
-      onChange: "",
-      onFocus: "",
-      onBlur: "",
-      onValidate: "",
-      ...ops
-    }
-  };
-};
-const time = (ops = {}) => {
-  return {
-    type: "time",
-    icon: "time-field",
-    formItemFlag: true,
-    options: {
-      name: "",
-      label: "",
-      labelAlign: "",
-      defaultValue: null,
-      placeholder: "",
-      columnWidth: "200px",
-      size: "",
-      autoFullWidth: true,
-      labelWidth: null,
-      labelHidden: false,
-      readonly: false,
-      disabled: false,
-      hidden: false,
-      allowClear: true,
-      // editable: false,
-      format: "HH:mm:ss",
-      //时间格式
-      required: false,
-      requiredHint: "",
-      validation: "",
-      validationHint: "",
-      //-------------------
-      customClass: [],
-      //自定义css类名
-      labelIconClass: null,
-      labelIconPosition: "rear",
-      labelTooltip: null,
-      //-------------------
-      onCreated: "",
-      onMounted: "",
-      onChange: "",
-      onFocus: "",
-      onBlur: "",
-      onValidate: "",
-      ...ops
-    }
-  };
-};
-const timeRange = (ops = {}) => {
-  return {
-    type: "time-range",
-    icon: "time-range-field",
-    formItemFlag: true,
-    options: {
-      name: "",
-      label: "",
-      labelAlign: "",
-      defaultValue: null,
-      startPlaceholder: "",
-      endPlaceholder: "",
-      columnWidth: "200px",
-      size: "",
-      autoFullWidth: true,
-      labelWidth: null,
-      labelHidden: false,
-      readonly: false,
-      disabled: false,
-      hidden: false,
-      allowClear: true,
-      // editable: false,
-      format: "HH:mm:ss",
-      //时间格式
-      required: false,
-      requiredHint: "",
-      validation: "",
-      validationHint: "",
-      //-------------------
-      customClass: [],
-      //自定义css类名
-      labelIconClass: null,
-      labelIconPosition: "rear",
-      labelTooltip: null,
-      //-------------------
-      onCreated: "",
-      onMounted: "",
-      onChange: "",
-      onFocus: "",
-      onBlur: "",
-      onValidate: "",
-      ...ops
-    }
-  };
-};
-const date = (ops = {}) => {
-  return {
-    type: "date",
-    icon: "date-field",
-    formItemFlag: true,
-    options: {
-      name: "",
-      label: "",
-      labelAlign: "",
-      type: "date",
-      defaultValue: null,
-      placeholder: "",
-      columnWidth: "200px",
-      size: "",
-      autoFullWidth: true,
-      labelWidth: null,
-      labelHidden: false,
-      readonly: false,
-      disabled: false,
-      hidden: false,
-      allowClear: true,
-      showTime: false,
-      // editable: false,
-      format: "YYYY-MM-DD",
-      //日期显示格式
-      valueFormat: "YYYY-MM-DD",
-      //日期对象格式
-      required: false,
-      requiredHint: "",
-      validation: "",
-      validationHint: "",
-      //-------------------
-      customClass: [],
-      //自定义css类名
-      labelIconClass: null,
-      labelIconPosition: "rear",
-      labelTooltip: null,
-      //-------------------
-      onCreated: "",
-      onMounted: "",
-      onChange: "",
-      onFocus: "",
-      onBlur: "",
-      onValidate: "",
-      ...ops
-    }
-  };
-};
-const dataRange = (ops = {}) => {
-  return {
-    type: "date-range",
-    icon: "date-range-field",
-    formItemFlag: true,
-    options: {
-      name: "",
-      label: "",
-      labelAlign: "",
-      type: "daterange",
-      defaultValue: null,
-      startPlaceholder: "",
-      endPlaceholder: "",
-      columnWidth: "200px",
-      size: "",
-      autoFullWidth: true,
-      labelWidth: null,
-      labelHidden: false,
-      readonly: false,
-      disabled: false,
-      hidden: false,
-      allowClear: true,
-      showTime: false,
-      // editable: false,
-      format: "YYYY-MM-DD",
-      //日期显示格式
-      valueFormat: "YYYY-MM-DD",
-      //日期对象格式
-      required: false,
-      requiredHint: "",
-      validation: "",
-      validationHint: "",
-      //-------------------
-      customClass: [],
-      //自定义css类名
-      labelIconClass: null,
-      labelIconPosition: "rear",
-      labelTooltip: null,
-      //-------------------
-      onCreated: "",
-      onMounted: "",
-      onChange: "",
-      onFocus: "",
-      onBlur: "",
-      onValidate: "",
-      ...ops
-    }
-  };
-};
-const switchCom = (ops = {}) => {
-  return {
-    type: "switch",
-    icon: "switch-field",
-    formItemFlag: true,
-    options: {
-      name: "",
-      label: "",
-      labelAlign: "",
-      defaultValue: null,
-      columnWidth: "200px",
-      labelWidth: null,
-      labelHidden: false,
-      disabled: false,
-      hidden: false,
-      //-------------------
-      customClass: [],
-      //自定义css类名
-      labelIconClass: null,
-      labelIconPosition: "rear",
-      labelTooltip: null,
-      switchWidth: 40,
-      checkedChildren: "",
-      unCheckedChildren: "",
-      // activeColor: null,
-      // inactiveColor: null,
-      //-------------------
-      onCreated: "",
-      onMounted: "",
-      onChange: "",
-      onValidate: "",
-      ...ops
-    }
-  };
-};
-const rate = (ops = {}) => {
-  return {
-    type: "rate",
-    icon: "rate-field",
-    formItemFlag: true,
-    options: {
-      name: "",
-      label: "",
-      labelAlign: "",
-      defaultValue: null,
-      columnWidth: "200px",
-      allowClear: true,
-      labelWidth: null,
-      labelHidden: false,
-      disabled: false,
-      hidden: false,
-      required: false,
-      requiredHint: "",
-      validation: "",
-      validationHint: "",
-      //-------------------
-      customClass: [],
-      //自定义css类名
-      labelIconClass: null,
-      labelIconPosition: "rear",
-      labelTooltip: null,
-      count: 5,
-      // lowThreshold: 2,
-      // highThreshold: 4,
-      allowHalf: false,
-      // showText: false,
-      // showScore: false,
-      //-------------------
-      onCreated: "",
-      onMounted: "",
-      onChange: "",
-      onValidate: "",
-      ...ops
-    }
-  };
-};
-const color = (ops = {}) => {
-  return {
-    type: "color",
-    icon: "color-field",
-    formItemFlag: true,
-    options: {
-      name: "",
-      label: "",
-      labelAlign: "",
-      defaultValue: null,
-      columnWidth: "200px",
-      size: "",
-      labelWidth: null,
-      labelHidden: false,
-      disabled: false,
-      hidden: false,
-      required: false,
-      requiredHint: "",
-      validation: "",
-      validationHint: "",
-      //-------------------
-      customClass: [],
-      //自定义css类名
-      labelIconClass: null,
-      labelIconPosition: "rear",
-      labelTooltip: null,
-      //-------------------
-      onCreated: "",
-      onMounted: "",
-      onChange: "",
-      onValidate: "",
-      ...ops
-    }
-  };
-};
-const slider = (ops = {}) => {
-  return {
-    type: "slider",
-    icon: "slider-field",
-    formItemFlag: true,
-    options: {
-      name: "",
-      label: "",
-      labelAlign: "",
-      columnWidth: "200px",
-      // showStops: true,
-      size: "",
-      labelWidth: null,
-      labelHidden: false,
-      disabled: false,
-      hidden: false,
-      required: false,
-      requiredHint: "",
-      validation: "",
-      validationHint: "",
-      //-------------------
-      customClass: [],
-      //自定义css类名
-      labelIconClass: null,
-      labelIconPosition: "rear",
-      labelTooltip: null,
-      min: 0,
-      max: 100,
-      step: 1,
-      range: false,
-      //vertical: false,
-      height: null,
-      //-------------------
-      onCreated: "",
-      onMounted: "",
-      onChange: "",
-      onValidate: "",
-      ...ops
-    }
-  };
-};
-const staticText = (ops = {}) => {
-  return {
-    type: "static-text",
-    icon: "static-text",
-    formItemFlag: false,
-    options: {
-      name: "",
-      columnWidth: "200px",
-      hidden: false,
-      textContent: "static text",
-      //-------------------
-      customClass: [],
-      //自定义css类名
-      //-------------------
-      onCreated: "",
-      onMounted: "",
-      ...ops
-    }
-  };
-};
-const htmlText = (ops = {}) => {
-  return {
-    type: "html-text",
-    icon: "html-text",
-    formItemFlag: false,
-    options: {
-      name: "",
-      columnWidth: "200px",
-      hidden: false,
-      htmlContent: "<b>html text</b>",
-      //-------------------
-      customClass: [],
-      //自定义css类名
-      //-------------------
-      onCreated: "",
-      onMounted: "",
-      ...ops
-    }
-  };
-};
-const button = (ops = {}) => {
-  return {
-    type: "button",
-    icon: "button",
-    formItemFlag: false,
-    options: {
-      name: "",
-      label: "",
-      // columnWidth: '200px',
-      size: "",
-      displayStyle: "block",
-      disabled: false,
-      hidden: false,
-      type: "primary",
-      shape: "",
-      danger: false,
-      ghost: false,
-      // plain: false,
-      // round: false,
-      // circle: false,
-      icon: null,
-      //-------------------
-      customClass: [],
-      //自定义css类名
-      //-------------------
-      onCreated: "",
-      onMounted: "",
-      onClick: "",
-      ...ops
-    }
-  };
-};
-const divider = (ops = {}) => {
-  return {
-    type: "divider",
-    icon: "divider",
-    formItemFlag: false,
-    options: {
-      name: "",
-      label: "",
-      columnWidth: "200px",
-      direction: "horizontal",
-      contentPosition: "center",
-      hidden: false,
-      //-------------------
-      customClass: [],
-      //自定义css类名
-      //-------------------
-      onCreated: "",
-      onMounted: "",
-      ...ops
-    }
-  };
-};
-const basicFieldsEnums = {
-  input,
-  textarea,
-  number,
-  radio,
-  checkbox,
-  select,
-  time,
-  "time-range": timeRange,
-  date,
-  "date-range": dataRange,
-  switch: switchCom,
-  rate,
-  color,
-  slider,
-  staticText,
-  htmlText,
-  button,
-  divider
-};
-const containers = [
-  {
-    type: "grid",
-    // 组件类型
-    alias: "",
-    //组件别名，可以自定义
-    category: "container",
-    //容器类型
-    icon: "grid",
-    //icon
-    cols: [],
-    // 列配置
-    options: {
-      // 配置
-      name: "",
-      //名称
-      hidden: false,
-      //是否隐藏
-      gutter: 12,
-      //'栅格间隔',
-      colHeight: null,
-      //栅格列统一高度属性，用于解决栅格列设置响应式布局浮动后被挂住的问题！！
-      customClass: []
-      //自定义css类名
-    }
-  },
-  // {
-  //   type: 'table',
-  //   category: 'container',
-  //   icon: 'table',
-  //   rows: [],
-  //   options: {
-  //     name: '',
-  //     hidden: false,
-  //     customClass: [] //自定义css类名
-  //   }
-  // },
-  // {
-  //   type: 'tab',
-  //   category: 'container',
-  //   icon: 'tab',
-  //   displayType: 'border-card',
-  //   tabs: [],
-  //   options: {
-  //     name: '',
-  //     hidden: false,
-  //     customClass: [], //自定义css类名
-  //     onTabClick: '' //tab被选中时触发
-  //   }
-  // },
-  // {
-  //   type: 'sub-form',
-  //   category: 'container',
-  //   icon: 'sub-form',
-  //   widgetList: [],
-  //   options: {
-  //     name: '',
-  //     showBlankRow: true,
-  //     showRowNumber: true,
-  //     labelAlign: 'label-center-align',
-  //     hidden: false,
-  //     actionColumnPosition: 'left', //操作按钮列位置
-  //     customClass: [], //自定义css类名
-  //     onSubFormRowAdd: '',
-  //     onSubFormRowInsert: '',
-  //     onSubFormRowDelete: '',
-  //     onSubFormRowChange: ''
-  //   }
-  // },
-  // {
-  //   type: 'grid-sub-form',// 多行子表单---未实现
-  //   category: 'container',
-  //   icon: 'grid-sub-form',
-  //   widgetList: [],
-  //   options: {
-  //     name: '',
-  //     showBlankRow: true,
-  //     showRowNumber: true,
-  //     hidden: false,
-  //     actionColumnPosition: 'left', //操作按钮列位置
-  //     customClass: [], //自定义css类名
-  //     onSubFormRowAdd: '',
-  //     onSubFormRowInsert: '',
-  //     onSubFormRowDelete: '',
-  //     onSubFormRowChange: ''
-  //   }
-  // },
-  {
-    type: "grid-col",
-    category: "container",
-    icon: "grid-col",
-    internal: true,
-    widgetList: [],
-    options: {
-      name: "",
-      hidden: false,
-      span: 12,
-      offset: 0,
-      push: 0,
-      pull: 0,
-      responsive: false,
-      //是否开启响应式布局
-      md: 12,
-      sm: 12,
-      xs: 12,
-      customClass: []
-      //自定义css类名
-    }
-  },
-  {
-    type: "table-cell",
-    category: "container",
-    icon: "table-cell",
-    internal: true,
-    widgetList: [],
-    merged: false,
-    options: {
-      name: "",
-      cellWidth: "",
-      cellHeight: "",
-      colspan: 1,
-      rowspan: 1,
-      customClass: []
-      //自定义css类名
-    }
-  },
-  {
-    type: "data-table",
-    //数据表格
-    category: "container",
-    icon: "data-table",
-    widgetList: [],
-    options: {
-      name: "",
-      label: "data-table",
-      hidden: false,
-      // rowSpacing: 8,
-      tableHeight: "300px",
-      //高度，百分比或像素
-      tableWidth: "100%",
-      //宽度，百分比或像素宽度
-      customClass: [],
-      //自定义css样式
-      stripe: true,
-      // 是否斑马线
-      showIndex: false,
-      // 是否显示行号列
-      // showCheckBox: true, // 是否显示复选框列
-      showPagination: true,
-      // 是否分页
-      // smallPagination: false, //是否显示小型分页
-      // showSummary: false, // 是否合计
-      border: true,
-      // 是否带有纵向边框（拖拽）
-      tableSize: "default",
-      // 表格大小，large大、default中、small小
-      tableColumns: [
-        //表格列信息
-        {
-          columnId: 1,
-          dataIndex: "name",
-          title: "姓名",
-          width: 150,
-          show: true,
-          align: "center",
-          fixed: "",
-          sorter: true,
-          customRender: "",
-          ellipsis: true
-        }
-      ],
-      showButtonsColumn: false,
-      // 是否显示操作列
-      buttonsColumnTitle: "操作",
-      buttonsColumnWidth: 200,
-      operationButtons: [
-        {
-          // 操作按钮配置
-          name: "detail",
-          label: "详情",
-          type: "link",
-          shape: "default",
-          size: "small",
-          hidden: false,
-          disabled: false,
-          onClick: ""
-        }
-      ],
-      dsEnabled: false,
-      //是否使用数据源数据
-      http: {
-        url: "",
-        //'/api/tmgc2-mgt/pageFieldConfig/queryPageFieldValueOptions',
-        method: "get",
-        data: {},
-        params: {}
-        //{ pageCode: '${pageCode}', fieldCode: '${fieldCode}' }
-      },
-      rowKey: "name",
-      //树形数据数据row-key
-      childrenKey: "children",
-      //树形数据children
-      dataSource: [
-        //表格数据
-        {
-          date: "2016-05-02",
-          date2: "2016-05-02 23:12:12",
-          date3: "2016-05-02 9:11:12",
-          name: "小二",
-          add: "上海市普陀区金沙江路 1518 弄",
-          age: 100
-        }
-      ],
-      onCreated: "",
-      onMounted: "",
-      //分页大小改变事件
-      // onPageSizeChange: '',
-      //当前页改变事件
-      // onCurrentPageChange: '',
-      //选择项改变事件
-      // onSelectionChange: '',
-      //设置操作按钮是否隐藏回调事件（必须有返回值）
-      onHideOperationButton: "",
-      //设置操作按钮是否禁用回调事件（必须有返回值）
-      onDisableOperationButton: "",
-      //设置操作按钮文本回调事件（必须有返回值）
-      // onGetOperationButtonLabel: '',
-      //操作按钮点击事件
-      onOperationButtonClick: "",
-      customRow: { onClick: "", onDblclick: "", onMouseenter: "", onMouseleave: "" },
-      // onHeaderClick: '',
-      // onRowClick: '',
-      // onRowDoubleClick: '',
-      // onCellClick: '',
-      // onCellDoubleClick: '',
-      //获取行样式名称事件
-      // onGetRowClassName: '',
-      //合并行、列事件
-      // onGetSpanMethod: '',
-      onTableChange: "",
-      //分页、排序、筛选变化时触发
-      pagination: {
-        pageSizeOptions: ["10", "20", "50", "100"],
-        current: 1,
-        //当前页数
-        hideOnSinglePage: false,
-        //只有一页时是否隐藏分页器
-        pageSize: 20,
-        //每页条数
-        total: 0,
-        //数据总数
-        showQuickJumper: true,
-        //是否可以快速跳转至某页
-        showSizeChanger: true,
-        //是否展示 pageSize 切换器，当 total 大于 50 时默认为 true
-        position: ["bottomRight"]
-      },
-      rowSelection: {
-        hasRowSelection: false,
-        preserveSelectedRowKeys: false,
-        //当数据被删除时仍然保留选项的 key
-        // type:"checkbox",//多选/单选，checkbox or radio
-        fixed: true,
-        //把选择框列固定在左边
-        onChange: "console.log(122222,selectedRowKeys, selectedRows)",
-        //选中项发生变化时的回调 Function(selectedRowKeys, selectedRows)
-        columnWidth: 100
-      }
-      //antd 功能的配置
-    }
-  }
-  // {
-  //   type: 'vf-dialog', //弹窗
-  //   category: 'container',
-  //   icon: 'vf-dialog',
-  //   widgetList: [],
-  //   options: {
-  //     name: '',
-  //     title: '标题',
-  //     width: '50%',
-  //     // fullscreen: false,
-  //     // showModal: true,
-  //     showClose: true,
-  //     closeOnClickModal: false,
-  //     closeOnPressEscape: false,
-  //     // center: false,
-  //     readMode: false,
-  //     disabledMode: false,
-  //     okButtonLabel: '',
-  //     okButtonHidden: false,
-  //     cancelButtonLabel: '',
-  //     cancelButtonHidden: false,
-  //     onOkButtonClick: '',
-  //     onCancelButtonClick: '',
-  //     onDialogOpened: '',
-  //     onDialogBeforeClose: ''
-  //   }
-  // },
-  // {
-  //   type: 'vf-drawer', // 侧滑抽屉
-  //   category: 'container',
-  //   icon: 'vf-drawer',
-  //   widgetList: [],
-  //   options: {
-  //     name: '',
-  //     title: '标题',
-  //     size: '50%',
-  //     showModal: true,
-  //     showClose: true,
-  //     closeOnClickModal: false,
-  //     closeOnPressEscape: false,
-  //     direction: 'rtl',
-  //     readMode: false,
-  //     disabledMode: false,
-  //     okButtonLabel: '',
-  //     okButtonHidden: false,
-  //     cancelButtonLabel: '',
-  //     cancelButtonHidden: false,
-  //     onOkButtonClick: '',
-  //     onCancelButtonClick: '',
-  //     onDrawerOpened: '',
-  //     onDrawerBeforeClose: ''
-  //   }
-  // }
-];
-const basicFields = Object.values(basicFieldsEnums).map((fn) => fn());
-const advancedFields = [
-  // {
-  //   type: 'picture-upload',
-  //   icon: 'picture-upload-field',
-  //   formItemFlag: true,
-  //   options: {
-  //     name: '',
-  //     label: '',
-  //     labelAlign: '',
-  //     labelWidth: null,
-  //     labelHidden: false,
-  //     columnWidth: '200px',
-  //     disabled: false,
-  //     hidden: false,
-  //     required: false,
-  //     requiredHint: '',
-  //    validation: '',
-  //    validationHint: '',
-  //     //-------------------
-  //     uploadURL: '',
-  //     uploadTip: '',
-  //     withCredentials: false,
-  //     multipleSelect: false,
-  //     showFileList: true,
-  //     limit: 3,
-  //     fileMaxSize: 5, //MB
-  //     fileTypes: ['jpg', 'jpeg', 'png'],
-  //     //headers: [],
-  //     //-------------------
-  //     customClass: [], //自定义css类名
-  //     labelIconClass: null,
-  //     labelIconPosition: 'rear',
-  //     labelTooltip: null,
-  //     //-------------------
-  //     onCreated: '',
-  //     onMounted: '',
-  //     onBeforeUpload: '',
-  //     onUploadSuccess: '',
-  //     onUploadError: '',
-  //     onFileRemove: '',
-  //     onValidate: ''
-  //     //onFileChange: '',
-  //   }
-  // },
-  // {
-  //   type: 'file-upload',
-  //   icon: 'file-upload-field',
-  //   formItemFlag: true,
-  //   options: {
-  //     name: '',
-  //     label: '',
-  //     labelAlign: '',
-  //     labelWidth: null,
-  //     labelHidden: false,
-  //     columnWidth: '200px',
-  //     disabled: false,
-  //     hidden: false,
-  //     required: false,
-  //     requiredHint: '',
-  //    validation: '',
-  //    validationHint: '',
-  //     //-------------------
-  //     uploadURL: '',
-  //     uploadTip: '',
-  //     withCredentials: false,
-  //     multipleSelect: false,
-  //     showFileList: true,
-  //     limit: 3,
-  //     fileMaxSize: 5, //MB
-  //     fileTypes: ['doc', 'docx', 'xls', 'xlsx'],
-  //     //headers: [],
-  //     //-------------------
-  //     customClass: [], //自定义css类名
-  //     labelIconClass: null,
-  //     labelIconPosition: 'rear',
-  //     labelTooltip: null,
-  //     //-------------------
-  //     onCreated: '',
-  //     onMounted: '',
-  //     onBeforeUpload: '',
-  //     onUploadSuccess: '',
-  //     onUploadError: '',
-  //     onFileRemove: '',
-  //     onValidate: ''
-  //     //onFileChange: '',
-  //   }
-  // },
-  {
-    type: "cascader",
-    icon: "cascader-field",
-    formItemFlag: true,
-    options: {
-      name: "",
-      label: "",
-      labelAlign: "",
-      defaultValue: "",
-      placeholder: "",
-      size: "",
-      labelWidth: null,
-      labelHidden: false,
-      columnWidth: "200px",
-      disabled: false,
-      hidden: false,
-      allowClear: true,
-      multiple: false,
-      dsEnabled: true,
-      // 是否使用数据源数据
-      labelKey: "label",
-      valueKey: "value",
-      childrenKey: "children",
-      http: {
-        url: "",
-        //'/api/tmgc2-mgt/pageFieldConfig/queryPageFieldValueOptions',
-        method: "get",
-        data: {},
-        params: {}
-        // { pageCode: '${pageCode}', fieldCode: '${fieldCode}' }
-      },
-      optionItems: [
-        { label: "select 1", value: 1, children: [{ label: "child 1", value: 11 }] },
-        { label: "select 2", value: 2 },
-        { label: "select 3", value: 3 }
-      ],
-      dataHandlerCode: "console.log(data.data);\nreturn data.data;\n ",
-      required: false,
-      requiredHint: "",
-      validation: "",
-      validationHint: "",
-      //-------------------
-      customClass: [],
-      //自定义css类名
-      labelIconClass: null,
-      labelIconPosition: "rear",
-      labelTooltip: null,
-      //-------------------
-      onCreated: "",
-      onMounted: "",
-      onChange: "",
-      onFocus: "",
-      onBlur: "",
-      onValidate: ""
-    }
-  },
-  {
-    type: "treeSelect",
-    icon: "cascader-field",
-    formItemFlag: true,
-    options: {
-      name: "",
-      label: "",
-      labelAlign: "",
-      defaultValue: "",
-      placeholder: "",
-      size: "",
-      labelWidth: null,
-      labelHidden: false,
-      columnWidth: "200px",
-      disabled: false,
-      hidden: false,
-      allowClear: true,
-      multiple: false,
-      treeDefaultExpandAll: false,
-      dsEnabled: true,
-      // 是否使用数据源数据
-      labelKey: "label",
-      valueKey: "value",
-      childrenKey: "children",
-      http: {
-        url: "",
-        // '/api/tmgc2-mgt/pageFieldConfig/queryPageFieldValueOptions',
-        method: "get",
-        data: {},
-        params: {}
-        // { pageCode: '${pageCode}', fieldCode: '${fieldCode}' }
-      },
-      optionItems: [
-        { label: "select 1", value: 1, children: [{ label: "child 1", value: 11 }] },
-        { label: "select 2", value: 2 },
-        { label: "select 3", value: 3 }
-      ],
-      dataHandlerCode: "console.log(data.data);\nreturn data.data;\n ",
-      required: false,
-      requiredHint: "",
-      validation: "",
-      validationHint: "",
-      //-------------------
-      customClass: [],
-      //自定义css类名
-      labelIconClass: null,
-      labelIconPosition: "rear",
-      labelTooltip: null,
-      //-------------------
-      onCreated: "",
-      onMounted: "",
-      onChange: "",
-      onFocus: "",
-      onBlur: "",
-      onValidate: ""
-    }
-  },
-  {
-    type: "rich-editor",
-    icon: "rich-editor-field",
-    formItemFlag: true,
-    options: {
-      name: "",
-      label: "",
-      labelAlign: "",
-      placeholder: "",
-      labelWidth: null,
-      labelHidden: false,
-      columnWidth: "200px",
-      contentHeight: "200px",
-      disabled: false,
-      hidden: false,
-      required: false,
-      requiredHint: "",
-      validation: "",
-      // 自定义校验选项
-      validationHint: "",
-      //自定义校验提示语
-      //-------------------
-      customClass: [],
-      //自定义css类名
-      labelIconClass: null,
-      labelIconPosition: "rear",
-      labelTooltip: null,
-      // minLength: null,
-      maxLength: null,
-      showCount: false,
-      //-------------------
-      onCreated: "",
-      onMounted: "",
-      onValidate: ""
-    }
-  }
-  // {
-  //   type: 'slot',
-  //   icon: 'slot-field',
-  //   formItemFlag: false,
-  //   options: {
-  //     name: '',
-  //     label: '',
-  //     customClass: [],  //自定义css类名
-  //   }
-  // },
-];
-const customFields = [];
-function addContainerWidgetSchema(containerSchema) {
-  containers.push(containerSchema);
-}
-function addBasicFieldSchema(fieldSchema) {
-  basicFields.push(fieldSchema);
-}
-function addAdvancedFieldSchema(fieldSchema) {
-  advancedFields.push(fieldSchema);
-}
-function addCustomWidgetSchema(widgetSchema) {
-  customFields.push(widgetSchema);
-}
-const formTemplates = [
-  {
-    title: "单列表单",
-    imgUrl: "https://ks3-cn-beijing.ksyuncs.com/vform-static/form-samples/t1.png",
-    jsonUrl: "https://ks3-cn-beijing.ksyuncs.com/vform-static/form-samples/json1.txt",
-    description: "表单模板详细说明..."
-  },
-  {
-    title: "多列表单",
-    imgUrl: "https://ks3-cn-beijing.ksyuncs.com/vform-static/form-samples/t2.png",
-    jsonUrl: "https://ks3-cn-beijing.ksyuncs.com/vform-static/form-samples/json2.txt",
-    description: "表单模板详细说明..."
-  },
-  {
-    title: "分组表单",
-    imgUrl: "https://ks3-cn-beijing.ksyuncs.com/vform-static/form-samples/t3.png",
-    jsonUrl: "https://ks3-cn-beijing.ksyuncs.com/vform-static/form-samples/json3.txt",
-    description: "表单模板详细说明..."
-  },
-  {
-    title: "标签页表单",
-    imgUrl: "https://ks3-cn-beijing.ksyuncs.com/vform-static/form-samples/t4.png",
-    jsonUrl: "https://ks3-cn-beijing.ksyuncs.com/vform-static/form-samples/json4.txt",
-    description: "表单模板详细说明..."
-  },
-  {
-    title: "主从表单",
-    imgUrl: "https://ks3-cn-beijing.ksyuncs.com/vform-static/form-samples/t5.png",
-    jsonUrl: "https://ks3-cn-beijing.ksyuncs.com/vform-static/form-samples/json5.txt",
-    description: "表单模板详细说明..."
-  },
-  {
-    title: "响应式表单",
-    imgUrl: "https://ks3-cn-beijing.ksyuncs.com/vform-static/form-samples/t6.png",
-    jsonUrl: "https://ks3-cn-beijing.ksyuncs.com/vform-static/form-samples/json6.txt",
-    description: "表单模板详细说明..."
-  },
-  {
-    title: "问卷调查表",
-    imgUrl: "https://ks3-cn-beijing.ksyuncs.com/vform-static/form-samples/t7.png",
-    jsonUrl: "https://ks3-cn-beijing.ksyuncs.com/vform-static/form-samples/json7.txt",
-    description: "表单模板详细说明..."
-  },
-  {
-    title: "固定表格表单",
-    imgUrl: "https://ks3-cn-beijing.ksyuncs.com/vform-static/form-samples/t8.png",
-    jsonUrl: "https://ks3-cn-beijing.ksyuncs.com/vform-static/form-samples/json8.txt",
-    description: "表单模板详细说明..."
-  }
-];
 var commonjsGlobal = typeof globalThis !== "undefined" ? globalThis : typeof window !== "undefined" ? window : typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : {};
 function getDefaultExportFromCjs(x) {
   return x && x.__esModule && Object.prototype.hasOwnProperty.call(x, "default") ? x["default"] : x;
@@ -4608,6 +3217,1418 @@ function getLocat(url) {
   }
   return theRequest;
 }
+const getUuidKey = () => {
+  return "k" + Math.random().toString(36).slice(2, 8);
+};
+const input = (ops = {}) => {
+  return {
+    key: getUuidKey(),
+    type: "input",
+    icon: "text-field",
+    formItemFlag: true,
+    options: {
+      name: "",
+      label: "",
+      labelAlign: "",
+      type: "text",
+      defaultValue: "",
+      placeholder: "",
+      columnWidth: "200px",
+      size: "",
+      labelWidth: null,
+      labelHidden: false,
+      readonly: false,
+      disabled: false,
+      hidden: false,
+      allowClear: true,
+      required: false,
+      requiredHint: "",
+      validation: "",
+      validationHint: "",
+      //-------------------
+      customClass: [],
+      //自定义css类名
+      labelIconClass: null,
+      labelIconPosition: "rear",
+      labelTooltip: null,
+      maxLength: null,
+      showCount: false,
+      addonBefore: "",
+      addonAfter: "",
+      //-------------------
+      onCreated: "",
+      onMounted: "",
+      onInput: "",
+      onChange: "",
+      onFocus: "",
+      onBlur: "",
+      onValidate: "",
+      ...ops
+    }
+  };
+};
+const textarea = (ops = {}) => {
+  return {
+    key: getUuidKey(),
+    type: "textarea",
+    icon: "textarea-field",
+    formItemFlag: true,
+    options: {
+      name: "",
+      label: "",
+      labelAlign: "",
+      rows: 3,
+      defaultValue: "",
+      placeholder: "",
+      columnWidth: "200px",
+      size: "",
+      labelWidth: null,
+      labelHidden: false,
+      readonly: false,
+      disabled: false,
+      hidden: false,
+      allowClear: true,
+      required: false,
+      requiredHint: "",
+      validation: "",
+      validationHint: "",
+      //-------------------
+      customClass: [],
+      //自定义css类名
+      labelIconClass: null,
+      labelIconPosition: "rear",
+      labelTooltip: null,
+      // minLength: null,
+      maxLength: null,
+      showCount: false,
+      //-------------------
+      onCreated: "",
+      onMounted: "",
+      onInput: "",
+      onChange: "",
+      onFocus: "",
+      onBlur: "",
+      onValidate: "",
+      ...ops
+    }
+  };
+};
+const number = (ops = {}) => {
+  return {
+    key: getUuidKey(),
+    type: "number",
+    icon: "number-field",
+    formItemFlag: true,
+    options: {
+      name: "",
+      label: "",
+      labelAlign: "",
+      defaultValue: "",
+      placeholder: "",
+      columnWidth: "200px",
+      size: "",
+      labelWidth: null,
+      labelHidden: false,
+      disabled: false,
+      hidden: false,
+      required: false,
+      requiredHint: "",
+      validation: "",
+      validationHint: "",
+      //-------------------
+      customClass: [],
+      //自定义css类名
+      labelIconClass: null,
+      labelIconPosition: "rear",
+      labelTooltip: null,
+      min: -99999999,
+      max: 99999999,
+      precision: 0,
+      step: 1,
+      //-------------------
+      onCreated: "",
+      onMounted: "",
+      onChange: "",
+      onFocus: "",
+      onBlur: "",
+      onValidate: "",
+      ...ops
+    }
+  };
+};
+const radio = (ops = {}) => {
+  return {
+    key: getUuidKey(),
+    type: "radio",
+    icon: "radio-field",
+    formItemFlag: true,
+    options: {
+      name: "",
+      label: "",
+      labelAlign: "",
+      defaultValue: null,
+      columnWidth: "200px",
+      size: "",
+      displayStyle: "inline",
+      buttonStyle: false,
+      border: false,
+      labelWidth: null,
+      labelHidden: false,
+      disabled: false,
+      hidden: false,
+      dsEnabled: false,
+      // 是否使用数据源数据
+      labelKey: "label",
+      valueKey: "value",
+      optionItems: [
+        { label: "radio 1", value: 1 },
+        { label: "radio 2", value: 2 },
+        { label: "radio 3", value: 3 }
+      ],
+      http: {
+        url: "",
+        // '/api/tmgc2-mgt/pageFieldConfig/queryPageFieldValueOptions',
+        method: "get",
+        data: {},
+        params: {}
+        // { pageCode: '${pageCode}', fieldCode: '${fieldCode}' }
+      },
+      dataHandlerCode: "console.log(data.data);\nreturn data.data;\n ",
+      required: false,
+      requiredHint: "",
+      validation: "",
+      validationHint: "",
+      //-------------------
+      customClass: [],
+      //自定义css类名
+      labelIconClass: null,
+      labelIconPosition: "rear",
+      labelTooltip: null,
+      //-------------------
+      onCreated: "",
+      onMounted: "",
+      onChange: "",
+      onValidate: "",
+      ...ops
+    }
+  };
+};
+const checkbox = (ops = {}) => {
+  return {
+    key: getUuidKey(),
+    type: "checkbox",
+    icon: "checkbox-field",
+    formItemFlag: true,
+    options: {
+      name: "",
+      label: "",
+      labelAlign: "",
+      defaultValue: [],
+      columnWidth: "200px",
+      size: "",
+      labelWidth: null,
+      labelHidden: false,
+      disabled: false,
+      hidden: false,
+      // dsName: '', // 数据源名称
+      // dataSetName: '', //数据集名称
+      labelKey: "label",
+      valueKey: "value",
+      optionItems: [
+        { label: "check 1", value: 1 },
+        { label: "check 2", value: 2 },
+        { label: "check 3", value: 3 }
+      ],
+      http: {
+        url: "",
+        // '/api/tmgc2-mgt/pageFieldConfig/queryPageFieldValueOptions',
+        method: "get",
+        data: {},
+        params: {}
+        // { pageCode: '${pageCode}', fieldCode: '${fieldCode}' }
+      },
+      dataHandlerCode: "console.log(data.data);\nreturn data.data;\n ",
+      required: false,
+      requiredHint: "",
+      validation: "",
+      validationHint: "",
+      //-------------------
+      customClass: [],
+      //自定义css类名
+      labelIconClass: null,
+      labelIconPosition: "rear",
+      labelTooltip: null,
+      //-------------------
+      onCreated: "",
+      onMounted: "",
+      onChange: "",
+      onValidate: "",
+      ...ops
+    }
+  };
+};
+const select = (ops = {}) => {
+  return {
+    key: getUuidKey(),
+    type: "select",
+    icon: "select-field",
+    formItemFlag: true,
+    options: {
+      name: "",
+      label: "",
+      labelAlign: "",
+      defaultValue: "",
+      placeholder: "",
+      columnWidth: "200px",
+      size: "",
+      labelWidth: null,
+      labelHidden: false,
+      disabled: false,
+      hidden: false,
+      allowClear: true,
+      maxTagCount: "responsive",
+      mode: "combobox",
+      showSearch: false,
+      dsEnabled: false,
+      // 是否使用数据源数据
+      labelKey: "label",
+      valueKey: "value",
+      optionItems: [
+        { label: "select 1", value: 1 },
+        { label: "select 2", value: 2 },
+        { label: "select 3", value: 3 }
+      ],
+      http: {
+        url: "",
+        //'/api/tmgc2-mgt/pageFieldConfig/queryPageFieldValueOptions',
+        method: "get",
+        data: {},
+        params: {}
+        // { pageCode: '${pageCode}', fieldCode: '${fieldCode}' }
+      },
+      dataHandlerCode: "console.log(data.data);\nreturn data.data;\n ",
+      required: false,
+      requiredHint: "",
+      validation: "",
+      validationHint: "",
+      //-------------------
+      customClass: [],
+      //自定义css类名
+      labelIconClass: null,
+      labelIconPosition: "rear",
+      labelTooltip: null,
+      //-------------------
+      onCreated: "",
+      onMounted: "",
+      onRemoteQuery: "",
+      onChange: "",
+      onFocus: "",
+      onBlur: "",
+      onValidate: "",
+      ...ops
+    }
+  };
+};
+const time = (ops = {}) => {
+  return {
+    key: getUuidKey(),
+    type: "time",
+    icon: "time-field",
+    formItemFlag: true,
+    options: {
+      name: "",
+      label: "",
+      labelAlign: "",
+      defaultValue: null,
+      placeholder: "",
+      columnWidth: "200px",
+      size: "",
+      autoFullWidth: true,
+      labelWidth: null,
+      labelHidden: false,
+      readonly: false,
+      disabled: false,
+      hidden: false,
+      allowClear: true,
+      // editable: false,
+      format: "HH:mm:ss",
+      //时间格式
+      required: false,
+      requiredHint: "",
+      validation: "",
+      validationHint: "",
+      //-------------------
+      customClass: [],
+      //自定义css类名
+      labelIconClass: null,
+      labelIconPosition: "rear",
+      labelTooltip: null,
+      //-------------------
+      onCreated: "",
+      onMounted: "",
+      onChange: "",
+      onFocus: "",
+      onBlur: "",
+      onValidate: "",
+      ...ops
+    }
+  };
+};
+const timeRange = (ops = {}) => {
+  return {
+    key: getUuidKey(),
+    type: "time-range",
+    icon: "time-range-field",
+    formItemFlag: true,
+    options: {
+      name: "",
+      label: "",
+      labelAlign: "",
+      defaultValue: null,
+      startPlaceholder: "",
+      endPlaceholder: "",
+      columnWidth: "200px",
+      size: "",
+      autoFullWidth: true,
+      labelWidth: null,
+      labelHidden: false,
+      readonly: false,
+      disabled: false,
+      hidden: false,
+      allowClear: true,
+      // editable: false,
+      format: "HH:mm:ss",
+      //时间格式
+      required: false,
+      requiredHint: "",
+      validation: "",
+      validationHint: "",
+      //-------------------
+      customClass: [],
+      //自定义css类名
+      labelIconClass: null,
+      labelIconPosition: "rear",
+      labelTooltip: null,
+      //-------------------
+      onCreated: "",
+      onMounted: "",
+      onChange: "",
+      onFocus: "",
+      onBlur: "",
+      onValidate: "",
+      ...ops
+    }
+  };
+};
+const date = (ops = {}) => {
+  return {
+    key: getUuidKey(),
+    type: "date",
+    icon: "date-field",
+    formItemFlag: true,
+    options: {
+      name: "",
+      label: "",
+      labelAlign: "",
+      type: "date",
+      defaultValue: null,
+      placeholder: "",
+      columnWidth: "200px",
+      size: "",
+      autoFullWidth: true,
+      labelWidth: null,
+      labelHidden: false,
+      readonly: false,
+      disabled: false,
+      hidden: false,
+      allowClear: true,
+      showTime: false,
+      // editable: false,
+      format: "YYYY-MM-DD",
+      //日期显示格式
+      valueFormat: "YYYY-MM-DD",
+      //日期对象格式
+      required: false,
+      requiredHint: "",
+      validation: "",
+      validationHint: "",
+      //-------------------
+      customClass: [],
+      //自定义css类名
+      labelIconClass: null,
+      labelIconPosition: "rear",
+      labelTooltip: null,
+      //-------------------
+      onCreated: "",
+      onMounted: "",
+      onChange: "",
+      onFocus: "",
+      onBlur: "",
+      onValidate: "",
+      ...ops
+    }
+  };
+};
+const dataRange = (ops = {}) => {
+  return {
+    key: getUuidKey(),
+    type: "date-range",
+    icon: "date-range-field",
+    formItemFlag: true,
+    options: {
+      name: "",
+      label: "",
+      labelAlign: "",
+      type: "daterange",
+      defaultValue: null,
+      startPlaceholder: "",
+      endPlaceholder: "",
+      columnWidth: "200px",
+      size: "",
+      autoFullWidth: true,
+      labelWidth: null,
+      labelHidden: false,
+      readonly: false,
+      disabled: false,
+      hidden: false,
+      allowClear: true,
+      showTime: false,
+      // editable: false,
+      format: "YYYY-MM-DD",
+      //日期显示格式
+      valueFormat: "YYYY-MM-DD",
+      //日期对象格式
+      required: false,
+      requiredHint: "",
+      validation: "",
+      validationHint: "",
+      //-------------------
+      customClass: [],
+      //自定义css类名
+      labelIconClass: null,
+      labelIconPosition: "rear",
+      labelTooltip: null,
+      //-------------------
+      onCreated: "",
+      onMounted: "",
+      onChange: "",
+      onFocus: "",
+      onBlur: "",
+      onValidate: "",
+      ...ops
+    }
+  };
+};
+const switchCom = (ops = {}) => {
+  return {
+    key: getUuidKey(),
+    type: "switch",
+    icon: "switch-field",
+    formItemFlag: true,
+    options: {
+      name: "",
+      label: "",
+      labelAlign: "",
+      defaultValue: null,
+      columnWidth: "200px",
+      labelWidth: null,
+      labelHidden: false,
+      disabled: false,
+      hidden: false,
+      //-------------------
+      customClass: [],
+      //自定义css类名
+      labelIconClass: null,
+      labelIconPosition: "rear",
+      labelTooltip: null,
+      switchWidth: 40,
+      checkedChildren: "",
+      unCheckedChildren: "",
+      // activeColor: null,
+      // inactiveColor: null,
+      //-------------------
+      onCreated: "",
+      onMounted: "",
+      onChange: "",
+      onValidate: "",
+      ...ops
+    }
+  };
+};
+const rate = (ops = {}) => {
+  return {
+    key: getUuidKey(),
+    type: "rate",
+    icon: "rate-field",
+    formItemFlag: true,
+    options: {
+      name: "",
+      label: "",
+      labelAlign: "",
+      defaultValue: null,
+      columnWidth: "200px",
+      allowClear: true,
+      labelWidth: null,
+      labelHidden: false,
+      disabled: false,
+      hidden: false,
+      required: false,
+      requiredHint: "",
+      validation: "",
+      validationHint: "",
+      //-------------------
+      customClass: [],
+      //自定义css类名
+      labelIconClass: null,
+      labelIconPosition: "rear",
+      labelTooltip: null,
+      count: 5,
+      // lowThreshold: 2,
+      // highThreshold: 4,
+      allowHalf: false,
+      // showText: false,
+      // showScore: false,
+      //-------------------
+      onCreated: "",
+      onMounted: "",
+      onChange: "",
+      onValidate: "",
+      ...ops
+    }
+  };
+};
+const color = (ops = {}) => {
+  return {
+    key: getUuidKey(),
+    type: "color",
+    icon: "color-field",
+    formItemFlag: true,
+    options: {
+      name: "",
+      label: "",
+      labelAlign: "",
+      defaultValue: null,
+      columnWidth: "200px",
+      size: "",
+      labelWidth: null,
+      labelHidden: false,
+      disabled: false,
+      hidden: false,
+      required: false,
+      requiredHint: "",
+      validation: "",
+      validationHint: "",
+      //-------------------
+      customClass: [],
+      //自定义css类名
+      labelIconClass: null,
+      labelIconPosition: "rear",
+      labelTooltip: null,
+      //-------------------
+      onCreated: "",
+      onMounted: "",
+      onChange: "",
+      onValidate: "",
+      ...ops
+    }
+  };
+};
+const slider = (ops = {}) => {
+  return {
+    key: getUuidKey(),
+    type: "slider",
+    icon: "slider-field",
+    formItemFlag: true,
+    options: {
+      name: "",
+      label: "",
+      labelAlign: "",
+      columnWidth: "200px",
+      // showStops: true,
+      size: "",
+      labelWidth: null,
+      labelHidden: false,
+      disabled: false,
+      hidden: false,
+      required: false,
+      requiredHint: "",
+      validation: "",
+      validationHint: "",
+      //-------------------
+      customClass: [],
+      //自定义css类名
+      labelIconClass: null,
+      labelIconPosition: "rear",
+      labelTooltip: null,
+      min: 0,
+      max: 100,
+      step: 1,
+      range: false,
+      //vertical: false,
+      height: null,
+      //-------------------
+      onCreated: "",
+      onMounted: "",
+      onChange: "",
+      onValidate: "",
+      ...ops
+    }
+  };
+};
+const staticText = (ops = {}) => {
+  return {
+    key: getUuidKey(),
+    type: "static-text",
+    icon: "static-text",
+    formItemFlag: false,
+    options: {
+      name: "",
+      columnWidth: "200px",
+      hidden: false,
+      textContent: "static text",
+      //-------------------
+      customClass: [],
+      //自定义css类名
+      //-------------------
+      onCreated: "",
+      onMounted: "",
+      ...ops
+    }
+  };
+};
+const htmlText = (ops = {}) => {
+  return {
+    key: getUuidKey(),
+    type: "html-text",
+    icon: "html-text",
+    formItemFlag: false,
+    options: {
+      name: "",
+      columnWidth: "200px",
+      hidden: false,
+      htmlContent: "<b>html text</b>",
+      //-------------------
+      customClass: [],
+      //自定义css类名
+      //-------------------
+      onCreated: "",
+      onMounted: "",
+      ...ops
+    }
+  };
+};
+const button = (ops = {}) => {
+  return {
+    key: getUuidKey(),
+    type: "button",
+    icon: "button",
+    formItemFlag: false,
+    options: {
+      name: "",
+      label: "",
+      // columnWidth: '200px',
+      size: "",
+      displayStyle: "block",
+      disabled: false,
+      hidden: false,
+      type: "primary",
+      shape: "",
+      danger: false,
+      ghost: false,
+      // plain: false,
+      // round: false,
+      // circle: false,
+      icon: null,
+      //-------------------
+      customClass: [],
+      //自定义css类名
+      //-------------------
+      onCreated: "",
+      onMounted: "",
+      onClick: "",
+      ...ops
+    }
+  };
+};
+const divider = (ops = {}) => {
+  return {
+    key: getUuidKey(),
+    type: "divider",
+    icon: "divider",
+    formItemFlag: false,
+    options: {
+      name: "",
+      label: "",
+      columnWidth: "200px",
+      direction: "horizontal",
+      contentPosition: "center",
+      hidden: false,
+      //-------------------
+      customClass: [],
+      //自定义css类名
+      //-------------------
+      onCreated: "",
+      onMounted: "",
+      ...ops
+    }
+  };
+};
+const basicFieldsEnums = {
+  input,
+  textarea,
+  number,
+  radio,
+  checkbox,
+  select,
+  time,
+  "time-range": timeRange,
+  date,
+  "date-range": dataRange,
+  switch: switchCom,
+  rate,
+  color,
+  slider,
+  staticText,
+  htmlText,
+  button,
+  divider
+};
+const containers = [
+  {
+    type: "grid",
+    // 组件类型
+    alias: "",
+    //组件别名，可以自定义
+    category: "container",
+    //容器类型
+    icon: "grid",
+    //icon
+    cols: [],
+    // 列配置
+    options: {
+      // 配置
+      name: "",
+      //名称
+      hidden: false,
+      //是否隐藏
+      gutter: 12,
+      //'栅格间隔',
+      colHeight: null,
+      //栅格列统一高度属性，用于解决栅格列设置响应式布局浮动后被挂住的问题！！
+      customClass: []
+      //自定义css类名
+    }
+  },
+  // {
+  //   type: 'table',
+  //   category: 'container',
+  //   icon: 'table',
+  //   rows: [],
+  //   options: {
+  //     name: '',
+  //     hidden: false,
+  //     customClass: [] //自定义css类名
+  //   }
+  // },
+  // {
+  //   type: 'tab',
+  //   category: 'container',
+  //   icon: 'tab',
+  //   displayType: 'border-card',
+  //   tabs: [],
+  //   options: {
+  //     name: '',
+  //     hidden: false,
+  //     customClass: [], //自定义css类名
+  //     onTabClick: '' //tab被选中时触发
+  //   }
+  // },
+  // {
+  //   type: 'sub-form',
+  //   category: 'container',
+  //   icon: 'sub-form',
+  //   widgetList: [],
+  //   options: {
+  //     name: '',
+  //     showBlankRow: true,
+  //     showRowNumber: true,
+  //     labelAlign: 'label-center-align',
+  //     hidden: false,
+  //     actionColumnPosition: 'left', //操作按钮列位置
+  //     customClass: [], //自定义css类名
+  //     onSubFormRowAdd: '',
+  //     onSubFormRowInsert: '',
+  //     onSubFormRowDelete: '',
+  //     onSubFormRowChange: ''
+  //   }
+  // },
+  // {
+  //   type: 'grid-sub-form',// 多行子表单---未实现
+  //   category: 'container',
+  //   icon: 'grid-sub-form',
+  //   widgetList: [],
+  //   options: {
+  //     name: '',
+  //     showBlankRow: true,
+  //     showRowNumber: true,
+  //     hidden: false,
+  //     actionColumnPosition: 'left', //操作按钮列位置
+  //     customClass: [], //自定义css类名
+  //     onSubFormRowAdd: '',
+  //     onSubFormRowInsert: '',
+  //     onSubFormRowDelete: '',
+  //     onSubFormRowChange: ''
+  //   }
+  // },
+  {
+    type: "grid-col",
+    category: "container",
+    icon: "grid-col",
+    internal: true,
+    widgetList: [],
+    options: {
+      name: "",
+      hidden: false,
+      span: 12,
+      offset: 0,
+      push: 0,
+      pull: 0,
+      responsive: false,
+      //是否开启响应式布局
+      md: 12,
+      sm: 12,
+      xs: 12,
+      customClass: []
+      //自定义css类名
+    }
+  },
+  {
+    type: "table-cell",
+    category: "container",
+    icon: "table-cell",
+    internal: true,
+    widgetList: [],
+    merged: false,
+    options: {
+      name: "",
+      cellWidth: "",
+      cellHeight: "",
+      colspan: 1,
+      rowspan: 1,
+      customClass: []
+      //自定义css类名
+    }
+  },
+  {
+    type: "data-table",
+    //数据表格
+    category: "container",
+    icon: "data-table",
+    widgetList: [],
+    options: {
+      name: "",
+      label: "data-table",
+      hidden: false,
+      // rowSpacing: 8,
+      tableHeight: "300px",
+      //高度，百分比或像素
+      tableWidth: "100%",
+      //宽度，百分比或像素宽度
+      customClass: [],
+      //自定义css样式
+      stripe: true,
+      // 是否斑马线
+      showIndex: false,
+      // 是否显示行号列
+      // showCheckBox: true, // 是否显示复选框列
+      showPagination: true,
+      // 是否分页
+      // smallPagination: false, //是否显示小型分页
+      // showSummary: false, // 是否合计
+      border: true,
+      // 是否带有纵向边框（拖拽）
+      tableSize: "default",
+      // 表格大小，large大、default中、small小
+      tableColumns: [
+        //表格列信息
+        {
+          columnId: 1,
+          dataIndex: "name",
+          title: "姓名",
+          width: 150,
+          show: true,
+          align: "center",
+          fixed: "",
+          sorter: true,
+          customRender: "",
+          ellipsis: true
+        }
+      ],
+      showButtonsColumn: false,
+      // 是否显示操作列
+      buttonsColumnTitle: "操作",
+      buttonsColumnWidth: 200,
+      operationButtons: [
+        {
+          // 操作按钮配置
+          name: "detail",
+          label: "详情",
+          type: "link",
+          shape: "default",
+          size: "small",
+          hidden: false,
+          disabled: false,
+          onClick: ""
+        }
+      ],
+      dsEnabled: false,
+      //是否使用数据源数据
+      http: {
+        url: "",
+        //'/api/tmgc2-mgt/pageFieldConfig/queryPageFieldValueOptions',
+        method: "get",
+        data: {},
+        params: {}
+        //{ pageCode: '${pageCode}', fieldCode: '${fieldCode}' }
+      },
+      rowKey: "name",
+      //树形数据数据row-key
+      childrenKey: "children",
+      //树形数据children
+      dataSource: [
+        //表格数据
+        {
+          date: "2016-05-02",
+          date2: "2016-05-02 23:12:12",
+          date3: "2016-05-02 9:11:12",
+          name: "小二",
+          add: "上海市普陀区金沙江路 1518 弄",
+          age: 100
+        }
+      ],
+      onCreated: "",
+      onMounted: "",
+      //分页大小改变事件
+      // onPageSizeChange: '',
+      //当前页改变事件
+      // onCurrentPageChange: '',
+      //选择项改变事件
+      // onSelectionChange: '',
+      //设置操作按钮是否隐藏回调事件（必须有返回值）
+      onHideOperationButton: "",
+      //设置操作按钮是否禁用回调事件（必须有返回值）
+      onDisableOperationButton: "",
+      //设置操作按钮文本回调事件（必须有返回值）
+      // onGetOperationButtonLabel: '',
+      //操作按钮点击事件
+      onOperationButtonClick: "",
+      customRow: { onClick: "", onDblclick: "", onMouseenter: "", onMouseleave: "" },
+      // onHeaderClick: '',
+      // onRowClick: '',
+      // onRowDoubleClick: '',
+      // onCellClick: '',
+      // onCellDoubleClick: '',
+      //获取行样式名称事件
+      // onGetRowClassName: '',
+      //合并行、列事件
+      // onGetSpanMethod: '',
+      onTableChange: "",
+      //分页、排序、筛选变化时触发
+      pagination: {
+        pageSizeOptions: ["10", "20", "50", "100"],
+        current: 1,
+        //当前页数
+        hideOnSinglePage: false,
+        //只有一页时是否隐藏分页器
+        pageSize: 20,
+        //每页条数
+        total: 0,
+        //数据总数
+        showQuickJumper: true,
+        //是否可以快速跳转至某页
+        showSizeChanger: true,
+        //是否展示 pageSize 切换器，当 total 大于 50 时默认为 true
+        position: ["bottomRight"]
+      },
+      rowSelection: {
+        hasRowSelection: false,
+        preserveSelectedRowKeys: false,
+        //当数据被删除时仍然保留选项的 key
+        // type:"checkbox",//多选/单选，checkbox or radio
+        fixed: true,
+        //把选择框列固定在左边
+        onChange: "console.log(122222,selectedRowKeys, selectedRows)",
+        //选中项发生变化时的回调 Function(selectedRowKeys, selectedRows)
+        columnWidth: 100
+      }
+      //antd 功能的配置
+    }
+  }
+  // {
+  //   type: 'vf-dialog', //弹窗
+  //   category: 'container',
+  //   icon: 'vf-dialog',
+  //   widgetList: [],
+  //   options: {
+  //     name: '',
+  //     title: '标题',
+  //     width: '50%',
+  //     // fullscreen: false,
+  //     // showModal: true,
+  //     showClose: true,
+  //     closeOnClickModal: false,
+  //     closeOnPressEscape: false,
+  //     // center: false,
+  //     readMode: false,
+  //     disabledMode: false,
+  //     okButtonLabel: '',
+  //     okButtonHidden: false,
+  //     cancelButtonLabel: '',
+  //     cancelButtonHidden: false,
+  //     onOkButtonClick: '',
+  //     onCancelButtonClick: '',
+  //     onDialogOpened: '',
+  //     onDialogBeforeClose: ''
+  //   }
+  // },
+  // {
+  //   type: 'vf-drawer', // 侧滑抽屉
+  //   category: 'container',
+  //   icon: 'vf-drawer',
+  //   widgetList: [],
+  //   options: {
+  //     name: '',
+  //     title: '标题',
+  //     size: '50%',
+  //     showModal: true,
+  //     showClose: true,
+  //     closeOnClickModal: false,
+  //     closeOnPressEscape: false,
+  //     direction: 'rtl',
+  //     readMode: false,
+  //     disabledMode: false,
+  //     okButtonLabel: '',
+  //     okButtonHidden: false,
+  //     cancelButtonLabel: '',
+  //     cancelButtonHidden: false,
+  //     onOkButtonClick: '',
+  //     onCancelButtonClick: '',
+  //     onDrawerOpened: '',
+  //     onDrawerBeforeClose: ''
+  //   }
+  // }
+];
+const basicFields = Object.values(basicFieldsEnums).map((fn) => fn());
+const advancedFields = [
+  // {
+  //   type: 'picture-upload',
+  //   icon: 'picture-upload-field',
+  //   formItemFlag: true,
+  //   options: {
+  //     name: '',
+  //     label: '',
+  //     labelAlign: '',
+  //     labelWidth: null,
+  //     labelHidden: false,
+  //     columnWidth: '200px',
+  //     disabled: false,
+  //     hidden: false,
+  //     required: false,
+  //     requiredHint: '',
+  //    validation: '',
+  //    validationHint: '',
+  //     //-------------------
+  //     uploadURL: '',
+  //     uploadTip: '',
+  //     withCredentials: false,
+  //     multipleSelect: false,
+  //     showFileList: true,
+  //     limit: 3,
+  //     fileMaxSize: 5, //MB
+  //     fileTypes: ['jpg', 'jpeg', 'png'],
+  //     //headers: [],
+  //     //-------------------
+  //     customClass: [], //自定义css类名
+  //     labelIconClass: null,
+  //     labelIconPosition: 'rear',
+  //     labelTooltip: null,
+  //     //-------------------
+  //     onCreated: '',
+  //     onMounted: '',
+  //     onBeforeUpload: '',
+  //     onUploadSuccess: '',
+  //     onUploadError: '',
+  //     onFileRemove: '',
+  //     onValidate: ''
+  //     //onFileChange: '',
+  //   }
+  // },
+  // {
+  //   type: 'file-upload',
+  //   icon: 'file-upload-field',
+  //   formItemFlag: true,
+  //   options: {
+  //     name: '',
+  //     label: '',
+  //     labelAlign: '',
+  //     labelWidth: null,
+  //     labelHidden: false,
+  //     columnWidth: '200px',
+  //     disabled: false,
+  //     hidden: false,
+  //     required: false,
+  //     requiredHint: '',
+  //    validation: '',
+  //    validationHint: '',
+  //     //-------------------
+  //     uploadURL: '',
+  //     uploadTip: '',
+  //     withCredentials: false,
+  //     multipleSelect: false,
+  //     showFileList: true,
+  //     limit: 3,
+  //     fileMaxSize: 5, //MB
+  //     fileTypes: ['doc', 'docx', 'xls', 'xlsx'],
+  //     //headers: [],
+  //     //-------------------
+  //     customClass: [], //自定义css类名
+  //     labelIconClass: null,
+  //     labelIconPosition: 'rear',
+  //     labelTooltip: null,
+  //     //-------------------
+  //     onCreated: '',
+  //     onMounted: '',
+  //     onBeforeUpload: '',
+  //     onUploadSuccess: '',
+  //     onUploadError: '',
+  //     onFileRemove: '',
+  //     onValidate: ''
+  //     //onFileChange: '',
+  //   }
+  // },
+  {
+    type: "cascader",
+    icon: "cascader-field",
+    formItemFlag: true,
+    options: {
+      name: "",
+      label: "",
+      labelAlign: "",
+      defaultValue: "",
+      placeholder: "",
+      size: "",
+      labelWidth: null,
+      labelHidden: false,
+      columnWidth: "200px",
+      disabled: false,
+      hidden: false,
+      allowClear: true,
+      multiple: false,
+      dsEnabled: true,
+      // 是否使用数据源数据
+      labelKey: "label",
+      valueKey: "value",
+      childrenKey: "children",
+      http: {
+        url: "",
+        //'/api/tmgc2-mgt/pageFieldConfig/queryPageFieldValueOptions',
+        method: "get",
+        data: {},
+        params: {}
+        // { pageCode: '${pageCode}', fieldCode: '${fieldCode}' }
+      },
+      optionItems: [
+        { label: "select 1", value: 1, children: [{ label: "child 1", value: 11 }] },
+        { label: "select 2", value: 2 },
+        { label: "select 3", value: 3 }
+      ],
+      dataHandlerCode: "console.log(data.data);\nreturn data.data;\n ",
+      required: false,
+      requiredHint: "",
+      validation: "",
+      validationHint: "",
+      //-------------------
+      customClass: [],
+      //自定义css类名
+      labelIconClass: null,
+      labelIconPosition: "rear",
+      labelTooltip: null,
+      //-------------------
+      onCreated: "",
+      onMounted: "",
+      onChange: "",
+      onFocus: "",
+      onBlur: "",
+      onValidate: ""
+    }
+  },
+  {
+    type: "treeSelect",
+    icon: "cascader-field",
+    formItemFlag: true,
+    options: {
+      name: "",
+      label: "",
+      labelAlign: "",
+      defaultValue: "",
+      placeholder: "",
+      size: "",
+      labelWidth: null,
+      labelHidden: false,
+      columnWidth: "200px",
+      disabled: false,
+      hidden: false,
+      allowClear: true,
+      multiple: false,
+      treeDefaultExpandAll: false,
+      dsEnabled: true,
+      // 是否使用数据源数据
+      labelKey: "label",
+      valueKey: "value",
+      childrenKey: "children",
+      http: {
+        url: "",
+        // '/api/tmgc2-mgt/pageFieldConfig/queryPageFieldValueOptions',
+        method: "get",
+        data: {},
+        params: {}
+        // { pageCode: '${pageCode}', fieldCode: '${fieldCode}' }
+      },
+      optionItems: [
+        { label: "select 1", value: 1, children: [{ label: "child 1", value: 11 }] },
+        { label: "select 2", value: 2 },
+        { label: "select 3", value: 3 }
+      ],
+      dataHandlerCode: "console.log(data.data);\nreturn data.data;\n ",
+      required: false,
+      requiredHint: "",
+      validation: "",
+      validationHint: "",
+      //-------------------
+      customClass: [],
+      //自定义css类名
+      labelIconClass: null,
+      labelIconPosition: "rear",
+      labelTooltip: null,
+      //-------------------
+      onCreated: "",
+      onMounted: "",
+      onChange: "",
+      onFocus: "",
+      onBlur: "",
+      onValidate: ""
+    }
+  },
+  {
+    type: "rich-editor",
+    icon: "rich-editor-field",
+    formItemFlag: true,
+    options: {
+      name: "",
+      label: "",
+      labelAlign: "",
+      placeholder: "",
+      labelWidth: null,
+      labelHidden: false,
+      columnWidth: "200px",
+      contentHeight: "200px",
+      disabled: false,
+      hidden: false,
+      required: false,
+      requiredHint: "",
+      validation: "",
+      // 自定义校验选项
+      validationHint: "",
+      //自定义校验提示语
+      //-------------------
+      customClass: [],
+      //自定义css类名
+      labelIconClass: null,
+      labelIconPosition: "rear",
+      labelTooltip: null,
+      // minLength: null,
+      maxLength: null,
+      showCount: false,
+      //-------------------
+      onCreated: "",
+      onMounted: "",
+      onValidate: ""
+    }
+  }
+  // {
+  //   type: 'slot',
+  //   icon: 'slot-field',
+  //   formItemFlag: false,
+  //   options: {
+  //     name: '',
+  //     label: '',
+  //     customClass: [],  //自定义css类名
+  //   }
+  // },
+];
+const customFields = [];
+function addContainerWidgetSchema(containerSchema) {
+  containers.push(containerSchema);
+}
+function addBasicFieldSchema(fieldSchema) {
+  basicFields.push(fieldSchema);
+}
+function addAdvancedFieldSchema(fieldSchema) {
+  advancedFields.push(fieldSchema);
+}
+function addCustomWidgetSchema(widgetSchema) {
+  customFields.push(widgetSchema);
+}
+const formTemplates = [
+  {
+    title: "单列表单",
+    imgUrl: "https://ks3-cn-beijing.ksyuncs.com/vform-static/form-samples/t1.png",
+    jsonUrl: "https://ks3-cn-beijing.ksyuncs.com/vform-static/form-samples/json1.txt",
+    description: "表单模板详细说明..."
+  },
+  {
+    title: "多列表单",
+    imgUrl: "https://ks3-cn-beijing.ksyuncs.com/vform-static/form-samples/t2.png",
+    jsonUrl: "https://ks3-cn-beijing.ksyuncs.com/vform-static/form-samples/json2.txt",
+    description: "表单模板详细说明..."
+  },
+  {
+    title: "分组表单",
+    imgUrl: "https://ks3-cn-beijing.ksyuncs.com/vform-static/form-samples/t3.png",
+    jsonUrl: "https://ks3-cn-beijing.ksyuncs.com/vform-static/form-samples/json3.txt",
+    description: "表单模板详细说明..."
+  },
+  {
+    title: "标签页表单",
+    imgUrl: "https://ks3-cn-beijing.ksyuncs.com/vform-static/form-samples/t4.png",
+    jsonUrl: "https://ks3-cn-beijing.ksyuncs.com/vform-static/form-samples/json4.txt",
+    description: "表单模板详细说明..."
+  },
+  {
+    title: "主从表单",
+    imgUrl: "https://ks3-cn-beijing.ksyuncs.com/vform-static/form-samples/t5.png",
+    jsonUrl: "https://ks3-cn-beijing.ksyuncs.com/vform-static/form-samples/json5.txt",
+    description: "表单模板详细说明..."
+  },
+  {
+    title: "响应式表单",
+    imgUrl: "https://ks3-cn-beijing.ksyuncs.com/vform-static/form-samples/t6.png",
+    jsonUrl: "https://ks3-cn-beijing.ksyuncs.com/vform-static/form-samples/json6.txt",
+    description: "表单模板详细说明..."
+  },
+  {
+    title: "问卷调查表",
+    imgUrl: "https://ks3-cn-beijing.ksyuncs.com/vform-static/form-samples/t7.png",
+    jsonUrl: "https://ks3-cn-beijing.ksyuncs.com/vform-static/form-samples/json7.txt",
+    description: "表单模板详细说明..."
+  },
+  {
+    title: "固定表格表单",
+    imgUrl: "https://ks3-cn-beijing.ksyuncs.com/vform-static/form-samples/t8.png",
+    jsonUrl: "https://ks3-cn-beijing.ksyuncs.com/vform-static/form-samples/json8.txt",
+    description: "表单模板详细说明..."
+  }
+];
 function isDef(value2) {
   return value2 !== void 0 && value2 !== null;
 }
@@ -6325,7 +6346,7 @@ const _sfc_main$4b = {
     }
   }
 };
-const _hoisted_1$14 = { class: "side-scroll-bar" };
+const _hoisted_1$15 = { class: "side-scroll-bar" };
 const _hoisted_2$z = { class: "panel-container" };
 const _hoisted_3$t = ["title", "onDblclick"];
 const _hoisted_4$i = ["title", "onDblclick"];
@@ -6341,7 +6362,7 @@ function _sfc_render$4b(_ctx, _cache, $props, $setup, $data, $options) {
   resolveComponent("a-button");
   resolveComponent("a-card");
   const _component_a_tabs = resolveComponent("a-tabs");
-  return openBlock(), createElementBlock("div", _hoisted_1$14, [
+  return openBlock(), createElementBlock("div", _hoisted_1$15, [
     createElementVNode("div", _hoisted_2$z, [
       createVNode(_component_a_tabs, {
         activeKey: $data.firstTab,
@@ -6712,7 +6733,7 @@ const _sfc_main$49 = {
     }
   }
 };
-const _hoisted_1$13 = {
+const _hoisted_1$14 = {
   key: 0,
   class: "field-action"
 };
@@ -6741,7 +6762,7 @@ function _sfc_render$49(_ctx, _cache, $props, $setup, $data, $options) {
       renderSlot(_ctx.$slots, "default", {}, void 0, true)
     ], 6)) : createCommentVNode("", true),
     !!this.designer ? (openBlock(), createElementBlock(Fragment, { key: 1 }, [
-      $props.designer.selectedId === $props.field.id ? (openBlock(), createElementBlock("div", _hoisted_1$13, [
+      $props.designer.selectedId === $props.field.id ? (openBlock(), createElementBlock("div", _hoisted_1$14, [
         createElementVNode("i", {
           title: _ctx.i18nt("designer.hint.selectParentWidget"),
           onClick: _cache[1] || (_cache[1] = withModifiers(($event) => $options.selectParentWidget($props.field), ["stop"]))
@@ -8882,14 +8903,18 @@ const getHttp = () => {
   return ((_a = window.$vform) == null ? void 0 : _a.$http) || http;
 };
 const fmtHttpParams = async (req, data) => {
+  console.log("req: ", req);
   const { http: http2, dataHandlerCode } = req;
   const paramsMap = { ...getLocat(), ...data };
+  const method = http2.method || "get";
   const sendParams = JSON.stringify({
     ...http2,
+    method,
     params: http2.method === "get" ? { ...http2.params, ...data } : { ...http2.params },
     data: http2.method === "post" ? { ...http2.data, ...data } : { ...http2.data }
   });
   const res = replaceVars(sendParams, paramsMap);
+  console.log("res: ", res);
   let dsResult = await getHttp()(JSON.parse(res));
   if (dataHandlerCode) {
     const dhFn = new Function("data", dataHandlerCode);
@@ -9096,7 +9121,7 @@ const fieldMixin = {
         if (!!this.field.options.dsEnabled && ((_a = this.field.options.http) == null ? void 0 : _a.url)) {
           this.field.options.optionItems.splice(0, this.field.options.optionItems.length);
           try {
-            const dsResult = await fmtHttpParams(this.field.options.http, {
+            const dsResult = await fmtHttpParams(this.field.options, {
               fieldCode: this.field.options.name
             });
             this.loadOptions(dsResult);
@@ -9805,7 +9830,7 @@ const _sfc_main$47 = {
     }
   }
 };
-const _hoisted_1$12 = { class: "label-box" };
+const _hoisted_1$13 = { class: "label-box" };
 const _hoisted_2$x = {
   key: 0,
   class: "custom-label"
@@ -9848,7 +9873,7 @@ function _sfc_render$47(_ctx, _cache, $props, $setup, $data, $options) {
       onClick: _cache[0] || (_cache[0] = withModifiers(($event) => $options.selectField($props.field), ["stop"]))
     }, {
       label: withCtx(() => [
-        createElementVNode("div", _hoisted_1$12, [
+        createElementVNode("div", _hoisted_1$13, [
           !!$props.field.options.labelIconClass ? (openBlock(), createElementBlock("span", _hoisted_2$x, [
             $props.field.options.labelIconPosition === "front" ? (openBlock(), createElementBlock(Fragment, { key: 0 }, [
               !!$props.field.options.labelTooltip ? (openBlock(), createElementBlock(Fragment, { key: 0 }, [
@@ -10135,7 +10160,7 @@ const _sfc_main$46 = {
     }
   }
 };
-const _hoisted_1$11 = { class: "readonly-mode-field" };
+const _hoisted_1$12 = { class: "readonly-mode-field" };
 function _sfc_render$46(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_cascader = resolveComponent("a-cascader");
   const _component_a_tooltip = resolveComponent("a-tooltip");
@@ -10179,7 +10204,7 @@ function _sfc_render$46(_ctx, _cache, $props, $setup, $data, $options) {
           overlayStyle: { zIndex: 1e3 }
         }, {
           default: withCtx(() => [
-            createElementVNode("span", _hoisted_1$11, toDisplayString($options.contentForReadMode), 1)
+            createElementVNode("span", _hoisted_1$12, toDisplayString($options.contentForReadMode), 1)
           ]),
           _: 1
         }, 8, ["title"])) : createCommentVNode("", true)
@@ -10254,7 +10279,7 @@ const _sfc_main$45 = {
   },
   methods: {}
 };
-const _hoisted_1$10 = {
+const _hoisted_1$11 = {
   key: 0,
   class: "readonly-mode-field"
 };
@@ -10302,7 +10327,7 @@ function _sfc_render$45(_ctx, _cache, $props, $setup, $data, $options) {
       }, 8, ["value", "disabled", "onChange"]), [
         [vShow, !_ctx.isReadMode]
       ]),
-      _ctx.isReadMode ? (openBlock(), createElementBlock("span", _hoisted_1$10, toDisplayString(_ctx.optionLabel), 1)) : createCommentVNode("", true)
+      _ctx.isReadMode ? (openBlock(), createElementBlock("span", _hoisted_1$11, toDisplayString(_ctx.optionLabel), 1)) : createCommentVNode("", true)
     ]),
     _: 1
   }, 8, ["designer", "field", "rules", "design-state", "parent-widget", "parent-list", "index-of-parent-list", "sub-form-row-index", "sub-form-col-index", "sub-form-row-id"]);
@@ -10372,7 +10397,7 @@ const _sfc_main$44 = {
   },
   methods: {}
 };
-const _hoisted_1$$ = {
+const _hoisted_1$10 = {
   key: 0,
   class: "readonly-mode-field"
 };
@@ -10402,7 +10427,7 @@ function _sfc_render$44(_ctx, _cache, $props, $setup, $data, $options) {
           onChange: _ctx.handleChangeEvent,
           type: "color"
         }, null, 8, ["value", "onChange"]),
-        _ctx.isReadMode ? (openBlock(), createElementBlock("span", _hoisted_1$$, toDisplayString($data.fieldModel), 1)) : createCommentVNode("", true)
+        _ctx.isReadMode ? (openBlock(), createElementBlock("span", _hoisted_1$10, toDisplayString($data.fieldModel), 1)) : createCommentVNode("", true)
       ], 2)
     ]),
     _: 1
@@ -10481,7 +10506,7 @@ const _sfc_main$43 = {
   },
   methods: {}
 };
-const _hoisted_1$_ = { class: "readonly-mode-field" };
+const _hoisted_1$$ = { class: "readonly-mode-field" };
 function _sfc_render$43(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_range_picker = resolveComponent("a-range-picker");
   const _component_a_tooltip = resolveComponent("a-tooltip");
@@ -10529,7 +10554,7 @@ function _sfc_render$43(_ctx, _cache, $props, $setup, $data, $options) {
           overlayStyle: { zIndex: 1e3 }
         }, {
           default: withCtx(() => [
-            createElementVNode("span", _hoisted_1$_, toDisplayString($options.contentForReadMode), 1)
+            createElementVNode("span", _hoisted_1$$, toDisplayString($options.contentForReadMode), 1)
           ]),
           _: 1
         }, 8, ["title"])) : createCommentVNode("", true)
@@ -10614,7 +10639,7 @@ const _sfc_main$42 = {
   },
   methods: {}
 };
-const _hoisted_1$Z = { class: "readonly-mode-field" };
+const _hoisted_1$_ = { class: "readonly-mode-field" };
 function _sfc_render$42(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_date_picker = resolveComponent("a-date-picker");
   const _component_a_tooltip = resolveComponent("a-tooltip");
@@ -10663,7 +10688,7 @@ function _sfc_render$42(_ctx, _cache, $props, $setup, $data, $options) {
           overlayStyle: { zIndex: 1e3 }
         }, {
           default: withCtx(() => [
-            createElementVNode("span", _hoisted_1$Z, toDisplayString($data.fieldModel), 1)
+            createElementVNode("span", _hoisted_1$_, toDisplayString($data.fieldModel), 1)
           ]),
           _: 1
         }, 8, ["title"])) : createCommentVNode("", true)
@@ -10977,7 +11002,7 @@ const _sfc_main$40 = {
     }
   }
 };
-const _hoisted_1$Y = { class: "upload-file-list" };
+const _hoisted_1$Z = { class: "upload-file-list" };
 const _hoisted_2$w = ["title"];
 const _hoisted_3$q = ["href"];
 const _hoisted_4$f = ["title"];
@@ -11019,7 +11044,7 @@ function _sfc_render$40(_ctx, _cache, $props, $setup, $data, $options) {
         "on-error": $options.handleUploadError
       }, {
         file: withCtx(({ file }) => [
-          createElementVNode("div", _hoisted_1$Y, [
+          createElementVNode("div", _hoisted_1$Z, [
             createElementVNode("span", {
               class: "upload-file-name",
               title: file.name
@@ -11115,7 +11140,7 @@ const _sfc_main$3$ = {
   },
   methods: {}
 };
-const _hoisted_1$X = ["innerHTML"];
+const _hoisted_1$Y = ["innerHTML"];
 function _sfc_render$3$(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_static_content_wrapper = resolveComponent("static-content-wrapper");
   return openBlock(), createBlock(_component_static_content_wrapper, {
@@ -11133,7 +11158,7 @@ function _sfc_render$3$(_ctx, _cache, $props, $setup, $data, $options) {
       createElementVNode("div", {
         ref: "fieldEditor",
         innerHTML: $props.field.options.htmlContent
-      }, null, 8, _hoisted_1$X)
+      }, null, 8, _hoisted_1$Y)
     ]),
     _: 1
   }, 8, ["designer", "field", "design-state", "parent-widget", "parent-list", "index-of-parent-list", "sub-form-row-index", "sub-form-col-index", "sub-form-row-id"]);
@@ -11221,7 +11246,7 @@ const _sfc_main$3_ = {
   },
   methods: {}
 };
-const _hoisted_1$W = { class: "readonly-mode-field" };
+const _hoisted_1$X = { class: "readonly-mode-field" };
 function _sfc_render$3_(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_svg_icon = resolveComponent("svg-icon");
   const _component_a_button = resolveComponent("a-button");
@@ -11289,7 +11314,7 @@ function _sfc_render$3_(_ctx, _cache, $props, $setup, $data, $options) {
         overlayStyle: { zIndex: 1e3 }
       }, {
         default: withCtx(() => [
-          createElementVNode("span", _hoisted_1$W, toDisplayString($data.fieldModel), 1)
+          createElementVNode("span", _hoisted_1$X, toDisplayString($data.fieldModel), 1)
         ]),
         _: 1
       }, 8, ["title"])) : createCommentVNode("", true)
@@ -11373,7 +11398,7 @@ const _sfc_main$3Z = {
   },
   methods: {}
 };
-const _hoisted_1$V = { class: "readonly-mode-field" };
+const _hoisted_1$W = { class: "readonly-mode-field" };
 function _sfc_render$3Z(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_input_number = resolveComponent("a-input-number");
   const _component_a_tooltip = resolveComponent("a-tooltip");
@@ -11417,7 +11442,7 @@ function _sfc_render$3Z(_ctx, _cache, $props, $setup, $data, $options) {
         overlayStyle: { zIndex: 1e3 }
       }, {
         default: withCtx(() => [
-          createElementVNode("span", _hoisted_1$V, toDisplayString($data.fieldModel), 1)
+          createElementVNode("span", _hoisted_1$W, toDisplayString($data.fieldModel), 1)
         ]),
         _: 1
       }, 8, ["title"])) : createCommentVNode("", true)
@@ -11645,7 +11670,7 @@ const _sfc_main$3Y = {
     }
   }
 };
-const _hoisted_1$U = {
+const _hoisted_1$V = {
   key: 0,
   class: "el-upload__tip"
 };
@@ -11691,7 +11716,7 @@ function _sfc_render$3Y(_ctx, _cache, $props, $setup, $data, $options) {
         "on-remove": $options.handlePictureRemove
       }, {
         tip: withCtx(() => [
-          !!$props.field.options.uploadTip ? (openBlock(), createElementBlock("div", _hoisted_1$U, toDisplayString($props.field.options.uploadTip), 1)) : createCommentVNode("", true)
+          !!$props.field.options.uploadTip ? (openBlock(), createElementBlock("div", _hoisted_1$V, toDisplayString($props.field.options.uploadTip), 1)) : createCommentVNode("", true)
         ]),
         default: withCtx(() => [
           createElementVNode("div", _hoisted_2$v, [
@@ -11803,7 +11828,7 @@ const _sfc_main$3X = {
   },
   methods: {}
 };
-const _hoisted_1$T = {
+const _hoisted_1$U = {
   key: 0,
   class: "readonly-mode-field"
 };
@@ -11867,7 +11892,7 @@ function _sfc_render$3X(_ctx, _cache, $props, $setup, $data, $options) {
       }, 8, ["value", "size", "disabled", "style", "onChange"]), [
         [vShow, !_ctx.isReadMode]
       ]),
-      _ctx.isReadMode ? (openBlock(), createElementBlock("span", _hoisted_1$T, toDisplayString(_ctx.optionLabel), 1)) : createCommentVNode("", true)
+      _ctx.isReadMode ? (openBlock(), createElementBlock("span", _hoisted_1$U, toDisplayString(_ctx.optionLabel), 1)) : createCommentVNode("", true)
     ]),
     _: 1
   }, 8, ["designer", "field", "rules", "design-state", "parent-widget", "parent-list", "index-of-parent-list", "sub-form-row-index", "sub-form-col-index", "sub-form-row-id"]);
@@ -23738,9 +23763,9 @@ const _sfc_main$3V = {
     return { editor };
   }
 };
-const _hoisted_1$S = { ref: "editor" };
+const _hoisted_1$T = { ref: "editor" };
 function _sfc_render$3V(_ctx, _cache, $props, $setup, $data, $options) {
-  return openBlock(), createElementBlock("section", _hoisted_1$S, null, 512);
+  return openBlock(), createElementBlock("section", _hoisted_1$T, null, 512);
 }
 const quillEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3V, [["render", _sfc_render$3V]]);
 quillEditor.install = function(app) {
@@ -23931,6 +23956,16 @@ const _sfc_main$3T = {
       return !!this.field.options.filterable && !!this.field.options.allowCreate;
     }
   },
+  watch: {
+    "field.options.dsEnabled": {
+      deep: true,
+      handler(val) {
+        if (val) {
+          this.initOptionItems();
+        }
+      }
+    }
+  },
   beforeCreate() {
   },
   created() {
@@ -23957,7 +23992,7 @@ const _sfc_main$3T = {
     }
   }
 };
-const _hoisted_1$R = { class: "readonly-mode-field" };
+const _hoisted_1$S = { class: "readonly-mode-field" };
 function _sfc_render$3T(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_select = resolveComponent("a-select");
   const _component_a_tooltip = resolveComponent("a-tooltip");
@@ -24009,7 +24044,7 @@ function _sfc_render$3T(_ctx, _cache, $props, $setup, $data, $options) {
         overlayStyle: { zIndex: 1e3 }
       }, {
         default: withCtx(() => [
-          createElementVNode("span", _hoisted_1$R, toDisplayString(_ctx.optionLabel), 1)
+          createElementVNode("span", _hoisted_1$S, toDisplayString(_ctx.optionLabel), 1)
         ]),
         _: 1
       }, 8, ["title"])) : createCommentVNode("", true)
@@ -24017,7 +24052,7 @@ function _sfc_render$3T(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["designer", "field", "rules", "design-state", "parent-widget", "parent-list", "index-of-parent-list", "sub-form-row-index", "sub-form-col-index", "sub-form-row-id"]);
 }
-const selectWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$3T, [["render", _sfc_render$3T], ["__scopeId", "data-v-58494bb6"]]);
+const selectWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$3T, [["render", _sfc_render$3T], ["__scopeId", "data-v-d36409d9"]]);
 const __vite_glob_0_16$1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: selectWidget
@@ -24088,7 +24123,7 @@ const _sfc_main$3S = {
     }
   }
 };
-const _hoisted_1$Q = {
+const _hoisted_1$R = {
   key: 0,
   class: "readonly-mode-field"
 };
@@ -24122,7 +24157,7 @@ function _sfc_render$3S(_ctx, _cache, $props, $setup, $data, $options) {
       }, null, 8, ["value", "disabled", "min", "max", "step", "range", "vertical", "onChange"]), [
         [vShow, !_ctx.isReadMode]
       ]),
-      _ctx.isReadMode ? (openBlock(), createElementBlock("span", _hoisted_1$Q, toDisplayString($data.fieldModel), 1)) : createCommentVNode("", true)
+      _ctx.isReadMode ? (openBlock(), createElementBlock("span", _hoisted_1$R, toDisplayString($data.fieldModel), 1)) : createCommentVNode("", true)
     ]),
     _: 1
   }, 8, ["designer", "field", "rules", "design-state", "parent-widget", "parent-list", "index-of-parent-list", "sub-form-row-index", "sub-form-col-index", "sub-form-row-id"]);
@@ -24182,7 +24217,7 @@ const _sfc_main$3R = {
   },
   methods: {}
 };
-const _hoisted_1$P = {
+const _hoisted_1$Q = {
   key: 0,
   class: "slot-title"
 };
@@ -24204,7 +24239,7 @@ function _sfc_render$3R(_ctx, _cache, $props, $setup, $data, $options) {
         class: normalizeClass([!!$props.designState ? "slot-wrapper-design" : "slot-wrapper-render"])
       }, [
         renderSlot(_ctx.$slots, $props.field.options.name, { formModel: _ctx.formModel }, void 0, true),
-        !!$props.designState ? (openBlock(), createElementBlock("div", _hoisted_1$P, toDisplayString($props.field.options.label), 1)) : createCommentVNode("", true)
+        !!$props.designState ? (openBlock(), createElementBlock("div", _hoisted_1$Q, toDisplayString($props.field.options.label), 1)) : createCommentVNode("", true)
       ], 2)
     ]),
     _: 3
@@ -24356,7 +24391,7 @@ const _sfc_main$3P = {
   },
   methods: {}
 };
-const _hoisted_1$O = {
+const _hoisted_1$P = {
   key: 0,
   class: "readonly-mode-field"
 };
@@ -24387,7 +24422,7 @@ function _sfc_render$3P(_ctx, _cache, $props, $setup, $data, $options) {
         onChange: _ctx.handleChangeEvent,
         style: normalizeStyle({ width: $props.field.options.switchWidth + "px" })
       }, null, 8, ["checked", "class", "disabled", "checkedChildren", "unCheckedChildren", "onChange", "style"]),
-      _ctx.isReadMode ? (openBlock(), createElementBlock("span", _hoisted_1$O, toDisplayString($options.contentForReadMode), 1)) : createCommentVNode("", true)
+      _ctx.isReadMode ? (openBlock(), createElementBlock("span", _hoisted_1$P, toDisplayString($options.contentForReadMode), 1)) : createCommentVNode("", true)
     ]),
     _: 1
   }, 8, ["designer", "field", "rules", "design-state", "parent-widget", "parent-list", "index-of-parent-list", "sub-form-row-index", "sub-form-col-index", "sub-form-row-id"]);
@@ -24468,7 +24503,7 @@ const _sfc_main$3O = {
   },
   methods: {}
 };
-const _hoisted_1$N = ["innerHTML"];
+const _hoisted_1$O = ["innerHTML"];
 function _sfc_render$3O(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_textarea = resolveComponent("a-textarea");
   const _component_a_tooltip = resolveComponent("a-tooltip");
@@ -24517,7 +24552,7 @@ function _sfc_render$3O(_ctx, _cache, $props, $setup, $data, $options) {
           createElementVNode("div", {
             innerHTML: $data.fieldModel,
             class: "readonly-mode-field"
-          }, null, 8, _hoisted_1$N)
+          }, null, 8, _hoisted_1$O)
         ]),
         _: 1
       }, 8, ["title"])) : createCommentVNode("", true)
@@ -24608,7 +24643,7 @@ const _sfc_main$3N = {
   },
   methods: {}
 };
-const _hoisted_1$M = {
+const _hoisted_1$N = {
   key: 0,
   class: "readonly-mode-field"
 };
@@ -24654,7 +24689,7 @@ function _sfc_render$3N(_ctx, _cache, $props, $setup, $data, $options) {
           onBlur: _ctx.handleBlurCustomEvent,
           onChange: _ctx.handleChangeEvent
         }, null, 8, ["size", "value", "class", "disabled", "readonly", "inputReadOnly", "allowClear", "format", "placeholder", "onFocus", "onBlur", "onChange"]),
-        _ctx.isReadMode ? (openBlock(), createElementBlock("span", _hoisted_1$M, toDisplayString($options.contentForReadMode), 1)) : createCommentVNode("", true)
+        _ctx.isReadMode ? (openBlock(), createElementBlock("span", _hoisted_1$N, toDisplayString($options.contentForReadMode), 1)) : createCommentVNode("", true)
       ], 2)
     ]),
     _: 1
@@ -24736,7 +24771,7 @@ const _sfc_main$3M = {
   },
   methods: {}
 };
-const _hoisted_1$L = {
+const _hoisted_1$M = {
   key: 0,
   class: "readonly-mode-field"
 };
@@ -24778,7 +24813,7 @@ function _sfc_render$3M(_ctx, _cache, $props, $setup, $data, $options) {
           onBlur: _ctx.handleBlurCustomEvent,
           onChange: _ctx.handleChangeEvent
         }, null, 8, ["size", "value", "disabled", "inputReadOnly", "readonly", "allowClear", "format", "placeholder", "onFocus", "onBlur", "onChange"]),
-        _ctx.isReadMode ? (openBlock(), createElementBlock("span", _hoisted_1$L, toDisplayString($data.fieldModel), 1)) : createCommentVNode("", true)
+        _ctx.isReadMode ? (openBlock(), createElementBlock("span", _hoisted_1$M, toDisplayString($data.fieldModel), 1)) : createCommentVNode("", true)
       ], 2)
     ]),
     _: 1
@@ -24887,7 +24922,7 @@ const _sfc_main$3L = {
     }
   }
 };
-const _hoisted_1$K = { class: "readonly-mode-field" };
+const _hoisted_1$L = { class: "readonly-mode-field" };
 function _sfc_render$3L(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_tree_select = resolveComponent("a-tree-select");
   const _component_a_tooltip = resolveComponent("a-tooltip");
@@ -24933,7 +24968,7 @@ function _sfc_render$3L(_ctx, _cache, $props, $setup, $data, $options) {
           overlayStyle: { zIndex: 1e3 }
         }, {
           default: withCtx(() => [
-            createElementVNode("span", _hoisted_1$K, toDisplayString($options.contentForReadMode), 1)
+            createElementVNode("span", _hoisted_1$L, toDisplayString($options.contentForReadMode), 1)
           ]),
           _: 1
         }, 8, ["title"])) : createCommentVNode("", true)
@@ -26062,7 +26097,7 @@ const _sfc_main$3J = {
     }
   }
 };
-const _hoisted_1$J = { class: "blank-cell" };
+const _hoisted_1$K = { class: "blank-cell" };
 const _hoisted_2$u = { class: "invisible-content" };
 function _sfc_render$3J(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_col = resolveComponent("a-col");
@@ -26116,7 +26151,7 @@ function _sfc_render$3J(_ctx, _cache, $props, $setup, $data, $options) {
         ], 64);
       }), 256)) : (openBlock(), createBlock(_component_a_col, { key: 1 }, {
         default: withCtx(() => [
-          createElementVNode("div", _hoisted_1$J, [
+          createElementVNode("div", _hoisted_1$K, [
             createElementVNode("span", _hoisted_2$u, toDisplayString(_ctx.i18nt("render.hint.blankCellContent")), 1)
           ])
         ]),
@@ -26492,7 +26527,7 @@ const _sfc_main$3H = {
   }
 };
 const _withScopeId$5 = (n) => (pushScopeId("data-v-50d62ca2"), n = n(), popScopeId(), n);
-const _hoisted_1$I = { class: "action-header-column" };
+const _hoisted_1$J = { class: "action-header-column" };
 const _hoisted_2$t = { class: "action-label" };
 const _hoisted_3$o = /* @__PURE__ */ _withScopeId$5(() => /* @__PURE__ */ createElementVNode("i", { class: "el-icon-plus el-icon-right" }, null, -1));
 const _hoisted_4$e = {
@@ -26530,7 +26565,7 @@ function _sfc_render$3H(_ctx, _cache, $props, $setup, $data, $options) {
       }, [
         createVNode(_component_a_row, { class: "header-row" }, {
           default: withCtx(() => [
-            createElementVNode("div", _hoisted_1$I, [
+            createElementVNode("div", _hoisted_1$J, [
               createElementVNode("span", _hoisted_2$t, toDisplayString(_ctx.i18nt("render.hint.subFormAction")), 1),
               !$options.isReadMode ? (openBlock(), createBlock(_component_a_button, {
                 key: 0,
@@ -26892,7 +26927,7 @@ const _sfc_main$3G = {
     }
   }
 };
-const _hoisted_1$H = {
+const _hoisted_1$I = {
   key: 0,
   class: "action-header-column"
 };
@@ -26947,7 +26982,7 @@ function _sfc_render$3G(_ctx, _cache, $props, $setup, $data, $options) {
       }, [
         createVNode(_component_a_row, { class: "header-row" }, {
           default: withCtx(() => [
-            $options.leftActionColumn ? (openBlock(), createElementBlock("div", _hoisted_1$H, [
+            $options.leftActionColumn ? (openBlock(), createElementBlock("div", _hoisted_1$I, [
               createElementVNode("span", _hoisted_2$s, toDisplayString(_ctx.i18nt("render.hint.subFormAction")), 1),
               !$options.isReadMode ? (openBlock(), createBlock(_component_a_button, {
                 key: 0,
@@ -27353,7 +27388,7 @@ const _sfc_main$3E = {
   },
   methods: {}
 };
-const _hoisted_1$G = ["colspan", "rowspan"];
+const _hoisted_1$H = ["colspan", "rowspan"];
 function _sfc_render$3E(_ctx, _cache, $props, $setup, $data, $options) {
   return openBlock(), createElementBlock("td", {
     class: normalizeClass(["table-cell", [$options.customClass]]),
@@ -27405,7 +27440,7 @@ function _sfc_render$3E(_ctx, _cache, $props, $setup, $data, $options) {
         ]), 1032, ["field", "parent-list", "index-of-parent-list", "parent-widget", "sub-form-row-id", "sub-form-row-index", "sub-form-col-index"]))
       ], 64);
     }), 256))
-  ], 14, _hoisted_1$G);
+  ], 14, _hoisted_1$H);
 }
 const TableCellItem = /* @__PURE__ */ _export_sfc$1(_sfc_main$3E, [["render", _sfc_render$3E], ["__scopeId", "data-v-ae7f3b63"]]);
 const __vite_glob_0_7$2 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
@@ -27871,7 +27906,7 @@ const _sfc_main$3z = {
     }
   }
 };
-const _hoisted_1$F = { style: { "float": "right" } };
+const _hoisted_1$G = { style: { "float": "right" } };
 function _sfc_render$3z(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_VFormRender = resolveComponent("VFormRender");
   const _component_a_button = resolveComponent("a-button");
@@ -27895,7 +27930,7 @@ function _sfc_render$3z(_ctx, _cache, $props, $setup, $data, $options) {
     onOpened: $options.handleOpenedEvent
   }, {
     footer: withCtx(() => [
-      createElementVNode("div", _hoisted_1$F, [
+      createElementVNode("div", _hoisted_1$G, [
         !$props.options.cancelButtonHidden ? (openBlock(), createBlock(_component_a_button, {
           key: 0,
           onClick: $options.handleCancelClick
@@ -52416,13 +52451,13 @@ const _sfc_main$3x = {
     }
   }
 };
-const _hoisted_1$E = { class: "ace-container" };
+const _hoisted_1$F = { class: "ace-container" };
 const _hoisted_2$r = {
   class: "ace-editor",
   ref: "ace"
 };
 function _sfc_render$3x(_ctx, _cache, $props, $setup, $data, $options) {
-  return openBlock(), createElementBlock("div", _hoisted_1$E, [
+  return openBlock(), createElementBlock("div", _hoisted_1$F, [
     createElementVNode("div", _hoisted_2$r, null, 512)
   ]);
 }
@@ -53827,7 +53862,7 @@ const _sfc_main$3w = {
   }
 };
 const _withScopeId$4 = (n) => (pushScopeId("data-v-72a78523"), n = n(), popScopeId(), n);
-const _hoisted_1$D = { class: "toolbar-container" };
+const _hoisted_1$E = { class: "toolbar-container" };
 const _hoisted_2$q = /* @__PURE__ */ _withScopeId$4(() => /* @__PURE__ */ createElementVNode("div", { class: "left-toolbar" }, null, -1));
 const _hoisted_3$m = { class: "right-toolbar" };
 const _hoisted_4$c = { class: "right-toolbar-con" };
@@ -53848,7 +53883,7 @@ function _sfc_render$3w(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_code_editor = resolveComponent("code-editor");
   const _component_a_tab_pane = resolveComponent("a-tab-pane");
   const _component_a_tabs = resolveComponent("a-tabs");
-  return openBlock(), createElementBlock("div", _hoisted_1$D, [
+  return openBlock(), createElementBlock("div", _hoisted_1$E, [
     _hoisted_2$q,
     createVNode(_component_a_drawer, {
       title: _ctx.i18nt("designer.toolbar.nodeTreeTitle"),
@@ -54895,7 +54930,7 @@ const _sfc_main$3i = {
     }
   }
 };
-const _hoisted_1$C = { class: "dialog-footer" };
+const _hoisted_1$D = { class: "dialog-footer" };
 function _sfc_render$3i(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_alert = resolveComponent("a-alert");
   const _component_code_editor = resolveComponent("code-editor");
@@ -54913,7 +54948,7 @@ function _sfc_render$3i(_ctx, _cache, $props, $setup, $data, $options) {
     "destroy-on-close": true
   }, {
     footer: withCtx(() => [
-      createElementVNode("div", _hoisted_1$C, [
+      createElementVNode("div", _hoisted_1$D, [
         createVNode(_component_a_button, {
           onClick: _cache[1] || (_cache[1] = ($event) => $data.showWidgetEventDialogFlag = false)
         }, {
@@ -55704,8 +55739,7 @@ function _sfc_render$3f(_ctx, _cache, $props, $setup, $data, $options) {
               default: withCtx(() => [
                 createVNode(_component_a_select, {
                   value: $props.optionModel.pagination.pageSize,
-                  "onUpdate:value": _cache[1] || (_cache[1] = ($event) => $props.optionModel.pagination.pageSize = $event),
-                  onChange: $options.pageSizeOptionsChange
+                  "onUpdate:value": _cache[1] || (_cache[1] = ($event) => $props.optionModel.pagination.pageSize = $event)
                 }, {
                   default: withCtx(() => [
                     (openBlock(true), createElementBlock(Fragment, null, renderList($options.pageSizeList, (item) => {
@@ -55721,7 +55755,7 @@ function _sfc_render$3f(_ctx, _cache, $props, $setup, $data, $options) {
                     }), 128))
                   ]),
                   _: 1
-                }, 8, ["value", "onChange"])
+                }, 8, ["value"])
               ]),
               _: 1
             }),
@@ -56049,7 +56083,7 @@ const _sfc_main$3c = {
   }
 };
 const _withScopeId$3 = (n) => (pushScopeId("data-v-dd00e485"), n = n(), popScopeId(), n);
-const _hoisted_1$B = /* @__PURE__ */ _withScopeId$3(() => /* @__PURE__ */ createElementVNode("i", { class: "iconfont icon-drag drag-handler" }, null, -1));
+const _hoisted_1$C = /* @__PURE__ */ _withScopeId$3(() => /* @__PURE__ */ createElementVNode("i", { class: "iconfont icon-drag drag-handler" }, null, -1));
 const _hoisted_2$p = { class: "dialog-footer" };
 function _sfc_render$3c(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_switch = resolveComponent("a-switch");
@@ -56233,7 +56267,7 @@ function _sfc_render$3c(_ctx, _cache, $props, $setup, $data, $options) {
                       class: "drag-sort-col"
                     }, {
                       default: withCtx(() => [
-                        _hoisted_1$B
+                        _hoisted_1$C
                       ]),
                       _: 1
                     }),
@@ -58836,7 +58870,7 @@ const _sfc_main$39 = {
   }
 };
 const _withScopeId$2 = (n) => (pushScopeId("data-v-444c6f63"), n = n(), popScopeId(), n);
-const _hoisted_1$A = /* @__PURE__ */ _withScopeId$2(() => /* @__PURE__ */ createElementVNode("i", { class: "iconfont icon-drag drag-option" }, null, -1));
+const _hoisted_1$B = /* @__PURE__ */ _withScopeId$2(() => /* @__PURE__ */ createElementVNode("i", { class: "iconfont icon-drag drag-option" }, null, -1));
 const _hoisted_2$o = { class: "dialog-footer" };
 function _sfc_render$39(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_button = resolveComponent("a-button");
@@ -58925,7 +58959,7 @@ function _sfc_render$39(_ctx, _cache, $props, $setup, $data, $options) {
               width: 40
             }, {
               default: withCtx(() => [
-                _hoisted_1$A
+                _hoisted_1$B
               ]),
               _: 1
             }),
@@ -59632,7 +59666,7 @@ const _sfc_main$2_ = {
     }
   }
 };
-const _hoisted_1$z = { class: "col-span-title" };
+const _hoisted_1$A = { class: "col-span-title" };
 function _sfc_render$2_(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_divider = resolveComponent("a-divider");
   const _component_a_form_item = resolveComponent("a-form-item");
@@ -59672,7 +59706,7 @@ function _sfc_render$2_(_ctx, _cache, $props, $setup, $data, $options) {
             key: colIdx,
             class: "col-item"
           }, [
-            createElementVNode("span", _hoisted_1$z, toDisplayString(_ctx.i18nt("designer.setting.colSpanTitle")) + toDisplayString(colIdx + 1), 1),
+            createElementVNode("span", _hoisted_1$A, toDisplayString(_ctx.i18nt("designer.setting.colSpanTitle")) + toDisplayString(colIdx + 1), 1),
             createVNode(_component_a_input_number, {
               value: colItem.options.span,
               "onUpdate:value": ($event) => colItem.options.span = $event,
@@ -59863,7 +59897,7 @@ const _sfc_main$2W = {
   }
 };
 const _withScopeId$1 = (n) => (pushScopeId("data-v-11d9c5b8"), n = n(), popScopeId(), n);
-const _hoisted_1$y = { class: "col-item" };
+const _hoisted_1$z = { class: "col-item" };
 const _hoisted_2$n = /* @__PURE__ */ _withScopeId$1(() => /* @__PURE__ */ createElementVNode("i", { class: "iconfont icon-drag drag-option" }, null, -1));
 function _sfc_render$2W(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_select = resolveComponent("a-select");
@@ -59907,7 +59941,7 @@ function _sfc_render$2W(_ctx, _cache, $props, $setup, $data, $options) {
               "item-key": "id"
             }, { group: "panesGroup", ghostClass: "ghost", handle: ".drag-option" }), {
               item: withCtx(({ element: tpItem, index: tpIdx }) => [
-                createElementVNode("li", _hoisted_1$y, [
+                createElementVNode("li", _hoisted_1$z, [
                   createVNode(_component_a_radio, {
                     value: tpItem.options.label,
                     style: { "margin-right": "8px" }
@@ -62934,9 +62968,9 @@ const _sfc_main$1O = {
     optionModel: Object
   }
 };
-const _hoisted_1$x = { style: { "display": "none" } };
+const _hoisted_1$y = { style: { "display": "none" } };
 function _sfc_render$1O(_ctx, _cache, $props, $setup, $data, $options) {
-  return openBlock(), createElementBlock("div", _hoisted_1$x);
+  return openBlock(), createElementBlock("div", _hoisted_1$y);
 }
 const cascaderDefaultValueEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1O, [["render", _sfc_render$1O]]);
 const __vite_glob_0_107 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
@@ -62980,9 +63014,9 @@ const _sfc_main$1M = {
     optionModel: Object
   }
 };
-const _hoisted_1$w = { style: { "display": "none" } };
+const _hoisted_1$x = { style: { "display": "none" } };
 function _sfc_render$1M(_ctx, _cache, $props, $setup, $data, $options) {
-  return openBlock(), createElementBlock("div", _hoisted_1$w);
+  return openBlock(), createElementBlock("div", _hoisted_1$x);
 }
 const checkboxDefaultValueEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1M, [["render", _sfc_render$1M]]);
 const __vite_glob_0_109 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
@@ -63887,9 +63921,9 @@ const _sfc_main$1v = {
     optionModel: Object
   }
 };
-const _hoisted_1$v = { style: { "display": "none" } };
+const _hoisted_1$w = { style: { "display": "none" } };
 function _sfc_render$1v(_ctx, _cache, $props, $setup, $data, $options) {
-  return openBlock(), createElementBlock("div", _hoisted_1$v);
+  return openBlock(), createElementBlock("div", _hoisted_1$w);
 }
 const radioDefaultValueEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1v, [["render", _sfc_render$1v]]);
 const __vite_glob_0_126 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
@@ -64202,9 +64236,9 @@ const _sfc_main$1l = {
     optionModel: Object
   }
 };
-const _hoisted_1$u = { style: { "display": "none" } };
+const _hoisted_1$v = { style: { "display": "none" } };
 function _sfc_render$1l(_ctx, _cache, $props, $setup, $data, $options) {
-  return openBlock(), createElementBlock("div", _hoisted_1$u);
+  return openBlock(), createElementBlock("div", _hoisted_1$v);
 }
 const selectDefaultValueEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1l, [["render", _sfc_render$1l]]);
 const __vite_glob_0_136 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
@@ -65379,6 +65413,7 @@ const _sfc_main$S = {
       copyToClipboard(this.optionModel.name, e, this.$message, "复制成功", "复制失败");
     },
     updateWidgetNameAndRef(newName, ops) {
+      console.log("newName, ops: ", newName, ops);
       if (ops) {
         this.optionModel.label = ops.showName;
       }
@@ -65412,6 +65447,10 @@ const _sfc_main$S = {
       return null;
     }
   }
+};
+const _hoisted_1$u = {
+  key: 1,
+  class: "t-flex"
 };
 function _sfc_render$S(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_svg_icon = resolveComponent("svg-icon");
@@ -65451,17 +65490,22 @@ function _sfc_render$S(_ctx, _cache, $props, $setup, $data, $options) {
           }, "复制")
         ]),
         _: 1
-      }, 8, ["value", "readonly", "onChange"])) : (openBlock(), createBlock(_component_a_select, {
-        key: 1,
-        value: $props.optionModel.name,
-        "onUpdate:value": _cache[2] || (_cache[2] = ($event) => $props.optionModel.name = $event),
-        allowClear: "",
-        disabled: $options.widgetNameReadonly,
-        onChange: $options.updateWidgetNameAndRef,
-        title: _ctx.i18nt("designer.setting.editNameHelp"),
-        options: $options.fieldList,
-        fieldNames: { label: "showName", value: "fieldCode" }
-      }, null, 8, ["value", "disabled", "onChange", "title", "options"]))
+      }, 8, ["value", "readonly", "onChange"])) : (openBlock(), createElementBlock("div", _hoisted_1$u, [
+        createVNode(_component_a_select, {
+          class: "t-flex-1",
+          value: $props.optionModel.name,
+          "onUpdate:value": _cache[2] || (_cache[2] = ($event) => $props.optionModel.name = $event),
+          allowClear: "",
+          disabled: $options.widgetNameReadonly,
+          onChange: $options.updateWidgetNameAndRef,
+          title: _ctx.i18nt("designer.setting.editNameHelp"),
+          options: $options.fieldList,
+          fieldNames: { label: "showName", value: "fieldCode" }
+        }, null, 8, ["value", "disabled", "onChange", "title", "options"]),
+        createElementVNode("a", {
+          onClick: _cache[3] || (_cache[3] = (...args) => $options.copyFormJson && $options.copyFormJson(...args))
+        }, "复制")
+      ]))
     ]),
     _: 1
   }, 8, ["rules"]);
@@ -72912,6 +72956,7 @@ const _sfc_main$f = {
         return;
       }
       this.fieldList = await this.fieldListApi();
+      console.log("this.fieldList: ", this.fieldList);
     },
     handleLanguageChanged(command) {
       this.changeLanguage(command);
@@ -73133,7 +73178,7 @@ function _sfc_render$f(_ctx, _cache, $props, $setup, $data, $options) {
     _: 3
   });
 }
-const VFormDesigner = /* @__PURE__ */ _export_sfc$1(_sfc_main$f, [["render", _sfc_render$f], ["__scopeId", "data-v-2e25f789"]]);
+const VFormDesigner = /* @__PURE__ */ _export_sfc$1(_sfc_main$f, [["render", _sfc_render$f], ["__scopeId", "data-v-076132a8"]]);
 var vuedraggable_umd = { exports: {} };
 (function(module, exports) {
   (function webpackUniversalModuleDefinition(root, factory) {
@@ -77691,13 +77736,13 @@ function registerIcon(app) {
 if (typeof window !== "undefined") {
   let loadSvg = function() {
     var body = document.body;
-    var svgDom = document.getElementById("__svg__icons__dom__1712648814171__");
+    var svgDom = document.getElementById("__svg__icons__dom__1713170923103__");
     if (!svgDom) {
       svgDom = document.createElementNS("http://www.w3.org/2000/svg", "svg");
       svgDom.style.position = "absolute";
       svgDom.style.width = "0";
       svgDom.style.height = "0";
-      svgDom.id = "__svg__icons__dom__1712648814171__";
+      svgDom.id = "__svg__icons__dom__1713170923103__";
       svgDom.setAttribute("xmlns", "http://www.w3.org/2000/svg");
       svgDom.setAttribute("xmlns:link", "http://www.w3.org/1999/xlink");
     }

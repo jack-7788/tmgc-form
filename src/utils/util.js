@@ -671,3 +671,6 @@ export function getLocat(url) {
   }
   return theRequest;
 }
+export const getUuidKey = () => {
+  return 'k' + Math.random().toString(36).slice(2, 8);
+};

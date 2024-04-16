@@ -233,12 +233,20 @@
         if (serveList.vformDetail.http?.url) {
           const res = await fmtHttpParams(serveList.vformDetail, { ctx: this.ctx });
           console.log('res: ', res);
+          return res;
         }
       },
       async onFormUpdate() {
         const modelForm = await this.getFormData();
         const serveList = this.formConfig.serveList;
-        await fmtHttpParams(serveList.vformUpdate, { data: modelForm, ctx: this.ctx });
+        if (serveList.vformDetail.http?.url) {
+          const res = await fmtHttpParams(serveList.vformUpdate, {
+            data: modelForm,
+            ctx: this.ctx
+          });
+          console.log('res: ', res);
+          return res;
+        }
       },
 
       initFormObject(insertHtmlCodeFlag = true) {

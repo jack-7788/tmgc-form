@@ -83,6 +83,10 @@
       ...FieldComponents
     },
     props: {
+      ctx: {
+        type: Object,
+        default: () => ({})
+      },
       formJson: {
         //prop传入的表单JSON配置
         type: Object,
@@ -225,14 +229,16 @@
     },
     methods: {
       async onFormDetail() {
-        const formConfig = this.designer.formConfig;
-        const res = await fmtHttpParams(formConfig.serveList.vformDetail);
-        console.log('res: ', res);
+        const serveList = this.formConfig.serveList;
+        if (serveList.vformDetail.http?.url) {
+          const res = await fmtHttpParams(serveList.vformDetail, { ctx: this.ctx });
+          console.log('res: ', res);
+        }
       },
       async onFormUpdate() {
         const modelForm = await this.getFormData();
-        const formConfig = this.designer.formConfig;
-        await fmtHttpParams(formConfig.serveList.vformUpdate, modelForm);
+        const serveList = this.formConfig.serveList;
+        await fmtHttpParams(serveList.vformUpdate, { data: modelForm, ctx: this.ctx });
       },
 
       initFormObject(insertHtmlCodeFlag = true) {
@@ -1090,6 +1096,6 @@
   }
 
   .ant-form :deep(.ant-row) {
-    padding: 8px;
+    // padding: 8px;
   }
 </style>

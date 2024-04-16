@@ -18,9 +18,9 @@
   import 'dayjs/locale/zh-cn';
   import { getHttp } from '@/utils/request/http';
   import { basicFieldsEnums } from '@/components/form-designer/widget-panel/basicFieldsEnums';
-  dayjs.locale('zh-cn');
   import { getLocat } from '@/utils/util';
   const { entityCode = '', terminalType = '', formCode = '', id = '' } = getLocat();
+  dayjs.locale('zh-cn');
 
   export default {
     name: 'App',
@@ -89,7 +89,7 @@
         }, []);
       },
       async getComponentJson(list) {
-        let json = { widgetList: {}, formConfig: {} };
+        let json = { widgetList: [], formConfig: {} };
         if (id && entityCode) {
           const res = await getHttp()({
             method: 'get',

@@ -1,11 +1,12 @@
 import { getLocat, replaceVars } from '@/utils/util';
 import { getHttp } from './http';
 
-export const fmtHttpParams = async (req, data) => {
+export const fmtHttpParams = async (req, params: any = {}) => {
+  const { data, ctx } = params;
   console.log('req: ', req);
   const { http, dataHandlerCode } = req;
 
-  const paramsMap = { ...getLocat(), ...data };
+  const paramsMap = { ...getLocat(), ...data, ...ctx };
 
   const method = http.method || 'get';
 

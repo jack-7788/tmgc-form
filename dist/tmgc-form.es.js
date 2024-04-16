@@ -3037,13 +3037,6 @@ function getQueryParam(variable) {
 function getDefaultFormConfig() {
   return {
     // useInnerLogic: true, //使用内置逻辑
-    // onVformAdd: 'console.log(data)',
-    // onVformUpdate: '',
-    // onVformDetail: '',
-    // onVformDel: '',
-    // modelName: 'formData',
-    // refName: 'vForm',
-    // rulesName: 'rules',
     labelWidth: 80,
     labelPosition: "horizontal",
     //'left',
@@ -3069,25 +3062,30 @@ function getDefaultFormConfig() {
       //   },
       //   dataHandlerCode: ''
       // },
+      // vformInit: {
+      //   http: {
+      //     url: '/api/tmgc2-mgt/formDefinition/${formCode}/evaluate/formLoad',
+      //     method: 'post',
+      //     data: { _id: '${_id}' },
+      //     params: {}
+      //   },
+      //   dataHandlerCode: ''
+      // },
       vformUpdate: {
         http: {
-          url: "",
-          //'/api/tmgc2-query/pageDataCud/createOrUpdate/${pageCode}',
+          url: "/api/tmgc2-mgt/formDefinition/${formCode}/evaluate/formSubmit",
           method: "post",
-          data: {},
-          //{ _id: '${_id}' },
+          data: { _id: "${_id}" },
           params: {}
         },
         dataHandlerCode: ""
       },
       vformDetail: {
         http: {
-          url: {},
-          // '/api/tmgc2-query/dataQuery/detail/${pageCode}',
-          method: "get",
-          data: {},
+          url: "/api/tmgc2-mgt/formDefinition/${formCode}/evaluate/formLoad",
+          method: "post",
+          data: { _id: "${_id}" },
           params: {}
-          // { _id: '${_id}' }
         },
         dataHandlerCode: ""
         //'console.log(data.data);\nreturn data.data.object;\n '
@@ -8920,10 +8918,11 @@ const getHttp = () => {
   var _a;
   return ((_a = window.$vform) == null ? void 0 : _a.$http) || http;
 };
-const fmtHttpParams = async (req, data) => {
+const fmtHttpParams = async (req, params = {}) => {
+  const { data, ctx } = params;
   console.log("req: ", req);
   const { http: http2, dataHandlerCode } = req;
-  const paramsMap = { ...getLocat(), ...data };
+  const paramsMap = { ...getLocat(), ...data, ...ctx };
   const method = http2.method || "get";
   const sendParams = JSON.stringify({
     ...http2,
@@ -27994,6 +27993,10 @@ const _sfc_main$3y = {
     ...comps$1
   },
   props: {
+    ctx: {
+      type: Object,
+      default: () => ({})
+    },
     formJson: {
       //prop传入的表单JSON配置
       type: Object,
@@ -28129,14 +28132,17 @@ const _sfc_main$3y = {
   },
   methods: {
     async onFormDetail() {
-      const formConfig = this.designer.formConfig;
-      const res = await fmtHttpParams(formConfig.serveList.vformDetail);
-      console.log("res: ", res);
+      var _a;
+      const serveList = this.formConfig.serveList;
+      if ((_a = serveList.vformDetail.http) == null ? void 0 : _a.url) {
+        const res = await fmtHttpParams(serveList.vformDetail, { ctx: this.ctx });
+        console.log("res: ", res);
+      }
     },
     async onFormUpdate() {
       const modelForm = await this.getFormData();
-      const formConfig = this.designer.formConfig;
-      await fmtHttpParams(formConfig.serveList.vformUpdate, modelForm);
+      const serveList = this.formConfig.serveList;
+      await fmtHttpParams(serveList.vformUpdate, { data: modelForm, ctx: this.ctx });
     },
     initFormObject(insertHtmlCodeFlag = true) {
       this.formId = "vfRender" + generateId();
@@ -28919,7 +28925,7 @@ function _sfc_render$3y(_ctx, _cache, $props, $setup, $data, $options) {
     _: 3
   }, 8, ["component-size"]);
 }
-const VFormRender = /* @__PURE__ */ _export_sfc$1(_sfc_main$3y, [["render", _sfc_render$3y], ["__scopeId", "data-v-3b2f0de3"]]);
+const VFormRender = /* @__PURE__ */ _export_sfc$1(_sfc_main$3y, [["render", _sfc_render$3y], ["__scopeId", "data-v-a6545056"]]);
 var ace$2 = { exports: {} };
 (function(module, exports) {
   (function() {
@@ -77754,13 +77760,13 @@ function registerIcon(app) {
 if (typeof window !== "undefined") {
   let loadSvg = function() {
     var body = document.body;
-    var svgDom = document.getElementById("__svg__icons__dom__1713173234265__");
+    var svgDom = document.getElementById("__svg__icons__dom__1713250115112__");
     if (!svgDom) {
       svgDom = document.createElementNS("http://www.w3.org/2000/svg", "svg");
       svgDom.style.position = "absolute";
       svgDom.style.width = "0";
       svgDom.style.height = "0";
-      svgDom.id = "__svg__icons__dom__1713173234265__";
+      svgDom.id = "__svg__icons__dom__1713250115112__";
       svgDom.setAttribute("xmlns", "http://www.w3.org/2000/svg");
       svgDom.setAttribute("xmlns:link", "http://www.w3.org/1999/xlink");
     }

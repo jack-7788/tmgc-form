@@ -5,10 +5,10 @@
     </a-form-item> -->
     <a-form-item>
       <!-- <HttpEditor
-        label="设置表单新增api"
+        label="设置表单初始化api"
         buttonName="编辑"
         drawerTitle="表单配置"
-        :optionModel="formConfig.serveList.vformAdd"
+        :optionModel="formConfig.serveList.vformInit"
       /> -->
       <HttpEditor
         label="设置表单编辑api"

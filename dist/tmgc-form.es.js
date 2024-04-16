@@ -3201,7 +3201,7 @@ function getDSByName(formConfig, dsName) {
   return resultDS;
 }
 function replaceVars(str, vars) {
-  return str.replace(/\$\{([^}]+)\}/g, (match, varName) => vars[varName] || "");
+  return str.replace(/\$\{([^}]+)\}/g, (match, varName) => vars[varName]);
 }
 function getLocat(url) {
   url = url || window.location.search;
@@ -61107,7 +61107,7 @@ function _sfc_render$2s(_ctx, _cache, $props, $setup, $data, $options) {
         type: "info",
         plain: "",
         shape: "round",
-        class: normalizeClass([$props.eventHandled ? "button-text-highlight" : ""]),
+        class: normalizeClass([$props.optionModel.onClick ? "button-text-highlight" : ""]),
         onClick: _cache[0] || (_cache[0] = ($event) => _ctx.editEventHandler("onClick", $data.eventParams))
       }, {
         default: withCtx(() => [
@@ -61155,7 +61155,7 @@ function _sfc_render$2r(_ctx, _cache, $props, $setup, $data, $options) {
         type: "info",
         plain: "",
         shape: "round",
-        class: normalizeClass([$props.eventHandled ? "button-text-highlight" : ""]),
+        class: normalizeClass([$props.optionModel.onCreated ? "button-text-highlight" : ""]),
         onClick: _cache[0] || (_cache[0] = ($event) => _ctx.editEventHandler("onCreated", $data.eventParams))
       }, {
         default: withCtx(() => [
@@ -61865,7 +61865,7 @@ function _sfc_render$2c(_ctx, _cache, $props, $setup, $data, $options) {
         type: "info",
         plain: "",
         shape: "round",
-        class: normalizeClass([$props.eventHandled ? "button-text-highlight" : ""]),
+        class: normalizeClass([$props.optionModel.onMounted ? "button-text-highlight" : ""]),
         onClick: _cache[0] || (_cache[0] = ($event) => _ctx.editEventHandler("onMounted", $data.eventParams))
       }, {
         default: withCtx(() => [
@@ -77769,13 +77769,13 @@ function registerIcon(app) {
 if (typeof window !== "undefined") {
   let loadSvg = function() {
     var body = document.body;
-    var svgDom = document.getElementById("__svg__icons__dom__1713258303778__");
+    var svgDom = document.getElementById("__svg__icons__dom__1713259346929__");
     if (!svgDom) {
       svgDom = document.createElementNS("http://www.w3.org/2000/svg", "svg");
       svgDom.style.position = "absolute";
       svgDom.style.width = "0";
       svgDom.style.height = "0";
-      svgDom.id = "__svg__icons__dom__1713258303778__";
+      svgDom.id = "__svg__icons__dom__1713259346929__";
       svgDom.setAttribute("xmlns", "http://www.w3.org/2000/svg");
       svgDom.setAttribute("xmlns:link", "http://www.w3.org/1999/xlink");
     }

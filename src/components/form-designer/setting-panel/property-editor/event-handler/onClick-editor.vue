@@ -4,7 +4,7 @@
       type="info"
       plain
       shape="round"
-      :class="[eventHandled ? 'button-text-highlight' : '']"
+      :class="[optionModel.onClick ? 'button-text-highlight' : '']"
       @click="editEventHandler('onClick', eventParams)"
     >
       {{ i18nt('designer.setting.addEventHandler') }}</a-button

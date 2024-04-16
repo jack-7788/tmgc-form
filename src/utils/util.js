@@ -452,6 +452,8 @@ export function getQueryParam(variable) {
 }
 
 export function getDefaultFormConfig() {
+  const { formCode = '' } = getLocat();
+
   return {
     // useInnerLogic: true, //使用内置逻辑
     labelWidth: 80,
@@ -489,7 +491,7 @@ export function getDefaultFormConfig() {
       // },
       vformUpdate: {
         http: {
-          url: '/api/tmgc2-mgt/formDefinition/${formCode}/evaluate/formSubmit',
+          url: `/api/tmgc2-mgt/formDefinition/${formCode}/evaluate/formSubmit`,
           method: 'post',
           data: { _id: '${_id}' },
           params: {}
@@ -498,7 +500,7 @@ export function getDefaultFormConfig() {
       },
       vformDetail: {
         http: {
-          url: '/api/tmgc2-mgt/formDefinition/${formCode}/evaluate/formLoad',
+          url: `/api/tmgc2-mgt/formDefinition/${formCode}/evaluate/formLoad`,
           method: 'post',
           data: { _id: '${_id}' },
           params: {}

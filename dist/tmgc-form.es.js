@@ -3035,6 +3035,7 @@ function getQueryParam(variable) {
   return void 0;
 }
 function getDefaultFormConfig() {
+  const { formCode = "" } = getLocat();
   return {
     // useInnerLogic: true, //使用内置逻辑
     labelWidth: 80,
@@ -3073,7 +3074,7 @@ function getDefaultFormConfig() {
       // },
       vformUpdate: {
         http: {
-          url: "/api/tmgc2-mgt/formDefinition/${formCode}/evaluate/formSubmit",
+          url: `/api/tmgc2-mgt/formDefinition/${formCode}/evaluate/formSubmit`,
           method: "post",
           data: { _id: "${_id}" },
           params: {}
@@ -3082,7 +3083,7 @@ function getDefaultFormConfig() {
       },
       vformDetail: {
         http: {
-          url: "/api/tmgc2-mgt/formDefinition/${formCode}/evaluate/formLoad",
+          url: `/api/tmgc2-mgt/formDefinition/${formCode}/evaluate/formLoad`,
           method: "post",
           data: { _id: "${_id}" },
           params: {}
@@ -77769,13 +77770,13 @@ function registerIcon(app) {
 if (typeof window !== "undefined") {
   let loadSvg = function() {
     var body = document.body;
-    var svgDom = document.getElementById("__svg__icons__dom__1713259346929__");
+    var svgDom = document.getElementById("__svg__icons__dom__1713261279027__");
     if (!svgDom) {
       svgDom = document.createElementNS("http://www.w3.org/2000/svg", "svg");
       svgDom.style.position = "absolute";
       svgDom.style.width = "0";
       svgDom.style.height = "0";
-      svgDom.id = "__svg__icons__dom__1713259346929__";
+      svgDom.id = "__svg__icons__dom__1713261279027__";
       svgDom.setAttribute("xmlns", "http://www.w3.org/2000/svg");
       svgDom.setAttribute("xmlns:link", "http://www.w3.org/1999/xlink");
     }

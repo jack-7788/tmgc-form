@@ -1,12 +1,8 @@
 import { getUserInfo } from './useGetUseInfo';
 import axios from 'axios';
 import { message } from 'ant-design-vue';
-// import NProgress from 'nprogress';
 import { handleErrorStatus } from './handleAxiosError';
 import type { AxiosInstance, AxiosRequestHeaders } from 'axios';
-// import { useStore } from '@/store/index';
-// import { storeToRefs } from 'pinia';
-// import { unref } from 'vue';
 import JSONBig from 'json-bigint';
 
 const http = axios.create({
@@ -29,18 +25,7 @@ const http = axios.create({
 });
 
 http.interceptors.request.use(config => {
-  // const { localeStore, cancelAxiosStore } = useStore();
-  // const { locale } = storeToRefs(localeStore);
-  // cancelAxiosStore.removePending(config);
-  // cancelAxiosStore.addPending(config);
-
-  // if (!config.url?.includes('diyprocess=1')) {
-  //     NProgress.start();
-  // }
-
-  // const { loginInfo } = storeToRefs(userStore);
-
-  const localUserInfo = getUserInfo(); //JSON.parse(sessionStorage.getItem(USER_INFO_KEY) || '{}');
+  const localUserInfo = getUserInfo();
   const tokenId = localUserInfo?.loginInfo?.userToken?.tokenId;
   const tenantId = localUserInfo?.loginInfo?.userToken?.tenantId;
 
@@ -54,30 +39,21 @@ http.interceptors.request.use(config => {
   config.headers['imeclient-source'] = 'tmgc2';
   config.headers['imeclient-version'] = '1.0';
 
-  config.headers['accept-language'] = 'zh-CN'; //unref(locale);
+  config.headers['accept-language'] = 'zh-CN';
 
   if (tokenId) {
-    config.headers['Authorization'] = 'Bearer ' + tokenId; // unref(loginInfo).tokenId;
+    config.headers['Authorization'] = 'Bearer ' + tokenId;
   }
 
   if (tenantId) {
-    config.headers['imeclient-tenant-id'] = tenantId; //unref(loginInfo).tenantId;
+    config.headers['imeclient-tenant-id'] = tenantId;
   }
 
-  const getTimestamp = new Date().getTime();
-  if (config.url && config.url.indexOf('?') > -1) {
-    config.url = config.url + '&t=' + getTimestamp;
-  } else {
-    config.url = config.url + '?t=' + getTimestamp;
-  }
   return config;
 });
 
 http.interceptors.response.use(
   data => {
-    // const { cancelAxiosStore } = useStore();
-    // cancelAxiosStore.removePending(data.config);
-    // NProgress.done();
     if ([200].includes(data.status)) {
       const resData = data.data;
       if (data.config.responseType === 'blob') {

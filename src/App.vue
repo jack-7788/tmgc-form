@@ -16,9 +16,11 @@
   import zhCN from 'ant-design-vue/es/locale/zh_CN';
   import dayjs from 'dayjs';
   import 'dayjs/locale/zh-cn';
-  import { getHttp } from '@/utils/request/http';
+  import http from '@/utils/http';
   import { basicFieldsEnums } from '@/components/form-designer/widget-panel/basicFieldsEnums';
   import { getLocat } from '@/utils/util';
+  import { getUuidKey } from '@/utils/util';
+
   const { entityCode = '', terminalType = '', formCode = '', id = '' } = getLocat();
   dayjs.locale('zh-cn');
 
@@ -73,9 +75,28 @@
         return this.elLocaleMap[curLocale];
       }
     },
+
     methods: {
+      insertBtn(list = []) {
+        const btnId = getUuidKey();
+        const btnInfo = {
+          label: '提交',
+          name: btnId,
+          onCreated: `
+            const hidden = this.getFormRef().ctx?.type==='view';
+            this.setHidden(hidden)
+            `,
+          onClick: `(async()=>{
+                await this.getFormRef().onFormUpdate()
+                this.$message.success('保存成功')
+                })()`
+        };
+
+        list.push(basicFieldsEnums.button(btnInfo));
+        return list;
+      },
       getInitRenderJSON(list) {
-        return list.reduce((t, v) => {
+        const res = list.reduce((t, v) => {
           const fn = basicFieldsEnums[v.componentType];
           if (fn) {
             const json = fn({
@@ -87,11 +108,12 @@
           }
           return t;
         }, []);
+        return this.insertBtn(res);
       },
       async getComponentJson(list) {
         let json = { widgetList: [], formConfig: {} };
         if (id && entityCode) {
-          const res = await getHttp()({
+          const res = await http({
             method: 'get',
             url: `/api/tmgc2-query/dataQuery/detail/${entityCode}`,
             params: { id }
@@ -101,7 +123,7 @@
           json.widgetList = this.getInitRenderJSON(list);
         }
 
-        this.$refs.vfdRef.setJsonImport(json);
+        this.$refs.vfdRef.setFormJson(json);
       },
       async fieldListApi() {
         const { entityCode } = getLocat();
@@ -119,7 +141,7 @@
           pageSize: null,
           sorts: []
         };
-        const list = await getHttp()({
+        const list = await http({
           method: 'post',
           url: '/api/tmgc2-query/dataQuery/execute',
           data: p

@@ -98,6 +98,7 @@
           :class="[layoutType === 'H5' ? 'h5-layout' : layoutType === 'Pad' ? 'pad-layout' : '']"
         >
           <VFormRender
+            :ctx="ctx"
             ref="preForm"
             :form-json="formJson"
             :form-data="testFormData"
@@ -299,6 +300,7 @@
   import axios from 'axios';
   import SvgIcon from '@/components/svg-icon/index';
   import { fmtHttpParams } from '@/utils/request/fmtHttpParams';
+  import { getLocat } from '@/utils/util';
 
   export default {
     name: 'ToolbarPanel',
@@ -320,6 +322,7 @@
     inject: ['getDesignerConfig'],
     data() {
       return {
+        ctx: { type: 'view', ...getLocat() },
         designerConfig: this.getDesignerConfig(),
 
         toolbarWidth: 460,

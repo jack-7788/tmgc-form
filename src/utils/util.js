@@ -657,7 +657,7 @@ export function getDSByName(formConfig, dsName) {
 }
 
 export function replaceVars(str, vars) {
-  return str.replace(/\$\{([^}]+)\}/g, (match, varName) => vars[varName]);
+  return str.replace(/\$\{([^}]+)\}/g, (match, varName) => vars[varName] || null);
 }
 /**
  *  获取地址栏查询参数

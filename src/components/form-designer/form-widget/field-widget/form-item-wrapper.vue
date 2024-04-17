@@ -199,7 +199,6 @@
       },
 
       customClass() {
-        console.log(' this.field.options.customClass: ', this.field.options.customClass);
         return this.field.options.customClass.join(' ');
       },
 

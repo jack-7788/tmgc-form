@@ -3202,7 +3202,7 @@ function getDSByName(formConfig, dsName) {
   return resultDS;
 }
 function replaceVars(str, vars) {
-  return str.replace(/\$\{([^}]+)\}/g, (match, varName) => vars[varName]);
+  return str.replace(/\$\{([^}]+)\}/g, (match, varName) => vars[varName] || null);
 }
 function getLocat(url) {
   url = url || window.location.search;
@@ -8875,12 +8875,6 @@ http.interceptors.request.use((config2) => {
   if (tenantId) {
     config2.headers["imeclient-tenant-id"] = tenantId;
   }
-  const getTimestamp = (/* @__PURE__ */ new Date()).getTime();
-  if (config2.url && config2.url.indexOf("?") > -1) {
-    config2.url = config2.url + "&t=" + getTimestamp;
-  } else {
-    config2.url = config2.url + "?t=" + getTimestamp;
-  }
   return config2;
 });
 http.interceptors.response.use(
@@ -8920,6 +8914,7 @@ const getHttp = () => {
   return ((_a = window.$vform) == null ? void 0 : _a.$http) || http;
 };
 const fmtHttpParams = async (req, params = {}) => {
+  const request = getHttp();
   const { data, ctx } = params;
   console.log("req: ", req);
   const { http: http2, dataHandlerCode } = req;
@@ -8931,9 +8926,9 @@ const fmtHttpParams = async (req, params = {}) => {
     params: http2.method === "get" ? { ...http2.params, ...data } : { ...http2.params },
     data: http2.method === "post" ? { ...http2.data, ...data } : { ...http2.data }
   });
-  const res = replaceVars(sendParams, paramsMap);
+  const res = replaceVars(sendParams, paramsMap).replaceAll("null", null);
   console.log("res: ", res);
-  let dsResult = await getHttp()(JSON.parse(res));
+  let dsResult = await request(JSON.parse(res));
   if (dataHandlerCode) {
     const dhFn = new Function("data", dataHandlerCode);
     dsResult = dhFn.call(void 0, dsResult);
@@ -9786,7 +9781,6 @@ const _sfc_main$47 = {
       }
     },
     customClass() {
-      console.log(" this.field.options.customClass: ", this.field.options.customClass);
       return this.field.options.customClass.join(" ");
     },
     subFormName() {
@@ -10026,7 +10020,7 @@ function _sfc_render$47(_ctx, _cache, $props, $setup, $data, $options) {
     ], 64)) : createCommentVNode("", true)
   ], 2);
 }
-const FormItemWrapper = /* @__PURE__ */ _export_sfc$1(_sfc_main$47, [["render", _sfc_render$47], ["__scopeId", "data-v-2b4ba062"]]);
+const FormItemWrapper = /* @__PURE__ */ _export_sfc$1(_sfc_main$47, [["render", _sfc_render$47], ["__scopeId", "data-v-c26c0a5c"]]);
 const __vite_glob_0_8$3 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: FormItemWrapper
@@ -52672,6 +52666,7 @@ const _sfc_main$3w = {
   inject: ["getDesignerConfig"],
   data() {
     return {
+      ctx: { type: "view", ...getLocat() },
       designerConfig: this.getDesignerConfig(),
       toolbarWidth: 460,
       showPreviewDialogFlag: false,
@@ -53895,7 +53890,7 @@ const _sfc_main$3w = {
     }
   }
 };
-const _withScopeId$4 = (n) => (pushScopeId("data-v-72a78523"), n = n(), popScopeId(), n);
+const _withScopeId$4 = (n) => (pushScopeId("data-v-0455a0c4"), n = n(), popScopeId(), n);
 const _hoisted_1$E = { class: "toolbar-container" };
 const _hoisted_2$q = /* @__PURE__ */ _withScopeId$4(() => /* @__PURE__ */ createElementVNode("div", { class: "left-toolbar" }, null, -1));
 const _hoisted_3$m = { class: "right-toolbar" };
@@ -54077,6 +54072,7 @@ function _sfc_render$3w(_ctx, _cache, $props, $setup, $data, $options) {
             class: normalizeClass(["form-render-wrapper", [$options.layoutType === "H5" ? "h5-layout" : $options.layoutType === "Pad" ? "pad-layout" : ""]])
           }, [
             createVNode(_component_VFormRender, {
+              ctx: $data.ctx,
               ref: "preForm",
               "form-json": $options.formJson,
               "form-data": $data.testFormData,
@@ -54087,7 +54083,7 @@ function _sfc_render$3w(_ctx, _cache, $props, $setup, $data, $options) {
               onAppendButtonClick: $options.testOnAppendButtonClick,
               onButtonClick: $options.testOnButtonClick,
               onFormChange: $options.handleFormChange
-            }, null, 8, ["form-json", "form-data", "option-data", "global-dsv", "onMyEmitTest", "onAppendButtonClick", "onButtonClick", "onFormChange"])
+            }, null, 8, ["ctx", "form-json", "form-data", "option-data", "global-dsv", "onMyEmitTest", "onAppendButtonClick", "onButtonClick", "onFormChange"])
           ], 2)
         ])
       ]),
@@ -54352,7 +54348,7 @@ function _sfc_render$3w(_ctx, _cache, $props, $setup, $data, $options) {
     }, 8, ["title", "visible"])) : createCommentVNode("", true)
   ]);
 }
-const ToolbarPanel = /* @__PURE__ */ _export_sfc$1(_sfc_main$3w, [["render", _sfc_render$3w], ["__scopeId", "data-v-72a78523"]]);
+const ToolbarPanel = /* @__PURE__ */ _export_sfc$1(_sfc_main$3w, [["render", _sfc_render$3w], ["__scopeId", "data-v-0455a0c4"]]);
 const _sfc_main$3v = {
   name: "actionColumnPosition-editor",
   mixins: [i18n$1],
@@ -77770,13 +77766,13 @@ function registerIcon(app) {
 if (typeof window !== "undefined") {
   let loadSvg = function() {
     var body = document.body;
-    var svgDom = document.getElementById("__svg__icons__dom__1713321307504__");
+    var svgDom = document.getElementById("__svg__icons__dom__1713327564029__");
     if (!svgDom) {
       svgDom = document.createElementNS("http://www.w3.org/2000/svg", "svg");
       svgDom.style.position = "absolute";
       svgDom.style.width = "0";
       svgDom.style.height = "0";
-      svgDom.id = "__svg__icons__dom__1713321307504__";
+      svgDom.id = "__svg__icons__dom__1713327564029__";
       svgDom.setAttribute("xmlns", "http://www.w3.org/2000/svg");
       svgDom.setAttribute("xmlns:link", "http://www.w3.org/1999/xlink");
     }

@@ -424,7 +424,9 @@ export const advancedFields = [
         { label: 'select 2', value: 2 },
         { label: 'select 3', value: 3 }
       ],
-      dataHandlerCode: 'console.log(data.data);\nreturn data.data;\n ',
+      dataHandlerCode: 'return data.data;\n ',
+      dataReqHandlerCode: `const d=data.data||{};\n Object.keys(d).forEach(k=>{\n if(d[k]==='null'){\n d[k]=null\n }\n })\nreturn {...data,data:d}`,
+
       required: false,
       requiredHint: '',
       validation: '',
@@ -477,7 +479,9 @@ export const advancedFields = [
         { label: 'select 2', value: 2 },
         { label: 'select 3', value: 3 }
       ],
-      dataHandlerCode: 'console.log(data.data);\nreturn data.data;\n ',
+      dataHandlerCode: 'return data.data;\n ',
+      dataReqHandlerCode: `const d=data.data||{};\n Object.keys(d).forEach(k=>{\n if(d[k]==='null'){\n d[k]=null\n }\n })\nreturn {...data,data:d}`,
+
       required: false,
       requiredHint: '',
       validation: '',

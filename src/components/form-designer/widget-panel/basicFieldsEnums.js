@@ -174,7 +174,9 @@ export const radio = (ops = {}) => {
         data: {},
         params: {} // { pageCode: '${pageCode}', fieldCode: '${fieldCode}' }
       },
-      dataHandlerCode: 'console.log(data.data);\nreturn data.data;\n ',
+      dataHandlerCode: 'return data.data;\n ',
+      dataReqHandlerCode: `const d=data.data||{};\n Object.keys(d).forEach(k=>{\n if(d[k]==='null'){\n d[k]=null\n }\n })\nreturn {...data,data:d}`,
+
       required: false,
       requiredHint: '',
       validation: '',
@@ -227,7 +229,9 @@ export const checkbox = (ops = {}) => {
         data: {},
         params: {} // { pageCode: '${pageCode}', fieldCode: '${fieldCode}' }
       },
-      dataHandlerCode: 'console.log(data.data);\nreturn data.data;\n ',
+      dataHandlerCode: 'return data.data;\n ',
+      dataReqHandlerCode: `const d=data.data||{};\n Object.keys(d).forEach(k=>{\n if(d[k]==='null'){\n d[k]=null\n }\n })\nreturn {...data,data:d}`,
+
       required: false,
       requiredHint: '',
       validation: '',
@@ -284,7 +288,9 @@ export const select = (ops = {}) => {
         data: {},
         params: {} // { pageCode: '${pageCode}', fieldCode: '${fieldCode}' }
       },
-      dataHandlerCode: 'console.log(data.data);\nreturn data.data;\n ',
+      dataHandlerCode: 'return data.data;\n ',
+      dataReqHandlerCode: `const d=data.data||{};\n Object.keys(d).forEach(k=>{\n if(d[k]==='null'){\n d[k]=null\n }\n })\nreturn {...data,data:d}`,
+
       required: false,
       requiredHint: '',
       validation: '',

@@ -271,15 +271,6 @@ export default {
               fieldCode: this.field.options.name
             });
 
-            // const paramsMap = { fieldCode: this.field.options.name, ...getLocat() };
-
-            // const res = replaceVars(sendParams, paramsMap);
-
-            // let dsResult = await getHttp()(JSON.parse(res));
-            // if (this.field.options.dataHandlerCode) {
-            //   const dhFn = new Function('data', this.field.options.dataHandlerCode);
-            //   dsResult = dhFn.call(this, dsResult);
-            // }
             this.loadOptions(dsResult);
           } catch (err) {
             console.error('err: ', err);

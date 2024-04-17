@@ -94,6 +94,16 @@
           </a-col>
         </a-row>
       </a-form-item>
+      <a-form-item :label="`请求前数据处理`">
+        <a-button
+          type="info"
+          shape="round"
+          @click="editReqDataHandlerCode"
+          :class="[optionModel.dataReqHandlerCode ? 'button-text-highlight' : '']"
+        >
+          处理函数配置
+        </a-button>
+      </a-form-item>
       <a-form-item :label="`接口响应数据处理`">
         <a-button
           type="info"
@@ -146,6 +156,11 @@
     <a-alert type="info" :closable="false" :message="i18nt('designer.setting.dsRequestResult')" />
     <code-editor :mode="'json'" :readonly="true" v-model="dsResultJson" ref="dsResultEditor" />
   </a-modal>
+  <CodeModalEditor
+    v-model="optionModel.dataReqHandlerCode"
+    ref="CodeReqModalEditorRef"
+    :event-header="`function(data){`"
+  />
   <CodeModalEditor
     v-model="optionModel.dataHandlerCode"
     ref="CodeModalEditorRef"
@@ -207,6 +222,9 @@
     methods: {
       editDataHandlerCode() {
         this.$refs.CodeModalEditorRef.open(this.optionModel.dataHandlerCode);
+      },
+      editReqDataHandlerCode() {
+        this.$refs.CodeReqModalEditorRef.open(this.optionModel.dataReqHandlerCode);
       },
       addDataSource() {
         this.showDataSourceDialogFlag = true;
@@ -274,11 +292,20 @@
       },
 
       async doDataSourceRequest() {
+        const { dataReqHandlerCode, dataHandlerCode } = this.optionModel;
         try {
-          const dsvObj = JSON.parse(this.dsvJson);
-          let dsResult = await getHttp()(dsvObj);
-          if (this.optionModel.dataHandlerCode) {
-            const dhFn = new Function('data', this.optionModel.dataHandlerCode);
+          let p = JSON.parse(this.dsvJson);
+          if (dataReqHandlerCode) {
+            const dataReqHandlerCodeFn = new Function('data', dataReqHandlerCode);
+            p = dataReqHandlerCodeFn.call(this, p);
+          }
+          if (!p) return;
+          console.log('请求参数 ', p);
+
+          let dsResult = await getHttp()(p);
+
+          if (dataHandlerCode) {
+            const dhFn = new Function('data', dataHandlerCode);
             dsResult = dhFn.call(this, dsResult);
           }
           this.$refs.dsResultEditor.setValue(JSON.stringify(dsResult, null, '  '));

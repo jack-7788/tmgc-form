@@ -6,7 +6,7 @@ export const fmtHttpParams = async (req, params: any = {}) => {
 
   const { data, ctx } = params;
   console.log('req: ', req);
-  const { http, dataHandlerCode } = req;
+  const { http, dataHandlerCode, dataReqHandlerCode } = req;
 
   const paramsMap = { ...getLocat(), ...data, ...ctx };
 
@@ -18,10 +18,14 @@ export const fmtHttpParams = async (req, params: any = {}) => {
     params: http.method === 'get' ? { ...http.params, ...data } : { ...http.params },
     data: http.method === 'post' ? { ...http.data, ...data } : { ...http.data }
   });
-  const res = replaceVars(sendParams, paramsMap).replaceAll('null', null);
-  console.log('res: ', res);
-
-  let dsResult = await request(JSON.parse(res));
+  let p = JSON.parse(replaceVars(sendParams, paramsMap));
+  if (dataReqHandlerCode) {
+    const dataReqHandlerCodeFn = new Function('data', dataReqHandlerCode);
+    p = dataReqHandlerCodeFn.call(this, p);
+  }
+  if (!p) return;
+  console.log('请求参数 ', p);
+  let dsResult = await request(p);
   if (dataHandlerCode) {
     const dhFn = new Function('data', dataHandlerCode);
     dsResult = dhFn.call(this, dsResult);

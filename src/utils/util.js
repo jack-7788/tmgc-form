@@ -471,24 +471,6 @@ export function getDefaultFormConfig() {
     onFormMounted: '',
     onFormDataChange: '',
     serveList: {
-      // vformAdd: {
-      //   http: {
-      //     url: '/api/tmgc2-query/pageDataCud/createOrUpdate/${pageCode}',
-      //     method: 'post',
-      //     data: { _id: '${_id}' },
-      //     params: {}
-      //   },
-      //   dataHandlerCode: ''
-      // },
-      // vformInit: {
-      //   http: {
-      //     url: '/api/tmgc2-mgt/formDefinition/${formCode}/evaluate/formLoad',
-      //     method: 'post',
-      //     data: { _id: '${_id}' },
-      //     params: {}
-      //   },
-      //   dataHandlerCode: ''
-      // },
       vformUpdate: {
         http: {
           url: `/api/tmgc2-mgt/formDefinition/${formCode}/evaluate/formSubmit`,
@@ -496,6 +478,7 @@ export function getDefaultFormConfig() {
           data: { _id: '${_id}' },
           params: {}
         },
+        dataReqHandlerCode: `const d=data.data||{};\n Object.keys(d).forEach(k=>{\n if(d[k]==='null'){\n d[k]=null\n }\n })\nreturn {...data,data:d}`,
         dataHandlerCode: ''
       },
       vformDetail: {
@@ -505,17 +488,9 @@ export function getDefaultFormConfig() {
           data: { _id: '${_id}' },
           params: {}
         },
-        dataHandlerCode: '' //'console.log(data.data);\nreturn data.data.object;\n '
+        dataReqHandlerCode: `const d=data.data||{};\n Object.keys(d).forEach(k=>{\n if(d[k]==='null'){\n d[k]=null\n }\n })\nreturn {...data,data:d}`,
+        dataHandlerCode: ''
       }
-      // vformDel: {
-      //   http: {
-      //     url: '/api/tmgc2-query/pageDataCud/batch/${pageCode}',
-      //     method: 'delete',
-      //     data: { ids: '${ids}' },
-      //     params: {}
-      //   },
-      //   dataHandlerCode: ''
-      // }
     }
   };
 }

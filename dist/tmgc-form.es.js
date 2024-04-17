@@ -3054,24 +3054,6 @@ function getDefaultFormConfig() {
     onFormMounted: "",
     onFormDataChange: "",
     serveList: {
-      // vformAdd: {
-      //   http: {
-      //     url: '/api/tmgc2-query/pageDataCud/createOrUpdate/${pageCode}',
-      //     method: 'post',
-      //     data: { _id: '${_id}' },
-      //     params: {}
-      //   },
-      //   dataHandlerCode: ''
-      // },
-      // vformInit: {
-      //   http: {
-      //     url: '/api/tmgc2-mgt/formDefinition/${formCode}/evaluate/formLoad',
-      //     method: 'post',
-      //     data: { _id: '${_id}' },
-      //     params: {}
-      //   },
-      //   dataHandlerCode: ''
-      // },
       vformUpdate: {
         http: {
           url: `/api/tmgc2-mgt/formDefinition/${formCode}/evaluate/formSubmit`,
@@ -3079,6 +3061,13 @@ function getDefaultFormConfig() {
           data: { _id: "${_id}" },
           params: {}
         },
+        dataReqHandlerCode: `const d=data.data||{};
+ Object.keys(d).forEach(k=>{
+ if(d[k]==='null'){
+ d[k]=null
+ }
+ })
+return {...data,data:d}`,
         dataHandlerCode: ""
       },
       vformDetail: {
@@ -3088,18 +3077,15 @@ function getDefaultFormConfig() {
           data: { _id: "${_id}" },
           params: {}
         },
+        dataReqHandlerCode: `const d=data.data||{};
+ Object.keys(d).forEach(k=>{
+ if(d[k]==='null'){
+ d[k]=null
+ }
+ })
+return {...data,data:d}`,
         dataHandlerCode: ""
-        //'console.log(data.data);\nreturn data.data.object;\n '
       }
-      // vformDel: {
-      //   http: {
-      //     url: '/api/tmgc2-query/pageDataCud/batch/${pageCode}',
-      //     method: 'delete',
-      //     data: { ids: '${ids}' },
-      //     params: {}
-      //   },
-      //   dataHandlerCode: ''
-      // }
     }
   };
 }
@@ -8917,7 +8903,7 @@ const fmtHttpParams = async (req, params = {}) => {
   const request = getHttp();
   const { data, ctx } = params;
   console.log("req: ", req);
-  const { http: http2, dataHandlerCode } = req;
+  const { http: http2, dataHandlerCode, dataReqHandlerCode } = req;
   const paramsMap = { ...getLocat(), ...data, ...ctx };
   const method = http2.method || "get";
   const sendParams = JSON.stringify({
@@ -8926,9 +8912,15 @@ const fmtHttpParams = async (req, params = {}) => {
     params: http2.method === "get" ? { ...http2.params, ...data } : { ...http2.params },
     data: http2.method === "post" ? { ...http2.data, ...data } : { ...http2.data }
   });
-  const res = replaceVars(sendParams, paramsMap).replaceAll("null", null);
-  console.log("res: ", res);
-  let dsResult = await request(JSON.parse(res));
+  let p = JSON.parse(replaceVars(sendParams, paramsMap));
+  if (dataReqHandlerCode) {
+    const dataReqHandlerCodeFn = new Function("data", dataReqHandlerCode);
+    p = dataReqHandlerCodeFn.call(void 0, p);
+  }
+  if (!p)
+    return;
+  console.log("请求参数 ", p);
+  let dsResult = await request(p);
   if (dataHandlerCode) {
     const dhFn = new Function("data", dataHandlerCode);
     dsResult = dhFn.call(void 0, dsResult);
@@ -55068,6 +55060,9 @@ const _sfc_main$3h = {
     editDataHandlerCode() {
       this.$refs.CodeModalEditorRef.open(this.optionModel.dataHandlerCode);
     },
+    editReqDataHandlerCode() {
+      this.$refs.CodeReqModalEditorRef.open(this.optionModel.dataReqHandlerCode);
+    },
     addDataSource() {
       this.showDataSourceDialogFlag = true;
       this.dataList = Object.entries(this.optionModel.http.data).map(([name, value2]) => ({
@@ -55135,11 +55130,22 @@ const _sfc_main$3h = {
       this.showTestDataSourceDialogFlag = true;
     },
     async doDataSourceRequest() {
+      const {
+        dataReqHandlerCode,
+        dataHandlerCode
+      } = this.optionModel;
       try {
-        const dsvObj = JSON.parse(this.dsvJson);
-        let dsResult = await getHttp()(dsvObj);
-        if (this.optionModel.dataHandlerCode) {
-          const dhFn = new Function("data", this.optionModel.dataHandlerCode);
+        let p = JSON.parse(this.dsvJson);
+        if (dataReqHandlerCode) {
+          const dataReqHandlerCodeFn = new Function("data", dataReqHandlerCode);
+          p = dataReqHandlerCodeFn.call(this, p);
+        }
+        if (!p)
+          return;
+        console.log("请求参数 ", p);
+        let dsResult = await getHttp()(p);
+        if (dataHandlerCode) {
+          const dhFn = new Function("data", dataHandlerCode);
           dsResult = dhFn.call(this, dsResult);
         }
         this.$refs.dsResultEditor.setValue(JSON.stringify(dsResult, null, "  "));
@@ -55474,6 +55480,22 @@ function _sfc_render$3h(_ctx, _cache, $props, $setup, $data, $options) {
               ]),
               _: 1
             }, 8, ["label"]),
+            createVNode(_component_a_form_item, { label: `请求前数据处理` }, {
+              default: withCtx(() => [
+                createVNode(_component_a_button, {
+                  type: "info",
+                  shape: "round",
+                  onClick: $options.editReqDataHandlerCode,
+                  class: normalizeClass([$props.optionModel.dataReqHandlerCode ? "button-text-highlight" : ""])
+                }, {
+                  default: withCtx(() => [
+                    createTextVNode(" 处理函数配置 ")
+                  ]),
+                  _: 1
+                }, 8, ["onClick", "class"])
+              ]),
+              _: 1
+            }),
             createVNode(_component_a_form_item, { label: `接口响应数据处理` }, {
               default: withCtx(() => [
                 createVNode(_component_a_button, {
@@ -55569,14 +55591,20 @@ function _sfc_render$3h(_ctx, _cache, $props, $setup, $data, $options) {
       _: 1
     }, 8, ["title", "visible"]),
     createVNode(_component_CodeModalEditor, {
+      modelValue: $props.optionModel.dataReqHandlerCode,
+      "onUpdate:modelValue": _cache[8] || (_cache[8] = ($event) => $props.optionModel.dataReqHandlerCode = $event),
+      ref: "CodeReqModalEditorRef",
+      "event-header": `function(data){`
+    }, null, 8, ["modelValue", "event-header"]),
+    createVNode(_component_CodeModalEditor, {
       modelValue: $props.optionModel.dataHandlerCode,
-      "onUpdate:modelValue": _cache[8] || (_cache[8] = ($event) => $props.optionModel.dataHandlerCode = $event),
+      "onUpdate:modelValue": _cache[9] || (_cache[9] = ($event) => $props.optionModel.dataHandlerCode = $event),
       ref: "CodeModalEditorRef",
       "event-header": `function(data){`
     }, null, 8, ["modelValue", "event-header"])
   ], 64);
 }
-const HttpEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3h, [["render", _sfc_render$3h], ["__scopeId", "data-v-63d8c843"]]);
+const HttpEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3h, [["render", _sfc_render$3h], ["__scopeId", "data-v-6b88b608"]]);
 const _sfc_main$3g = {
   name: "data-table-dsEnabled-editor",
   mixins: [i18n$1],
@@ -77766,13 +77794,13 @@ function registerIcon(app) {
 if (typeof window !== "undefined") {
   let loadSvg = function() {
     var body = document.body;
-    var svgDom = document.getElementById("__svg__icons__dom__1713327564029__");
+    var svgDom = document.getElementById("__svg__icons__dom__1713335057443__");
     if (!svgDom) {
       svgDom = document.createElementNS("http://www.w3.org/2000/svg", "svg");
       svgDom.style.position = "absolute";
       svgDom.style.width = "0";
       svgDom.style.height = "0";
-      svgDom.id = "__svg__icons__dom__1713327564029__";
+      svgDom.id = "__svg__icons__dom__1713335057443__";
       svgDom.setAttribute("xmlns", "http://www.w3.org/2000/svg");
       svgDom.setAttribute("xmlns:link", "http://www.w3.org/1999/xlink");
     }

@@ -6,6 +6,7 @@ import ContainerItems from '@/components/form-render/container-item/index';
 import { registerIcon } from '@/utils/el-icons';
 import 'virtual:svg-icons-register';
 import '@/iconfont/iconfont.css';
+import '@/styles/_common.less';
 
 import { loadExtension } from '@/extension/extension-loader';
 import http from '@/utils/request/http';

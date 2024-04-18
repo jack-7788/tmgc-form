@@ -231,7 +231,7 @@
       async onFormDetail() {
         const serveList = this.formConfig.serveList;
         if (serveList.vformDetail.http?.url) {
-          const res = await fmtHttpParams(serveList.vformDetail, { ctx: this.ctx });
+          const res = await fmtHttpParams(serveList.vformDetail, { vfCtx: this.vfCtx });
           console.log('res: ', res);
           return res;
         }
@@ -242,7 +242,7 @@
         if (serveList.vformDetail.http?.url) {
           const res = await fmtHttpParams(serveList.vformUpdate, {
             data: modelForm,
-            ctx: this.ctx
+            vfCtx: this.vfCtx
           });
           console.log('res: ', res);
           return res;

@@ -4,11 +4,11 @@ import { getHttp } from './http';
 export const fmtHttpParams = async (req, params: any = {}) => {
   const request = getHttp();
 
-  const { data, ctx } = params;
+  const { data, vfCtx } = params;
   console.log('req: ', req);
   const { http, dataHandlerCode, dataReqHandlerCode } = req;
 
-  const paramsMap = { ...getLocat(), ...data, ...ctx };
+  const paramsMap = { ...getLocat(), ...data, ...vfCtx };
 
   const method = http.method || 'get';
 

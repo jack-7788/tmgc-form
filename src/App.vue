@@ -22,6 +22,7 @@
   import { getUuidKey } from '@/utils/util';
 
   const { entityCode = '', terminalType = '', formCode = '', id = '' } = getLocat();
+
   dayjs.locale('zh-cn');
 
   export default {
@@ -34,9 +35,6 @@
         formJson: {
           widgetList: [],
           formConfig: {
-            // modelName: 'formData',
-            // refName: 'vForm',
-            // rulesName: 'rules',
             labelWidth: 80,
             labelPosition: 'left',
             size: '',
@@ -83,7 +81,7 @@
           label: '提交',
           name: btnId,
           onCreated: `
-            const hidden = this.getFormRef().ctx?.type==='view';
+            const hidden = this.getFormRef().vfCtx?.type==='view';
             this.setHidden(hidden)
             `,
           onClick: `(async()=>{

@@ -8936,10 +8936,10 @@ const getHttp = () => {
 };
 const fmtHttpParams = async (req, params = {}) => {
   const request = getHttp();
-  const { data, ctx } = params;
+  const { data, vfCtx } = params;
   console.log("req: ", req);
   const { http: http2, dataHandlerCode, dataReqHandlerCode } = req;
-  const paramsMap = { ...getLocat(), ...data, ...ctx };
+  const paramsMap = { ...getLocat(), ...data, ...vfCtx };
   const method = http2.method || "get";
   const sendParams = JSON.stringify({
     ...http2,
@@ -28157,7 +28157,7 @@ const _sfc_main$3y = {
       var _a;
       const serveList = this.formConfig.serveList;
       if ((_a = serveList.vformDetail.http) == null ? void 0 : _a.url) {
-        const res = await fmtHttpParams(serveList.vformDetail, { ctx: this.ctx });
+        const res = await fmtHttpParams(serveList.vformDetail, { vfCtx: this.vfCtx });
         console.log("res: ", res);
         return res;
       }
@@ -28169,7 +28169,7 @@ const _sfc_main$3y = {
       if ((_a = serveList.vformDetail.http) == null ? void 0 : _a.url) {
         const res = await fmtHttpParams(serveList.vformUpdate, {
           data: modelForm,
-          ctx: this.ctx
+          vfCtx: this.vfCtx
         });
         console.log("res: ", res);
         return res;
@@ -28956,7 +28956,7 @@ function _sfc_render$3y(_ctx, _cache, $props, $setup, $data, $options) {
     _: 3
   }, 8, ["component-size"]);
 }
-const VFormRender = /* @__PURE__ */ _export_sfc$1(_sfc_main$3y, [["render", _sfc_render$3y], ["__scopeId", "data-v-f4ef97ca"]]);
+const VFormRender = /* @__PURE__ */ _export_sfc$1(_sfc_main$3y, [["render", _sfc_render$3y], ["__scopeId", "data-v-d9f280d9"]]);
 var ace$2 = { exports: {} };
 (function(module, exports) {
   (function() {
@@ -77829,13 +77829,13 @@ function registerIcon(app) {
 if (typeof window !== "undefined") {
   let loadSvg = function() {
     var body = document.body;
-    var svgDom = document.getElementById("__svg__icons__dom__1713336098022__");
+    var svgDom = document.getElementById("__svg__icons__dom__1713429302535__");
     if (!svgDom) {
       svgDom = document.createElementNS("http://www.w3.org/2000/svg", "svg");
       svgDom.style.position = "absolute";
       svgDom.style.width = "0";
       svgDom.style.height = "0";
-      svgDom.id = "__svg__icons__dom__1713336098022__";
+      svgDom.id = "__svg__icons__dom__1713429302535__";
       svgDom.setAttribute("xmlns", "http://www.w3.org/2000/svg");
       svgDom.setAttribute("xmlns:link", "http://www.w3.org/1999/xlink");
     }

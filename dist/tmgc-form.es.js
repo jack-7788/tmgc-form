@@ -52693,7 +52693,7 @@ const _sfc_main$3w = {
   inject: ["getDesignerConfig"],
   data() {
     return {
-      ctx: { type: "view", ...getLocat() },
+      vfCtx: { type: "view", ...getLocat() },
       designerConfig: this.getDesignerConfig(),
       toolbarWidth: 460,
       showPreviewDialogFlag: false,
@@ -53917,7 +53917,7 @@ const _sfc_main$3w = {
     }
   }
 };
-const _withScopeId$4 = (n) => (pushScopeId("data-v-23c757a8"), n = n(), popScopeId(), n);
+const _withScopeId$4 = (n) => (pushScopeId("data-v-80466aa0"), n = n(), popScopeId(), n);
 const _hoisted_1$E = { class: "toolbar-container" };
 const _hoisted_2$q = /* @__PURE__ */ _withScopeId$4(() => /* @__PURE__ */ createElementVNode("div", { class: "left-toolbar" }, null, -1));
 const _hoisted_3$m = { class: "right-toolbar" };
@@ -54099,7 +54099,7 @@ function _sfc_render$3w(_ctx, _cache, $props, $setup, $data, $options) {
             class: normalizeClass(["form-render-wrapper", [$options.layoutType === "H5" ? "h5-layout" : $options.layoutType === "Pad" ? "pad-layout" : ""]])
           }, [
             createVNode(_component_VFormRender, {
-              vfCtx: _ctx.vfCtx,
+              vfCtx: $data.vfCtx,
               ref: "preForm",
               "form-json": $options.formJson,
               "form-data": $data.testFormData,
@@ -54375,7 +54375,7 @@ function _sfc_render$3w(_ctx, _cache, $props, $setup, $data, $options) {
     }, 8, ["title", "visible"])) : createCommentVNode("", true)
   ]);
 }
-const ToolbarPanel = /* @__PURE__ */ _export_sfc$1(_sfc_main$3w, [["render", _sfc_render$3w], ["__scopeId", "data-v-23c757a8"]]);
+const ToolbarPanel = /* @__PURE__ */ _export_sfc$1(_sfc_main$3w, [["render", _sfc_render$3w], ["__scopeId", "data-v-80466aa0"]]);
 const _sfc_main$3v = {
   name: "actionColumnPosition-editor",
   mixins: [i18n$1],
@@ -77829,13 +77829,13 @@ function registerIcon(app) {
 if (typeof window !== "undefined") {
   let loadSvg = function() {
     var body = document.body;
-    var svgDom = document.getElementById("__svg__icons__dom__1713431147455__");
+    var svgDom = document.getElementById("__svg__icons__dom__1713433959301__");
     if (!svgDom) {
       svgDom = document.createElementNS("http://www.w3.org/2000/svg", "svg");
       svgDom.style.position = "absolute";
       svgDom.style.width = "0";
       svgDom.style.height = "0";
-      svgDom.id = "__svg__icons__dom__1713431147455__";
+      svgDom.id = "__svg__icons__dom__1713433959301__";
       svgDom.setAttribute("xmlns", "http://www.w3.org/2000/svg");
       svgDom.setAttribute("xmlns:link", "http://www.w3.org/1999/xlink");
     }

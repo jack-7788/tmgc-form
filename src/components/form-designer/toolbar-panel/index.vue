@@ -322,7 +322,7 @@
     inject: ['getDesignerConfig'],
     data() {
       return {
-        ctx: { type: 'view', ...getLocat() },
+        vfCtx: { type: 'view', ...getLocat() },
         designerConfig: this.getDesignerConfig(),
 
         toolbarWidth: 460,

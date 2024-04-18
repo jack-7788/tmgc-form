@@ -98,7 +98,7 @@
           :class="[layoutType === 'H5' ? 'h5-layout' : layoutType === 'Pad' ? 'pad-layout' : '']"
         >
           <VFormRender
-            :ctx="ctx"
+            :vfCtx="vfCtx"
             ref="preForm"
             :form-json="formJson"
             :form-data="testFormData"

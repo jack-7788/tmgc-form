@@ -28015,7 +28015,7 @@ const _sfc_main$3y = {
     ...comps$1
   },
   props: {
-    ctx: {
+    vfCtx: {
       type: Object,
       default: () => ({})
     },
@@ -28956,7 +28956,7 @@ function _sfc_render$3y(_ctx, _cache, $props, $setup, $data, $options) {
     _: 3
   }, 8, ["component-size"]);
 }
-const VFormRender = /* @__PURE__ */ _export_sfc$1(_sfc_main$3y, [["render", _sfc_render$3y], ["__scopeId", "data-v-d9f280d9"]]);
+const VFormRender = /* @__PURE__ */ _export_sfc$1(_sfc_main$3y, [["render", _sfc_render$3y], ["__scopeId", "data-v-4cca94a2"]]);
 var ace$2 = { exports: {} };
 (function(module, exports) {
   (function() {
@@ -53917,7 +53917,7 @@ const _sfc_main$3w = {
     }
   }
 };
-const _withScopeId$4 = (n) => (pushScopeId("data-v-0455a0c4"), n = n(), popScopeId(), n);
+const _withScopeId$4 = (n) => (pushScopeId("data-v-23c757a8"), n = n(), popScopeId(), n);
 const _hoisted_1$E = { class: "toolbar-container" };
 const _hoisted_2$q = /* @__PURE__ */ _withScopeId$4(() => /* @__PURE__ */ createElementVNode("div", { class: "left-toolbar" }, null, -1));
 const _hoisted_3$m = { class: "right-toolbar" };
@@ -54099,7 +54099,7 @@ function _sfc_render$3w(_ctx, _cache, $props, $setup, $data, $options) {
             class: normalizeClass(["form-render-wrapper", [$options.layoutType === "H5" ? "h5-layout" : $options.layoutType === "Pad" ? "pad-layout" : ""]])
           }, [
             createVNode(_component_VFormRender, {
-              ctx: $data.ctx,
+              vfCtx: _ctx.vfCtx,
               ref: "preForm",
               "form-json": $options.formJson,
               "form-data": $data.testFormData,
@@ -54110,7 +54110,7 @@ function _sfc_render$3w(_ctx, _cache, $props, $setup, $data, $options) {
               onAppendButtonClick: $options.testOnAppendButtonClick,
               onButtonClick: $options.testOnButtonClick,
               onFormChange: $options.handleFormChange
-            }, null, 8, ["ctx", "form-json", "form-data", "option-data", "global-dsv", "onMyEmitTest", "onAppendButtonClick", "onButtonClick", "onFormChange"])
+            }, null, 8, ["vfCtx", "form-json", "form-data", "option-data", "global-dsv", "onMyEmitTest", "onAppendButtonClick", "onButtonClick", "onFormChange"])
           ], 2)
         ])
       ]),
@@ -54375,7 +54375,7 @@ function _sfc_render$3w(_ctx, _cache, $props, $setup, $data, $options) {
     }, 8, ["title", "visible"])) : createCommentVNode("", true)
   ]);
 }
-const ToolbarPanel = /* @__PURE__ */ _export_sfc$1(_sfc_main$3w, [["render", _sfc_render$3w], ["__scopeId", "data-v-0455a0c4"]]);
+const ToolbarPanel = /* @__PURE__ */ _export_sfc$1(_sfc_main$3w, [["render", _sfc_render$3w], ["__scopeId", "data-v-23c757a8"]]);
 const _sfc_main$3v = {
   name: "actionColumnPosition-editor",
   mixins: [i18n$1],
@@ -77829,13 +77829,13 @@ function registerIcon(app) {
 if (typeof window !== "undefined") {
   let loadSvg = function() {
     var body = document.body;
-    var svgDom = document.getElementById("__svg__icons__dom__1713429302535__");
+    var svgDom = document.getElementById("__svg__icons__dom__1713431147455__");
     if (!svgDom) {
       svgDom = document.createElementNS("http://www.w3.org/2000/svg", "svg");
       svgDom.style.position = "absolute";
       svgDom.style.width = "0";
       svgDom.style.height = "0";
-      svgDom.id = "__svg__icons__dom__1713429302535__";
+      svgDom.id = "__svg__icons__dom__1713431147455__";
       svgDom.setAttribute("xmlns", "http://www.w3.org/2000/svg");
       svgDom.setAttribute("xmlns:link", "http://www.w3.org/1999/xlink");
     }

@@ -83,7 +83,7 @@
       ...FieldComponents
     },
     props: {
-      ctx: {
+      vfCtx: {
         type: Object,
         default: () => ({})
       },

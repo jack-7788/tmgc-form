@@ -182,7 +182,6 @@ export default {
       });
 
       this.on$('field-value-changed', values => {
-        console.log('field-value-changed: ', values);
         if (!!this.subFormItemFlag) {
           const subFormData = this.formModel[this.subFormName];
           this.handleOnChangeForSubForm(values[0], values[1], subFormData, this.subFormRowId);
@@ -261,13 +260,15 @@ export default {
       if (this.designState) {
         return;
       }
+      if (this.loading) return;
+      this.loading = true;
       if (['radio', 'checkbox', 'select', 'cascader', 'treeSelect'].includes(this.field.type)) {
         /* 首先处理数据源选项加载 */
         if (!!this.field.options.dsEnabled && this.field.options.http?.url) {
           this.field.options.optionItems.splice(0, this.field.options.optionItems.length); // 清空原有选项
           try {
             // const sendParams = JSON.stringify(this.field.options.http);
-            const dsResult = await fmtHttpParams(this.field.options, {
+            const dsResult = await fmtHttpParams.call(this, this.field.options, {
               fieldCode: this.field.options.name
             });
 
@@ -287,6 +288,7 @@ export default {
             this.loadOptions(newOptionItems[this.field.options.name]);
           }
         }
+        this.loading = false;
       }
     },
 
@@ -601,6 +603,22 @@ export default {
         customFn.call(this);
       } else {
         this.dispatch('VFormRender', 'buttonClick', [this]);
+      }
+    },
+    /**
+     * 下拉框右边搜索按钮
+     */
+    handleClickIcon() {
+      if (!!this.designState) {
+        //设计状态不触发事件
+        return;
+      }
+      if (this.field.options.disabled) {
+        return;
+      }
+      if (!!this.field.options.onClickIcon) {
+        const onClickIconFn = new Function(this.field.options.onClickIcon);
+        onClickIconFn.call(this);
       }
     },
 

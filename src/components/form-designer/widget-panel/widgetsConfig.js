@@ -179,7 +179,8 @@ export const containers = [
         data: {},
         params: {} //{ pageCode: '${pageCode}', fieldCode: '${fieldCode}' }
       },
-
+      editReqDataHandlerCode: '',
+      editDataHandlerCode: '',
       rowKey: 'name', //树形数据数据row-key
       childrenKey: 'children', //树形数据children
       dataSource: [
@@ -231,7 +232,8 @@ export const containers = [
         total: 0, //数据总数
         showQuickJumper: true, //是否可以快速跳转至某页
         showSizeChanger: true, //是否展示 pageSize 切换器，当 total 大于 50 时默认为 true
-        position: ['bottomRight']
+        position: ['bottomRight'],
+        showTotal: total => `共 ${total} 条`
       },
       rowSelection: {
         hasRowSelection: false,

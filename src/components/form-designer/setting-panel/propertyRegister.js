@@ -31,7 +31,12 @@ const COMMON_PROPERTIES = {
   validationHint: 'validationHint-editor',
   readonly: 'readonly-editor',
   disabled: 'disabled-editor',
+  loadingPage: 'loadingPage-editor',
   hidden: 'hidden-editor',
+  useModal: 'useModal-editor',
+  checkedValue: 'checkedValue-editor',
+  unCheckedValue: 'unCheckedValue-editor',
+  placement: 'placement-editor',
   rowKey: 'rowKey-editor',
   tableWidth: 'tableWidth-editor',
   tableHeight: 'tableHeight-editor',
@@ -62,6 +67,7 @@ const COMMON_PROPERTIES = {
   multiple: 'multiple-editor',
   // multipleLimit: 'multipleLimit-editor',
   mode: 'mode-editor',
+  menuList: 'menuList-editor',
 
   contentPosition: 'contentPosition-editor',
   optionItems: 'optionItems-editor',
@@ -118,8 +124,6 @@ const ADVANCED_PROPERTIES = {
   addonBefore: 'addonBefore-editor',
   addonAfter: 'addonAfter-editor',
   switchWidth: 'switchWidth-editor',
-  checkedChildren: 'checkedChildren-editor',
-  unCheckedChildren: 'unCheckedChildren-editor',
   activeColor: 'activeColor-editor',
   inactiveColor: 'inactiveColor-editor',
   lowThreshold: 'lowThreshold-editor',
@@ -158,6 +162,8 @@ const EVENT_PROPERTIES = {
   onFileRemove: 'onFileRemove-editor',
   onValidate: 'onValidate-editor',
   onAppendButtonClick: 'onAppendButtonClick-editor',
+  onClickIcon: 'onClickIcon-editor',
+  onMenuClick: 'onMenuClick-editor',
 
   //容器
   onTabClick: 'onTabClick-editor',

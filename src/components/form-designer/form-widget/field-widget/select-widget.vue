@@ -11,31 +11,37 @@
     :sub-form-col-index="subFormColIndex"
     :sub-form-row-id="subFormRowId"
   >
-    <a-select
-      ref="fieldEditor"
-      v-model:value="fieldModel"
-      v-show="!isReadMode"
-      :size="size"
-      class="full-width-input"
-      :disabled="field.options.disabled"
-      :allowClear="field.options.allowClear"
-      :showArrow="true"
-      :dropdownMatchSelectWidth="false"
-      :mode="field.options.mode"
-      :maxTagCount="field.options.maxTagCount"
-      :placeholder="field.options.placeholder || i18nt('render.hint.selectPlaceholder')"
-      :showSearch="field.options.showSearch"
-      @search="remoteQuery"
-      @focus="handleFocusCustomEvent"
-      @blur="handleBlurCustomEvent"
-      @change="handleChangeEvent"
-      :options="field.options.optionItems"
-      :fieldNames="{
-        label: field.options.labelKey || 'label',
-        value: field.options.valueKey || 'value',
-        options: 'options'
-      }"
-    />
+    <div class="design-select-box" v-show="!isReadMode">
+      <a-select
+        ref="fieldEditor"
+        v-model:value="fieldModel"
+        v-show="!isReadMode"
+        :size="size"
+        class="full-width-input"
+        :disabled="field.options.disabled"
+        :allowClear="field.options.allowClear"
+        :showArrow="true"
+        :dropdownMatchSelectWidth="false"
+        :mode="field.options.mode"
+        :maxTagCount="field.options.maxTagCount"
+        :placeholder="field.options.placeholder || i18nt('render.hint.selectPlaceholder')"
+        :showSearch="field.options.showSearch"
+        @search="remoteQuery"
+        @focus="handleFocusCustomEvent"
+        @blur="handleBlurCustomEvent"
+        @change="handleChangeEvent"
+        @popupScroll="onPopupScroll"
+        :options="field.options.optionItems"
+        :fieldNames="{
+          label: field.options.labelKey || 'label',
+          value: field.options.valueKey || 'value',
+          options: 'options'
+        }"
+      />
+      <div v-if="field.options.useModal" class="useModal-svg" @click="handleClickIcon">
+        <svg-icon icon-class="sousuo" />
+      </div>
+    </div>
     <template v-if="isReadMode">
       <a-tooltip placement="topLeft" :title="optionLabel" :overlayStyle="{ zIndex: 1000 }">
         <span class="readonly-mode-field">{{ optionLabel }}</span>
@@ -48,12 +54,14 @@
   import FormItemWrapper from './form-item-wrapper';
   import emitter from '@/utils/emitter';
   import i18n, { translate } from '@/utils/i18n';
-  import fieldMixin from '@/components/form-designer/form-widget/field-widget/fieldMixin';
+  import fieldMixin from '@/components/form-designer/form-widget/field-widget/fieldMixin.js';
+  import SvgIcon from '@/components/svg-icon';
 
   export default {
     name: 'select-widget',
     componentName: 'FieldWidget', //必须固定为FieldWidget，用于接收父级组件的broadcast事件
     mixins: [emitter, fieldMixin, i18n],
+
     props: {
       field: Object,
       parentWidget: Object,
@@ -79,14 +87,18 @@
         default: ''
       }
     },
-    components: {
-      FormItemWrapper
-    },
+    components: { SvgIcon, FormItemWrapper },
     data() {
       return {
         oldFieldValue: null, //field组件change之前的值
         fieldModel: null,
-        rules: []
+        rules: [],
+        pager: {
+          page: 1,
+          pageSize: 20,
+          totalPage: 0,
+          total: 0
+        }
       };
     },
     computed: {
@@ -146,6 +158,17 @@
        */
       getSelectedLabel() {
         return this.$refs.fieldEditor.selectedLabel;
+      },
+      onPopupScroll(e) {
+        if (!this.field.options.loadingPage) return;
+        const { target } = e;
+        const { scrollTop, scrollHeight, clientHeight } = target;
+        if (scrollHeight - (scrollTop + clientHeight) <= 30) {
+          if (this.pager.totalPage > this.pager.page) {
+            this.pager.page += 1;
+            this.initOptionItems(true);
+          }
+        }
       }
     }
   };
@@ -156,5 +179,23 @@
 
   .full-width-input {
     width: 100% !important;
+  }
+  .design-select-box {
+    display: flex;
+    width: 100%;
+    .ant-select {
+      flex: 1 0 0;
+      min-width: 0;
+    }
+    .useModal-svg {
+      border: 1px solid #d9d9d9;
+      // padding-left: 12px;
+      cursor: pointer;
+      width: 40px;
+      background: #fafafa;
+      line-height: 30px;
+      border-left: 0;
+      text-align: center;
+    }
   }
 </style>

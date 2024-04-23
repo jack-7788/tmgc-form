@@ -1,4 +1,4 @@
-import require$$0$2, { openBlock, createElementBlock, normalizeClass, createElementVNode, toDisplayString, createCommentVNode, reactive, createVNode, resolveComponent, withCtx, createTextVNode, createBlock, renderSlot, normalizeStyle, withModifiers, Fragment, withDirectives, renderList, vShow, createSlots, watch, ref, onBeforeUnmount, onMounted, onUnmounted, mergeProps, resolveDynamicComponent, normalizeProps, guardReactiveProps, pushScopeId, popScopeId, render, defineComponent, isVNode } from "vue";
+import require$$0$2, { openBlock, createElementBlock, normalizeClass, createElementVNode, toDisplayString, createCommentVNode, reactive, createVNode, resolveComponent, withCtx, createTextVNode, createBlock, renderSlot, normalizeStyle, withModifiers, Fragment, withDirectives, renderList, vShow, createSlots, watch, ref, onBeforeUnmount, onMounted, onUnmounted, mergeProps, resolveDynamicComponent, normalizeProps, guardReactiveProps, pushScopeId, popScopeId, render, defineComponent, h, nextTick, isVNode } from "vue";
 import { Modal, message } from "ant-design-vue";
 import { isArray as isArray$1, omit, isEmpty } from "lodash-es";
 function bind(fn, thisArg) {
@@ -653,9 +653,9 @@ class InterceptorManager {
    * @returns {void}
    */
   forEach(fn) {
-    utils$1.forEach(this.handlers, function forEachHandler(h) {
-      if (h !== null) {
-        fn(h);
+    utils$1.forEach(this.handlers, function forEachHandler(h2) {
+      if (h2 !== null) {
+        fn(h2);
       }
     });
   }
@@ -2031,7 +2031,7 @@ const _export_sfc$1 = (sfc, props) => {
   }
   return target;
 };
-const _sfc_main$4c = {
+const _sfc_main$4j = {
   name: "SvgIcon",
   props: {
     iconClass: {
@@ -2059,18 +2059,18 @@ const _sfc_main$4c = {
     }
   }
 };
-const _hoisted_1$16 = ["xlink:href"];
-const _hoisted_2$A = { key: 0 };
-function _sfc_render$4c(_ctx, _cache, $props, $setup, $data, $options) {
+const _hoisted_1$15 = ["xlink:href"];
+const _hoisted_2$B = { key: 0 };
+function _sfc_render$4j(_ctx, _cache, $props, $setup, $data, $options) {
   return openBlock(), createElementBlock("svg", {
     class: normalizeClass($options.svgClass),
     "aria-hidden": "true"
   }, [
-    createElementVNode("use", { "xlink:href": $options.iconName }, null, 8, _hoisted_1$16),
-    !!$props.title ? (openBlock(), createElementBlock("title", _hoisted_2$A, toDisplayString($props.title), 1)) : createCommentVNode("", true)
+    createElementVNode("use", { "xlink:href": $options.iconName }, null, 8, _hoisted_1$15),
+    !!$props.title ? (openBlock(), createElementBlock("title", _hoisted_2$B, toDisplayString($props.title), 1)) : createCommentVNode("", true)
   ], 2);
 }
-const SvgIcon = /* @__PURE__ */ _export_sfc$1(_sfc_main$4c, [["render", _sfc_render$4c], ["__scopeId", "data-v-db5a1437"]]);
+const SvgIcon = /* @__PURE__ */ _export_sfc$1(_sfc_main$4j, [["render", _sfc_render$4j], ["__scopeId", "data-v-db5a1437"]]);
 var commonjsGlobal = typeof globalThis !== "undefined" ? globalThis : typeof window !== "undefined" ? window : typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : {};
 function getDefaultExportFromCjs(x) {
   return x && x.__esModule && Object.prototype.hasOwnProperty.call(x, "default") ? x["default"] : x;
@@ -3051,7 +3051,13 @@ function getDefaultFormConfig() {
     // jsonVersion: 3,
     // dataSources: [], //数据源集合
     onFormCreated: "",
-    onFormMounted: "",
+    onFormMounted: `
+    if(!this.vfCtx) return
+    if(!this.vfCtx._id) return
+    this.onFormDetail().then(res=>{
+      this.setFormData({...res})
+    })
+    `,
     onFormDataChange: "",
     serveList: {
       vformUpdate: {
@@ -3489,6 +3495,8 @@ const select = (ops = {}) => {
       labelWidth: null,
       labelHidden: false,
       disabled: false,
+      useModal: true,
+      loadingPage: false,
       hidden: false,
       allowClear: true,
       maxTagCount: "responsive",
@@ -3537,6 +3545,7 @@ return {...data,data:d}`,
       onFocus: "",
       onBlur: "",
       onValidate: "",
+      onClickIcon: 'console.log(this,"onClickIcon")',
       ...ops
     }
   };
@@ -3759,8 +3768,8 @@ const switchCom = (ops = {}) => {
       labelIconPosition: "rear",
       labelTooltip: null,
       switchWidth: 40,
-      checkedChildren: "",
-      unCheckedChildren: "",
+      checkedValue: "1",
+      unCheckedValue: "0",
       // activeColor: null,
       // inactiveColor: null,
       //-------------------
@@ -3997,6 +4006,42 @@ const divider = (ops = {}) => {
     }
   };
 };
+const dropdown = (ops = {}) => {
+  return {
+    key: getUuidKey(),
+    id: ops.name,
+    type: "dropdown",
+    icon: "dropdown",
+    formItemFlag: false,
+    options: {
+      name: "",
+      label: "",
+      // columnWidth: '200px',
+      size: "",
+      displayStyle: "block",
+      disabled: false,
+      hidden: false,
+      type: "primary",
+      shape: "",
+      danger: false,
+      ghost: false,
+      placement: "bottomLeft",
+      menuList: [
+        { value: "1", label: "功能1" },
+        { value: "2", label: "功能2" }
+      ],
+      //-------------------
+      customClass: [],
+      //自定义css类名
+      //-------------------
+      onCreated: "",
+      onMounted: "",
+      onClick: "",
+      onMenuClick: "",
+      ...ops
+    }
+  };
+};
 const basicFieldsEnums = {
   input,
   textarea,
@@ -4015,9 +4060,10 @@ const basicFieldsEnums = {
   staticText,
   htmlText,
   button,
-  divider
+  divider,
+  dropdown
 };
-const containers = [
+const containers$1 = [
   {
     type: "grid",
     // 组件类型
@@ -4215,6 +4261,8 @@ const containers = [
         params: {}
         //{ pageCode: '${pageCode}', fieldCode: '${fieldCode}' }
       },
+      editReqDataHandlerCode: "",
+      editDataHandlerCode: "",
       rowKey: "name",
       //树形数据数据row-key
       childrenKey: "children",
@@ -4272,7 +4320,8 @@ const containers = [
         //是否可以快速跳转至某页
         showSizeChanger: true,
         //是否展示 pageSize 切换器，当 total 大于 50 时默认为 true
-        position: ["bottomRight"]
+        position: ["bottomRight"],
+        showTotal: (total) => `共 ${total} 条`
       },
       rowSelection: {
         hasRowSelection: false,
@@ -4606,7 +4655,7 @@ return {...data,data:d}`,
 ];
 const customFields = [];
 function addContainerWidgetSchema(containerSchema) {
-  containers.push(containerSchema);
+  containers$1.push(containerSchema);
 }
 function addBasicFieldSchema(fieldSchema) {
   basicFields.push(fieldSchema);
@@ -4736,7 +4785,7 @@ function toPropertyKey(t) {
   var i = toPrimitive(t, "string");
   return "symbol" == _typeof$1(i) ? i : i + "";
 }
-function _defineProperty$1(obj, key, value2) {
+function _defineProperty$6(obj, key, value2) {
   key = toPropertyKey(key);
   if (key in obj) {
     Object.defineProperty(obj, key, {
@@ -4764,7 +4813,7 @@ function _objectSpread2$1(e) {
   for (var r = 1; r < arguments.length; r++) {
     var t = null != arguments[r] ? arguments[r] : {};
     r % 2 ? ownKeys$1(Object(t), true).forEach(function(r2) {
-      _defineProperty$1(e, r2, t[r2]);
+      _defineProperty$6(e, r2, t[r2]);
     }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys$1(Object(t)).forEach(function(r2) {
       Object.defineProperty(e, r2, Object.getOwnPropertyDescriptor(t, r2));
     });
@@ -5192,6 +5241,7 @@ const enLocale = {
       "html-text": "HTML",
       button: "Button",
       divider: "Divider",
+      dropdown: "dropdown",
       "picture-upload": "Picture",
       "file-upload": "File",
       "rich-editor": "Rich Editor",
@@ -5403,8 +5453,8 @@ const enLocale = {
       appendButtonIcon: "Append Button Icon",
       buttonIcon: "Button Icon",
       switchWidth: "Width of Switch(px)",
-      checkedChildren: "Active Text",
-      unCheckedChildren: "Inactive Text",
+      checkedValue: "Active Text",
+      unCheckedValue: "Inactive Text",
       activeColor: "Active Color",
       inactiveColor: "Inactive Color",
       maxStars: "Stars Max Number",
@@ -5630,6 +5680,7 @@ const zhLocale = {
       "html-text": "HTML",
       button: "按钮",
       divider: "分隔线",
+      dropdown: "下拉菜单",
       "picture-upload": "图片",
       "file-upload": "附件",
       "rich-editor": "富文本",
@@ -5841,8 +5892,8 @@ const zhLocale = {
       appendButtonIcon: "后置按钮Icon",
       buttonIcon: "按钮Icon",
       switchWidth: "开关宽度（像素）",
-      checkedChildren: "开启时文字描述",
-      unCheckedChildren: "关闭时文字描述",
+      checkedValue: "开启时对应枚举",
+      unCheckedValue: "关闭时对应枚举",
       activeColor: "开启时背景色",
       inactiveColor: "关闭时背景色",
       maxStars: "最大评分值",
@@ -6220,7 +6271,7 @@ const TpfConfirm = (ops) => {
     });
   });
 };
-const _sfc_main$4b = {
+const _sfc_main$4i = {
   name: "FieldPanel",
   mixins: [i18n$1],
   components: {
@@ -6283,7 +6334,7 @@ const _sfc_main$4b = {
       return !!this.designerConfig["formTemplates"];
     },
     loadWidgets() {
-      this.containers = containers.map((con) => {
+      this.containers = containers$1.map((con) => {
         return {
           key: generateId(),
           ...con,
@@ -6384,13 +6435,13 @@ const _sfc_main$4b = {
     }
   }
 };
-const _hoisted_1$15 = { class: "side-scroll-bar" };
-const _hoisted_2$z = { class: "panel-container" };
+const _hoisted_1$14 = { class: "side-scroll-bar" };
+const _hoisted_2$A = { class: "panel-container" };
 const _hoisted_3$t = ["title", "onDblclick"];
 const _hoisted_4$i = ["title", "onDblclick"];
 const _hoisted_5$d = ["title", "onDblclick"];
 const _hoisted_6$b = ["title", "onDblclick"];
-function _sfc_render$4b(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$4i(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_svg_icon = resolveComponent("svg-icon");
   const _component_draggable = resolveComponent("draggable");
   const _component_a_collapse_panel = resolveComponent("a-collapse-panel");
@@ -6400,8 +6451,8 @@ function _sfc_render$4b(_ctx, _cache, $props, $setup, $data, $options) {
   resolveComponent("a-button");
   resolveComponent("a-card");
   const _component_a_tabs = resolveComponent("a-tabs");
-  return openBlock(), createElementBlock("div", _hoisted_1$15, [
-    createElementVNode("div", _hoisted_2$z, [
+  return openBlock(), createElementBlock("div", _hoisted_1$14, [
+    createElementVNode("div", _hoisted_2$A, [
       createVNode(_component_a_tabs, {
         activeKey: $data.firstTab,
         "onUpdate:activeKey": _cache[1] || (_cache[1] = ($event) => $data.firstTab = $event),
@@ -6588,7 +6639,7 @@ function _sfc_render$4b(_ctx, _cache, $props, $setup, $data, $options) {
     ])
   ]);
 }
-const WidgetPanel = /* @__PURE__ */ _export_sfc$1(_sfc_main$4b, [["render", _sfc_render$4b], ["__scopeId", "data-v-e65276c7"]]);
+const WidgetPanel = /* @__PURE__ */ _export_sfc$1(_sfc_main$4i, [["render", _sfc_render$4i], ["__scopeId", "data-v-e65276c7"]]);
 const emitter = {
   data() {
     return {
@@ -6661,7 +6712,7 @@ const emitter = {
     }
   }
 };
-const _sfc_main$4a = {
+const _sfc_main$4h = {
   name: "container-item-wrapper",
   props: {
     widget: Object
@@ -6672,19 +6723,19 @@ const _sfc_main$4a = {
     }
   }
 };
-function _sfc_render$4a(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$4h(_ctx, _cache, $props, $setup, $data, $options) {
   return openBlock(), createElementBlock("div", {
     class: normalizeClass(["container-wrapper", [$options.customClass]])
   }, [
     renderSlot(_ctx.$slots, "default")
   ], 2);
 }
-const ContainerItemWrapper = /* @__PURE__ */ _export_sfc$1(_sfc_main$4a, [["render", _sfc_render$4a]]);
+const ContainerItemWrapper = /* @__PURE__ */ _export_sfc$1(_sfc_main$4h, [["render", _sfc_render$4h]]);
 const __vite_glob_0_0$3 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: ContainerItemWrapper
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$49 = {
+const _sfc_main$4g = {
   name: "static-content-wrapper",
   mixins: [i18n$1],
   components: {
@@ -6771,11 +6822,11 @@ const _sfc_main$49 = {
     }
   }
 };
-const _hoisted_1$14 = {
+const _hoisted_1$13 = {
   key: 0,
   class: "field-action"
 };
-const _hoisted_2$y = ["title"];
+const _hoisted_2$z = ["title"];
 const _hoisted_3$s = ["title"];
 const _hoisted_4$h = ["title"];
 const _hoisted_5$c = ["title"];
@@ -6785,7 +6836,7 @@ const _hoisted_6$a = {
 };
 const _hoisted_7$8 = ["title"];
 const _hoisted_8$8 = { key: 0 };
-function _sfc_render$49(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$4g(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_svg_icon = resolveComponent("svg-icon");
   return openBlock(), createElementBlock("div", {
     class: normalizeClass(["field-wrapper", { "design-time-bottom-margin": !!this.designer }]),
@@ -6800,13 +6851,13 @@ function _sfc_render$49(_ctx, _cache, $props, $setup, $data, $options) {
       renderSlot(_ctx.$slots, "default", {}, void 0, true)
     ], 6)) : createCommentVNode("", true),
     !!this.designer ? (openBlock(), createElementBlock(Fragment, { key: 1 }, [
-      $props.designer.selectedId === $props.field.id ? (openBlock(), createElementBlock("div", _hoisted_1$14, [
+      $props.designer.selectedId === $props.field.id ? (openBlock(), createElementBlock("div", _hoisted_1$13, [
         createElementVNode("i", {
           title: _ctx.i18nt("designer.hint.selectParentWidget"),
           onClick: _cache[1] || (_cache[1] = withModifiers(($event) => $options.selectParentWidget($props.field), ["stop"]))
         }, [
           createVNode(_component_svg_icon, { "icon-class": "el-back" })
-        ], 8, _hoisted_2$y),
+        ], 8, _hoisted_2$z),
         !!$props.parentList && $props.parentList.length > 1 ? (openBlock(), createElementBlock("i", {
           key: 0,
           title: _ctx.i18nt("designer.hint.moveUpWidget"),
@@ -6842,8 +6893,8 @@ function _sfc_render$49(_ctx, _cache, $props, $setup, $data, $options) {
     ], 64)) : createCommentVNode("", true)
   ], 6);
 }
-const StaticContentWrapper = /* @__PURE__ */ _export_sfc$1(_sfc_main$49, [["render", _sfc_render$49], ["__scopeId", "data-v-006ba138"]]);
-const __vite_glob_0_19$1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const StaticContentWrapper = /* @__PURE__ */ _export_sfc$1(_sfc_main$4g, [["render", _sfc_render$4g], ["__scopeId", "data-v-ca4513b3"]]);
+const __vite_glob_0_20$1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: StaticContentWrapper
 }, Symbol.toStringTag, { value: "Module" }));
@@ -8934,12 +8985,13 @@ const getHttp = () => {
   var _a;
   return ((_a = window.$vform) == null ? void 0 : _a.$http) || http;
 };
-const fmtHttpParams = async (req, params = {}) => {
+async function fmtHttpParams(req, params = {}) {
   const request = getHttp();
-  const { data, vfCtx } = params;
-  console.log("req: ", req);
+  const { data, vfCtx, ...args } = params;
   const { http: http2, dataHandlerCode, dataReqHandlerCode } = req;
-  const paramsMap = { ...getLocat(), ...data, ...vfCtx };
+  if (!http2.url)
+    return;
+  const paramsMap = { ...getLocat(), ...data, ...vfCtx, ...args };
   const method = http2.method || "get";
   const sendParams = JSON.stringify({
     ...http2,
@@ -8950,7 +9002,7 @@ const fmtHttpParams = async (req, params = {}) => {
   let p = JSON.parse(replaceVars(sendParams, paramsMap));
   if (dataReqHandlerCode) {
     const dataReqHandlerCodeFn = new Function("data", dataReqHandlerCode);
-    p = dataReqHandlerCodeFn.call(void 0, p);
+    p = dataReqHandlerCodeFn.call(this, p);
   }
   if (!p)
     return;
@@ -8958,10 +9010,10 @@ const fmtHttpParams = async (req, params = {}) => {
   let dsResult = await request(p);
   if (dataHandlerCode) {
     const dhFn = new Function("data", dataHandlerCode);
-    dsResult = dhFn.call(void 0, dsResult);
+    dsResult = dhFn.call(this, dsResult);
   }
   return dsResult;
-};
+}
 const fieldMixin = {
   inject: [
     "refList",
@@ -9092,7 +9144,6 @@ const fieldMixin = {
         }
       });
       this.on$("field-value-changed", (values) => {
-        console.log("field-value-changed: ", values);
         if (!!this.subFormItemFlag) {
           const subFormData = this.formModel[this.subFormName];
           this.handleOnChangeForSubForm(values[0], values[1], subFormData, this.subFormRowId);
@@ -9157,11 +9208,14 @@ const fieldMixin = {
       if (this.designState) {
         return;
       }
+      if (this.loading)
+        return;
+      this.loading = true;
       if (["radio", "checkbox", "select", "cascader", "treeSelect"].includes(this.field.type)) {
         if (!!this.field.options.dsEnabled && ((_a = this.field.options.http) == null ? void 0 : _a.url)) {
           this.field.options.optionItems.splice(0, this.field.options.optionItems.length);
           try {
-            const dsResult = await fmtHttpParams(this.field.options, {
+            const dsResult = await fmtHttpParams.call(this, this.field.options, {
               fieldCode: this.field.options.name
             });
             this.loadOptions(dsResult);
@@ -9177,6 +9231,7 @@ const fieldMixin = {
             this.loadOptions(newOptionItems[this.field.options.name]);
           }
         }
+        this.loading = false;
       }
     },
     loadOptionItemsFromDataSet(dsName) {
@@ -9419,6 +9474,21 @@ const fieldMixin = {
         this.dispatch("VFormRender", "buttonClick", [this]);
       }
     },
+    /**
+     * 下拉框右边搜索按钮
+     */
+    handleClickIcon() {
+      if (!!this.designState) {
+        return;
+      }
+      if (this.field.options.disabled) {
+        return;
+      }
+      if (!!this.field.options.onClickIcon) {
+        const onClickIconFn = new Function(this.field.options.onClickIcon);
+        onClickIconFn.call(this);
+      }
+    },
     remoteQuery(keyword) {
       if (!!this.designState) {
         return;
@@ -9635,7 +9705,7 @@ const fieldMixin = {
     //--------------------- 以上为组件支持外部调用的API方法 end ------------------//
   }
 };
-const _sfc_main$48 = {
+const _sfc_main$4f = {
   name: "button-widget",
   componentName: "FieldWidget",
   //必须固定为FieldWidget，用于接收父级组件的broadcast事件
@@ -9667,7 +9737,8 @@ const _sfc_main$48 = {
     }
   },
   components: {
-    StaticContentWrapper
+    StaticContentWrapper,
+    SvgIcon
   },
   computed: {},
   beforeCreate() {
@@ -9685,7 +9756,8 @@ const _sfc_main$48 = {
   },
   methods: {}
 };
-function _sfc_render$48(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$4f(_ctx, _cache, $props, $setup, $data, $options) {
+  const _component_svg_icon = resolveComponent("svg-icon");
   const _component_a_button = resolveComponent("a-button");
   const _component_static_content_wrapper = resolveComponent("static-content-wrapper");
   return openBlock(), createBlock(_component_static_content_wrapper, {
@@ -9709,25 +9781,28 @@ function _sfc_render$48(_ctx, _cache, $props, $setup, $data, $options) {
         shape: $props.field.options.shape,
         danger: $props.field.options.danger,
         ghost: $props.field.options.ghost,
-        icon: $props.field.options.icon,
         disabled: $props.field.options.disabled,
         onClick: _ctx.handleButtonWidgetClick
       }, {
         default: withCtx(() => [
-          createTextVNode(toDisplayString($props.field.options.label), 1)
+          $props.field.options.icon ? (openBlock(), createBlock(_component_svg_icon, {
+            key: 0,
+            "icon-class": $props.field.options.icon
+          }, null, 8, ["icon-class"])) : createCommentVNode("", true),
+          createTextVNode(" " + toDisplayString($props.field.options.label), 1)
         ]),
         _: 1
-      }, 8, ["type", "size", "class", "shape", "danger", "ghost", "icon", "disabled", "onClick"])
+      }, 8, ["type", "size", "class", "shape", "danger", "ghost", "disabled", "onClick"])
     ]),
     _: 1
   }, 8, ["designer", "field", "design-state", "display-style", "parent-widget", "parent-list", "index-of-parent-list", "sub-form-row-index", "sub-form-col-index", "sub-form-row-id"]);
 }
-const buttonWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$48, [["render", _sfc_render$48], ["__scopeId", "data-v-a38a4990"]]);
+const buttonWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$4f, [["render", _sfc_render$4f], ["__scopeId", "data-v-98b1bde1"]]);
 const __vite_glob_0_0$2 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: buttonWidget
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$47 = {
+const _sfc_main$4e = {
   name: "form-item-wrapper",
   mixins: [i18n$1],
   components: {
@@ -9869,8 +9944,8 @@ const _sfc_main$47 = {
     }
   }
 };
-const _hoisted_1$13 = { class: "label-box" };
-const _hoisted_2$x = {
+const _hoisted_1$12 = { class: "label-box" };
+const _hoisted_2$y = {
   key: 0,
   class: "custom-label"
 };
@@ -9893,7 +9968,7 @@ const _hoisted_13$1 = {
 };
 const _hoisted_14$1 = ["title"];
 const _hoisted_15 = { key: 0 };
-function _sfc_render$47(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$4e(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_svg_icon = resolveComponent("svg-icon");
   const _component_a_tooltip = resolveComponent("a-tooltip");
   const _component_a_form_item = resolveComponent("a-form-item");
@@ -9912,8 +9987,8 @@ function _sfc_render$47(_ctx, _cache, $props, $setup, $data, $options) {
       onClick: _cache[0] || (_cache[0] = withModifiers(($event) => $options.selectField($props.field), ["stop"]))
     }, {
       label: withCtx(() => [
-        createElementVNode("div", _hoisted_1$13, [
-          !!$props.field.options.labelIconClass ? (openBlock(), createElementBlock("span", _hoisted_2$x, [
+        createElementVNode("div", _hoisted_1$12, [
+          !!$props.field.options.labelIconClass ? (openBlock(), createElementBlock("span", _hoisted_2$y, [
             $props.field.options.labelIconPosition === "front" ? (openBlock(), createElementBlock(Fragment, { key: 0 }, [
               !!$props.field.options.labelTooltip ? (openBlock(), createElementBlock(Fragment, { key: 0 }, [
                 createVNode(_component_a_tooltip, {
@@ -10047,8 +10122,8 @@ function _sfc_render$47(_ctx, _cache, $props, $setup, $data, $options) {
     ], 64)) : createCommentVNode("", true)
   ], 2);
 }
-const FormItemWrapper = /* @__PURE__ */ _export_sfc$1(_sfc_main$47, [["render", _sfc_render$47], ["__scopeId", "data-v-c26c0a5c"]]);
-const __vite_glob_0_8$3 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const FormItemWrapper = /* @__PURE__ */ _export_sfc$1(_sfc_main$4e, [["render", _sfc_render$4e], ["__scopeId", "data-v-557be97f"]]);
+const __vite_glob_0_9$3 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: FormItemWrapper
 }, Symbol.toStringTag, { value: "Module" }));
@@ -10102,7 +10177,7 @@ const getListName = (val, list, fieldNames) => {
   });
   return res;
 };
-const _sfc_main$46 = {
+const _sfc_main$4d = {
   name: "cascader-widget",
   componentName: "FieldWidget",
   //必须固定为FieldWidget，用于接收父级组件的broadcast事件
@@ -10199,8 +10274,8 @@ const _sfc_main$46 = {
     }
   }
 };
-const _hoisted_1$12 = { class: "readonly-mode-field" };
-function _sfc_render$46(_ctx, _cache, $props, $setup, $data, $options) {
+const _hoisted_1$11 = { class: "readonly-mode-field" };
+function _sfc_render$4d(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_cascader = resolveComponent("a-cascader");
   const _component_a_tooltip = resolveComponent("a-tooltip");
   const _component_form_item_wrapper = resolveComponent("form-item-wrapper");
@@ -10243,7 +10318,7 @@ function _sfc_render$46(_ctx, _cache, $props, $setup, $data, $options) {
           overlayStyle: { zIndex: 1e3 }
         }, {
           default: withCtx(() => [
-            createElementVNode("span", _hoisted_1$12, toDisplayString($options.contentForReadMode), 1)
+            createElementVNode("span", _hoisted_1$11, toDisplayString($options.contentForReadMode), 1)
           ]),
           _: 1
         }, 8, ["title"])) : createCommentVNode("", true)
@@ -10252,12 +10327,12 @@ function _sfc_render$46(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["designer", "field", "rules", "design-state", "parent-widget", "parent-list", "index-of-parent-list", "sub-form-row-index", "sub-form-col-index", "sub-form-row-id"]);
 }
-const cascaderWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$46, [["render", _sfc_render$46], ["__scopeId", "data-v-b97857ea"]]);
+const cascaderWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$4d, [["render", _sfc_render$4d], ["__scopeId", "data-v-b97857ea"]]);
 const __vite_glob_0_1$3 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: cascaderWidget
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$45 = {
+const _sfc_main$4c = {
   name: "checkbox-widget",
   componentName: "FieldWidget",
   //必须固定为FieldWidget，用于接收父级组件的broadcast事件
@@ -10318,11 +10393,11 @@ const _sfc_main$45 = {
   },
   methods: {}
 };
-const _hoisted_1$11 = {
+const _hoisted_1$10 = {
   key: 0,
   class: "readonly-mode-field"
 };
-function _sfc_render$45(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$4c(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_checkbox = resolveComponent("a-checkbox");
   const _component_a_checkbox_group = resolveComponent("a-checkbox-group");
   const _component_form_item_wrapper = resolveComponent("form-item-wrapper");
@@ -10366,17 +10441,17 @@ function _sfc_render$45(_ctx, _cache, $props, $setup, $data, $options) {
       }, 8, ["value", "disabled", "onChange"]), [
         [vShow, !_ctx.isReadMode]
       ]),
-      _ctx.isReadMode ? (openBlock(), createElementBlock("span", _hoisted_1$11, toDisplayString(_ctx.optionLabel), 1)) : createCommentVNode("", true)
+      _ctx.isReadMode ? (openBlock(), createElementBlock("span", _hoisted_1$10, toDisplayString(_ctx.optionLabel), 1)) : createCommentVNode("", true)
     ]),
     _: 1
   }, 8, ["designer", "field", "rules", "design-state", "parent-widget", "parent-list", "index-of-parent-list", "sub-form-row-index", "sub-form-col-index", "sub-form-row-id"]);
 }
-const checkboxWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$45, [["render", _sfc_render$45], ["__scopeId", "data-v-ecf56bcf"]]);
+const checkboxWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$4c, [["render", _sfc_render$4c], ["__scopeId", "data-v-ecf56bcf"]]);
 const __vite_glob_0_2$3 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: checkboxWidget
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$44 = {
+const _sfc_main$4b = {
   name: "color-widget",
   componentName: "FieldWidget",
   //必须固定为FieldWidget，用于接收父级组件的broadcast事件
@@ -10436,11 +10511,11 @@ const _sfc_main$44 = {
   },
   methods: {}
 };
-const _hoisted_1$10 = {
+const _hoisted_1$$ = {
   key: 0,
   class: "readonly-mode-field"
 };
-function _sfc_render$44(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$4b(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_input = resolveComponent("a-input");
   const _component_form_item_wrapper = resolveComponent("form-item-wrapper");
   return openBlock(), createBlock(_component_form_item_wrapper, {
@@ -10466,18 +10541,18 @@ function _sfc_render$44(_ctx, _cache, $props, $setup, $data, $options) {
           onChange: _ctx.handleChangeEvent,
           type: "color"
         }, null, 8, ["value", "onChange"]),
-        _ctx.isReadMode ? (openBlock(), createElementBlock("span", _hoisted_1$10, toDisplayString($data.fieldModel), 1)) : createCommentVNode("", true)
+        _ctx.isReadMode ? (openBlock(), createElementBlock("span", _hoisted_1$$, toDisplayString($data.fieldModel), 1)) : createCommentVNode("", true)
       ], 2)
     ]),
     _: 1
   }, 8, ["designer", "field", "rules", "design-state", "parent-widget", "parent-list", "index-of-parent-list", "sub-form-row-index", "sub-form-col-index", "sub-form-row-id"]);
 }
-const colorWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$44, [["render", _sfc_render$44], ["__scopeId", "data-v-cbaee193"]]);
+const colorWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$4b, [["render", _sfc_render$4b], ["__scopeId", "data-v-cbaee193"]]);
 const __vite_glob_0_3$3 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: colorWidget
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$43 = {
+const _sfc_main$4a = {
   name: "date-range-widget",
   componentName: "FieldWidget",
   //必须固定为FieldWidget，用于接收父级组件的broadcast事件
@@ -10545,8 +10620,8 @@ const _sfc_main$43 = {
   },
   methods: {}
 };
-const _hoisted_1$$ = { class: "readonly-mode-field" };
-function _sfc_render$43(_ctx, _cache, $props, $setup, $data, $options) {
+const _hoisted_1$_ = { class: "readonly-mode-field" };
+function _sfc_render$4a(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_range_picker = resolveComponent("a-range-picker");
   const _component_a_tooltip = resolveComponent("a-tooltip");
   const _component_form_item_wrapper = resolveComponent("form-item-wrapper");
@@ -10593,7 +10668,7 @@ function _sfc_render$43(_ctx, _cache, $props, $setup, $data, $options) {
           overlayStyle: { zIndex: 1e3 }
         }, {
           default: withCtx(() => [
-            createElementVNode("span", _hoisted_1$$, toDisplayString($options.contentForReadMode), 1)
+            createElementVNode("span", _hoisted_1$_, toDisplayString($options.contentForReadMode), 1)
           ]),
           _: 1
         }, 8, ["title"])) : createCommentVNode("", true)
@@ -10602,12 +10677,12 @@ function _sfc_render$43(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["designer", "field", "rules", "design-state", "parent-widget", "parent-list", "index-of-parent-list", "sub-form-row-index", "sub-form-col-index", "sub-form-row-id"]);
 }
-const dateRangeWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$43, [["render", _sfc_render$43], ["__scopeId", "data-v-2f648af4"]]);
+const dateRangeWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$4a, [["render", _sfc_render$4a], ["__scopeId", "data-v-2f648af4"]]);
 const __vite_glob_0_4$3 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: dateRangeWidget
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$42 = {
+const _sfc_main$49 = {
   name: "date-widget",
   componentName: "FieldWidget",
   //必须固定为FieldWidget，用于接收父级组件的broadcast事件
@@ -10678,8 +10753,8 @@ const _sfc_main$42 = {
   },
   methods: {}
 };
-const _hoisted_1$_ = { class: "readonly-mode-field" };
-function _sfc_render$42(_ctx, _cache, $props, $setup, $data, $options) {
+const _hoisted_1$Z = { class: "readonly-mode-field" };
+function _sfc_render$49(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_date_picker = resolveComponent("a-date-picker");
   const _component_a_tooltip = resolveComponent("a-tooltip");
   const _component_form_item_wrapper = resolveComponent("form-item-wrapper");
@@ -10727,7 +10802,7 @@ function _sfc_render$42(_ctx, _cache, $props, $setup, $data, $options) {
           overlayStyle: { zIndex: 1e3 }
         }, {
           default: withCtx(() => [
-            createElementVNode("span", _hoisted_1$_, toDisplayString($data.fieldModel), 1)
+            createElementVNode("span", _hoisted_1$Z, toDisplayString($data.fieldModel), 1)
           ]),
           _: 1
         }, 8, ["title"])) : createCommentVNode("", true)
@@ -10736,12 +10811,12 @@ function _sfc_render$42(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["designer", "field", "rules", "design-state", "parent-widget", "parent-list", "index-of-parent-list", "sub-form-row-index", "sub-form-col-index", "sub-form-row-id"]);
 }
-const dateWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$42, [["render", _sfc_render$42], ["__scopeId", "data-v-14ac59d8"]]);
+const dateWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$49, [["render", _sfc_render$49], ["__scopeId", "data-v-14ac59d8"]]);
 const __vite_glob_0_5$3 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: dateWidget
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$41 = {
+const _sfc_main$48 = {
   name: "divider-widget",
   componentName: "FieldWidget",
   //必须固定为FieldWidget，用于接收父级组件的broadcast事件
@@ -10791,7 +10866,7 @@ const _sfc_main$41 = {
   },
   methods: {}
 };
-function _sfc_render$41(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$48(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_divider = resolveComponent("a-divider");
   const _component_static_content_wrapper = resolveComponent("static-content-wrapper");
   return openBlock(), createBlock(_component_static_content_wrapper, {
@@ -10820,13 +10895,141 @@ function _sfc_render$41(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["designer", "field", "design-state", "parent-widget", "parent-list", "index-of-parent-list", "sub-form-row-index", "sub-form-col-index", "sub-form-row-id"]);
 }
-const dividerWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$41, [["render", _sfc_render$41], ["__scopeId", "data-v-5e29648b"]]);
+const dividerWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$48, [["render", _sfc_render$48], ["__scopeId", "data-v-5e29648b"]]);
 const __vite_glob_0_6$3 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: dividerWidget
 }, Symbol.toStringTag, { value: "Module" }));
+const _sfc_main$47 = {
+  name: "dropdown-widget",
+  componentName: "FieldWidget",
+  //必须固定为FieldWidget，用于接收父级组件的broadcast事件
+  mixins: [emitter, fieldMixin, i18n$1],
+  props: {
+    field: Object,
+    parentWidget: Object,
+    parentList: Array,
+    indexOfParentList: Number,
+    designer: Object,
+    designState: {
+      type: Boolean,
+      default: false
+    },
+    subFormRowIndex: {
+      /* 子表单组件行索引，从0开始计数 */
+      type: Number,
+      default: -1
+    },
+    subFormColIndex: {
+      /* 子表单组件列索引，从0开始计数 */
+      type: Number,
+      default: -1
+    },
+    subFormRowId: {
+      /* 子表单组件行Id，唯一id且不可变 */
+      type: String,
+      default: ""
+    }
+  },
+  components: {
+    StaticContentWrapper
+    // DownOutlined
+  },
+  computed: {},
+  beforeCreate() {
+  },
+  created() {
+    this.registerToRefList();
+    this.initEventHandler();
+    this.handleOnCreated();
+  },
+  mounted() {
+    this.handleOnMounted();
+  },
+  beforeUnmount() {
+    this.unregisterFromRefList();
+  },
+  methods: {
+    handleMenuClick(menuItem) {
+      const { onMenuClick } = this.field.options;
+      if (onMenuClick) {
+        const onMenuClickFn = new Function("menuItem", onMenuClick);
+        return onMenuClickFn.call(this, menuItem);
+      }
+    }
+  }
+};
+function _sfc_render$47(_ctx, _cache, $props, $setup, $data, $options) {
+  const _component_a_menu_item = resolveComponent("a-menu-item");
+  const _component_a_menu = resolveComponent("a-menu");
+  const _component_DownOutlined = resolveComponent("DownOutlined");
+  const _component_a_button = resolveComponent("a-button");
+  const _component_a_dropdown = resolveComponent("a-dropdown");
+  const _component_static_content_wrapper = resolveComponent("static-content-wrapper");
+  return openBlock(), createBlock(_component_static_content_wrapper, {
+    designer: $props.designer,
+    field: $props.field,
+    "design-state": $props.designState,
+    "display-style": $props.field.options.displayStyle,
+    "parent-widget": $props.parentWidget,
+    "parent-list": $props.parentList,
+    "index-of-parent-list": $props.indexOfParentList,
+    "sub-form-row-index": $props.subFormRowIndex,
+    "sub-form-col-index": $props.subFormColIndex,
+    "sub-form-row-id": $props.subFormRowId
+  }, {
+    default: withCtx(() => [
+      createVNode(_component_a_dropdown, {
+        ref: "fieldEditor",
+        disabled: $props.field.options.disabled
+      }, {
+        overlay: withCtx(() => [
+          createVNode(_component_a_menu, { onClick: $options.handleMenuClick }, {
+            default: withCtx(() => [
+              (openBlock(true), createElementBlock(Fragment, null, renderList($props.field.options.menuList || [], (item) => {
+                return openBlock(), createBlock(_component_a_menu_item, {
+                  key: item.value
+                }, {
+                  default: withCtx(() => [
+                    createTextVNode(toDisplayString(item.label), 1)
+                  ]),
+                  _: 2
+                }, 1024);
+              }), 128))
+            ]),
+            _: 1
+          }, 8, ["onClick"])
+        ]),
+        default: withCtx(() => [
+          createVNode(_component_a_button, {
+            type: $props.field.options.type,
+            size: $props.field.options.size,
+            class: normalizeClass([$props.field.options.label === "" ? "hide-text-span" : ""]),
+            shape: $props.field.options.shape,
+            danger: $props.field.options.danger,
+            ghost: $props.field.options.ghost,
+            disabled: $props.field.options.disabled
+          }, {
+            default: withCtx(() => [
+              createTextVNode(toDisplayString($props.field.options.label) + " ", 1),
+              createVNode(_component_DownOutlined)
+            ]),
+            _: 1
+          }, 8, ["type", "size", "class", "shape", "danger", "ghost", "disabled"])
+        ]),
+        _: 1
+      }, 8, ["disabled"])
+    ]),
+    _: 1
+  }, 8, ["designer", "field", "design-state", "display-style", "parent-widget", "parent-list", "index-of-parent-list", "sub-form-row-index", "sub-form-col-index", "sub-form-row-id"]);
+}
+const dropdownWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$47, [["render", _sfc_render$47], ["__scopeId", "data-v-595437cc"]]);
+const __vite_glob_0_7$3 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+  __proto__: null,
+  default: dropdownWidget
+}, Symbol.toStringTag, { value: "Module" }));
 const selectFileText = "'" + translate("render.hint.selectFile") + "'";
-const _sfc_main$40 = {
+const _sfc_main$46 = {
   name: "file-upload-widget",
   componentName: "FieldWidget",
   //必须固定为FieldWidget，用于接收父级组件的broadcast事件
@@ -11041,12 +11244,12 @@ const _sfc_main$40 = {
     }
   }
 };
-const _hoisted_1$Z = { class: "upload-file-list" };
-const _hoisted_2$w = ["title"];
+const _hoisted_1$Y = { class: "upload-file-list" };
+const _hoisted_2$x = ["title"];
 const _hoisted_3$q = ["href"];
 const _hoisted_4$f = ["title"];
 const _hoisted_5$a = ["title", "onClick"];
-function _sfc_render$40(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$46(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_button = resolveComponent("a-button");
   const _component_svg_icon = resolveComponent("svg-icon");
   const _component_a_upload = resolveComponent("a-upload");
@@ -11083,11 +11286,11 @@ function _sfc_render$40(_ctx, _cache, $props, $setup, $data, $options) {
         "on-error": $options.handleUploadError
       }, {
         file: withCtx(({ file }) => [
-          createElementVNode("div", _hoisted_1$Z, [
+          createElementVNode("div", _hoisted_1$Y, [
             createElementVNode("span", {
               class: "upload-file-name",
               title: file.name
-            }, toDisplayString(file.name), 9, _hoisted_2$w),
+            }, toDisplayString(file.name), 9, _hoisted_2$x),
             createElementVNode("a", {
               href: file.url,
               download: "",
@@ -11124,12 +11327,12 @@ function _sfc_render$40(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["designer", "field", "rules", "design-state", "parent-widget", "parent-list", "index-of-parent-list", "sub-form-row-index", "sub-form-col-index", "sub-form-row-id"]);
 }
-const fileUploadWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$40, [["render", _sfc_render$40], ["__scopeId", "data-v-35db51bf"]]);
-const __vite_glob_0_7$3 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const fileUploadWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$46, [["render", _sfc_render$46], ["__scopeId", "data-v-35db51bf"]]);
+const __vite_glob_0_8$3 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: fileUploadWidget
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$3$ = {
+const _sfc_main$45 = {
   name: "html-text-widget",
   componentName: "FieldWidget",
   //必须固定为FieldWidget，用于接收父级组件的broadcast事件
@@ -11179,8 +11382,8 @@ const _sfc_main$3$ = {
   },
   methods: {}
 };
-const _hoisted_1$Y = ["innerHTML"];
-function _sfc_render$3$(_ctx, _cache, $props, $setup, $data, $options) {
+const _hoisted_1$X = ["innerHTML"];
+function _sfc_render$45(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_static_content_wrapper = resolveComponent("static-content-wrapper");
   return openBlock(), createBlock(_component_static_content_wrapper, {
     designer: $props.designer,
@@ -11197,17 +11400,17 @@ function _sfc_render$3$(_ctx, _cache, $props, $setup, $data, $options) {
       createElementVNode("div", {
         ref: "fieldEditor",
         innerHTML: $props.field.options.htmlContent
-      }, null, 8, _hoisted_1$Y)
+      }, null, 8, _hoisted_1$X)
     ]),
     _: 1
   }, 8, ["designer", "field", "design-state", "parent-widget", "parent-list", "index-of-parent-list", "sub-form-row-index", "sub-form-col-index", "sub-form-row-id"]);
 }
-const htmlTextWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$3$, [["render", _sfc_render$3$], ["__scopeId", "data-v-625c91c9"]]);
-const __vite_glob_0_9$3 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const htmlTextWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$45, [["render", _sfc_render$45], ["__scopeId", "data-v-625c91c9"]]);
+const __vite_glob_0_10$3 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: htmlTextWidget
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$3_ = {
+const _sfc_main$44 = {
   name: "input-widget",
   componentName: "FieldWidget",
   //必须固定为FieldWidget，用于接收父级组件的broadcast事件
@@ -11285,8 +11488,8 @@ const _sfc_main$3_ = {
   },
   methods: {}
 };
-const _hoisted_1$X = { class: "readonly-mode-field" };
-function _sfc_render$3_(_ctx, _cache, $props, $setup, $data, $options) {
+const _hoisted_1$W = { class: "readonly-mode-field" };
+function _sfc_render$44(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_svg_icon = resolveComponent("svg-icon");
   const _component_a_button = resolveComponent("a-button");
   const _component_a_input = resolveComponent("a-input");
@@ -11353,7 +11556,7 @@ function _sfc_render$3_(_ctx, _cache, $props, $setup, $data, $options) {
         overlayStyle: { zIndex: 1e3 }
       }, {
         default: withCtx(() => [
-          createElementVNode("span", _hoisted_1$X, toDisplayString($data.fieldModel), 1)
+          createElementVNode("span", _hoisted_1$W, toDisplayString($data.fieldModel), 1)
         ]),
         _: 1
       }, 8, ["title"])) : createCommentVNode("", true)
@@ -11361,12 +11564,12 @@ function _sfc_render$3_(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["designer", "field", "rules", "design-state", "parent-widget", "parent-list", "index-of-parent-list", "sub-form-row-index", "sub-form-col-index", "sub-form-row-id"]);
 }
-const inputWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$3_, [["render", _sfc_render$3_], ["__scopeId", "data-v-4e026e80"]]);
-const __vite_glob_0_10$3 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const inputWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$44, [["render", _sfc_render$44], ["__scopeId", "data-v-4e026e80"]]);
+const __vite_glob_0_11$1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: inputWidget
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$3Z = {
+const _sfc_main$43 = {
   name: "number-widget",
   componentName: "FieldWidget",
   //必须固定为FieldWidget，用于接收父级组件的broadcast事件
@@ -11437,8 +11640,8 @@ const _sfc_main$3Z = {
   },
   methods: {}
 };
-const _hoisted_1$W = { class: "readonly-mode-field" };
-function _sfc_render$3Z(_ctx, _cache, $props, $setup, $data, $options) {
+const _hoisted_1$V = { class: "readonly-mode-field" };
+function _sfc_render$43(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_input_number = resolveComponent("a-input-number");
   const _component_a_tooltip = resolveComponent("a-tooltip");
   const _component_form_item_wrapper = resolveComponent("form-item-wrapper");
@@ -11481,7 +11684,7 @@ function _sfc_render$3Z(_ctx, _cache, $props, $setup, $data, $options) {
         overlayStyle: { zIndex: 1e3 }
       }, {
         default: withCtx(() => [
-          createElementVNode("span", _hoisted_1$W, toDisplayString($data.fieldModel), 1)
+          createElementVNode("span", _hoisted_1$V, toDisplayString($data.fieldModel), 1)
         ]),
         _: 1
       }, 8, ["title"])) : createCommentVNode("", true)
@@ -11489,12 +11692,12 @@ function _sfc_render$3Z(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["designer", "field", "rules", "design-state", "parent-widget", "parent-list", "index-of-parent-list", "sub-form-row-index", "sub-form-col-index", "sub-form-row-id"]);
 }
-const numberWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$3Z, [["render", _sfc_render$3Z], ["__scopeId", "data-v-a4e8c866"]]);
-const __vite_glob_0_11$1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const numberWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$43, [["render", _sfc_render$43], ["__scopeId", "data-v-a4e8c866"]]);
+const __vite_glob_0_12$1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: numberWidget
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$3Y = {
+const _sfc_main$42 = {
   name: "picture-upload-widget",
   componentName: "FieldWidget",
   //必须固定为FieldWidget，用于接收父级组件的broadcast事件
@@ -11709,13 +11912,13 @@ const _sfc_main$3Y = {
     }
   }
 };
-const _hoisted_1$V = {
+const _hoisted_1$U = {
   key: 0,
   class: "el-upload__tip"
 };
-const _hoisted_2$v = { class: "uploader-icon" };
+const _hoisted_2$w = { class: "uploader-icon" };
 const _hoisted_3$p = ["src"];
-function _sfc_render$3Y(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$42(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_svg_icon = resolveComponent("svg-icon");
   const _component_a_upload = resolveComponent("a-upload");
   const _component_a_modal = resolveComponent("a-modal");
@@ -11755,10 +11958,10 @@ function _sfc_render$3Y(_ctx, _cache, $props, $setup, $data, $options) {
         "on-remove": $options.handlePictureRemove
       }, {
         tip: withCtx(() => [
-          !!$props.field.options.uploadTip ? (openBlock(), createElementBlock("div", _hoisted_1$V, toDisplayString($props.field.options.uploadTip), 1)) : createCommentVNode("", true)
+          !!$props.field.options.uploadTip ? (openBlock(), createElementBlock("div", _hoisted_1$U, toDisplayString($props.field.options.uploadTip), 1)) : createCommentVNode("", true)
         ]),
         default: withCtx(() => [
-          createElementVNode("div", _hoisted_2$v, [
+          createElementVNode("div", _hoisted_2$w, [
             createVNode(_component_svg_icon, { "icon-class": "el-plus" })
           ])
         ]),
@@ -11789,12 +11992,12 @@ function _sfc_render$3Y(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["designer", "field", "rules", "design-state", "parent-widget", "parent-list", "index-of-parent-list", "sub-form-row-index", "sub-form-col-index", "sub-form-row-id"]);
 }
-const pictureUploadWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$3Y, [["render", _sfc_render$3Y], ["__scopeId", "data-v-5053346b"]]);
-const __vite_glob_0_12$1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const pictureUploadWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$42, [["render", _sfc_render$42], ["__scopeId", "data-v-5053346b"]]);
+const __vite_glob_0_13$1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: pictureUploadWidget
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$3X = {
+const _sfc_main$41 = {
   name: "radio-widget",
   componentName: "FieldWidget",
   //必须固定为FieldWidget，用于接收父级组件的broadcast事件
@@ -11867,11 +12070,11 @@ const _sfc_main$3X = {
   },
   methods: {}
 };
-const _hoisted_1$U = {
+const _hoisted_1$T = {
   key: 0,
   class: "readonly-mode-field"
 };
-function _sfc_render$3X(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$41(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_radio_button = resolveComponent("a-radio-button");
   const _component_a_radio = resolveComponent("a-radio");
   const _component_a_radio_group = resolveComponent("a-radio-group");
@@ -11931,17 +12134,17 @@ function _sfc_render$3X(_ctx, _cache, $props, $setup, $data, $options) {
       }, 8, ["value", "size", "disabled", "style", "onChange"]), [
         [vShow, !_ctx.isReadMode]
       ]),
-      _ctx.isReadMode ? (openBlock(), createElementBlock("span", _hoisted_1$U, toDisplayString(_ctx.optionLabel), 1)) : createCommentVNode("", true)
+      _ctx.isReadMode ? (openBlock(), createElementBlock("span", _hoisted_1$T, toDisplayString(_ctx.optionLabel), 1)) : createCommentVNode("", true)
     ]),
     _: 1
   }, 8, ["designer", "field", "rules", "design-state", "parent-widget", "parent-list", "index-of-parent-list", "sub-form-row-index", "sub-form-col-index", "sub-form-row-id"]);
 }
-const radioWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$3X, [["render", _sfc_render$3X], ["__scopeId", "data-v-fe6b4b60"]]);
-const __vite_glob_0_13$1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const radioWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$41, [["render", _sfc_render$41], ["__scopeId", "data-v-fe6b4b60"]]);
+const __vite_glob_0_14$1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: radioWidget
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$3W = {
+const _sfc_main$40 = {
   name: "rate-widget",
   componentName: "FieldWidget",
   //必须固定为FieldWidget，用于接收父级组件的broadcast事件
@@ -12001,7 +12204,7 @@ const _sfc_main$3W = {
   },
   methods: {}
 };
-function _sfc_render$3W(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$40(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_rate = resolveComponent("a-rate");
   const _component_form_item_wrapper = resolveComponent("form-item-wrapper");
   return openBlock(), createBlock(_component_form_item_wrapper, {
@@ -12031,8 +12234,8 @@ function _sfc_render$3W(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["designer", "field", "rules", "design-state", "parent-widget", "parent-list", "index-of-parent-list", "sub-form-row-index", "sub-form-col-index", "sub-form-row-id"]);
 }
-const rateWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$3W, [["render", _sfc_render$3W], ["__scopeId", "data-v-738380e2"]]);
-const __vite_glob_0_14$1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const rateWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$40, [["render", _sfc_render$40], ["__scopeId", "data-v-738380e2"]]);
+const __vite_glob_0_15$1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: rateWidget
 }, Symbol.toStringTag, { value: "Module" }));
@@ -12241,9 +12444,9 @@ var quill = { exports: {} };
                 match = types["inline"];
               }
             } else if (query2 instanceof HTMLElement) {
-              var names = (query2.getAttribute("class") || "").split(/\s+/);
-              for (var i in names) {
-                match = classes[names[i]];
+              var names2 = (query2.getAttribute("class") || "").split(/\s+/);
+              for (var i in names2) {
+                match = classes[names2[i]];
                 if (match)
                   break;
               }
@@ -12992,7 +13195,7 @@ var quill = { exports: {} };
           } : function(obj) {
             return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
           };
-          var _slicedToArray = /* @__PURE__ */ function() {
+          var _slicedToArray2 = /* @__PURE__ */ function() {
             function sliceIterator(arr, i) {
               var _arr = [];
               var _n = true;
@@ -13208,7 +13411,7 @@ var quill = { exports: {} };
               value: function deleteText(index2, length, source) {
                 var _this3 = this;
                 var _overload = overload(index2, length, source);
-                var _overload2 = _slicedToArray(_overload, 4);
+                var _overload2 = _slicedToArray2(_overload, 4);
                 index2 = _overload2[0];
                 length = _overload2[1];
                 source = _overload2[3];
@@ -13264,7 +13467,7 @@ var quill = { exports: {} };
                 var _this5 = this;
                 var formats = void 0;
                 var _overload3 = overload(index2, length, name, value2, source);
-                var _overload4 = _slicedToArray(_overload3, 4);
+                var _overload4 = _slicedToArray2(_overload3, 4);
                 index2 = _overload4[0];
                 length = _overload4[1];
                 formats = _overload4[2];
@@ -13279,7 +13482,7 @@ var quill = { exports: {} };
                 var _this6 = this;
                 var formats = void 0;
                 var _overload5 = overload(index2, length, name, value2, source);
-                var _overload6 = _slicedToArray(_overload5, 4);
+                var _overload6 = _slicedToArray2(_overload5, 4);
                 index2 = _overload6[0];
                 length = _overload6[1];
                 formats = _overload6[2];
@@ -13314,7 +13517,7 @@ var quill = { exports: {} };
                 var index2 = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : 0;
                 var length = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : this.getLength() - index2;
                 var _overload7 = overload(index2, length);
-                var _overload8 = _slicedToArray(_overload7, 2);
+                var _overload8 = _slicedToArray2(_overload7, 2);
                 index2 = _overload8[0];
                 length = _overload8[1];
                 return this.editor.getContents(index2, length);
@@ -13381,7 +13584,7 @@ var quill = { exports: {} };
                 var index2 = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : 0;
                 var length = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : this.getLength() - index2;
                 var _overload9 = overload(index2, length);
-                var _overload10 = _slicedToArray(_overload9, 2);
+                var _overload10 = _slicedToArray2(_overload9, 2);
                 index2 = _overload10[0];
                 length = _overload10[1];
                 return this.editor.getText(index2, length);
@@ -13406,7 +13609,7 @@ var quill = { exports: {} };
                 var _this8 = this;
                 var formats = void 0;
                 var _overload11 = overload(index2, 0, name, value2, source);
-                var _overload12 = _slicedToArray(_overload11, 4);
+                var _overload12 = _slicedToArray2(_overload11, 4);
                 index2 = _overload12[0];
                 formats = _overload12[2];
                 source = _overload12[3];
@@ -13444,7 +13647,7 @@ var quill = { exports: {} };
               value: function removeFormat(index2, length, source) {
                 var _this9 = this;
                 var _overload13 = overload(index2, length, source);
-                var _overload14 = _slicedToArray(_overload13, 4);
+                var _overload14 = _slicedToArray2(_overload13, 4);
                 index2 = _overload14[0];
                 length = _overload14[1];
                 source = _overload14[3];
@@ -13483,7 +13686,7 @@ var quill = { exports: {} };
                   this.selection.setRange(null, length || Quill3.sources.API);
                 } else {
                   var _overload15 = overload(index2, length, source);
-                  var _overload16 = _slicedToArray(_overload15, 4);
+                  var _overload16 = _slicedToArray2(_overload15, 4);
                   index2 = _overload16[0];
                   length = _overload16[1];
                   source = _overload16[3];
@@ -13655,7 +13858,7 @@ var quill = { exports: {} };
               var _map = [range.index, range.index + range.length].map(function(pos) {
                 return index2.transformPosition(pos, source !== _emitter4.default.sources.USER);
               });
-              var _map2 = _slicedToArray(_map, 2);
+              var _map2 = _slicedToArray2(_map, 2);
               start = _map2[0];
               end = _map2[1];
             } else {
@@ -13668,7 +13871,7 @@ var quill = { exports: {} };
                   return Math.max(index2, pos + length);
                 }
               });
-              var _map4 = _slicedToArray(_map3, 2);
+              var _map4 = _slicedToArray2(_map3, 2);
               start = _map4[0];
               end = _map4[1];
             }
@@ -14188,7 +14391,7 @@ var quill = { exports: {} };
             value: true
           });
           exports2.default = exports2.Code = void 0;
-          var _slicedToArray = /* @__PURE__ */ function() {
+          var _slicedToArray2 = /* @__PURE__ */ function() {
             function sliceIterator(arr, i) {
               var _arr = [];
               var _n = true;
@@ -14329,7 +14532,7 @@ var quill = { exports: {} };
               value: function format(name, value2) {
                 if (name === this.statics.blotName && value2)
                   return;
-                var _descendant = this.descendant(_text2.default, this.length() - 1), _descendant2 = _slicedToArray(_descendant, 1), text = _descendant2[0];
+                var _descendant = this.descendant(_text2.default, this.length() - 1), _descendant2 = _slicedToArray2(_descendant, 1), text = _descendant2[0];
                 if (text != null) {
                   text.deleteAt(text.length() - 1, 1);
                 }
@@ -14360,7 +14563,7 @@ var quill = { exports: {} };
               value: function insertAt(index2, value2, def) {
                 if (def != null)
                   return;
-                var _descendant3 = this.descendant(_text2.default, index2), _descendant4 = _slicedToArray(_descendant3, 2), text = _descendant4[0], offset = _descendant4[1];
+                var _descendant3 = this.descendant(_text2.default, index2), _descendant4 = _slicedToArray2(_descendant3, 2), text = _descendant4[0], offset = _descendant4[1];
                 text.insertAt(offset, value2);
               }
             }, {
@@ -14444,7 +14647,7 @@ var quill = { exports: {} };
           } : function(obj) {
             return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
           };
-          var _slicedToArray = /* @__PURE__ */ function() {
+          var _slicedToArray2 = /* @__PURE__ */ function() {
             function sliceIterator(arr, i) {
               var _arr = [];
               var _n = true;
@@ -14565,10 +14768,10 @@ var quill = { exports: {} };
                         consumeNextNewline = true;
                       }
                       _this.scroll.insertAt(index2, text);
-                      var _scroll$line = _this.scroll.line(index2), _scroll$line2 = _slicedToArray(_scroll$line, 2), line = _scroll$line2[0], offset = _scroll$line2[1];
+                      var _scroll$line = _this.scroll.line(index2), _scroll$line2 = _slicedToArray2(_scroll$line, 2), line = _scroll$line2[0], offset = _scroll$line2[1];
                       var formats = (0, _extend2.default)({}, (0, _block.bubbleFormats)(line));
                       if (line instanceof _block2.default) {
-                        var _line$descendant = line.descendant(_parchment2.default.Leaf, offset), _line$descendant2 = _slicedToArray(_line$descendant, 1), leaf = _line$descendant2[0];
+                        var _line$descendant = line.descendant(_parchment2.default.Leaf, offset), _line$descendant2 = _slicedToArray2(_line$descendant, 1), leaf = _line$descendant2[0];
                         formats = (0, _extend2.default)(formats, (0, _block.bubbleFormats)(leaf));
                       }
                       attributes = _op2.default.attributes.diff(formats, attributes) || {};
@@ -14656,7 +14859,7 @@ var quill = { exports: {} };
                 var lines = [], leaves = [];
                 if (length === 0) {
                   this.scroll.path(index2).forEach(function(path) {
-                    var _path = _slicedToArray(path, 1), blot = _path[0];
+                    var _path = _slicedToArray2(path, 1), blot = _path[0];
                     if (blot instanceof _block2.default) {
                       lines.push(blot);
                     } else if (blot instanceof _parchment2.default.Leaf) {
@@ -14726,7 +14929,7 @@ var quill = { exports: {} };
               key: "removeFormat",
               value: function removeFormat(index2, length) {
                 var text = this.getText(index2, length);
-                var _scroll$line3 = this.scroll.line(index2 + length), _scroll$line4 = _slicedToArray(_scroll$line3, 2), line = _scroll$line4[0], offset = _scroll$line4[1];
+                var _scroll$line3 = this.scroll.line(index2 + length), _scroll$line4 = _slicedToArray2(_scroll$line3, 2), line = _scroll$line4[0], offset = _scroll$line4[1];
                 var suffixLength = 0, suffix = new _quillDelta2.default();
                 if (line != null) {
                   if (!(line instanceof _code2.default)) {
@@ -14822,7 +15025,7 @@ var quill = { exports: {} };
             value: true
           });
           exports2.default = exports2.Range = void 0;
-          var _slicedToArray = /* @__PURE__ */ function() {
+          var _slicedToArray2 = /* @__PURE__ */ function() {
             function sliceIterator(arr, i) {
               var _arr = [];
               var _n = true;
@@ -15030,24 +15233,24 @@ var quill = { exports: {} };
                 var scrollLength = this.scroll.length();
                 index2 = Math.min(index2, scrollLength - 1);
                 length = Math.min(index2 + length, scrollLength - 1) - index2;
-                var node = void 0, _scroll$leaf = this.scroll.leaf(index2), _scroll$leaf2 = _slicedToArray(_scroll$leaf, 2), leaf = _scroll$leaf2[0], offset = _scroll$leaf2[1];
+                var node = void 0, _scroll$leaf = this.scroll.leaf(index2), _scroll$leaf2 = _slicedToArray2(_scroll$leaf, 2), leaf = _scroll$leaf2[0], offset = _scroll$leaf2[1];
                 if (leaf == null)
                   return null;
                 var _leaf$position = leaf.position(offset, true);
-                var _leaf$position2 = _slicedToArray(_leaf$position, 2);
+                var _leaf$position2 = _slicedToArray2(_leaf$position, 2);
                 node = _leaf$position2[0];
                 offset = _leaf$position2[1];
                 var range = document.createRange();
                 if (length > 0) {
                   range.setStart(node, offset);
                   var _scroll$leaf3 = this.scroll.leaf(index2 + length);
-                  var _scroll$leaf4 = _slicedToArray(_scroll$leaf3, 2);
+                  var _scroll$leaf4 = _slicedToArray2(_scroll$leaf3, 2);
                   leaf = _scroll$leaf4[0];
                   offset = _scroll$leaf4[1];
                   if (leaf == null)
                     return null;
                   var _leaf$position3 = leaf.position(offset, true);
-                  var _leaf$position4 = _slicedToArray(_leaf$position3, 2);
+                  var _leaf$position4 = _slicedToArray2(_leaf$position3, 2);
                   node = _leaf$position4[0];
                   offset = _leaf$position4[1];
                   range.setEnd(node, offset);
@@ -15116,7 +15319,7 @@ var quill = { exports: {} };
                   positions.push([range.end.node, range.end.offset]);
                 }
                 var indexes = positions.map(function(position) {
-                  var _position = _slicedToArray(position, 2), node = _position[0], offset = _position[1];
+                  var _position = _slicedToArray2(position, 2), node = _position[0], offset = _position[1];
                   var blot = _parchment2.default.find(node, true);
                   var index2 = blot.offset(_this4.scroll);
                   if (offset === 0) {
@@ -15168,9 +15371,9 @@ var quill = { exports: {} };
                 var scrollLength = this.scroll.length();
                 indexes.forEach(function(index2, i) {
                   index2 = Math.min(scrollLength - 1, index2);
-                  var node = void 0, _scroll$leaf5 = _this5.scroll.leaf(index2), _scroll$leaf6 = _slicedToArray(_scroll$leaf5, 2), leaf = _scroll$leaf6[0], offset = _scroll$leaf6[1];
+                  var node = void 0, _scroll$leaf5 = _this5.scroll.leaf(index2), _scroll$leaf6 = _slicedToArray2(_scroll$leaf5, 2), leaf = _scroll$leaf6[0], offset = _scroll$leaf6[1];
                   var _leaf$position5 = leaf.position(offset, i !== 0);
-                  var _leaf$position6 = _slicedToArray(_leaf$position5, 2);
+                  var _leaf$position6 = _slicedToArray2(_leaf$position5, 2);
                   node = _leaf$position6[0];
                   offset = _leaf$position6[1];
                   args.push(node, offset);
@@ -15190,11 +15393,11 @@ var quill = { exports: {} };
                 if (bounds == null)
                   return;
                 var limit = this.scroll.length() - 1;
-                var _scroll$line = this.scroll.line(Math.min(range.index, limit)), _scroll$line2 = _slicedToArray(_scroll$line, 1), first = _scroll$line2[0];
+                var _scroll$line = this.scroll.line(Math.min(range.index, limit)), _scroll$line2 = _slicedToArray2(_scroll$line, 1), first = _scroll$line2[0];
                 var last = first;
                 if (range.length > 0) {
                   var _scroll$line3 = this.scroll.line(Math.min(range.index + range.length, limit));
-                  var _scroll$line4 = _slicedToArray(_scroll$line3, 1);
+                  var _scroll$line4 = _slicedToArray2(_scroll$line3, 1);
                   last = _scroll$line4[0];
                 }
                 if (first == null || last == null)
@@ -15267,7 +15470,7 @@ var quill = { exports: {} };
               value: function update() {
                 var source = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : _emitter4.default.sources.USER;
                 var oldRange = this.lastRange;
-                var _getRange = this.getRange(), _getRange2 = _slicedToArray(_getRange, 2), lastRange = _getRange2[0], nativeRange = _getRange2[1];
+                var _getRange = this.getRange(), _getRange2 = _slicedToArray2(_getRange, 2), lastRange = _getRange2[0], nativeRange = _getRange2[1];
                 this.lastRange = lastRange;
                 if (this.lastRange != null) {
                   this.savedRange = this.lastRange;
@@ -16157,7 +16360,7 @@ var quill = { exports: {} };
           Object.defineProperty(exports2, "__esModule", {
             value: true
           });
-          var _slicedToArray = /* @__PURE__ */ function() {
+          var _slicedToArray2 = /* @__PURE__ */ function() {
             function sliceIterator(arr, i) {
               var _arr = [];
               var _n = true;
@@ -16302,8 +16505,8 @@ var quill = { exports: {} };
             }, {
               key: "deleteAt",
               value: function deleteAt(index2, length) {
-                var _line = this.line(index2), _line2 = _slicedToArray(_line, 2), first = _line2[0], offset = _line2[1];
-                var _line3 = this.line(index2 + length), _line4 = _slicedToArray(_line3, 1), last = _line4[0];
+                var _line = this.line(index2), _line2 = _slicedToArray2(_line, 2), first = _line2[0], offset = _line2[1];
+                var _line3 = this.line(index2 + length), _line4 = _slicedToArray2(_line3, 1), last = _line4[0];
                 _get(Scroll2.prototype.__proto__ || Object.getPrototypeOf(Scroll2.prototype), "deleteAt", this).call(this, index2, length);
                 if (last != null && first !== last && offset > 0) {
                   if (first instanceof _block.BlockEmbed || last instanceof _block.BlockEmbed) {
@@ -16468,7 +16671,7 @@ var quill = { exports: {} };
           } : function(obj) {
             return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
           };
-          var _slicedToArray = /* @__PURE__ */ function() {
+          var _slicedToArray2 = /* @__PURE__ */ function() {
             function sliceIterator(arr, i) {
               var _arr = [];
               var _n = true;
@@ -16650,9 +16853,9 @@ var quill = { exports: {} };
                   var range = _this2.quill.getSelection();
                   if (range == null || !_this2.quill.hasFocus())
                     return;
-                  var _quill$getLine = _this2.quill.getLine(range.index), _quill$getLine2 = _slicedToArray(_quill$getLine, 2), line = _quill$getLine2[0], offset = _quill$getLine2[1];
-                  var _quill$getLeaf = _this2.quill.getLeaf(range.index), _quill$getLeaf2 = _slicedToArray(_quill$getLeaf, 2), leafStart = _quill$getLeaf2[0], offsetStart = _quill$getLeaf2[1];
-                  var _ref = range.length === 0 ? [leafStart, offsetStart] : _this2.quill.getLeaf(range.index + range.length), _ref2 = _slicedToArray(_ref, 2), leafEnd = _ref2[0], offsetEnd = _ref2[1];
+                  var _quill$getLine = _this2.quill.getLine(range.index), _quill$getLine2 = _slicedToArray2(_quill$getLine, 2), line = _quill$getLine2[0], offset = _quill$getLine2[1];
+                  var _quill$getLeaf = _this2.quill.getLeaf(range.index), _quill$getLeaf2 = _slicedToArray2(_quill$getLeaf, 2), leafStart = _quill$getLeaf2[0], offsetStart = _quill$getLeaf2[1];
+                  var _ref = range.length === 0 ? [leafStart, offsetStart] : _this2.quill.getLeaf(range.index + range.length), _ref2 = _slicedToArray2(_ref, 2), leafEnd = _ref2[0], offsetEnd = _ref2[1];
                   var prefixText = leafStart instanceof _parchment2.default.Text ? leafStart.value().slice(0, offsetStart) : "";
                   var suffixText = leafEnd instanceof _parchment2.default.Text ? leafEnd.value().slice(offsetEnd) : "";
                   var curContext = {
@@ -16793,7 +16996,7 @@ var quill = { exports: {} };
                 collapsed: true,
                 format: { list: "checked" },
                 handler: function handler(range) {
-                  var _quill$getLine3 = this.quill.getLine(range.index), _quill$getLine4 = _slicedToArray(_quill$getLine3, 2), line = _quill$getLine4[0], offset = _quill$getLine4[1];
+                  var _quill$getLine3 = this.quill.getLine(range.index), _quill$getLine4 = _slicedToArray2(_quill$getLine3, 2), line = _quill$getLine4[0], offset = _quill$getLine4[1];
                   var formats = (0, _extend2.default)({}, line.formats(), { list: "checked" });
                   var delta = new _quillDelta2.default().retain(range.index).insert("\n", formats).retain(line.length() - offset - 1).retain(1, { list: "unchecked" });
                   this.quill.updateContents(delta, _quill2.default.sources.USER);
@@ -16807,7 +17010,7 @@ var quill = { exports: {} };
                 format: ["header"],
                 suffix: /^$/,
                 handler: function handler(range, context) {
-                  var _quill$getLine5 = this.quill.getLine(range.index), _quill$getLine6 = _slicedToArray(_quill$getLine5, 2), line = _quill$getLine6[0], offset = _quill$getLine6[1];
+                  var _quill$getLine5 = this.quill.getLine(range.index), _quill$getLine6 = _slicedToArray2(_quill$getLine5, 2), line = _quill$getLine6[0], offset = _quill$getLine6[1];
                   var delta = new _quillDelta2.default().retain(range.index).insert("\n", context.format).retain(line.length() - offset - 1).retain(1, { header: null });
                   this.quill.updateContents(delta, _quill2.default.sources.USER);
                   this.quill.setSelection(range.index + 1, _quill2.default.sources.SILENT);
@@ -16821,7 +17024,7 @@ var quill = { exports: {} };
                 prefix: /^\s*?(\d+\.|-|\*|\[ ?\]|\[x\])$/,
                 handler: function handler(range, context) {
                   var length = context.prefix.length;
-                  var _quill$getLine7 = this.quill.getLine(range.index), _quill$getLine8 = _slicedToArray(_quill$getLine7, 2), line = _quill$getLine8[0], offset = _quill$getLine8[1];
+                  var _quill$getLine7 = this.quill.getLine(range.index), _quill$getLine8 = _slicedToArray2(_quill$getLine7, 2), line = _quill$getLine8[0], offset = _quill$getLine8[1];
                   if (offset > length)
                     return true;
                   var value2 = void 0;
@@ -16855,7 +17058,7 @@ var quill = { exports: {} };
                 prefix: /\n\n$/,
                 suffix: /^\s+$/,
                 handler: function handler(range) {
-                  var _quill$getLine9 = this.quill.getLine(range.index), _quill$getLine10 = _slicedToArray(_quill$getLine9, 2), line = _quill$getLine10[0], offset = _quill$getLine10[1];
+                  var _quill$getLine9 = this.quill.getLine(range.index), _quill$getLine10 = _slicedToArray2(_quill$getLine9, 2), line = _quill$getLine10[0], offset = _quill$getLine10[1];
                   var delta = new _quillDelta2.default().retain(range.index + line.length() - offset - 2).retain(1, { "code-block": null }).delete(1);
                   this.quill.updateContents(delta, _quill2.default.sources.USER);
                 }
@@ -16878,7 +17081,7 @@ var quill = { exports: {} };
               if (key === Keyboard.keys.RIGHT) {
                 index2 += range.length + 1;
               }
-              var _quill$getLeaf3 = this.quill.getLeaf(index2), _quill$getLeaf4 = _slicedToArray(_quill$getLeaf3, 1), leaf = _quill$getLeaf4[0];
+              var _quill$getLeaf3 = this.quill.getLeaf(index2), _quill$getLeaf4 = _slicedToArray2(_quill$getLeaf3, 1), leaf = _quill$getLeaf4[0];
               if (!(leaf instanceof _parchment2.default.Embed))
                 return true;
               if (key === Keyboard.keys.LEFT) {
@@ -16900,10 +17103,10 @@ var quill = { exports: {} };
           function handleBackspace(range, context) {
             if (range.index === 0 || this.quill.getLength() <= 1)
               return;
-            var _quill$getLine11 = this.quill.getLine(range.index), _quill$getLine12 = _slicedToArray(_quill$getLine11, 1), line = _quill$getLine12[0];
+            var _quill$getLine11 = this.quill.getLine(range.index), _quill$getLine12 = _slicedToArray2(_quill$getLine11, 1), line = _quill$getLine12[0];
             var formats = {};
             if (context.offset === 0) {
-              var _quill$getLine13 = this.quill.getLine(range.index - 1), _quill$getLine14 = _slicedToArray(_quill$getLine13, 1), prev = _quill$getLine14[0];
+              var _quill$getLine13 = this.quill.getLine(range.index - 1), _quill$getLine14 = _slicedToArray2(_quill$getLine13, 1), prev = _quill$getLine14[0];
               if (prev != null && prev.length() > 1) {
                 var curFormats = line.formats();
                 var prevFormats = this.quill.getFormat(range.index - 1, 1);
@@ -16922,9 +17125,9 @@ var quill = { exports: {} };
             if (range.index >= this.quill.getLength() - length)
               return;
             var formats = {}, nextLength = 0;
-            var _quill$getLine15 = this.quill.getLine(range.index), _quill$getLine16 = _slicedToArray(_quill$getLine15, 1), line = _quill$getLine16[0];
+            var _quill$getLine15 = this.quill.getLine(range.index), _quill$getLine16 = _slicedToArray2(_quill$getLine15, 1), line = _quill$getLine16[0];
             if (context.offset >= line.length() - 1) {
-              var _quill$getLine17 = this.quill.getLine(range.index + 1), _quill$getLine18 = _slicedToArray(_quill$getLine17, 1), next = _quill$getLine18[0];
+              var _quill$getLine17 = this.quill.getLine(range.index + 1), _quill$getLine18 = _slicedToArray2(_quill$getLine17, 1), next = _quill$getLine18[0];
               if (next) {
                 var curFormats = line.formats();
                 var nextFormats = this.quill.getFormat(range.index, 1);
@@ -16984,7 +17187,7 @@ var quill = { exports: {} };
               handler: function handler(range) {
                 var CodeBlock = _parchment2.default.query("code-block");
                 var index2 = range.index, length = range.length;
-                var _quill$scroll$descend = this.quill.scroll.descendant(CodeBlock, index2), _quill$scroll$descend2 = _slicedToArray(_quill$scroll$descend, 2), block = _quill$scroll$descend2[0], offset = _quill$scroll$descend2[1];
+                var _quill$scroll$descend = this.quill.scroll.descendant(CodeBlock, index2), _quill$scroll$descend2 = _slicedToArray2(_quill$scroll$descend, 2), block = _quill$scroll$descend2[0], offset = _quill$scroll$descend2[1];
                 if (block == null)
                   return;
                 var scrollIndex = this.quill.getIndex(block);
@@ -17057,7 +17260,7 @@ var quill = { exports: {} };
           Object.defineProperty(exports2, "__esModule", {
             value: true
           });
-          var _slicedToArray = /* @__PURE__ */ function() {
+          var _slicedToArray2 = /* @__PURE__ */ function() {
             function sliceIterator(arr, i) {
               var _arr = [];
               var _n = true;
@@ -17258,7 +17461,7 @@ var quill = { exports: {} };
                   var _map = [start, end].map(function(offset) {
                     return Math.max(0, Math.min(restoreText.data.length, offset - 1));
                   });
-                  var _map2 = _slicedToArray(_map, 2);
+                  var _map2 = _slicedToArray2(_map, 2);
                   start = _map2[0];
                   end = _map2[1];
                   return {
@@ -20389,17 +20592,17 @@ var quill = { exports: {} };
             this._eventsCount = 0;
           }
           EventEmitter.prototype.eventNames = function eventNames() {
-            var names = [], events, name;
+            var names2 = [], events, name;
             if (this._eventsCount === 0)
-              return names;
+              return names2;
             for (name in events = this._events) {
               if (has.call(events, name))
-                names.push(prefix ? name.slice(1) : name);
+                names2.push(prefix ? name.slice(1) : name);
             }
             if (Object.getOwnPropertySymbols) {
-              return names.concat(Object.getOwnPropertySymbols(events));
+              return names2.concat(Object.getOwnPropertySymbols(events));
             }
-            return names;
+            return names2;
           };
           EventEmitter.prototype.listeners = function listeners(event, exists) {
             var evt = prefix ? prefix + event : event, available = this._events[evt];
@@ -20562,7 +20765,7 @@ var quill = { exports: {} };
           } : function(obj) {
             return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
           };
-          var _slicedToArray = /* @__PURE__ */ function() {
+          var _slicedToArray2 = /* @__PURE__ */ function() {
             function sliceIterator(arr, i) {
               var _arr = [];
               var _n = true;
@@ -20689,7 +20892,7 @@ var quill = { exports: {} };
               _this.container.setAttribute("tabindex", -1);
               _this.matchers = [];
               CLIPBOARD_CONFIG.concat(_this.options.matchers).forEach(function(_ref) {
-                var _ref2 = _slicedToArray(_ref, 2), selector = _ref2[0], matcher = _ref2[1];
+                var _ref2 = _slicedToArray2(_ref, 2), selector = _ref2[0], matcher = _ref2[1];
                 if (!options.matchVisual && matcher === matchSpacing)
                   return;
                 _this.addMatcher(selector, matcher);
@@ -20714,7 +20917,7 @@ var quill = { exports: {} };
                   this.container.innerHTML = "";
                   return new _quillDelta2.default().insert(text, _defineProperty2({}, _code2.default.blotName, formats[_code2.default.blotName]));
                 }
-                var _prepareMatching = this.prepareMatching(), _prepareMatching2 = _slicedToArray(_prepareMatching, 2), elementMatchers = _prepareMatching2[0], textMatchers = _prepareMatching2[1];
+                var _prepareMatching = this.prepareMatching(), _prepareMatching2 = _slicedToArray2(_prepareMatching, 2), elementMatchers = _prepareMatching2[0], textMatchers = _prepareMatching2[1];
                 var delta = traverse(this.container, elementMatchers, textMatchers);
                 if (deltaEndsWith(delta, "\n") && delta.ops[delta.ops.length - 1].attributes == null) {
                   delta = delta.compose(new _quillDelta2.default().retain(delta.length() - 1).delete(1));
@@ -20761,7 +20964,7 @@ var quill = { exports: {} };
                 var _this3 = this;
                 var elementMatchers = [], textMatchers = [];
                 this.matchers.forEach(function(pair) {
-                  var _pair = _slicedToArray(pair, 2), selector = _pair[0], matcher = _pair[1];
+                  var _pair = _slicedToArray2(pair, 2), selector = _pair[0], matcher = _pair[1];
                   switch (selector) {
                     case Node.TEXT_NODE:
                       textMatchers.push(matcher);
@@ -21089,7 +21292,7 @@ var quill = { exports: {} };
             value: true
           });
           exports2.addControls = exports2.default = void 0;
-          var _slicedToArray = /* @__PURE__ */ function() {
+          var _slicedToArray2 = /* @__PURE__ */ function() {
             function sliceIterator(arr, i) {
               var _arr = [];
               var _n = true;
@@ -21219,7 +21422,7 @@ var quill = { exports: {} };
                 }
               });
               _this.quill.on(_quill2.default.events.SCROLL_OPTIMIZE, function() {
-                var _this$quill$selection = _this.quill.selection.getRange(), _this$quill$selection2 = _slicedToArray(_this$quill$selection, 1), range = _this$quill$selection2[0];
+                var _this$quill$selection = _this.quill.selection.getRange(), _this$quill$selection2 = _slicedToArray2(_this$quill$selection, 1), range = _this$quill$selection2[0];
                 _this.update(range);
               });
               return _this;
@@ -21273,7 +21476,7 @@ var quill = { exports: {} };
                     e.preventDefault();
                   }
                   _this2.quill.focus();
-                  var _quill$selection$getR = _this2.quill.selection.getRange(), _quill$selection$getR2 = _slicedToArray(_quill$selection$getR, 1), range = _quill$selection$getR2[0];
+                  var _quill$selection$getR = _this2.quill.selection.getRange(), _quill$selection$getR2 = _slicedToArray2(_quill$selection$getR, 1), range = _quill$selection$getR2[0];
                   if (_this2.handlers[format] != null) {
                     _this2.handlers[format].call(_this2, value2);
                   } else if (_parchment2.default.query(format).prototype instanceof _parchment2.default.Embed) {
@@ -21293,7 +21496,7 @@ var quill = { exports: {} };
               value: function update(range) {
                 var formats = range == null ? {} : this.quill.getFormat(range);
                 this.controls.forEach(function(pair) {
-                  var _pair = _slicedToArray(pair, 2), format = _pair[0], input2 = _pair[1];
+                  var _pair = _slicedToArray2(pair, 2), format = _pair[0], input2 = _pair[1];
                   if (input2.tagName === "SELECT") {
                     var option2 = void 0;
                     if (range == null) {
@@ -21740,7 +21943,7 @@ var quill = { exports: {} };
           Object.defineProperty(exports2, "__esModule", {
             value: true
           });
-          var _slicedToArray = /* @__PURE__ */ function() {
+          var _slicedToArray2 = /* @__PURE__ */ function() {
             function sliceIterator(arr, i) {
               var _arr = [];
               var _n = true;
@@ -21935,7 +22138,7 @@ var quill = { exports: {} };
                   if (range == null)
                     return;
                   if (range.length === 0 && source === _emitter2.default.sources.USER) {
-                    var _quill$scroll$descend = _this3.quill.scroll.descendant(_link2.default, range.index), _quill$scroll$descend2 = _slicedToArray(_quill$scroll$descend, 2), link = _quill$scroll$descend2[0], offset = _quill$scroll$descend2[1];
+                    var _quill$scroll$descend = _this3.quill.scroll.descendant(_link2.default, range.index), _quill$scroll$descend2 = _slicedToArray2(_quill$scroll$descend, 2), link = _quill$scroll$descend2[0], offset = _quill$scroll$descend2[1];
                     if (link != null) {
                       _this3.linkRange = new _selection.Range(range.index - offset, link.length());
                       var preview = _link2.default.formats(link.domNode);
@@ -23689,7 +23892,7 @@ const defaultOptions = {
   placeholder: "Insert content here ...",
   readOnly: false
 };
-const _sfc_main$3V = {
+const _sfc_main$3$ = {
   name: "quill-editor",
   props: {
     content: String,
@@ -23802,15 +24005,15 @@ const _sfc_main$3V = {
     return { editor };
   }
 };
-const _hoisted_1$T = { ref: "editor" };
-function _sfc_render$3V(_ctx, _cache, $props, $setup, $data, $options) {
-  return openBlock(), createElementBlock("section", _hoisted_1$T, null, 512);
+const _hoisted_1$S = { ref: "editor" };
+function _sfc_render$3$(_ctx, _cache, $props, $setup, $data, $options) {
+  return openBlock(), createElementBlock("section", _hoisted_1$S, null, 512);
 }
-const quillEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3V, [["render", _sfc_render$3V]]);
+const quillEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3$, [["render", _sfc_render$3$]]);
 quillEditor.install = function(app) {
   app.component(quillEditor.name, quillEditor);
 };
-const _sfc_main$3U = {
+const _sfc_main$3_ = {
   name: "rich-editor-widget",
   componentName: "FieldWidget",
   //必须固定为FieldWidget，用于接收父级组件的broadcast事件
@@ -23898,7 +24101,7 @@ const _sfc_main$3U = {
     }
   }
 };
-function _sfc_render$3U(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$3_(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_quill_editor = resolveComponent("quill-editor");
   const _component_form_item_wrapper = resolveComponent("form-item-wrapper");
   return openBlock(), createBlock(_component_form_item_wrapper, {
@@ -23933,12 +24136,12 @@ function _sfc_render$3U(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["designer", "field", "rules", "design-state", "parent-widget", "parent-list", "index-of-parent-list", "sub-form-row-index", "sub-form-col-index", "sub-form-row-id"]);
 }
-const richEditorWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$3U, [["render", _sfc_render$3U], ["__scopeId", "data-v-ce567f99"]]);
-const __vite_glob_0_15$1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const richEditorWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$3_, [["render", _sfc_render$3_], ["__scopeId", "data-v-ce567f99"]]);
+const __vite_glob_0_16$1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: richEditorWidget
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$3T = {
+const _sfc_main$3Z = {
   name: "select-widget",
   componentName: "FieldWidget",
   //必须固定为FieldWidget，用于接收父级组件的broadcast事件
@@ -23969,15 +24172,19 @@ const _sfc_main$3T = {
       default: ""
     }
   },
-  components: {
-    FormItemWrapper
-  },
+  components: { SvgIcon, FormItemWrapper },
   data() {
     return {
       oldFieldValue: null,
       //field组件change之前的值
       fieldModel: null,
-      rules: []
+      rules: [],
+      pager: {
+        page: 1,
+        pageSize: 20,
+        totalPage: 0,
+        total: 0
+      }
     };
   },
   computed: {
@@ -24028,12 +24235,26 @@ const _sfc_main$3T = {
      */
     getSelectedLabel() {
       return this.$refs.fieldEditor.selectedLabel;
+    },
+    onPopupScroll(e) {
+      if (!this.field.options.loadingPage)
+        return;
+      const { target } = e;
+      const { scrollTop, scrollHeight, clientHeight } = target;
+      if (scrollHeight - (scrollTop + clientHeight) <= 30) {
+        if (this.pager.totalPage > this.pager.page) {
+          this.pager.page += 1;
+          this.initOptionItems(true);
+        }
+      }
     }
   }
 };
-const _hoisted_1$S = { class: "readonly-mode-field" };
-function _sfc_render$3T(_ctx, _cache, $props, $setup, $data, $options) {
+const _hoisted_1$R = { class: "design-select-box" };
+const _hoisted_2$v = { class: "readonly-mode-field" };
+function _sfc_render$3Z(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_select = resolveComponent("a-select");
+  const _component_svg_icon = resolveComponent("svg-icon");
   const _component_a_tooltip = resolveComponent("a-tooltip");
   const _component_form_item_wrapper = resolveComponent("form-item-wrapper");
   return openBlock(), createBlock(_component_form_item_wrapper, {
@@ -24049,31 +24270,43 @@ function _sfc_render$3T(_ctx, _cache, $props, $setup, $data, $options) {
     "sub-form-row-id": $props.subFormRowId
   }, {
     default: withCtx(() => [
-      withDirectives(createVNode(_component_a_select, {
-        ref: "fieldEditor",
-        value: $data.fieldModel,
-        "onUpdate:value": _cache[0] || (_cache[0] = ($event) => $data.fieldModel = $event),
-        size: $options.size,
-        class: "full-width-input",
-        disabled: $props.field.options.disabled,
-        allowClear: $props.field.options.allowClear,
-        showArrow: true,
-        dropdownMatchSelectWidth: false,
-        mode: $props.field.options.mode,
-        maxTagCount: $props.field.options.maxTagCount,
-        placeholder: $props.field.options.placeholder || _ctx.i18nt("render.hint.selectPlaceholder"),
-        showSearch: $props.field.options.showSearch,
-        onSearch: _ctx.remoteQuery,
-        onFocus: _ctx.handleFocusCustomEvent,
-        onBlur: _ctx.handleBlurCustomEvent,
-        onChange: _ctx.handleChangeEvent,
-        options: $props.field.options.optionItems,
-        fieldNames: {
-          label: $props.field.options.labelKey || "label",
-          value: $props.field.options.valueKey || "value",
-          options: "options"
-        }
-      }, null, 8, ["value", "size", "disabled", "allowClear", "mode", "maxTagCount", "placeholder", "showSearch", "onSearch", "onFocus", "onBlur", "onChange", "options", "fieldNames"]), [
+      withDirectives(createElementVNode("div", _hoisted_1$R, [
+        withDirectives(createVNode(_component_a_select, {
+          ref: "fieldEditor",
+          value: $data.fieldModel,
+          "onUpdate:value": _cache[0] || (_cache[0] = ($event) => $data.fieldModel = $event),
+          size: $options.size,
+          class: "full-width-input",
+          disabled: $props.field.options.disabled,
+          allowClear: $props.field.options.allowClear,
+          showArrow: true,
+          dropdownMatchSelectWidth: false,
+          mode: $props.field.options.mode,
+          maxTagCount: $props.field.options.maxTagCount,
+          placeholder: $props.field.options.placeholder || _ctx.i18nt("render.hint.selectPlaceholder"),
+          showSearch: $props.field.options.showSearch,
+          onSearch: _ctx.remoteQuery,
+          onFocus: _ctx.handleFocusCustomEvent,
+          onBlur: _ctx.handleBlurCustomEvent,
+          onChange: _ctx.handleChangeEvent,
+          onPopupScroll: $options.onPopupScroll,
+          options: $props.field.options.optionItems,
+          fieldNames: {
+            label: $props.field.options.labelKey || "label",
+            value: $props.field.options.valueKey || "value",
+            options: "options"
+          }
+        }, null, 8, ["value", "size", "disabled", "allowClear", "mode", "maxTagCount", "placeholder", "showSearch", "onSearch", "onFocus", "onBlur", "onChange", "onPopupScroll", "options", "fieldNames"]), [
+          [vShow, !_ctx.isReadMode]
+        ]),
+        $props.field.options.useModal ? (openBlock(), createElementBlock("div", {
+          key: 0,
+          class: "useModal-svg",
+          onClick: _cache[1] || (_cache[1] = (...args) => _ctx.handleClickIcon && _ctx.handleClickIcon(...args))
+        }, [
+          createVNode(_component_svg_icon, { "icon-class": "sousuo" })
+        ])) : createCommentVNode("", true)
+      ], 512), [
         [vShow, !_ctx.isReadMode]
       ]),
       _ctx.isReadMode ? (openBlock(), createBlock(_component_a_tooltip, {
@@ -24083,7 +24316,7 @@ function _sfc_render$3T(_ctx, _cache, $props, $setup, $data, $options) {
         overlayStyle: { zIndex: 1e3 }
       }, {
         default: withCtx(() => [
-          createElementVNode("span", _hoisted_1$S, toDisplayString(_ctx.optionLabel), 1)
+          createElementVNode("span", _hoisted_2$v, toDisplayString(_ctx.optionLabel), 1)
         ]),
         _: 1
       }, 8, ["title"])) : createCommentVNode("", true)
@@ -24091,12 +24324,12 @@ function _sfc_render$3T(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["designer", "field", "rules", "design-state", "parent-widget", "parent-list", "index-of-parent-list", "sub-form-row-index", "sub-form-col-index", "sub-form-row-id"]);
 }
-const selectWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$3T, [["render", _sfc_render$3T], ["__scopeId", "data-v-d36409d9"]]);
-const __vite_glob_0_16$1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const selectWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$3Z, [["render", _sfc_render$3Z], ["__scopeId", "data-v-010d0372"]]);
+const __vite_glob_0_17$1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: selectWidget
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$3S = {
+const _sfc_main$3Y = {
   name: "slider-widget",
   componentName: "FieldWidget",
   //必须固定为FieldWidget，用于接收父级组件的broadcast事件
@@ -24162,11 +24395,11 @@ const _sfc_main$3S = {
     }
   }
 };
-const _hoisted_1$R = {
+const _hoisted_1$Q = {
   key: 0,
   class: "readonly-mode-field"
 };
-function _sfc_render$3S(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$3Y(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_slider = resolveComponent("a-slider");
   const _component_form_item_wrapper = resolveComponent("form-item-wrapper");
   return openBlock(), createBlock(_component_form_item_wrapper, {
@@ -24196,17 +24429,17 @@ function _sfc_render$3S(_ctx, _cache, $props, $setup, $data, $options) {
       }, null, 8, ["value", "disabled", "min", "max", "step", "range", "vertical", "onChange"]), [
         [vShow, !_ctx.isReadMode]
       ]),
-      _ctx.isReadMode ? (openBlock(), createElementBlock("span", _hoisted_1$R, toDisplayString($data.fieldModel), 1)) : createCommentVNode("", true)
+      _ctx.isReadMode ? (openBlock(), createElementBlock("span", _hoisted_1$Q, toDisplayString($data.fieldModel), 1)) : createCommentVNode("", true)
     ]),
     _: 1
   }, 8, ["designer", "field", "rules", "design-state", "parent-widget", "parent-list", "index-of-parent-list", "sub-form-row-index", "sub-form-col-index", "sub-form-row-id"]);
 }
-const sliderWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$3S, [["render", _sfc_render$3S], ["__scopeId", "data-v-29105d1f"]]);
-const __vite_glob_0_17$1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const sliderWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$3Y, [["render", _sfc_render$3Y], ["__scopeId", "data-v-29105d1f"]]);
+const __vite_glob_0_18$1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: sliderWidget
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$3R = {
+const _sfc_main$3X = {
   name: "slot-widget",
   componentName: "FieldWidget",
   //必须固定为FieldWidget，用于接收父级组件的broadcast事件
@@ -24256,11 +24489,11 @@ const _sfc_main$3R = {
   },
   methods: {}
 };
-const _hoisted_1$Q = {
+const _hoisted_1$P = {
   key: 0,
   class: "slot-title"
 };
-function _sfc_render$3R(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$3X(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_static_content_wrapper = resolveComponent("static-content-wrapper");
   return openBlock(), createBlock(_component_static_content_wrapper, {
     designer: $props.designer,
@@ -24278,18 +24511,18 @@ function _sfc_render$3R(_ctx, _cache, $props, $setup, $data, $options) {
         class: normalizeClass([!!$props.designState ? "slot-wrapper-design" : "slot-wrapper-render"])
       }, [
         renderSlot(_ctx.$slots, $props.field.options.name, { formModel: _ctx.formModel }, void 0, true),
-        !!$props.designState ? (openBlock(), createElementBlock("div", _hoisted_1$Q, toDisplayString($props.field.options.label), 1)) : createCommentVNode("", true)
+        !!$props.designState ? (openBlock(), createElementBlock("div", _hoisted_1$P, toDisplayString($props.field.options.label), 1)) : createCommentVNode("", true)
       ], 2)
     ]),
     _: 3
   }, 8, ["designer", "field", "design-state", "parent-widget", "parent-list", "index-of-parent-list", "sub-form-row-index", "sub-form-col-index", "sub-form-row-id"]);
 }
-const slotWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$3R, [["render", _sfc_render$3R], ["__scopeId", "data-v-4d60db4d"]]);
-const __vite_glob_0_18$1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const slotWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$3X, [["render", _sfc_render$3X], ["__scopeId", "data-v-4d60db4d"]]);
+const __vite_glob_0_19$1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: slotWidget
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$3Q = {
+const _sfc_main$3W = {
   name: "static-text-widget",
   componentName: "FieldWidget",
   //必须固定为FieldWidget，用于接收父级组件的broadcast事件
@@ -24339,7 +24572,7 @@ const _sfc_main$3Q = {
   },
   methods: {}
 };
-function _sfc_render$3Q(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$3W(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_static_content_wrapper = resolveComponent("static-content-wrapper");
   return openBlock(), createBlock(_component_static_content_wrapper, {
     designer: $props.designer,
@@ -24358,12 +24591,12 @@ function _sfc_render$3Q(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["designer", "field", "design-state", "parent-widget", "parent-list", "index-of-parent-list", "sub-form-row-index", "sub-form-col-index", "sub-form-row-id"]);
 }
-const staticTextWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$3Q, [["render", _sfc_render$3Q], ["__scopeId", "data-v-11d19d63"]]);
-const __vite_glob_0_20$1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const staticTextWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$3W, [["render", _sfc_render$3W], ["__scopeId", "data-v-11d19d63"]]);
+const __vite_glob_0_21$1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: staticTextWidget
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$3P = {
+const _sfc_main$3V = {
   name: "switch-widget",
   componentName: "FieldWidget",
   //必须固定为FieldWidget，用于接收父级组件的broadcast事件
@@ -24408,9 +24641,9 @@ const _sfc_main$3P = {
   computed: {
     contentForReadMode() {
       if (!!this.fieldModel) {
-        return this.field.options.checkedChildren || this.i18nt("render.hint.defaultActiveText");
+        return this.field.options.checkedValue || this.i18nt("render.hint.defaultActiveText");
       }
-      return this.field.options.unCheckedChildren || this.i18nt("render.hint.defaultInactiveText");
+      return this.field.options.unCheckedValue || this.i18nt("render.hint.defaultInactiveText");
     }
   },
   beforeCreate() {
@@ -24430,11 +24663,11 @@ const _sfc_main$3P = {
   },
   methods: {}
 };
-const _hoisted_1$P = {
+const _hoisted_1$O = {
   key: 0,
   class: "readonly-mode-field"
 };
-function _sfc_render$3P(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$3V(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_switch = resolveComponent("a-switch");
   const _component_form_item_wrapper = resolveComponent("form-item-wrapper");
   return openBlock(), createBlock(_component_form_item_wrapper, {
@@ -24456,22 +24689,22 @@ function _sfc_render$3P(_ctx, _cache, $props, $setup, $data, $options) {
         "onUpdate:checked": _cache[0] || (_cache[0] = ($event) => $data.fieldModel = $event),
         class: normalizeClass([_ctx.isReadMode ? "readonly-mode-switch" : ""]),
         disabled: $props.field.options.disabled,
-        checkedChildren: $props.field.options.checkedChildren,
-        unCheckedChildren: $props.field.options.unCheckedChildren,
+        checkedValue: $props.field.options.checkedValue,
+        unCheckedValue: $props.field.options.unCheckedValue,
         onChange: _ctx.handleChangeEvent,
         style: normalizeStyle({ width: $props.field.options.switchWidth + "px" })
-      }, null, 8, ["checked", "class", "disabled", "checkedChildren", "unCheckedChildren", "onChange", "style"]),
-      _ctx.isReadMode ? (openBlock(), createElementBlock("span", _hoisted_1$P, toDisplayString($options.contentForReadMode), 1)) : createCommentVNode("", true)
+      }, null, 8, ["checked", "class", "disabled", "checkedValue", "unCheckedValue", "onChange", "style"]),
+      _ctx.isReadMode ? (openBlock(), createElementBlock("span", _hoisted_1$O, toDisplayString($options.contentForReadMode), 1)) : createCommentVNode("", true)
     ]),
     _: 1
   }, 8, ["designer", "field", "rules", "design-state", "parent-widget", "parent-list", "index-of-parent-list", "sub-form-row-index", "sub-form-col-index", "sub-form-row-id"]);
 }
-const switchWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$3P, [["render", _sfc_render$3P], ["__scopeId", "data-v-6b07893c"]]);
-const __vite_glob_0_21$1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const switchWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$3V, [["render", _sfc_render$3V], ["__scopeId", "data-v-1f63c735"]]);
+const __vite_glob_0_22$1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: switchWidget
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$3O = {
+const _sfc_main$3U = {
   name: "textarea-widget",
   componentName: "FieldWidget",
   //必须固定为FieldWidget，用于接收父级组件的broadcast事件
@@ -24542,8 +24775,8 @@ const _sfc_main$3O = {
   },
   methods: {}
 };
-const _hoisted_1$O = ["innerHTML"];
-function _sfc_render$3O(_ctx, _cache, $props, $setup, $data, $options) {
+const _hoisted_1$N = ["innerHTML"];
+function _sfc_render$3U(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_textarea = resolveComponent("a-textarea");
   const _component_a_tooltip = resolveComponent("a-tooltip");
   const _component_form_item_wrapper = resolveComponent("form-item-wrapper");
@@ -24591,7 +24824,7 @@ function _sfc_render$3O(_ctx, _cache, $props, $setup, $data, $options) {
           createElementVNode("div", {
             innerHTML: $data.fieldModel,
             class: "readonly-mode-field"
-          }, null, 8, _hoisted_1$O)
+          }, null, 8, _hoisted_1$N)
         ]),
         _: 1
       }, 8, ["title"])) : createCommentVNode("", true)
@@ -24599,12 +24832,12 @@ function _sfc_render$3O(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["designer", "field", "rules", "design-state", "parent-widget", "parent-list", "index-of-parent-list", "sub-form-row-index", "sub-form-col-index", "sub-form-row-id"]);
 }
-const textareaWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$3O, [["render", _sfc_render$3O], ["__scopeId", "data-v-5176e368"]]);
-const __vite_glob_0_22$1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const textareaWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$3U, [["render", _sfc_render$3U], ["__scopeId", "data-v-5176e368"]]);
+const __vite_glob_0_23$1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: textareaWidget
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$3N = {
+const _sfc_main$3T = {
   name: "time-range-widget",
   componentName: "FieldWidget",
   //必须固定为FieldWidget，用于接收父级组件的broadcast事件
@@ -24682,11 +24915,11 @@ const _sfc_main$3N = {
   },
   methods: {}
 };
-const _hoisted_1$N = {
+const _hoisted_1$M = {
   key: 0,
   class: "readonly-mode-field"
 };
-function _sfc_render$3N(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$3T(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_time_range_picker = resolveComponent("a-time-range-picker");
   const _component_form_item_wrapper = resolveComponent("form-item-wrapper");
   return openBlock(), createBlock(_component_form_item_wrapper, {
@@ -24728,18 +24961,18 @@ function _sfc_render$3N(_ctx, _cache, $props, $setup, $data, $options) {
           onBlur: _ctx.handleBlurCustomEvent,
           onChange: _ctx.handleChangeEvent
         }, null, 8, ["size", "value", "class", "disabled", "readonly", "inputReadOnly", "allowClear", "format", "placeholder", "onFocus", "onBlur", "onChange"]),
-        _ctx.isReadMode ? (openBlock(), createElementBlock("span", _hoisted_1$N, toDisplayString($options.contentForReadMode), 1)) : createCommentVNode("", true)
+        _ctx.isReadMode ? (openBlock(), createElementBlock("span", _hoisted_1$M, toDisplayString($options.contentForReadMode), 1)) : createCommentVNode("", true)
       ], 2)
     ]),
     _: 1
   }, 8, ["designer", "field", "rules", "design-state", "parent-widget", "parent-list", "index-of-parent-list", "sub-form-row-index", "sub-form-col-index", "sub-form-row-id"]);
 }
-const timeRangeWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$3N, [["render", _sfc_render$3N], ["__scopeId", "data-v-849e262c"]]);
-const __vite_glob_0_23$1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const timeRangeWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$3T, [["render", _sfc_render$3T], ["__scopeId", "data-v-849e262c"]]);
+const __vite_glob_0_24$1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: timeRangeWidget
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$3M = {
+const _sfc_main$3S = {
   name: "time-widget",
   componentName: "FieldWidget",
   //必须固定为FieldWidget，用于接收父级组件的broadcast事件
@@ -24810,11 +25043,11 @@ const _sfc_main$3M = {
   },
   methods: {}
 };
-const _hoisted_1$M = {
+const _hoisted_1$L = {
   key: 0,
   class: "readonly-mode-field"
 };
-function _sfc_render$3M(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$3S(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_time_picker = resolveComponent("a-time-picker");
   const _component_form_item_wrapper = resolveComponent("form-item-wrapper");
   return openBlock(), createBlock(_component_form_item_wrapper, {
@@ -24852,18 +25085,18 @@ function _sfc_render$3M(_ctx, _cache, $props, $setup, $data, $options) {
           onBlur: _ctx.handleBlurCustomEvent,
           onChange: _ctx.handleChangeEvent
         }, null, 8, ["size", "value", "disabled", "inputReadOnly", "readonly", "allowClear", "format", "placeholder", "onFocus", "onBlur", "onChange"]),
-        _ctx.isReadMode ? (openBlock(), createElementBlock("span", _hoisted_1$M, toDisplayString($data.fieldModel), 1)) : createCommentVNode("", true)
+        _ctx.isReadMode ? (openBlock(), createElementBlock("span", _hoisted_1$L, toDisplayString($data.fieldModel), 1)) : createCommentVNode("", true)
       ], 2)
     ]),
     _: 1
   }, 8, ["designer", "field", "rules", "design-state", "parent-widget", "parent-list", "index-of-parent-list", "sub-form-row-index", "sub-form-col-index", "sub-form-row-id"]);
 }
-const timeWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$3M, [["render", _sfc_render$3M], ["__scopeId", "data-v-0db1f432"]]);
-const __vite_glob_0_24$1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const timeWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$3S, [["render", _sfc_render$3S], ["__scopeId", "data-v-0db1f432"]]);
+const __vite_glob_0_25$1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: timeWidget
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$3L = {
+const _sfc_main$3R = {
   name: "treeSelect-widget",
   componentName: "FieldWidget",
   //必须固定为FieldWidget，用于接收父级组件的broadcast事件
@@ -24961,8 +25194,8 @@ const _sfc_main$3L = {
     }
   }
 };
-const _hoisted_1$L = { class: "readonly-mode-field" };
-function _sfc_render$3L(_ctx, _cache, $props, $setup, $data, $options) {
+const _hoisted_1$K = { class: "readonly-mode-field" };
+function _sfc_render$3R(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_tree_select = resolveComponent("a-tree-select");
   const _component_a_tooltip = resolveComponent("a-tooltip");
   const _component_form_item_wrapper = resolveComponent("form-item-wrapper");
@@ -25007,7 +25240,7 @@ function _sfc_render$3L(_ctx, _cache, $props, $setup, $data, $options) {
           overlayStyle: { zIndex: 1e3 }
         }, {
           default: withCtx(() => [
-            createElementVNode("span", _hoisted_1$L, toDisplayString($options.contentForReadMode), 1)
+            createElementVNode("span", _hoisted_1$K, toDisplayString($options.contentForReadMode), 1)
           ]),
           _: 1
         }, 8, ["title"])) : createCommentVNode("", true)
@@ -25016,13 +25249,13 @@ function _sfc_render$3L(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["designer", "field", "rules", "design-state", "parent-widget", "parent-list", "index-of-parent-list", "sub-form-row-index", "sub-form-col-index", "sub-form-row-id"]);
 }
-const treeSelectWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$3L, [["render", _sfc_render$3L], ["__scopeId", "data-v-59b67522"]]);
-const __vite_glob_0_25$1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const treeSelectWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$3R, [["render", _sfc_render$3R], ["__scopeId", "data-v-59b67522"]]);
+const __vite_glob_0_26$1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: treeSelectWidget
 }, Symbol.toStringTag, { value: "Module" }));
 const comps$1 = {};
-const modules$3 = /* @__PURE__ */ Object.assign({ "./button-widget.vue": __vite_glob_0_0$2, "./cascader-widget.vue": __vite_glob_0_1$3, "./checkbox-widget.vue": __vite_glob_0_2$3, "./color-widget.vue": __vite_glob_0_3$3, "./date-range-widget.vue": __vite_glob_0_4$3, "./date-widget.vue": __vite_glob_0_5$3, "./divider-widget.vue": __vite_glob_0_6$3, "./file-upload-widget.vue": __vite_glob_0_7$3, "./form-item-wrapper.vue": __vite_glob_0_8$3, "./html-text-widget.vue": __vite_glob_0_9$3, "./input-widget.vue": __vite_glob_0_10$3, "./number-widget.vue": __vite_glob_0_11$1, "./picture-upload-widget.vue": __vite_glob_0_12$1, "./radio-widget.vue": __vite_glob_0_13$1, "./rate-widget.vue": __vite_glob_0_14$1, "./rich-editor-widget.vue": __vite_glob_0_15$1, "./select-widget.vue": __vite_glob_0_16$1, "./slider-widget.vue": __vite_glob_0_17$1, "./slot-widget.vue": __vite_glob_0_18$1, "./static-content-wrapper.vue": __vite_glob_0_19$1, "./static-text-widget.vue": __vite_glob_0_20$1, "./switch-widget.vue": __vite_glob_0_21$1, "./textarea-widget.vue": __vite_glob_0_22$1, "./time-range-widget.vue": __vite_glob_0_23$1, "./time-widget.vue": __vite_glob_0_24$1, "./treeSelect-widget.vue": __vite_glob_0_25$1 });
+const modules$3 = /* @__PURE__ */ Object.assign({ "./button-widget.vue": __vite_glob_0_0$2, "./cascader-widget.vue": __vite_glob_0_1$3, "./checkbox-widget.vue": __vite_glob_0_2$3, "./color-widget.vue": __vite_glob_0_3$3, "./date-range-widget.vue": __vite_glob_0_4$3, "./date-widget.vue": __vite_glob_0_5$3, "./divider-widget.vue": __vite_glob_0_6$3, "./dropdown-widget.vue": __vite_glob_0_7$3, "./file-upload-widget.vue": __vite_glob_0_8$3, "./form-item-wrapper.vue": __vite_glob_0_9$3, "./html-text-widget.vue": __vite_glob_0_10$3, "./input-widget.vue": __vite_glob_0_11$1, "./number-widget.vue": __vite_glob_0_12$1, "./picture-upload-widget.vue": __vite_glob_0_13$1, "./radio-widget.vue": __vite_glob_0_14$1, "./rate-widget.vue": __vite_glob_0_15$1, "./rich-editor-widget.vue": __vite_glob_0_16$1, "./select-widget.vue": __vite_glob_0_17$1, "./slider-widget.vue": __vite_glob_0_18$1, "./slot-widget.vue": __vite_glob_0_19$1, "./static-content-wrapper.vue": __vite_glob_0_20$1, "./static-text-widget.vue": __vite_glob_0_21$1, "./switch-widget.vue": __vite_glob_0_22$1, "./textarea-widget.vue": __vite_glob_0_23$1, "./time-range-widget.vue": __vite_glob_0_24$1, "./time-widget.vue": __vite_glob_0_25$1, "./treeSelect-widget.vue": __vite_glob_0_26$1 });
 for (const path in modules$3) {
   const cname = modules$3[path].default.name;
   comps$1[cname] = modules$3[path].default;
@@ -25326,11 +25559,216 @@ const containerItemMixin = {
     //--------------------- 以上为组件支持外部调用的API方法 end ------------------//
   }
 };
-const _sfc_main$3K = {
+const useDataTableMixin = {
+  data() {
+    return {
+      selectedRowInfo: { selectedRowKeys: [], selectedRows: [] }
+    };
+  },
+  computed: {
+    tableHeight() {
+      return this.widget.options.tableHeight || void 0;
+    },
+    rowClassName() {
+      if (this.widget.options.stripe) {
+        return (_record, index2) => index2 % 2 === 1 ? "table-striped" : null;
+      }
+      return null;
+    },
+    customClass() {
+      return this.widget.options.customClass || "";
+    },
+    widgetSize() {
+      return this.widget.options.tableSize || "default";
+    }
+  },
+  methods: {
+    getTableColumns() {
+      return this.widget.options.tableColumns;
+    },
+    async delSelectRow(delKeys) {
+      await TpfConfirm({ content: "确定删除选中的数据吗" });
+      delKeys = delKeys || this.selectedRowInfo.selectedRowKeys;
+      if (!delKeys.length)
+        return;
+      const { rowKey } = this.widget.options;
+      const data = this.getDataSource();
+      const newList = data.filter((item) => !(delKeys == null ? void 0 : delKeys.includes(item[rowKey])));
+      this.setDataSource(newList);
+      this.$message.success("操作成功");
+    },
+    fmtPagination() {
+      return {
+        ...this.widget.options.pagination,
+        showTotal: (total) => `共 ${total} 条`
+      };
+    },
+    /**
+     * 设置表格分页
+     * @param pagination
+     */
+    setPagination(pagination) {
+      if (pagination.page !== void 0) {
+        this.widget.options.pagination.current = pagination.page;
+      }
+      if (pagination.pageSize !== void 0) {
+        this.widget.options.pagination.pageSize = pagination.pageSize;
+      }
+      if (pagination.total !== void 0) {
+        this.widget.options.pagination.total = pagination.total;
+      }
+    },
+    setDataSource(list) {
+      this.widget.options.dataSource = Object.assign([], list);
+    },
+    getDataSource() {
+      return this.widget.options.dataSource;
+    },
+    async loadDataTableDataSource() {
+      if (!this.widget.options.dsEnabled)
+        return;
+      const ops = this.widget.options;
+      if (ops.dsEnabled && ops.http.url) {
+        const res = await fmtHttpParams.call(this, ops);
+        this.setPagination(res);
+        this.setDataSource(res.list);
+      }
+    },
+    handleCustomRow(record) {
+      const { customRow } = this.widget.options;
+      if (!customRow)
+        return {};
+      return {
+        onClick: (event) => {
+          const customFn = new Function("record", "event", customRow.onClick);
+          customFn.call(this, record, event);
+        },
+        onDblclick: (event) => {
+          const customFn = new Function("record", "event", customRow.onDblclick);
+          customFn.call(this, record, event);
+        },
+        onMouseenter: (event) => {
+          const customFn = new Function("record", "event", customRow.onMouseenter);
+          customFn.call(this, record, event);
+        },
+        onMouseleave: (event) => {
+          const customFn = new Function("record", "event", customRow.onMouseleave);
+          customFn.call(this, record, event);
+        }
+      };
+    },
+    handleColumnItem(item) {
+      const res = omit(item, ["customRender"]);
+      const customRenderFn = item.customRender;
+      if (!customRenderFn)
+        return item;
+      return {
+        ...res,
+        customRender: ({ text, record, index: index2, column }) => {
+          const cusFunc = new Function("text", "record", "index", "column", customRenderFn);
+          return cusFunc.call(this, text, record, index2, column);
+        }
+      };
+    },
+    getOperationButtonLabel(buttonConfig, rowIndex, row) {
+      const { onGetOperationButtonLabel } = this.widget.options;
+      if (!!onGetOperationButtonLabel) {
+        const customFn = new Function("buttonConfig", "rowIndex", "row", onGetOperationButtonLabel);
+        return customFn.call(this, buttonConfig, rowIndex, row);
+      } else {
+        return buttonConfig.label;
+      }
+    },
+    handleOperationButtonClick(btnName, rowIndex, row, scope, ob) {
+      this.skipSelectionChangeEvent = true;
+      try {
+        if (ob.onClick) {
+          const clcFn = new Function("record", "index", "column", "btn", ob.onClick);
+          clcFn.call(this, row, rowIndex, scope.column, ob);
+          return;
+        }
+        const { onOperationButtonClick } = this.widget.options;
+        if (!!onOperationButtonClick) {
+          const customFn = new Function("buttonName", "rowIndex", "row", onOperationButtonClick);
+          customFn.call(this, btnName, rowIndex, row);
+        } else {
+          this.dispatch("VFormRender", "operationButtonClick", [this, btnName, rowIndex, row]);
+        }
+      } finally {
+        this.skipSelectionChangeEvent = false;
+      }
+    },
+    showOperationButton(buttonConfig, rowIndex, row) {
+      const { onHideOperationButton } = this.widget.options;
+      if (!!onHideOperationButton) {
+        const customFn = new Function("buttonConfig", "rowIndex", "row", onHideOperationButton);
+        return !customFn.call(this, buttonConfig, rowIndex, row);
+      } else {
+        return !buttonConfig.hidden;
+      }
+    },
+    disableOperationButton(buttonConfig, rowIndex, row) {
+      const { onDisableOperationButton } = this.widget.options;
+      if (!!onDisableOperationButton) {
+        const customFn = new Function("buttonConfig", "rowIndex", "row", onDisableOperationButton);
+        return customFn.call(this, buttonConfig, rowIndex, row);
+      } else {
+        return buttonConfig.disabled;
+      }
+    },
+    customRenderIndex({ index: index2 }) {
+      return index2 + 1;
+    },
+    handleCurrentPageChange(currentPage) {
+      this.currentPage = currentPage;
+      const { onCurrentPageChange } = this.widget.options;
+      if (!!onCurrentPageChange) {
+        const customFn = new Function("pageSize", "currentPage", onCurrentPageChange);
+        customFn.call(this, this.pageSize, currentPage);
+      } else {
+        this.dispatch("VFormRender", "dataTablePageChange", [this, this.pageSize, currentPage]);
+      }
+    },
+    handlePageSizeChange(pageSize) {
+      this.pageSize = pageSize;
+      const { onPageSizeChange } = this.widget.options;
+      if (!!onPageSizeChange) {
+        const customFn = new Function("pageSize", "currentPage", onPageSizeChange);
+        customFn.call(this, pageSize, this.currentPage);
+      } else {
+        this.dispatch("VFormRender", "dataTablePageSizeChange", [this, pageSize, this.currentPage]);
+      }
+    },
+    handleTablePageChange(pagination, filters, sorter, { currentDataSource }) {
+      const fn = this.widget.options.onTableChange;
+      this.widget.options.pagination.current = pagination.current;
+      this.widget.options.pagination.pageSize = pagination.pageSize;
+      if (fn) {
+        const changeFunc = new Function("pagination", "filters", "sorter", "currentDataSource", fn);
+        changeFunc.call(this, pagination, filters, sorter, { currentDataSource });
+      }
+      this.loadDataTableDataSource();
+    },
+    handleRowSelection(info) {
+      if (!info.hasRowSelection) {
+        return void 0;
+      }
+      return {
+        ...omit(info, ["onChange"]),
+        onChange: (selectedRowKeys, selectedRows) => {
+          this.selectedRowInfo = { selectedRowKeys, selectedRows };
+          const rcFunc = new Function("selectedRowKeys", "selectedRows", info.onChange);
+          rcFunc.call(this, selectedRowKeys, selectedRows);
+        }
+      };
+    }
+  }
+};
+const _sfc_main$3Q = {
   name: "DataTableItem",
   componentName: "ContainerItem",
   // 必须固定为ContainerItem，用于接收父级组件的broadcast事件
-  mixins: [emitter, i18n$1, refMixin, containerItemMixin],
+  mixins: [emitter, i18n$1, refMixin, containerItemMixin, useDataTableMixin],
   components: {
     ContainerItemWrapper,
     ...comps$1
@@ -25359,54 +25797,60 @@ const _sfc_main$3K = {
   inject: ["refList", "sfRefList", "globalModel", "getFormConfig", "getGlobalDsv"],
   data() {
     return {
-      selectAllFlag: false,
-      selectedIndices: [],
-      selectedRows: [],
-      pageSize: this.widget.options.pagination.pageSize,
-      pageSizes: this.widget.options.pagination.pageSizes,
-      currentPage: this.widget.options.pagination.currentPage,
-      total: this.widget.options.pagination.total,
+      // selectAllFlag: false,
+      // selectedIndices: [],
+      // selectedRows: []
+      // pageSize: this.widget.options.pagination.pageSize,
+      // pageSizes: this.widget.options.pagination.pageSizes,
+      // currentPage: this.widget.options.pagination.currentPage,
+      // total: this.widget.options.pagination.total,
       // 是否跳过selectionChange事件
-      skipSelectionChangeEvent: false
+      // skipSelectionChangeEvent: false
     };
   },
   computed: {
     formConfig() {
       return this.getFormConfig();
-    },
-    paginationLayout() {
-      return !!this.widget.options.smallPagination ? "prev, pager, next" : "total, sizes, prev, pager, next, jumper";
-    },
-    customClass() {
-      return this.widget.options.customClass || "";
-    },
-    widgetSize() {
-      return this.widget.options.tableSize || "default";
-    },
+    }
+    // paginationLayout() {
+    //   return !!this.widget.options.smallPagination
+    //     ? 'prev, pager, next'
+    //     : 'total, sizes, prev, pager, next, jumper';
+    // },
+    // customClass() {
+    //   return this.widget.options.customClass || '';
+    // },
+    // widgetSize() {
+    //   return this.widget.options.tableSize || 'default';
+    // },
     // singleRowSelectFlag() {
     //   return !this.widget.options.showCheckBox;
     // },
-    buttonsColumnFixed() {
-      if (this.widget.options.buttonsColumnFixed === void 0) {
-        return "right";
-      }
-      return !this.widget.options.buttonsColumnFixed ? false : this.widget.options.buttonsColumnFixed;
-    },
-    tableHeight() {
-      return this.widget.options.tableHeight || void 0;
-    },
-    selectionWidth() {
-      return !this.widget.options.showSummary ? !this.widget.options.treeDataEnabled ? 42 : 70 : 53;
-    }
+    // buttonsColumnFixed() {
+    //   if (this.widget.options.buttonsColumnFixed === undefined) {
+    //     return 'right';
+    //   }
+    //   return !this.widget.options.buttonsColumnFixed
+    //     ? false
+    //     : this.widget.options.buttonsColumnFixed;
+    // },
+    // tableHeight() {
+    //   return this.widget.options.tableHeight || undefined;
+    // }
+    // selectionWidth() {
+    //   return !this.widget.options.showSummary
+    //     ? !this.widget.options.treeDataEnabled
+    //       ? 42
+    //       : 70
+    //     : 53;
+    // }
   },
   created() {
     this.initRefList();
     this.handleOnCreated();
   },
   mounted() {
-    if (!!this.widget.options.dsEnabled) {
-      this.loadDataFromDS({});
-    }
+    this.loadDataTableDataSource();
     this.$nextTick(() => {
       this.handleOnMounted();
     });
@@ -25415,95 +25859,56 @@ const _sfc_main$3K = {
     this.unregisterFromRefList();
   },
   methods: {
-    handleCustomRow(record) {
-      const { customRow } = this.widget.options;
-      return {
-        onClick: (event) => {
-          if (customRow.onClick) {
-            const customFn = new Function("record", "event", customRow.onClick);
-            customFn.call(this, record, event);
-          }
-        },
-        onDblclick: (event) => {
-          if (customRow.onDblclick) {
-            const customFn = new Function("record", "event", customRow.onDblclick);
-            customFn.call(this, record, event);
-          }
-        },
-        onMouseenter: (event) => {
-          if (customRow.onMouseenter) {
-            const customFn = new Function("record", "event", customRow.onMouseenter);
-            customFn.call(this, record, event);
-          }
-        },
-        onMouseleave: (event) => {
-          if (customRow.onMouseleave) {
-            const customFn = new Function("record", "event", customRow.onMouseleave);
-            customFn.call(this, record, event);
-          }
-        }
-      };
-    },
-    handleColumnItem(item) {
-      const res = omit(item, ["customRender"]);
-      const customRenderFn = item.customRender;
-      if (!customRenderFn)
-        return item;
-      return {
-        ...res,
-        customRender: ({ text, record, index: index2, column }) => {
-          const cusFunc = new Function("text", "record", "index", "column", customRenderFn);
-          return cusFunc.call(this, text, record, index2, column);
-        }
-      };
-    },
-    handleRowSelection(info) {
-      if (!info.hasRowSelection) {
-        return void 0;
-      }
-      return {
-        ...omit(info, ["onChange"]),
-        onChange: (selectedRowKeys, selectedRows) => {
-          console.log("选择了操作: ", selectedRowKeys, selectedRows);
-          const rcFunc = new Function("selectedRowKeys", "selectedRows", info.onChange);
-          rcFunc.call(this, selectedRowKeys, selectedRows);
-        }
-      };
-    },
+    // handleRowSelection(info) {
+    //   if (!info.hasRowSelection) {
+    //     return undefined;
+    //   }
+    //   return {
+    //     ...omit(info, ['onChange']),
+    //     onChange: (selectedRowKeys, selectedRows) => {
+    //       console.log('选择了操作: ', selectedRowKeys, selectedRows);
+    //       const rcFunc = new Function('selectedRowKeys', 'selectedRows', info.onChange);
+    //       rcFunc.call(this, selectedRowKeys, selectedRows);
+    //     }
+    //   };
+    // },
     getDataTableRef() {
       return this;
     },
     selectWidget(widget) {
       this.designer.setSelected(widget);
     },
-    renderHeader(h, { column, $index }) {
-      let colCount = 0;
-      if (this.widget.options.showIndex) {
-        colCount++;
-      }
-      if (this.widget.options.showCheckBox) {
-        colCount++;
-      }
-      column.formatS = this.widget.options.tableColumns[$index - colCount].formatS;
-      return column.label;
-    },
-    formatter(row, column, cellValue) {
-      return cellValue;
-    },
-    getColumnRender(row, column) {
-      return new Function("h", "params", "components", column.render);
-    },
+    // renderHeader(h, { column, $index }) {
+    //   // debugger
+    //   // console.log('column=====', column)
+    //   let colCount = 0;
+    //   if (this.widget.options.showIndex) {
+    //     colCount++;
+    //   }
+    //   if (this.widget.options.showCheckBox) {
+    //     colCount++;
+    //   }
+    //   column.formatS = this.widget.options.tableColumns[$index - colCount].formatS;
+    //   return column.label;
+    // },
+    // formatter(row, column, cellValue) {
+    //   return cellValue;
+    // },
+    // getColumnRender(row, column) {
+    //   /* TODO: 每个table-cell，render函数会执行2次，原因不明！！！ */
+    //   return new Function('h', 'params', 'components', column.render);
+    // },
     /* 注意：在加载树形结构数据时，此方法只能获取第一级选中节点，选择子节点时返回-1，应在文档中加以说明！！！ */
-    getRowIndex(row) {
-      return this.widget.options.tableData.lastIndexOf(row);
-    },
-    findColumnAndSetHidden(columnName, hiddenFlag) {
-      this.widget.options.tableColumns.forEach((tc) => {
-        if (tc.prop === columnName) {
-          tc.show = !hiddenFlag;
-        }
-      });
-    },
+    // getRowIndex(row) {
+    //   return this.widget.options.tableData.lastIndexOf(row);
+    // },
+    // findColumnAndSetHidden(columnName, hiddenFlag) {
+    //   this.widget.options.tableColumns.forEach(tc => {
+    //     if (tc.prop === columnName) {
+    //       tc.show = !hiddenFlag;
+    //     }
+    //   });
+    // },
     handleOnCreated() {
       if (!!this.widget.options.onCreated) {
         const customFunc = new Function(this.widget.options.onCreated);
@@ -25516,318 +25921,315 @@ const _sfc_main$3K = {
         customFunc.call(this);
       }
     },
-    handleCurrentChange(currentRow, oldCurrentRow) {
-      if (!!this.skipSelectionChangeEvent) {
-        return;
-      }
-      if (!!this.widget.options.showCheckBox) {
-        return;
-      }
-      this.selectedIndices.length = 0;
-      this.selectedRows.length = 0;
-      const rowIndex = this.getRowIndex(currentRow);
-      this.selectedIndices.push(rowIndex);
-      this.selectedRows.push(currentRow);
-      if (!!this.widget.options.onSelectionChange) {
-        const customFn = new Function(
-          "selection",
-          "selectedIndices",
-          this.widget.options.onSelectionChange
-        );
-        customFn.call(this, [currentRow], this.selectedIndices);
-      } else {
-        this.dispatch("VFormRender", "dataTableSelectionChange", [
-          this,
-          [currentRow],
-          this.selectedIndices
-        ]);
-      }
-    },
+    // handleCurrentChange(currentRow, oldCurrentRow) {
+    //   if (!!this.skipSelectionChangeEvent) {
+    //     return;
+    //   }
+    //   if (!!this.widget.options.showCheckBox) {
+    //     return;
+    //   }
+    //   this.selectedIndices.length = 0;
+    //   this.selectedRows.length = 0;
+    //   const rowIndex = this.getRowIndex(currentRow);
+    //   this.selectedIndices.push(rowIndex);
+    //   this.selectedRows.push(currentRow);
+    //   if (!!this.widget.options.onSelectionChange) {
+    //     const customFn = new Function(
+    //       'selection',
+    //       'selectedIndices',
+    //       this.widget.options.onSelectionChange
+    //     );
+    //     customFn.call(this, [currentRow], this.selectedIndices);
+    //   } else {
+    //     /* 必须调用mixins中的dispatch方法逐级向父组件发送消息！！ */
+    //     this.dispatch('VFormRender', 'dataTableSelectionChange', [
+    //       this,
+    //       [currentRow],
+    //       this.selectedIndices
+    //     ]);
+    //   }
+    // },
     /**
      * 注意：加载树形数据后，选中行如包含子节点则会触发两次该事件！！
      * @param selection
      */
-    handleSelectionChange(selection) {
-      if (!!this.skipSelectionChangeEvent) {
-        return;
-      }
-      this.selectedIndices.length = 0;
-      this.selectedRows.length = 0;
-      selection.map((row) => {
-        const rowIndex = this.getRowIndex(row);
-        this.selectedIndices.push(rowIndex);
-        this.selectedRows.push(row);
-      });
-      if (!!this.widget.options.onSelectionChange) {
-        const customFn = new Function(
-          "selection",
-          "selectedIndices",
-          this.widget.options.onSelectionChange
-        );
-        customFn.call(this, selection, this.selectedIndices);
-      } else {
-        this.dispatch("VFormRender", "dataTableSelectionChange", [
-          this,
-          selection,
-          this.selectedIndices
-        ]);
-      }
-    },
-    handleSortChange({ column, prop, order }) {
-    },
-    handlePageSizeChange(pageSize) {
-      this.pageSize = pageSize;
-      if (!!this.widget.options.dsEnabled && !!this.widget.options.dsName) {
-        this.loadDataFromDS();
-      }
-      if (!!this.widget.options.onPageSizeChange) {
-        const customFn = new Function(
-          "pageSize",
-          "currentPage",
-          this.widget.options.onPageSizeChange
-        );
-        customFn.call(this, pageSize, this.currentPage);
-      } else {
-        this.dispatch("VFormRender", "dataTablePageSizeChange", [
-          this,
-          pageSize,
-          this.currentPage
-        ]);
-      }
-    },
-    handleCurrentPageChange(currentPage) {
-      this.currentPage = currentPage;
-      if (!!this.widget.options.dsEnabled && !!this.widget.options.dsName) {
-        this.loadDataFromDS();
-      }
-      if (!!this.widget.options.onCurrentPageChange) {
-        const customFn = new Function(
-          "pageSize",
-          "currentPage",
-          this.widget.options.onCurrentPageChange
-        );
-        customFn.call(this, this.pageSize, currentPage);
-      } else {
-        this.dispatch("VFormRender", "dataTablePageChange", [this, this.pageSize, currentPage]);
-      }
-    },
-    customRenderIndex({ index: index2 }) {
-      return index2 + 1;
-    },
-    handleTablePageChange(pagination, filters, sorter, { currentDataSource }) {
-      console.log("pagination: ", pagination);
-      const fn = this.widget.options.onTableChange;
-      this.widget.options.pagination.current = pagination.current;
-      this.widget.options.pagination.pageSize = pagination.pageSize;
-      if (fn) {
-        const changeFunc = new Function(
-          "pagination",
-          "filters",
-          "sorter",
-          "currentDataSource",
-          fn
-        );
-        changeFunc.call(this, pagination, filters, sorter, {
-          currentDataSource
-        });
-      }
-    },
-    handleOperationButtonClick(btnName, rowIndex, row, scope, ob) {
-      this.skipSelectionChangeEvent = true;
-      try {
-        if (ob.onClick) {
-          const clcFn = new Function("record", "index", "column", "btn", ob.onClick);
-          clcFn.call(this, row, rowIndex, scope.column, ob);
-          return;
-        }
-        if (!!this.widget.options.onOperationButtonClick) {
-          const customFn = new Function(
-            "buttonName",
-            "rowIndex",
-            "row",
-            this.widget.options.onOperationButtonClick
-          );
-          customFn.call(this, btnName, rowIndex, row);
-        } else {
-          this.dispatch("VFormRender", "operationButtonClick", [this, btnName, rowIndex, row]);
-        }
-      } finally {
-        this.skipSelectionChangeEvent = false;
-      }
-    },
-    showOperationButton(buttonConfig, rowIndex, row) {
-      if (!!this.widget.options.onHideOperationButton) {
-        const customFn = new Function(
-          "buttonConfig",
-          "rowIndex",
-          "row",
-          this.widget.options.onHideOperationButton
-        );
-        return !customFn.call(this, buttonConfig, rowIndex, row);
-      } else {
-        return !buttonConfig.hidden;
-      }
-    },
-    disableOperationButton(buttonConfig, rowIndex, row) {
-      if (!!this.widget.options.onDisableOperationButton) {
-        const customFn = new Function(
-          "buttonConfig",
-          "rowIndex",
-          "row",
-          this.widget.options.onDisableOperationButton
-        );
-        return customFn.call(this, buttonConfig, rowIndex, row);
-      } else {
-        return buttonConfig.disabled;
-      }
-    },
-    getOperationButtonLabel(buttonConfig, rowIndex, row) {
-      if (!!this.widget.options.onGetOperationButtonLabel) {
-        const customFn = new Function(
-          "buttonConfig",
-          "rowIndex",
-          "row",
-          this.widget.options.onGetOperationButtonLabel
-        );
-        return customFn.call(this, buttonConfig, rowIndex, row);
-      } else {
-        return buttonConfig.label;
-      }
-    },
-    getRowClassName({ row, rowIndex }) {
-      if (!!this.widget.options.onGetRowClassName) {
-        const customFn = new Function("rowIndex", "row", this.widget.options.onGetRowClassName);
-        return customFn.call(this, rowIndex, row);
-      } else {
-        return "";
-      }
-    },
-    getSpanMethod({ row, column, rowIndex, columnIndex }) {
-      if (!!this.widget.options.onGetSpanMethod) {
-        const customFn = new Function(
-          "row",
-          "column",
-          "rowIndex",
-          "columnIndex",
-          this.widget.options.onGetSpanMethod
-        );
-        return customFn.call(this, row, column, rowIndex, columnIndex);
-      }
-    },
-    handleHeaderClick(column, event) {
-      if (!!this.widget.options.onHeaderClick) {
-        const customFn = new Function("column", "event", this.widget.options.onHeaderClick);
-        return customFn.call(this, column, event);
-      }
-    },
-    handleRowClick(row, column, event) {
-      if (!!this.widget.options.onRowClick) {
-        const customFn = new Function("row", "column", "event", this.widget.options.onRowClick);
-        return customFn.call(this, row, column, event);
-      }
-    },
-    handleRowDoubleClick(row, column, event) {
-      if (!!this.widget.options.onRowDoubleClick) {
-        const customFn = new Function(
-          "row",
-          "column",
-          "event",
-          this.widget.options.onRowDoubleClick
-        );
-        return customFn.call(this, row, column, event);
-      }
-    },
-    handleCellClick(row, column, cell, event) {
-      if (!!this.widget.options.onCellClick) {
-        const customFn = new Function(
-          "row",
-          "column",
-          "cell",
-          "event",
-          this.widget.options.onCellClick
-        );
-        return customFn.call(this, row, column, cell, event);
-      }
-    },
-    handleCellDoubleClick(row, column, cell, event) {
-      if (!!this.widget.options.onCellDoubleClick) {
-        const customFn = new Function(
-          "row",
-          "column",
-          "cell",
-          "event",
-          this.widget.options.onCellDoubleClick
-        );
-        return customFn.call(this, row, column, cell, event);
-      }
-    },
-    toggleSelection(row, flag, selectedRows) {
-      if (row) {
-        this.$refs.dataTable.toggleRowSelection(row, flag);
-        if (flag) {
-          selectedRows.push(row);
-          return;
-        }
-        let foundRowIdx = -1;
-        const rowKey = this.widget.options.rowKey || "id";
-        selectedRows.forEach((sr, idx) => {
-          if (sr[rowKey] === row[rowKey]) {
-            foundRowIdx = idx;
-          }
-        });
-        if (foundRowIdx > -1) {
-          selectedRows.splice(foundRowIdx, 1);
-        }
-      }
-    },
-    setChildrenSelected(children, flag, selectedRows) {
-      const childrenKey = this.widget.options.childrenKey || "children";
-      children.map((child) => {
-        this.toggleSelection(child, flag, selectedRows);
-        if (child[childrenKey]) {
-          this.setChildrenSelected(child[childrenKey], flag, selectedRows);
-        }
-      });
-    },
-    handleRowSelect(selection, row) {
-      this.skipSelectionChangeEvent = true;
-      const selectedRows = deepClone(selection);
-      const rowKey = this.widget.options.rowKey || "id";
-      const childrenKey = this.widget.options.childrenKey || "children";
-      if (selection.some((el) => {
-        return row[rowKey] === el[rowKey];
-      })) {
-        if (row[childrenKey]) {
-          this.setChildrenSelected(row[childrenKey], true, selectedRows);
-        }
-      } else {
-        if (row[childrenKey]) {
-          this.setChildrenSelected(row[childrenKey], false, selectedRows);
-        }
-      }
-      this.skipSelectionChangeEvent = false;
-      this.$nextTick(() => {
-        this.handleSelectionChange(selectedRows);
-      });
-    },
-    setSelectedFlag(data, flag) {
-      const childrenKey = this.widget.options.childrenKey || "children";
-      data.forEach((row) => {
-        this.$refs.dataTable.toggleRowSelection(row, flag);
-        if (row[childrenKey]) {
-          this.setSelectedFlag(row[childrenKey], flag);
-        }
-      });
-    },
-    handleAllSelect(selection) {
-      this.skipSelectionChangeEvent = true;
-      this.selectAllFlag = !this.selectAllFlag;
-      this.setSelectedFlag(this.widget.options.tableData, this.selectAllFlag);
-      this.skipSelectionChangeEvent = false;
-      this.$nextTick(() => {
-        this.handleSelectionChange(selection);
-      });
-    },
+    // handleSelectionChange(selection) {
+    //   if (!!this.skipSelectionChangeEvent) {
+    //     return;
+    //   }
+    //   this.selectedIndices.length = 0;
+    //   this.selectedRows.length = 0;
+    //   selection.map(row => {
+    //     const rowIndex = this.getRowIndex(row);
+    //     this.selectedIndices.push(rowIndex);
+    //     this.selectedRows.push(row);
+    //   });
+    //   if (!!this.widget.options.onSelectionChange) {
+    //     const customFn = new Function(
+    //       'selection',
+    //       'selectedIndices',
+    //       this.widget.options.onSelectionChange
+    //     );
+    //     customFn.call(this, selection, this.selectedIndices);
+    //   } else {
+    //     /* 必须调用mixins中的dispatch方法逐级向父组件发送消息！！ */
+    //     this.dispatch('VFormRender', 'dataTableSelectionChange', [
+    //       this,
+    //       selection,
+    //       this.selectedIndices
+    //     ]);
+    //   }
+    // },
+    // handleSortChange({ column, prop, order }) {
+    // this.dispatch('VFormRender', 'dataTableSortChange',
+    // 				[this, column, prop, order, this.pageSize, this.currentPage])
+    //
+    // console.log('test====', prop)
+    // },
+    // handlePageSizeChange(pageSize) {
+    //   this.pageSize = pageSize;
+    //   if (!!this.widget.options.dsEnabled && !!this.widget.options.dsName) {
+    //     this.loadDataFromDS();
+    //   }
+    //   if (!!this.widget.options.onPageSizeChange) {
+    //     const customFn = new Function(
+    //       'pageSize',
+    //       'currentPage',
+    //       this.widget.options.onPageSizeChange
+    //     );
+    //     customFn.call(this, pageSize, this.currentPage);
+    //   } else {
+    //     this.dispatch('VFormRender', 'dataTablePageSizeChange', [
+    //       this,
+    //       pageSize,
+    //       this.currentPage
+    //     ]);
+    //   }
+    // },
+    // handleCurrentPageChange(currentPage) {
+    //   this.currentPage = currentPage;
+    //   if (!!this.widget.options.dsEnabled && !!this.widget.options.dsName) {
+    //     this.loadDataFromDS();
+    //   }
+    //   if (!!this.widget.options.onCurrentPageChange) {
+    //     const customFn = new Function(
+    //       'pageSize',
+    //       'currentPage',
+    //       this.widget.options.onCurrentPageChange
+    //     );
+    //     customFn.call(this, this.pageSize, currentPage);
+    //   } else {
+    //     this.dispatch('VFormRender', 'dataTablePageChange', [this, this.pageSize, currentPage]);
+    //   }
+    // },
+    // customRenderIndex({ index }) {
+    //   return index + 1;
+    // },
+    // handleTablePageChange(pagination, filters, sorter, { currentDataSource }) {
+    //   console.log('pagination: ', pagination);
+    //   const fn = this.widget.options.onTableChange;
+    //   this.widget.options.pagination.current = pagination.current;
+    //   this.widget.options.pagination.pageSize = pagination.pageSize;
+    //   if (fn) {
+    //     const changeFunc = new Function(
+    //       'pagination',
+    //       'filters',
+    //       'sorter',
+    //       'currentDataSource',
+    //       fn
+    //     );
+    //     changeFunc.call(this, pagination, filters, sorter, {
+    //       currentDataSource
+    //     });
+    //   }
+    // },
+    // handleOperationButtonClick(btnName, rowIndex, row, scope, ob) {
+    //   this.skipSelectionChangeEvent = true;
+    //   try {
+    //     if (ob.onClick) {
+    //       const clcFn = new Function('record', 'index', 'column', 'btn', ob.onClick);
+    //       clcFn.call(this, row, rowIndex, scope.column, ob);
+    //       return;
+    //     }
+    //     if (!!this.widget.options.onOperationButtonClick) {
+    //       const customFn = new Function(
+    //         'buttonName',
+    //         'rowIndex',
+    //         'row',
+    //         this.widget.options.onOperationButtonClick
+    //       );
+    //       customFn.call(this, btnName, rowIndex, row);
+    //     } else {
+    //       this.dispatch('VFormRender', 'operationButtonClick', [this, btnName, rowIndex, row]);
+    //     }
+    //   } finally {
+    //     this.skipSelectionChangeEvent = false;
+    //   }
+    // },
+    // showOperationButton(buttonConfig, rowIndex, row) {
+    //   if (!!this.widget.options.onHideOperationButton) {
+    //     const customFn = new Function(
+    //       'buttonConfig',
+    //       'rowIndex',
+    //       'row',
+    //       this.widget.options.onHideOperationButton
+    //     );
+    //     return !customFn.call(this, buttonConfig, rowIndex, row);
+    //   } else {
+    //     return !buttonConfig.hidden;
+    //   }
+    // },
+    // disableOperationButton(buttonConfig, rowIndex, row) {
+    //   if (!!this.widget.options.onDisableOperationButton) {
+    //     const customFn = new Function(
+    //       'buttonConfig',
+    //       'rowIndex',
+    //       'row',
+    //       this.widget.options.onDisableOperationButton
+    //     );
+    //     return customFn.call(this, buttonConfig, rowIndex, row);
+    //   } else {
+    //     return buttonConfig.disabled;
+    //   }
+    // },
+    // getRowClassName({ row, rowIndex }) {
+    //   if (!!this.widget.options.onGetRowClassName) {
+    //     const customFn = new Function('rowIndex', 'row', this.widget.options.onGetRowClassName);
+    //     return customFn.call(this, rowIndex, row);
+    //   } else {
+    //     return '';
+    //   }
+    // },
+    // getSpanMethod({ row, column, rowIndex, columnIndex }) {
+    //   if (!!this.widget.options.onGetSpanMethod) {
+    //     const customFn = new Function(
+    //       'row',
+    //       'column',
+    //       'rowIndex',
+    //       'columnIndex',
+    //       this.widget.options.onGetSpanMethod
+    //     );
+    //     return customFn.call(this, row, column, rowIndex, columnIndex);
+    //   }
+    // },
+    // handleHeaderClick(column, event) {
+    //   if (!!this.widget.options.onHeaderClick) {
+    //     const customFn = new Function('column', 'event', this.widget.options.onHeaderClick);
+    //     return customFn.call(this, column, event);
+    //   }
+    // },
+    // handleRowClick(row, column, event) {
+    //   if (!!this.widget.options.onRowClick) {
+    //     const customFn = new Function('row', 'column', 'event', this.widget.options.onRowClick);
+    //     return customFn.call(this, row, column, event);
+    //   }
+    // },
+    // handleRowDoubleClick(row, column, event) {
+    //   if (!!this.widget.options.onRowDoubleClick) {
+    //     const customFn = new Function(
+    //       'row',
+    //       'column',
+    //       'event',
+    //       this.widget.options.onRowDoubleClick
+    //     );
+    //     return customFn.call(this, row, column, event);
+    //   }
+    // },
+    // handleCellClick(row, column, cell, event) {
+    //   if (!!this.widget.options.onCellClick) {
+    //     const customFn = new Function(
+    //       'row',
+    //       'column',
+    //       'cell',
+    //       'event',
+    //       this.widget.options.onCellClick
+    //     );
+    //     return customFn.call(this, row, column, cell, event);
+    //   }
+    // },
+    // handleCellDoubleClick(row, column, cell, event) {
+    //   if (!!this.widget.options.onCellDoubleClick) {
+    //     const customFn = new Function(
+    //       'row',
+    //       'column',
+    //       'cell',
+    //       'event',
+    //       this.widget.options.onCellDoubleClick
+    //     );
+    //     return customFn.call(this, row, column, cell, event);
+    //   }
+    // },
+    // toggleSelection(row, flag, selectedRows) {
+    //   if (row) {
+    //     this.$refs.dataTable.toggleRowSelection(row, flag);
+    //     if (flag) {
+    //       selectedRows.push(row);
+    //       return;
+    //     }
+    //     let foundRowIdx = -1;
+    //     const rowKey = this.widget.options.rowKey || 'id';
+    //     selectedRows.forEach((sr, idx) => {
+    //       if (sr[rowKey] === row[rowKey]) {
+    //         foundRowIdx = idx;
+    //       }
+    //     });
+    //     if (foundRowIdx > -1) {
+    //       selectedRows.splice(foundRowIdx, 1);
+    //     }
+    //   }
+    // },
+    // setChildrenSelected(children, flag, selectedRows) {
+    //   const childrenKey = this.widget.options.childrenKey || 'children';
+    //   children.map(child => {
+    //     this.toggleSelection(child, flag, selectedRows);
+    //     if (child[childrenKey]) {
+    //       this.setChildrenSelected(child[childrenKey], flag, selectedRows);
+    //     }
+    //   });
+    // },
+    // handleRowSelect(selection, row) {
+    //   this.skipSelectionChangeEvent = true;
+    //   const selectedRows = deepClone(selection);
+    //   const rowKey = this.widget.options.rowKey || 'id';
+    //   const childrenKey = this.widget.options.childrenKey || 'children';
+    //   if (
+    //     selection.some(el => {
+    //       return row[rowKey] === el[rowKey];
+    //     })
+    //   ) {
+    //     if (row[childrenKey]) {
+    //       this.setChildrenSelected(row[childrenKey], true, selectedRows);
+    //     }
+    //   } else {
+    //     if (row[childrenKey]) {
+    //       this.setChildrenSelected(row[childrenKey], false, selectedRows);
+    //     }
+    //   }
+    //   this.skipSelectionChangeEvent = false;
+    //   // 一次性处理多行选中或取消选中，只触发一次事件！！！
+    //   this.$nextTick(() => {
+    //     this.handleSelectionChange(selectedRows);
+    //   });
+    // },
+    // setSelectedFlag(data, flag) {
+    //   const childrenKey = this.widget.options.childrenKey || 'children';
+    //   data.forEach(row => {
+    //     this.$refs.dataTable.toggleRowSelection(row, flag);
+    //     if (row[childrenKey]) {
+    //       this.setSelectedFlag(row[childrenKey], flag);
+    //     }
+    //   });
+    // },
+    // handleAllSelect(selection) {
+    //   this.skipSelectionChangeEvent = true;
+    //   this.selectAllFlag = !this.selectAllFlag;
+    //   this.setSelectedFlag(this.widget.options.tableData, this.selectAllFlag);
+    //   this.skipSelectionChangeEvent = false;
+    //   // 一次性处理多行选中或取消选中，只触发一次事件！！！
+    //   this.$nextTick(() => {
+    //     this.handleSelectionChange(selection);
+    //   });
+    // },
     // --------------------- 以下为组件支持外部调用的API方法 begin ------------------//
     /* 提示：用户可自行扩充这些方法！！！ */
     getTableColumns() {
@@ -25837,121 +26239,125 @@ const _sfc_main$3K = {
      * 设置表格列
      * @param tableColumns
      */
-    setTableColumns(tableColumns) {
-      this.widget.options.tableColumns = tableColumns;
-      this.$nextTick(() => {
-        this.$refs.dataTable.doLayout();
-      });
-    },
+    // setTableColumns(tableColumns) {
+    // this.widget.options.tableColumns = tableColumns;
+    // this.$nextTick(() => {
+    //   this.$refs.dataTable.doLayout(); // 防止行列显示错位！！
+    // });
+    // },
     /**
      * 设置表格列（为了兼容文档错误，setTableColumn应为setTableColumns）
      * @param tableColumns
      */
-    setTableColumn(tableColumns) {
-      this.setTableColumns(tableColumns);
-    },
+    // setTableColumn(tableColumns) {
+    //   this.setTableColumns(tableColumns);
+    // },
     /**
      * 从数据源加载表格列
      * @param localDsv 本地数据源变量DSV
      * @param dsName 数据源名称
      */
-    loadColumnsFromDS(localDsv = {}, dsName) {
-      const curDS = getDSByName(this.formConfig, dsName);
-      if (!!curDS) {
-        const gDsv = this.getGlobalDsv() || {};
-        const newDsv = new Object({});
-        overwriteObj(newDsv, gDsv);
-        overwriteObj(newDsv, localDsv);
-        newDsv.widgetName = this.widget.options.name;
-        runDataSourceRequest(curDS, newDsv, this.getFormRef(), false, this.$message).then((res) => {
-          this.setTableColumns(res);
-        }).catch((err) => {
-          this.$message.error(err.message);
-        });
-      }
-    },
+    // loadColumnsFromDS(localDsv = {}, dsName) {
+    //   const curDS = getDSByName(this.formConfig, dsName);
+    //   if (!!curDS) {
+    //     const gDsv = this.getGlobalDsv() || {};
+    //     const newDsv = new Object({});
+    //     overwriteObj(newDsv, gDsv);
+    //     overwriteObj(newDsv, localDsv);
+    //     newDsv.widgetName = this.widget.options.name;
+    //     runDataSourceRequest(curDS, newDsv, this.getFormRef(), false, this.$message)
+    //       .then(res => {
+    //         this.setTableColumns(res);
+    //       })
+    //       .catch(err => {
+    //         this.$message.error(err.message);
+    //       });
+    //   }
+    // },
     /**
      * 动态设置表格列的隐藏或显示
      * @param columnNames
      * @param hiddenFlag
      */
-    setTableColumnsHidden(columnNames, hiddenFlag) {
-      if (!!columnNames) {
-        if (typeof columnNames === "string") {
-          this.findColumnAndSetHidden(columnNames, hiddenFlag);
-        } else if (Array.isArray(columnNames)) {
-          columnNames.forEach((cn) => {
-            this.findColumnAndSetHidden(cn, hiddenFlag);
-          });
-        }
-        this.$nextTick(() => {
-          this.$refs.dataTable.doLayout();
-        });
-      }
-    },
+    // setTableColumnsHidden(columnNames, hiddenFlag) {
+    //   if (!!columnNames) {
+    //     if (typeof columnNames === 'string') {
+    //       this.findColumnAndSetHidden(columnNames, hiddenFlag);
+    //     } else if (Array.isArray(columnNames)) {
+    //       columnNames.forEach(cn => {
+    //         this.findColumnAndSetHidden(cn, hiddenFlag);
+    //       });
+    //     }
+    //     this.$nextTick(() => {
+    //       this.$refs.dataTable.doLayout(); // 防止行列显示错位！！
+    //     });
+    //   }
+    // },
     /**
      * 获取表格数据
      */
-    getTableData() {
-      return this.widget.options.tableData;
-    },
+    // getTableData() {
+    //   return this.widget.options.tableData;
+    // },
     /**
      * 设置表格数据
      * @param tableData
      */
-    setTableData(tableData) {
-      this.widget.options.tableData = tableData;
-    },
+    // setTableData(tableData) {
+    //   this.widget.options.tableData = tableData;
+    // },
     /**
      * 从数据源加载表格数据
      * @param localDsv 本地数据源变量DSV
      * @param dsName 数据源名称，不传此值，则使用dsName属性绑定的数据源
      */
-    loadDataFromDS(localDsv = {}, dsName = "") {
-      const curDSName = dsName || this.widget.options.dsName;
-      const curDSetName = this.widget.options.dataSetName;
-      const curDS = getDSByName(this.formConfig, curDSName);
-      if (!!curDS) {
-        const gDsv = this.getGlobalDsv() || {};
-        const newDsv = new Object({});
-        overwriteObj(newDsv, gDsv);
-        overwriteObj(newDsv, localDsv);
-        newDsv.widgetName = this.widget.options.name;
-        newDsv.pageSize = this.pageSize;
-        newDsv.currentPage = this.currentPage;
-        runDataSourceRequest(curDS, newDsv, this.getFormRef(), false, this.$message).then((res) => {
-          if (!!curDSetName && res.hasOwnProperty(curDSetName)) {
-            this.setTableData(res[curDSetName]);
-          } else {
-            this.setTableData(res);
-          }
-        }).catch((err) => {
-          this.$message.error(err.message);
-        });
-      }
-    },
-    /**
-     * 设置表格分页
-     * @param pagination
-     */
-    setPagination(pagination) {
-      if (pagination.currentPage !== void 0) {
-        this.currentPage = pagination.currentPage;
-        this.widget.options.pagination.currentPage = pagination.currentPage;
-      }
-      if (pagination.pageSize !== void 0) {
-        this.pageSize = pagination.pageSize;
-        this.widget.options.pagination.pageSize = pagination.pageSize;
-      }
-      if (pagination.pageSizes !== void 0) {
-        this.pageSizes = pagination.pageSizes;
-        this.widget.options.pagination.pageSizes = pagination.pageSizes;
-      }
-      if (pagination.total !== void 0) {
-        this.total = pagination.total;
-        this.widget.options.pagination.total = pagination.total;
-      }
-    },
+    // loadDataFromDS(localDsv = {}, dsName = '') {
+    // const curDSName = dsName || this.widget.options.dsName;
+    // const curDSetName = this.widget.options.dataSetName;
+    // const curDS = getDSByName(this.formConfig, curDSName);
+    // if (!!curDS) {
+    //   const gDsv = this.getGlobalDsv() || {};
+    //   const newDsv = new Object({});
+    //   overwriteObj(newDsv, gDsv);
+    //   overwriteObj(newDsv, localDsv);
+    //   newDsv.widgetName = this.widget.options.name;
+    //   newDsv.pageSize = this.pageSize;
+    //   newDsv.currentPage = this.currentPage;
+    //   runDataSourceRequest(curDS, newDsv, this.getFormRef(), false, this.$message)
+    //     .then(res => {
+    //       if (!!curDSetName && res.hasOwnProperty(curDSetName)) {
+    //         this.setTableData(res[curDSetName]);
+    //       } else {
+    //         this.setTableData(res);
+    //       }
+    //     })
+    //     .catch(err => {
+    //       this.$message.error(err.message);
+    //     });
+    // }
+    // },
+    // /**
+    //  * 设置表格分页
+    //  * @param pagination
+    //  */
+    // setPagination(pagination) {
+    //   if (pagination.currentPage !== undefined) {
+    //     this.currentPage = pagination.currentPage;
+    //     this.widget.options.pagination.currentPage = pagination.currentPage;
+    //   }
+    //   if (pagination.pageSize !== undefined) {
+    //     this.pageSize = pagination.pageSize;
+    //     this.widget.options.pagination.pageSize = pagination.pageSize;
+    //   }
+    //   if (pagination.pageSizes !== undefined) {
+    //     this.pageSizes = pagination.pageSizes;
+    //     this.widget.options.pagination.pageSizes = pagination.pageSizes;
+    //   }
+    //   if (pagination.total !== undefined) {
+    //     this.total = pagination.total;
+    //     this.widget.options.pagination.total = pagination.total;
+    //   }
+    // },
     /**
      * 获取选中行数据，格式为对象数组
      * @returns {[]}
@@ -25969,7 +26375,7 @@ const _sfc_main$3K = {
     // --------------------- 以上为组件支持外部调用的API方法 end ------------------//
   }
 };
-function _sfc_render$3K(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$3Q(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_table_column = resolveComponent("a-table-column");
   const _component_a_button = resolveComponent("a-button");
   const _component_a_table = resolveComponent("a-table");
@@ -25980,16 +26386,16 @@ function _sfc_render$3K(_ctx, _cache, $props, $setup, $data, $options) {
         ref: "dataTable2",
         dataSource: $props.widget.options.dataSource,
         rowKey: (record) => record[$props.widget.options.rowKey],
-        scroll: { y: parseFloat($options.tableHeight || 0), x: 300 },
-        class: normalizeClass([$options.customClass]),
-        size: $options.widgetSize,
+        scroll: { y: parseFloat(_ctx.tableHeight || 0), x: 300 },
+        class: normalizeClass([_ctx.customClass]),
+        size: _ctx.widgetSize,
         bordered: $props.widget.options.border,
         style: normalizeStyle({ width: $props.widget.options.tableWidth }),
-        "row-class-name": $props.widget.options.stripe ? (_record, index2) => index2 % 2 === 1 ? "table-striped" : null : null,
-        rowSelection: $options.handleRowSelection($props.widget.options.rowSelection),
-        pagination: $props.widget.options.showPagination && $props.widget.options.pagination,
-        customRow: $options.handleCustomRow,
-        onChange: $options.handleTablePageChange
+        "row-class-name": _ctx.rowClassName,
+        rowSelection: _ctx.handleRowSelection($props.widget.options.rowSelection),
+        pagination: _ctx.fmtPagination(),
+        customRow: _ctx.handleCustomRow,
+        onChange: _ctx.handleTablePageChange
       }, {
         default: withCtx(() => [
           $props.widget.options.showIndex ? (openBlock(), createBlock(_component_a_table_column, {
@@ -25998,11 +26404,11 @@ function _sfc_render$3K(_ctx, _cache, $props, $setup, $data, $options) {
             align: "left",
             width: 80,
             fixed: "left",
-            customRender: $options.customRenderIndex
+            customRender: _ctx.customRenderIndex
           }, null, 8, ["customRender"])) : createCommentVNode("", true),
           (openBlock(true), createElementBlock(Fragment, null, renderList($props.widget.options.tableColumns, (item, index2) => {
             return openBlock(), createElementBlock(Fragment, null, [
-              item.show !== false ? (openBlock(), createBlock(_component_a_table_column, mergeProps({ key: index2 }, $options.handleColumnItem(item)), null, 16)) : createCommentVNode("", true)
+              item.show !== false ? (openBlock(), createBlock(_component_a_table_column, mergeProps({ key: index2 }, _ctx.handleColumnItem(item)), null, 16)) : createCommentVNode("", true)
             ], 64);
           }), 256)),
           !!$props.widget.options.showButtonsColumn ? (openBlock(), createBlock(_component_a_table_column, {
@@ -26020,16 +26426,16 @@ function _sfc_render$3K(_ctx, _cache, $props, $setup, $data, $options) {
                   type: ob.type,
                   size: ob.size,
                   shape: ob.shape,
-                  disabled: $options.disableOperationButton(ob, scope.index, scope.record),
-                  onClick: ($event) => $options.handleOperationButtonClick(ob.name, scope.index, scope.record, scope, ob),
+                  disabled: _ctx.disableOperationButton(ob, scope.index, scope.record),
+                  onClick: ($event) => _ctx.handleOperationButtonClick(ob.name, scope.index, scope.record, scope, ob),
                   class: normalizeClass(["data-table-" + ob.name + "-button"])
                 }, {
                   default: withCtx(() => [
-                    createTextVNode(toDisplayString($options.getOperationButtonLabel(ob, scope.index, scope.record)), 1)
+                    createTextVNode(toDisplayString(_ctx.getOperationButtonLabel(ob, scope.index, scope.record)), 1)
                   ]),
                   _: 2
                 }, 1032, ["type", "size", "shape", "disabled", "onClick", "class"])), [
-                  [vShow, $options.showOperationButton(ob, scope.index, scope.record)]
+                  [vShow, _ctx.showOperationButton(ob, scope.index, scope.record)]
                 ]);
               }), 128))
             ]),
@@ -26044,12 +26450,12 @@ function _sfc_render$3K(_ctx, _cache, $props, $setup, $data, $options) {
     [vShow, !$props.widget.options.hidden]
   ]);
 }
-const dataTableItem = /* @__PURE__ */ _export_sfc$1(_sfc_main$3K, [["render", _sfc_render$3K], ["__scopeId", "data-v-0630e0d1"]]);
+const dataTableItem = /* @__PURE__ */ _export_sfc$1(_sfc_main$3Q, [["render", _sfc_render$3Q], ["__scopeId", "data-v-3670849f"]]);
 const __vite_glob_0_1$2 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: dataTableItem
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$3J = {
+const _sfc_main$3P = {
   name: "GridColItem",
   componentName: "ContainerItem",
   mixins: [emitter, i18n$1, refMixin],
@@ -26136,9 +26542,9 @@ const _sfc_main$3J = {
     }
   }
 };
-const _hoisted_1$K = { class: "blank-cell" };
+const _hoisted_1$J = { class: "blank-cell" };
 const _hoisted_2$u = { class: "invisible-content" };
-function _sfc_render$3J(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$3P(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_col = resolveComponent("a-col");
   return withDirectives((openBlock(), createBlock(_component_a_col, mergeProps({
     class: ["grid-cell", [$options.customClass]]
@@ -26190,7 +26596,7 @@ function _sfc_render$3J(_ctx, _cache, $props, $setup, $data, $options) {
         ], 64);
       }), 256)) : (openBlock(), createBlock(_component_a_col, { key: 1 }, {
         default: withCtx(() => [
-          createElementVNode("div", _hoisted_1$K, [
+          createElementVNode("div", _hoisted_1$J, [
             createElementVNode("span", _hoisted_2$u, toDisplayString(_ctx.i18nt("render.hint.blankCellContent")), 1)
           ])
         ]),
@@ -26202,12 +26608,12 @@ function _sfc_render$3J(_ctx, _cache, $props, $setup, $data, $options) {
     [vShow, !$props.widget.options.hidden]
   ]);
 }
-const GridColItem = /* @__PURE__ */ _export_sfc$1(_sfc_main$3J, [["render", _sfc_render$3J], ["__scopeId", "data-v-347374d9"]]);
+const GridColItem = /* @__PURE__ */ _export_sfc$1(_sfc_main$3P, [["render", _sfc_render$3P], ["__scopeId", "data-v-347374d9"]]);
 const __vite_glob_0_2$2 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: GridColItem
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$3I = {
+const _sfc_main$3O = {
   name: "vf-grid-item",
   //grid-item跟VueGridLayout全局注册组件重名，故特殊处理！！
   componentName: "ContainerItem",
@@ -26245,7 +26651,7 @@ const _sfc_main$3I = {
   },
   methods: {}
 };
-function _sfc_render$3I(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$3O(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_grid_col_item = resolveComponent("grid-col-item");
   const _component_a_row = resolveComponent("a-row");
   const _component_container_item_wrapper = resolveComponent("container-item-wrapper");
@@ -26289,12 +26695,12 @@ function _sfc_render$3I(_ctx, _cache, $props, $setup, $data, $options) {
     _: 3
   }, 8, ["widget"]);
 }
-const gridItem = /* @__PURE__ */ _export_sfc$1(_sfc_main$3I, [["render", _sfc_render$3I]]);
+const gridItem = /* @__PURE__ */ _export_sfc$1(_sfc_main$3O, [["render", _sfc_render$3O]]);
 const __vite_glob_0_3$2 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: gridItem
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$3H = {
+const _sfc_main$3N = {
   name: "grid-sub-form-item",
   componentName: "ContainerItem",
   mixins: [emitter, i18n$1, refMixin, containerItemMixin],
@@ -26566,7 +26972,7 @@ const _sfc_main$3H = {
   }
 };
 const _withScopeId$5 = (n) => (pushScopeId("data-v-50d62ca2"), n = n(), popScopeId(), n);
-const _hoisted_1$J = { class: "action-header-column" };
+const _hoisted_1$I = { class: "action-header-column" };
 const _hoisted_2$t = { class: "action-label" };
 const _hoisted_3$o = /* @__PURE__ */ _withScopeId$5(() => /* @__PURE__ */ createElementVNode("i", { class: "el-icon-plus el-icon-right" }, null, -1));
 const _hoisted_4$e = {
@@ -26592,7 +26998,7 @@ const _hoisted_10$4 = {
   class: "sub-form-action-column hide-label"
 };
 const _hoisted_11$3 = { class: "action-button-column" };
-function _sfc_render$3H(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$3N(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_button = resolveComponent("a-button");
   const _component_a_row = resolveComponent("a-row");
   const _component_container_item_wrapper = resolveComponent("container-item-wrapper");
@@ -26604,7 +27010,7 @@ function _sfc_render$3H(_ctx, _cache, $props, $setup, $data, $options) {
       }, [
         createVNode(_component_a_row, { class: "header-row" }, {
           default: withCtx(() => [
-            createElementVNode("div", _hoisted_1$J, [
+            createElementVNode("div", _hoisted_1$I, [
               createElementVNode("span", _hoisted_2$t, toDisplayString(_ctx.i18nt("render.hint.subFormAction")), 1),
               !$options.isReadMode ? (openBlock(), createBlock(_component_a_button, {
                 key: 0,
@@ -26706,12 +27112,12 @@ function _sfc_render$3H(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["widget"]);
 }
-const gridSubFormItem = /* @__PURE__ */ _export_sfc$1(_sfc_main$3H, [["render", _sfc_render$3H], ["__scopeId", "data-v-50d62ca2"]]);
+const gridSubFormItem = /* @__PURE__ */ _export_sfc$1(_sfc_main$3N, [["render", _sfc_render$3N], ["__scopeId", "data-v-50d62ca2"]]);
 const __vite_glob_0_4$2 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: gridSubFormItem
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$3G = {
+const _sfc_main$3M = {
   name: "sub-form-item",
   componentName: "ContainerItem",
   mixins: [emitter, i18n$1, refMixin, containerItemMixin],
@@ -26966,7 +27372,7 @@ const _sfc_main$3G = {
     }
   }
 };
-const _hoisted_1$I = {
+const _hoisted_1$H = {
   key: 0,
   class: "action-header-column"
 };
@@ -27007,7 +27413,7 @@ const _hoisted_13 = {
   class: "sub-form-action-column hide-label"
 };
 const _hoisted_14 = { class: "action-button-column" };
-function _sfc_render$3G(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$3M(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_svg_icon = resolveComponent("svg-icon");
   const _component_a_button = resolveComponent("a-button");
   const _component_a_tooltip = resolveComponent("a-tooltip");
@@ -27021,7 +27427,7 @@ function _sfc_render$3G(_ctx, _cache, $props, $setup, $data, $options) {
       }, [
         createVNode(_component_a_row, { class: "header-row" }, {
           default: withCtx(() => [
-            $options.leftActionColumn ? (openBlock(), createElementBlock("div", _hoisted_1$I, [
+            $options.leftActionColumn ? (openBlock(), createElementBlock("div", _hoisted_1$H, [
               createElementVNode("span", _hoisted_2$s, toDisplayString(_ctx.i18nt("render.hint.subFormAction")), 1),
               !$options.isReadMode ? (openBlock(), createBlock(_component_a_button, {
                 key: 0,
@@ -27226,12 +27632,12 @@ function _sfc_render$3G(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["widget"]);
 }
-const subFormItem = /* @__PURE__ */ _export_sfc$1(_sfc_main$3G, [["render", _sfc_render$3G], ["__scopeId", "data-v-43c56bd4"]]);
+const subFormItem = /* @__PURE__ */ _export_sfc$1(_sfc_main$3M, [["render", _sfc_render$3M], ["__scopeId", "data-v-43c56bd4"]]);
 const __vite_glob_0_5$2 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: subFormItem
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$3F = {
+const _sfc_main$3L = {
   name: "tab-item",
   componentName: "ContainerItem",
   mixins: [emitter, i18n$1, refMixin, containerItemMixin],
@@ -27304,7 +27710,7 @@ const _sfc_main$3F = {
     }
   }
 };
-function _sfc_render$3F(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$3L(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_tab_pane = resolveComponent("a-tab-pane");
   const _component_a_tabs = resolveComponent("a-tabs");
   const _component_container_item_wrapper = resolveComponent("container-item-wrapper");
@@ -27385,12 +27791,12 @@ function _sfc_render$3F(_ctx, _cache, $props, $setup, $data, $options) {
     _: 3
   }, 8, ["widget"]);
 }
-const tabItem = /* @__PURE__ */ _export_sfc$1(_sfc_main$3F, [["render", _sfc_render$3F]]);
+const tabItem = /* @__PURE__ */ _export_sfc$1(_sfc_main$3L, [["render", _sfc_render$3L]]);
 const __vite_glob_0_6$2 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: tabItem
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$3E = {
+const _sfc_main$3K = {
   name: "TableCellItem",
   componentName: "ContainerItem",
   mixins: [emitter, i18n$1, refMixin],
@@ -27427,8 +27833,8 @@ const _sfc_main$3E = {
   },
   methods: {}
 };
-const _hoisted_1$H = ["colspan", "rowspan"];
-function _sfc_render$3E(_ctx, _cache, $props, $setup, $data, $options) {
+const _hoisted_1$G = ["colspan", "rowspan"];
+function _sfc_render$3K(_ctx, _cache, $props, $setup, $data, $options) {
   return openBlock(), createElementBlock("td", {
     class: normalizeClass(["table-cell", [$options.customClass]]),
     colspan: $props.widget.options.colspan || 1,
@@ -27479,14 +27885,14 @@ function _sfc_render$3E(_ctx, _cache, $props, $setup, $data, $options) {
         ]), 1032, ["field", "parent-list", "index-of-parent-list", "parent-widget", "sub-form-row-id", "sub-form-row-index", "sub-form-col-index"]))
       ], 64);
     }), 256))
-  ], 14, _hoisted_1$H);
+  ], 14, _hoisted_1$G);
 }
-const TableCellItem = /* @__PURE__ */ _export_sfc$1(_sfc_main$3E, [["render", _sfc_render$3E], ["__scopeId", "data-v-ae7f3b63"]]);
+const TableCellItem = /* @__PURE__ */ _export_sfc$1(_sfc_main$3K, [["render", _sfc_render$3K], ["__scopeId", "data-v-ae7f3b63"]]);
 const __vite_glob_0_7$2 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: TableCellItem
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$3D = {
+const _sfc_main$3J = {
   name: "table-item",
   componentName: "ContainerItem",
   mixins: [emitter, i18n$1, refMixin, containerItemMixin],
@@ -27523,7 +27929,7 @@ const _sfc_main$3D = {
   },
   methods: {}
 };
-function _sfc_render$3D(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$3J(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_table_cell_item = resolveComponent("table-cell-item");
   const _component_container_item_wrapper = resolveComponent("container-item-wrapper");
   return openBlock(), createBlock(_component_container_item_wrapper, { widget: $props.widget }, {
@@ -27576,29 +27982,29 @@ function _sfc_render$3D(_ctx, _cache, $props, $setup, $data, $options) {
     _: 3
   }, 8, ["widget"]);
 }
-const tableItem = /* @__PURE__ */ _export_sfc$1(_sfc_main$3D, [["render", _sfc_render$3D], ["__scopeId", "data-v-48955c34"]]);
+const tableItem = /* @__PURE__ */ _export_sfc$1(_sfc_main$3J, [["render", _sfc_render$3J], ["__scopeId", "data-v-48955c34"]]);
 const __vite_glob_0_8$2 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: tableItem
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$3C = {
+const _sfc_main$3I = {
   name: "vf-dialog-item"
 };
-function _sfc_render$3C(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$3I(_ctx, _cache, $props, $setup, $data, $options) {
   return createCommentVNode("", true);
 }
-const vfDialogItem = /* @__PURE__ */ _export_sfc$1(_sfc_main$3C, [["render", _sfc_render$3C]]);
+const vfDialogItem = /* @__PURE__ */ _export_sfc$1(_sfc_main$3I, [["render", _sfc_render$3I]]);
 const __vite_glob_0_9$2 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: vfDialogItem
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$3B = {
+const _sfc_main$3H = {
   name: "vf-drawer-item"
 };
-function _sfc_render$3B(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$3H(_ctx, _cache, $props, $setup, $data, $options) {
   return createCommentVNode("", true);
 }
-const vfDrawerItem = /* @__PURE__ */ _export_sfc$1(_sfc_main$3B, [["render", _sfc_render$3B]]);
+const vfDrawerItem = /* @__PURE__ */ _export_sfc$1(_sfc_main$3H, [["render", _sfc_render$3H]]);
 const __vite_glob_0_10$2 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: vfDrawerItem
@@ -27612,7 +28018,7 @@ const ContainerItems = {
     }
   }
 };
-const _sfc_main$3A = {
+const _sfc_main$3G = {
   name: "dynamic-dialog",
   mixins: [i18n$1],
   props: {
@@ -27751,7 +28157,7 @@ const _sfc_main$3A = {
     }
   }
 };
-function _sfc_render$3A(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$3G(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_VFormRender = resolveComponent("VFormRender");
   const _component_a_button = resolveComponent("a-button");
   const _component_a_modal = resolveComponent("a-modal");
@@ -27805,8 +28211,8 @@ function _sfc_render$3A(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["title", "visible", "width", "mask", "maskClosable", "keyboard", "onCancel"]);
 }
-const DynamicDialog = /* @__PURE__ */ _export_sfc$1(_sfc_main$3A, [["render", _sfc_render$3A]]);
-const _sfc_main$3z = {
+const DynamicDialog = /* @__PURE__ */ _export_sfc$1(_sfc_main$3G, [["render", _sfc_render$3G]]);
+const _sfc_main$3F = {
   name: "dynamic-drawer",
   mixins: [i18n$1],
   props: {
@@ -27945,8 +28351,8 @@ const _sfc_main$3z = {
     }
   }
 };
-const _hoisted_1$G = { style: { "float": "right" } };
-function _sfc_render$3z(_ctx, _cache, $props, $setup, $data, $options) {
+const _hoisted_1$F = { style: { "float": "right" } };
+function _sfc_render$3F(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_VFormRender = resolveComponent("VFormRender");
   const _component_a_button = resolveComponent("a-button");
   const _component_a_drawer = resolveComponent("a-drawer");
@@ -27969,7 +28375,7 @@ function _sfc_render$3z(_ctx, _cache, $props, $setup, $data, $options) {
     onOpened: $options.handleOpenedEvent
   }, {
     footer: withCtx(() => [
-      createElementVNode("div", _hoisted_1$G, [
+      createElementVNode("div", _hoisted_1$F, [
         !$props.options.cancelButtonHidden ? (openBlock(), createBlock(_component_a_button, {
           key: 0,
           onClick: $options.handleCancelClick
@@ -28006,8 +28412,8 @@ function _sfc_render$3z(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["title", "visible", "size", "modal", "direction", "show-close", "close-on-click-modal", "close-on-press-escape", "before-close", "onClose", "onOpened"]);
 }
-const DynamicDrawer = /* @__PURE__ */ _export_sfc$1(_sfc_main$3z, [["render", _sfc_render$3z], ["__scopeId", "data-v-de083670"]]);
-const _sfc_main$3y = {
+const DynamicDrawer = /* @__PURE__ */ _export_sfc$1(_sfc_main$3F, [["render", _sfc_render$3F], ["__scopeId", "data-v-de083670"]]);
+const _sfc_main$3E = {
   name: "VFormRender",
   componentName: "VFormRender",
   mixins: [emitter, i18n$1],
@@ -28157,7 +28563,7 @@ const _sfc_main$3y = {
       var _a;
       const serveList = this.formConfig.serveList;
       if ((_a = serveList.vformDetail.http) == null ? void 0 : _a.url) {
-        const res = await fmtHttpParams(serveList.vformDetail, { vfCtx: this.vfCtx });
+        const res = await fmtHttpParams.call(this, serveList.vformDetail, { vfCtx: this.vfCtx });
         console.log("res: ", res);
         return res;
       }
@@ -28167,7 +28573,7 @@ const _sfc_main$3y = {
       const modelForm = await this.getFormData();
       const serveList = this.formConfig.serveList;
       if ((_a = serveList.vformDetail.http) == null ? void 0 : _a.url) {
-        const res = await fmtHttpParams(serveList.vformUpdate, {
+        const res = await fmtHttpParams.call(this, serveList.vformUpdate, {
           data: modelForm,
           vfCtx: this.vfCtx
         });
@@ -28893,7 +29299,7 @@ const _sfc_main$3y = {
     //--------------------- 以上为组件支持外部调用的API方法 end ------------------//
   }
 };
-function _sfc_render$3y(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$3E(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_form = resolveComponent("a-form");
   const _component_a_config_provider = resolveComponent("a-config-provider");
   return openBlock(), createBlock(_component_a_config_provider, {
@@ -28956,7 +29362,7 @@ function _sfc_render$3y(_ctx, _cache, $props, $setup, $data, $options) {
     _: 3
   }, 8, ["component-size"]);
 }
-const VFormRender = /* @__PURE__ */ _export_sfc$1(_sfc_main$3y, [["render", _sfc_render$3y], ["__scopeId", "data-v-4cca94a2"]]);
+const VFormRender = /* @__PURE__ */ _export_sfc$1(_sfc_main$3E, [["render", _sfc_render$3E], ["__scopeId", "data-v-248f145c"]]);
 var ace$2 = { exports: {} };
 (function(module, exports) {
   (function() {
@@ -29854,7 +30260,7 @@ var ace$2 = { exports: {} };
           return;
         var opt = this.$options[name];
         if (!opt) {
-          return warn('misspelled option "' + name + '"');
+          return warn2('misspelled option "' + name + '"');
         }
         if (opt.forwardTo)
           return this[opt.forwardTo] && this[opt.forwardTo].setOption(name, value2);
@@ -29866,14 +30272,14 @@ var ace$2 = { exports: {} };
       getOption: function(name) {
         var opt = this.$options[name];
         if (!opt) {
-          return warn('misspelled option "' + name + '"');
+          return warn2('misspelled option "' + name + '"');
         }
         if (opt.forwardTo)
           return this[opt.forwardTo] && this[opt.forwardTo].getOption(name);
         return opt && opt.get ? opt.get.call(this) : this["$" + name];
       }
     };
-    function warn(message2) {
+    function warn2(message2) {
       if (typeof console != "undefined" && console.warn)
         console.warn.apply(console, arguments);
     }
@@ -29932,7 +30338,7 @@ var ace$2 = { exports: {} };
         };
         AppConfig2.prototype.nls = function(string, params) {
           if (messages && !messages[string]) {
-            warn("No message found for '" + string + "' in the provided messages, falling back to default English message.");
+            warn2("No message found for '" + string + "' in the provided messages, falling back to default English message.");
           }
           var translated = messages && messages[string] || string;
           if (params) {
@@ -29947,7 +30353,7 @@ var ace$2 = { exports: {} };
         return AppConfig2;
       }()
     );
-    AppConfig.prototype.warn = warn;
+    AppConfig.prototype.warn = warn2;
     AppConfig.prototype.reportError = reportError;
     oop.implement(AppConfig.prototype, EventEmitter);
     exports2.AppConfig = AppConfig;
@@ -32927,14 +33333,14 @@ var ace$2 = { exports: {} };
           return;
         }
         pressed = editor.$mouseHandler.isMousePressed = true;
-        var h = editor.renderer.layerConfig.lineHeight;
+        var h2 = editor.renderer.layerConfig.lineHeight;
         var w = editor.renderer.layerConfig.lineHeight;
         var t = e.timeStamp;
         lastT = t;
         var touchObj = touches[0];
         var x = touchObj.clientX;
         var y = touchObj.clientY;
-        if (Math.abs(startX - x) + Math.abs(startY - y) > h)
+        if (Math.abs(startX - x) + Math.abs(startY - y) > h2)
           touchStartT = -1;
         startX = e.clientX = x;
         startY = e.clientY = y;
@@ -32957,7 +33363,7 @@ var ace$2 = { exports: {} };
           var offsetLeft = editor.renderer.scrollLeft;
           var weightedDistance = function(x2, y2) {
             x2 = x2 / w;
-            y2 = y2 / h - 0.75;
+            y2 = y2 / h2 - 0.75;
             return x2 * x2 + y2 * y2;
           };
           if (e.clientX < rect.left) {
@@ -33333,11 +33739,11 @@ var ace$2 = { exports: {} };
           this.addKeyboardHandler(kb, 0);
         };
         KeyBinding2.prototype.setKeyboardHandler = function(kb) {
-          var h = this.$handlers;
-          if (h[h.length - 1] == kb)
+          var h2 = this.$handlers;
+          if (h2[h2.length - 1] == kb)
             return;
-          while (h[h.length - 1] && h[h.length - 1] != this.$defaultHandler)
-            this.removeKeyboardHandler(h[h.length - 1]);
+          while (h2[h2.length - 1] && h2[h2.length - 1] != this.$defaultHandler)
+            this.removeKeyboardHandler(h2[h2.length - 1]);
           this.addKeyboardHandler(kb, 1);
         };
         KeyBinding2.prototype.addKeyboardHandler = function(kb, pos) {
@@ -33369,8 +33775,8 @@ var ace$2 = { exports: {} };
         KeyBinding2.prototype.getStatusText = function() {
           var data = this.$data;
           var editor = data.editor;
-          return this.$handlers.map(function(h) {
-            return h.getStatusText && h.getStatusText(editor, data) || "";
+          return this.$handlers.map(function(h2) {
+            return h2.getStatusText && h2.getStatusText(editor, data) || "";
           }).filter(Boolean).join(" ");
         };
         KeyBinding2.prototype.$callKeyboardHandlers = function(hashId, keyString, keyCode, e) {
@@ -39806,13 +40212,13 @@ var ace$2 = { exports: {} };
           return [screenColumn, column];
         };
         EditSession2.prototype.getRowLength = function(row) {
-          var h = 1;
+          var h2 = 1;
           if (this.lineWidgets)
-            h += this.lineWidgets[row] && this.lineWidgets[row].rowCount || 0;
+            h2 += this.lineWidgets[row] && this.lineWidgets[row].rowCount || 0;
           if (!this.$useWrapMode || !this.$wrapData[row])
-            return h;
+            return h2;
           else
-            return this.$wrapData[row].length + h;
+            return this.$wrapData[row].length + h2;
         };
         EditSession2.prototype.getRowLineCount = function(row) {
           if (!this.$useWrapMode || !this.$wrapData[row]) {
@@ -42047,15 +42453,15 @@ var ace$2 = { exports: {} };
           this.session.on("changeEditor", this.$onChangeEditor);
         }
         LineWidgets2.prototype.getRowLength = function(row) {
-          var h;
+          var h2;
           if (this.lineWidgets)
-            h = this.lineWidgets[row] && this.lineWidgets[row].rowCount || 0;
+            h2 = this.lineWidgets[row] && this.lineWidgets[row].rowCount || 0;
           else
-            h = 0;
+            h2 = 0;
           if (!this["$useWrapMode"] || !this["$wrapData"][row]) {
-            return 1 + h;
+            return 1 + h2;
           } else {
-            return this["$wrapData"][row].length + 1 + h;
+            return this["$wrapData"][row].length + 1 + h2;
           }
         };
         LineWidgets2.prototype.$getWidgetScreenLength = function() {
@@ -46314,8 +46720,8 @@ var ace$2 = { exports: {} };
           if (!this.skipEvent) {
             this.scrollTop = this.element.scrollTop;
             if (this.coeff != 1) {
-              var h = this.element.clientHeight / this.scrollHeight;
-              this.scrollTop = this.scrollTop * (1 - h) / (this.coeff - h);
+              var h2 = this.element.clientHeight / this.scrollHeight;
+              this.scrollTop = this.scrollTop * (1 - h2) / (this.coeff - h2);
             }
             this._emit("scroll", { data: this.scrollTop });
           }
@@ -46841,17 +47247,17 @@ var ace$2 = { exports: {} };
           var b = p(this.els[1]);
           var c = p(this.els[2]);
           var d = p(this.els[3]);
-          var h = solve(sub(d, b), sub(d, c), sub(add(b, c), add(d, a)));
-          var m1 = mul(1 + h[0], sub(b, a));
-          var m2 = mul(1 + h[1], sub(c, a));
+          var h2 = solve(sub(d, b), sub(d, c), sub(add(b, c), add(d, a)));
+          var m1 = mul(1 + h2[0], sub(b, a));
+          var m2 = mul(1 + h2[1], sub(c, a));
           if (elPos) {
             var x = elPos;
-            var k = h[0] * x[0] / L + h[1] * x[1] / L + 1;
+            var k = h2[0] * x[0] / L + h2[1] * x[1] / L + 1;
             var ut = add(mul(x[0], m1), mul(x[1], m2));
             return add(mul(1 / k / L, ut), a);
           }
           var u = sub(clientPos, a);
-          var f = solve(sub(m1, mul(h[0], u)), sub(m2, mul(h[1], u)), u);
+          var f = solve(sub(m1, mul(h2[0], u)), sub(m2, mul(h2[1], u)), u);
           return mul(L, f);
         };
         return FontMetrics2;
@@ -48031,13 +48437,13 @@ var ace$2 = { exports: {} };
           var posTop = pixelPos.top;
           var posLeft = pixelPos.left;
           posTop -= config3.offset;
-          var h = composition && composition.useTextareaForIME || useragent.isMobile ? this.lineHeight : 1;
-          if (posTop < 0 || posTop > config3.height - h) {
+          var h2 = composition && composition.useTextareaForIME || useragent.isMobile ? this.lineHeight : 1;
+          if (posTop < 0 || posTop > config3.height - h2) {
             dom.translate(this.textarea, 0, 0);
             return;
           }
           var w = 1;
-          var maxTop = this.$size.height - h;
+          var maxTop = this.$size.height - h2;
           if (!composition) {
             posTop += this.lineHeight;
           } else {
@@ -48052,7 +48458,7 @@ var ace$2 = { exports: {} };
           if (posLeft > this.$size.scrollerWidth - w)
             posLeft = this.$size.scrollerWidth - w;
           posLeft += this.gutterWidth + this.margin.left;
-          dom.setStyle(style, "height", h + "px");
+          dom.setStyle(style, "height", h2 + "px");
           dom.setStyle(style, "width", w + "px");
           dom.translate(this.textarea, Math.min(posLeft, this.$size.scrollerWidth - w), Math.min(posTop, maxTop));
         };
@@ -48479,8 +48885,8 @@ var ace$2 = { exports: {} };
           if (typeof cursor == "number")
             cursor = { row: cursor, column: 0 };
           var pos = this.$cursorLayer.getPixelPosition(cursor);
-          var h = this.$size.scrollerHeight - this.lineHeight;
-          var offset = pos.top - h * (alignment || 0);
+          var h2 = this.$size.scrollerHeight - this.lineHeight;
+          var offset = pos.top - h2 * (alignment || 0);
           this.session.setScrollTop(offset);
           return offset;
         };
@@ -48840,8 +49246,8 @@ var ace$2 = { exports: {} };
           }, 50);
           this.$resizeObserver = new window.ResizeObserver(function(e) {
             var w = e[0].contentRect.width;
-            var h = e[0].contentRect.height;
-            if (Math.abs(self2.$size.width - w) > 1 || Math.abs(self2.$size.height - h) > 1) {
+            var h2 = e[0].contentRect.height;
+            if (Math.abs(self2.$size.width - w) > 1 || Math.abs(self2.$size.height - h2) > 1) {
               self2.$resizeTimer.delay();
             } else {
               self2.$resizeTimer.cancel();
@@ -50988,9 +51394,9 @@ var modeCss = { exports: {} };
   ace.define("ace/mode/css_highlight_rules", ["require", "exports", "module", "ace/lib/oop", "ace/lib/lang", "ace/mode/text_highlight_rules"], function(e, t, n) {
     var r = e("../lib/oop");
     e("../lib/lang");
-    var s = e("./text_highlight_rules").TextHighlightRules, o = t.supportType = "align-content|align-items|align-self|all|animation|animation-delay|animation-direction|animation-duration|animation-fill-mode|animation-iteration-count|animation-name|animation-play-state|animation-timing-function|backface-visibility|background|background-attachment|background-blend-mode|background-clip|background-color|background-image|background-origin|background-position|background-repeat|background-size|border|border-bottom|border-bottom-color|border-bottom-left-radius|border-bottom-right-radius|border-bottom-style|border-bottom-width|border-collapse|border-color|border-image|border-image-outset|border-image-repeat|border-image-slice|border-image-source|border-image-width|border-left|border-left-color|border-left-style|border-left-width|border-radius|border-right|border-right-color|border-right-style|border-right-width|border-spacing|border-style|border-top|border-top-color|border-top-left-radius|border-top-right-radius|border-top-style|border-top-width|border-width|bottom|box-shadow|box-sizing|caption-side|clear|clip|color|column-count|column-fill|column-gap|column-rule|column-rule-color|column-rule-style|column-rule-width|column-span|column-width|columns|content|counter-increment|counter-reset|cursor|direction|display|empty-cells|filter|flex|flex-basis|flex-direction|flex-flow|flex-grow|flex-shrink|flex-wrap|float|font|font-family|font-size|font-size-adjust|font-stretch|font-style|font-variant|font-weight|hanging-punctuation|height|justify-content|left|letter-spacing|line-height|list-style|list-style-image|list-style-position|list-style-type|margin|margin-bottom|margin-left|margin-right|margin-top|max-height|max-width|max-zoom|min-height|min-width|min-zoom|nav-down|nav-index|nav-left|nav-right|nav-up|opacity|order|outline|outline-color|outline-offset|outline-style|outline-width|overflow|overflow-x|overflow-y|padding|padding-bottom|padding-left|padding-right|padding-top|page-break-after|page-break-before|page-break-inside|perspective|perspective-origin|position|quotes|resize|right|tab-size|table-layout|text-align|text-align-last|text-decoration|text-decoration-color|text-decoration-line|text-decoration-style|text-indent|text-justify|text-overflow|text-shadow|text-transform|top|transform|transform-origin|transform-style|transition|transition-delay|transition-duration|transition-property|transition-timing-function|unicode-bidi|user-select|user-zoom|vertical-align|visibility|white-space|width|word-break|word-spacing|word-wrap|z-index", u = t.supportFunction = "rgb|rgba|url|attr|counter|counters", a = t.supportConstant = "absolute|after-edge|after|all-scroll|all|alphabetic|always|antialiased|armenian|auto|avoid-column|avoid-page|avoid|balance|baseline|before-edge|before|below|bidi-override|block-line-height|block|bold|bolder|border-box|both|bottom|box|break-all|break-word|capitalize|caps-height|caption|center|central|char|circle|cjk-ideographic|clone|close-quote|col-resize|collapse|column|consider-shifts|contain|content-box|cover|crosshair|cubic-bezier|dashed|decimal-leading-zero|decimal|default|disabled|disc|disregard-shifts|distribute-all-lines|distribute-letter|distribute-space|distribute|dotted|double|e-resize|ease-in|ease-in-out|ease-out|ease|ellipsis|end|exclude-ruby|flex-end|flex-start|fill|fixed|georgian|glyphs|grid-height|groove|hand|hanging|hebrew|help|hidden|hiragana-iroha|hiragana|horizontal|icon|ideograph-alpha|ideograph-numeric|ideograph-parenthesis|ideograph-space|ideographic|inactive|include-ruby|inherit|initial|inline-block|inline-box|inline-line-height|inline-table|inline|inset|inside|inter-ideograph|inter-word|invert|italic|justify|katakana-iroha|katakana|keep-all|last|left|lighter|line-edge|line-through|line|linear|list-item|local|loose|lower-alpha|lower-greek|lower-latin|lower-roman|lowercase|lr-tb|ltr|mathematical|max-height|max-size|medium|menu|message-box|middle|move|n-resize|ne-resize|newspaper|no-change|no-close-quote|no-drop|no-open-quote|no-repeat|none|normal|not-allowed|nowrap|nw-resize|oblique|open-quote|outset|outside|overline|padding-box|page|pointer|pre-line|pre-wrap|pre|preserve-3d|progress|relative|repeat-x|repeat-y|repeat|replaced|reset-size|ridge|right|round|row-resize|rtl|s-resize|scroll|se-resize|separate|slice|small-caps|small-caption|solid|space|square|start|static|status-bar|step-end|step-start|steps|stretch|strict|sub|super|sw-resize|table-caption|table-cell|table-column-group|table-column|table-footer-group|table-header-group|table-row-group|table-row|table|tb-rl|text-after-edge|text-before-edge|text-bottom|text-size|text-top|text|thick|thin|transparent|underline|upper-alpha|upper-latin|upper-roman|uppercase|use-script|vertical-ideographic|vertical-text|visible|w-resize|wait|whitespace|z-index|zero|zoom", f = t.supportConstantColor = "aliceblue|antiquewhite|aqua|aquamarine|azure|beige|bisque|black|blanchedalmond|blue|blueviolet|brown|burlywood|cadetblue|chartreuse|chocolate|coral|cornflowerblue|cornsilk|crimson|cyan|darkblue|darkcyan|darkgoldenrod|darkgray|darkgreen|darkgrey|darkkhaki|darkmagenta|darkolivegreen|darkorange|darkorchid|darkred|darksalmon|darkseagreen|darkslateblue|darkslategray|darkslategrey|darkturquoise|darkviolet|deeppink|deepskyblue|dimgray|dimgrey|dodgerblue|firebrick|floralwhite|forestgreen|fuchsia|gainsboro|ghostwhite|gold|goldenrod|gray|green|greenyellow|grey|honeydew|hotpink|indianred|indigo|ivory|khaki|lavender|lavenderblush|lawngreen|lemonchiffon|lightblue|lightcoral|lightcyan|lightgoldenrodyellow|lightgray|lightgreen|lightgrey|lightpink|lightsalmon|lightseagreen|lightskyblue|lightslategray|lightslategrey|lightsteelblue|lightyellow|lime|limegreen|linen|magenta|maroon|mediumaquamarine|mediumblue|mediumorchid|mediumpurple|mediumseagreen|mediumslateblue|mediumspringgreen|mediumturquoise|mediumvioletred|midnightblue|mintcream|mistyrose|moccasin|navajowhite|navy|oldlace|olive|olivedrab|orange|orangered|orchid|palegoldenrod|palegreen|paleturquoise|palevioletred|papayawhip|peachpuff|peru|pink|plum|powderblue|purple|rebeccapurple|red|rosybrown|royalblue|saddlebrown|salmon|sandybrown|seagreen|seashell|sienna|silver|skyblue|slateblue|slategray|slategrey|snow|springgreen|steelblue|tan|teal|thistle|tomato|turquoise|violet|wheat|white|whitesmoke|yellow|yellowgreen", l = t.supportConstantFonts = "arial|century|comic|courier|cursive|fantasy|garamond|georgia|helvetica|impact|lucida|symbol|system|tahoma|times|trebuchet|utopia|verdana|webdings|sans-serif|serif|monospace", c = t.numRe = "\\-?(?:(?:[0-9]+(?:\\.[0-9]+)?)|(?:\\.[0-9]+))", h = t.pseudoElements = "(\\:+)\\b(after|before|first-letter|first-line|moz-selection|selection)\\b", p = t.pseudoClasses = "(:)\\b(active|checked|disabled|empty|enabled|first-child|first-of-type|focus|hover|indeterminate|invalid|last-child|last-of-type|link|not|nth-child|nth-last-child|nth-last-of-type|nth-of-type|only-child|only-of-type|required|root|target|valid|visited)\\b", d = function() {
+    var s = e("./text_highlight_rules").TextHighlightRules, o = t.supportType = "align-content|align-items|align-self|all|animation|animation-delay|animation-direction|animation-duration|animation-fill-mode|animation-iteration-count|animation-name|animation-play-state|animation-timing-function|backface-visibility|background|background-attachment|background-blend-mode|background-clip|background-color|background-image|background-origin|background-position|background-repeat|background-size|border|border-bottom|border-bottom-color|border-bottom-left-radius|border-bottom-right-radius|border-bottom-style|border-bottom-width|border-collapse|border-color|border-image|border-image-outset|border-image-repeat|border-image-slice|border-image-source|border-image-width|border-left|border-left-color|border-left-style|border-left-width|border-radius|border-right|border-right-color|border-right-style|border-right-width|border-spacing|border-style|border-top|border-top-color|border-top-left-radius|border-top-right-radius|border-top-style|border-top-width|border-width|bottom|box-shadow|box-sizing|caption-side|clear|clip|color|column-count|column-fill|column-gap|column-rule|column-rule-color|column-rule-style|column-rule-width|column-span|column-width|columns|content|counter-increment|counter-reset|cursor|direction|display|empty-cells|filter|flex|flex-basis|flex-direction|flex-flow|flex-grow|flex-shrink|flex-wrap|float|font|font-family|font-size|font-size-adjust|font-stretch|font-style|font-variant|font-weight|hanging-punctuation|height|justify-content|left|letter-spacing|line-height|list-style|list-style-image|list-style-position|list-style-type|margin|margin-bottom|margin-left|margin-right|margin-top|max-height|max-width|max-zoom|min-height|min-width|min-zoom|nav-down|nav-index|nav-left|nav-right|nav-up|opacity|order|outline|outline-color|outline-offset|outline-style|outline-width|overflow|overflow-x|overflow-y|padding|padding-bottom|padding-left|padding-right|padding-top|page-break-after|page-break-before|page-break-inside|perspective|perspective-origin|position|quotes|resize|right|tab-size|table-layout|text-align|text-align-last|text-decoration|text-decoration-color|text-decoration-line|text-decoration-style|text-indent|text-justify|text-overflow|text-shadow|text-transform|top|transform|transform-origin|transform-style|transition|transition-delay|transition-duration|transition-property|transition-timing-function|unicode-bidi|user-select|user-zoom|vertical-align|visibility|white-space|width|word-break|word-spacing|word-wrap|z-index", u = t.supportFunction = "rgb|rgba|url|attr|counter|counters", a = t.supportConstant = "absolute|after-edge|after|all-scroll|all|alphabetic|always|antialiased|armenian|auto|avoid-column|avoid-page|avoid|balance|baseline|before-edge|before|below|bidi-override|block-line-height|block|bold|bolder|border-box|both|bottom|box|break-all|break-word|capitalize|caps-height|caption|center|central|char|circle|cjk-ideographic|clone|close-quote|col-resize|collapse|column|consider-shifts|contain|content-box|cover|crosshair|cubic-bezier|dashed|decimal-leading-zero|decimal|default|disabled|disc|disregard-shifts|distribute-all-lines|distribute-letter|distribute-space|distribute|dotted|double|e-resize|ease-in|ease-in-out|ease-out|ease|ellipsis|end|exclude-ruby|flex-end|flex-start|fill|fixed|georgian|glyphs|grid-height|groove|hand|hanging|hebrew|help|hidden|hiragana-iroha|hiragana|horizontal|icon|ideograph-alpha|ideograph-numeric|ideograph-parenthesis|ideograph-space|ideographic|inactive|include-ruby|inherit|initial|inline-block|inline-box|inline-line-height|inline-table|inline|inset|inside|inter-ideograph|inter-word|invert|italic|justify|katakana-iroha|katakana|keep-all|last|left|lighter|line-edge|line-through|line|linear|list-item|local|loose|lower-alpha|lower-greek|lower-latin|lower-roman|lowercase|lr-tb|ltr|mathematical|max-height|max-size|medium|menu|message-box|middle|move|n-resize|ne-resize|newspaper|no-change|no-close-quote|no-drop|no-open-quote|no-repeat|none|normal|not-allowed|nowrap|nw-resize|oblique|open-quote|outset|outside|overline|padding-box|page|pointer|pre-line|pre-wrap|pre|preserve-3d|progress|relative|repeat-x|repeat-y|repeat|replaced|reset-size|ridge|right|round|row-resize|rtl|s-resize|scroll|se-resize|separate|slice|small-caps|small-caption|solid|space|square|start|static|status-bar|step-end|step-start|steps|stretch|strict|sub|super|sw-resize|table-caption|table-cell|table-column-group|table-column|table-footer-group|table-header-group|table-row-group|table-row|table|tb-rl|text-after-edge|text-before-edge|text-bottom|text-size|text-top|text|thick|thin|transparent|underline|upper-alpha|upper-latin|upper-roman|uppercase|use-script|vertical-ideographic|vertical-text|visible|w-resize|wait|whitespace|z-index|zero|zoom", f = t.supportConstantColor = "aliceblue|antiquewhite|aqua|aquamarine|azure|beige|bisque|black|blanchedalmond|blue|blueviolet|brown|burlywood|cadetblue|chartreuse|chocolate|coral|cornflowerblue|cornsilk|crimson|cyan|darkblue|darkcyan|darkgoldenrod|darkgray|darkgreen|darkgrey|darkkhaki|darkmagenta|darkolivegreen|darkorange|darkorchid|darkred|darksalmon|darkseagreen|darkslateblue|darkslategray|darkslategrey|darkturquoise|darkviolet|deeppink|deepskyblue|dimgray|dimgrey|dodgerblue|firebrick|floralwhite|forestgreen|fuchsia|gainsboro|ghostwhite|gold|goldenrod|gray|green|greenyellow|grey|honeydew|hotpink|indianred|indigo|ivory|khaki|lavender|lavenderblush|lawngreen|lemonchiffon|lightblue|lightcoral|lightcyan|lightgoldenrodyellow|lightgray|lightgreen|lightgrey|lightpink|lightsalmon|lightseagreen|lightskyblue|lightslategray|lightslategrey|lightsteelblue|lightyellow|lime|limegreen|linen|magenta|maroon|mediumaquamarine|mediumblue|mediumorchid|mediumpurple|mediumseagreen|mediumslateblue|mediumspringgreen|mediumturquoise|mediumvioletred|midnightblue|mintcream|mistyrose|moccasin|navajowhite|navy|oldlace|olive|olivedrab|orange|orangered|orchid|palegoldenrod|palegreen|paleturquoise|palevioletred|papayawhip|peachpuff|peru|pink|plum|powderblue|purple|rebeccapurple|red|rosybrown|royalblue|saddlebrown|salmon|sandybrown|seagreen|seashell|sienna|silver|skyblue|slateblue|slategray|slategrey|snow|springgreen|steelblue|tan|teal|thistle|tomato|turquoise|violet|wheat|white|whitesmoke|yellow|yellowgreen", l = t.supportConstantFonts = "arial|century|comic|courier|cursive|fantasy|garamond|georgia|helvetica|impact|lucida|symbol|system|tahoma|times|trebuchet|utopia|verdana|webdings|sans-serif|serif|monospace", c = t.numRe = "\\-?(?:(?:[0-9]+(?:\\.[0-9]+)?)|(?:\\.[0-9]+))", h2 = t.pseudoElements = "(\\:+)\\b(after|before|first-letter|first-line|moz-selection|selection)\\b", p = t.pseudoClasses = "(:)\\b(active|checked|disabled|empty|enabled|first-child|first-of-type|focus|hover|indeterminate|invalid|last-child|last-of-type|link|not|nth-child|nth-last-child|nth-last-of-type|nth-of-type|only-child|only-of-type|required|root|target|valid|visited)\\b", d = function() {
       var e2 = this.createKeywordMapper({ "support.function": u, "support.constant": a, "support.type": o, "support.constant.color": f, "support.constant.fonts": l }, "text", true);
-      this.$rules = { start: [{ include: ["strings", "url", "comments"] }, { token: "paren.lparen", regex: "\\{", next: "ruleset" }, { token: "paren.rparen", regex: "\\}" }, { token: "string", regex: "@(?!viewport)", next: "media" }, { token: "keyword", regex: "#[a-z0-9-_]+" }, { token: "keyword", regex: "%" }, { token: "variable", regex: "\\.[a-z0-9-_]+" }, { token: "string", regex: ":[a-z0-9-_]+" }, { token: "constant.numeric", regex: c }, { token: "constant", regex: "[a-z0-9-_]+" }, { caseInsensitive: true }], media: [{ include: ["strings", "url", "comments"] }, { token: "paren.lparen", regex: "\\{", next: "start" }, { token: "paren.rparen", regex: "\\}", next: "start" }, { token: "string", regex: ";", next: "start" }, { token: "keyword", regex: "(?:media|supports|document|charset|import|namespace|media|supports|document|page|font|keyframes|viewport|counter-style|font-feature-values|swash|ornaments|annotation|stylistic|styleset|character-variant)" }], comments: [{ token: "comment", regex: "\\/\\*", push: [{ token: "comment", regex: "\\*\\/", next: "pop" }, { defaultToken: "comment" }] }], ruleset: [{ regex: "-(webkit|ms|moz|o)-", token: "text" }, { token: "punctuation.operator", regex: "[:;]" }, { token: "paren.rparen", regex: "\\}", next: "start" }, { include: ["strings", "url", "comments"] }, { token: ["constant.numeric", "keyword"], regex: "(" + c + ")(ch|cm|deg|em|ex|fr|gd|grad|Hz|in|kHz|mm|ms|pc|pt|px|rad|rem|s|turn|vh|vmax|vmin|vm|vw|%)" }, { token: "constant.numeric", regex: c }, { token: "constant.numeric", regex: "#[a-f0-9]{6}" }, { token: "constant.numeric", regex: "#[a-f0-9]{3}" }, { token: ["punctuation", "entity.other.attribute-name.pseudo-element.css"], regex: h }, { token: ["punctuation", "entity.other.attribute-name.pseudo-class.css"], regex: p }, { include: "url" }, { token: e2, regex: "\\-?[a-zA-Z_][a-zA-Z0-9_\\-]*" }, { caseInsensitive: true }], url: [{ token: "support.function", regex: "(?:url(:?-prefix)?|domain|regexp)\\(", push: [{ token: "support.function", regex: "\\)", next: "pop" }, { defaultToken: "string" }] }], strings: [{ token: "string.start", regex: "'", push: [{ token: "string.end", regex: "'|$", next: "pop" }, { include: "escapes" }, { token: "constant.language.escape", regex: /\\$/, consumeLineEnd: true }, { defaultToken: "string" }] }, { token: "string.start", regex: '"', push: [{ token: "string.end", regex: '"|$', next: "pop" }, { include: "escapes" }, { token: "constant.language.escape", regex: /\\$/, consumeLineEnd: true }, { defaultToken: "string" }] }], escapes: [{ token: "constant.language.escape", regex: /\\([a-fA-F\d]{1,6}|[^a-fA-F\d])/ }] }, this.normalizeRules();
+      this.$rules = { start: [{ include: ["strings", "url", "comments"] }, { token: "paren.lparen", regex: "\\{", next: "ruleset" }, { token: "paren.rparen", regex: "\\}" }, { token: "string", regex: "@(?!viewport)", next: "media" }, { token: "keyword", regex: "#[a-z0-9-_]+" }, { token: "keyword", regex: "%" }, { token: "variable", regex: "\\.[a-z0-9-_]+" }, { token: "string", regex: ":[a-z0-9-_]+" }, { token: "constant.numeric", regex: c }, { token: "constant", regex: "[a-z0-9-_]+" }, { caseInsensitive: true }], media: [{ include: ["strings", "url", "comments"] }, { token: "paren.lparen", regex: "\\{", next: "start" }, { token: "paren.rparen", regex: "\\}", next: "start" }, { token: "string", regex: ";", next: "start" }, { token: "keyword", regex: "(?:media|supports|document|charset|import|namespace|media|supports|document|page|font|keyframes|viewport|counter-style|font-feature-values|swash|ornaments|annotation|stylistic|styleset|character-variant)" }], comments: [{ token: "comment", regex: "\\/\\*", push: [{ token: "comment", regex: "\\*\\/", next: "pop" }, { defaultToken: "comment" }] }], ruleset: [{ regex: "-(webkit|ms|moz|o)-", token: "text" }, { token: "punctuation.operator", regex: "[:;]" }, { token: "paren.rparen", regex: "\\}", next: "start" }, { include: ["strings", "url", "comments"] }, { token: ["constant.numeric", "keyword"], regex: "(" + c + ")(ch|cm|deg|em|ex|fr|gd|grad|Hz|in|kHz|mm|ms|pc|pt|px|rad|rem|s|turn|vh|vmax|vmin|vm|vw|%)" }, { token: "constant.numeric", regex: c }, { token: "constant.numeric", regex: "#[a-f0-9]{6}" }, { token: "constant.numeric", regex: "#[a-f0-9]{3}" }, { token: ["punctuation", "entity.other.attribute-name.pseudo-element.css"], regex: h2 }, { token: ["punctuation", "entity.other.attribute-name.pseudo-class.css"], regex: p }, { include: "url" }, { token: e2, regex: "\\-?[a-zA-Z_][a-zA-Z0-9_\\-]*" }, { caseInsensitive: true }], url: [{ token: "support.function", regex: "(?:url(:?-prefix)?|domain|regexp)\\(", push: [{ token: "support.function", regex: "\\)", next: "pop" }, { defaultToken: "string" }] }], strings: [{ token: "string.start", regex: "'", push: [{ token: "string.end", regex: "'|$", next: "pop" }, { include: "escapes" }, { token: "constant.language.escape", regex: /\\$/, consumeLineEnd: true }, { defaultToken: "string" }] }, { token: "string.start", regex: '"', push: [{ token: "string.end", regex: '"|$', next: "pop" }, { include: "escapes" }, { token: "constant.language.escape", regex: /\\$/, consumeLineEnd: true }, { defaultToken: "string" }] }], escapes: [{ token: "constant.language.escape", regex: /\\([a-fA-F\d]{1,6}|[^a-fA-F\d])/ }] }, this.normalizeRules();
     };
     r.inherits(d, s), t.CssHighlightRules = d;
   }), ace.define("ace/mode/matching_brace_outdent", ["require", "exports", "module", "ace/range"], function(e, t, n) {
@@ -51205,7 +51611,7 @@ var extLanguage_tools = { exports: {} };
       var t2 = (/* @__PURE__ */ new Date()).toLocaleString("en-us", e2);
       return t2.length == 1 ? "0" + t2 : t2;
     }
-    var r = e("./lib/dom"), i = e("./lib/oop"), s = e("./lib/event_emitter").EventEmitter, o = e("./lib/lang"), u = e("./range").Range, a = e("./range_list").RangeList, f = e("./keyboard/hash_handler").HashHandler, l = e("./tokenizer").Tokenizer, c = e("./clipboard"), h = { CURRENT_WORD: function(e2) {
+    var r = e("./lib/dom"), i = e("./lib/oop"), s = e("./lib/event_emitter").EventEmitter, o = e("./lib/lang"), u = e("./range").Range, a = e("./range_list").RangeList, f = e("./keyboard/hash_handler").HashHandler, l = e("./tokenizer").Tokenizer, c = e("./clipboard"), h2 = { CURRENT_WORD: function(e2) {
       return e2.session.getTextRange(e2.session.getWordRange());
     }, SELECTION: function(e2, t2, n2) {
       var r2 = e2.session.getTextRange();
@@ -51246,10 +51652,10 @@ var extLanguage_tools = { exports: {} };
       var t2 = e2.session.$mode || {};
       return t2.lineCommentStart || "";
     }, CURRENT_YEAR: p.bind(null, { year: "numeric" }), CURRENT_YEAR_SHORT: p.bind(null, { year: "2-digit" }), CURRENT_MONTH: p.bind(null, { month: "numeric" }), CURRENT_MONTH_NAME: p.bind(null, { month: "long" }), CURRENT_MONTH_NAME_SHORT: p.bind(null, { month: "short" }), CURRENT_DATE: p.bind(null, { day: "2-digit" }), CURRENT_DAY_NAME: p.bind(null, { weekday: "long" }), CURRENT_DAY_NAME_SHORT: p.bind(null, { weekday: "short" }), CURRENT_HOUR: p.bind(null, { hour: "2-digit", hour12: false }), CURRENT_MINUTE: p.bind(null, { minute: "2-digit" }), CURRENT_SECOND: p.bind(null, { second: "2-digit" }) };
-    h.SELECTED_TEXT = h.SELECTION;
+    h2.SELECTED_TEXT = h2.SELECTION;
     var d = function() {
       function e2() {
-        this.snippetMap = {}, this.snippetNameMap = {}, this.variables = h;
+        this.snippetMap = {}, this.snippetNameMap = {}, this.variables = h2;
       }
       return e2.prototype.getTokenizer = function() {
         return e2.$tokenizer || this.createTokenizer();
@@ -51523,19 +51929,19 @@ var extLanguage_tools = { exports: {} };
       });
       var f2 = {};
       for (var c2 = 0; c2 < u2.length; c2++) {
-        var h2 = u2[c2];
-        if (typeof h2 != "object")
+        var h3 = u2[c2];
+        if (typeof h3 != "object")
           continue;
-        var p2 = h2.tabstopId, d2 = a2[p2], v2 = u2.indexOf(h2, c2 + 1);
+        var p2 = h3.tabstopId, d2 = a2[p2], v2 = u2.indexOf(h3, c2 + 1);
         if (f2[p2]) {
-          f2[p2] === h2 && (delete f2[p2], Object.keys(f2).forEach(function(e3) {
+          f2[p2] === h3 && (delete f2[p2], Object.keys(f2).forEach(function(e3) {
             d2.parents[e3] = true;
           }));
           continue;
         }
-        f2[p2] = h2;
+        f2[p2] = h3;
         var m2 = d2.value;
-        typeof m2 != "string" ? m2 = l2(m2) : h2.fmt && (m2 = this.tmStrFormat(m2, h2, e2)), u2.splice.apply(u2, [c2 + 1, Math.max(0, v2 - c2)].concat(m2, h2)), d2.indexOf(h2) === -1 && d2.push(h2);
+        typeof m2 != "string" ? m2 = l2(m2) : h3.fmt && (m2 = this.tmStrFormat(m2, h3, e2)), u2.splice.apply(u2, [c2 + 1, Math.max(0, v2 - c2)].concat(m2, h3)), d2.indexOf(h3) === -1 && d2.push(h3);
       }
       var g2 = 0, y2 = 0, b2 = "";
       return u2.forEach(function(e3) {
@@ -51567,8 +51973,8 @@ var extLanguage_tools = { exports: {} };
             var l2 = o2.rangeList.pointIndex(e3.end, a2);
             l2 = l2 < 0 ? -l2 - 1 : l2 - 1;
             var c2 = o2.rangeList.ranges.slice(f2, l2);
-            for (var h2 = 0; h2 < c2.length; h2++)
-              this.removeRange(c2[h2]);
+            for (var h3 = 0; h3 < c2.length; h3++)
+              this.removeRange(c2[h3]);
           }
           o2.rangeList.$onChange(e3);
         }
@@ -51639,8 +52045,8 @@ var extLanguage_tools = { exports: {} };
           var i3 = this.$openTabstops[n3] || e4;
           i3.snippetId = l2;
           for (var s3 = 0; s3 < e4.length; s3++) {
-            var c2 = e4[s3], h2 = u.fromPoints(c2.start, c2.end || c2.start);
-            g(h2.start, t2), g(h2.end, t2), h2.original = c2, h2.tabstop = i3, f2.push(h2), i3 != e4 ? i3.unshift(h2) : i3[s3] = h2, c2.fmtString || i3.firstNonLinked && r2 ? (h2.linked = true, i3.hasLinkedRanges = true) : i3.firstNonLinked || (i3.firstNonLinked = h2);
+            var c2 = e4[s3], h3 = u.fromPoints(c2.start, c2.end || c2.start);
+            g(h3.start, t2), g(h3.end, t2), h3.original = c2, h3.tabstop = i3, f2.push(h3), i3 != e4 ? i3.unshift(h3) : i3[s3] = h3, c2.fmtString || i3.firstNonLinked && r2 ? (h3.linked = true, i3.hasLinkedRanges = true) : i3.firstNonLinked || (i3.firstNonLinked = h3);
           }
           i3.firstNonLinked || (i3.hasLinkedRanges = false), i3 === e4 && (o2.push(i3), this.$openTabstops[n3] = i3), this.addTabstopMarkers(i3), i3.rangeList = i3.rangeList || new a(), i3.rangeList.$bias = 0, i3.rangeList.addList(i3);
         }, this), o2.length > 2 && (this.tabstops.length && o2.push(o2.splice(2, 1)[0]), this.tabstops.splice.apply(this.tabstops, o2));
@@ -51692,7 +52098,7 @@ var extLanguage_tools = { exports: {} };
   }), ace.define("ace/autocomplete/popup", ["require", "exports", "module", "ace/virtual_renderer", "ace/editor", "ace/range", "ace/lib/event", "ace/lib/lang", "ace/lib/dom", "ace/config", "ace/lib/useragent"], function(e, t, n) {
     var r = e("../virtual_renderer").VirtualRenderer, i = e("../editor").Editor, s = e("../range").Range, o = e("../lib/event"), u = e("../lib/lang"), a = e("../lib/dom"), f = e("../config").nls, l = e("./../lib/useragent"), c = function(e2) {
       return "suggest-aria-id:".concat(e2);
-    }, h = l.isSafari ? "menu" : "listbox", p = l.isSafari ? "menuitem" : "option", d = l.isSafari ? "aria-current" : "aria-selected", v = function(e2) {
+    }, h2 = l.isSafari ? "menu" : "listbox", p = l.isSafari ? "menuitem" : "option", d = l.isSafari ? "aria-current" : "aria-selected", v = function(e2) {
       var t2 = new r(e2);
       t2.$maxLines = 4;
       var n2 = new i(t2);
@@ -51700,7 +52106,7 @@ var extLanguage_tools = { exports: {} };
     }, m = /* @__PURE__ */ function() {
       function e2(e3) {
         var t2 = a.createElement("div"), n2 = v(t2);
-        e3 && e3.appendChild(t2), t2.style.display = "none", n2.renderer.content.style.cursor = "default", n2.renderer.setStyle("ace_autocomplete"), n2.renderer.$textLayer.element.setAttribute("role", h), n2.renderer.$textLayer.element.setAttribute("aria-roledescription", f("Autocomplete suggestions")), n2.renderer.$textLayer.element.setAttribute("aria-label", f("Autocomplete suggestions")), n2.renderer.textarea.setAttribute("aria-hidden", "true"), n2.setOption("displayIndentGuides", false), n2.setOption("dragDelay", 150);
+        e3 && e3.appendChild(t2), t2.style.display = "none", n2.renderer.content.style.cursor = "default", n2.renderer.setStyle("ace_autocomplete"), n2.renderer.$textLayer.element.setAttribute("role", h2), n2.renderer.$textLayer.element.setAttribute("aria-roledescription", f("Autocomplete suggestions")), n2.renderer.$textLayer.element.setAttribute("aria-label", f("Autocomplete suggestions")), n2.renderer.textarea.setAttribute("aria-hidden", "true"), n2.setOption("displayIndentGuides", false), n2.setOption("dragDelay", 150);
         var r2 = function() {
         };
         n2.focus = r2, n2.$isFocused = true, n2.renderer.$cursorLayer.restartTimer = r2, n2.renderer.$cursorLayer.element.style.opacity = "0", n2.renderer.$maxLines = 8, n2.renderer.$keepTextAreaAtCursor = false, n2.setHighlightActiveLine(false), n2.session.highlight(""), n2.session.$searchHighlight.clazz = "ace_highlight-marker", n2.on("mousedown", function(e4) {
@@ -51764,10 +52170,10 @@ var extLanguage_tools = { exports: {} };
             if (l3 != f2 && (t3.matchMask & 1 << l3 || l3 == u2.length)) {
               var c2 = u2.slice(f2, l3);
               f2 = l3;
-              var h2 = o2.indexOf(c2, a2);
-              if (h2 == -1)
+              var h3 = o2.indexOf(c2, a2);
+              if (h3 == -1)
                 continue;
-              s2(i3.slice(a2, h2), ""), a2 = h2 + c2.length, s2(i3.slice(h2, a2), "completion-highlight");
+              s2(i3.slice(a2, h3), ""), a2 = h3 + c2.length, s2(i3.slice(h3, a2), "completion-highlight");
             }
           return s2(i3.slice(a2, i3.length), ""), r3.push({ type: "completion-spacer", value: " " }), t3.meta && r3.push({ type: "completion-meta", value: t3.meta }), t3.message && r3.push({ type: "completion-message", value: t3.message }), r3;
         }, b.$updateOnChange = r2, b.start = r2, n2.session.$computeWidth = function() {
@@ -51787,12 +52193,12 @@ var extLanguage_tools = { exports: {} };
         }, n2.tryShow = function(e4, t3, r3, s2) {
           if (!s2 && n2.isOpen && n2.anchorPos && n2.anchor && n2.anchorPos.top === e4.top && n2.anchorPos.left === e4.left && n2.anchor === r3)
             return true;
-          var o2 = this.container, u2 = window.innerHeight, a2 = window.innerWidth, f2 = this.renderer, l3 = f2.$maxLines * t3 * 1.4, c2 = { top: 0, bottom: 0, left: 0 }, h2 = u2 - e4.top - 3 * this.$borderSize - t3, p2 = e4.top - 3 * this.$borderSize;
-          r3 || (p2 <= h2 || h2 >= l3 ? r3 = "bottom" : r3 = "top"), r3 === "top" ? (c2.bottom = e4.top - this.$borderSize, c2.top = c2.bottom - l3) : r3 === "bottom" && (c2.top = e4.top + t3 + this.$borderSize, c2.bottom = c2.top + l3);
+          var o2 = this.container, u2 = window.innerHeight, a2 = window.innerWidth, f2 = this.renderer, l3 = f2.$maxLines * t3 * 1.4, c2 = { top: 0, bottom: 0, left: 0 }, h3 = u2 - e4.top - 3 * this.$borderSize - t3, p2 = e4.top - 3 * this.$borderSize;
+          r3 || (p2 <= h3 || h3 >= l3 ? r3 = "bottom" : r3 = "top"), r3 === "top" ? (c2.bottom = e4.top - this.$borderSize, c2.top = c2.bottom - l3) : r3 === "bottom" && (c2.top = e4.top + t3 + this.$borderSize, c2.bottom = c2.top + l3);
           var d2 = c2.top >= 0 && c2.bottom <= u2;
           if (!s2 && !d2)
             return false;
-          d2 ? f2.$maxPixelHeight = null : r3 === "top" ? f2.$maxPixelHeight = p2 : f2.$maxPixelHeight = h2, r3 === "top" ? (o2.style.top = "", o2.style.bottom = u2 - c2.bottom + "px", n2.isTopdown = false) : (o2.style.top = c2.top + "px", o2.style.bottom = "", n2.isTopdown = true), o2.style.display = "";
+          d2 ? f2.$maxPixelHeight = null : r3 === "top" ? f2.$maxPixelHeight = p2 : f2.$maxPixelHeight = h3, r3 === "top" ? (o2.style.top = "", o2.style.bottom = u2 - c2.bottom + "px", n2.isTopdown = false) : (o2.style.top = c2.top + "px", o2.style.bottom = "", n2.isTopdown = true), o2.style.display = "";
           var v2 = e4.left;
           return v2 + o2.offsetWidth > a2 && (v2 = a2 - o2.offsetWidth), o2.style.left = v2 + "px", o2.style.right = "", n2.isOpen || (n2.isOpen = true, this._signal("show"), i2 = null), n2.anchorPos = e4, n2.anchor = r3, true;
         }, n2.show = function(e4, t3, n3) {
@@ -51919,7 +52325,7 @@ var extLanguage_tools = { exports: {} };
       });
     };
   }), ace.define("ace/autocomplete", ["require", "exports", "module", "ace/keyboard/hash_handler", "ace/autocomplete/popup", "ace/autocomplete/inline", "ace/autocomplete/popup", "ace/autocomplete/util", "ace/lib/lang", "ace/lib/dom", "ace/snippets", "ace/config", "ace/lib/event", "ace/lib/scroll"], function(e, t, n) {
-    var r = e("./keyboard/hash_handler").HashHandler, i = e("./autocomplete/popup").AcePopup, s = e("./autocomplete/inline").AceInline, o = e("./autocomplete/popup").getAriaId, u = e("./autocomplete/util"), a = e("./lib/lang"), f = e("./lib/dom"), l = e("./snippets").snippetManager, c = e("./config"), h = e("./lib/event"), p = e("./lib/scroll").preventParentScroll, d = function(e2, t2) {
+    var r = e("./keyboard/hash_handler").HashHandler, i = e("./autocomplete/popup").AcePopup, s = e("./autocomplete/inline").AceInline, o = e("./autocomplete/popup").getAriaId, u = e("./autocomplete/util"), a = e("./lib/lang"), f = e("./lib/dom"), l = e("./snippets").snippetManager, c = e("./config"), h2 = e("./lib/event"), p = e("./lib/scroll").preventParentScroll, d = function(e2, t2) {
       t2.completer && t2.completer.destroy();
     }, v = function() {
       function e2() {
@@ -51939,7 +52345,7 @@ var extLanguage_tools = { exports: {} };
       }, enumerable: false, configurable: true }), e2.prototype.$init = function() {
         return this.popup = new i(this.parentNode || document.body || document.documentElement), this.popup.on("click", (function(e3) {
           this.insertMatch(), e3.stop();
-        }).bind(this)), this.popup.focus = this.editor.focus.bind(this.editor), this.popup.on("show", this.$onPopupShow.bind(this)), this.popup.on("hide", this.$onHidePopup.bind(this)), this.popup.on("select", this.$onPopupChange.bind(this)), h.addListener(this.popup.container, "mouseout", this.mouseOutListener.bind(this)), this.popup.on("changeHoverMarker", this.tooltipTimer.bind(null, null)), this.popup.renderer.on("afterRender", this.$onPopupRender.bind(this)), this.popup;
+        }).bind(this)), this.popup.focus = this.editor.focus.bind(this.editor), this.popup.on("show", this.$onPopupShow.bind(this)), this.popup.on("hide", this.$onHidePopup.bind(this)), this.popup.on("select", this.$onPopupChange.bind(this)), h2.addListener(this.popup.container, "mouseout", this.mouseOutListener.bind(this)), this.popup.on("changeHoverMarker", this.tooltipTimer.bind(null, null)), this.popup.renderer.on("afterRender", this.$onPopupRender.bind(this)), this.popup;
       }, e2.prototype.$initInline = function() {
         if (!this.inlineEnabled || this.inlineRenderer)
           return;
@@ -52264,7 +52670,7 @@ var extLanguage_tools = { exports: {} };
             var u2 = !this.ignoreCaption && o2.caption || o2.value || o2.snippet;
             if (!u2)
               continue;
-            var a2 = -1, f2 = 0, l2 = 0, c2, h2;
+            var a2 = -1, f2 = 0, l2 = 0, c2, h3;
             if (this.exactMatch) {
               if (t2 !== u2.substr(0, t2.length))
                 continue e;
@@ -52278,7 +52684,7 @@ var extLanguage_tools = { exports: {} };
                   c2 = v2 >= 0 ? m2 < 0 || v2 < m2 ? v2 : m2 : m2;
                   if (c2 < 0)
                     continue e;
-                  h2 = c2 - a2 - 1, h2 > 0 && (a2 === -1 && (l2 += 10), l2 += h2, f2 |= 1 << d2), a2 = c2;
+                  h3 = c2 - a2 - 1, h3 > 0 && (a2 === -1 && (l2 += 10), l2 += h3, f2 |= 1 << d2), a2 = c2;
                 }
             }
             o2.matchMask = f2, o2.exactMatch = l2 ? 0 : 1, o2.$score = (o2.score || 0) - l2, n2.push(o2);
@@ -52338,11 +52744,11 @@ var extLanguage_tools = { exports: {} };
       }, this), s2(null, f2);
     }, getDocTooltip: function(e2) {
       e2.snippet && !e2.docHTML && (e2.docHTML = ["<b>", o.escapeHTML(e2.caption), "</b>", "<hr></hr>", o.escapeHTML(l(e2.snippet))].join(""));
-    }, id: "snippetCompleter" }, h = [c, a, f];
+    }, id: "snippetCompleter" }, h2 = [c, a, f];
     t.setCompleters = function(e2) {
-      h.length = 0, e2 && h.push.apply(h, e2);
+      h2.length = 0, e2 && h2.push.apply(h2, e2);
     }, t.addCompleter = function(e2) {
-      h.push(e2);
+      h2.push(e2);
     }, t.textCompleter = a, t.keyWordCompleter = f, t.snippetCompleter = c;
     var p = { name: "expandSnippet", exec: function(e2) {
       return r.expandWithTab(e2);
@@ -52382,9 +52788,9 @@ var extLanguage_tools = { exports: {} };
       }
     }, E = e("../editor").Editor;
     e("../config").defineOptions(E.prototype, "editor", { enableBasicAutocompletion: { set: function(e2) {
-      e2 ? (this.completers || (this.completers = Array.isArray(e2) ? e2 : h), this.commands.addCommand(i.startCommand)) : this.commands.removeCommand(i.startCommand);
+      e2 ? (this.completers || (this.completers = Array.isArray(e2) ? e2 : h2), this.commands.addCommand(i.startCommand)) : this.commands.removeCommand(i.startCommand);
     }, value: false }, enableLiveAutocompletion: { set: function(e2) {
-      e2 ? (this.completers || (this.completers = Array.isArray(e2) ? e2 : h), this.commands.on("afterExec", g)) : this.commands.off("afterExec", g);
+      e2 ? (this.completers || (this.completers = Array.isArray(e2) ? e2 : h2), this.commands.on("afterExec", g)) : this.commands.off("afterExec", g);
     }, value: false }, liveAutocompletionDelay: { initialValue: 0 }, liveAutocompletionThreshold: { initialValue: 0 }, enableSnippets: { set: function(e2) {
       e2 ? (this.commands.addCommand(p), this.on("changeMode", d), d(null, this)) : (this.commands.removeCommand(p), this.off("changeMode", d));
     }, value: false } });
@@ -52399,7 +52805,7 @@ var extLanguage_tools = { exports: {} };
 })(extLanguage_tools);
 const VARIANT_FORM_VERSION = "3.1.6";
 const ACE_BASE_PATH = "https://ks3-cn-beijing.ksyun.com/vform2021/ace-mini";
-const _sfc_main$3x = {
+const _sfc_main$3D = {
   name: "CodeEditor",
   props: {
     modelValue: {
@@ -52506,17 +52912,17 @@ const _sfc_main$3x = {
     }
   }
 };
-const _hoisted_1$F = { class: "ace-container" };
+const _hoisted_1$E = { class: "ace-container" };
 const _hoisted_2$r = {
   class: "ace-editor",
   ref: "ace"
 };
-function _sfc_render$3x(_ctx, _cache, $props, $setup, $data, $options) {
-  return openBlock(), createElementBlock("div", _hoisted_1$F, [
+function _sfc_render$3D(_ctx, _cache, $props, $setup, $data, $options) {
+  return openBlock(), createElementBlock("div", _hoisted_1$E, [
     createElementVNode("div", _hoisted_2$r, null, 512)
   ]);
 }
-const CodeEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3x, [["render", _sfc_render$3x], ["__scopeId", "data-v-055c035a"]]);
+const CodeEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3D, [["render", _sfc_render$3D], ["__scopeId", "data-v-055c035a"]]);
 const generateCode = function(formJson, codeType = "vue") {
   const formJsonStr = JSON.stringify(formJson);
   if (codeType === "html") {
@@ -52634,18 +53040,18 @@ var FileSaver_min = { exports: {} };
       }
     }
     var f = "object" == typeof window && window.window === window ? window : "object" == typeof self && self.self === self ? self : "object" == typeof commonjsGlobal && commonjsGlobal.global === commonjsGlobal ? commonjsGlobal : void 0, a = f.navigator && /Macintosh/.test(navigator.userAgent) && /AppleWebKit/.test(navigator.userAgent) && !/Safari/.test(navigator.userAgent), g = f.saveAs || ("object" != typeof window || window !== f ? function() {
-    } : "download" in HTMLAnchorElement.prototype && !a ? function(b2, g2, h) {
+    } : "download" in HTMLAnchorElement.prototype && !a ? function(b2, g2, h2) {
       var i = f.URL || f.webkitURL, j = document.createElement("a");
-      g2 = g2 || b2.name || "download", j.download = g2, j.rel = "noopener", "string" == typeof b2 ? (j.href = b2, j.origin === location.origin ? e(j) : d(j.href) ? c(b2, g2, h) : e(j, j.target = "_blank")) : (j.href = i.createObjectURL(b2), setTimeout(function() {
+      g2 = g2 || b2.name || "download", j.download = g2, j.rel = "noopener", "string" == typeof b2 ? (j.href = b2, j.origin === location.origin ? e(j) : d(j.href) ? c(b2, g2, h2) : e(j, j.target = "_blank")) : (j.href = i.createObjectURL(b2), setTimeout(function() {
         i.revokeObjectURL(j.href);
       }, 4e4), setTimeout(function() {
         e(j);
       }, 0));
-    } : "msSaveOrOpenBlob" in navigator ? function(f2, g2, h) {
+    } : "msSaveOrOpenBlob" in navigator ? function(f2, g2, h2) {
       if (g2 = g2 || f2.name || "download", "string" != typeof f2)
-        navigator.msSaveOrOpenBlob(b(f2, h), g2);
+        navigator.msSaveOrOpenBlob(b(f2, h2), g2);
       else if (d(f2))
-        c(f2, g2, h);
+        c(f2, g2, h2);
       else {
         var i = document.createElement("a");
         i.href = f2, i.target = "_blank", setTimeout(function() {
@@ -52655,8 +53061,8 @@ var FileSaver_min = { exports: {} };
     } : function(b2, d2, e2, g2) {
       if (g2 = g2 || open("", "_blank"), g2 && (g2.document.title = g2.document.body.innerText = "downloading..."), "string" == typeof b2)
         return c(b2, d2, e2);
-      var h = "application/octet-stream" === b2.type, i = /constructor/i.test(f.HTMLElement) || f.safari, j = /CriOS\/[\d]+/.test(navigator.userAgent);
-      if ((j || h && i || a) && "undefined" != typeof FileReader) {
+      var h2 = "application/octet-stream" === b2.type, i = /constructor/i.test(f.HTMLElement) || f.safari, j = /CriOS\/[\d]+/.test(navigator.userAgent);
+      if ((j || h2 && i || a) && "undefined" != typeof FileReader) {
         var k = new FileReader();
         k.onloadend = function() {
           var a2 = k.result;
@@ -52673,7 +53079,7 @@ var FileSaver_min = { exports: {} };
   });
 })(FileSaver_min);
 var FileSaver_minExports = FileSaver_min.exports;
-const _sfc_main$3w = {
+const _sfc_main$3C = {
   name: "ToolbarPanel",
   mixins: [i18n$1],
   components: {
@@ -52693,7 +53099,7 @@ const _sfc_main$3w = {
   inject: ["getDesignerConfig"],
   data() {
     return {
-      vfCtx: { type: "view", ...getLocat() },
+      vfCtx: { type: "add", ...getLocat() },
       designerConfig: this.getDesignerConfig(),
       toolbarWidth: 460,
       showPreviewDialogFlag: false,
@@ -53010,7 +53416,7 @@ const _sfc_main$3w = {
     async insertData() {
       const data = await this.$refs["preForm"].getFormData();
       const formConfig = this.designer.formConfig;
-      const res = await fmtHttpParams(formConfig.serveList.vformUpdate, data);
+      const res = await fmtHttpParams.call(this, formConfig.serveList.vformUpdate, data);
       console.log("res: insertData", res);
     },
     async showData(_id) {
@@ -53261,8 +53667,8 @@ const _sfc_main$3w = {
                       labelIconPosition: "rear",
                       labelTooltip: null,
                       switchWidth: 40,
-                      checkedChildren: "",
-                      unCheckedChildren: "",
+                      checkedValue: "",
+                      unCheckedValue: "",
                       activeColor: null,
                       inactiveColor: null,
                       onCreated: "",
@@ -53841,9 +54247,6 @@ const _sfc_main$3w = {
           }
         ],
         formConfig: {
-          // modelName: 'formData',
-          // refName: 'vForm',
-          // rulesName: 'rules',
           labelWidth: 150,
           labelPosition: "horizontal",
           size: "",
@@ -53851,10 +54254,7 @@ const _sfc_main$3w = {
           cssCode: "",
           customClass: [],
           functions: "",
-          layoutType: "PC",
-          // jsonVersion: 3,
           onFormCreated: "",
-          onFormMounted: "",
           onFormDataChange: "",
           onFormValidate: ""
         }
@@ -53917,8 +54317,8 @@ const _sfc_main$3w = {
     }
   }
 };
-const _withScopeId$4 = (n) => (pushScopeId("data-v-80466aa0"), n = n(), popScopeId(), n);
-const _hoisted_1$E = { class: "toolbar-container" };
+const _withScopeId$4 = (n) => (pushScopeId("data-v-3bb998d8"), n = n(), popScopeId(), n);
+const _hoisted_1$D = { class: "toolbar-container" };
 const _hoisted_2$q = /* @__PURE__ */ _withScopeId$4(() => /* @__PURE__ */ createElementVNode("div", { class: "left-toolbar" }, null, -1));
 const _hoisted_3$m = { class: "right-toolbar" };
 const _hoisted_4$c = { class: "right-toolbar-con" };
@@ -53928,7 +54328,7 @@ const _hoisted_7$4 = { class: "dialog-footer" };
 const _hoisted_8$4 = { style: { "border": "1px solid #dcdfe6" } };
 const _hoisted_9$3 = { class: "dialog-footer" };
 const _hoisted_10$2 = { class: "dialog-footer" };
-function _sfc_render$3w(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$3C(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_tree = resolveComponent("a-tree");
   const _component_a_drawer = resolveComponent("a-drawer");
   const _component_svg_icon = resolveComponent("svg-icon");
@@ -53939,7 +54339,7 @@ function _sfc_render$3w(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_code_editor = resolveComponent("code-editor");
   const _component_a_tab_pane = resolveComponent("a-tab-pane");
   const _component_a_tabs = resolveComponent("a-tabs");
-  return openBlock(), createElementBlock("div", _hoisted_1$E, [
+  return openBlock(), createElementBlock("div", _hoisted_1$D, [
     _hoisted_2$q,
     createVNode(_component_a_drawer, {
       title: _ctx.i18nt("designer.toolbar.nodeTreeTitle"),
@@ -54375,8 +54775,8 @@ function _sfc_render$3w(_ctx, _cache, $props, $setup, $data, $options) {
     }, 8, ["title", "visible"])) : createCommentVNode("", true)
   ]);
 }
-const ToolbarPanel = /* @__PURE__ */ _export_sfc$1(_sfc_main$3w, [["render", _sfc_render$3w], ["__scopeId", "data-v-80466aa0"]]);
-const _sfc_main$3v = {
+const ToolbarPanel = /* @__PURE__ */ _export_sfc$1(_sfc_main$3C, [["render", _sfc_render$3C], ["__scopeId", "data-v-3bb998d8"]]);
+const _sfc_main$3B = {
   name: "actionColumnPosition-editor",
   mixins: [i18n$1],
   props: {
@@ -54390,7 +54790,7 @@ const _sfc_main$3v = {
     }
   }
 };
-function _sfc_render$3v(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$3B(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_radio_button = resolveComponent("a-radio-button");
   const _component_a_radio_group = resolveComponent("a-radio-group");
   const _component_a_form_item = resolveComponent("a-form-item");
@@ -54423,12 +54823,12 @@ function _sfc_render$3v(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const actionColumnPositionEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3v, [["render", _sfc_render$3v], ["__scopeId", "data-v-d3a47f26"]]);
+const actionColumnPositionEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3B, [["render", _sfc_render$3B], ["__scopeId", "data-v-d3a47f26"]]);
 const __vite_glob_0_0$1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: actionColumnPositionEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$3u = {
+const _sfc_main$3A = {
   name: "addonAfter-editor",
   mixins: [i18n$1],
   props: {
@@ -54437,7 +54837,7 @@ const _sfc_main$3u = {
     optionModel: Object
   }
 };
-function _sfc_render$3u(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$3A(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_input = resolveComponent("a-input");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -54453,12 +54853,12 @@ function _sfc_render$3u(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const addonAfterEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3u, [["render", _sfc_render$3u]]);
+const addonAfterEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3A, [["render", _sfc_render$3A]]);
 const __vite_glob_0_1$1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: addonAfterEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$3t = {
+const _sfc_main$3z = {
   name: "addonBefore-editor",
   mixins: [i18n$1],
   props: {
@@ -54467,7 +54867,7 @@ const _sfc_main$3t = {
     optionModel: Object
   }
 };
-function _sfc_render$3t(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$3z(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_input = resolveComponent("a-input");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -54483,12 +54883,12 @@ function _sfc_render$3t(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const addonBeforeEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3t, [["render", _sfc_render$3t]]);
+const addonBeforeEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3z, [["render", _sfc_render$3z]]);
 const __vite_glob_0_2$1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: addonBeforeEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$3s = {
+const _sfc_main$3y = {
   name: "allowClear-editor",
   mixins: [i18n$1],
   props: {
@@ -54497,7 +54897,7 @@ const _sfc_main$3s = {
     optionModel: Object
   }
 };
-function _sfc_render$3s(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$3y(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_switch = resolveComponent("a-switch");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -54512,12 +54912,12 @@ function _sfc_render$3s(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const allowClearEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3s, [["render", _sfc_render$3s]]);
+const allowClearEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3y, [["render", _sfc_render$3y]]);
 const __vite_glob_0_3$1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: allowClearEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$3r = {
+const _sfc_main$3x = {
   name: "appendButton-editor",
   mixins: [i18n$1],
   props: {
@@ -54526,7 +54926,7 @@ const _sfc_main$3r = {
     optionModel: Object
   }
 };
-function _sfc_render$3r(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$3x(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_divider = resolveComponent("a-divider");
   const _component_a_form_item = resolveComponent("a-form-item");
   const _component_a_switch = resolveComponent("a-switch");
@@ -54555,12 +54955,12 @@ function _sfc_render$3r(_ctx, _cache, $props, $setup, $data, $options) {
     }, 8, ["label"])
   ]);
 }
-const appendButtonEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3r, [["render", _sfc_render$3r]]);
+const appendButtonEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3x, [["render", _sfc_render$3x]]);
 const __vite_glob_0_4$1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: appendButtonEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$3q = {
+const _sfc_main$3w = {
   name: "appendButtonDisabled-editor",
   mixins: [i18n$1],
   props: {
@@ -54569,7 +54969,7 @@ const _sfc_main$3q = {
     optionModel: Object
   }
 };
-function _sfc_render$3q(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$3w(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_switch = resolveComponent("a-switch");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -54584,12 +54984,12 @@ function _sfc_render$3q(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const appendButtonDisabledEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3q, [["render", _sfc_render$3q]]);
+const appendButtonDisabledEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3w, [["render", _sfc_render$3w]]);
 const __vite_glob_0_5$1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: appendButtonDisabledEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$3p = {
+const _sfc_main$3v = {
   name: "autoFullWidth-editor",
   mixins: [i18n$1],
   props: {
@@ -54598,7 +54998,7 @@ const _sfc_main$3p = {
     optionModel: Object
   }
 };
-function _sfc_render$3p(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$3v(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_switch = resolveComponent("a-switch");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -54613,12 +55013,12 @@ function _sfc_render$3p(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const autoFullWidthEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3p, [["render", _sfc_render$3p]]);
+const autoFullWidthEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3v, [["render", _sfc_render$3v]]);
 const __vite_glob_0_6$1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: autoFullWidthEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$3o = {
+const _sfc_main$3u = {
   name: "border-editor",
   mixins: [i18n$1],
   props: {
@@ -54627,7 +55027,7 @@ const _sfc_main$3o = {
     optionModel: Object
   }
 };
-function _sfc_render$3o(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$3u(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_switch = resolveComponent("a-switch");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -54642,12 +55042,12 @@ function _sfc_render$3o(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const borderEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3o, [["render", _sfc_render$3o]]);
+const borderEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3u, [["render", _sfc_render$3u]]);
 const __vite_glob_0_7$1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: borderEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$3n = {
+const _sfc_main$3t = {
   name: "buttonIcon-editor",
   mixins: [i18n$1],
   props: {
@@ -54656,7 +55056,7 @@ const _sfc_main$3n = {
     optionModel: Object
   }
 };
-function _sfc_render$3n(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$3t(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_input = resolveComponent("a-input");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -54672,12 +55072,12 @@ function _sfc_render$3n(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const buttonIconEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3n, [["render", _sfc_render$3n]]);
+const buttonIconEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3t, [["render", _sfc_render$3t]]);
 const __vite_glob_0_8$1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: buttonIconEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$3m = {
+const _sfc_main$3s = {
   name: "buttonStyle-editor",
   mixins: [i18n$1],
   props: {
@@ -54686,7 +55086,7 @@ const _sfc_main$3m = {
     optionModel: Object
   }
 };
-function _sfc_render$3m(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$3s(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_switch = resolveComponent("a-switch");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -54701,12 +55101,12 @@ function _sfc_render$3m(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const buttonStyleEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3m, [["render", _sfc_render$3m]]);
+const buttonStyleEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3s, [["render", _sfc_render$3s]]);
 const __vite_glob_0_9$1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: buttonStyleEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$3l = {
+const _sfc_main$3r = {
   name: "columnWidth-editor",
   mixins: [i18n$1],
   props: {
@@ -54716,7 +55116,7 @@ const _sfc_main$3l = {
   },
   inject: ["isSubFormChildWidget"]
 };
-function _sfc_render$3l(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$3r(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_input = resolveComponent("a-input");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createElementBlock("div", null, [
@@ -54736,7 +55136,7 @@ function _sfc_render$3l(_ctx, _cache, $props, $setup, $data, $options) {
     ])
   ]);
 }
-const columnWidthEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3l, [["render", _sfc_render$3l]]);
+const columnWidthEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3r, [["render", _sfc_render$3r]]);
 const __vite_glob_0_10$1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: columnWidthEditor
@@ -54751,7 +55151,7 @@ const eventMixin = {
     }
   }
 };
-const _sfc_main$3k = {
+const _sfc_main$3q = {
   name: "data-table-customRow-editor",
   mixins: [i18n$1, eventMixin],
   props: {
@@ -54769,7 +55169,7 @@ const _sfc_main$3k = {
     };
   }
 };
-function _sfc_render$3k(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$3q(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_button = resolveComponent("a-button");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createElementBlock(Fragment, null, [
@@ -54855,12 +55255,12 @@ function _sfc_render$3k(_ctx, _cache, $props, $setup, $data, $options) {
     })
   ], 64);
 }
-const dataTableCustomRowEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3k, [["render", _sfc_render$3k]]);
+const dataTableCustomRowEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3q, [["render", _sfc_render$3q]]);
 const __vite_glob_0_11 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: dataTableCustomRowEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$3j = {
+const _sfc_main$3p = {
   name: "data-table-customClass-editor",
   componentName: "PropertyEditor",
   mixins: [i18n$1],
@@ -54922,7 +55322,7 @@ const _sfc_main$3j = {
     }
   }
 };
-function _sfc_render$3j(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$3p(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_select = resolveComponent("a-select");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -54940,12 +55340,12 @@ function _sfc_render$3j(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const dataTableCustomClassEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3j, [["render", _sfc_render$3j]]);
+const dataTableCustomClassEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3p, [["render", _sfc_render$3p]]);
 const __vite_glob_0_12 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: dataTableCustomClassEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$3i = {
+const _sfc_main$3o = {
   name: "code-modal-editor",
   mixins: [i18n$1],
   components: {
@@ -54987,8 +55387,8 @@ const _sfc_main$3i = {
     }
   }
 };
-const _hoisted_1$D = { class: "dialog-footer" };
-function _sfc_render$3i(_ctx, _cache, $props, $setup, $data, $options) {
+const _hoisted_1$C = { class: "dialog-footer" };
+function _sfc_render$3o(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_alert = resolveComponent("a-alert");
   const _component_code_editor = resolveComponent("code-editor");
   const _component_a_button = resolveComponent("a-button");
@@ -55005,7 +55405,7 @@ function _sfc_render$3i(_ctx, _cache, $props, $setup, $data, $options) {
     "destroy-on-close": true
   }, {
     footer: withCtx(() => [
-      createElementVNode("div", _hoisted_1$D, [
+      createElementVNode("div", _hoisted_1$C, [
         createVNode(_component_a_button, {
           onClick: _cache[1] || (_cache[1] = ($event) => $data.showWidgetEventDialogFlag = false)
         }, {
@@ -55049,8 +55449,8 @@ function _sfc_render$3i(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["title", "visible"]);
 }
-const CodeModalEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3i, [["render", _sfc_render$3i]]);
-const _sfc_main$3h = {
+const CodeModalEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3o, [["render", _sfc_render$3o]]);
+const _sfc_main$3n = {
   name: "http-editor",
   inheritAttrs: false,
   mixins: [i18n$1],
@@ -55193,7 +55593,7 @@ const _sfc_main$3h = {
     }
   }
 };
-function _sfc_render$3h(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$3n(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_button = resolveComponent("a-button");
   const _component_a_form_item = resolveComponent("a-form-item");
   const _component_a_input = resolveComponent("a-input");
@@ -55639,8 +56039,8 @@ function _sfc_render$3h(_ctx, _cache, $props, $setup, $data, $options) {
     }, null, 8, ["modelValue", "event-header"])
   ], 64);
 }
-const HttpEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3h, [["render", _sfc_render$3h], ["__scopeId", "data-v-6b88b608"]]);
-const _sfc_main$3g = {
+const HttpEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3n, [["render", _sfc_render$3n], ["__scopeId", "data-v-6b88b608"]]);
+const _sfc_main$3m = {
   name: "data-table-dsEnabled-editor",
   mixins: [i18n$1],
   components: { HttpEditor, CodeModalEditor },
@@ -55668,7 +56068,7 @@ const _sfc_main$3g = {
     }
   }
 };
-function _sfc_render$3g(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$3m(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_switch = resolveComponent("a-switch");
   const _component_a_form_item = resolveComponent("a-form-item");
   const _component_a_button = resolveComponent("a-button");
@@ -55721,12 +56121,12 @@ function _sfc_render$3g(_ctx, _cache, $props, $setup, $data, $options) {
     }, null, 8, ["designer", "selected-widget", "optionModel"])) : createCommentVNode("", true)
   ], 64);
 }
-const dataTableDsEnabledEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3g, [["render", _sfc_render$3g]]);
+const dataTableDsEnabledEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3m, [["render", _sfc_render$3m]]);
 const __vite_glob_0_13 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: dataTableDsEnabledEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$3f = {
+const _sfc_main$3l = {
   name: "pagination-editor",
   mixins: [i18n$1],
   props: {
@@ -55776,7 +56176,7 @@ const _sfc_main$3f = {
     }
   }
 };
-function _sfc_render$3f(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$3l(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_switch = resolveComponent("a-switch");
   const _component_a_button = resolveComponent("a-button");
   const _component_a_space = resolveComponent("a-space");
@@ -55923,12 +56323,12 @@ function _sfc_render$3f(_ctx, _cache, $props, $setup, $data, $options) {
     }, 8, ["visible"])
   ], 64);
 }
-const dataTablePaginationEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3f, [["render", _sfc_render$3f]]);
+const dataTablePaginationEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3l, [["render", _sfc_render$3l]]);
 const __vite_glob_0_14 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: dataTablePaginationEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$3e = {
+const _sfc_main$3k = {
   name: "rowKey-editor",
   props: {
     designer: Object,
@@ -55940,7 +56340,7 @@ const _sfc_main$3e = {
   },
   methods: {}
 };
-function _sfc_render$3e(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$3k(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_input = resolveComponent("a-input");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, { label: "列表主键(唯一性)" }, {
@@ -55954,12 +56354,12 @@ function _sfc_render$3e(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   });
 }
-const dataTableRowKeyEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3e, [["render", _sfc_render$3e]]);
+const dataTableRowKeyEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3k, [["render", _sfc_render$3k]]);
 const __vite_glob_0_15 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: dataTableRowKeyEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$3d = {
+const _sfc_main$3j = {
   name: "rowSelection-editor",
   mixins: [i18n$1],
   components: { CodeModalEditor },
@@ -55983,7 +56383,7 @@ const _sfc_main$3d = {
     }
   }
 };
-function _sfc_render$3d(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$3j(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_switch = resolveComponent("a-switch");
   const _component_a_form_item = resolveComponent("a-form-item");
   const _component_a_button = resolveComponent("a-button");
@@ -56105,12 +56505,12 @@ function _sfc_render$3d(_ctx, _cache, $props, $setup, $data, $options) {
     }, null, 8, ["modelValue", "event-header"])
   ], 64);
 }
-const dataTableSelectionsEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3d, [["render", _sfc_render$3d]]);
+const dataTableSelectionsEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3j, [["render", _sfc_render$3j]]);
 const __vite_glob_0_16 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: dataTableSelectionsEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$3c = {
+const _sfc_main$3i = {
   name: "showButtonsColumn-editor",
   mixins: [i18n$1],
   components: { CodeModalEditor },
@@ -56176,9 +56576,9 @@ const _sfc_main$3c = {
   }
 };
 const _withScopeId$3 = (n) => (pushScopeId("data-v-dd00e485"), n = n(), popScopeId(), n);
-const _hoisted_1$C = /* @__PURE__ */ _withScopeId$3(() => /* @__PURE__ */ createElementVNode("i", { class: "iconfont icon-drag drag-handler" }, null, -1));
+const _hoisted_1$B = /* @__PURE__ */ _withScopeId$3(() => /* @__PURE__ */ createElementVNode("i", { class: "iconfont icon-drag drag-handler" }, null, -1));
 const _hoisted_2$p = { class: "dialog-footer" };
-function _sfc_render$3c(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$3i(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_switch = resolveComponent("a-switch");
   const _component_a_button = resolveComponent("a-button");
   const _component_a_space = resolveComponent("a-space");
@@ -56360,7 +56760,7 @@ function _sfc_render$3c(_ctx, _cache, $props, $setup, $data, $options) {
                       class: "drag-sort-col"
                     }, {
                       default: withCtx(() => [
-                        _hoisted_1$C
+                        _hoisted_1$B
                       ]),
                       _: 1
                     }),
@@ -56643,12 +57043,12 @@ function _sfc_render$3c(_ctx, _cache, $props, $setup, $data, $options) {
     }, null, 8, ["modelValue", "event-header"])
   ], 64);
 }
-const dataTableShowButtonsColumnEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3c, [["render", _sfc_render$3c], ["__scopeId", "data-v-dd00e485"]]);
+const dataTableShowButtonsColumnEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3i, [["render", _sfc_render$3i], ["__scopeId", "data-v-dd00e485"]]);
 const __vite_glob_0_17 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: dataTableShowButtonsColumnEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$3b = {
+const _sfc_main$3h = {
   name: "showIndex-editor",
   mixins: [i18n$1],
   props: {
@@ -56661,7 +57061,7 @@ const _sfc_main$3b = {
   },
   methods: {}
 };
-function _sfc_render$3b(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$3h(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_switch = resolveComponent("a-switch");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -56676,12 +57076,12 @@ function _sfc_render$3b(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const dataTableShowIndexEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3b, [["render", _sfc_render$3b]]);
+const dataTableShowIndexEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3h, [["render", _sfc_render$3h]]);
 const __vite_glob_0_18 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: dataTableShowIndexEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$3a = {
+const _sfc_main$3g = {
   name: "stripe-editor",
   mixins: [i18n$1],
   props: {
@@ -56694,7 +57094,7 @@ const _sfc_main$3a = {
   },
   methods: {}
 };
-function _sfc_render$3a(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$3g(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_switch = resolveComponent("a-switch");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -56709,7 +57109,7 @@ function _sfc_render$3a(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const dataTableStripeEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3a, [["render", _sfc_render$3a]]);
+const dataTableStripeEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3g, [["render", _sfc_render$3g]]);
 const __vite_glob_0_19 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: dataTableStripeEditor
@@ -56738,7 +57138,7 @@ function _objectSpread2(target) {
     var source = arguments[i] != null ? arguments[i] : {};
     if (i % 2) {
       ownKeys(Object(source), true).forEach(function(key) {
-        _defineProperty(target, key, source[key]);
+        _defineProperty$5(target, key, source[key]);
       });
     } else if (Object.getOwnPropertyDescriptors) {
       Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));
@@ -56763,7 +57163,7 @@ function _typeof(obj) {
   }
   return _typeof(obj);
 }
-function _defineProperty(obj, key, value2) {
+function _defineProperty$5(obj, key, value2) {
   if (key in obj) {
     Object.defineProperty(obj, key, {
       value: value2,
@@ -56790,7 +57190,7 @@ function _extends() {
   };
   return _extends.apply(this, arguments);
 }
-function _objectWithoutPropertiesLoose(source, excluded) {
+function _objectWithoutPropertiesLoose$2(source, excluded) {
   if (source == null)
     return {};
   var target = {};
@@ -56804,10 +57204,10 @@ function _objectWithoutPropertiesLoose(source, excluded) {
   }
   return target;
 }
-function _objectWithoutProperties(source, excluded) {
+function _objectWithoutProperties$2(source, excluded) {
   if (source == null)
     return {};
-  var target = _objectWithoutPropertiesLoose(source, excluded);
+  var target = _objectWithoutPropertiesLoose$2(source, excluded);
   var key, i;
   if (Object.getOwnPropertySymbols) {
     var sourceSymbolKeys = Object.getOwnPropertySymbols(source);
@@ -57373,9 +57773,9 @@ function dispatchEvent(_ref) {
     options[onName].call(sortable, evt);
   }
 }
-var _excluded = ["evt"];
+var _excluded$2 = ["evt"];
 var pluginEvent = function pluginEvent3(eventName, sortable) {
-  var _ref = arguments.length > 2 && arguments[2] !== void 0 ? arguments[2] : {}, originalEvent = _ref.evt, data = _objectWithoutProperties(_ref, _excluded);
+  var _ref = arguments.length > 2 && arguments[2] !== void 0 ? arguments[2] : {}, originalEvent = _ref.evt, data = _objectWithoutProperties$2(_ref, _excluded$2);
   PluginManager.pluginEvent.bind(Sortable)(eventName, sortable, _objectSpread2({
     dragEl,
     parentEl,
@@ -58874,7 +59274,7 @@ _extends(Remove, {
 });
 Sortable.mount(new AutoScrollPlugin());
 Sortable.mount(Remove, Revert);
-const _sfc_main$39 = {
+const _sfc_main$3f = {
   name: "tableColumns-editor",
   mixins: [i18n$1],
   components: { CodeModalEditor },
@@ -58963,9 +59363,9 @@ const _sfc_main$39 = {
   }
 };
 const _withScopeId$2 = (n) => (pushScopeId("data-v-444c6f63"), n = n(), popScopeId(), n);
-const _hoisted_1$B = /* @__PURE__ */ _withScopeId$2(() => /* @__PURE__ */ createElementVNode("i", { class: "iconfont icon-drag drag-option" }, null, -1));
+const _hoisted_1$A = /* @__PURE__ */ _withScopeId$2(() => /* @__PURE__ */ createElementVNode("i", { class: "iconfont icon-drag drag-option" }, null, -1));
 const _hoisted_2$o = { class: "dialog-footer" };
-function _sfc_render$39(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$3f(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_button = resolveComponent("a-button");
   const _component_a_form_item = resolveComponent("a-form-item");
   const _component_a_table_column = resolveComponent("a-table-column");
@@ -59052,7 +59452,7 @@ function _sfc_render$39(_ctx, _cache, $props, $setup, $data, $options) {
               width: 40
             }, {
               default: withCtx(() => [
-                _hoisted_1$B
+                _hoisted_1$A
               ]),
               _: 1
             }),
@@ -59258,12 +59658,12 @@ function _sfc_render$39(_ctx, _cache, $props, $setup, $data, $options) {
     }, null, 8, ["modelValue", "onSave", "title", "event-header"])
   ], 64);
 }
-const dataTableTableColumnsEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$39, [["render", _sfc_render$39], ["__scopeId", "data-v-444c6f63"]]);
+const dataTableTableColumnsEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3f, [["render", _sfc_render$3f], ["__scopeId", "data-v-444c6f63"]]);
 const __vite_glob_0_20 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: dataTableTableColumnsEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$38 = {
+const _sfc_main$3e = {
   name: "tableHeight-editor",
   mixins: [i18n$1],
   props: {
@@ -59276,7 +59676,7 @@ const _sfc_main$38 = {
   },
   methods: {}
 };
-function _sfc_render$38(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$3e(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_input = resolveComponent("a-input");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -59291,12 +59691,12 @@ function _sfc_render$38(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const dataTableTableHeightEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$38, [["render", _sfc_render$38]]);
+const dataTableTableHeightEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3e, [["render", _sfc_render$3e]]);
 const __vite_glob_0_21 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: dataTableTableHeightEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$37 = {
+const _sfc_main$3d = {
   name: "tableSize-editor",
   mixins: [i18n$1],
   props: {
@@ -59315,7 +59715,7 @@ const _sfc_main$37 = {
   },
   methods: {}
 };
-function _sfc_render$37(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$3d(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_select = resolveComponent("a-select");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -59331,12 +59731,12 @@ function _sfc_render$37(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const dataTableTableSizeEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$37, [["render", _sfc_render$37]]);
+const dataTableTableSizeEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3d, [["render", _sfc_render$3d]]);
 const __vite_glob_0_22 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: dataTableTableSizeEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$36 = {
+const _sfc_main$3c = {
   name: "tableWidth-editor",
   mixins: [i18n$1],
   props: {
@@ -59349,7 +59749,7 @@ const _sfc_main$36 = {
   },
   methods: {}
 };
-function _sfc_render$36(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$3c(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_input = resolveComponent("a-input");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -59364,12 +59764,12 @@ function _sfc_render$36(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const dataTableTableWidthEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$36, [["render", _sfc_render$36]]);
+const dataTableTableWidthEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3c, [["render", _sfc_render$3c]]);
 const __vite_glob_0_23 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: dataTableTableWidthEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$35 = {
+const _sfc_main$3b = {
   name: "treeDataEnabled-editor",
   mixins: [i18n$1],
   props: {
@@ -59392,7 +59792,7 @@ const _sfc_main$35 = {
     }
   }
 };
-function _sfc_render$35(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$3b(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_switch = resolveComponent("a-switch");
   const _component_a_form_item = resolveComponent("a-form-item");
   const _component_a_input = resolveComponent("a-input");
@@ -59435,12 +59835,12 @@ function _sfc_render$35(_ctx, _cache, $props, $setup, $data, $options) {
     }, 8, ["label"])) : createCommentVNode("", true)
   ], 64);
 }
-const dataTableTreeDataEnabledEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$35, [["render", _sfc_render$35]]);
+const dataTableTreeDataEnabledEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3b, [["render", _sfc_render$3b]]);
 const __vite_glob_0_24 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: dataTableTreeDataEnabledEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$34 = {
+const _sfc_main$3a = {
   name: "grid-col-offset-editor",
   mixins: [i18n$1],
   props: {
@@ -59449,7 +59849,7 @@ const _sfc_main$34 = {
     optionModel: Object
   }
 };
-function _sfc_render$34(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$3a(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_input_number = resolveComponent("a-input-number");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -59467,12 +59867,12 @@ function _sfc_render$34(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const gridColOffsetEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$34, [["render", _sfc_render$34]]);
+const gridColOffsetEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3a, [["render", _sfc_render$3a]]);
 const __vite_glob_0_25 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: gridColOffsetEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$33 = {
+const _sfc_main$39 = {
   name: "grid-col-pull-editor",
   mixins: [i18n$1],
   props: {
@@ -59481,7 +59881,7 @@ const _sfc_main$33 = {
     optionModel: Object
   }
 };
-function _sfc_render$33(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$39(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_input_number = resolveComponent("a-input-number");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -59499,12 +59899,12 @@ function _sfc_render$33(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const gridColPullEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$33, [["render", _sfc_render$33]]);
+const gridColPullEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$39, [["render", _sfc_render$39]]);
 const __vite_glob_0_26 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: gridColPullEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$32 = {
+const _sfc_main$38 = {
   name: "grid-col-push-editor",
   mixins: [i18n$1],
   props: {
@@ -59513,7 +59913,7 @@ const _sfc_main$32 = {
     optionModel: Object
   }
 };
-function _sfc_render$32(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$38(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_input_number = resolveComponent("a-input-number");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -59531,12 +59931,12 @@ function _sfc_render$32(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const gridColPushEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$32, [["render", _sfc_render$32]]);
+const gridColPushEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$38, [["render", _sfc_render$38]]);
 const __vite_glob_0_27 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: gridColPushEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$31 = {
+const _sfc_main$37 = {
   name: "grid-col-responsive-editor",
   mixins: [i18n$1],
   props: {
@@ -59545,7 +59945,7 @@ const _sfc_main$31 = {
     optionModel: Object
   }
 };
-function _sfc_render$31(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$37(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_switch = resolveComponent("a-switch");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -59560,12 +59960,12 @@ function _sfc_render$31(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const gridColResponsiveEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$31, [["render", _sfc_render$31]]);
+const gridColResponsiveEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$37, [["render", _sfc_render$37]]);
 const __vite_glob_0_28 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: gridColResponsiveEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$30 = {
+const _sfc_main$36 = {
   name: "grid-col-span-editor",
   mixins: [i18n$1],
   props: {
@@ -59579,7 +59979,7 @@ const _sfc_main$30 = {
     }
   }
 };
-function _sfc_render$30(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$36(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_input_number = resolveComponent("a-input-number");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createElementBlock("div", null, [
@@ -59645,7 +60045,7 @@ function _sfc_render$30(_ctx, _cache, $props, $setup, $data, $options) {
     }, 8, ["label"])) : createCommentVNode("", true)
   ]);
 }
-const gridColSpanEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$30, [["render", _sfc_render$30]]);
+const gridColSpanEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$36, [["render", _sfc_render$36]]);
 const __vite_glob_0_29 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: gridColSpanEditor
@@ -59696,7 +60096,7 @@ const propertyMixin = {
     }
   }
 };
-const _sfc_main$2$ = {
+const _sfc_main$35 = {
   name: "colHeight-editor",
   mixins: [i18n$1, propertyMixin],
   props: {
@@ -59705,7 +60105,7 @@ const _sfc_main$2$ = {
     optionModel: Object
   }
 };
-function _sfc_render$2$(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$35(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_input_number = resolveComponent("a-input-number");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createElementBlock("div", null, [
@@ -59725,12 +60125,12 @@ function _sfc_render$2$(_ctx, _cache, $props, $setup, $data, $options) {
     }, 8, ["label"])
   ]);
 }
-const colHeightEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2$, [["render", _sfc_render$2$]]);
+const colHeightEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$35, [["render", _sfc_render$35]]);
 const __vite_glob_0_30 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: colHeightEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$2_ = {
+const _sfc_main$34 = {
   name: "gutter-editor",
   mixins: [i18n$1],
   props: {
@@ -59759,8 +60159,8 @@ const _sfc_main$2_ = {
     }
   }
 };
-const _hoisted_1$A = { class: "col-span-title" };
-function _sfc_render$2_(_ctx, _cache, $props, $setup, $data, $options) {
+const _hoisted_1$z = { class: "col-span-title" };
+function _sfc_render$34(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_divider = resolveComponent("a-divider");
   const _component_a_form_item = resolveComponent("a-form-item");
   const _component_a_input_number = resolveComponent("a-input-number");
@@ -59799,7 +60199,7 @@ function _sfc_render$2_(_ctx, _cache, $props, $setup, $data, $options) {
             key: colIdx,
             class: "col-item"
           }, [
-            createElementVNode("span", _hoisted_1$A, toDisplayString(_ctx.i18nt("designer.setting.colSpanTitle")) + toDisplayString(colIdx + 1), 1),
+            createElementVNode("span", _hoisted_1$z, toDisplayString(_ctx.i18nt("designer.setting.colSpanTitle")) + toDisplayString(colIdx + 1), 1),
             createVNode(_component_a_input_number, {
               value: colItem.options.span,
               "onUpdate:value": ($event) => colItem.options.span = $event,
@@ -59839,12 +60239,12 @@ function _sfc_render$2_(_ctx, _cache, $props, $setup, $data, $options) {
     })
   ]);
 }
-const gutterEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2_, [["render", _sfc_render$2_], ["__scopeId", "data-v-95f1b976"]]);
+const gutterEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$34, [["render", _sfc_render$34], ["__scopeId", "data-v-95f1b976"]]);
 const __vite_glob_0_31 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: gutterEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$2Z = {
+const _sfc_main$33 = {
   name: "showBlankRow-editor",
   mixins: [i18n$1],
   props: {
@@ -59853,7 +60253,7 @@ const _sfc_main$2Z = {
     optionModel: Object
   }
 };
-function _sfc_render$2Z(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$33(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_switch = resolveComponent("a-switch");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -59868,12 +60268,12 @@ function _sfc_render$2Z(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const showBlankRowEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2Z, [["render", _sfc_render$2Z]]);
+const showBlankRowEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$33, [["render", _sfc_render$33]]);
 const __vite_glob_0_32 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: showBlankRowEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$2Y = {
+const _sfc_main$32 = {
   name: "showRowNumber-editor",
   mixins: [i18n$1],
   props: {
@@ -59882,7 +60282,7 @@ const _sfc_main$2Y = {
     optionModel: Object
   }
 };
-function _sfc_render$2Y(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$32(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_switch = resolveComponent("a-switch");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -59897,12 +60297,12 @@ function _sfc_render$2Y(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const showRowNumberEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2Y, [["render", _sfc_render$2Y]]);
+const showRowNumberEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$32, [["render", _sfc_render$32]]);
 const __vite_glob_0_33 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: showRowNumberEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$2X = {
+const _sfc_main$31 = {
   name: "sub-form-labelAlign-editor",
   mixins: [i18n$1],
   props: {
@@ -59911,7 +60311,7 @@ const _sfc_main$2X = {
     optionModel: Object
   }
 };
-function _sfc_render$2X(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$31(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_radio_button = resolveComponent("a-radio-button");
   const _component_a_radio_group = resolveComponent("a-radio-group");
   const _component_a_form_item = resolveComponent("a-form-item");
@@ -59944,12 +60344,12 @@ function _sfc_render$2X(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const subFormLabelAlignEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2X, [["render", _sfc_render$2X], ["__scopeId", "data-v-35af70d0"]]);
+const subFormLabelAlignEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$31, [["render", _sfc_render$31], ["__scopeId", "data-v-35af70d0"]]);
 const __vite_glob_0_34 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: subFormLabelAlignEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$2W = {
+const _sfc_main$30 = {
   name: "tab-customClass-editor",
   componentName: "PropertyEditor",
   mixins: [i18n$1],
@@ -59990,9 +60390,9 @@ const _sfc_main$2W = {
   }
 };
 const _withScopeId$1 = (n) => (pushScopeId("data-v-11d9c5b8"), n = n(), popScopeId(), n);
-const _hoisted_1$z = { class: "col-item" };
+const _hoisted_1$y = { class: "col-item" };
 const _hoisted_2$n = /* @__PURE__ */ _withScopeId$1(() => /* @__PURE__ */ createElementVNode("i", { class: "iconfont icon-drag drag-option" }, null, -1));
-function _sfc_render$2W(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$30(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_select = resolveComponent("a-select");
   const _component_a_form_item = resolveComponent("a-form-item");
   const _component_a_radio = resolveComponent("a-radio");
@@ -60034,7 +60434,7 @@ function _sfc_render$2W(_ctx, _cache, $props, $setup, $data, $options) {
               "item-key": "id"
             }, { group: "panesGroup", ghostClass: "ghost", handle: ".drag-option" }), {
               item: withCtx(({ element: tpItem, index: tpIdx }) => [
-                createElementVNode("li", _hoisted_1$z, [
+                createElementVNode("li", _hoisted_1$y, [
                   createVNode(_component_a_radio, {
                     value: tpItem.options.label,
                     style: { "margin-right": "8px" }
@@ -60085,12 +60485,12 @@ function _sfc_render$2W(_ctx, _cache, $props, $setup, $data, $options) {
     })
   ]);
 }
-const tabCustomClassEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2W, [["render", _sfc_render$2W], ["__scopeId", "data-v-11d9c5b8"]]);
+const tabCustomClassEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$30, [["render", _sfc_render$30], ["__scopeId", "data-v-11d9c5b8"]]);
 const __vite_glob_0_35 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: tabCustomClassEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$2V = {
+const _sfc_main$2$ = {
   name: "cellHeight-editor",
   mixins: [i18n$1],
   props: {
@@ -60099,7 +60499,7 @@ const _sfc_main$2V = {
     optionModel: Object
   }
 };
-function _sfc_render$2V(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$2$(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_input = resolveComponent("a-input");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -60115,12 +60515,12 @@ function _sfc_render$2V(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const cellHeightEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2V, [["render", _sfc_render$2V]]);
+const cellHeightEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2$, [["render", _sfc_render$2$]]);
 const __vite_glob_0_36 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: cellHeightEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$2U = {
+const _sfc_main$2_ = {
   name: "cellWidth-editor",
   mixins: [i18n$1],
   props: {
@@ -60129,7 +60529,7 @@ const _sfc_main$2U = {
     optionModel: Object
   }
 };
-function _sfc_render$2U(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$2_(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_input = resolveComponent("a-input");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -60145,12 +60545,12 @@ function _sfc_render$2U(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const cellWidthEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2U, [["render", _sfc_render$2U]]);
+const cellWidthEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2_, [["render", _sfc_render$2_]]);
 const __vite_glob_0_37 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: cellWidthEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$2T = {
+const _sfc_main$2Z = {
   name: "cancelButtonHidden-editor",
   mixins: [i18n$1],
   props: {
@@ -60159,7 +60559,7 @@ const _sfc_main$2T = {
     optionModel: Object
   }
 };
-function _sfc_render$2T(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$2Z(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_switch = resolveComponent("a-switch");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -60174,12 +60574,12 @@ function _sfc_render$2T(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const cancelButtonHiddenEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2T, [["render", _sfc_render$2T]]);
+const cancelButtonHiddenEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2Z, [["render", _sfc_render$2Z]]);
 const __vite_glob_0_38 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: cancelButtonHiddenEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$2S = {
+const _sfc_main$2Y = {
   name: "cancelButtonLabel-editor",
   mixins: [i18n$1, propertyMixin],
   props: {
@@ -60188,7 +60588,7 @@ const _sfc_main$2S = {
     optionModel: Object
   }
 };
-function _sfc_render$2S(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$2Y(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_input = resolveComponent("a-input");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -60204,12 +60604,12 @@ function _sfc_render$2S(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const cancelButtonLabelEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2S, [["render", _sfc_render$2S]]);
+const cancelButtonLabelEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2Y, [["render", _sfc_render$2Y]]);
 const __vite_glob_0_39 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: cancelButtonLabelEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$2R = {
+const _sfc_main$2X = {
   name: "closeOnClickModal-editor",
   mixins: [i18n$1],
   props: {
@@ -60218,7 +60618,7 @@ const _sfc_main$2R = {
     optionModel: Object
   }
 };
-function _sfc_render$2R(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$2X(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_switch = resolveComponent("a-switch");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -60233,12 +60633,12 @@ function _sfc_render$2R(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const closeOnClickModalEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2R, [["render", _sfc_render$2R]]);
+const closeOnClickModalEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2X, [["render", _sfc_render$2X]]);
 const __vite_glob_0_40 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: closeOnClickModalEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$2Q = {
+const _sfc_main$2W = {
   name: "closeOnPressEscape-editor",
   mixins: [i18n$1],
   props: {
@@ -60247,7 +60647,7 @@ const _sfc_main$2Q = {
     optionModel: Object
   }
 };
-function _sfc_render$2Q(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$2W(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_switch = resolveComponent("a-switch");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -60262,12 +60662,12 @@ function _sfc_render$2Q(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const closeOnPressEscapeEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2Q, [["render", _sfc_render$2Q]]);
+const closeOnPressEscapeEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2W, [["render", _sfc_render$2W]]);
 const __vite_glob_0_41 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: closeOnPressEscapeEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$2P = {
+const _sfc_main$2V = {
   name: "disabledMode-editor",
   mixins: [i18n$1],
   props: {
@@ -60276,7 +60676,7 @@ const _sfc_main$2P = {
     optionModel: Object
   }
 };
-function _sfc_render$2P(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$2V(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_switch = resolveComponent("a-switch");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -60291,12 +60691,12 @@ function _sfc_render$2P(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const disabledModeEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2P, [["render", _sfc_render$2P]]);
+const disabledModeEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2V, [["render", _sfc_render$2V]]);
 const __vite_glob_0_42 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: disabledModeEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$2O = {
+const _sfc_main$2U = {
   name: "fullscreen-editor",
   mixins: [i18n$1],
   props: {
@@ -60305,7 +60705,7 @@ const _sfc_main$2O = {
     optionModel: Object
   }
 };
-function _sfc_render$2O(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$2U(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_switch = resolveComponent("a-switch");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -60320,12 +60720,12 @@ function _sfc_render$2O(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const fullscreenEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2O, [["render", _sfc_render$2O]]);
+const fullscreenEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2U, [["render", _sfc_render$2U]]);
 const __vite_glob_0_43 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: fullscreenEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$2N = {
+const _sfc_main$2T = {
   name: "okButtonHidden-editor",
   mixins: [i18n$1],
   props: {
@@ -60334,7 +60734,7 @@ const _sfc_main$2N = {
     optionModel: Object
   }
 };
-function _sfc_render$2N(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$2T(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_switch = resolveComponent("a-switch");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -60349,12 +60749,12 @@ function _sfc_render$2N(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const okButtonHiddenEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2N, [["render", _sfc_render$2N]]);
+const okButtonHiddenEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2T, [["render", _sfc_render$2T]]);
 const __vite_glob_0_44 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: okButtonHiddenEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$2M = {
+const _sfc_main$2S = {
   name: "okButtonLabel-editor",
   mixins: [i18n$1, propertyMixin],
   props: {
@@ -60363,7 +60763,7 @@ const _sfc_main$2M = {
     optionModel: Object
   }
 };
-function _sfc_render$2M(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$2S(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_input = resolveComponent("a-input");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -60379,12 +60779,12 @@ function _sfc_render$2M(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const okButtonLabelEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2M, [["render", _sfc_render$2M]]);
+const okButtonLabelEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2S, [["render", _sfc_render$2S]]);
 const __vite_glob_0_45 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: okButtonLabelEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$2L = {
+const _sfc_main$2R = {
   name: "readMode-editor",
   mixins: [i18n$1],
   props: {
@@ -60393,7 +60793,7 @@ const _sfc_main$2L = {
     optionModel: Object
   }
 };
-function _sfc_render$2L(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$2R(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_switch = resolveComponent("a-switch");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -60408,12 +60808,12 @@ function _sfc_render$2L(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const readModeEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2L, [["render", _sfc_render$2L]]);
+const readModeEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2R, [["render", _sfc_render$2R]]);
 const __vite_glob_0_46 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: readModeEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$2K = {
+const _sfc_main$2Q = {
   name: "showClose-editor",
   mixins: [i18n$1],
   props: {
@@ -60422,7 +60822,7 @@ const _sfc_main$2K = {
     optionModel: Object
   }
 };
-function _sfc_render$2K(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$2Q(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_switch = resolveComponent("a-switch");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -60437,12 +60837,12 @@ function _sfc_render$2K(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const showCloseEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2K, [["render", _sfc_render$2K]]);
+const showCloseEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2Q, [["render", _sfc_render$2Q]]);
 const __vite_glob_0_47 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: showCloseEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$2J = {
+const _sfc_main$2P = {
   name: "title-editor",
   mixins: [i18n$1, propertyMixin],
   props: {
@@ -60451,7 +60851,7 @@ const _sfc_main$2J = {
     optionModel: Object
   }
 };
-function _sfc_render$2J(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$2P(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_input = resolveComponent("a-input");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -60467,12 +60867,12 @@ function _sfc_render$2J(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const titleEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2J, [["render", _sfc_render$2J]]);
+const titleEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2P, [["render", _sfc_render$2P]]);
 const __vite_glob_0_48 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: titleEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$2I = {
+const _sfc_main$2O = {
   name: "width-editor",
   mixins: [i18n$1, propertyMixin],
   props: {
@@ -60481,7 +60881,7 @@ const _sfc_main$2I = {
     optionModel: Object
   }
 };
-function _sfc_render$2I(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$2O(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_input = resolveComponent("a-input");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -60497,12 +60897,12 @@ function _sfc_render$2I(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const widthEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2I, [["render", _sfc_render$2I]]);
+const widthEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2O, [["render", _sfc_render$2O]]);
 const __vite_glob_0_49 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: widthEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$2H = {
+const _sfc_main$2N = {
   name: "vf-drawer-direction-editor",
   mixins: [i18n$1],
   components: {},
@@ -60515,7 +60915,7 @@ const _sfc_main$2H = {
     //
   }
 };
-function _sfc_render$2H(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$2N(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_radio_button = resolveComponent("a-radio-button");
   const _component_a_radio_group = resolveComponent("a-radio-group");
   const _component_a_form_item = resolveComponent("a-form-item");
@@ -60560,12 +60960,12 @@ function _sfc_render$2H(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const vfDrawerDirectionEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2H, [["render", _sfc_render$2H], ["__scopeId", "data-v-3da0396a"]]);
+const vfDrawerDirectionEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2N, [["render", _sfc_render$2N], ["__scopeId", "data-v-3da0396a"]]);
 const __vite_glob_0_50 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: vfDrawerDirectionEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$2G = {
+const _sfc_main$2M = {
   name: "vf-drawer-size-editor",
   mixins: [i18n$1, propertyMixin],
   props: {
@@ -60574,7 +60974,7 @@ const _sfc_main$2G = {
     optionModel: Object
   }
 };
-function _sfc_render$2G(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$2M(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_input = resolveComponent("a-input");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -60590,12 +60990,12 @@ function _sfc_render$2G(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const vfDrawerSizeEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2G, [["render", _sfc_render$2G]]);
+const vfDrawerSizeEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2M, [["render", _sfc_render$2M]]);
 const __vite_glob_0_51 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: vfDrawerSizeEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$2F = {
+const _sfc_main$2L = {
   name: "customClass-editor",
   componentName: "PropertyEditor",
   mixins: [i18n$1],
@@ -60616,7 +61016,7 @@ const _sfc_main$2F = {
     });
   }
 };
-function _sfc_render$2F(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$2L(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_select = resolveComponent("a-select");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -60634,12 +61034,12 @@ function _sfc_render$2F(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const customClassEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2F, [["render", _sfc_render$2F]]);
+const customClassEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2L, [["render", _sfc_render$2L]]);
 const __vite_glob_0_52 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: customClassEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$2E = {
+const _sfc_main$2K = {
   name: "defaultValue-editor",
   mixins: [i18n$1, propertyMixin],
   props: {
@@ -60648,7 +61048,7 @@ const _sfc_main$2E = {
     optionModel: Object
   }
 };
-function _sfc_render$2E(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$2K(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_input = resolveComponent("a-input");
   const _component_a_form_item = resolveComponent("a-form-item");
   return !_ctx.hasConfig("optionItems") ? (openBlock(), createBlock(_component_a_form_item, {
@@ -60666,12 +61066,12 @@ function _sfc_render$2E(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"])) : createCommentVNode("", true);
 }
-const defaultValueEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2E, [["render", _sfc_render$2E]]);
+const defaultValueEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2K, [["render", _sfc_render$2K]]);
 const __vite_glob_0_53 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: defaultValueEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$2D = {
+const _sfc_main$2J = {
   name: "disabled-editor",
   mixins: [i18n$1],
   props: {
@@ -60680,7 +61080,7 @@ const _sfc_main$2D = {
     optionModel: Object
   }
 };
-function _sfc_render$2D(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$2J(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_switch = resolveComponent("a-switch");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -60695,12 +61095,12 @@ function _sfc_render$2D(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const disabledEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2D, [["render", _sfc_render$2D]]);
+const disabledEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2J, [["render", _sfc_render$2J]]);
 const __vite_glob_0_54 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: disabledEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$2C = {
+const _sfc_main$2I = {
   name: "displayStyle-editor",
   mixins: [i18n$1],
   props: {
@@ -60709,7 +61109,7 @@ const _sfc_main$2C = {
     optionModel: Object
   }
 };
-function _sfc_render$2C(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$2I(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_radio = resolveComponent("a-radio");
   const _component_a_radio_group = resolveComponent("a-radio-group");
   const _component_a_form_item = resolveComponent("a-form-item");
@@ -60741,12 +61141,12 @@ function _sfc_render$2C(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const displayStyleEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2C, [["render", _sfc_render$2C]]);
+const displayStyleEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2I, [["render", _sfc_render$2I]]);
 const __vite_glob_0_55 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: displayStyleEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$2B = {
+const _sfc_main$2H = {
   name: "editable-editor",
   mixins: [i18n$1],
   props: {
@@ -60755,7 +61155,7 @@ const _sfc_main$2B = {
     optionModel: Object
   }
 };
-function _sfc_render$2B(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$2H(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_switch = resolveComponent("a-switch");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -60770,12 +61170,12 @@ function _sfc_render$2B(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const editableEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2B, [["render", _sfc_render$2B]]);
+const editableEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2H, [["render", _sfc_render$2H]]);
 const __vite_glob_0_56 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: editableEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$2A = {
+const _sfc_main$2G = {
   name: "endPlaceholder-editor",
   mixins: [i18n$1],
   props: {
@@ -60784,7 +61184,7 @@ const _sfc_main$2A = {
     optionModel: Object
   }
 };
-function _sfc_render$2A(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$2G(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_input = resolveComponent("a-input");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -60800,12 +61200,12 @@ function _sfc_render$2A(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const endPlaceholderEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2A, [["render", _sfc_render$2A]]);
+const endPlaceholderEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2G, [["render", _sfc_render$2G]]);
 const __vite_glob_0_57 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: endPlaceholderEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$2z = {
+const _sfc_main$2F = {
   name: "onAppendButtonClick-editor",
   mixins: [i18n$1, eventMixin],
   props: {
@@ -60823,7 +61223,7 @@ const _sfc_main$2z = {
     };
   }
 };
-function _sfc_render$2z(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$2F(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_button = resolveComponent("a-button");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -60848,12 +61248,12 @@ function _sfc_render$2z(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   });
 }
-const onAppendButtonClickEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2z, [["render", _sfc_render$2z]]);
+const onAppendButtonClickEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2F, [["render", _sfc_render$2F]]);
 const __vite_glob_0_58 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: onAppendButtonClickEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$2y = {
+const _sfc_main$2E = {
   name: "onBeforeUpload-editor",
   mixins: [i18n$1, eventMixin],
   props: {
@@ -60871,7 +61271,7 @@ const _sfc_main$2y = {
     };
   }
 };
-function _sfc_render$2y(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$2E(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_button = resolveComponent("a-button");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -60895,12 +61295,12 @@ function _sfc_render$2y(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   });
 }
-const onBeforeUploadEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2y, [["render", _sfc_render$2y]]);
+const onBeforeUploadEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2E, [["render", _sfc_render$2E]]);
 const __vite_glob_0_59 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: onBeforeUploadEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$2x = {
+const _sfc_main$2D = {
   name: "onBlur-editor",
   mixins: [i18n$1, eventMixin],
   props: {
@@ -60918,7 +61318,7 @@ const _sfc_main$2x = {
     };
   }
 };
-function _sfc_render$2x(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$2D(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_button = resolveComponent("a-button");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -60943,12 +61343,12 @@ function _sfc_render$2x(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   });
 }
-const onBlurEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2x, [["render", _sfc_render$2x]]);
+const onBlurEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2D, [["render", _sfc_render$2D]]);
 const __vite_glob_0_60 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: onBlurEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$2w = {
+const _sfc_main$2C = {
   name: "onCancelButtonClick-editor",
   mixins: [i18n$1, eventMixin],
   props: {
@@ -60966,7 +61366,7 @@ const _sfc_main$2w = {
     };
   }
 };
-function _sfc_render$2w(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$2C(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_button = resolveComponent("a-button");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -60990,12 +61390,12 @@ function _sfc_render$2w(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   });
 }
-const onCancelButtonClickEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2w, [["render", _sfc_render$2w]]);
+const onCancelButtonClickEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2C, [["render", _sfc_render$2C]]);
 const __vite_glob_0_61 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: onCancelButtonClickEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$2v = {
+const _sfc_main$2B = {
   name: "onCellClick-editor",
   mixins: [i18n$1, eventMixin],
   props: {
@@ -61013,7 +61413,7 @@ const _sfc_main$2v = {
     };
   }
 };
-function _sfc_render$2v(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$2B(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_button = resolveComponent("a-button");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -61037,12 +61437,12 @@ function _sfc_render$2v(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   });
 }
-const onCellClickEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2v, [["render", _sfc_render$2v]]);
+const onCellClickEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2B, [["render", _sfc_render$2B]]);
 const __vite_glob_0_62 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: onCellClickEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$2u = {
+const _sfc_main$2A = {
   name: "onCellDoubleClick-editor",
   mixins: [i18n$1, eventMixin],
   props: {
@@ -61060,7 +61460,7 @@ const _sfc_main$2u = {
     };
   }
 };
-function _sfc_render$2u(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$2A(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_button = resolveComponent("a-button");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -61084,12 +61484,12 @@ function _sfc_render$2u(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   });
 }
-const onCellDoubleClickEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2u, [["render", _sfc_render$2u]]);
+const onCellDoubleClickEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2A, [["render", _sfc_render$2A]]);
 const __vite_glob_0_63 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: onCellDoubleClickEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$2t = {
+const _sfc_main$2z = {
   name: "onChange-editor",
   mixins: [i18n$1, eventMixin],
   props: {
@@ -61107,7 +61507,7 @@ const _sfc_main$2t = {
     };
   }
 };
-function _sfc_render$2t(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$2z(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_button = resolveComponent("a-button");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -61132,12 +61532,12 @@ function _sfc_render$2t(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   });
 }
-const onChangeEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2t, [["render", _sfc_render$2t]]);
+const onChangeEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2z, [["render", _sfc_render$2z]]);
 const __vite_glob_0_64 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: onChangeEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$2s = {
+const _sfc_main$2y = {
   name: "onClick-editor",
   mixins: [i18n$1, eventMixin],
   props: {
@@ -61155,7 +61555,7 @@ const _sfc_main$2s = {
     };
   }
 };
-function _sfc_render$2s(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$2y(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_button = resolveComponent("a-button");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -61179,12 +61579,60 @@ function _sfc_render$2s(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   });
 }
-const onClickEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2s, [["render", _sfc_render$2s]]);
+const onClickEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2y, [["render", _sfc_render$2y]]);
 const __vite_glob_0_65 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: onClickEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$2r = {
+const _sfc_main$2x = {
+  name: "onClickIcon-editor",
+  mixins: [i18n$1, eventMixin],
+  props: {
+    designer: Object,
+    selectedWidget: Object,
+    optionModel: Object,
+    eventHandled: {
+      type: Boolean,
+      default: false
+    }
+  },
+  data() {
+    return {
+      eventParams: []
+    };
+  }
+};
+function _sfc_render$2x(_ctx, _cache, $props, $setup, $data, $options) {
+  const _component_a_button = resolveComponent("a-button");
+  const _component_a_form_item = resolveComponent("a-form-item");
+  return openBlock(), createBlock(_component_a_form_item, {
+    label: "onClickIcon",
+    labelAlign: "left",
+    "label-width": "150px"
+  }, {
+    default: withCtx(() => [
+      createVNode(_component_a_button, {
+        type: "info",
+        plain: "",
+        shape: "round",
+        class: normalizeClass([$props.optionModel.onClickIcon ? "button-text-highlight" : ""]),
+        onClick: _cache[0] || (_cache[0] = ($event) => _ctx.editEventHandler("onClickIcon", $data.eventParams))
+      }, {
+        default: withCtx(() => [
+          createTextVNode(toDisplayString(_ctx.i18nt("designer.setting.addEventHandler")), 1)
+        ]),
+        _: 1
+      }, 8, ["class"])
+    ]),
+    _: 1
+  });
+}
+const onClickIconEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2x, [["render", _sfc_render$2x]]);
+const __vite_glob_0_66 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+  __proto__: null,
+  default: onClickIconEditor
+}, Symbol.toStringTag, { value: "Module" }));
+const _sfc_main$2w = {
   name: "onCreated-editor",
   mixins: [i18n$1, eventMixin],
   props: {
@@ -61202,7 +61650,7 @@ const _sfc_main$2r = {
     };
   }
 };
-function _sfc_render$2r(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$2w(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_button = resolveComponent("a-button");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -61227,12 +61675,12 @@ function _sfc_render$2r(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   });
 }
-const onCreatedEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2r, [["render", _sfc_render$2r]]);
-const __vite_glob_0_66 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const onCreatedEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2w, [["render", _sfc_render$2w]]);
+const __vite_glob_0_67 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: onCreatedEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$2q = {
+const _sfc_main$2v = {
   name: "onCurrentPageChange-editor",
   mixins: [i18n$1, eventMixin],
   props: {
@@ -61250,7 +61698,7 @@ const _sfc_main$2q = {
     };
   }
 };
-function _sfc_render$2q(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$2v(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_button = resolveComponent("a-button");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -61274,12 +61722,12 @@ function _sfc_render$2q(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   });
 }
-const onCurrentPageChangeEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2q, [["render", _sfc_render$2q]]);
-const __vite_glob_0_67 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const onCurrentPageChangeEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2v, [["render", _sfc_render$2v]]);
+const __vite_glob_0_68 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: onCurrentPageChangeEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$2p = {
+const _sfc_main$2u = {
   name: "onDialogBeforeClose-editor",
   mixins: [i18n$1, eventMixin],
   props: {
@@ -61297,7 +61745,7 @@ const _sfc_main$2p = {
     };
   }
 };
-function _sfc_render$2p(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$2u(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_button = resolveComponent("a-button");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -61321,12 +61769,12 @@ function _sfc_render$2p(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   });
 }
-const onDialogBeforeCloseEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2p, [["render", _sfc_render$2p]]);
-const __vite_glob_0_68 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const onDialogBeforeCloseEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2u, [["render", _sfc_render$2u]]);
+const __vite_glob_0_69 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: onDialogBeforeCloseEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$2o = {
+const _sfc_main$2t = {
   name: "onDialogOpened-editor",
   mixins: [i18n$1, eventMixin],
   props: {
@@ -61344,7 +61792,7 @@ const _sfc_main$2o = {
     };
   }
 };
-function _sfc_render$2o(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$2t(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_button = resolveComponent("a-button");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -61368,12 +61816,12 @@ function _sfc_render$2o(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   });
 }
-const onDialogOpenedEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2o, [["render", _sfc_render$2o]]);
-const __vite_glob_0_69 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const onDialogOpenedEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2t, [["render", _sfc_render$2t]]);
+const __vite_glob_0_70 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: onDialogOpenedEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$2n = {
+const _sfc_main$2s = {
   name: "onDisableOperationButton-editor",
   mixins: [i18n$1, eventMixin],
   props: {
@@ -61391,7 +61839,7 @@ const _sfc_main$2n = {
     };
   }
 };
-function _sfc_render$2n(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$2s(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_button = resolveComponent("a-button");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -61416,12 +61864,12 @@ function _sfc_render$2n(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   });
 }
-const onDisableOperationButtonEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2n, [["render", _sfc_render$2n]]);
-const __vite_glob_0_70 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const onDisableOperationButtonEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2s, [["render", _sfc_render$2s]]);
+const __vite_glob_0_71 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: onDisableOperationButtonEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$2m = {
+const _sfc_main$2r = {
   name: "onDrawerBeforeClose-editor",
   mixins: [i18n$1, eventMixin],
   props: {
@@ -61439,7 +61887,7 @@ const _sfc_main$2m = {
     };
   }
 };
-function _sfc_render$2m(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$2r(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_button = resolveComponent("a-button");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -61463,12 +61911,12 @@ function _sfc_render$2m(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   });
 }
-const onDrawerBeforeCloseEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2m, [["render", _sfc_render$2m]]);
-const __vite_glob_0_71 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const onDrawerBeforeCloseEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2r, [["render", _sfc_render$2r]]);
+const __vite_glob_0_72 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: onDrawerBeforeCloseEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$2l = {
+const _sfc_main$2q = {
   name: "onDrawerOpened-editor",
   mixins: [i18n$1, eventMixin],
   props: {
@@ -61486,7 +61934,7 @@ const _sfc_main$2l = {
     };
   }
 };
-function _sfc_render$2l(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$2q(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_button = resolveComponent("a-button");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -61510,12 +61958,12 @@ function _sfc_render$2l(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   });
 }
-const onDrawerOpenedEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2l, [["render", _sfc_render$2l]]);
-const __vite_glob_0_72 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const onDrawerOpenedEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2q, [["render", _sfc_render$2q]]);
+const __vite_glob_0_73 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: onDrawerOpenedEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$2k = {
+const _sfc_main$2p = {
   name: "onFileRemove-editor",
   mixins: [i18n$1, eventMixin],
   props: {
@@ -61533,7 +61981,7 @@ const _sfc_main$2k = {
     };
   }
 };
-function _sfc_render$2k(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$2p(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_button = resolveComponent("a-button");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -61557,12 +62005,12 @@ function _sfc_render$2k(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   });
 }
-const onFileRemove = /* @__PURE__ */ _export_sfc$1(_sfc_main$2k, [["render", _sfc_render$2k]]);
-const __vite_glob_0_73 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const onFileRemove = /* @__PURE__ */ _export_sfc$1(_sfc_main$2p, [["render", _sfc_render$2p]]);
+const __vite_glob_0_74 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: onFileRemove
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$2j = {
+const _sfc_main$2o = {
   name: "onFocus-editor",
   mixins: [i18n$1, eventMixin],
   props: {
@@ -61580,7 +62028,7 @@ const _sfc_main$2j = {
     };
   }
 };
-function _sfc_render$2j(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$2o(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_button = resolveComponent("a-button");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -61605,12 +62053,12 @@ function _sfc_render$2j(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   });
 }
-const onFocusEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2j, [["render", _sfc_render$2j]]);
-const __vite_glob_0_74 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const onFocusEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2o, [["render", _sfc_render$2o]]);
+const __vite_glob_0_75 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: onFocusEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$2i = {
+const _sfc_main$2n = {
   name: "onGetOperationButtonLabel-editor",
   mixins: [i18n$1, eventMixin],
   props: {
@@ -61628,7 +62076,7 @@ const _sfc_main$2i = {
     };
   }
 };
-function _sfc_render$2i(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$2n(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_button = resolveComponent("a-button");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -61653,12 +62101,12 @@ function _sfc_render$2i(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   });
 }
-const onGetOperationButtonLabelEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2i, [["render", _sfc_render$2i]]);
-const __vite_glob_0_75 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const onGetOperationButtonLabelEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2n, [["render", _sfc_render$2n]]);
+const __vite_glob_0_76 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: onGetOperationButtonLabelEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$2h = {
+const _sfc_main$2m = {
   name: "onGetRowClassName-editor",
   mixins: [i18n$1, eventMixin],
   props: {
@@ -61676,7 +62124,7 @@ const _sfc_main$2h = {
     };
   }
 };
-function _sfc_render$2h(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$2m(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_button = resolveComponent("a-button");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -61700,12 +62148,12 @@ function _sfc_render$2h(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   });
 }
-const onGetRowClassNameEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2h, [["render", _sfc_render$2h]]);
-const __vite_glob_0_76 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const onGetRowClassNameEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2m, [["render", _sfc_render$2m]]);
+const __vite_glob_0_77 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: onGetRowClassNameEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$2g = {
+const _sfc_main$2l = {
   name: "onGetSpanMethod-editor",
   mixins: [i18n$1, eventMixin],
   props: {
@@ -61723,7 +62171,7 @@ const _sfc_main$2g = {
     };
   }
 };
-function _sfc_render$2g(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$2l(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_button = resolveComponent("a-button");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -61747,12 +62195,12 @@ function _sfc_render$2g(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   });
 }
-const onGetSpanMethodEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2g, [["render", _sfc_render$2g]]);
-const __vite_glob_0_77 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const onGetSpanMethodEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2l, [["render", _sfc_render$2l]]);
+const __vite_glob_0_78 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: onGetSpanMethodEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$2f = {
+const _sfc_main$2k = {
   name: "onHeaderClick-editor",
   mixins: [i18n$1, eventMixin],
   props: {
@@ -61770,7 +62218,7 @@ const _sfc_main$2f = {
     };
   }
 };
-function _sfc_render$2f(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$2k(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_button = resolveComponent("a-button");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -61794,12 +62242,12 @@ function _sfc_render$2f(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   });
 }
-const onHeaderClickEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2f, [["render", _sfc_render$2f]]);
-const __vite_glob_0_78 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const onHeaderClickEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2k, [["render", _sfc_render$2k]]);
+const __vite_glob_0_79 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: onHeaderClickEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$2e = {
+const _sfc_main$2j = {
   name: "onHideOperationButton-editor",
   mixins: [i18n$1, eventMixin],
   props: {
@@ -61817,7 +62265,7 @@ const _sfc_main$2e = {
     };
   }
 };
-function _sfc_render$2e(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$2j(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_button = resolveComponent("a-button");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -61841,12 +62289,12 @@ function _sfc_render$2e(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   });
 }
-const onHideOperationButtonEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2e, [["render", _sfc_render$2e]]);
-const __vite_glob_0_79 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const onHideOperationButtonEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2j, [["render", _sfc_render$2j]]);
+const __vite_glob_0_80 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: onHideOperationButtonEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$2d = {
+const _sfc_main$2i = {
   name: "onInput-editor",
   mixins: [i18n$1, eventMixin],
   props: {
@@ -61864,7 +62312,7 @@ const _sfc_main$2d = {
     };
   }
 };
-function _sfc_render$2d(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$2i(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_button = resolveComponent("a-button");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -61889,12 +62337,59 @@ function _sfc_render$2d(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   });
 }
-const onInputEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2d, [["render", _sfc_render$2d]]);
-const __vite_glob_0_80 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const onInputEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2i, [["render", _sfc_render$2i]]);
+const __vite_glob_0_81 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: onInputEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$2c = {
+const _sfc_main$2h = {
+  name: "onMenuClick-editor",
+  mixins: [i18n$1, eventMixin],
+  props: {
+    designer: Object,
+    selectedWidget: Object,
+    optionModel: Object,
+    eventHandled: {
+      type: Boolean,
+      default: false
+    }
+  },
+  data() {
+    return {
+      eventParams: ["menuItem={ item, key, keyPath }"]
+    };
+  }
+};
+function _sfc_render$2h(_ctx, _cache, $props, $setup, $data, $options) {
+  const _component_a_button = resolveComponent("a-button");
+  const _component_a_form_item = resolveComponent("a-form-item");
+  return openBlock(), createBlock(_component_a_form_item, {
+    label: "onMenuClick",
+    "label-width": "150px"
+  }, {
+    default: withCtx(() => [
+      createVNode(_component_a_button, {
+        type: "info",
+        plain: "",
+        shape: "round",
+        class: normalizeClass([$props.optionModel.onMenuClick ? "button-text-highlight" : ""]),
+        onClick: _cache[0] || (_cache[0] = ($event) => _ctx.editEventHandler("onMenuClick", $data.eventParams))
+      }, {
+        default: withCtx(() => [
+          createTextVNode(toDisplayString(_ctx.i18nt("designer.setting.addEventHandler")), 1)
+        ]),
+        _: 1
+      }, 8, ["class"])
+    ]),
+    _: 1
+  });
+}
+const onMenuClickEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2h, [["render", _sfc_render$2h]]);
+const __vite_glob_0_82 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+  __proto__: null,
+  default: onMenuClickEditor
+}, Symbol.toStringTag, { value: "Module" }));
+const _sfc_main$2g = {
   name: "onMounted-editor",
   mixins: [i18n$1, eventMixin],
   props: {
@@ -61912,7 +62407,7 @@ const _sfc_main$2c = {
     };
   }
 };
-function _sfc_render$2c(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$2g(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_button = resolveComponent("a-button");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -61937,12 +62432,12 @@ function _sfc_render$2c(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   });
 }
-const onMountedEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2c, [["render", _sfc_render$2c]]);
-const __vite_glob_0_81 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const onMountedEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2g, [["render", _sfc_render$2g]]);
+const __vite_glob_0_83 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: onMountedEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$2b = {
+const _sfc_main$2f = {
   name: "onOkButtonClick-editor",
   mixins: [i18n$1, eventMixin],
   props: {
@@ -61960,7 +62455,7 @@ const _sfc_main$2b = {
     };
   }
 };
-function _sfc_render$2b(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$2f(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_button = resolveComponent("a-button");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -61984,12 +62479,12 @@ function _sfc_render$2b(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   });
 }
-const onOkButtonClickEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2b, [["render", _sfc_render$2b]]);
-const __vite_glob_0_82 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const onOkButtonClickEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2f, [["render", _sfc_render$2f]]);
+const __vite_glob_0_84 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: onOkButtonClickEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$2a = {
+const _sfc_main$2e = {
   name: "onOperationButtonClick-editor",
   mixins: [i18n$1, eventMixin],
   props: {
@@ -62007,7 +62502,7 @@ const _sfc_main$2a = {
     };
   }
 };
-function _sfc_render$2a(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$2e(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_button = resolveComponent("a-button");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -62031,12 +62526,12 @@ function _sfc_render$2a(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   });
 }
-const onOperationButtonClickEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2a, [["render", _sfc_render$2a]]);
-const __vite_glob_0_83 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const onOperationButtonClickEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2e, [["render", _sfc_render$2e]]);
+const __vite_glob_0_85 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: onOperationButtonClickEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$29 = {
+const _sfc_main$2d = {
   name: "onPageSizeChange-editor",
   mixins: [i18n$1, eventMixin],
   props: {
@@ -62054,7 +62549,7 @@ const _sfc_main$29 = {
     };
   }
 };
-function _sfc_render$29(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$2d(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_button = resolveComponent("a-button");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -62078,12 +62573,12 @@ function _sfc_render$29(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   });
 }
-const onPageSizeChangeEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$29, [["render", _sfc_render$29]]);
-const __vite_glob_0_84 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const onPageSizeChangeEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2d, [["render", _sfc_render$2d]]);
+const __vite_glob_0_86 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: onPageSizeChangeEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$28 = {
+const _sfc_main$2c = {
   name: "onRemoteQuery-editor",
   mixins: [i18n$1, eventMixin],
   props: {
@@ -62101,7 +62596,7 @@ const _sfc_main$28 = {
     };
   }
 };
-function _sfc_render$28(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$2c(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_button = resolveComponent("a-button");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -62125,12 +62620,12 @@ function _sfc_render$28(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   });
 }
-const onRemoteQueryEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$28, [["render", _sfc_render$28]]);
-const __vite_glob_0_85 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const onRemoteQueryEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2c, [["render", _sfc_render$2c]]);
+const __vite_glob_0_87 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: onRemoteQueryEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$27 = {
+const _sfc_main$2b = {
   name: "onRowClick-editor",
   mixins: [i18n$1, eventMixin],
   props: {
@@ -62148,7 +62643,7 @@ const _sfc_main$27 = {
     };
   }
 };
-function _sfc_render$27(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$2b(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_button = resolveComponent("a-button");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -62172,12 +62667,12 @@ function _sfc_render$27(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   });
 }
-const onRowClickEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$27, [["render", _sfc_render$27]]);
-const __vite_glob_0_86 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const onRowClickEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2b, [["render", _sfc_render$2b]]);
+const __vite_glob_0_88 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: onRowClickEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$26 = {
+const _sfc_main$2a = {
   name: "onRowDoubleClick-editor",
   mixins: [i18n$1, eventMixin],
   props: {
@@ -62195,7 +62690,7 @@ const _sfc_main$26 = {
     };
   }
 };
-function _sfc_render$26(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$2a(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_button = resolveComponent("a-button");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -62219,12 +62714,12 @@ function _sfc_render$26(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   });
 }
-const onRowDoubleClickEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$26, [["render", _sfc_render$26]]);
-const __vite_glob_0_87 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const onRowDoubleClickEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2a, [["render", _sfc_render$2a]]);
+const __vite_glob_0_89 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: onRowDoubleClickEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$25 = {
+const _sfc_main$29 = {
   name: "onSelectionChange-editor",
   mixins: [i18n$1, eventMixin],
   props: {
@@ -62242,7 +62737,7 @@ const _sfc_main$25 = {
     };
   }
 };
-function _sfc_render$25(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$29(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_button = resolveComponent("a-button");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -62266,12 +62761,12 @@ function _sfc_render$25(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   });
 }
-const onSelectionChangeEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$25, [["render", _sfc_render$25]]);
-const __vite_glob_0_88 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const onSelectionChangeEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$29, [["render", _sfc_render$29]]);
+const __vite_glob_0_90 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: onSelectionChangeEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$24 = {
+const _sfc_main$28 = {
   name: "onSubFormRowAdd-editor",
   mixins: [i18n$1, eventMixin],
   props: {
@@ -62289,7 +62784,7 @@ const _sfc_main$24 = {
     };
   }
 };
-function _sfc_render$24(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$28(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_button = resolveComponent("a-button");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -62313,12 +62808,12 @@ function _sfc_render$24(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   });
 }
-const onSubFormRowAddEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$24, [["render", _sfc_render$24]]);
-const __vite_glob_0_89 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const onSubFormRowAddEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$28, [["render", _sfc_render$28]]);
+const __vite_glob_0_91 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: onSubFormRowAddEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$23 = {
+const _sfc_main$27 = {
   name: "onSubFormRowChange-editor",
   mixins: [i18n$1, eventMixin],
   props: {
@@ -62336,7 +62831,7 @@ const _sfc_main$23 = {
     };
   }
 };
-function _sfc_render$23(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$27(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_button = resolveComponent("a-button");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -62360,12 +62855,12 @@ function _sfc_render$23(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   });
 }
-const onSubFormRowChangeEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$23, [["render", _sfc_render$23]]);
-const __vite_glob_0_90 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const onSubFormRowChangeEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$27, [["render", _sfc_render$27]]);
+const __vite_glob_0_92 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: onSubFormRowChangeEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$22 = {
+const _sfc_main$26 = {
   name: "onSubFormRowDelete-editor",
   mixins: [i18n$1, eventMixin],
   props: {
@@ -62383,7 +62878,7 @@ const _sfc_main$22 = {
     };
   }
 };
-function _sfc_render$22(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$26(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_button = resolveComponent("a-button");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -62407,12 +62902,12 @@ function _sfc_render$22(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   });
 }
-const onSubFormRowDeleteEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$22, [["render", _sfc_render$22]]);
-const __vite_glob_0_91 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const onSubFormRowDeleteEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$26, [["render", _sfc_render$26]]);
+const __vite_glob_0_93 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: onSubFormRowDeleteEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$21 = {
+const _sfc_main$25 = {
   name: "onSubFormRowInsert-editor",
   mixins: [i18n$1, eventMixin],
   props: {
@@ -62430,7 +62925,7 @@ const _sfc_main$21 = {
     };
   }
 };
-function _sfc_render$21(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$25(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_button = resolveComponent("a-button");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -62454,12 +62949,12 @@ function _sfc_render$21(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   });
 }
-const onSubFormRowInsertEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$21, [["render", _sfc_render$21]]);
-const __vite_glob_0_92 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const onSubFormRowInsertEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$25, [["render", _sfc_render$25]]);
+const __vite_glob_0_94 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: onSubFormRowInsertEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$20 = {
+const _sfc_main$24 = {
   name: "onTabClick-editor",
   mixins: [i18n$1, eventMixin],
   props: {
@@ -62477,7 +62972,7 @@ const _sfc_main$20 = {
     };
   }
 };
-function _sfc_render$20(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$24(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_button = resolveComponent("a-button");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -62501,12 +62996,12 @@ function _sfc_render$20(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   });
 }
-const onTabClickEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$20, [["render", _sfc_render$20]]);
-const __vite_glob_0_93 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const onTabClickEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$24, [["render", _sfc_render$24]]);
+const __vite_glob_0_95 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: onTabClickEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$1$ = {
+const _sfc_main$23 = {
   name: "onTableChange-editor",
   mixins: [i18n$1, eventMixin],
   props: {
@@ -62524,7 +63019,7 @@ const _sfc_main$1$ = {
     };
   }
 };
-function _sfc_render$1$(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$23(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_button = resolveComponent("a-button");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -62549,12 +63044,12 @@ function _sfc_render$1$(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   });
 }
-const onTableChangeEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1$, [["render", _sfc_render$1$]]);
-const __vite_glob_0_94 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const onTableChangeEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$23, [["render", _sfc_render$23]]);
+const __vite_glob_0_96 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: onTableChangeEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$1_ = {
+const _sfc_main$22 = {
   name: "onUploadError-editor",
   mixins: [i18n$1, eventMixin],
   props: {
@@ -62572,7 +63067,7 @@ const _sfc_main$1_ = {
     };
   }
 };
-function _sfc_render$1_(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$22(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_button = resolveComponent("a-button");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -62596,12 +63091,12 @@ function _sfc_render$1_(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   });
 }
-const onUploadErrorEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1_, [["render", _sfc_render$1_]]);
-const __vite_glob_0_95 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const onUploadErrorEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$22, [["render", _sfc_render$22]]);
+const __vite_glob_0_97 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: onUploadErrorEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$1Z = {
+const _sfc_main$21 = {
   name: "onUploadSuccess-editor",
   mixins: [i18n$1, eventMixin],
   props: {
@@ -62619,7 +63114,7 @@ const _sfc_main$1Z = {
     };
   }
 };
-function _sfc_render$1Z(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$21(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_button = resolveComponent("a-button");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -62643,12 +63138,12 @@ function _sfc_render$1Z(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   });
 }
-const onUploadSuccessEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1Z, [["render", _sfc_render$1Z]]);
-const __vite_glob_0_96 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const onUploadSuccessEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$21, [["render", _sfc_render$21]]);
+const __vite_glob_0_98 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: onUploadSuccessEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$1Y = {
+const _sfc_main$20 = {
   name: "onValidate-editor",
   mixins: [i18n$1, eventMixin],
   props: {
@@ -62666,7 +63161,7 @@ const _sfc_main$1Y = {
     };
   }
 };
-function _sfc_render$1Y(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$20(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_button = resolveComponent("a-button");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -62691,12 +63186,12 @@ function _sfc_render$1Y(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   });
 }
-const onValidateEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1Y, [["render", _sfc_render$1Y]]);
-const __vite_glob_0_97 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const onValidateEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$20, [["render", _sfc_render$20]]);
+const __vite_glob_0_99 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: onValidateEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$1X = {
+const _sfc_main$1$ = {
   name: "onVformAdd-editor",
   mixins: [i18n$1, eventMixin],
   props: {
@@ -62714,7 +63209,7 @@ const _sfc_main$1X = {
     };
   }
 };
-function _sfc_render$1X(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$1$(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_button = resolveComponent("a-button");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -62739,13 +63234,13 @@ function _sfc_render$1X(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   });
 }
-const onVformAddEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1X, [["render", _sfc_render$1X]]);
-const __vite_glob_0_98 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const onVformAddEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1$, [["render", _sfc_render$1$]]);
+const __vite_glob_0_100 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: onVformAddEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$1W = {
-  name: "button-danger-editor",
+const _sfc_main$1_ = {
+  name: "circle-editor",
   mixins: [i18n$1],
   props: {
     designer: Object,
@@ -62753,7 +63248,36 @@ const _sfc_main$1W = {
     optionModel: Object
   }
 };
-function _sfc_render$1W(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$1_(_ctx, _cache, $props, $setup, $data, $options) {
+  const _component_a_switch = resolveComponent("a-switch");
+  const _component_a_form_item = resolveComponent("a-form-item");
+  return openBlock(), createBlock(_component_a_form_item, {
+    label: _ctx.i18nt("designer.setting.circle")
+  }, {
+    default: withCtx(() => [
+      createVNode(_component_a_switch, {
+        checked: $props.optionModel.circle,
+        "onUpdate:checked": _cache[0] || (_cache[0] = ($event) => $props.optionModel.circle = $event)
+      }, null, 8, ["checked"])
+    ]),
+    _: 1
+  }, 8, ["label"]);
+}
+const circleEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1_, [["render", _sfc_render$1_]]);
+const __vite_glob_0_101 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+  __proto__: null,
+  default: circleEditor
+}, Symbol.toStringTag, { value: "Module" }));
+const _sfc_main$1Z = {
+  name: "danger-editor",
+  mixins: [i18n$1],
+  props: {
+    designer: Object,
+    selectedWidget: Object,
+    optionModel: Object
+  }
+};
+function _sfc_render$1Z(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_switch = resolveComponent("a-switch");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, { label: "设置危险按钮" }, {
@@ -62766,13 +63290,13 @@ function _sfc_render$1W(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   });
 }
-const buttonDangerEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1W, [["render", _sfc_render$1W]]);
-const __vite_glob_0_99 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const dangerEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1Z, [["render", _sfc_render$1Z]]);
+const __vite_glob_0_102 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
-  default: buttonDangerEditor
+  default: dangerEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$1V = {
-  name: "button-ghost-editor",
+const _sfc_main$1Y = {
+  name: "ghost-editor",
   mixins: [i18n$1],
   props: {
     designer: Object,
@@ -62780,7 +63304,7 @@ const _sfc_main$1V = {
     optionModel: Object
   }
 };
-function _sfc_render$1V(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$1Y(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_switch = resolveComponent("a-switch");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, { label: "幽灵属性，使按钮背景透明" }, {
@@ -62793,13 +63317,101 @@ function _sfc_render$1V(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   });
 }
-const buttonGhostEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1V, [["render", _sfc_render$1V]]);
-const __vite_glob_0_100 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const ghostEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1Y, [["render", _sfc_render$1Y]]);
+const __vite_glob_0_103 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
-  default: buttonGhostEditor
+  default: ghostEditor
+}, Symbol.toStringTag, { value: "Module" }));
+const _sfc_main$1X = {
+  name: "icon-editor",
+  mixins: [i18n$1],
+  props: {
+    designer: Object,
+    selectedWidget: Object,
+    optionModel: Object
+  }
+};
+function _sfc_render$1X(_ctx, _cache, $props, $setup, $data, $options) {
+  const _component_a_input = resolveComponent("a-input");
+  const _component_a_form_item = resolveComponent("a-form-item");
+  return openBlock(), createBlock(_component_a_form_item, {
+    label: _ctx.i18nt("designer.setting.buttonIcon")
+  }, {
+    default: withCtx(() => [
+      createVNode(_component_a_input, {
+        type: "text",
+        value: $props.optionModel.icon,
+        "onUpdate:value": _cache[0] || (_cache[0] = ($event) => $props.optionModel.icon = $event)
+      }, null, 8, ["value"])
+    ]),
+    _: 1
+  }, 8, ["label"]);
+}
+const iconEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1X, [["render", _sfc_render$1X]]);
+const __vite_glob_0_104 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+  __proto__: null,
+  default: iconEditor
+}, Symbol.toStringTag, { value: "Module" }));
+const _sfc_main$1W = {
+  name: "plain-editor",
+  mixins: [i18n$1],
+  props: {
+    designer: Object,
+    selectedWidget: Object,
+    optionModel: Object
+  }
+};
+function _sfc_render$1W(_ctx, _cache, $props, $setup, $data, $options) {
+  const _component_a_switch = resolveComponent("a-switch");
+  const _component_a_form_item = resolveComponent("a-form-item");
+  return openBlock(), createBlock(_component_a_form_item, {
+    label: _ctx.i18nt("designer.setting.plain")
+  }, {
+    default: withCtx(() => [
+      createVNode(_component_a_switch, {
+        checked: $props.optionModel.plain,
+        "onUpdate:checked": _cache[0] || (_cache[0] = ($event) => $props.optionModel.plain = $event)
+      }, null, 8, ["checked"])
+    ]),
+    _: 1
+  }, 8, ["label"]);
+}
+const plainEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1W, [["render", _sfc_render$1W]]);
+const __vite_glob_0_105 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+  __proto__: null,
+  default: plainEditor
+}, Symbol.toStringTag, { value: "Module" }));
+const _sfc_main$1V = {
+  name: "round-editor",
+  mixins: [i18n$1],
+  props: {
+    designer: Object,
+    selectedWidget: Object,
+    optionModel: Object
+  }
+};
+function _sfc_render$1V(_ctx, _cache, $props, $setup, $data, $options) {
+  const _component_a_switch = resolveComponent("a-switch");
+  const _component_a_form_item = resolveComponent("a-form-item");
+  return openBlock(), createBlock(_component_a_form_item, {
+    label: _ctx.i18nt("designer.setting.round")
+  }, {
+    default: withCtx(() => [
+      createVNode(_component_a_switch, {
+        checked: $props.optionModel.round,
+        "onUpdate:checked": _cache[0] || (_cache[0] = ($event) => $props.optionModel.round = $event)
+      }, null, 8, ["checked"])
+    ]),
+    _: 1
+  }, 8, ["label"]);
+}
+const roundEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1V, [["render", _sfc_render$1V]]);
+const __vite_glob_0_106 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+  __proto__: null,
+  default: roundEditor
 }, Symbol.toStringTag, { value: "Module" }));
 const _sfc_main$1U = {
-  name: "button-shape-editor",
+  name: "shape-editor",
   mixins: [i18n$1, propertyMixin],
   props: {
     designer: Object,
@@ -62843,13 +63455,13 @@ function _sfc_render$1U(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   });
 }
-const buttonShapeEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1U, [["render", _sfc_render$1U]]);
-const __vite_glob_0_101 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const shapeEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1U, [["render", _sfc_render$1U]]);
+const __vite_glob_0_107 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
-  default: buttonShapeEditor
+  default: shapeEditor
 }, Symbol.toStringTag, { value: "Module" }));
 const _sfc_main$1T = {
-  name: "button-type-editor",
+  name: "type-editor",
   mixins: [i18n$1, propertyMixin],
   props: {
     designer: Object,
@@ -62931,129 +63543,12 @@ function _sfc_render$1T(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const buttonTypeEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1T, [["render", _sfc_render$1T]]);
-const __vite_glob_0_102 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const typeEditor$1 = /* @__PURE__ */ _export_sfc$1(_sfc_main$1T, [["render", _sfc_render$1T]]);
+const __vite_glob_0_108 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
-  default: buttonTypeEditor
+  default: typeEditor$1
 }, Symbol.toStringTag, { value: "Module" }));
 const _sfc_main$1S = {
-  name: "circle-editor",
-  mixins: [i18n$1],
-  props: {
-    designer: Object,
-    selectedWidget: Object,
-    optionModel: Object
-  }
-};
-function _sfc_render$1S(_ctx, _cache, $props, $setup, $data, $options) {
-  const _component_a_switch = resolveComponent("a-switch");
-  const _component_a_form_item = resolveComponent("a-form-item");
-  return openBlock(), createBlock(_component_a_form_item, {
-    label: _ctx.i18nt("designer.setting.circle")
-  }, {
-    default: withCtx(() => [
-      createVNode(_component_a_switch, {
-        checked: $props.optionModel.circle,
-        "onUpdate:checked": _cache[0] || (_cache[0] = ($event) => $props.optionModel.circle = $event)
-      }, null, 8, ["checked"])
-    ]),
-    _: 1
-  }, 8, ["label"]);
-}
-const circleEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1S, [["render", _sfc_render$1S]]);
-const __vite_glob_0_103 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
-  __proto__: null,
-  default: circleEditor
-}, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$1R = {
-  name: "icon-editor",
-  mixins: [i18n$1],
-  props: {
-    designer: Object,
-    selectedWidget: Object,
-    optionModel: Object
-  }
-};
-function _sfc_render$1R(_ctx, _cache, $props, $setup, $data, $options) {
-  const _component_a_input = resolveComponent("a-input");
-  const _component_a_form_item = resolveComponent("a-form-item");
-  return openBlock(), createBlock(_component_a_form_item, {
-    label: _ctx.i18nt("designer.setting.buttonIcon")
-  }, {
-    default: withCtx(() => [
-      createVNode(_component_a_input, {
-        type: "text",
-        value: $props.optionModel.icon,
-        "onUpdate:value": _cache[0] || (_cache[0] = ($event) => $props.optionModel.icon = $event)
-      }, null, 8, ["value"])
-    ]),
-    _: 1
-  }, 8, ["label"]);
-}
-const iconEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1R, [["render", _sfc_render$1R]]);
-const __vite_glob_0_104 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
-  __proto__: null,
-  default: iconEditor
-}, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$1Q = {
-  name: "plain-editor",
-  mixins: [i18n$1],
-  props: {
-    designer: Object,
-    selectedWidget: Object,
-    optionModel: Object
-  }
-};
-function _sfc_render$1Q(_ctx, _cache, $props, $setup, $data, $options) {
-  const _component_a_switch = resolveComponent("a-switch");
-  const _component_a_form_item = resolveComponent("a-form-item");
-  return openBlock(), createBlock(_component_a_form_item, {
-    label: _ctx.i18nt("designer.setting.plain")
-  }, {
-    default: withCtx(() => [
-      createVNode(_component_a_switch, {
-        checked: $props.optionModel.plain,
-        "onUpdate:checked": _cache[0] || (_cache[0] = ($event) => $props.optionModel.plain = $event)
-      }, null, 8, ["checked"])
-    ]),
-    _: 1
-  }, 8, ["label"]);
-}
-const plainEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1Q, [["render", _sfc_render$1Q]]);
-const __vite_glob_0_105 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
-  __proto__: null,
-  default: plainEditor
-}, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$1P = {
-  name: "round-editor",
-  mixins: [i18n$1],
-  props: {
-    designer: Object,
-    selectedWidget: Object,
-    optionModel: Object
-  }
-};
-function _sfc_render$1P(_ctx, _cache, $props, $setup, $data, $options) {
-  const _component_a_switch = resolveComponent("a-switch");
-  const _component_a_form_item = resolveComponent("a-form-item");
-  return openBlock(), createBlock(_component_a_form_item, {
-    label: _ctx.i18nt("designer.setting.round")
-  }, {
-    default: withCtx(() => [
-      createVNode(_component_a_switch, {
-        checked: $props.optionModel.round,
-        "onUpdate:checked": _cache[0] || (_cache[0] = ($event) => $props.optionModel.round = $event)
-      }, null, 8, ["checked"])
-    ]),
-    _: 1
-  }, 8, ["label"]);
-}
-const roundEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1P, [["render", _sfc_render$1P]]);
-const __vite_glob_0_106 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
-  __proto__: null,
-  default: roundEditor
-}, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$1O = {
   name: "cascader-defaultValue-editor",
   props: {
     designer: Object,
@@ -63061,16 +63556,16 @@ const _sfc_main$1O = {
     optionModel: Object
   }
 };
-const _hoisted_1$y = { style: { "display": "none" } };
-function _sfc_render$1O(_ctx, _cache, $props, $setup, $data, $options) {
-  return openBlock(), createElementBlock("div", _hoisted_1$y);
+const _hoisted_1$x = { style: { "display": "none" } };
+function _sfc_render$1S(_ctx, _cache, $props, $setup, $data, $options) {
+  return openBlock(), createElementBlock("div", _hoisted_1$x);
 }
-const cascaderDefaultValueEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1O, [["render", _sfc_render$1O]]);
-const __vite_glob_0_107 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const cascaderDefaultValueEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1S, [["render", _sfc_render$1S]]);
+const __vite_glob_0_109 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: cascaderDefaultValueEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$1N = {
+const _sfc_main$1R = {
   name: "cascader-multiple-editor",
   mixins: [i18n$1, propertyMixin],
   props: {
@@ -63079,7 +63574,7 @@ const _sfc_main$1N = {
     optionModel: Object
   }
 };
-function _sfc_render$1N(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$1R(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_switch = resolveComponent("a-switch");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -63094,12 +63589,12 @@ function _sfc_render$1N(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const cascaderMultipleEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1N, [["render", _sfc_render$1N]]);
-const __vite_glob_0_108 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const cascaderMultipleEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1R, [["render", _sfc_render$1R]]);
+const __vite_glob_0_110 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: cascaderMultipleEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$1M = {
+const _sfc_main$1Q = {
   name: "checkbox-defaultValue-editor",
   props: {
     designer: Object,
@@ -63107,16 +63602,16 @@ const _sfc_main$1M = {
     optionModel: Object
   }
 };
-const _hoisted_1$x = { style: { "display": "none" } };
-function _sfc_render$1M(_ctx, _cache, $props, $setup, $data, $options) {
-  return openBlock(), createElementBlock("div", _hoisted_1$x);
+const _hoisted_1$w = { style: { "display": "none" } };
+function _sfc_render$1Q(_ctx, _cache, $props, $setup, $data, $options) {
+  return openBlock(), createElementBlock("div", _hoisted_1$w);
 }
-const checkboxDefaultValueEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1M, [["render", _sfc_render$1M]]);
-const __vite_glob_0_109 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const checkboxDefaultValueEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1Q, [["render", _sfc_render$1Q]]);
+const __vite_glob_0_111 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: checkboxDefaultValueEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$1L = {
+const _sfc_main$1P = {
   name: "color-defaultValue-editor",
   mixins: [i18n$1, propertyMixin],
   props: {
@@ -63125,7 +63620,7 @@ const _sfc_main$1L = {
     optionModel: Object
   }
 };
-function _sfc_render$1L(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$1P(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_input = resolveComponent("a-input");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -63143,12 +63638,12 @@ function _sfc_render$1L(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const colorDefaultValueEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1L, [["render", _sfc_render$1L]]);
-const __vite_glob_0_110 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const colorDefaultValueEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1P, [["render", _sfc_render$1P]]);
+const __vite_glob_0_112 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: colorDefaultValueEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$1K = {
+const _sfc_main$1O = {
   name: "date-range-defaultValue-editor",
   mixins: [i18n$1, propertyMixin],
   props: {
@@ -63157,7 +63652,7 @@ const _sfc_main$1K = {
     optionModel: Object
   }
 };
-function _sfc_render$1K(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$1O(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_date_picker = resolveComponent("a-date-picker");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -63177,12 +63672,12 @@ function _sfc_render$1K(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const dateRangeDefaultValueEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1K, [["render", _sfc_render$1K]]);
-const __vite_glob_0_111 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const dateRangeDefaultValueEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1O, [["render", _sfc_render$1O]]);
+const __vite_glob_0_113 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: dateRangeDefaultValueEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$1J = {
+const _sfc_main$1N = {
   name: "date-range-format-editor",
   mixins: [i18n$1],
   props: {
@@ -63191,7 +63686,7 @@ const _sfc_main$1J = {
     optionModel: Object
   }
 };
-function _sfc_render$1J(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$1N(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_select_option = resolveComponent("a-select-option");
   const _component_a_select = resolveComponent("a-select");
   const _component_a_form_item = resolveComponent("a-form-item");
@@ -63257,12 +63752,12 @@ function _sfc_render$1J(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const dateRangeFormatEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1J, [["render", _sfc_render$1J]]);
-const __vite_glob_0_112 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const dateRangeFormatEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1N, [["render", _sfc_render$1N]]);
+const __vite_glob_0_114 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: dateRangeFormatEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$1I = {
+const _sfc_main$1M = {
   name: "date-range-type-editor",
   mixins: [i18n$1],
   props: {
@@ -63271,7 +63766,7 @@ const _sfc_main$1I = {
     optionModel: Object
   }
 };
-function _sfc_render$1I(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$1M(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_select_option = resolveComponent("a-select-option");
   const _component_a_select = resolveComponent("a-select");
   const _component_a_form_item = resolveComponent("a-form-item");
@@ -63318,12 +63813,12 @@ function _sfc_render$1I(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const dateRangeTypeEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1I, [["render", _sfc_render$1I]]);
-const __vite_glob_0_113 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const dateRangeTypeEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1M, [["render", _sfc_render$1M]]);
+const __vite_glob_0_115 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: dateRangeTypeEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$1H = {
+const _sfc_main$1L = {
   name: "date-range-valueFormat-editor",
   mixins: [i18n$1],
   props: {
@@ -63332,7 +63827,7 @@ const _sfc_main$1H = {
     optionModel: Object
   }
 };
-function _sfc_render$1H(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$1L(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_select_option = resolveComponent("a-select-option");
   const _component_a_select = resolveComponent("a-select");
   const _component_a_form_item = resolveComponent("a-form-item");
@@ -63389,12 +63884,12 @@ function _sfc_render$1H(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const dateRangeValueFormatEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1H, [["render", _sfc_render$1H]]);
-const __vite_glob_0_114 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const dateRangeValueFormatEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1L, [["render", _sfc_render$1L]]);
+const __vite_glob_0_116 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: dateRangeValueFormatEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$1G = {
+const _sfc_main$1K = {
   name: "date-defaultValue-editor",
   mixins: [i18n$1, propertyMixin],
   props: {
@@ -63403,7 +63898,7 @@ const _sfc_main$1G = {
     optionModel: Object
   }
 };
-function _sfc_render$1G(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$1K(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_date_picker = resolveComponent("a-date-picker");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -63423,12 +63918,12 @@ function _sfc_render$1G(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const dateDefaultValueEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1G, [["render", _sfc_render$1G]]);
-const __vite_glob_0_115 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const dateDefaultValueEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1K, [["render", _sfc_render$1K]]);
+const __vite_glob_0_117 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: dateDefaultValueEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$1F = {
+const _sfc_main$1J = {
   name: "date-format-editor",
   mixins: [i18n$1],
   props: {
@@ -63437,7 +63932,7 @@ const _sfc_main$1F = {
     optionModel: Object
   }
 };
-function _sfc_render$1F(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$1J(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_select_option = resolveComponent("a-select-option");
   const _component_a_select = resolveComponent("a-select");
   const _component_a_form_item = resolveComponent("a-form-item");
@@ -63494,12 +63989,12 @@ function _sfc_render$1F(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const dateFormatEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1F, [["render", _sfc_render$1F]]);
-const __vite_glob_0_116 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const dateFormatEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1J, [["render", _sfc_render$1J]]);
+const __vite_glob_0_118 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: dateFormatEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$1E = {
+const _sfc_main$1I = {
   name: "date-type-editor",
   mixins: [i18n$1],
   props: {
@@ -63508,7 +64003,7 @@ const _sfc_main$1E = {
     optionModel: Object
   }
 };
-function _sfc_render$1E(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$1I(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_select_option = resolveComponent("a-select-option");
   const _component_a_select = resolveComponent("a-select");
   const _component_a_form_item = resolveComponent("a-form-item");
@@ -63573,12 +64068,12 @@ function _sfc_render$1E(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const dateTypeEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1E, [["render", _sfc_render$1E]]);
-const __vite_glob_0_117 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const dateTypeEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1I, [["render", _sfc_render$1I]]);
+const __vite_glob_0_119 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: dateTypeEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$1D = {
+const _sfc_main$1H = {
   name: "date-valueFormat-editor",
   mixins: [i18n$1],
   props: {
@@ -63587,7 +64082,7 @@ const _sfc_main$1D = {
     optionModel: Object
   }
 };
-function _sfc_render$1D(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$1H(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_select_option = resolveComponent("a-select-option");
   const _component_a_select = resolveComponent("a-select");
   const _component_a_form_item = resolveComponent("a-form-item");
@@ -63644,12 +64139,12 @@ function _sfc_render$1D(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const dateValueFormatEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1D, [["render", _sfc_render$1D]]);
-const __vite_glob_0_118 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const dateValueFormatEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1H, [["render", _sfc_render$1H]]);
+const __vite_glob_0_120 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: dateValueFormatEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$1C = {
+const _sfc_main$1G = {
   name: "contentPosition-editor",
   mixins: [i18n$1],
   props: {
@@ -63658,7 +64153,7 @@ const _sfc_main$1C = {
     optionModel: Object
   }
 };
-function _sfc_render$1C(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$1G(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_select_option = resolveComponent("a-select-option");
   const _component_a_select = resolveComponent("a-select");
   const _component_a_form_item = resolveComponent("a-form-item");
@@ -63705,12 +64200,12 @@ function _sfc_render$1C(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const contentPositionEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1C, [["render", _sfc_render$1C]]);
-const __vite_glob_0_119 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const contentPositionEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1G, [["render", _sfc_render$1G]]);
+const __vite_glob_0_121 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: contentPositionEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$1B = {
+const _sfc_main$1F = {
   name: "divider-direction-editor",
   mixins: [i18n$1],
   props: {
@@ -63719,7 +64214,7 @@ const _sfc_main$1B = {
     optionModel: Object
   }
 };
-function _sfc_render$1B(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$1F(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_select_option = resolveComponent("a-select-option");
   const _component_a_select = resolveComponent("a-select");
   const _component_a_form_item = resolveComponent("a-form-item");
@@ -63757,12 +64252,76 @@ function _sfc_render$1B(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const dividerDirectionEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1B, [["render", _sfc_render$1B]]);
-const __vite_glob_0_120 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const dividerDirectionEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1F, [["render", _sfc_render$1F]]);
+const __vite_glob_0_122 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: dividerDirectionEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$1A = {
+const _sfc_main$1E = {
+  name: "menuList-editor",
+  mixins: [i18n$1],
+  components: { CodeModalEditor },
+  props: {
+    designer: Object,
+    selectedWidget: Object,
+    optionModel: Object
+  },
+  data() {
+    return {
+      tableDataOptions: ""
+    };
+  },
+  methods: {
+    saveTableData() {
+      try {
+        this.optionModel.menuList = JSON.parse(this.tableDataOptions);
+      } catch (ex) {
+        this.$message.error(this.i18nt("designer.hint.invalidOptionsData") + ex.message);
+      }
+    },
+    openTableDataEdit() {
+      this.tableDataOptions = JSON.stringify(this.optionModel.menuList, null, "  ");
+      this.$refs.CodeModalEditorRef.open(this.tableDataOptions);
+    }
+  }
+};
+function _sfc_render$1E(_ctx, _cache, $props, $setup, $data, $options) {
+  const _component_a_button = resolveComponent("a-button");
+  const _component_a_form_item = resolveComponent("a-form-item");
+  const _component_CodeModalEditor = resolveComponent("CodeModalEditor");
+  return openBlock(), createElementBlock(Fragment, null, [
+    createVNode(_component_a_form_item, { label: `下拉菜单选项设置` }, {
+      default: withCtx(() => [
+        createVNode(_component_a_button, {
+          type: "primary",
+          shape: "round",
+          onClick: $options.openTableDataEdit
+        }, {
+          default: withCtx(() => [
+            createTextVNode(toDisplayString(_ctx.i18nt("designer.setting.editAction")), 1)
+          ]),
+          _: 1
+        }, 8, ["onClick"])
+      ]),
+      _: 1
+    }),
+    createVNode(_component_CodeModalEditor, {
+      ref: "CodeModalEditorRef",
+      mode: "json",
+      readonly: false,
+      modelValue: $data.tableDataOptions,
+      "onUpdate:modelValue": _cache[0] || (_cache[0] = ($event) => $data.tableDataOptions = $event),
+      title: _ctx.i18nt("designer.setting.tableDataEdit"),
+      onSave: $options.saveTableData
+    }, null, 8, ["modelValue", "title", "onSave"])
+  ], 64);
+}
+const dropdownMenuListEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1E, [["render", _sfc_render$1E]]);
+const __vite_glob_0_123 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+  __proto__: null,
+  default: dropdownMenuListEditor
+}, Symbol.toStringTag, { value: "Module" }));
+const _sfc_main$1D = {
   name: "file-upload-fileTypes-editor",
   mixins: [i18n$1],
   components: {
@@ -63784,7 +64343,7 @@ const _sfc_main$1A = {
     };
   }
 };
-function _sfc_render$1A(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$1D(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_svg_icon = resolveComponent("svg-icon");
   const _component_a_tooltip = resolveComponent("a-tooltip");
   const _component_a_select = resolveComponent("a-select");
@@ -63818,12 +64377,12 @@ function _sfc_render$1A(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   });
 }
-const fileUploadFileTypesEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1A, [["render", _sfc_render$1A]]);
-const __vite_glob_0_121 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const fileUploadFileTypesEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1D, [["render", _sfc_render$1D]]);
+const __vite_glob_0_124 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: fileUploadFileTypesEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$1z = {
+const _sfc_main$1C = {
   name: "htmlContent-editor",
   mixins: [i18n$1],
   props: {
@@ -63832,7 +64391,7 @@ const _sfc_main$1z = {
     optionModel: Object
   }
 };
-function _sfc_render$1z(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$1C(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_form_item = resolveComponent("a-form-item");
   const _component_a_textarea = resolveComponent("a-textarea");
   return openBlock(), createElementBlock("div", null, [
@@ -63852,12 +64411,12 @@ function _sfc_render$1z(_ctx, _cache, $props, $setup, $data, $options) {
     })
   ]);
 }
-const htmlContentEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1z, [["render", _sfc_render$1z], ["__scopeId", "data-v-85305ed8"]]);
-const __vite_glob_0_122 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const htmlContentEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1C, [["render", _sfc_render$1C], ["__scopeId", "data-v-85305ed8"]]);
+const __vite_glob_0_125 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: htmlContentEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$1y = {
+const _sfc_main$1B = {
   name: "controlsPosition-editor",
   mixins: [i18n$1],
   props: {
@@ -63866,7 +64425,7 @@ const _sfc_main$1y = {
     optionModel: Object
   }
 };
-function _sfc_render$1y(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$1B(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_select_option = resolveComponent("a-select-option");
   const _component_a_select = resolveComponent("a-select");
   const _component_a_form_item = resolveComponent("a-form-item");
@@ -63904,12 +64463,12 @@ function _sfc_render$1y(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const controlsPositionEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1y, [["render", _sfc_render$1y]]);
-const __vite_glob_0_123 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const controlsPositionEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1B, [["render", _sfc_render$1B]]);
+const __vite_glob_0_126 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: controlsPositionEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$1x = {
+const _sfc_main$1A = {
   name: "number-defaultValue-editor",
   mixins: [i18n$1, propertyMixin],
   props: {
@@ -63918,7 +64477,7 @@ const _sfc_main$1x = {
     optionModel: Object
   }
 };
-function _sfc_render$1x(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$1A(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_input_number = resolveComponent("a-input-number");
   const _component_a_form_item = resolveComponent("a-form-item");
   return !_ctx.hasConfig("optionItems") ? (openBlock(), createBlock(_component_a_form_item, {
@@ -63937,12 +64496,12 @@ function _sfc_render$1x(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"])) : createCommentVNode("", true);
 }
-const numberDefaultValueEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1x, [["render", _sfc_render$1x]]);
-const __vite_glob_0_124 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const numberDefaultValueEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1A, [["render", _sfc_render$1A]]);
+const __vite_glob_0_127 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: numberDefaultValueEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$1w = {
+const _sfc_main$1z = {
   name: "picture-upload-fileTypes-editor",
   mixins: [i18n$1],
   components: {
@@ -63967,7 +64526,7 @@ const _sfc_main$1w = {
     };
   }
 };
-function _sfc_render$1w(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$1z(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_svg_icon = resolveComponent("svg-icon");
   const _component_a_tooltip = resolveComponent("a-tooltip");
   const _component_a_select = resolveComponent("a-select");
@@ -64001,12 +64560,12 @@ function _sfc_render$1w(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   });
 }
-const pictureUploadFileTypesEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1w, [["render", _sfc_render$1w]]);
-const __vite_glob_0_125 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const pictureUploadFileTypesEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1z, [["render", _sfc_render$1z]]);
+const __vite_glob_0_128 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: pictureUploadFileTypesEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$1v = {
+const _sfc_main$1y = {
   name: "radio-defaultValue-editor",
   props: {
     designer: Object,
@@ -64014,16 +64573,16 @@ const _sfc_main$1v = {
     optionModel: Object
   }
 };
-const _hoisted_1$w = { style: { "display": "none" } };
-function _sfc_render$1v(_ctx, _cache, $props, $setup, $data, $options) {
-  return openBlock(), createElementBlock("div", _hoisted_1$w);
+const _hoisted_1$v = { style: { "display": "none" } };
+function _sfc_render$1y(_ctx, _cache, $props, $setup, $data, $options) {
+  return openBlock(), createElementBlock("div", _hoisted_1$v);
 }
-const radioDefaultValueEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1v, [["render", _sfc_render$1v]]);
-const __vite_glob_0_126 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const radioDefaultValueEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1y, [["render", _sfc_render$1y]]);
+const __vite_glob_0_129 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: radioDefaultValueEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$1u = {
+const _sfc_main$1x = {
   name: "allowHalf-editor",
   mixins: [i18n$1],
   props: {
@@ -64032,7 +64591,7 @@ const _sfc_main$1u = {
     optionModel: Object
   }
 };
-function _sfc_render$1u(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$1x(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_switch = resolveComponent("a-switch");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -64047,12 +64606,12 @@ function _sfc_render$1u(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const allowHalfEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1u, [["render", _sfc_render$1u]]);
-const __vite_glob_0_127 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const allowHalfEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1x, [["render", _sfc_render$1x]]);
+const __vite_glob_0_130 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: allowHalfEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$1t = {
+const _sfc_main$1w = {
   name: "highThreshold-editor",
   mixins: [i18n$1],
   props: {
@@ -64061,7 +64620,7 @@ const _sfc_main$1t = {
     optionModel: Object
   }
 };
-function _sfc_render$1t(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$1w(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_input_number = resolveComponent("a-input-number");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -64080,12 +64639,12 @@ function _sfc_render$1t(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const highThresholdEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1t, [["render", _sfc_render$1t]]);
-const __vite_glob_0_128 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const highThresholdEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1w, [["render", _sfc_render$1w]]);
+const __vite_glob_0_131 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: highThresholdEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$1s = {
+const _sfc_main$1v = {
   name: "lowThreshold-editor",
   mixins: [i18n$1],
   props: {
@@ -64094,7 +64653,7 @@ const _sfc_main$1s = {
     optionModel: Object
   }
 };
-function _sfc_render$1s(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$1v(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_input_number = resolveComponent("a-input-number");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -64113,12 +64672,12 @@ function _sfc_render$1s(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const lowThresholdEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1s, [["render", _sfc_render$1s]]);
-const __vite_glob_0_129 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const lowThresholdEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1v, [["render", _sfc_render$1v]]);
+const __vite_glob_0_132 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: lowThresholdEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$1r = {
+const _sfc_main$1u = {
   name: "rate-count-editor",
   mixins: [i18n$1],
   props: {
@@ -64127,7 +64686,7 @@ const _sfc_main$1r = {
     optionModel: Object
   }
 };
-function _sfc_render$1r(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$1u(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_input_number = resolveComponent("a-input-number");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -64146,12 +64705,12 @@ function _sfc_render$1r(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const rateCountEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1r, [["render", _sfc_render$1r]]);
-const __vite_glob_0_130 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const rateCountEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1u, [["render", _sfc_render$1u]]);
+const __vite_glob_0_133 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: rateCountEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$1q = {
+const _sfc_main$1t = {
   name: "rate-defaultValue-editor",
   mixins: [i18n$1, propertyMixin],
   props: {
@@ -64160,7 +64719,7 @@ const _sfc_main$1q = {
     optionModel: Object
   }
 };
-function _sfc_render$1q(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$1t(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_input_number = resolveComponent("a-input-number");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -64179,12 +64738,12 @@ function _sfc_render$1q(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const rateDefaultValueEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1q, [["render", _sfc_render$1q]]);
-const __vite_glob_0_131 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const rateDefaultValueEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1t, [["render", _sfc_render$1t]]);
+const __vite_glob_0_134 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: rateDefaultValueEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$1p = {
+const _sfc_main$1s = {
   name: "showScore-editor",
   mixins: [i18n$1],
   props: {
@@ -64193,7 +64752,7 @@ const _sfc_main$1p = {
     optionModel: Object
   }
 };
-function _sfc_render$1p(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$1s(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_switch = resolveComponent("a-switch");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -64208,12 +64767,12 @@ function _sfc_render$1p(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const showScoreEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1p, [["render", _sfc_render$1p]]);
-const __vite_glob_0_132 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const showScoreEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1s, [["render", _sfc_render$1s]]);
+const __vite_glob_0_135 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: showScoreEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$1o = {
+const _sfc_main$1r = {
   name: "showText-editor",
   mixins: [i18n$1],
   props: {
@@ -64222,7 +64781,7 @@ const _sfc_main$1o = {
     optionModel: Object
   }
 };
-function _sfc_render$1o(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$1r(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_switch = resolveComponent("a-switch");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -64237,12 +64796,12 @@ function _sfc_render$1o(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const showTextEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1o, [["render", _sfc_render$1o]]);
-const __vite_glob_0_133 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const showTextEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1r, [["render", _sfc_render$1r]]);
+const __vite_glob_0_136 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: showTextEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$1n = {
+const _sfc_main$1q = {
   name: "rich-editor-contentHeight-editor",
   mixins: [i18n$1],
   props: {
@@ -64251,7 +64810,7 @@ const _sfc_main$1n = {
     optionModel: Object
   }
 };
-function _sfc_render$1n(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$1q(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_input = resolveComponent("a-input");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createElementBlock("div", null, [
@@ -64269,12 +64828,12 @@ function _sfc_render$1n(_ctx, _cache, $props, $setup, $data, $options) {
     }, 8, ["label"])
   ]);
 }
-const richEditorContentHeightEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1n, [["render", _sfc_render$1n]]);
-const __vite_glob_0_134 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const richEditorContentHeightEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1q, [["render", _sfc_render$1q]]);
+const __vite_glob_0_137 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: richEditorContentHeightEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$1m = {
+const _sfc_main$1p = {
   name: "mode-editor",
   mixins: [i18n$1],
   props: {
@@ -64301,7 +64860,7 @@ const _sfc_main$1m = {
     }
   }
 };
-function _sfc_render$1m(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$1p(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_select = resolveComponent("a-select");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, { label: "模式" }, {
@@ -64316,12 +64875,12 @@ function _sfc_render$1m(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   });
 }
-const modeEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1m, [["render", _sfc_render$1m]]);
-const __vite_glob_0_135 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const modeEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1p, [["render", _sfc_render$1p]]);
+const __vite_glob_0_138 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: modeEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$1l = {
+const _sfc_main$1o = {
   name: "select-defaultValue-editor",
   props: {
     designer: Object,
@@ -64329,16 +64888,16 @@ const _sfc_main$1l = {
     optionModel: Object
   }
 };
-const _hoisted_1$v = { style: { "display": "none" } };
-function _sfc_render$1l(_ctx, _cache, $props, $setup, $data, $options) {
-  return openBlock(), createElementBlock("div", _hoisted_1$v);
+const _hoisted_1$u = { style: { "display": "none" } };
+function _sfc_render$1o(_ctx, _cache, $props, $setup, $data, $options) {
+  return openBlock(), createElementBlock("div", _hoisted_1$u);
 }
-const selectDefaultValueEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1l, [["render", _sfc_render$1l]]);
-const __vite_glob_0_136 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const selectDefaultValueEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1o, [["render", _sfc_render$1o]]);
+const __vite_glob_0_139 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: selectDefaultValueEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$1k = {
+const _sfc_main$1n = {
   name: "range-editor",
   mixins: [i18n$1],
   props: {
@@ -64362,7 +64921,7 @@ const _sfc_main$1k = {
     }
   }
 };
-function _sfc_render$1k(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$1n(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_switch = resolveComponent("a-switch");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -64378,12 +64937,12 @@ function _sfc_render$1k(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const rangeEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1k, [["render", _sfc_render$1k]]);
-const __vite_glob_0_137 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const rangeEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1n, [["render", _sfc_render$1n]]);
+const __vite_glob_0_140 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: rangeEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$1j = {
+const _sfc_main$1m = {
   name: "vertical-editor",
   mixins: [i18n$1],
   props: {
@@ -64392,7 +64951,7 @@ const _sfc_main$1j = {
     optionModel: Object
   }
 };
-function _sfc_render$1j(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$1m(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_switch = resolveComponent("a-switch");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -64407,12 +64966,12 @@ function _sfc_render$1j(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const verticalEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1j, [["render", _sfc_render$1j]]);
-const __vite_glob_0_138 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const verticalEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1m, [["render", _sfc_render$1m]]);
+const __vite_glob_0_141 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: verticalEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$1i = {
+const _sfc_main$1l = {
   name: "textContent-editor",
   mixins: [i18n$1],
   props: {
@@ -64421,7 +64980,7 @@ const _sfc_main$1i = {
     optionModel: Object
   }
 };
-function _sfc_render$1i(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$1l(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_input = resolveComponent("a-input");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -64436,12 +64995,12 @@ function _sfc_render$1i(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const textContentEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1i, [["render", _sfc_render$1i]]);
-const __vite_glob_0_139 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const textContentEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1l, [["render", _sfc_render$1l]]);
+const __vite_glob_0_142 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: textContentEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$1h = {
+const _sfc_main$1k = {
   name: "activeColor-editor",
   mixins: [i18n$1],
   props: {
@@ -64450,7 +65009,7 @@ const _sfc_main$1h = {
     optionModel: Object
   }
 };
-function _sfc_render$1h(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$1k(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_input = resolveComponent("a-input");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -64468,13 +65027,13 @@ function _sfc_render$1h(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const activeColorEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1h, [["render", _sfc_render$1h]]);
-const __vite_glob_0_140 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const activeColorEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1k, [["render", _sfc_render$1k]]);
+const __vite_glob_0_143 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: activeColorEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$1g = {
-  name: "checkedChildren-editor",
+const _sfc_main$1j = {
+  name: "checkedValue-editor",
   mixins: [i18n$1],
   props: {
     designer: Object,
@@ -64482,27 +65041,27 @@ const _sfc_main$1g = {
     optionModel: Object
   }
 };
-function _sfc_render$1g(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$1j(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_input = resolveComponent("a-input");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
-    label: _ctx.i18nt("designer.setting.checkedChildren")
+    label: _ctx.i18nt("designer.setting.checkedValue")
   }, {
     default: withCtx(() => [
       createVNode(_component_a_input, {
-        value: $props.optionModel.checkedChildren,
-        "onUpdate:value": _cache[0] || (_cache[0] = ($event) => $props.optionModel.checkedChildren = $event)
+        value: $props.optionModel.checkedValue,
+        "onUpdate:value": _cache[0] || (_cache[0] = ($event) => $props.optionModel.checkedValue = $event)
       }, null, 8, ["value"])
     ]),
     _: 1
   }, 8, ["label"]);
 }
-const checkedChildrenEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1g, [["render", _sfc_render$1g]]);
-const __vite_glob_0_141 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const checkedValueEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1j, [["render", _sfc_render$1j]]);
+const __vite_glob_0_144 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
-  default: checkedChildrenEditor
+  default: checkedValueEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$1f = {
+const _sfc_main$1i = {
   name: "inactiveColor-editor",
   mixins: [i18n$1],
   props: {
@@ -64511,7 +65070,7 @@ const _sfc_main$1f = {
     optionModel: Object
   }
 };
-function _sfc_render$1f(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$1i(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_input = resolveComponent("a-input");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -64529,12 +65088,12 @@ function _sfc_render$1f(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const inactiveColorEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1f, [["render", _sfc_render$1f]]);
-const __vite_glob_0_142 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const inactiveColorEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1i, [["render", _sfc_render$1i]]);
+const __vite_glob_0_145 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: inactiveColorEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$1e = {
+const _sfc_main$1h = {
   name: "switch-defaultValue-editor",
   mixins: [i18n$1, propertyMixin],
   props: {
@@ -64543,7 +65102,7 @@ const _sfc_main$1e = {
     optionModel: Object
   }
 };
-function _sfc_render$1e(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$1h(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_switch = resolveComponent("a-switch");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -64559,12 +65118,12 @@ function _sfc_render$1e(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const switchDefaultValueEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1e, [["render", _sfc_render$1e]]);
-const __vite_glob_0_143 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const switchDefaultValueEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1h, [["render", _sfc_render$1h]]);
+const __vite_glob_0_146 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: switchDefaultValueEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$1d = {
+const _sfc_main$1g = {
   name: "switchWidth-editor",
   mixins: [i18n$1],
   props: {
@@ -64573,7 +65132,7 @@ const _sfc_main$1d = {
     optionModel: Object
   }
 };
-function _sfc_render$1d(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$1g(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_input_number = resolveComponent("a-input-number");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -64589,13 +65148,13 @@ function _sfc_render$1d(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const switchWidthEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1d, [["render", _sfc_render$1d]]);
-const __vite_glob_0_144 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const switchWidthEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1g, [["render", _sfc_render$1g]]);
+const __vite_glob_0_147 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: switchWidthEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$1c = {
-  name: "unCheckedChildren-editor",
+const _sfc_main$1f = {
+  name: "unCheckedValue-editor",
   mixins: [i18n$1],
   props: {
     designer: Object,
@@ -64603,27 +65162,27 @@ const _sfc_main$1c = {
     optionModel: Object
   }
 };
-function _sfc_render$1c(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$1f(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_input = resolveComponent("a-input");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
-    label: _ctx.i18nt("designer.setting.unCheckedChildren")
+    label: _ctx.i18nt("designer.setting.unCheckedValue")
   }, {
     default: withCtx(() => [
       createVNode(_component_a_input, {
-        value: $props.optionModel.unCheckedChildren,
-        "onUpdate:value": _cache[0] || (_cache[0] = ($event) => $props.optionModel.unCheckedChildren = $event)
+        value: $props.optionModel.unCheckedValue,
+        "onUpdate:value": _cache[0] || (_cache[0] = ($event) => $props.optionModel.unCheckedValue = $event)
       }, null, 8, ["value"])
     ]),
     _: 1
   }, 8, ["label"]);
 }
-const unCheckedChildrenEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1c, [["render", _sfc_render$1c]]);
-const __vite_glob_0_145 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const unCheckedValueEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1f, [["render", _sfc_render$1f]]);
+const __vite_glob_0_148 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
-  default: unCheckedChildrenEditor
+  default: unCheckedValueEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$1b = {
+const _sfc_main$1e = {
   name: "time-range-defaultValue-editor",
   mixins: [i18n$1, propertyMixin],
   props: {
@@ -64632,7 +65191,7 @@ const _sfc_main$1b = {
     optionModel: Object
   }
 };
-function _sfc_render$1b(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$1e(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_time_range_picker = resolveComponent("a-time-range-picker");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -64652,12 +65211,12 @@ function _sfc_render$1b(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const timeRangeDefaultValueEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1b, [["render", _sfc_render$1b]]);
-const __vite_glob_0_146 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const timeRangeDefaultValueEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1e, [["render", _sfc_render$1e]]);
+const __vite_glob_0_149 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: timeRangeDefaultValueEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$1a = {
+const _sfc_main$1d = {
   name: "time-range-format-editor",
   mixins: [i18n$1],
   props: {
@@ -64666,7 +65225,7 @@ const _sfc_main$1a = {
     optionModel: Object
   }
 };
-function _sfc_render$1a(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$1d(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_select_option = resolveComponent("a-select-option");
   const _component_a_select = resolveComponent("a-select");
   const _component_a_form_item = resolveComponent("a-form-item");
@@ -64705,12 +65264,12 @@ function _sfc_render$1a(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const timeRangeFormatEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1a, [["render", _sfc_render$1a]]);
-const __vite_glob_0_147 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const timeRangeFormatEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1d, [["render", _sfc_render$1d]]);
+const __vite_glob_0_150 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: timeRangeFormatEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$19 = {
+const _sfc_main$1c = {
   name: "time-defaultValue-editor",
   mixins: [i18n$1, propertyMixin],
   props: {
@@ -64719,7 +65278,7 @@ const _sfc_main$19 = {
     optionModel: Object
   }
 };
-function _sfc_render$19(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$1c(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_time_picker = resolveComponent("a-time-picker");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -64738,12 +65297,12 @@ function _sfc_render$19(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const timeDefaultValueEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$19, [["render", _sfc_render$19]]);
-const __vite_glob_0_148 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const timeDefaultValueEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1c, [["render", _sfc_render$1c]]);
+const __vite_glob_0_151 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: timeDefaultValueEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$18 = {
+const _sfc_main$1b = {
   name: "time-format-editor",
   mixins: [i18n$1],
   props: {
@@ -64752,7 +65311,7 @@ const _sfc_main$18 = {
     optionModel: Object
   }
 };
-function _sfc_render$18(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$1b(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_select_option = resolveComponent("a-select-option");
   const _component_a_select = resolveComponent("a-select");
   const _component_a_form_item = resolveComponent("a-form-item");
@@ -64791,12 +65350,12 @@ function _sfc_render$18(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const timeFormatEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$18, [["render", _sfc_render$18]]);
-const __vite_glob_0_149 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const timeFormatEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1b, [["render", _sfc_render$1b]]);
+const __vite_glob_0_152 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: timeFormatEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$17 = {
+const _sfc_main$1a = {
   name: "treeDefaultExpandAll-editor",
   mixins: [i18n$1, propertyMixin],
   props: {
@@ -64805,7 +65364,7 @@ const _sfc_main$17 = {
     optionModel: Object
   }
 };
-function _sfc_render$17(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$1a(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_switch = resolveComponent("a-switch");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, { label: `默认展开所有树节点` }, {
@@ -64818,12 +65377,12 @@ function _sfc_render$17(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   });
 }
-const treeSelectTreeDefaultExpandAllEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$17, [["render", _sfc_render$17]]);
-const __vite_glob_0_150 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const treeSelectTreeDefaultExpandAllEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1a, [["render", _sfc_render$1a]]);
+const __vite_glob_0_153 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: treeSelectTreeDefaultExpandAllEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$16 = {
+const _sfc_main$19 = {
   name: "fileMaxSize-editor",
   mixins: [i18n$1],
   props: {
@@ -64832,7 +65391,7 @@ const _sfc_main$16 = {
     optionModel: Object
   }
 };
-function _sfc_render$16(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$19(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_input_number = resolveComponent("a-input-number");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -64850,12 +65409,12 @@ function _sfc_render$16(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const fileMaxSizeEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$16, [["render", _sfc_render$16]]);
-const __vite_glob_0_151 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const fileMaxSizeEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$19, [["render", _sfc_render$19]]);
+const __vite_glob_0_154 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: fileMaxSizeEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$15 = {
+const _sfc_main$18 = {
   name: "hidden-editor",
   mixins: [i18n$1],
   props: {
@@ -64864,7 +65423,7 @@ const _sfc_main$15 = {
     optionModel: Object
   }
 };
-function _sfc_render$15(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$18(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_switch = resolveComponent("a-switch");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -64879,12 +65438,12 @@ function _sfc_render$15(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const hiddenEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$15, [["render", _sfc_render$15]]);
-const __vite_glob_0_152 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const hiddenEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$18, [["render", _sfc_render$18]]);
+const __vite_glob_0_155 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: hiddenEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$14 = {
+const _sfc_main$17 = {
   name: "label-editor",
   mixins: [i18n$1],
   props: {
@@ -64898,7 +65457,7 @@ const _sfc_main$14 = {
     }
   }
 };
-function _sfc_render$14(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$17(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_input = resolveComponent("a-input");
   const _component_a_form_item = resolveComponent("a-form-item");
   return !$options.noLabelSetting ? (openBlock(), createBlock(_component_a_form_item, {
@@ -64915,12 +65474,12 @@ function _sfc_render$14(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"])) : createCommentVNode("", true);
 }
-const labelEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$14, [["render", _sfc_render$14]]);
-const __vite_glob_0_153 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const labelEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$17, [["render", _sfc_render$17]]);
+const __vite_glob_0_156 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: labelEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$13 = {
+const _sfc_main$16 = {
   name: "labelAlign-editor",
   mixins: [i18n$1],
   props: {
@@ -64934,7 +65493,7 @@ const _sfc_main$13 = {
     }
   }
 };
-function _sfc_render$13(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$16(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_radio_button = resolveComponent("a-radio-button");
   const _component_a_radio_group = resolveComponent("a-radio-group");
   const _component_a_form_item = resolveComponent("a-form-item");
@@ -64968,12 +65527,12 @@ function _sfc_render$13(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"])) : createCommentVNode("", true);
 }
-const labelAlignEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$13, [["render", _sfc_render$13], ["__scopeId", "data-v-c7ae9c26"]]);
-const __vite_glob_0_154 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const labelAlignEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$16, [["render", _sfc_render$16], ["__scopeId", "data-v-c7ae9c26"]]);
+const __vite_glob_0_157 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: labelAlignEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$12 = {
+const _sfc_main$15 = {
   name: "labelHidden-editor",
   mixins: [i18n$1],
   props: {
@@ -64982,7 +65541,7 @@ const _sfc_main$12 = {
     optionModel: Object
   }
 };
-function _sfc_render$12(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$15(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_switch = resolveComponent("a-switch");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -64997,12 +65556,12 @@ function _sfc_render$12(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const labelHiddenEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$12, [["render", _sfc_render$12]]);
-const __vite_glob_0_155 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const labelHiddenEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$15, [["render", _sfc_render$15]]);
+const __vite_glob_0_158 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: labelHiddenEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$11 = {
+const _sfc_main$14 = {
   name: "labelIconClass-editor",
   mixins: [i18n$1],
   props: {
@@ -65011,7 +65570,7 @@ const _sfc_main$11 = {
     optionModel: Object
   }
 };
-function _sfc_render$11(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$14(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_divider = resolveComponent("a-divider");
   const _component_a_form_item = resolveComponent("a-form-item");
   const _component_a_input = resolveComponent("a-input");
@@ -65041,12 +65600,12 @@ function _sfc_render$11(_ctx, _cache, $props, $setup, $data, $options) {
     }, 8, ["label"])
   ]);
 }
-const labelIconClassEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$11, [["render", _sfc_render$11]]);
-const __vite_glob_0_156 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const labelIconClassEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$14, [["render", _sfc_render$14]]);
+const __vite_glob_0_159 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: labelIconClassEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$10 = {
+const _sfc_main$13 = {
   name: "labelIconPosition-editor",
   mixins: [i18n$1],
   props: {
@@ -65063,7 +65622,7 @@ const _sfc_main$10 = {
     };
   }
 };
-function _sfc_render$10(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$13(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_select_option = resolveComponent("a-select-option");
   const _component_a_select = resolveComponent("a-select");
   const _component_a_form_item = resolveComponent("a-form-item");
@@ -65095,12 +65654,12 @@ function _sfc_render$10(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const labelIconPositionEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$10, [["render", _sfc_render$10]]);
-const __vite_glob_0_157 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const labelIconPositionEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$13, [["render", _sfc_render$13]]);
+const __vite_glob_0_160 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: labelIconPositionEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$$ = {
+const _sfc_main$12 = {
   name: "labelTooltip-editor",
   mixins: [i18n$1],
   props: {
@@ -65109,7 +65668,7 @@ const _sfc_main$$ = {
     optionModel: Object
   }
 };
-function _sfc_render$$(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$12(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_input = resolveComponent("a-input");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -65125,12 +65684,12 @@ function _sfc_render$$(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const labelTooltipEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$$, [["render", _sfc_render$$]]);
-const __vite_glob_0_158 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const labelTooltipEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$12, [["render", _sfc_render$12]]);
+const __vite_glob_0_161 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: labelTooltipEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$_ = {
+const _sfc_main$11 = {
   name: "labelWidth-editor",
   mixins: [i18n$1, propertyMixin],
   props: {
@@ -65139,7 +65698,7 @@ const _sfc_main$_ = {
     optionModel: Object
   }
 };
-function _sfc_render$_(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$11(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_input_number = resolveComponent("a-input-number");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -65158,12 +65717,12 @@ function _sfc_render$_(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const labelWidthEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$_, [["render", _sfc_render$_]]);
-const __vite_glob_0_159 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const labelWidthEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$11, [["render", _sfc_render$11]]);
+const __vite_glob_0_162 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: labelWidthEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$Z = {
+const _sfc_main$10 = {
   name: "limit-editor",
   mixins: [i18n$1],
   props: {
@@ -65172,7 +65731,7 @@ const _sfc_main$Z = {
     optionModel: Object
   }
 };
-function _sfc_render$Z(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$10(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_input_number = resolveComponent("a-input-number");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -65190,12 +65749,39 @@ function _sfc_render$Z(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const limitEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$Z, [["render", _sfc_render$Z]]);
-const __vite_glob_0_160 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const limitEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$10, [["render", _sfc_render$10]]);
+const __vite_glob_0_163 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: limitEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$Y = {
+const _sfc_main$$ = {
+  name: "loadingPage-editor",
+  mixins: [i18n$1],
+  props: {
+    designer: Object,
+    selectedWidget: Object,
+    optionModel: Object
+  }
+};
+function _sfc_render$$(_ctx, _cache, $props, $setup, $data, $options) {
+  const _component_a_switch = resolveComponent("a-switch");
+  const _component_a_form_item = resolveComponent("a-form-item");
+  return openBlock(), createBlock(_component_a_form_item, { label: `使用分页加载` }, {
+    default: withCtx(() => [
+      createVNode(_component_a_switch, {
+        checked: $props.optionModel.loadingPage,
+        "onUpdate:checked": _cache[0] || (_cache[0] = ($event) => $props.optionModel.loadingPage = $event)
+      }, null, 8, ["checked"])
+    ]),
+    _: 1
+  });
+}
+const loadingPageEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$$, [["render", _sfc_render$$]]);
+const __vite_glob_0_164 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+  __proto__: null,
+  default: loadingPageEditor
+}, Symbol.toStringTag, { value: "Module" }));
+const _sfc_main$_ = {
   name: "max-editor",
   mixins: [i18n$1],
   props: {
@@ -65218,7 +65804,7 @@ const _sfc_main$Y = {
     }
   }
 };
-function _sfc_render$Y(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$_(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_input_number = resolveComponent("a-input-number");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -65237,12 +65823,12 @@ function _sfc_render$Y(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const maxEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$Y, [["render", _sfc_render$Y]]);
-const __vite_glob_0_161 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const maxEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$_, [["render", _sfc_render$_]]);
+const __vite_glob_0_165 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: maxEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$X = {
+const _sfc_main$Z = {
   name: "maxLength-editor",
   mixins: [i18n$1, propertyMixin],
   props: {
@@ -65265,7 +65851,7 @@ const _sfc_main$X = {
     }
   }
 };
-function _sfc_render$X(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$Z(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_input_number = resolveComponent("a-input-number");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -65284,12 +65870,12 @@ function _sfc_render$X(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const maxLengthEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$X, [["render", _sfc_render$X]]);
-const __vite_glob_0_162 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const maxLengthEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$Z, [["render", _sfc_render$Z]]);
+const __vite_glob_0_166 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: maxLengthEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$W = {
+const _sfc_main$Y = {
   name: "min-editor",
   mixins: [i18n$1],
   props: {
@@ -65312,7 +65898,7 @@ const _sfc_main$W = {
     }
   }
 };
-function _sfc_render$W(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$Y(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_input_number = resolveComponent("a-input-number");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -65331,12 +65917,12 @@ function _sfc_render$W(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const minEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$W, [["render", _sfc_render$W]]);
-const __vite_glob_0_163 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const minEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$Y, [["render", _sfc_render$Y]]);
+const __vite_glob_0_167 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: minEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$V = {
+const _sfc_main$X = {
   name: "minLength-editor",
   mixins: [i18n$1, propertyMixin],
   props: {
@@ -65359,7 +65945,7 @@ const _sfc_main$V = {
     }
   }
 };
-function _sfc_render$V(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$X(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_input_number = resolveComponent("a-input-number");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -65378,12 +65964,12 @@ function _sfc_render$V(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const minLengthEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$V, [["render", _sfc_render$V]]);
-const __vite_glob_0_164 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const minLengthEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$X, [["render", _sfc_render$X]]);
+const __vite_glob_0_168 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: minLengthEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$U = {
+const _sfc_main$W = {
   name: "multiple-editor",
   mixins: [i18n$1],
   props: {
@@ -65407,7 +65993,7 @@ const _sfc_main$U = {
     }
   }
 };
-function _sfc_render$U(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$W(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_switch = resolveComponent("a-switch");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -65423,12 +66009,12 @@ function _sfc_render$U(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const multipleEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$U, [["render", _sfc_render$U]]);
-const __vite_glob_0_165 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const multipleEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$W, [["render", _sfc_render$W]]);
+const __vite_glob_0_169 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: multipleEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$T = {
+const _sfc_main$V = {
   name: "multipleSelect-editor",
   mixins: [i18n$1],
   props: {
@@ -65437,7 +66023,7 @@ const _sfc_main$T = {
     optionModel: Object
   }
 };
-function _sfc_render$T(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$V(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_switch = resolveComponent("a-switch");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -65452,12 +66038,12 @@ function _sfc_render$T(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const multipleSelectEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$T, [["render", _sfc_render$T]]);
-const __vite_glob_0_166 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const multipleSelectEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$V, [["render", _sfc_render$V]]);
+const __vite_glob_0_170 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: multipleSelectEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$S = {
+const _sfc_main$U = {
   name: "name-editor",
   mixins: [i18n$1],
   components: {
@@ -65506,7 +66092,9 @@ const _sfc_main$S = {
       copyToClipboard(this.optionModel.name, e, this.$message, "复制成功", "复制失败");
     },
     updateWidgetNameAndRef(newName, ops) {
-      console.log("newName, ops: ", newName, ops);
+      if (newName) {
+        newName = newName.target ? newName.target.value : newName;
+      }
       if (ops) {
         this.optionModel.label = ops.showName;
       }
@@ -65541,15 +66129,12 @@ const _sfc_main$S = {
     }
   }
 };
-const _hoisted_1$u = {
-  key: 1,
-  class: "t-flex"
-};
-function _sfc_render$S(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$U(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_svg_icon = resolveComponent("svg-icon");
   const _component_a_tooltip = resolveComponent("a-tooltip");
   const _component_a_input = resolveComponent("a-input");
   const _component_a_select = resolveComponent("a-select");
+  const _component_a_form_item_rest = resolveComponent("a-form-item-rest");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
     name: "name",
@@ -65569,46 +66154,46 @@ function _sfc_render$S(_ctx, _cache, $props, $setup, $data, $options) {
       ])
     ]),
     default: withCtx(() => [
-      !!$props.selectedWidget.category || $options.noFieldList ? (openBlock(), createBlock(_component_a_input, {
-        key: 0,
-        type: "text",
-        value: $props.optionModel.name,
-        "onUpdate:value": _cache[1] || (_cache[1] = ($event) => $props.optionModel.name = $event),
-        readonly: $options.widgetNameReadonly,
-        onChange: $options.updateWidgetNameAndRef
-      }, {
-        suffix: withCtx(() => [
-          createElementVNode("a", {
-            onClick: _cache[0] || (_cache[0] = (...args) => $options.copyFormJson && $options.copyFormJson(...args))
-          }, "复制")
+      createVNode(_component_a_form_item_rest, null, {
+        default: withCtx(() => [
+          createVNode(_component_a_input, {
+            size: "small",
+            class: "t-mb-[5px]",
+            value: $props.optionModel.name,
+            "onUpdate:value": _cache[1] || (_cache[1] = ($event) => $props.optionModel.name = $event),
+            readonly: $options.widgetNameReadonly,
+            onChange: $options.updateWidgetNameAndRef
+          }, {
+            suffix: withCtx(() => [
+              createElementVNode("a", {
+                onClick: _cache[0] || (_cache[0] = (...args) => $options.copyFormJson && $options.copyFormJson(...args))
+              }, "复制")
+            ]),
+            _: 1
+          }, 8, ["value", "readonly", "onChange"]),
+          createVNode(_component_a_select, {
+            value: $props.optionModel.name,
+            "onUpdate:value": _cache[2] || (_cache[2] = ($event) => $props.optionModel.name = $event),
+            allowClear: "",
+            disabled: $options.widgetNameReadonly,
+            onChange: $options.updateWidgetNameAndRef,
+            title: _ctx.i18nt("designer.setting.editNameHelp"),
+            options: $options.fieldList,
+            fieldNames: { label: "showName", value: "fieldCode" }
+          }, null, 8, ["value", "disabled", "onChange", "title", "options"])
         ]),
         _: 1
-      }, 8, ["value", "readonly", "onChange"])) : (openBlock(), createElementBlock("div", _hoisted_1$u, [
-        createVNode(_component_a_select, {
-          class: "t-flex-1",
-          value: $props.optionModel.name,
-          "onUpdate:value": _cache[2] || (_cache[2] = ($event) => $props.optionModel.name = $event),
-          allowClear: "",
-          disabled: $options.widgetNameReadonly,
-          onChange: $options.updateWidgetNameAndRef,
-          title: _ctx.i18nt("designer.setting.editNameHelp"),
-          options: $options.fieldList,
-          fieldNames: { label: "showName", value: "fieldCode" }
-        }, null, 8, ["value", "disabled", "onChange", "title", "options"]),
-        createElementVNode("a", {
-          onClick: _cache[3] || (_cache[3] = (...args) => $options.copyFormJson && $options.copyFormJson(...args))
-        }, "复制")
-      ]))
+      })
     ]),
     _: 1
   }, 8, ["rules"]);
 }
-const nameEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$S, [["render", _sfc_render$S]]);
-const __vite_glob_0_167 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const nameEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$U, [["render", _sfc_render$U]]);
+const __vite_glob_0_171 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: nameEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$R = {
+const _sfc_main$T = {
   name: "OptionItemsSetting",
   mixins: [i18n$1],
   components: {
@@ -65737,7 +66322,7 @@ const _hoisted_6$5 = { key: 4 };
 const _hoisted_7$3 = { key: 5 };
 const _hoisted_8$3 = { class: "dialog-footer" };
 const _hoisted_9$2 = { class: "dialog-footer" };
-function _sfc_render$R(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$T(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_input = resolveComponent("a-input");
   const _component_a_button = resolveComponent("a-button");
   const _component_a_radio = resolveComponent("a-radio");
@@ -66015,8 +66600,8 @@ function _sfc_render$R(_ctx, _cache, $props, $setup, $data, $options) {
     }, 8, ["title", "visible"])
   ]);
 }
-const OptionItemsSetting = /* @__PURE__ */ _export_sfc$1(_sfc_main$R, [["render", _sfc_render$R], ["__scopeId", "data-v-ae832d59"]]);
-const _sfc_main$Q = {
+const OptionItemsSetting = /* @__PURE__ */ _export_sfc$1(_sfc_main$T, [["render", _sfc_render$T], ["__scopeId", "data-v-ae832d59"]]);
+const _sfc_main$S = {
   name: "optionItems-editor",
   mixins: [i18n$1, propertyMixin],
   props: {
@@ -66075,7 +66660,7 @@ const _sfc_main$Q = {
     }
   }
 };
-function _sfc_render$Q(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$S(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_divider = resolveComponent("a-divider");
   const _component_a_form_item = resolveComponent("a-form-item");
   const _component_a_input = resolveComponent("a-input");
@@ -66165,12 +66750,12 @@ function _sfc_render$Q(_ctx, _cache, $props, $setup, $data, $options) {
     })) : createCommentVNode("", true)
   ], 64);
 }
-const optionItemsEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$Q, [["render", _sfc_render$Q]]);
-const __vite_glob_0_168 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const optionItemsEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$S, [["render", _sfc_render$S]]);
+const __vite_glob_0_172 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: optionItemsEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$P = {
+const _sfc_main$R = {
   name: "placeholder-editor",
   mixins: [i18n$1, propertyMixin],
   props: {
@@ -66179,7 +66764,7 @@ const _sfc_main$P = {
     optionModel: Object
   }
 };
-function _sfc_render$P(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$R(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_input = resolveComponent("a-input");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -66195,12 +66780,56 @@ function _sfc_render$P(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const placeholderEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$P, [["render", _sfc_render$P]]);
-const __vite_glob_0_169 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const placeholderEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$R, [["render", _sfc_render$R]]);
+const __vite_glob_0_173 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: placeholderEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$O = {
+const _sfc_main$Q = {
+  name: "placement-editor",
+  componentName: "PropertyEditor",
+  mixins: [i18n$1],
+  props: {
+    designer: Object,
+    selectedWidget: Object,
+    optionModel: Object
+  },
+  data() {
+    return {
+      placementList: [
+        { value: "bottomLeft", label: "下左 " },
+        { value: "bottom", label: "下中" },
+        { value: "bottomRight", label: "下右" },
+        { value: "topLeft", label: "上左" },
+        { value: "top", label: "上中" },
+        { value: "topRight", label: "上右" }
+      ]
+    };
+  },
+  created() {
+  }
+};
+function _sfc_render$Q(_ctx, _cache, $props, $setup, $data, $options) {
+  const _component_a_select = resolveComponent("a-select");
+  const _component_a_form_item = resolveComponent("a-form-item");
+  return openBlock(), createBlock(_component_a_form_item, { label: `菜单弹出位置` }, {
+    default: withCtx(() => [
+      createVNode(_component_a_select, {
+        value: $props.optionModel.placement,
+        "onUpdate:value": _cache[0] || (_cache[0] = ($event) => $props.optionModel.placement = $event),
+        allowClear: "",
+        options: $data.placementList
+      }, null, 8, ["value", "options"])
+    ]),
+    _: 1
+  });
+}
+const placementEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$Q, [["render", _sfc_render$Q]]);
+const __vite_glob_0_174 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+  __proto__: null,
+  default: placementEditor
+}, Symbol.toStringTag, { value: "Module" }));
+const _sfc_main$P = {
   name: "precision-editor",
   mixins: [i18n$1],
   props: {
@@ -66209,7 +66838,7 @@ const _sfc_main$O = {
     optionModel: Object
   }
 };
-function _sfc_render$O(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$P(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_input_number = resolveComponent("a-input-number");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -66227,12 +66856,12 @@ function _sfc_render$O(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const precisionEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$O, [["render", _sfc_render$O]]);
-const __vite_glob_0_170 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const precisionEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$P, [["render", _sfc_render$P]]);
+const __vite_glob_0_175 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: precisionEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$N = {
+const _sfc_main$O = {
   name: "readonly-editor",
   mixins: [i18n$1],
   props: {
@@ -66241,7 +66870,7 @@ const _sfc_main$N = {
     optionModel: Object
   }
 };
-function _sfc_render$N(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$O(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_switch = resolveComponent("a-switch");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -66256,12 +66885,12 @@ function _sfc_render$N(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const readonlyEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$N, [["render", _sfc_render$N]]);
-const __vite_glob_0_171 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const readonlyEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$O, [["render", _sfc_render$O]]);
+const __vite_glob_0_176 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: readonlyEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$M = {
+const _sfc_main$N = {
   name: "required-editor",
   mixins: [i18n$1],
   props: {
@@ -66270,7 +66899,7 @@ const _sfc_main$M = {
     optionModel: Object
   }
 };
-function _sfc_render$M(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$N(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_switch = resolveComponent("a-switch");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -66285,12 +66914,12 @@ function _sfc_render$M(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const requiredEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$M, [["render", _sfc_render$M]]);
-const __vite_glob_0_172 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const requiredEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$N, [["render", _sfc_render$N]]);
+const __vite_glob_0_177 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: requiredEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$L = {
+const _sfc_main$M = {
   name: "requiredHint-editor",
   mixins: [i18n$1, propertyMixin],
   props: {
@@ -66299,7 +66928,7 @@ const _sfc_main$L = {
     optionModel: Object
   }
 };
-function _sfc_render$L(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$M(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_input = resolveComponent("a-input");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -66317,12 +66946,12 @@ function _sfc_render$L(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const requiredHintEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$L, [["render", _sfc_render$L]]);
-const __vite_glob_0_173 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const requiredHintEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$M, [["render", _sfc_render$M]]);
+const __vite_glob_0_178 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: requiredHintEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$K = {
+const _sfc_main$L = {
   name: "rows-editor",
   mixins: [i18n$1],
   props: {
@@ -66331,7 +66960,7 @@ const _sfc_main$K = {
     optionModel: Object
   }
 };
-function _sfc_render$K(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$L(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_input_number = resolveComponent("a-input-number");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -66349,12 +66978,12 @@ function _sfc_render$K(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const rowsEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$K, [["render", _sfc_render$K]]);
-const __vite_glob_0_174 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const rowsEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$L, [["render", _sfc_render$L]]);
+const __vite_glob_0_179 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: rowsEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$J = {
+const _sfc_main$K = {
   name: "showCount-editor",
   mixins: [i18n$1],
   props: {
@@ -66363,7 +66992,7 @@ const _sfc_main$J = {
     optionModel: Object
   }
 };
-function _sfc_render$J(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$K(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_switch = resolveComponent("a-switch");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -66378,12 +67007,12 @@ function _sfc_render$J(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const showCountEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$J, [["render", _sfc_render$J]]);
-const __vite_glob_0_175 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const showCountEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$K, [["render", _sfc_render$K]]);
+const __vite_glob_0_180 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: showCountEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$I = {
+const _sfc_main$J = {
   name: "showFileList-editor",
   mixins: [i18n$1],
   props: {
@@ -66392,7 +67021,7 @@ const _sfc_main$I = {
     optionModel: Object
   }
 };
-function _sfc_render$I(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$J(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_switch = resolveComponent("a-switch");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -66407,12 +67036,12 @@ function _sfc_render$I(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const showFileListEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$I, [["render", _sfc_render$I]]);
-const __vite_glob_0_176 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const showFileListEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$J, [["render", _sfc_render$J]]);
+const __vite_glob_0_181 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: showFileListEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$H = {
+const _sfc_main$I = {
   name: "showPassword-editor",
   mixins: [i18n$1],
   props: {
@@ -66421,7 +67050,7 @@ const _sfc_main$H = {
     optionModel: Object
   }
 };
-function _sfc_render$H(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$I(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_switch = resolveComponent("a-switch");
   const _component_a_form_item = resolveComponent("a-form-item");
   return $props.optionModel.type === "password" ? (openBlock(), createBlock(_component_a_form_item, {
@@ -66437,12 +67066,12 @@ function _sfc_render$H(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"])) : createCommentVNode("", true);
 }
-const showPasswordEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$H, [["render", _sfc_render$H]]);
-const __vite_glob_0_177 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const showPasswordEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$I, [["render", _sfc_render$I]]);
+const __vite_glob_0_182 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: showPasswordEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$G = {
+const _sfc_main$H = {
   name: "showSearch-editor",
   //showSearch-editor.vue
   mixins: [i18n$1, propertyMixin],
@@ -66452,7 +67081,7 @@ const _sfc_main$G = {
     optionModel: Object
   }
 };
-function _sfc_render$G(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$H(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_switch = resolveComponent("a-switch");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -66468,12 +67097,12 @@ function _sfc_render$G(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const showSearchEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$G, [["render", _sfc_render$G]]);
-const __vite_glob_0_178 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const showSearchEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$H, [["render", _sfc_render$H]]);
+const __vite_glob_0_183 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: showSearchEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$F = {
+const _sfc_main$G = {
   name: "showTime-editor",
   mixins: [i18n$1],
   props: {
@@ -66482,7 +67111,7 @@ const _sfc_main$F = {
     optionModel: Object
   }
 };
-function _sfc_render$F(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$G(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_switch = resolveComponent("a-switch");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, { label: "增加时间选择功能" }, {
@@ -66495,12 +67124,12 @@ function _sfc_render$F(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   });
 }
-const showTimeEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$F, [["render", _sfc_render$F]]);
-const __vite_glob_0_179 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const showTimeEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$G, [["render", _sfc_render$G]]);
+const __vite_glob_0_184 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: showTimeEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$E = {
+const _sfc_main$F = {
   name: "size-editor",
   mixins: [i18n$1],
   props: {
@@ -66518,7 +67147,7 @@ const _sfc_main$E = {
     };
   }
 };
-function _sfc_render$E(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$F(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_select = resolveComponent("a-select");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -66535,12 +67164,12 @@ function _sfc_render$E(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const sizeEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$E, [["render", _sfc_render$E]]);
-const __vite_glob_0_180 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const sizeEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$F, [["render", _sfc_render$F]]);
+const __vite_glob_0_185 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: sizeEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$D = {
+const _sfc_main$E = {
   name: "startPlaceholder-editor",
   mixins: [i18n$1],
   props: {
@@ -66549,7 +67178,7 @@ const _sfc_main$D = {
     optionModel: Object
   }
 };
-function _sfc_render$D(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$E(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_input = resolveComponent("a-input");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -66565,12 +67194,12 @@ function _sfc_render$D(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const startPlaceholderEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$D, [["render", _sfc_render$D]]);
-const __vite_glob_0_181 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const startPlaceholderEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$E, [["render", _sfc_render$E]]);
+const __vite_glob_0_186 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: startPlaceholderEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$C = {
+const _sfc_main$D = {
   name: "step-editor",
   mixins: [i18n$1],
   props: {
@@ -66579,7 +67208,7 @@ const _sfc_main$C = {
     optionModel: Object
   }
 };
-function _sfc_render$C(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$D(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_input_number = resolveComponent("a-input-number");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -66596,12 +67225,12 @@ function _sfc_render$C(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const stepEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$C, [["render", _sfc_render$C]]);
-const __vite_glob_0_182 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const stepEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$D, [["render", _sfc_render$D]]);
+const __vite_glob_0_187 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: stepEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$B = {
+const _sfc_main$C = {
   name: "type-editor",
   mixins: [i18n$1],
   props: {
@@ -66611,7 +67240,7 @@ const _sfc_main$B = {
   },
   computed: {}
 };
-function _sfc_render$B(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$C(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_select_option = resolveComponent("a-select-option");
   const _component_a_select = resolveComponent("a-select");
   const _component_a_form_item = resolveComponent("a-form-item");
@@ -66644,12 +67273,12 @@ function _sfc_render$B(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"])) : createCommentVNode("", true);
 }
-const typeEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$B, [["render", _sfc_render$B]]);
-const __vite_glob_0_183 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const typeEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$C, [["render", _sfc_render$C]]);
+const __vite_glob_0_188 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: typeEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$A = {
+const _sfc_main$B = {
   name: "uploadTip-editor",
   mixins: [i18n$1],
   props: {
@@ -66658,7 +67287,7 @@ const _sfc_main$A = {
     optionModel: Object
   }
 };
-function _sfc_render$A(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$B(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_input = resolveComponent("a-input");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -66674,12 +67303,12 @@ function _sfc_render$A(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const uploadTipEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$A, [["render", _sfc_render$A]]);
-const __vite_glob_0_184 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const uploadTipEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$B, [["render", _sfc_render$B]]);
+const __vite_glob_0_189 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: uploadTipEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$z = {
+const _sfc_main$A = {
   name: "uploadURL-editor",
   mixins: [i18n$1],
   props: {
@@ -66688,7 +67317,7 @@ const _sfc_main$z = {
     optionModel: Object
   }
 };
-function _sfc_render$z(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$A(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_divider = resolveComponent("a-divider");
   const _component_a_form_item = resolveComponent("a-form-item");
   const _component_a_input = resolveComponent("a-input");
@@ -66718,10 +67347,37 @@ function _sfc_render$z(_ctx, _cache, $props, $setup, $data, $options) {
     }, 8, ["label"])
   ]);
 }
-const uploadURLEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$z, [["render", _sfc_render$z]]);
-const __vite_glob_0_185 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const uploadURLEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$A, [["render", _sfc_render$A]]);
+const __vite_glob_0_190 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: uploadURLEditor
+}, Symbol.toStringTag, { value: "Module" }));
+const _sfc_main$z = {
+  name: "useModal-editor",
+  mixins: [i18n$1],
+  props: {
+    designer: Object,
+    selectedWidget: Object,
+    optionModel: Object
+  }
+};
+function _sfc_render$z(_ctx, _cache, $props, $setup, $data, $options) {
+  const _component_a_switch = resolveComponent("a-switch");
+  const _component_a_form_item = resolveComponent("a-form-item");
+  return openBlock(), createBlock(_component_a_form_item, { label: `使用功能按钮` }, {
+    default: withCtx(() => [
+      createVNode(_component_a_switch, {
+        checked: $props.optionModel.useModal,
+        "onUpdate:checked": _cache[0] || (_cache[0] = ($event) => $props.optionModel.useModal = $event)
+      }, null, 8, ["checked"])
+    ]),
+    _: 1
+  });
+}
+const useModelEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$z, [["render", _sfc_render$z]]);
+const __vite_glob_0_191 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+  __proto__: null,
+  default: useModelEditor
 }, Symbol.toStringTag, { value: "Module" }));
 const _sfc_main$y = {
   name: "validation-editor",
@@ -66768,7 +67424,7 @@ function _sfc_render$y(_ctx, _cache, $props, $setup, $data, $options) {
   });
 }
 const validationEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$y, [["render", _sfc_render$y]]);
-const __vite_glob_0_186 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_192 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: validationEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -66800,7 +67456,7 @@ function _sfc_render$x(_ctx, _cache, $props, $setup, $data, $options) {
   }, 8, ["label"]);
 }
 const validationHintEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$x, [["render", _sfc_render$x]]);
-const __vite_glob_0_187 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_193 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: validationHintEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -66829,12 +67485,12 @@ function _sfc_render$w(_ctx, _cache, $props, $setup, $data, $options) {
   }, 8, ["label"]);
 }
 const withCredentialsEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$w, [["render", _sfc_render$w]]);
-const __vite_glob_0_188 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_194 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: withCredentialsEditor
 }, Symbol.toStringTag, { value: "Module" }));
 const comps = {};
-const modules$1 = /* @__PURE__ */ Object.assign({ "./actionColumnPosition-editor.vue": __vite_glob_0_0$1, "./addonAfter-editor.vue": __vite_glob_0_1$1, "./addonBefore-editor.vue": __vite_glob_0_2$1, "./allowClear-editor.vue": __vite_glob_0_3$1, "./appendButton-editor.vue": __vite_glob_0_4$1, "./appendButtonDisabled-editor.vue": __vite_glob_0_5$1, "./autoFullWidth-editor.vue": __vite_glob_0_6$1, "./border-editor.vue": __vite_glob_0_7$1, "./buttonIcon-editor.vue": __vite_glob_0_8$1, "./buttonStyle-editor.vue": __vite_glob_0_9$1, "./columnWidth-editor.vue": __vite_glob_0_10$1, "./container-data-table/customRowEvent/data-table-customRow-editor.vue": __vite_glob_0_11, "./container-data-table/data-table-customClass-editor.vue": __vite_glob_0_12, "./container-data-table/data-table-dsEnabled-editor.vue": __vite_glob_0_13, "./container-data-table/data-table-pagination-editor.vue": __vite_glob_0_14, "./container-data-table/data-table-rowKey-editor.vue": __vite_glob_0_15, "./container-data-table/data-table-selections-editor.vue": __vite_glob_0_16, "./container-data-table/data-table-showButtonsColumn-editor.vue": __vite_glob_0_17, "./container-data-table/data-table-showIndex-editor.vue": __vite_glob_0_18, "./container-data-table/data-table-stripe-editor.vue": __vite_glob_0_19, "./container-data-table/data-table-tableColumns-editor.vue": __vite_glob_0_20, "./container-data-table/data-table-tableHeight-editor.vue": __vite_glob_0_21, "./container-data-table/data-table-tableSize-editor.vue": __vite_glob_0_22, "./container-data-table/data-table-tableWidth-editor.vue": __vite_glob_0_23, "./container-data-table/data-table-treeDataEnabled-editor.vue": __vite_glob_0_24, "./container-grid-col/grid-col-offset-editor.vue": __vite_glob_0_25, "./container-grid-col/grid-col-pull-editor.vue": __vite_glob_0_26, "./container-grid-col/grid-col-push-editor.vue": __vite_glob_0_27, "./container-grid-col/grid-col-responsive-editor.vue": __vite_glob_0_28, "./container-grid-col/grid-col-span-editor.vue": __vite_glob_0_29, "./container-grid/colHeight-editor.vue": __vite_glob_0_30, "./container-grid/gutter-editor.vue": __vite_glob_0_31, "./container-sub-form/showBlankRow-editor.vue": __vite_glob_0_32, "./container-sub-form/showRowNumber-editor.vue": __vite_glob_0_33, "./container-sub-form/sub-form-labelAlign-editor.vue": __vite_glob_0_34, "./container-tab/tab-customClass-editor.vue": __vite_glob_0_35, "./container-table-cell/cellHeight-editor.vue": __vite_glob_0_36, "./container-table-cell/cellWidth-editor.vue": __vite_glob_0_37, "./container-vf-dialog/cancelButtonHidden-editor.vue": __vite_glob_0_38, "./container-vf-dialog/cancelButtonLabel-editor.vue": __vite_glob_0_39, "./container-vf-dialog/closeOnClickModal-editor.vue": __vite_glob_0_40, "./container-vf-dialog/closeOnPressEscape-editor.vue": __vite_glob_0_41, "./container-vf-dialog/disabledMode-editor.vue": __vite_glob_0_42, "./container-vf-dialog/fullscreen-editor.vue": __vite_glob_0_43, "./container-vf-dialog/okButtonHidden-editor.vue": __vite_glob_0_44, "./container-vf-dialog/okButtonLabel-editor.vue": __vite_glob_0_45, "./container-vf-dialog/readMode-editor.vue": __vite_glob_0_46, "./container-vf-dialog/showClose-editor.vue": __vite_glob_0_47, "./container-vf-dialog/title-editor.vue": __vite_glob_0_48, "./container-vf-dialog/width-editor.vue": __vite_glob_0_49, "./container-vf-drawer/vf-drawer-direction-editor.vue": __vite_glob_0_50, "./container-vf-drawer/vf-drawer-size-editor.vue": __vite_glob_0_51, "./customClass-editor.vue": __vite_glob_0_52, "./defaultValue-editor.vue": __vite_glob_0_53, "./disabled-editor.vue": __vite_glob_0_54, "./displayStyle-editor.vue": __vite_glob_0_55, "./editable-editor.vue": __vite_glob_0_56, "./endPlaceholder-editor.vue": __vite_glob_0_57, "./event-handler/onAppendButtonClick-editor.vue": __vite_glob_0_58, "./event-handler/onBeforeUpload-editor.vue": __vite_glob_0_59, "./event-handler/onBlur-editor.vue": __vite_glob_0_60, "./event-handler/onCancelButtonClick-editor.vue": __vite_glob_0_61, "./event-handler/onCellClick-editor.vue": __vite_glob_0_62, "./event-handler/onCellDoubleClick-editor.vue": __vite_glob_0_63, "./event-handler/onChange-editor.vue": __vite_glob_0_64, "./event-handler/onClick-editor.vue": __vite_glob_0_65, "./event-handler/onCreated-editor.vue": __vite_glob_0_66, "./event-handler/onCurrentPageChange-editor.vue": __vite_glob_0_67, "./event-handler/onDialogBeforeClose-editor.vue": __vite_glob_0_68, "./event-handler/onDialogOpened-editor.vue": __vite_glob_0_69, "./event-handler/onDisableOperationButton-editor.vue": __vite_glob_0_70, "./event-handler/onDrawerBeforeClose-editor.vue": __vite_glob_0_71, "./event-handler/onDrawerOpened-editor.vue": __vite_glob_0_72, "./event-handler/onFileRemove.vue": __vite_glob_0_73, "./event-handler/onFocus-editor.vue": __vite_glob_0_74, "./event-handler/onGetOperationButtonLabel-editor.vue": __vite_glob_0_75, "./event-handler/onGetRowClassName-editor.vue": __vite_glob_0_76, "./event-handler/onGetSpanMethod-editor.vue": __vite_glob_0_77, "./event-handler/onHeaderClick-editor.vue": __vite_glob_0_78, "./event-handler/onHideOperationButton-editor.vue": __vite_glob_0_79, "./event-handler/onInput-editor.vue": __vite_glob_0_80, "./event-handler/onMounted-editor.vue": __vite_glob_0_81, "./event-handler/onOkButtonClick-editor.vue": __vite_glob_0_82, "./event-handler/onOperationButtonClick-editor.vue": __vite_glob_0_83, "./event-handler/onPageSizeChange-editor.vue": __vite_glob_0_84, "./event-handler/onRemoteQuery-editor.vue": __vite_glob_0_85, "./event-handler/onRowClick-editor.vue": __vite_glob_0_86, "./event-handler/onRowDoubleClick-editor.vue": __vite_glob_0_87, "./event-handler/onSelectionChange-editor.vue": __vite_glob_0_88, "./event-handler/onSubFormRowAdd-editor.vue": __vite_glob_0_89, "./event-handler/onSubFormRowChange-editor.vue": __vite_glob_0_90, "./event-handler/onSubFormRowDelete-editor.vue": __vite_glob_0_91, "./event-handler/onSubFormRowInsert-editor.vue": __vite_glob_0_92, "./event-handler/onTabClick-editor.vue": __vite_glob_0_93, "./event-handler/onTableChange-editor.vue": __vite_glob_0_94, "./event-handler/onUploadError-editor.vue": __vite_glob_0_95, "./event-handler/onUploadSuccess-editor.vue": __vite_glob_0_96, "./event-handler/onValidate-editor.vue": __vite_glob_0_97, "./event-handler/onVformAdd-editor.vue": __vite_glob_0_98, "./field-button/button-danger-editor.vue": __vite_glob_0_99, "./field-button/button-ghost-editor.vue": __vite_glob_0_100, "./field-button/button-shape-editor.vue": __vite_glob_0_101, "./field-button/button-type-editor.vue": __vite_glob_0_102, "./field-button/circle-editor.vue": __vite_glob_0_103, "./field-button/icon-editor.vue": __vite_glob_0_104, "./field-button/plain-editor.vue": __vite_glob_0_105, "./field-button/round-editor.vue": __vite_glob_0_106, "./field-cascader/cascader-defaultValue-editor.vue": __vite_glob_0_107, "./field-cascader/cascader-multiple-editor.vue": __vite_glob_0_108, "./field-checkbox/checkbox-defaultValue-editor.vue": __vite_glob_0_109, "./field-color/color-defaultValue-editor.vue": __vite_glob_0_110, "./field-date-range/date-range-defaultValue-editor.vue": __vite_glob_0_111, "./field-date-range/date-range-format-editor.vue": __vite_glob_0_112, "./field-date-range/date-range-type-editor.vue": __vite_glob_0_113, "./field-date-range/date-range-valueFormat-editor.vue": __vite_glob_0_114, "./field-date/date-defaultValue-editor.vue": __vite_glob_0_115, "./field-date/date-format-editor.vue": __vite_glob_0_116, "./field-date/date-type-editor.vue": __vite_glob_0_117, "./field-date/date-valueFormat-editor.vue": __vite_glob_0_118, "./field-divider/contentPosition-editor.vue": __vite_glob_0_119, "./field-divider/divider-direction-editor.vue": __vite_glob_0_120, "./field-file-upload/file-upload-fileTypes-editor.vue": __vite_glob_0_121, "./field-html-text/htmlContent-editor.vue": __vite_glob_0_122, "./field-number/controlsPosition-editor.vue": __vite_glob_0_123, "./field-number/number-defaultValue-editor.vue": __vite_glob_0_124, "./field-picture-upload/picture-upload-fileTypes-editor.vue": __vite_glob_0_125, "./field-radio/radio-defaultValue-editor.vue": __vite_glob_0_126, "./field-rate/allowHalf-editor.vue": __vite_glob_0_127, "./field-rate/highThreshold-editor.vue": __vite_glob_0_128, "./field-rate/lowThreshold-editor.vue": __vite_glob_0_129, "./field-rate/rate-count-editor.vue": __vite_glob_0_130, "./field-rate/rate-defaultValue-editor.vue": __vite_glob_0_131, "./field-rate/showScore-editor.vue": __vite_glob_0_132, "./field-rate/showText-editor.vue": __vite_glob_0_133, "./field-rich-editor/rich-editor-contentHeight-editor.vue": __vite_glob_0_134, "./field-select/mode-editor.vue": __vite_glob_0_135, "./field-select/select-defaultValue-editor.vue": __vite_glob_0_136, "./field-slider/range-editor.vue": __vite_glob_0_137, "./field-slider/vertical-editor.vue": __vite_glob_0_138, "./field-static-text/textContent-editor.vue": __vite_glob_0_139, "./field-switch/activeColor-editor.vue": __vite_glob_0_140, "./field-switch/checkedChildren-editor.vue": __vite_glob_0_141, "./field-switch/inactiveColor-editor.vue": __vite_glob_0_142, "./field-switch/switch-defaultValue-editor.vue": __vite_glob_0_143, "./field-switch/switchWidth-editor.vue": __vite_glob_0_144, "./field-switch/unCheckedChildren-editor.vue": __vite_glob_0_145, "./field-time-range/time-range-defaultValue-editor.vue": __vite_glob_0_146, "./field-time-range/time-range-format-editor.vue": __vite_glob_0_147, "./field-time/time-defaultValue-editor.vue": __vite_glob_0_148, "./field-time/time-format-editor.vue": __vite_glob_0_149, "./field-treeSelect/treeSelect-treeDefaultExpandAll-editor.vue": __vite_glob_0_150, "./fileMaxSize-editor.vue": __vite_glob_0_151, "./hidden-editor.vue": __vite_glob_0_152, "./label-editor.vue": __vite_glob_0_153, "./labelAlign-editor.vue": __vite_glob_0_154, "./labelHidden-editor.vue": __vite_glob_0_155, "./labelIconClass-editor.vue": __vite_glob_0_156, "./labelIconPosition-editor.vue": __vite_glob_0_157, "./labelTooltip-editor.vue": __vite_glob_0_158, "./labelWidth-editor.vue": __vite_glob_0_159, "./limit-editor.vue": __vite_glob_0_160, "./max-editor.vue": __vite_glob_0_161, "./maxLength-editor.vue": __vite_glob_0_162, "./min-editor.vue": __vite_glob_0_163, "./minLength-editor.vue": __vite_glob_0_164, "./multiple-editor.vue": __vite_glob_0_165, "./multipleSelect-editor.vue": __vite_glob_0_166, "./name-editor.vue": __vite_glob_0_167, "./optionItems-editor.vue": __vite_glob_0_168, "./placeholder-editor.vue": __vite_glob_0_169, "./precision-editor.vue": __vite_glob_0_170, "./readonly-editor.vue": __vite_glob_0_171, "./required-editor.vue": __vite_glob_0_172, "./requiredHint-editor.vue": __vite_glob_0_173, "./rows-editor.vue": __vite_glob_0_174, "./showCount-editor.vue": __vite_glob_0_175, "./showFileList-editor.vue": __vite_glob_0_176, "./showPassword-editor.vue": __vite_glob_0_177, "./showSearch-editor.vue": __vite_glob_0_178, "./showTime-editor.vue": __vite_glob_0_179, "./size-editor.vue": __vite_glob_0_180, "./startPlaceholder-editor.vue": __vite_glob_0_181, "./step-editor.vue": __vite_glob_0_182, "./type-editor.vue": __vite_glob_0_183, "./uploadTip-editor.vue": __vite_glob_0_184, "./uploadURL-editor.vue": __vite_glob_0_185, "./validation-editor.vue": __vite_glob_0_186, "./validationHint-editor.vue": __vite_glob_0_187, "./withCredentials-editor.vue": __vite_glob_0_188 });
+const modules$1 = /* @__PURE__ */ Object.assign({ "./actionColumnPosition-editor.vue": __vite_glob_0_0$1, "./addonAfter-editor.vue": __vite_glob_0_1$1, "./addonBefore-editor.vue": __vite_glob_0_2$1, "./allowClear-editor.vue": __vite_glob_0_3$1, "./appendButton-editor.vue": __vite_glob_0_4$1, "./appendButtonDisabled-editor.vue": __vite_glob_0_5$1, "./autoFullWidth-editor.vue": __vite_glob_0_6$1, "./border-editor.vue": __vite_glob_0_7$1, "./buttonIcon-editor.vue": __vite_glob_0_8$1, "./buttonStyle-editor.vue": __vite_glob_0_9$1, "./columnWidth-editor.vue": __vite_glob_0_10$1, "./container-data-table/customRowEvent/data-table-customRow-editor.vue": __vite_glob_0_11, "./container-data-table/data-table-customClass-editor.vue": __vite_glob_0_12, "./container-data-table/data-table-dsEnabled-editor.vue": __vite_glob_0_13, "./container-data-table/data-table-pagination-editor.vue": __vite_glob_0_14, "./container-data-table/data-table-rowKey-editor.vue": __vite_glob_0_15, "./container-data-table/data-table-selections-editor.vue": __vite_glob_0_16, "./container-data-table/data-table-showButtonsColumn-editor.vue": __vite_glob_0_17, "./container-data-table/data-table-showIndex-editor.vue": __vite_glob_0_18, "./container-data-table/data-table-stripe-editor.vue": __vite_glob_0_19, "./container-data-table/data-table-tableColumns-editor.vue": __vite_glob_0_20, "./container-data-table/data-table-tableHeight-editor.vue": __vite_glob_0_21, "./container-data-table/data-table-tableSize-editor.vue": __vite_glob_0_22, "./container-data-table/data-table-tableWidth-editor.vue": __vite_glob_0_23, "./container-data-table/data-table-treeDataEnabled-editor.vue": __vite_glob_0_24, "./container-grid-col/grid-col-offset-editor.vue": __vite_glob_0_25, "./container-grid-col/grid-col-pull-editor.vue": __vite_glob_0_26, "./container-grid-col/grid-col-push-editor.vue": __vite_glob_0_27, "./container-grid-col/grid-col-responsive-editor.vue": __vite_glob_0_28, "./container-grid-col/grid-col-span-editor.vue": __vite_glob_0_29, "./container-grid/colHeight-editor.vue": __vite_glob_0_30, "./container-grid/gutter-editor.vue": __vite_glob_0_31, "./container-sub-form/showBlankRow-editor.vue": __vite_glob_0_32, "./container-sub-form/showRowNumber-editor.vue": __vite_glob_0_33, "./container-sub-form/sub-form-labelAlign-editor.vue": __vite_glob_0_34, "./container-tab/tab-customClass-editor.vue": __vite_glob_0_35, "./container-table-cell/cellHeight-editor.vue": __vite_glob_0_36, "./container-table-cell/cellWidth-editor.vue": __vite_glob_0_37, "./container-vf-dialog/cancelButtonHidden-editor.vue": __vite_glob_0_38, "./container-vf-dialog/cancelButtonLabel-editor.vue": __vite_glob_0_39, "./container-vf-dialog/closeOnClickModal-editor.vue": __vite_glob_0_40, "./container-vf-dialog/closeOnPressEscape-editor.vue": __vite_glob_0_41, "./container-vf-dialog/disabledMode-editor.vue": __vite_glob_0_42, "./container-vf-dialog/fullscreen-editor.vue": __vite_glob_0_43, "./container-vf-dialog/okButtonHidden-editor.vue": __vite_glob_0_44, "./container-vf-dialog/okButtonLabel-editor.vue": __vite_glob_0_45, "./container-vf-dialog/readMode-editor.vue": __vite_glob_0_46, "./container-vf-dialog/showClose-editor.vue": __vite_glob_0_47, "./container-vf-dialog/title-editor.vue": __vite_glob_0_48, "./container-vf-dialog/width-editor.vue": __vite_glob_0_49, "./container-vf-drawer/vf-drawer-direction-editor.vue": __vite_glob_0_50, "./container-vf-drawer/vf-drawer-size-editor.vue": __vite_glob_0_51, "./customClass-editor.vue": __vite_glob_0_52, "./defaultValue-editor.vue": __vite_glob_0_53, "./disabled-editor.vue": __vite_glob_0_54, "./displayStyle-editor.vue": __vite_glob_0_55, "./editable-editor.vue": __vite_glob_0_56, "./endPlaceholder-editor.vue": __vite_glob_0_57, "./event-handler/onAppendButtonClick-editor.vue": __vite_glob_0_58, "./event-handler/onBeforeUpload-editor.vue": __vite_glob_0_59, "./event-handler/onBlur-editor.vue": __vite_glob_0_60, "./event-handler/onCancelButtonClick-editor.vue": __vite_glob_0_61, "./event-handler/onCellClick-editor.vue": __vite_glob_0_62, "./event-handler/onCellDoubleClick-editor.vue": __vite_glob_0_63, "./event-handler/onChange-editor.vue": __vite_glob_0_64, "./event-handler/onClick-editor.vue": __vite_glob_0_65, "./event-handler/onClickIcon-editor.vue": __vite_glob_0_66, "./event-handler/onCreated-editor.vue": __vite_glob_0_67, "./event-handler/onCurrentPageChange-editor.vue": __vite_glob_0_68, "./event-handler/onDialogBeforeClose-editor.vue": __vite_glob_0_69, "./event-handler/onDialogOpened-editor.vue": __vite_glob_0_70, "./event-handler/onDisableOperationButton-editor.vue": __vite_glob_0_71, "./event-handler/onDrawerBeforeClose-editor.vue": __vite_glob_0_72, "./event-handler/onDrawerOpened-editor.vue": __vite_glob_0_73, "./event-handler/onFileRemove.vue": __vite_glob_0_74, "./event-handler/onFocus-editor.vue": __vite_glob_0_75, "./event-handler/onGetOperationButtonLabel-editor.vue": __vite_glob_0_76, "./event-handler/onGetRowClassName-editor.vue": __vite_glob_0_77, "./event-handler/onGetSpanMethod-editor.vue": __vite_glob_0_78, "./event-handler/onHeaderClick-editor.vue": __vite_glob_0_79, "./event-handler/onHideOperationButton-editor.vue": __vite_glob_0_80, "./event-handler/onInput-editor.vue": __vite_glob_0_81, "./event-handler/onMenuClick-editor.vue": __vite_glob_0_82, "./event-handler/onMounted-editor.vue": __vite_glob_0_83, "./event-handler/onOkButtonClick-editor.vue": __vite_glob_0_84, "./event-handler/onOperationButtonClick-editor.vue": __vite_glob_0_85, "./event-handler/onPageSizeChange-editor.vue": __vite_glob_0_86, "./event-handler/onRemoteQuery-editor.vue": __vite_glob_0_87, "./event-handler/onRowClick-editor.vue": __vite_glob_0_88, "./event-handler/onRowDoubleClick-editor.vue": __vite_glob_0_89, "./event-handler/onSelectionChange-editor.vue": __vite_glob_0_90, "./event-handler/onSubFormRowAdd-editor.vue": __vite_glob_0_91, "./event-handler/onSubFormRowChange-editor.vue": __vite_glob_0_92, "./event-handler/onSubFormRowDelete-editor.vue": __vite_glob_0_93, "./event-handler/onSubFormRowInsert-editor.vue": __vite_glob_0_94, "./event-handler/onTabClick-editor.vue": __vite_glob_0_95, "./event-handler/onTableChange-editor.vue": __vite_glob_0_96, "./event-handler/onUploadError-editor.vue": __vite_glob_0_97, "./event-handler/onUploadSuccess-editor.vue": __vite_glob_0_98, "./event-handler/onValidate-editor.vue": __vite_glob_0_99, "./event-handler/onVformAdd-editor.vue": __vite_glob_0_100, "./field-button/circle-editor.vue": __vite_glob_0_101, "./field-button/danger-editor.vue": __vite_glob_0_102, "./field-button/ghost-editor.vue": __vite_glob_0_103, "./field-button/icon-editor.vue": __vite_glob_0_104, "./field-button/plain-editor.vue": __vite_glob_0_105, "./field-button/round-editor.vue": __vite_glob_0_106, "./field-button/shape-editor.vue": __vite_glob_0_107, "./field-button/type-editor.vue": __vite_glob_0_108, "./field-cascader/cascader-defaultValue-editor.vue": __vite_glob_0_109, "./field-cascader/cascader-multiple-editor.vue": __vite_glob_0_110, "./field-checkbox/checkbox-defaultValue-editor.vue": __vite_glob_0_111, "./field-color/color-defaultValue-editor.vue": __vite_glob_0_112, "./field-date-range/date-range-defaultValue-editor.vue": __vite_glob_0_113, "./field-date-range/date-range-format-editor.vue": __vite_glob_0_114, "./field-date-range/date-range-type-editor.vue": __vite_glob_0_115, "./field-date-range/date-range-valueFormat-editor.vue": __vite_glob_0_116, "./field-date/date-defaultValue-editor.vue": __vite_glob_0_117, "./field-date/date-format-editor.vue": __vite_glob_0_118, "./field-date/date-type-editor.vue": __vite_glob_0_119, "./field-date/date-valueFormat-editor.vue": __vite_glob_0_120, "./field-divider/contentPosition-editor.vue": __vite_glob_0_121, "./field-divider/divider-direction-editor.vue": __vite_glob_0_122, "./field-dropdown/dropdown-menuList-editor.vue": __vite_glob_0_123, "./field-file-upload/file-upload-fileTypes-editor.vue": __vite_glob_0_124, "./field-html-text/htmlContent-editor.vue": __vite_glob_0_125, "./field-number/controlsPosition-editor.vue": __vite_glob_0_126, "./field-number/number-defaultValue-editor.vue": __vite_glob_0_127, "./field-picture-upload/picture-upload-fileTypes-editor.vue": __vite_glob_0_128, "./field-radio/radio-defaultValue-editor.vue": __vite_glob_0_129, "./field-rate/allowHalf-editor.vue": __vite_glob_0_130, "./field-rate/highThreshold-editor.vue": __vite_glob_0_131, "./field-rate/lowThreshold-editor.vue": __vite_glob_0_132, "./field-rate/rate-count-editor.vue": __vite_glob_0_133, "./field-rate/rate-defaultValue-editor.vue": __vite_glob_0_134, "./field-rate/showScore-editor.vue": __vite_glob_0_135, "./field-rate/showText-editor.vue": __vite_glob_0_136, "./field-rich-editor/rich-editor-contentHeight-editor.vue": __vite_glob_0_137, "./field-select/mode-editor.vue": __vite_glob_0_138, "./field-select/select-defaultValue-editor.vue": __vite_glob_0_139, "./field-slider/range-editor.vue": __vite_glob_0_140, "./field-slider/vertical-editor.vue": __vite_glob_0_141, "./field-static-text/textContent-editor.vue": __vite_glob_0_142, "./field-switch/activeColor-editor.vue": __vite_glob_0_143, "./field-switch/checkedValue-editor.vue": __vite_glob_0_144, "./field-switch/inactiveColor-editor.vue": __vite_glob_0_145, "./field-switch/switch-defaultValue-editor.vue": __vite_glob_0_146, "./field-switch/switchWidth-editor.vue": __vite_glob_0_147, "./field-switch/unCheckedValue-editor.vue": __vite_glob_0_148, "./field-time-range/time-range-defaultValue-editor.vue": __vite_glob_0_149, "./field-time-range/time-range-format-editor.vue": __vite_glob_0_150, "./field-time/time-defaultValue-editor.vue": __vite_glob_0_151, "./field-time/time-format-editor.vue": __vite_glob_0_152, "./field-treeSelect/treeSelect-treeDefaultExpandAll-editor.vue": __vite_glob_0_153, "./fileMaxSize-editor.vue": __vite_glob_0_154, "./hidden-editor.vue": __vite_glob_0_155, "./label-editor.vue": __vite_glob_0_156, "./labelAlign-editor.vue": __vite_glob_0_157, "./labelHidden-editor.vue": __vite_glob_0_158, "./labelIconClass-editor.vue": __vite_glob_0_159, "./labelIconPosition-editor.vue": __vite_glob_0_160, "./labelTooltip-editor.vue": __vite_glob_0_161, "./labelWidth-editor.vue": __vite_glob_0_162, "./limit-editor.vue": __vite_glob_0_163, "./loadingPage-editor.vue": __vite_glob_0_164, "./max-editor.vue": __vite_glob_0_165, "./maxLength-editor.vue": __vite_glob_0_166, "./min-editor.vue": __vite_glob_0_167, "./minLength-editor.vue": __vite_glob_0_168, "./multiple-editor.vue": __vite_glob_0_169, "./multipleSelect-editor.vue": __vite_glob_0_170, "./name-editor.vue": __vite_glob_0_171, "./optionItems-editor.vue": __vite_glob_0_172, "./placeholder-editor.vue": __vite_glob_0_173, "./placement-editor.vue": __vite_glob_0_174, "./precision-editor.vue": __vite_glob_0_175, "./readonly-editor.vue": __vite_glob_0_176, "./required-editor.vue": __vite_glob_0_177, "./requiredHint-editor.vue": __vite_glob_0_178, "./rows-editor.vue": __vite_glob_0_179, "./showCount-editor.vue": __vite_glob_0_180, "./showFileList-editor.vue": __vite_glob_0_181, "./showPassword-editor.vue": __vite_glob_0_182, "./showSearch-editor.vue": __vite_glob_0_183, "./showTime-editor.vue": __vite_glob_0_184, "./size-editor.vue": __vite_glob_0_185, "./startPlaceholder-editor.vue": __vite_glob_0_186, "./step-editor.vue": __vite_glob_0_187, "./type-editor.vue": __vite_glob_0_188, "./uploadTip-editor.vue": __vite_glob_0_189, "./uploadURL-editor.vue": __vite_glob_0_190, "./useModel-editor.vue": __vite_glob_0_191, "./validation-editor.vue": __vite_glob_0_192, "./validationHint-editor.vue": __vite_glob_0_193, "./withCredentials-editor.vue": __vite_glob_0_194 });
 for (const path in modules$1) {
   const cname = modules$1[path].default.name;
   comps[cname] = modules$1[path].default;
@@ -69012,7 +69668,12 @@ const COMMON_PROPERTIES$1 = {
   validationHint: "validationHint-editor",
   readonly: "readonly-editor",
   disabled: "disabled-editor",
+  loadingPage: "loadingPage-editor",
   hidden: "hidden-editor",
+  useModal: "useModal-editor",
+  checkedValue: "checkedValue-editor",
+  unCheckedValue: "unCheckedValue-editor",
+  placement: "placement-editor",
   rowKey: "rowKey-editor",
   tableWidth: "tableWidth-editor",
   tableHeight: "tableHeight-editor",
@@ -69043,6 +69704,7 @@ const COMMON_PROPERTIES$1 = {
   multiple: "multiple-editor",
   // multipleLimit: 'multipleLimit-editor',
   mode: "mode-editor",
+  menuList: "menuList-editor",
   contentPosition: "contentPosition-editor",
   optionItems: "optionItems-editor",
   uploadURL: "uploadURL-editor",
@@ -69096,8 +69758,6 @@ const ADVANCED_PROPERTIES$1 = {
   addonBefore: "addonBefore-editor",
   addonAfter: "addonAfter-editor",
   switchWidth: "switchWidth-editor",
-  checkedChildren: "checkedChildren-editor",
-  unCheckedChildren: "unCheckedChildren-editor",
   activeColor: "activeColor-editor",
   inactiveColor: "inactiveColor-editor",
   lowThreshold: "lowThreshold-editor",
@@ -69135,6 +69795,8 @@ const EVENT_PROPERTIES$1 = {
   onFileRemove: "onFileRemove-editor",
   onValidate: "onValidate-editor",
   onAppendButtonClick: "onAppendButtonClick-editor",
+  onClickIcon: "onClickIcon-editor",
+  onMenuClick: "onMenuClick-editor",
   //容器
   onTabClick: "onTabClick-editor",
   onSubFormRowAdd: "onSubFormRowAdd-editor",
@@ -69866,7 +70528,7 @@ function _sfc_render$r(_ctx, _cache, $props, $setup, $data, $options) {
     ])) : createCommentVNode("", true)
   ], 2);
 }
-const ContainerWrapper = /* @__PURE__ */ _export_sfc$1(_sfc_main$r, [["render", _sfc_render$r], ["__scopeId", "data-v-86673d20"]]);
+const ContainerWrapper = /* @__PURE__ */ _export_sfc$1(_sfc_main$r, [["render", _sfc_render$r], ["__scopeId", "data-v-4a8e2be6"]]);
 const __vite_glob_0_0 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: ContainerWrapper
@@ -69899,7 +70561,7 @@ const refMixinDesign = {
 const _sfc_main$q = {
   name: "DataTableWidget",
   componentName: "DataTableWidget",
-  mixins: [i18n$1, containerMixin, refMixinDesign, emitter],
+  mixins: [i18n$1, containerMixin, refMixinDesign, emitter, useDataTableMixin],
   inject: ["refList"],
   components: {
     ContainerWrapper,
@@ -69907,7 +70569,7 @@ const _sfc_main$q = {
   },
   data() {
     return {
-      selectAllFlag: false
+      // selectAllFlag: false
     };
   },
   props: {
@@ -69947,13 +70609,13 @@ const _sfc_main$q = {
     // },
     selected() {
       return this.widget.id === this.designer.selectedId;
-    },
-    customClass() {
-      return this.widget.options.customClass || "";
-    },
-    widgetSize() {
-      return this.widget.options.tableSize || "default";
-    },
+    }
+    // customClass() {
+    //   return this.widget.options.customClass || '';
+    // },
+    // widgetSize() {
+    //   return this.widget.options.tableSize || 'default';
+    // },
     // buttonsColumnFixed() {
     //   if (this.widget.options.buttonsColumnFixed === undefined) {
     //     return 'right';
@@ -69962,176 +70624,162 @@ const _sfc_main$q = {
     //     ? false
     //     : this.widget.options.buttonsColumnFixed;
     // },
-    tableHeight() {
-      return this.widget.options.tableHeight || void 0;
-    },
-    selectionWidth() {
-      return !this.widget.options.showSummary ? !this.widget.options.treeDataEnabled ? 42 : 70 : 53;
-    }
+    // tableHeight() {
+    //   return this.widget.options.tableHeight || undefined;
+    // },
+    // selectionWidth() {
+    //   return !this.widget.options.showSummary
+    //     ? !this.widget.options.treeDataEnabled
+    //       ? 42
+    //       : 70
+    //     : 53;
+    // }
   },
   methods: {
-    handleCustomRow(record) {
-      const {
-        customRow
-      } = this.widget.options;
-      if (!customRow)
-        return {};
-      return {
-        onClick: (event) => {
-          const customFn = new Function("record", "event", customRow.onClick);
-          customFn.call(this, record, event);
-        },
-        onDblclick: (event) => {
-          const customFn = new Function("record", "event", customRow.onDblclick);
-          customFn.call(this, record, event);
-        },
-        onMouseenter: (event) => {
-          const customFn = new Function("record", "event", customRow.onMouseenter);
-          customFn.call(this, record, event);
-        },
-        onMouseleave: (event) => {
-          const customFn = new Function("record", "event", customRow.onMouseleave);
-          customFn.call(this, record, event);
-        }
-      };
-    },
-    handleColumnItem(item) {
-      const res = omit(item, ["customRender"]);
-      const customRenderFn = item.customRender;
-      if (!customRenderFn)
-        return item;
-      return {
-        ...res,
-        customRender: ({
-          text,
-          record,
-          index: index2,
-          column
-        }) => {
-          const cusFunc = new Function("text", "record", "index", "column", customRenderFn);
-          return cusFunc.call(this, text, record, index2, column);
-        }
-      };
-    },
-    getOperationButtonLabel(buttonConfig, rowIndex, row) {
-      if (!!this.widget.options.onGetOperationButtonLabel) {
-        const customFn = new Function("buttonConfig", "rowIndex", "row", this.widget.options.onGetOperationButtonLabel);
-        return customFn.call(this, buttonConfig, rowIndex, row);
-      } else {
-        return buttonConfig.label;
-      }
-    },
-    handleOperationButtonClick(btnName, rowIndex, row, scope, ob) {
-      this.skipSelectionChangeEvent = true;
-      try {
-        if (ob.onClick) {
-          const clcFn = new Function("record", "index", "column", "btn", ob.onClick);
-          clcFn.call(this, row, rowIndex, scope.column, ob);
-          return;
-        }
-        if (!!this.widget.options.onOperationButtonClick) {
-          const customFn = new Function("buttonName", "rowIndex", "row", this.widget.options.onOperationButtonClick);
-          customFn.call(this, btnName, rowIndex, row);
-        } else {
-          this.dispatch("VFormRender", "operationButtonClick", [this, btnName, rowIndex, row]);
-        }
-      } finally {
-        this.skipSelectionChangeEvent = false;
-      }
-    },
-    showOperationButton(buttonConfig, rowIndex, row) {
-      if (!!this.widget.options.onHideOperationButton) {
-        const customFn = new Function("buttonConfig", "rowIndex", "row", this.widget.options.onHideOperationButton);
-        return !customFn.call(this, buttonConfig, rowIndex, row);
-      } else {
-        return !buttonConfig.hidden;
-      }
-    },
-    disableOperationButton(buttonConfig, rowIndex, row) {
-      if (!!this.widget.options.onDisableOperationButton) {
-        const customFn = new Function("buttonConfig", "rowIndex", "row", this.widget.options.onDisableOperationButton);
-        return customFn.call(this, buttonConfig, rowIndex, row);
-      } else {
-        return buttonConfig.disabled;
-      }
-    },
-    customRenderIndex({
-      index: index2
-    }) {
-      return index2 + 1;
-    },
-    handleTablePageChange(pagination, filters, sorter, {
-      currentDataSource
-    }) {
-      const fn = this.widget.options.onTableChange;
-      this.widget.options.pagination.current = pagination.current;
-      this.widget.options.pagination.pageSize = pagination.pageSize;
-      if (fn) {
-        const changeFunc = new Function("pagination", "filters", "sorter", "currentDataSource", fn);
-        changeFunc.call(this, pagination, filters, sorter, currentDataSource);
-      }
-    },
-    handleRowSelection(info) {
-      if (!info.hasRowSelection) {
-        return void 0;
-      }
-      return {
-        ...omit(info, ["onChange"]),
-        onChange: (selectedRowKeys, selectedRows) => {
-          const rcFunc = new Function("selectedRowKeys", "selectedRows", info.onChange);
-          rcFunc.call(this, selectedRowKeys, selectedRows);
-        }
-      };
-    },
+    // getOperationButtonLabel(buttonConfig, rowIndex, row) {
+    //   if (!!this.widget.options.onGetOperationButtonLabel) {
+    //     const customFn = new Function(
+    //       'buttonConfig',
+    //       'rowIndex',
+    //       'row',
+    //       this.widget.options.onGetOperationButtonLabel
+    //     );
+    //     //return customFn.call(this, buttonConfig, rowIndex, row) || buttonConfig.label
+    //     return customFn.call(this, buttonConfig, rowIndex, row);
+    //   } else {
+    //     return buttonConfig.label;
+    //   }
+    // },
+    // handleOperationButtonClick(btnName, rowIndex, row, scope, ob) {
+    //   this.skipSelectionChangeEvent = true;
+    //   try {
+    //     if (ob.onClick) {
+    //       const clcFn = new Function('record', 'index', 'column', 'btn', ob.onClick);
+    //       clcFn.call(this, row, rowIndex, scope.column, ob);
+    //       return;
+    //     }
+    //     if (!!this.widget.options.onOperationButtonClick) {
+    //       const customFn = new Function(
+    //         'buttonName',
+    //         'rowIndex',
+    //         'row',
+    //         this.widget.options.onOperationButtonClick
+    //       );
+    //       customFn.call(this, btnName, rowIndex, row);
+    //     } else {
+    //       this.dispatch('VFormRender', 'operationButtonClick', [this, btnName, rowIndex, row]);
+    //     }
+    //   } finally {
+    //     this.skipSelectionChangeEvent = false;
+    //   }
+    // },
+    // showOperationButton(buttonConfig, rowIndex, row) {
+    //   if (!!this.widget.options.onHideOperationButton) {
+    //     const customFn = new Function(
+    //       'buttonConfig',
+    //       'rowIndex',
+    //       'row',
+    //       this.widget.options.onHideOperationButton
+    //     );
+    //     return !customFn.call(this, buttonConfig, rowIndex, row);
+    //   } else {
+    //     return !buttonConfig.hidden;
+    //   }
+    // },
+    // disableOperationButton(buttonConfig, rowIndex, row) {
+    //   if (!!this.widget.options.onDisableOperationButton) {
+    //     const customFn = new Function(
+    //       'buttonConfig',
+    //       'rowIndex',
+    //       'row',
+    //       this.widget.options.onDisableOperationButton
+    //     );
+    //     return customFn.call(this, buttonConfig, rowIndex, row);
+    //   } else {
+    //     return buttonConfig.disabled;
+    //   }
+    // },
+    // customRenderIndex({ index }) {
+    //   return index + 1;
+    // },
+    // handleTablePageChange(pagination, filters, sorter, { currentDataSource }) {
+    //   const fn = this.widget.options.onTableChange;
+    //   this.widget.options.pagination.current = pagination.current;
+    //   this.widget.options.pagination.pageSize = pagination.pageSize;
+    //   if (fn) {
+    //     const changeFunc = new Function(
+    //       'pagination',
+    //       'filters',
+    //       'sorter',
+    //       'currentDataSource',
+    //       fn
+    //     );
+    //     changeFunc.call(this, pagination, filters, sorter, currentDataSource);
+    //   }
+    // },
+    // handleRowSelection(info) {
+    //   if (!info.hasRowSelection) {
+    //     return undefined;
+    //   }
+    //   return {
+    //     ...omit(info, ['onChange']),
+    //     onChange: (selectedRowKeys, selectedRows) => {
+    //       const rcFunc = new Function('selectedRowKeys', 'selectedRows', info.onChange);
+    //       rcFunc.call(this, selectedRowKeys, selectedRows);
+    //     }
+    //   };
+    // },
     selectWidget(widget) {
       this.designer.setSelected(widget);
-    },
-    getTableColumns() {
-      return this.widget.options.tableColumns;
-    },
-    setChildrenSelected(children, flag) {
-      const childrenKey = this.widget.options.childrenKey;
-      children.map((child) => {
-        this.toggleSelection(child, flag);
-        if (child[childrenKey]) {
-          this.setChildrenSelected(child[childrenKey], flag);
-        }
-      });
-    },
-    toggleSelection(row, flag) {
-      if (row) {
-        this.$nextTick(() => {
-          this.$refs.dataTable.toggleRowSelection(row, flag);
-        });
-      }
-    },
-    handleRowSelect(selection, row) {
-      const childrenKey = this.widget.options.childrenKey;
-      if (selection.some((el) => {
-        return row.id === el.id;
-      })) {
-        if (row[childrenKey]) {
-          this.setChildrenSelected(row[childrenKey], true);
-        }
-      } else {
-        if (row[childrenKey]) {
-          this.setChildrenSelected(row[childrenKey], false);
-        }
-      }
-    },
-    setSelectedFlag(data, flag) {
-      const childrenKey = this.widget.options.childrenKey;
-      data.forEach((row) => {
-        this.$refs.dataTable.toggleRowSelection(row, flag);
-        if (row[childrenKey]) {
-          this.setSelectedFlag(row[childrenKey], flag);
-        }
-      });
-    },
-    handleAllSelect(selection) {
-      this.selectAllFlag = !this.selectAllFlag;
-      this.setSelectedFlag(this.widget.options.tableData, this.selectAllFlag);
     }
+    // getTableColumns() {
+    //   return this.widget.options.tableColumns;
+    // }
+    // setChildrenSelected(children, flag) {
+    //   const childrenKey = this.widget.options.childrenKey;
+    //   children.map(child => {
+    //     this.toggleSelection(child, flag);
+    //     if (child[childrenKey]) {
+    //       this.setChildrenSelected(child[childrenKey], flag);
+    //     }
+    //   });
+    // },
+    // toggleSelection(row, flag) {
+    //   if (row) {
+    //     this.$nextTick(() => {
+    //       this.$refs.dataTable.toggleRowSelection(row, flag);
+    //     });
+    //   }
+    // },
+    // handleRowSelect(selection, row) {
+    //   const childrenKey = this.widget.options.childrenKey;
+    //   if (
+    //     selection.some(el => {
+    //       return row.id === el.id;
+    //     })
+    //   ) {
+    //     if (row[childrenKey]) {
+    //       this.setChildrenSelected(row[childrenKey], true);
+    //     }
+    //   } else {
+    //     if (row[childrenKey]) {
+    //       this.setChildrenSelected(row[childrenKey], false);
+    //     }
+    //   }
+    // },
+    // setSelectedFlag(data, flag) {
+    //   const childrenKey = this.widget.options.childrenKey;
+    //   data.forEach(row => {
+    //     this.$refs.dataTable.toggleRowSelection(row, flag);
+    //     if (row[childrenKey]) {
+    //       this.setSelectedFlag(row[childrenKey], flag);
+    //     }
+    //   });
+    // },
+    // handleAllSelect(selection) {
+    //   this.selectAllFlag = !this.selectAllFlag;
+    //   this.setSelectedFlag(this.widget.options.tableData, this.selectAllFlag);
+    // }
   }
 };
 function _sfc_render$q(_ctx, _cache, $props, $setup, $data, $options) {
@@ -70157,17 +70805,17 @@ function _sfc_render$q(_ctx, _cache, $props, $setup, $data, $options) {
           ref: "dataTable1",
           dataSource: $props.widget.options.dataSource,
           rowKey: (record) => record[$props.widget.options.rowKey],
-          scroll: { y: parseFloat($options.tableHeight || 0), x: 300 },
-          class: normalizeClass([$options.customClass]),
-          size: $options.widgetSize,
+          scroll: { y: parseFloat(_ctx.tableHeight || 0), x: 300 },
+          class: normalizeClass([_ctx.customClass]),
+          size: _ctx.widgetSize,
           bordered: $props.widget.options.border,
           style: normalizeStyle({ width: $props.widget.options.tableWidth }),
           onClick: _cache[0] || (_cache[0] = withModifiers(($event) => $options.selectWidget($props.widget), ["stop"])),
-          "row-class-name": $props.widget.options.stripe ? (_record, index2) => index2 % 2 === 1 ? "table-striped" : null : null,
-          rowSelection: $options.handleRowSelection($props.widget.options.rowSelection),
-          pagination: $props.widget.options.showPagination && $props.widget.options.pagination,
-          onChange: $options.handleTablePageChange,
-          customRow: $options.handleCustomRow
+          "row-class-name": _ctx.rowClassName,
+          rowSelection: _ctx.handleRowSelection($props.widget.options.rowSelection),
+          pagination: _ctx.fmtPagination(),
+          onChange: _ctx.handleTablePageChange,
+          customRow: _ctx.handleCustomRow
         }, {
           default: withCtx(() => [
             $props.widget.options.showIndex ? (openBlock(), createBlock(_component_a_table_column, {
@@ -70176,11 +70824,11 @@ function _sfc_render$q(_ctx, _cache, $props, $setup, $data, $options) {
               align: "left",
               width: 80,
               fixed: "left",
-              customRender: $options.customRenderIndex
+              customRender: _ctx.customRenderIndex
             }, null, 8, ["customRender"])) : createCommentVNode("", true),
             (openBlock(true), createElementBlock(Fragment, null, renderList($props.widget.options.tableColumns, (item, index2) => {
               return openBlock(), createElementBlock(Fragment, null, [
-                item.show !== false ? (openBlock(), createBlock(_component_a_table_column, mergeProps({ key: index2 }, $options.handleColumnItem(item)), null, 16)) : createCommentVNode("", true)
+                item.show !== false ? (openBlock(), createBlock(_component_a_table_column, mergeProps({ key: index2 }, _ctx.handleColumnItem(item)), null, 16)) : createCommentVNode("", true)
               ], 64);
             }), 256)),
             !!$props.widget.options.showButtonsColumn ? (openBlock(), createBlock(_component_a_table_column, {
@@ -70199,16 +70847,16 @@ function _sfc_render$q(_ctx, _cache, $props, $setup, $data, $options) {
                         type: ob.type,
                         size: ob.size,
                         shape: ob.shape,
-                        disabled: $options.disableOperationButton(ob, scope.index, scope.record),
-                        onClick: ($event) => $options.handleOperationButtonClick(ob.name, scope.index, scope.record, scope, ob),
+                        disabled: _ctx.disableOperationButton(ob, scope.index, scope.record),
+                        onClick: ($event) => _ctx.handleOperationButtonClick(ob.name, scope.index, scope.record, scope, ob),
                         class: normalizeClass(["data-table-" + ob.name + "-button"])
                       }, {
                         default: withCtx(() => [
-                          createTextVNode(toDisplayString($options.getOperationButtonLabel(ob, scope.index, scope.record)), 1)
+                          createTextVNode(toDisplayString(_ctx.getOperationButtonLabel(ob, scope.index, scope.record)), 1)
                         ]),
                         _: 2
                       }, 1032, ["type", "size", "shape", "disabled", "onClick", "class"])), [
-                        [vShow, $options.showOperationButton(ob, scope.index, scope.record)]
+                        [vShow, _ctx.showOperationButton(ob, scope.index, scope.record)]
                       ]);
                     }), 128))
                   ]),
@@ -70225,7 +70873,7 @@ function _sfc_render$q(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["designer", "widget", "parent-widget", "parent-list", "index-of-parent-list"]);
 }
-const dataTableWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$q, [["render", _sfc_render$q], ["__scopeId", "data-v-c7fab84e"]]);
+const dataTableWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$q, [["render", _sfc_render$q], ["__scopeId", "data-v-7dd2ee5f"]]);
 const __vite_glob_0_1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: dataTableWidget
@@ -72575,7 +73223,7 @@ function createDesigner(vueInstance) {
       this.emitHistoryChange();
     },
     getContainerByType(typeName) {
-      const allWidgets = [...containers, ...basicFields, ...advancedFields, ...customFields];
+      const allWidgets = [...containers$1, ...basicFields, ...advancedFields, ...customFields];
       let foundCon = null;
       allWidgets.forEach((con) => {
         if (!!con.category && !!con.type && con.type === typeName) {
@@ -72585,7 +73233,7 @@ function createDesigner(vueInstance) {
       return foundCon;
     },
     getFieldWidgetByType(typeName) {
-      const allWidgets = [...containers, ...basicFields, ...advancedFields, ...customFields];
+      const allWidgets = [...containers$1, ...basicFields, ...advancedFields, ...customFields];
       let foundWidget = null;
       allWidgets.forEach((widget) => {
         if (!!!widget.category && !!widget.type && widget.type === typeName) {
@@ -73754,8 +74402,8 @@ var vuedraggable_umd = { exports: {} };
           function(module2, exports2, __webpack_require__) {
             var global2 = __webpack_require__("da84");
             var userAgent2 = __webpack_require__("342f");
-            var process = global2.process;
-            var versions = process && process.versions;
+            var process2 = global2.process;
+            var versions = process2 && process2.versions;
             var v8 = versions && versions.v8;
             var match, version2;
             if (v8) {
@@ -75348,9 +75996,9 @@ var vuedraggable_umd = { exports: {} };
               return descriptor;
             };
             var $getOwnPropertyNames = function getOwnPropertyNames(O) {
-              var names = nativeGetOwnPropertyNames(toIndexedObject(O));
+              var names2 = nativeGetOwnPropertyNames(toIndexedObject(O));
               var result2 = [];
-              $forEach(names, function(key) {
+              $forEach(names2, function(key) {
                 if (!has(AllSymbols, key) && !has(hiddenKeys, key))
                   result2.push(key);
               });
@@ -75358,9 +76006,9 @@ var vuedraggable_umd = { exports: {} };
             };
             var $getOwnPropertySymbols = function getOwnPropertySymbols(O) {
               var IS_OBJECT_PROTOTYPE = O === ObjectPrototype;
-              var names = nativeGetOwnPropertyNames(IS_OBJECT_PROTOTYPE ? ObjectPrototypeSymbols : toIndexedObject(O));
+              var names2 = nativeGetOwnPropertyNames(IS_OBJECT_PROTOTYPE ? ObjectPrototypeSymbols : toIndexedObject(O));
               var result2 = [];
-              $forEach(names, function(key) {
+              $forEach(names2, function(key) {
                 if (has(AllSymbols, key) && (!IS_OBJECT_PROTOTYPE || has(ObjectPrototype, key))) {
                   result2.push(AllSymbols[key]);
                 }
@@ -75941,15 +76589,15 @@ var vuedraggable_umd = { exports: {} };
             var toIndexedObject = __webpack_require__("fc6a");
             var indexOf = __webpack_require__("4d64").indexOf;
             var hiddenKeys = __webpack_require__("d012");
-            module2.exports = function(object, names) {
+            module2.exports = function(object, names2) {
               var O = toIndexedObject(object);
               var i = 0;
               var result2 = [];
               var key;
               for (key in O)
                 !has(hiddenKeys, key) && has(O, key) && result2.push(key);
-              while (names.length > i)
-                if (has(O, key = names[i++])) {
+              while (names2.length > i)
+                if (has(O, key = names2[i++])) {
                   ~indexOf(result2, key) || result2.push(key);
                 }
               return result2;
@@ -76682,7 +77330,7 @@ var vuedraggable_umd = { exports: {} };
               }
               return target;
             }
-            function _arrayWithHoles(arr) {
+            function _arrayWithHoles2(arr) {
               if (Array.isArray(arr))
                 return arr;
             }
@@ -76692,7 +77340,7 @@ var vuedraggable_umd = { exports: {} };
             __webpack_require__("d3b7");
             __webpack_require__("3ca3");
             __webpack_require__("ddb0");
-            function _iterableToArrayLimit(arr, i) {
+            function _iterableToArrayLimit2(arr, i) {
               if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr)))
                 return;
               var _arr = [];
@@ -76723,7 +77371,7 @@ var vuedraggable_umd = { exports: {} };
             __webpack_require__("fb6a");
             __webpack_require__("b0c0");
             __webpack_require__("25f0");
-            function _arrayLikeToArray(arr, len) {
+            function _arrayLikeToArray2(arr, len) {
               if (len == null || len > arr.length)
                 len = arr.length;
               for (var i = 0, arr2 = new Array(len); i < len; i++) {
@@ -76731,28 +77379,28 @@ var vuedraggable_umd = { exports: {} };
               }
               return arr2;
             }
-            function _unsupportedIterableToArray(o, minLen) {
+            function _unsupportedIterableToArray2(o, minLen) {
               if (!o)
                 return;
               if (typeof o === "string")
-                return _arrayLikeToArray(o, minLen);
+                return _arrayLikeToArray2(o, minLen);
               var n = Object.prototype.toString.call(o).slice(8, -1);
               if (n === "Object" && o.constructor)
                 n = o.constructor.name;
               if (n === "Map" || n === "Set")
                 return Array.from(o);
               if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n))
-                return _arrayLikeToArray(o, minLen);
+                return _arrayLikeToArray2(o, minLen);
             }
-            function _nonIterableRest() {
+            function _nonIterableRest2() {
               throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
             }
-            function _slicedToArray(arr, i) {
-              return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest();
+            function _slicedToArray2(arr, i) {
+              return _arrayWithHoles2(arr) || _iterableToArrayLimit2(arr, i) || _unsupportedIterableToArray2(arr, i) || _nonIterableRest2();
             }
             function _arrayWithoutHoles(arr) {
               if (Array.isArray(arr))
-                return _arrayLikeToArray(arr);
+                return _arrayLikeToArray2(arr);
             }
             function _iterableToArray(iter) {
               if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter))
@@ -76762,7 +77410,7 @@ var vuedraggable_umd = { exports: {} };
               throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
             }
             function _toConsumableArray(arr) {
-              return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread();
+              return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray2(arr) || _nonIterableSpread();
             }
             var external_commonjs_sortablejs_commonjs2_sortablejs_amd_sortablejs_root_Sortable_ = __webpack_require__("a352");
             var external_commonjs_sortablejs_commonjs2_sortablejs_amd_sortablejs_root_Sortable_default = /* @__PURE__ */ __webpack_require__.n(external_commonjs_sortablejs_commonjs2_sortablejs_amd_sortablejs_root_Sortable_);
@@ -76825,7 +77473,7 @@ var vuedraggable_umd = { exports: {} };
             }
             function project(entries) {
               return entries.reduce(function(res, _ref) {
-                var _ref2 = _slicedToArray(_ref, 2), key = _ref2[0], value2 = _ref2[1];
+                var _ref2 = _slicedToArray2(_ref, 2), key = _ref2[0], value2 = _ref2[1];
                 res[key] = value2;
                 return res;
               }, {});
@@ -76833,7 +77481,7 @@ var vuedraggable_umd = { exports: {} };
             function getComponentAttributes(_ref3) {
               var $attrs = _ref3.$attrs, _ref3$componentData = _ref3.componentData, componentData = _ref3$componentData === void 0 ? {} : _ref3$componentData;
               var attributes = project(Object.entries($attrs).filter(function(_ref4) {
-                var _ref5 = _slicedToArray(_ref4, 2), key = _ref5[0];
+                var _ref5 = _slicedToArray2(_ref4, 2), key = _ref5[0];
                 _ref5[1];
                 return isHtmlAttribute(key);
               }));
@@ -76843,7 +77491,7 @@ var vuedraggable_umd = { exports: {} };
               var $attrs = _ref6.$attrs, callBackBuilder = _ref6.callBackBuilder;
               var options = project(getValidSortableEntries($attrs));
               Object.entries(callBackBuilder).forEach(function(_ref7) {
-                var _ref8 = _slicedToArray(_ref7, 2), eventType = _ref8[0], eventBuilder = _ref8[1];
+                var _ref8 = _slicedToArray2(_ref7, 2), eventType = _ref8[0], eventBuilder = _ref8[1];
                 events[eventType].forEach(function(event) {
                   options["on".concat(event)] = eventBuilder(event);
                 });
@@ -76855,14 +77503,14 @@ var vuedraggable_umd = { exports: {} };
             }
             function getValidSortableEntries(value2) {
               return Object.entries(value2).filter(function(_ref9) {
-                var _ref10 = _slicedToArray(_ref9, 2), key = _ref10[0];
+                var _ref10 = _slicedToArray2(_ref9, 2), key = _ref10[0];
                 _ref10[1];
                 return !isHtmlAttribute(key);
               }).map(function(_ref11) {
-                var _ref12 = _slicedToArray(_ref11, 2), key = _ref12[0], value3 = _ref12[1];
+                var _ref12 = _slicedToArray2(_ref11, 2), key = _ref12[0], value3 = _ref12[1];
                 return [camelize(key), value3];
               }).filter(function(_ref13) {
-                var _ref14 = _slicedToArray(_ref13, 2), key = _ref14[0];
+                var _ref14 = _slicedToArray2(_ref13, 2), key = _ref14[0];
                 _ref14[1];
                 return !isReadOnly(key);
               });
@@ -76916,14 +77564,14 @@ var vuedraggable_umd = { exports: {} };
               }
               _createClass(ComponentStructure, [{
                 key: "render",
-                value: function render2(h, attributes) {
+                value: function render2(h2, attributes) {
                   var tag = this.tag, children = this.children, _isRootComponent = this._isRootComponent;
                   var option2 = !_isRootComponent ? children : {
                     default: function _default() {
                       return children;
                     }
                   };
-                  return h(tag, attributes, option2);
+                  return h2(tag, attributes, option2);
                 }
               }, {
                 key: "updated",
@@ -76982,7 +77630,7 @@ var vuedraggable_umd = { exports: {} };
               var normalizedList = realList || [];
               var _map = ["header", "footer"].map(function(name) {
                 return getSlot($slots, name);
-              }), _map2 = _slicedToArray(_map, 2), header = _map2[0], footer = _map2[1];
+              }), _map2 = _slicedToArray2(_map, 2), header = _map2[0], footer = _map2[1];
               var item = $slots.item;
               if (!item) {
                 throw new Error("draggable element must have an item slot");
@@ -77190,7 +77838,7 @@ var vuedraggable_umd = { exports: {} };
                     if (!_sortable)
                       return;
                     getValidSortableEntries(newOptionValue).forEach(function(_ref) {
-                      var _ref2 = _slicedToArray(_ref, 2), key = _ref2[0], value2 = _ref2[1];
+                      var _ref2 = _slicedToArray2(_ref, 2), key = _ref2[0], value2 = _ref2[1];
                       _sortable.option(key, value2);
                     });
                   },
@@ -77809,7 +78457,1133 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
   return openBlock(), createElementBlock("svg", _hoisted_1, _hoisted_3);
 }
 var top = /* @__PURE__ */ _export_sfc(_sfc_main, [["render", _sfc_render]]);
+function bound01(n, max) {
+  if (isOnePointZero(n)) {
+    n = "100%";
+  }
+  var isPercent = isPercentage(n);
+  n = max === 360 ? n : Math.min(max, Math.max(0, parseFloat(n)));
+  if (isPercent) {
+    n = parseInt(String(n * max), 10) / 100;
+  }
+  if (Math.abs(n - max) < 1e-6) {
+    return 1;
+  }
+  if (max === 360) {
+    n = (n < 0 ? n % max + max : n % max) / parseFloat(String(max));
+  } else {
+    n = n % max / parseFloat(String(max));
+  }
+  return n;
+}
+function isOnePointZero(n) {
+  return typeof n === "string" && n.indexOf(".") !== -1 && parseFloat(n) === 1;
+}
+function isPercentage(n) {
+  return typeof n === "string" && n.indexOf("%") !== -1;
+}
+function boundAlpha(a) {
+  a = parseFloat(a);
+  if (isNaN(a) || a < 0 || a > 1) {
+    a = 1;
+  }
+  return a;
+}
+function convertToPercentage(n) {
+  if (n <= 1) {
+    return "".concat(Number(n) * 100, "%");
+  }
+  return n;
+}
+function pad2(c) {
+  return c.length === 1 ? "0" + c : String(c);
+}
+function rgbToRgb(r, g, b) {
+  return {
+    r: bound01(r, 255) * 255,
+    g: bound01(g, 255) * 255,
+    b: bound01(b, 255) * 255
+  };
+}
+function hue2rgb(p, q, t) {
+  if (t < 0) {
+    t += 1;
+  }
+  if (t > 1) {
+    t -= 1;
+  }
+  if (t < 1 / 6) {
+    return p + (q - p) * (6 * t);
+  }
+  if (t < 1 / 2) {
+    return q;
+  }
+  if (t < 2 / 3) {
+    return p + (q - p) * (2 / 3 - t) * 6;
+  }
+  return p;
+}
+function hslToRgb(h2, s, l) {
+  var r;
+  var g;
+  var b;
+  h2 = bound01(h2, 360);
+  s = bound01(s, 100);
+  l = bound01(l, 100);
+  if (s === 0) {
+    g = l;
+    b = l;
+    r = l;
+  } else {
+    var q = l < 0.5 ? l * (1 + s) : l + s - l * s;
+    var p = 2 * l - q;
+    r = hue2rgb(p, q, h2 + 1 / 3);
+    g = hue2rgb(p, q, h2);
+    b = hue2rgb(p, q, h2 - 1 / 3);
+  }
+  return { r: r * 255, g: g * 255, b: b * 255 };
+}
+function rgbToHsv(r, g, b) {
+  r = bound01(r, 255);
+  g = bound01(g, 255);
+  b = bound01(b, 255);
+  var max = Math.max(r, g, b);
+  var min = Math.min(r, g, b);
+  var h2 = 0;
+  var v = max;
+  var d = max - min;
+  var s = max === 0 ? 0 : d / max;
+  if (max === min) {
+    h2 = 0;
+  } else {
+    switch (max) {
+      case r:
+        h2 = (g - b) / d + (g < b ? 6 : 0);
+        break;
+      case g:
+        h2 = (b - r) / d + 2;
+        break;
+      case b:
+        h2 = (r - g) / d + 4;
+        break;
+    }
+    h2 /= 6;
+  }
+  return { h: h2, s, v };
+}
+function hsvToRgb(h2, s, v) {
+  h2 = bound01(h2, 360) * 6;
+  s = bound01(s, 100);
+  v = bound01(v, 100);
+  var i = Math.floor(h2);
+  var f = h2 - i;
+  var p = v * (1 - s);
+  var q = v * (1 - f * s);
+  var t = v * (1 - (1 - f) * s);
+  var mod = i % 6;
+  var r = [v, q, p, p, t, v][mod];
+  var g = [t, v, v, q, p, p][mod];
+  var b = [p, p, t, v, v, q][mod];
+  return { r: r * 255, g: g * 255, b: b * 255 };
+}
+function rgbToHex(r, g, b, allow3Char) {
+  var hex = [
+    pad2(Math.round(r).toString(16)),
+    pad2(Math.round(g).toString(16)),
+    pad2(Math.round(b).toString(16))
+  ];
+  if (allow3Char && hex[0].startsWith(hex[0].charAt(1)) && hex[1].startsWith(hex[1].charAt(1)) && hex[2].startsWith(hex[2].charAt(1))) {
+    return hex[0].charAt(0) + hex[1].charAt(0) + hex[2].charAt(0);
+  }
+  return hex.join("");
+}
+function convertHexToDecimal(h2) {
+  return parseIntFromHex(h2) / 255;
+}
+function parseIntFromHex(val) {
+  return parseInt(val, 16);
+}
+var names = {
+  aliceblue: "#f0f8ff",
+  antiquewhite: "#faebd7",
+  aqua: "#00ffff",
+  aquamarine: "#7fffd4",
+  azure: "#f0ffff",
+  beige: "#f5f5dc",
+  bisque: "#ffe4c4",
+  black: "#000000",
+  blanchedalmond: "#ffebcd",
+  blue: "#0000ff",
+  blueviolet: "#8a2be2",
+  brown: "#a52a2a",
+  burlywood: "#deb887",
+  cadetblue: "#5f9ea0",
+  chartreuse: "#7fff00",
+  chocolate: "#d2691e",
+  coral: "#ff7f50",
+  cornflowerblue: "#6495ed",
+  cornsilk: "#fff8dc",
+  crimson: "#dc143c",
+  cyan: "#00ffff",
+  darkblue: "#00008b",
+  darkcyan: "#008b8b",
+  darkgoldenrod: "#b8860b",
+  darkgray: "#a9a9a9",
+  darkgreen: "#006400",
+  darkgrey: "#a9a9a9",
+  darkkhaki: "#bdb76b",
+  darkmagenta: "#8b008b",
+  darkolivegreen: "#556b2f",
+  darkorange: "#ff8c00",
+  darkorchid: "#9932cc",
+  darkred: "#8b0000",
+  darksalmon: "#e9967a",
+  darkseagreen: "#8fbc8f",
+  darkslateblue: "#483d8b",
+  darkslategray: "#2f4f4f",
+  darkslategrey: "#2f4f4f",
+  darkturquoise: "#00ced1",
+  darkviolet: "#9400d3",
+  deeppink: "#ff1493",
+  deepskyblue: "#00bfff",
+  dimgray: "#696969",
+  dimgrey: "#696969",
+  dodgerblue: "#1e90ff",
+  firebrick: "#b22222",
+  floralwhite: "#fffaf0",
+  forestgreen: "#228b22",
+  fuchsia: "#ff00ff",
+  gainsboro: "#dcdcdc",
+  ghostwhite: "#f8f8ff",
+  goldenrod: "#daa520",
+  gold: "#ffd700",
+  gray: "#808080",
+  green: "#008000",
+  greenyellow: "#adff2f",
+  grey: "#808080",
+  honeydew: "#f0fff0",
+  hotpink: "#ff69b4",
+  indianred: "#cd5c5c",
+  indigo: "#4b0082",
+  ivory: "#fffff0",
+  khaki: "#f0e68c",
+  lavenderblush: "#fff0f5",
+  lavender: "#e6e6fa",
+  lawngreen: "#7cfc00",
+  lemonchiffon: "#fffacd",
+  lightblue: "#add8e6",
+  lightcoral: "#f08080",
+  lightcyan: "#e0ffff",
+  lightgoldenrodyellow: "#fafad2",
+  lightgray: "#d3d3d3",
+  lightgreen: "#90ee90",
+  lightgrey: "#d3d3d3",
+  lightpink: "#ffb6c1",
+  lightsalmon: "#ffa07a",
+  lightseagreen: "#20b2aa",
+  lightskyblue: "#87cefa",
+  lightslategray: "#778899",
+  lightslategrey: "#778899",
+  lightsteelblue: "#b0c4de",
+  lightyellow: "#ffffe0",
+  lime: "#00ff00",
+  limegreen: "#32cd32",
+  linen: "#faf0e6",
+  magenta: "#ff00ff",
+  maroon: "#800000",
+  mediumaquamarine: "#66cdaa",
+  mediumblue: "#0000cd",
+  mediumorchid: "#ba55d3",
+  mediumpurple: "#9370db",
+  mediumseagreen: "#3cb371",
+  mediumslateblue: "#7b68ee",
+  mediumspringgreen: "#00fa9a",
+  mediumturquoise: "#48d1cc",
+  mediumvioletred: "#c71585",
+  midnightblue: "#191970",
+  mintcream: "#f5fffa",
+  mistyrose: "#ffe4e1",
+  moccasin: "#ffe4b5",
+  navajowhite: "#ffdead",
+  navy: "#000080",
+  oldlace: "#fdf5e6",
+  olive: "#808000",
+  olivedrab: "#6b8e23",
+  orange: "#ffa500",
+  orangered: "#ff4500",
+  orchid: "#da70d6",
+  palegoldenrod: "#eee8aa",
+  palegreen: "#98fb98",
+  paleturquoise: "#afeeee",
+  palevioletred: "#db7093",
+  papayawhip: "#ffefd5",
+  peachpuff: "#ffdab9",
+  peru: "#cd853f",
+  pink: "#ffc0cb",
+  plum: "#dda0dd",
+  powderblue: "#b0e0e6",
+  purple: "#800080",
+  rebeccapurple: "#663399",
+  red: "#ff0000",
+  rosybrown: "#bc8f8f",
+  royalblue: "#4169e1",
+  saddlebrown: "#8b4513",
+  salmon: "#fa8072",
+  sandybrown: "#f4a460",
+  seagreen: "#2e8b57",
+  seashell: "#fff5ee",
+  sienna: "#a0522d",
+  silver: "#c0c0c0",
+  skyblue: "#87ceeb",
+  slateblue: "#6a5acd",
+  slategray: "#708090",
+  slategrey: "#708090",
+  snow: "#fffafa",
+  springgreen: "#00ff7f",
+  steelblue: "#4682b4",
+  tan: "#d2b48c",
+  teal: "#008080",
+  thistle: "#d8bfd8",
+  tomato: "#ff6347",
+  turquoise: "#40e0d0",
+  violet: "#ee82ee",
+  wheat: "#f5deb3",
+  white: "#ffffff",
+  whitesmoke: "#f5f5f5",
+  yellow: "#ffff00",
+  yellowgreen: "#9acd32"
+};
+function inputToRGB(color2) {
+  var rgb = { r: 0, g: 0, b: 0 };
+  var a = 1;
+  var s = null;
+  var v = null;
+  var l = null;
+  var ok = false;
+  var format = false;
+  if (typeof color2 === "string") {
+    color2 = stringInputToObject(color2);
+  }
+  if (typeof color2 === "object") {
+    if (isValidCSSUnit(color2.r) && isValidCSSUnit(color2.g) && isValidCSSUnit(color2.b)) {
+      rgb = rgbToRgb(color2.r, color2.g, color2.b);
+      ok = true;
+      format = String(color2.r).substr(-1) === "%" ? "prgb" : "rgb";
+    } else if (isValidCSSUnit(color2.h) && isValidCSSUnit(color2.s) && isValidCSSUnit(color2.v)) {
+      s = convertToPercentage(color2.s);
+      v = convertToPercentage(color2.v);
+      rgb = hsvToRgb(color2.h, s, v);
+      ok = true;
+      format = "hsv";
+    } else if (isValidCSSUnit(color2.h) && isValidCSSUnit(color2.s) && isValidCSSUnit(color2.l)) {
+      s = convertToPercentage(color2.s);
+      l = convertToPercentage(color2.l);
+      rgb = hslToRgb(color2.h, s, l);
+      ok = true;
+      format = "hsl";
+    }
+    if (Object.prototype.hasOwnProperty.call(color2, "a")) {
+      a = color2.a;
+    }
+  }
+  a = boundAlpha(a);
+  return {
+    ok,
+    format: color2.format || format,
+    r: Math.min(255, Math.max(rgb.r, 0)),
+    g: Math.min(255, Math.max(rgb.g, 0)),
+    b: Math.min(255, Math.max(rgb.b, 0)),
+    a
+  };
+}
+var CSS_INTEGER = "[-\\+]?\\d+%?";
+var CSS_NUMBER = "[-\\+]?\\d*\\.\\d+%?";
+var CSS_UNIT = "(?:".concat(CSS_NUMBER, ")|(?:").concat(CSS_INTEGER, ")");
+var PERMISSIVE_MATCH3 = "[\\s|\\(]+(".concat(CSS_UNIT, ")[,|\\s]+(").concat(CSS_UNIT, ")[,|\\s]+(").concat(CSS_UNIT, ")\\s*\\)?");
+var PERMISSIVE_MATCH4 = "[\\s|\\(]+(".concat(CSS_UNIT, ")[,|\\s]+(").concat(CSS_UNIT, ")[,|\\s]+(").concat(CSS_UNIT, ")[,|\\s]+(").concat(CSS_UNIT, ")\\s*\\)?");
+var matchers = {
+  CSS_UNIT: new RegExp(CSS_UNIT),
+  rgb: new RegExp("rgb" + PERMISSIVE_MATCH3),
+  rgba: new RegExp("rgba" + PERMISSIVE_MATCH4),
+  hsl: new RegExp("hsl" + PERMISSIVE_MATCH3),
+  hsla: new RegExp("hsla" + PERMISSIVE_MATCH4),
+  hsv: new RegExp("hsv" + PERMISSIVE_MATCH3),
+  hsva: new RegExp("hsva" + PERMISSIVE_MATCH4),
+  hex3: /^#?([0-9a-fA-F]{1})([0-9a-fA-F]{1})([0-9a-fA-F]{1})$/,
+  hex6: /^#?([0-9a-fA-F]{2})([0-9a-fA-F]{2})([0-9a-fA-F]{2})$/,
+  hex4: /^#?([0-9a-fA-F]{1})([0-9a-fA-F]{1})([0-9a-fA-F]{1})([0-9a-fA-F]{1})$/,
+  hex8: /^#?([0-9a-fA-F]{2})([0-9a-fA-F]{2})([0-9a-fA-F]{2})([0-9a-fA-F]{2})$/
+};
+function stringInputToObject(color2) {
+  color2 = color2.trim().toLowerCase();
+  if (color2.length === 0) {
+    return false;
+  }
+  var named = false;
+  if (names[color2]) {
+    color2 = names[color2];
+    named = true;
+  } else if (color2 === "transparent") {
+    return { r: 0, g: 0, b: 0, a: 0, format: "name" };
+  }
+  var match = matchers.rgb.exec(color2);
+  if (match) {
+    return { r: match[1], g: match[2], b: match[3] };
+  }
+  match = matchers.rgba.exec(color2);
+  if (match) {
+    return { r: match[1], g: match[2], b: match[3], a: match[4] };
+  }
+  match = matchers.hsl.exec(color2);
+  if (match) {
+    return { h: match[1], s: match[2], l: match[3] };
+  }
+  match = matchers.hsla.exec(color2);
+  if (match) {
+    return { h: match[1], s: match[2], l: match[3], a: match[4] };
+  }
+  match = matchers.hsv.exec(color2);
+  if (match) {
+    return { h: match[1], s: match[2], v: match[3] };
+  }
+  match = matchers.hsva.exec(color2);
+  if (match) {
+    return { h: match[1], s: match[2], v: match[3], a: match[4] };
+  }
+  match = matchers.hex8.exec(color2);
+  if (match) {
+    return {
+      r: parseIntFromHex(match[1]),
+      g: parseIntFromHex(match[2]),
+      b: parseIntFromHex(match[3]),
+      a: convertHexToDecimal(match[4]),
+      format: named ? "name" : "hex8"
+    };
+  }
+  match = matchers.hex6.exec(color2);
+  if (match) {
+    return {
+      r: parseIntFromHex(match[1]),
+      g: parseIntFromHex(match[2]),
+      b: parseIntFromHex(match[3]),
+      format: named ? "name" : "hex"
+    };
+  }
+  match = matchers.hex4.exec(color2);
+  if (match) {
+    return {
+      r: parseIntFromHex(match[1] + match[1]),
+      g: parseIntFromHex(match[2] + match[2]),
+      b: parseIntFromHex(match[3] + match[3]),
+      a: convertHexToDecimal(match[4] + match[4]),
+      format: named ? "name" : "hex8"
+    };
+  }
+  match = matchers.hex3.exec(color2);
+  if (match) {
+    return {
+      r: parseIntFromHex(match[1] + match[1]),
+      g: parseIntFromHex(match[2] + match[2]),
+      b: parseIntFromHex(match[3] + match[3]),
+      format: named ? "name" : "hex"
+    };
+  }
+  return false;
+}
+function isValidCSSUnit(color2) {
+  return Boolean(matchers.CSS_UNIT.exec(String(color2)));
+}
+var hueStep = 2;
+var saturationStep = 0.16;
+var saturationStep2 = 0.05;
+var brightnessStep1 = 0.05;
+var brightnessStep2 = 0.15;
+var lightColorCount = 5;
+var darkColorCount = 4;
+var darkColorMap = [{
+  index: 7,
+  opacity: 0.15
+}, {
+  index: 6,
+  opacity: 0.25
+}, {
+  index: 5,
+  opacity: 0.3
+}, {
+  index: 5,
+  opacity: 0.45
+}, {
+  index: 5,
+  opacity: 0.65
+}, {
+  index: 5,
+  opacity: 0.85
+}, {
+  index: 4,
+  opacity: 0.9
+}, {
+  index: 3,
+  opacity: 0.95
+}, {
+  index: 2,
+  opacity: 0.97
+}, {
+  index: 1,
+  opacity: 0.98
+}];
+function toHsv(_ref) {
+  var r = _ref.r, g = _ref.g, b = _ref.b;
+  var hsv = rgbToHsv(r, g, b);
+  return {
+    h: hsv.h * 360,
+    s: hsv.s,
+    v: hsv.v
+  };
+}
+function toHex(_ref2) {
+  var r = _ref2.r, g = _ref2.g, b = _ref2.b;
+  return "#".concat(rgbToHex(r, g, b, false));
+}
+function mix(rgb1, rgb2, amount) {
+  var p = amount / 100;
+  var rgb = {
+    r: (rgb2.r - rgb1.r) * p + rgb1.r,
+    g: (rgb2.g - rgb1.g) * p + rgb1.g,
+    b: (rgb2.b - rgb1.b) * p + rgb1.b
+  };
+  return rgb;
+}
+function getHue(hsv, i, light) {
+  var hue;
+  if (Math.round(hsv.h) >= 60 && Math.round(hsv.h) <= 240) {
+    hue = light ? Math.round(hsv.h) - hueStep * i : Math.round(hsv.h) + hueStep * i;
+  } else {
+    hue = light ? Math.round(hsv.h) + hueStep * i : Math.round(hsv.h) - hueStep * i;
+  }
+  if (hue < 0) {
+    hue += 360;
+  } else if (hue >= 360) {
+    hue -= 360;
+  }
+  return hue;
+}
+function getSaturation(hsv, i, light) {
+  if (hsv.h === 0 && hsv.s === 0) {
+    return hsv.s;
+  }
+  var saturation;
+  if (light) {
+    saturation = hsv.s - saturationStep * i;
+  } else if (i === darkColorCount) {
+    saturation = hsv.s + saturationStep;
+  } else {
+    saturation = hsv.s + saturationStep2 * i;
+  }
+  if (saturation > 1) {
+    saturation = 1;
+  }
+  if (light && i === lightColorCount && saturation > 0.1) {
+    saturation = 0.1;
+  }
+  if (saturation < 0.06) {
+    saturation = 0.06;
+  }
+  return Number(saturation.toFixed(2));
+}
+function getValue(hsv, i, light) {
+  var value2;
+  if (light) {
+    value2 = hsv.v + brightnessStep1 * i;
+  } else {
+    value2 = hsv.v - brightnessStep2 * i;
+  }
+  if (value2 > 1) {
+    value2 = 1;
+  }
+  return Number(value2.toFixed(2));
+}
+function generate$1(color2) {
+  var opts = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : {};
+  var patterns = [];
+  var pColor = inputToRGB(color2);
+  for (var i = lightColorCount; i > 0; i -= 1) {
+    var hsv = toHsv(pColor);
+    var colorString = toHex(inputToRGB({
+      h: getHue(hsv, i, true),
+      s: getSaturation(hsv, i, true),
+      v: getValue(hsv, i, true)
+    }));
+    patterns.push(colorString);
+  }
+  patterns.push(toHex(pColor));
+  for (var _i = 1; _i <= darkColorCount; _i += 1) {
+    var _hsv = toHsv(pColor);
+    var _colorString = toHex(inputToRGB({
+      h: getHue(_hsv, _i),
+      s: getSaturation(_hsv, _i),
+      v: getValue(_hsv, _i)
+    }));
+    patterns.push(_colorString);
+  }
+  if (opts.theme === "dark") {
+    return darkColorMap.map(function(_ref3) {
+      var index2 = _ref3.index, opacity = _ref3.opacity;
+      var darkColorString = toHex(mix(inputToRGB(opts.backgroundColor || "#141414"), inputToRGB(patterns[index2]), opacity * 100));
+      return darkColorString;
+    });
+  }
+  return patterns;
+}
+var presetPrimaryColors = {
+  red: "#F5222D",
+  volcano: "#FA541C",
+  orange: "#FA8C16",
+  gold: "#FAAD14",
+  yellow: "#FADB14",
+  lime: "#A0D911",
+  green: "#52C41A",
+  cyan: "#13C2C2",
+  blue: "#1890FF",
+  geekblue: "#2F54EB",
+  purple: "#722ED1",
+  magenta: "#EB2F96",
+  grey: "#666666"
+};
+var presetPalettes = {};
+var presetDarkPalettes = {};
+Object.keys(presetPrimaryColors).forEach(function(key) {
+  presetPalettes[key] = generate$1(presetPrimaryColors[key]);
+  presetPalettes[key].primary = presetPalettes[key][5];
+  presetDarkPalettes[key] = generate$1(presetPrimaryColors[key], {
+    theme: "dark",
+    backgroundColor: "#141414"
+  });
+  presetDarkPalettes[key].primary = presetDarkPalettes[key][5];
+});
+var containers = [];
+var styleElements = [];
+var usage = "insert-css: You need to provide a CSS string. Usage: insertCss(cssString[, options]).";
+function createStyleElement() {
+  var styleElement = document.createElement("style");
+  styleElement.setAttribute("type", "text/css");
+  return styleElement;
+}
+function insertCss(css2, options) {
+  options = options || {};
+  if (css2 === void 0) {
+    throw new Error(usage);
+  }
+  var position = options.prepend === true ? "prepend" : "append";
+  var container = options.container !== void 0 ? options.container : document.querySelector("head");
+  var containerId = containers.indexOf(container);
+  if (containerId === -1) {
+    containerId = containers.push(container) - 1;
+    styleElements[containerId] = {};
+  }
+  var styleElement;
+  if (styleElements[containerId] !== void 0 && styleElements[containerId][position] !== void 0) {
+    styleElement = styleElements[containerId][position];
+  } else {
+    styleElement = styleElements[containerId][position] = createStyleElement();
+    if (position === "prepend") {
+      container.insertBefore(styleElement, container.childNodes[0]);
+    } else {
+      container.appendChild(styleElement);
+    }
+  }
+  if (css2.charCodeAt(0) === 65279) {
+    css2 = css2.substr(1, css2.length);
+  }
+  if (styleElement.styleSheet) {
+    styleElement.styleSheet.cssText += css2;
+  } else {
+    styleElement.textContent += css2;
+  }
+  return styleElement;
+}
+function _objectSpread$4(target) {
+  for (var i = 1; i < arguments.length; i++) {
+    var source = arguments[i] != null ? Object(arguments[i]) : {};
+    var ownKeys2 = Object.keys(source);
+    if (typeof Object.getOwnPropertySymbols === "function") {
+      ownKeys2 = ownKeys2.concat(Object.getOwnPropertySymbols(source).filter(function(sym) {
+        return Object.getOwnPropertyDescriptor(source, sym).enumerable;
+      }));
+    }
+    ownKeys2.forEach(function(key) {
+      _defineProperty$4(target, key, source[key]);
+    });
+  }
+  return target;
+}
+function _defineProperty$4(obj, key, value2) {
+  if (key in obj) {
+    Object.defineProperty(obj, key, { value: value2, enumerable: true, configurable: true, writable: true });
+  } else {
+    obj[key] = value2;
+  }
+  return obj;
+}
+function warn(valid, message2) {
+  if (process.env.NODE_ENV !== "production" && !valid && console !== void 0) {
+    console.error("Warning: ".concat(message2));
+  }
+}
+function warning(valid, message2) {
+  warn(valid, "[@ant-design/icons-vue] ".concat(message2));
+}
+function isIconDefinition(target) {
+  return typeof target === "object" && typeof target.name === "string" && typeof target.theme === "string" && (typeof target.icon === "object" || typeof target.icon === "function");
+}
+function generate(node, key, rootProps) {
+  if (!rootProps) {
+    return h(node.tag, _objectSpread$4({
+      key
+    }, node.attrs), (node.children || []).map(function(child, index2) {
+      return generate(child, "".concat(key, "-").concat(node.tag, "-").concat(index2));
+    }));
+  }
+  return h(node.tag, _objectSpread$4({
+    key
+  }, rootProps, node.attrs), (node.children || []).map(function(child, index2) {
+    return generate(child, "".concat(key, "-").concat(node.tag, "-").concat(index2));
+  }));
+}
+function getSecondaryColor(primaryColor) {
+  return generate$1(primaryColor)[0];
+}
+function normalizeTwoToneColors(twoToneColor) {
+  if (!twoToneColor) {
+    return [];
+  }
+  return Array.isArray(twoToneColor) ? twoToneColor : [twoToneColor];
+}
+var iconStyles = "\n.anticon {\n  display: inline-block;\n  color: inherit;\n  font-style: normal;\n  line-height: 0;\n  text-align: center;\n  text-transform: none;\n  vertical-align: -0.125em;\n  text-rendering: optimizeLegibility;\n  -webkit-font-smoothing: antialiased;\n  -moz-osx-font-smoothing: grayscale;\n}\n\n.anticon > * {\n  line-height: 1;\n}\n\n.anticon svg {\n  display: inline-block;\n}\n\n.anticon::before {\n  display: none;\n}\n\n.anticon .anticon-icon {\n  display: block;\n}\n\n.anticon[tabindex] {\n  cursor: pointer;\n}\n\n.anticon-spin::before,\n.anticon-spin {\n  display: inline-block;\n  -webkit-animation: loadingCircle 1s infinite linear;\n  animation: loadingCircle 1s infinite linear;\n}\n\n@-webkit-keyframes loadingCircle {\n  100% {\n    -webkit-transform: rotate(360deg);\n    transform: rotate(360deg);\n  }\n}\n\n@keyframes loadingCircle {\n  100% {\n    -webkit-transform: rotate(360deg);\n    transform: rotate(360deg);\n  }\n}\n";
+var cssInjectedFlag = false;
+var useInsertStyles = function useInsertStyles2() {
+  var styleStr = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : iconStyles;
+  nextTick(function() {
+    if (!cssInjectedFlag) {
+      if (typeof window !== "undefined" && window.document && window.document.documentElement) {
+        insertCss(styleStr, {
+          prepend: true
+        });
+      }
+      cssInjectedFlag = true;
+    }
+  });
+};
+var _excluded$1 = ["icon", "primaryColor", "secondaryColor"];
+function _objectWithoutProperties$1(source, excluded) {
+  if (source == null)
+    return {};
+  var target = _objectWithoutPropertiesLoose$1(source, excluded);
+  var key, i;
+  if (Object.getOwnPropertySymbols) {
+    var sourceSymbolKeys = Object.getOwnPropertySymbols(source);
+    for (i = 0; i < sourceSymbolKeys.length; i++) {
+      key = sourceSymbolKeys[i];
+      if (excluded.indexOf(key) >= 0)
+        continue;
+      if (!Object.prototype.propertyIsEnumerable.call(source, key))
+        continue;
+      target[key] = source[key];
+    }
+  }
+  return target;
+}
+function _objectWithoutPropertiesLoose$1(source, excluded) {
+  if (source == null)
+    return {};
+  var target = {};
+  var sourceKeys = Object.keys(source);
+  var key, i;
+  for (i = 0; i < sourceKeys.length; i++) {
+    key = sourceKeys[i];
+    if (excluded.indexOf(key) >= 0)
+      continue;
+    target[key] = source[key];
+  }
+  return target;
+}
+function _objectSpread$3(target) {
+  for (var i = 1; i < arguments.length; i++) {
+    var source = arguments[i] != null ? Object(arguments[i]) : {};
+    var ownKeys2 = Object.keys(source);
+    if (typeof Object.getOwnPropertySymbols === "function") {
+      ownKeys2 = ownKeys2.concat(Object.getOwnPropertySymbols(source).filter(function(sym) {
+        return Object.getOwnPropertyDescriptor(source, sym).enumerable;
+      }));
+    }
+    ownKeys2.forEach(function(key) {
+      _defineProperty$3(target, key, source[key]);
+    });
+  }
+  return target;
+}
+function _defineProperty$3(obj, key, value2) {
+  if (key in obj) {
+    Object.defineProperty(obj, key, { value: value2, enumerable: true, configurable: true, writable: true });
+  } else {
+    obj[key] = value2;
+  }
+  return obj;
+}
+var twoToneColorPalette = {
+  primaryColor: "#333",
+  secondaryColor: "#E6E6E6",
+  calculated: false
+};
+function setTwoToneColors(_ref) {
+  var primaryColor = _ref.primaryColor, secondaryColor = _ref.secondaryColor;
+  twoToneColorPalette.primaryColor = primaryColor;
+  twoToneColorPalette.secondaryColor = secondaryColor || getSecondaryColor(primaryColor);
+  twoToneColorPalette.calculated = !!secondaryColor;
+}
+function getTwoToneColors() {
+  return _objectSpread$3({}, twoToneColorPalette);
+}
+var IconBase = function IconBase2(props, context) {
+  var _props$context$attrs = _objectSpread$3({}, props, context.attrs), icon = _props$context$attrs.icon, primaryColor = _props$context$attrs.primaryColor, secondaryColor = _props$context$attrs.secondaryColor, restProps = _objectWithoutProperties$1(_props$context$attrs, _excluded$1);
+  var colors = twoToneColorPalette;
+  if (primaryColor) {
+    colors = {
+      primaryColor,
+      secondaryColor: secondaryColor || getSecondaryColor(primaryColor)
+    };
+  }
+  useInsertStyles();
+  warning(isIconDefinition(icon), "icon should be icon definiton, but got ".concat(icon));
+  if (!isIconDefinition(icon)) {
+    return null;
+  }
+  var target = icon;
+  if (target && typeof target.icon === "function") {
+    target = _objectSpread$3({}, target, {
+      icon: target.icon(colors.primaryColor, colors.secondaryColor)
+    });
+  }
+  return generate(target.icon, "svg-".concat(target.name), _objectSpread$3({}, restProps, {
+    "data-icon": target.name,
+    width: "1em",
+    height: "1em",
+    fill: "currentColor",
+    "aria-hidden": "true"
+  }));
+};
+IconBase.props = {
+  icon: Object,
+  primaryColor: String,
+  secondaryColor: String,
+  focusable: String
+};
+IconBase.inheritAttrs = false;
+IconBase.displayName = "IconBase";
+IconBase.getTwoToneColors = getTwoToneColors;
+IconBase.setTwoToneColors = setTwoToneColors;
+const VueIcon = IconBase;
+function _slicedToArray$1(arr, i) {
+  return _arrayWithHoles$1(arr) || _iterableToArrayLimit$1(arr, i) || _unsupportedIterableToArray$1(arr, i) || _nonIterableRest$1();
+}
+function _nonIterableRest$1() {
+  throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+}
+function _unsupportedIterableToArray$1(o, minLen) {
+  if (!o)
+    return;
+  if (typeof o === "string")
+    return _arrayLikeToArray$1(o, minLen);
+  var n = Object.prototype.toString.call(o).slice(8, -1);
+  if (n === "Object" && o.constructor)
+    n = o.constructor.name;
+  if (n === "Map" || n === "Set")
+    return Array.from(o);
+  if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n))
+    return _arrayLikeToArray$1(o, minLen);
+}
+function _arrayLikeToArray$1(arr, len) {
+  if (len == null || len > arr.length)
+    len = arr.length;
+  for (var i = 0, arr2 = new Array(len); i < len; i++) {
+    arr2[i] = arr[i];
+  }
+  return arr2;
+}
+function _iterableToArrayLimit$1(arr, i) {
+  var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"];
+  if (_i == null)
+    return;
+  var _arr = [];
+  var _n = true;
+  var _d = false;
+  var _s, _e;
+  try {
+    for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) {
+      _arr.push(_s.value);
+      if (i && _arr.length === i)
+        break;
+    }
+  } catch (err) {
+    _d = true;
+    _e = err;
+  } finally {
+    try {
+      if (!_n && _i["return"] != null)
+        _i["return"]();
+    } finally {
+      if (_d)
+        throw _e;
+    }
+  }
+  return _arr;
+}
+function _arrayWithHoles$1(arr) {
+  if (Array.isArray(arr))
+    return arr;
+}
+function setTwoToneColor(twoToneColor) {
+  var _normalizeTwoToneColo = normalizeTwoToneColors(twoToneColor), _normalizeTwoToneColo2 = _slicedToArray$1(_normalizeTwoToneColo, 2), primaryColor = _normalizeTwoToneColo2[0], secondaryColor = _normalizeTwoToneColo2[1];
+  return VueIcon.setTwoToneColors({
+    primaryColor,
+    secondaryColor
+  });
+}
+function getTwoToneColor() {
+  var colors = VueIcon.getTwoToneColors();
+  if (!colors.calculated) {
+    return colors.primaryColor;
+  }
+  return [colors.primaryColor, colors.secondaryColor];
+}
+var _excluded = ["class", "icon", "spin", "rotate", "tabindex", "twoToneColor", "onClick"];
+function _slicedToArray(arr, i) {
+  return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest();
+}
+function _nonIterableRest() {
+  throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+}
+function _unsupportedIterableToArray(o, minLen) {
+  if (!o)
+    return;
+  if (typeof o === "string")
+    return _arrayLikeToArray(o, minLen);
+  var n = Object.prototype.toString.call(o).slice(8, -1);
+  if (n === "Object" && o.constructor)
+    n = o.constructor.name;
+  if (n === "Map" || n === "Set")
+    return Array.from(o);
+  if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n))
+    return _arrayLikeToArray(o, minLen);
+}
+function _arrayLikeToArray(arr, len) {
+  if (len == null || len > arr.length)
+    len = arr.length;
+  for (var i = 0, arr2 = new Array(len); i < len; i++) {
+    arr2[i] = arr[i];
+  }
+  return arr2;
+}
+function _iterableToArrayLimit(arr, i) {
+  var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"];
+  if (_i == null)
+    return;
+  var _arr = [];
+  var _n = true;
+  var _d = false;
+  var _s, _e;
+  try {
+    for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) {
+      _arr.push(_s.value);
+      if (i && _arr.length === i)
+        break;
+    }
+  } catch (err) {
+    _d = true;
+    _e = err;
+  } finally {
+    try {
+      if (!_n && _i["return"] != null)
+        _i["return"]();
+    } finally {
+      if (_d)
+        throw _e;
+    }
+  }
+  return _arr;
+}
+function _arrayWithHoles(arr) {
+  if (Array.isArray(arr))
+    return arr;
+}
+function _objectSpread$2(target) {
+  for (var i = 1; i < arguments.length; i++) {
+    var source = arguments[i] != null ? Object(arguments[i]) : {};
+    var ownKeys2 = Object.keys(source);
+    if (typeof Object.getOwnPropertySymbols === "function") {
+      ownKeys2 = ownKeys2.concat(Object.getOwnPropertySymbols(source).filter(function(sym) {
+        return Object.getOwnPropertyDescriptor(source, sym).enumerable;
+      }));
+    }
+    ownKeys2.forEach(function(key) {
+      _defineProperty$2(target, key, source[key]);
+    });
+  }
+  return target;
+}
+function _defineProperty$2(obj, key, value2) {
+  if (key in obj) {
+    Object.defineProperty(obj, key, { value: value2, enumerable: true, configurable: true, writable: true });
+  } else {
+    obj[key] = value2;
+  }
+  return obj;
+}
+function _objectWithoutProperties(source, excluded) {
+  if (source == null)
+    return {};
+  var target = _objectWithoutPropertiesLoose(source, excluded);
+  var key, i;
+  if (Object.getOwnPropertySymbols) {
+    var sourceSymbolKeys = Object.getOwnPropertySymbols(source);
+    for (i = 0; i < sourceSymbolKeys.length; i++) {
+      key = sourceSymbolKeys[i];
+      if (excluded.indexOf(key) >= 0)
+        continue;
+      if (!Object.prototype.propertyIsEnumerable.call(source, key))
+        continue;
+      target[key] = source[key];
+    }
+  }
+  return target;
+}
+function _objectWithoutPropertiesLoose(source, excluded) {
+  if (source == null)
+    return {};
+  var target = {};
+  var sourceKeys = Object.keys(source);
+  var key, i;
+  for (i = 0; i < sourceKeys.length; i++) {
+    key = sourceKeys[i];
+    if (excluded.indexOf(key) >= 0)
+      continue;
+    target[key] = source[key];
+  }
+  return target;
+}
+setTwoToneColor("#1890ff");
+var Icon = function Icon2(props, context) {
+  var _classObj;
+  var _props$context$attrs = _objectSpread$2({}, props, context.attrs), cls = _props$context$attrs["class"], icon = _props$context$attrs.icon, spin = _props$context$attrs.spin, rotate = _props$context$attrs.rotate, tabindex = _props$context$attrs.tabindex, twoToneColor = _props$context$attrs.twoToneColor, onClick = _props$context$attrs.onClick, restProps = _objectWithoutProperties(_props$context$attrs, _excluded);
+  var classObj = (_classObj = {
+    anticon: true
+  }, _defineProperty$2(_classObj, "anticon-".concat(icon.name), Boolean(icon.name)), _defineProperty$2(_classObj, cls, cls), _classObj);
+  var svgClassString = spin === "" || !!spin || icon.name === "loading" ? "anticon-spin" : "";
+  var iconTabIndex = tabindex;
+  if (iconTabIndex === void 0 && onClick) {
+    iconTabIndex = -1;
+    restProps.tabindex = iconTabIndex;
+  }
+  var svgStyle = rotate ? {
+    msTransform: "rotate(".concat(rotate, "deg)"),
+    transform: "rotate(".concat(rotate, "deg)")
+  } : void 0;
+  var _normalizeTwoToneColo = normalizeTwoToneColors(twoToneColor), _normalizeTwoToneColo2 = _slicedToArray(_normalizeTwoToneColo, 2), primaryColor = _normalizeTwoToneColo2[0], secondaryColor = _normalizeTwoToneColo2[1];
+  return createVNode("span", _objectSpread$2({
+    "role": "img",
+    "aria-label": icon.name
+  }, restProps, {
+    "onClick": onClick,
+    "class": classObj
+  }), [createVNode(VueIcon, {
+    "class": svgClassString,
+    "icon": icon,
+    "primaryColor": primaryColor,
+    "secondaryColor": secondaryColor,
+    "style": svgStyle
+  }, null)]);
+};
+Icon.props = {
+  spin: Boolean,
+  rotate: Number,
+  icon: Object,
+  twoToneColor: String
+};
+Icon.displayName = "AntdIcon";
+Icon.inheritAttrs = false;
+Icon.getTwoToneColor = getTwoToneColor;
+Icon.setTwoToneColor = setTwoToneColor;
+const AntdIcon = Icon;
+var DownOutlined$2 = { "icon": { "tag": "svg", "attrs": { "viewBox": "64 64 896 896", "focusable": "false" }, "children": [{ "tag": "path", "attrs": { "d": "M884 256h-75c-5.1 0-9.9 2.5-12.9 6.6L512 654.2 227.9 262.6c-3-4.1-7.8-6.6-12.9-6.6h-75c-6.5 0-10.3 7.4-6.5 12.7l352.6 486.1c12.8 17.6 39 17.6 51.7 0l352.6-486.1c3.9-5.3.1-12.7-6.4-12.7z" } }] }, "name": "down", "theme": "outlined" };
+const DownOutlinedSvg = DownOutlined$2;
+function _objectSpread$1(target) {
+  for (var i = 1; i < arguments.length; i++) {
+    var source = arguments[i] != null ? Object(arguments[i]) : {};
+    var ownKeys2 = Object.keys(source);
+    if (typeof Object.getOwnPropertySymbols === "function") {
+      ownKeys2 = ownKeys2.concat(Object.getOwnPropertySymbols(source).filter(function(sym) {
+        return Object.getOwnPropertyDescriptor(source, sym).enumerable;
+      }));
+    }
+    ownKeys2.forEach(function(key) {
+      _defineProperty$1(target, key, source[key]);
+    });
+  }
+  return target;
+}
+function _defineProperty$1(obj, key, value2) {
+  if (key in obj) {
+    Object.defineProperty(obj, key, { value: value2, enumerable: true, configurable: true, writable: true });
+  } else {
+    obj[key] = value2;
+  }
+  return obj;
+}
+var DownOutlined = function DownOutlined2(props, context) {
+  var p = _objectSpread$1({}, props, context.attrs);
+  return createVNode(AntdIcon, _objectSpread$1({}, p, {
+    "icon": DownOutlinedSvg
+  }), null);
+};
+DownOutlined.displayName = "DownOutlined";
+DownOutlined.inheritAttrs = false;
+const DownOutlined$1 = DownOutlined;
+var UserOutlined$2 = { "icon": { "tag": "svg", "attrs": { "viewBox": "64 64 896 896", "focusable": "false" }, "children": [{ "tag": "path", "attrs": { "d": "M858.5 763.6a374 374 0 00-80.6-119.5 375.63 375.63 0 00-119.5-80.6c-.4-.2-.8-.3-1.2-.5C719.5 518 760 444.7 760 362c0-137-111-248-248-248S264 225 264 362c0 82.7 40.5 156 102.8 201.1-.4.2-.8.3-1.2.5-44.8 18.9-85 46-119.5 80.6a375.63 375.63 0 00-80.6 119.5A371.7 371.7 0 00136 901.8a8 8 0 008 8.2h60c4.4 0 7.9-3.5 8-7.8 2-77.2 33-149.5 87.8-204.3 56.7-56.7 132-87.9 212.2-87.9s155.5 31.2 212.2 87.9C779 752.7 810 825 812 902.2c.1 4.4 3.6 7.8 8 7.8h60a8 8 0 008-8.2c-1-47.8-10.9-94.3-29.5-138.2zM512 534c-45.9 0-89.1-17.9-121.6-50.4S340 407.9 340 362c0-45.9 17.9-89.1 50.4-121.6S466.1 190 512 190s89.1 17.9 121.6 50.4S684 316.1 684 362c0 45.9-17.9 89.1-50.4 121.6S557.9 534 512 534z" } }] }, "name": "user", "theme": "outlined" };
+const UserOutlinedSvg = UserOutlined$2;
+function _objectSpread(target) {
+  for (var i = 1; i < arguments.length; i++) {
+    var source = arguments[i] != null ? Object(arguments[i]) : {};
+    var ownKeys2 = Object.keys(source);
+    if (typeof Object.getOwnPropertySymbols === "function") {
+      ownKeys2 = ownKeys2.concat(Object.getOwnPropertySymbols(source).filter(function(sym) {
+        return Object.getOwnPropertyDescriptor(source, sym).enumerable;
+      }));
+    }
+    ownKeys2.forEach(function(key) {
+      _defineProperty(target, key, source[key]);
+    });
+  }
+  return target;
+}
+function _defineProperty(obj, key, value2) {
+  if (key in obj) {
+    Object.defineProperty(obj, key, { value: value2, enumerable: true, configurable: true, writable: true });
+  } else {
+    obj[key] = value2;
+  }
+  return obj;
+}
+var UserOutlined = function UserOutlined2(props, context) {
+  var p = _objectSpread({}, props, context.attrs);
+  return createVNode(AntdIcon, _objectSpread({}, p, {
+    "icon": UserOutlinedSvg
+  }), null);
+};
+UserOutlined.displayName = "UserOutlined";
+UserOutlined.inheritAttrs = false;
+const UserOutlined$1 = UserOutlined;
 function registerIcon(app) {
+  app.component("DownOutlined", DownOutlined$1);
+  app.component("UserOutlined", UserOutlined$1);
   app.component("el-icon-edit", edit);
   app.component("el-icon-minus", minus);
   app.component("el-icon-plus", plus);
@@ -77829,17 +79603,17 @@ function registerIcon(app) {
 if (typeof window !== "undefined") {
   let loadSvg = function() {
     var body = document.body;
-    var svgDom = document.getElementById("__svg__icons__dom__1713433959301__");
+    var svgDom = document.getElementById("__svg__icons__dom__1713858058709__");
     if (!svgDom) {
       svgDom = document.createElementNS("http://www.w3.org/2000/svg", "svg");
       svgDom.style.position = "absolute";
       svgDom.style.width = "0";
       svgDom.style.height = "0";
-      svgDom.id = "__svg__icons__dom__1713433959301__";
+      svgDom.id = "__svg__icons__dom__1713858058709__";
       svgDom.setAttribute("xmlns", "http://www.w3.org/2000/svg");
       svgDom.setAttribute("xmlns:link", "http://www.w3.org/1999/xlink");
     }
-    svgDom.innerHTML = '<symbol class="icon" viewBox="0 0 1024 1024"  id="icon-alert"><path d="M512 85.163a319.573 319.573 0 0 1 319.83 309.333l.17 10.667v174.805l58.88 134.656a53.29 53.29 0 0 1-48.853 74.71L640 789.418a128 128 0 0 1-255.787 7.509l-.213-7.637-201.6.042a53.333 53.333 0 0 1-48.939-74.581L192 580.011V405.163c0-177.28 143.019-320 320-320zm64 704.17-128 .128a64 64 0 0 0 127.701 6.144l.256-6.272zm-64-640.17c-141.653 0-256 114.09-256 256v188.16l-57.344 132.01h627.072L768 593.365V405.717l-.17-9.6A255.488 255.488 0 0 0 512 149.163zM896 352h85.333a32 32 0 0 1 4.352 63.701l-4.352.299H896a32 32 0 0 1-4.352-63.701L896 352zm-853.333 0H128a32 32 0 0 1 4.352 63.701L128 416H42.667a32 32 0 0 1-4.352-63.701l4.352-.299zm921.6-243.2a32 32 0 0 1-2.816 41.685l-3.584 3.115-85.334 64a32 32 0 0 1-41.984-48.085l3.584-3.115 85.334-64a32 32 0 0 1 44.8 6.4zm-859.734-6.4 85.334 64a32 32 0 1 1-38.4 51.2l-85.334-64a32 32 0 1 1 38.4-51.2z" /></symbol><symbol class="icon" viewBox="0 0 1024 1024"  id="icon-button"><path d="M912 176v416H732.48v-32H880V208H144v352h175.488v32H112V176z" /><path d="m436.384 788.512.544 2.688a16 16 0 0 0 27.776 5.504l44.032-54.336 56.768 97.664a16 16 0 0 0 21.792 5.856l68.672-39.392 2.368-1.664a16 16 0 0 0 3.52-20.256l-55.904-96.16 68.8-12.064a16 16 0 0 0 6.464-28.8l-256-180.64a16 16 0 0 0-25.12 14.976l36.288 306.624z" /></symbol><symbol class="icon" viewBox="0 0 1024 1024"  id="icon-card"><path d="M858.656 864H165.344C109.472 864 64 818.56 64 762.688V261.312C64 205.44 109.472 160 165.344 160h693.312C914.528 160 960 205.44 960 261.312v501.376C960 818.56 914.528 864 858.656 864zM165.344 224C144.736 224 128 240.736 128 261.312v501.376C128 783.264 144.736 800 165.344 800h693.312C879.264 800 896 783.264 896 762.688V261.312C896 240.736 879.264 224 858.656 224H165.344zM800 416H224c-17.664 0-32-14.336-32-32s14.336-32 32-32h576c17.696 0 32 14.336 32 32s-14.304 32-32 32zM320 736h-96c-17.664 0-32-14.304-32-32s14.336-32 32-32h96c17.664 0 32 14.304 32 32s-14.336 32-32 32z" /></symbol><symbol class="icon" viewBox="0 0 1024 1024"  id="icon-cascader-field"><path d="M661.377 411.07v64.595H314.175v395.654H871.32V475.665h-48.447V411.07h48.447c35.675 0 64.595 28.92 64.595 64.595v395.654c0 35.675-28.92 64.595-64.595 64.595H314.175c-35.675 0-64.6-28.92-64.6-64.595V475.665c0-35.675 28.925-64.595 64.6-64.595h347.202zm48.448-322.984c35.675 0 64.6 28.92 64.6 64.595v403.73c0 35.676-28.925 64.595-64.6 64.595H362.623v-64.594h347.202V152.68H152.68v403.73h48.447v64.595H152.68c-35.675 0-64.595-28.92-64.595-64.594V152.68c0-35.675 28.92-64.595 64.595-64.595h557.144z" /></symbol><symbol class="icon" viewBox="0 0 1024 1024"  id="icon-checkbox-field"><path d="M897.94 896.77c6.259-6.278 10.257-14.835 10.257-24.531V147.672c0-9.118-3.998-18.235-10.257-24.533-6.277-6.258-14.815-9.696-24.51-9.696H149.644c-9.688 0-18.236 3.437-24.503 9.696-6.268 6.297-9.687 15.414-9.687 24.533V872.24c0 9.696 3.42 18.253 9.687 24.53 6.267 6.278 14.815 10.276 24.503 10.276h723.784c9.697 0 18.234-3.998 24.511-10.276zM149.645 61.52h723.784c23.933 0 45.586 9.697 60.98 25.111 15.397 15.974 25.073 37.666 25.073 61.04v724.567c0 23.97-9.676 45.643-25.073 61.056-15.394 15.396-37.047 25.093-60.98 25.093H149.645c-23.364 0-45.017-9.697-60.972-25.093-15.396-15.414-25.082-37.087-25.082-61.056V147.672c0-23.374 9.686-45.065 25.082-61.039 15.955-15.415 37.608-25.112 60.972-25.112z" /><path d="M417.42 698.27a23.556 23.556 0 0 1-16.668-6.9L259.5 550.12c-9.173-9.15-9.173-24.095 0-33.291 9.17-9.147 24.115-9.147 33.288 0l124.583 124.607 312.895-312.917c9.194-9.172 24.14-9.172 33.288 0 9.196 9.172 9.196 24.116 0 33.29L433.992 691.37c-4.618 4.645-10.643 6.9-16.666 6.9h.093z" /></symbol><symbol class="icon" viewBox="0 0 1024 1024"  id="icon-color-field"><path d="M619.52 490.667h-.853l-85.334-85.334h.854z" /><path d="M619.52 507.733h-.853a17.067 17.067 0 1 1 0-34.133c9.438 0 17.476 7.646 17.476 17.067s-7.185 17.066-16.623 17.066zM534.187 422.4c-9.438 0-17.494-7.646-17.494-17.067s7.202-17.066 16.64-17.066h.854a17.067 17.067 0 1 1 0 34.133zM192 866.133a34.133 34.133 0 0 1-24.132-58.265l42.666-42.667a34.133 34.133 0 1 1 48.265 48.265l-42.667 42.666A33.963 33.963 0 0 1 192 866.133z" /><path d="m619.52 490.667-.427-.427-84.906-84.907L746.667 192H832v85.333z" /><path d="M662.187 567.467a33.997 33.997 0 0 1-24.133-10.001L467.388 386.799a34.133 34.133 0 0 1 48.281-48.282l170.667 170.667a34.133 34.133 0 0 1-24.15 58.283z" /><path d="M320 806.4h-85.333a17.067 17.067 0 0 1-17.067-17.067V704c0-4.54 1.792-8.875 5-12.066L521.695 392.84a16.52 16.52 0 0 1 3.567-2.731l209.305-210.142a17.117 17.117 0 0 1 12.1-5.018H832a17.067 17.067 0 0 1 17.067 17.067v85.333a17.067 17.067 0 0 1-4.967 12.05L631.62 502.732a17.954 17.954 0 0 1-3.618 2.782L332.066 801.434A17.135 17.135 0 0 1 320 806.4zm-68.267-34.133h61.201l294.093-294.093a16.52 16.52 0 0 1 3.567-2.73l204.34-205.16v-61.217h-61.185L546.287 417.382a17.954 17.954 0 0 1-3.618 2.782L251.733 711.066v61.2z" /></symbol><symbol class="icon" viewBox="0 0 1024 1024"  id="icon-custom-component"><path d="M811.008 335.872c-2.048-7.168-11.264-9.216-17.408-4.096L690.176 435.2c-8.192 8.192-20.48 8.192-28.672 0L588.8 362.496c-8.192-8.192-8.192-20.48 0-28.672l104.448-104.448c5.12-5.12 3.072-14.336-4.096-17.408-17.408-4.096-35.84-7.168-54.272-7.168-108.544 0-195.584 94.208-183.296 204.8 2.048 17.408 6.144 32.768 12.288 48.128L225.28 697.344c-27.648 27.648-27.648 73.728 0 101.376 14.336 14.336 32.768 21.504 51.2 21.504s36.864-7.168 51.2-21.504l238.592-238.592c15.36 6.144 31.744 10.24 48.128 12.288 111.616 12.288 204.8-74.752 204.8-183.296 0-18.432-3.072-36.864-8.192-53.248z" /></symbol><symbol class="icon" viewBox="0 0 1024 1024"  id="icon-data-table"><path d="M915.692 39.385H108.308c-15.754 0-29.539 13.784-29.539 29.538v98.462c0 15.753 13.785 29.538 29.539 29.538h807.384c15.754 0 29.539-13.785 29.539-29.538V68.923c0-15.754-13.785-29.538-29.539-29.538zM285.538 275.692h-177.23c-15.754 0-29.539 13.785-29.539 29.539v59.077c0 15.754 13.785 29.538 29.539 29.538h177.23c15.754 0 29.539-13.784 29.539-29.538V305.23c0-15.754-13.785-29.539-29.539-29.539zm315.077 0h-177.23c-15.754 0-29.539 13.785-29.539 29.539v59.077c0 15.754 13.785 29.538 29.539 29.538h177.23c15.754 0 29.539-13.784 29.539-29.538V305.23c0-15.754-13.785-29.539-29.539-29.539zm315.077 0h-177.23c-15.754 0-29.539 13.785-29.539 29.539v59.077c0 15.754 13.785 29.538 29.539 29.538h177.23c15.754 0 29.539-13.784 29.539-29.538V305.23c0-15.754-13.785-29.539-29.539-29.539zM285.538 472.615h-177.23c-15.754 0-29.539 13.785-29.539 29.539v59.077c0 15.754 13.785 29.538 29.539 29.538h177.23c15.754 0 29.539-13.784 29.539-29.538v-59.077c0-15.754-13.785-29.539-29.539-29.539zm315.077 0h-177.23c-15.754 0-29.539 13.785-29.539 29.539v59.077c0 15.754 13.785 29.538 29.539 29.538h177.23c15.754 0 29.539-13.784 29.539-29.538v-59.077c0-15.754-13.785-29.539-29.539-29.539zm315.077 0h-177.23c-15.754 0-29.539 13.785-29.539 29.539v59.077c0 15.754 13.785 29.538 29.539 29.538h177.23c15.754 0 29.539-13.784 29.539-29.538v-59.077c0-15.754-13.785-29.539-29.539-29.539zM285.538 669.538h-177.23c-15.754 0-29.539 13.785-29.539 29.539v59.077c0 15.754 13.785 29.538 29.539 29.538h177.23c15.754 0 29.539-13.784 29.539-29.538v-59.077c0-15.754-13.785-29.539-29.539-29.539zm315.077 0h-177.23c-15.754 0-29.539 13.785-29.539 29.539v59.077c0 15.754 13.785 29.538 29.539 29.538h177.23c15.754 0 29.539-13.784 29.539-29.538v-59.077c0-15.754-13.785-29.539-29.539-29.539zm315.077 0h-177.23c-15.754 0-29.539 13.785-29.539 29.539v59.077c0 15.754 13.785 29.538 29.539 29.538h177.23c15.754 0 29.539-13.784 29.539-29.538v-59.077c0-15.754-13.785-29.539-29.539-29.539zM285.538 866.462h-177.23c-15.754 0-29.539 13.784-29.539 29.538v59.077c0 15.754 13.785 29.538 29.539 29.538h177.23c15.754 0 29.539-13.784 29.539-29.538V896c0-15.754-13.785-29.538-29.539-29.538zm315.077 0h-177.23c-15.754 0-29.539 13.784-29.539 29.538v59.077c0 15.754 13.785 29.538 29.539 29.538h177.23c15.754 0 29.539-13.784 29.539-29.538V896c0-15.754-13.785-29.538-29.539-29.538zm315.077 0h-177.23c-15.754 0-29.539 13.784-29.539 29.538v59.077c0 15.754 13.785 29.538 29.539 29.538h177.23c15.754 0 29.539-13.784 29.539-29.538V896c0-15.754-13.785-29.538-29.539-29.538z" /></symbol><symbol class="icon" viewBox="0 0 1132 1024"  id="icon-date-field"><path d="M1023.995 1023.995H107.789C48.262 1023.995 0 975.732 0 916.205V188.63C0 129.105 48.262 80.843 107.789 80.843h80.842v53.894h-80.842c-29.777 0-53.895 24.118-53.895 53.895V296.42H1077.89V188.63c0-29.776-24.117-53.894-53.894-53.894h-80.842V80.842h80.842c59.526 0 107.789 48.262 107.789 107.789v727.575c0 59.526-48.263 107.789-107.79 107.789Zm53.894-673.681H53.894v565.892c0 29.777 24.118 53.894 53.895 53.894h916.206c29.777 0 53.894-24.117 53.894-53.894V350.314ZM794.943 628.086l-3.584 5.632c-3.314 6.306-7.087 12.153-11.237 17.731L646.734 861.476H589.12l98.358-160.875c-.108 0-.216.027-.324.027-66.963 0-121.262-60.335-121.262-134.736 0-74.401 54.299-134.736 121.262-134.736 66.964 0 121.263 60.335 121.263 134.736 0 22.42-5.39 43.25-14.12 61.844l.646.35ZM687.154 485.05c-37.214 0-67.368 36.19-67.368 80.842 0 44.651 30.154 80.842 67.368 80.842 19.052 0 36.164-9.567 48.425-24.819l9.781-16.006c5.66-11.83 9.163-25.385 9.163-40.017 0-44.652-30.154-80.842-67.369-80.842Zm-310.216 21.881-80.734 72.327v-66.991l82.405-80.41h52.062v429.727h-53.733V506.93Zm512.32-291.353c-14.874 0-26.947-12.072-26.947-26.947V26.947C862.311 12.072 874.384 0 889.26 0s26.947 12.072 26.947 26.947v161.684c0 14.875-12.072 26.947-26.947 26.947ZM296.42 80.842h538.944v53.894H296.42V80.842Zm-53.895 134.736c-14.875 0-26.947-12.072-26.947-26.947V26.947C215.578 12.072 227.65 0 242.525 0s26.947 12.072 26.947 26.947v161.684c0 14.875-12.072 26.947-26.947 26.947Z" /></symbol><symbol class="icon" viewBox="0 0 1024 1024"  id="icon-date-range-field"><path d="M887.467 192.853H786.773v-73.386c0-10.24-6.826-17.067-17.066-17.067s-17.067 6.827-17.067 17.067v73.386H303.787v-73.386c0-10.24-6.827-17.067-17.067-17.067s-17.067 6.827-17.067 17.067v73.386H168.96c-46.08 0-85.333 37.547-85.333 85.334v558.08c0 46.08 37.546 85.333 85.333 85.333h718.507c46.08 0 85.333-37.547 85.333-85.333v-558.08c0-47.787-37.547-85.334-85.333-85.334zM168.96 226.987h100.693v66.56c0 10.24 6.827 17.066 17.067 17.066s17.067-6.826 17.067-17.066v-66.56h450.56v66.56c0 10.24 6.826 17.066 17.066 17.066s17.067-6.826 17.067-17.066v-66.56h98.987c27.306 0 51.2 22.186 51.2 51.2v88.746H117.76v-88.746c0-29.014 22.187-51.2 51.2-51.2zm718.507 660.48H168.96c-27.307 0-51.2-22.187-51.2-51.2v-435.2h820.907v435.2c0 27.306-22.187 51.2-51.2 51.2z" /><path d="M858.453 493.227H327.68c-10.24 0-17.067 6.826-17.067 17.066V624.64H194.56c-10.24 0-17.067 6.827-17.067 17.067v133.12c0 10.24 6.827 17.066 17.067 17.066H460.8c10.24 0 17.067-6.826 17.067-17.066V660.48h380.586c10.24 0 17.067-6.827 17.067-17.067v-133.12c0-10.24-6.827-17.066-17.067-17.066zM445.44 527.36v97.28h-98.987v-97.28h98.987zm-230.4 131.413h98.987v98.987H215.04v-98.987zm131.413 97.28v-97.28h98.987v97.28h-98.987zm133.12-228.693h97.28v98.987h-97.28V527.36zm131.414 0h98.986v98.987h-98.986V527.36zm230.4 97.28H742.4v-98.987h98.987v98.987z" /></symbol><symbol class="icon" viewBox="0 0 1024 1024"  id="icon-divider"><path d="M62.5 491.773h899v74.918h-899v-74.918z" /></symbol><symbol class="icon" viewBox="0 0 1024 1024"  id="icon-document"><path d="M979.478 706.382a44.522 44.522 0 0 1-11.843 57.967l-4.363 2.85L569.478 995.06l-5.388 4.764a84.013 84.013 0 0 1-43.943 17.808l-8.102.401c-19.056 0-37.31-6.545-52.046-18.254l-5.432-4.72L60.817 767.2a44.522 44.522 0 0 1-18.61-56.187l2.36-4.63a44.522 44.522 0 0 1 60.816-16.25l405.326 234.54 1.336 1.514 1.335-1.514 405.282-234.54a44.522 44.522 0 0 1 60.86 16.25zm0-222.609a44.522 44.522 0 0 1-11.843 57.968l-4.363 2.849-393.794 227.862-5.388 4.764a84.013 84.013 0 0 1-43.943 17.809l-8.102.4c-19.056 0-37.31-6.544-52.046-18.254l-5.432-4.719L60.817 544.59a44.522 44.522 0 0 1-18.61-56.187l2.36-4.63a44.522 44.522 0 0 1 60.816-16.25l405.326 234.54 1.336 1.514 1.335-1.514 405.282-234.54a44.522 44.522 0 0 1 60.86 16.25zM512 0c18.788 0 36.864 6.1 51.645 17.185l4.586 3.74 403.5 199.68 5.61 6.144c32.501 35.44 32.501 89.89 0 125.329l-5.61 6.144-403.5 199.59-4.541 3.785a86.239 86.239 0 0 1-43.676 16.83l-8.014.356c-18.788 0-36.864-6.1-51.645-17.186l-4.63-3.784L52.269 358.222l-5.61-6.144a92.739 92.739 0 0 1 0-125.329l5.61-6.144 403.456-199.68 4.585-3.74C473 7.702 488.136 1.87 503.986.356z" fill="#008df0" /></symbol><symbol class="icon" viewBox="0 0 1024 1024"  id="icon-drag"><path d="M574.958 267.016h-63.454 204.649L511.213 63.655 307.85 267.016h141.191V456.68H258.688v125.917H449.04V772.95h125.917V582.596h188.875V456.679H574.958V267.016zm-63.704 693.33 189.62-187.396H323.126l188.129 187.395zM71.292 518.891l187.395 189.62v-377.75L71.292 518.892zm692.54-188.13v377.75L952.708 518.89 763.833 330.762z" /></symbol><symbol class="icon" viewBox="0 0 1024 1024"  id="icon-file-upload-field"><path d="m676.48 72.96 209.92 211.2 9.6 23.04V928l-32 32H160l-32-32V96l32-32h494.08l22.4 8.96zM640 320h192L640 128v192zM192 128v768h640V384H608l-32-32V128H192zm512 320H320v64h384v-64zM320 576h384v64H320v-64zm384 128H320v64h384v-64z" /></symbol><symbol class="icon" viewBox="0 0 1024 1024"  id="icon-github"><path d="M512 0C229.284 0 .142 234.943.142 524.868c0 231.829 146.647 428.553 350.068 497.952 25.593 4.82 34.977-11.389 34.977-25.294 0-12.455-.469-45.47-.725-89.277-142.382 31.735-172.453-70.38-172.453-70.38-23.247-60.57-56.817-76.694-56.817-76.694-46.493-32.588 3.54-31.948 3.54-31.948 51.357 3.71 78.358 54.086 78.358 54.086 45.683 80.191 119.817 57.072 148.993 43.594 4.65-33.911 17.915-57.03 32.503-70.168-113.675-13.223-233.151-58.224-233.151-259.341 0-57.285 19.92-104.163 52.678-140.846-5.246-13.266-22.82-66.627 4.991-138.884 0 0 42.996-14.076 140.76 53.787 40.864-11.644 84.628-17.445 128.179-17.659 43.465.214 87.271 6.015 128.135 17.66 97.68-67.907 140.59-53.788 140.59-53.788 27.939 72.257 10.408 125.618 5.119 138.884 32.844 36.683 52.593 83.56 52.593 140.846 0 201.587-119.647 245.99-233.663 258.957 18.341 16.21 34.72 48.2 34.72 97.21 0 70.168-.639 126.728-.639 143.96 0 14.034 9.214 30.371 35.19 25.21 203.25-69.528 349.77-266.124 349.77-497.867C1023.858 234.943 794.674 0 512 0" fill="#3E75C3" /></symbol><symbol class="icon" viewBox="0 0 1024 1024"  id="icon-grid-sub-form"><defs><style>@font-face{font-family:feedback-iconfont;src:url(//at.alicdn.com/t/font_1031158_u69w8yhxdu.woff2?t=1630033759944) format("woff2"),url(//at.alicdn.com/t/font_1031158_u69w8yhxdu.woff?t=1630033759944) format("woff"),url(//at.alicdn.com/t/font_1031158_u69w8yhxdu.ttf?t=1630033759944) format("truetype")}</style></defs><path d="M448 768h128V640H448v128zM256 384h128V256H256v128zm192 192h128V448H448v128zM256 768h128V640H256v128zm0-192h128V448H256v128zM832 0H192A192 192 0 0 0 0 192v640c0 105.984 85.952 192 192 192h640c105.984 0 192-86.016 192-192V192C1024 85.952 937.984 0 832 0zm64 832c0 35.392-28.608 64-64 64H192a64 64 0 0 1-64-64V192c0-35.328 28.672-64 64-64h640a64 64 0 0 1 64 64v640zM640 576h128V448H640v128zm0-192h128V256H640v128zm-192 0h128V256H448v128zm192 384h128V640H640v128z" /></symbol><symbol class="icon" viewBox="0 0 1024 1024"  id="icon-grid"><path d="M819.354 921.6h102.4V819.2h-102.4v102.4zm102.4-204.8h-102.4a102.4 102.4 0 0 0-102.4 102.4v102.4a102.4 102.4 0 0 0 102.4 102.4h102.4a102.4 102.4 0 0 0 102.4-102.4V819.2a102.4 102.4 0 0 0-102.4-102.4zm-460.8 204.8h102.4V819.2h-102.4v102.4zm102.4-204.8h-102.4a102.4 102.4 0 0 0-102.4 102.4v102.4a102.4 102.4 0 0 0 102.4 102.4h102.4a102.4 102.4 0 0 0 102.4-102.4V819.2a102.4 102.4 0 0 0-102.4-102.4zm-460.8 204.8h102.4V819.2h-102.4v102.4zm102.4-204.8h-102.4A102.4 102.4 0 0 0 .154 819.2v102.4a102.4 102.4 0 0 0 102.4 102.4h102.4a102.4 102.4 0 0 0 102.4-102.4V819.2a102.4 102.4 0 0 0-102.4-102.4zm614.4-153.6h102.4V460.8h-102.4v102.4zm102.4-204.8h-102.4a102.4 102.4 0 0 0-102.4 102.4v102.4a102.4 102.4 0 0 0 102.4 102.4h102.4a102.4 102.4 0 0 0 102.4-102.4V460.8a102.4 102.4 0 0 0-102.4-102.4zm-460.8 204.8h102.4V460.8h-102.4v102.4zm102.4-204.8h-102.4a102.4 102.4 0 0 0-102.4 102.4v102.4a102.4 102.4 0 0 0 102.4 102.4h102.4a102.4 102.4 0 0 0 102.4-102.4V460.8a102.4 102.4 0 0 0-102.4-102.4zm-460.8 204.8h102.4V460.8h-102.4v102.4zm102.4-204.8h-102.4A102.4 102.4 0 0 0 .154 460.8v102.4a102.4 102.4 0 0 0 102.4 102.4h102.4a102.4 102.4 0 0 0 102.4-102.4V460.8a102.4 102.4 0 0 0-102.4-102.4zm614.4-153.6h102.4V102.4h-102.4v102.4zM921.754 0h-102.4a102.4 102.4 0 0 0-102.4 102.4v102.4a102.4 102.4 0 0 0 102.4 102.4h102.4a102.4 102.4 0 0 0 102.4-102.4V102.4A102.4 102.4 0 0 0 921.754 0zm-460.8 204.8h102.4V102.4h-102.4v102.4zM563.354 0h-102.4a102.4 102.4 0 0 0-102.4 102.4v102.4a102.4 102.4 0 0 0 102.4 102.4h102.4a102.4 102.4 0 0 0 102.4-102.4V102.4A102.4 102.4 0 0 0 563.354 0zm-460.8 204.8h102.4V102.4h-102.4v102.4zM204.954 0h-102.4A102.4 102.4 0 0 0 .154 102.4v102.4a102.4 102.4 0 0 0 102.4 102.4h102.4a102.4 102.4 0 0 0 102.4-102.4V102.4A102.4 102.4 0 0 0 204.954 0z" /></symbol><symbol class="icon" viewBox="0 0 1024 1024"  id="icon-html-text"><path d="m137.6 512 204.8-204.8c12.8-12.8 12.8-32 0-44.8-12.8-12.8-32-12.8-44.8 0L70.4 489.6c-6.4 6.4-9.6 12.8-9.6 22.4 0 9.6 3.2 16 9.6 22.4l227.2 227.2c12.8 12.8 32 12.8 44.8 0 12.8-12.8 12.8-32 0-44.8L137.6 512zm464-339.2c-16-3.2-35.2 6.4-38.4 22.4L396.8 812.8c-3.2 16 6.4 35.2 22.4 38.4 16 3.2 35.2-6.4 38.4-22.4L624 211.2c6.4-16-3.2-35.2-22.4-38.4zm352 316.8L726.4 262.4c-12.8-12.8-32-12.8-44.8 0-12.8 12.8-12.8 32 0 44.8L886.4 512 681.6 716.8c-12.8 12.8-12.8 32 0 44.8 12.8 12.8 32 12.8 44.8 0l227.2-227.2c6.4-6.4 9.6-16 9.6-22.4 0-9.6-3.2-16-9.6-22.4z" /></symbol><symbol class="icon" viewBox="0 0 1024 1024"  id="icon-node-tree"><path d="M332.48 500.864a25.6 25.6 0 1 0 0-51.2H192.384v-184.96a115.2 115.2 0 0 0 89.6-112.128c0-63.488-51.712-115.2-115.2-115.2s-115.2 51.712-115.2 115.2a115.2 115.2 0 0 0 89.6 112.128v696.192a25.6 25.6 0 1 0 51.2 0v-141.12c2.304.192 4.48.512 6.912.512H332.48a25.6 25.6 0 1 0 0-51.2H199.296c-3.456 0-5.504-.448-6.08-.256a29.184 29.184 0 0 1-.896-8.576V500.8h140.16zM102.784 152.64c0-35.264 28.736-64 64-64s64 28.736 64 64-28.736 64-64 64-64-28.736-64-64zm818.432 207.424h-486.4c-28.224 0-51.2 22.976-51.2 51.2v128c0 28.224 22.976 51.2 51.2 51.2h486.4c28.224 0 51.2-22.976 51.2-51.2v-128c0-28.224-22.976-51.2-51.2-51.2zm-486.336 179.2v-128h486.4v128h-486.4zm486.336 140.352h-486.4c-28.224 0-51.2 22.976-51.2 51.2v128c0 28.224 22.976 51.2 51.2 51.2h486.4c28.224 0 51.2-22.976 51.2-51.2v-128c0-28.224-22.976-51.2-51.2-51.2zm-486.336 179.2v-128h486.4v128h-486.4z" /></symbol><symbol class="icon" viewBox="0 0 1024 1024"  id="icon-number-field"><path d="M960 1024H64a64 64 0 0 1-64-64V64A64 64 0 0 1 64 0h896a64 64 0 0 1 64 64v896a64 64 0 0 1-64 64zm0-896a64 64 0 0 0-64-64H128a64 64 0 0 0-64 64v768a64 64 0 0 0 64 64h768a64 64 0 0 0 64-64V128zM832 768H704a64 64 0 0 1 0-128h64v-64h-64a64 64 0 0 1 0-128h64v-64h-64a64 64 0 0 1 0-128h128a64 64 0 0 1 64 64v384a64 64 0 0 1-64 64zM512 640a64 64 0 0 1 0 128H384a64 64 0 0 1-64-64V512a64 64 0 0 1 64-64h64v-64h-64a64 64 0 0 1 0-128h128a64 64 0 0 1 64 64v192a64 64 0 0 1-64 64h-64v64h64zM192 768a64 64 0 0 1-64-64V320a64 64 0 0 1 128 0v384a64 64 0 0 1-64 64z" /></symbol><symbol class="icon" viewBox="0 0 1024 1024"  id="icon-picture-upload-field"><path d="M896 1024H128C57.312 1024 0 966.688 0 896V128C0 57.312 57.312 0 128 0h768c70.688 0 128 57.312 128 128v768c0 70.688-57.312 128-128 128zm0-64c35.328 0 64-28.672 64-64V639.968l-192-192L494.816 721.12 730.624 960H896zM64 896c0 35.328 28.672 64 64 64h512.032L318.24 638.208 64 865.952V896zm896-768c0-35.328-28.672-64-64-64H128c-35.328 0-64 28.672-64 64v650.752L320 544l129.856 131.552L768 352l192 196.096V128zM256 384c-70.688 0-128-57.312-128-128s57.312-128 128-128 128 57.312 128 128-57.312 128-128 128zm0-192c-35.328 0-64 28.672-64 64s28.672 64 64 64 64-28.672 64-64-28.672-64-64-64z" /></symbol><symbol class="icon" viewBox="0 0 1024 1024"  id="icon-radio-field"><path d="M512 65.983C266.08 65.983 65.983 266.08 65.983 512c0 245.952 200.065 446.017 446.017 446.017S958.017 757.952 958.017 512c0-245.92-200.065-446.017-446.017-446.017zm0 828.034c-210.656 0-382.017-171.392-382.017-382.017 0-210.656 171.36-382.017 382.017-382.017 210.625 0 382.017 171.36 382.017 382.017 0 210.625-171.392 382.017-382.017 382.017zM512 352C423.776 352 352 423.776 352 512s71.774 160 160 160 160-71.774 160-160-71.776-160-160-160z" /></symbol><symbol class="icon" viewBox="0 0 1069 1024"  id="icon-rate-field"><path d="m633.73 378.02 9.498 18.688 20.78 2.798 206.616 27.332a11.465 11.465 0 0 1 6.61 19.473L729.966 593.665l-14.893 14.893 3.8 20.683 37.847 204.89a11.465 11.465 0 0 1-16.481 12.296l-185.55-94.58-18.687-9.493-18.487 9.992-183.24 99.35a11.465 11.465 0 0 1-16.784-11.867l32.543-205.796 3.297-20.786-15.192-14.492-151.033-143.484a11.465 11.465 0 0 1 6.1-19.64L399 402.998l20.786-3.296 9.092-18.98 89.713-188.078a11.465 11.465 0 0 1 20.569-.263l94.568 185.635zM496.647 85.52 374.89 340.501l-279.126 44.26a34.395 34.395 0 0 0-18.303 58.908l204.873 194.663-44.169 279.115a34.395 34.395 0 0 0 50.366 35.616l248.4-134.679L788.776 946.66a34.395 34.395 0 0 0 49.437-36.894l-51.306-277.854 199.731-199.909a34.395 34.395 0 0 0-19.828-58.408l-280.118-37.032L558.33 84.713a34.395 34.395 0 0 0-61.682.802z" /></symbol><symbol class="icon" viewBox="0 0 1024 1024"  id="icon-redo"><path d="M412.081 346.3h443.415L640.168 133.871c-18.973-18.973-18.973-46.064 0-65.038s44.325-19.884 63.381-.83l291.385 284.591c18.973 18.973 18.973 44.159 0 63.132L703.549 700.649c-18.973 18.973-44.325 18.973-63.381-.083-18.973-18.973-18.973-43.91 0-62.883l215.328-208.534H412.081c-177.3 0-314.335 138.359-314.335 309.364v44.325c0 25.354-16.074 44.325-41.425 44.325s-41.425-18.973-41.425-44.325v-44.325c0-221.709 169.181-392.213 397.185-392.213z" /></symbol><symbol class="icon" viewBox="0 0 1024 1024"  id="icon-rich-editor-field"><path d="M313.36 448.094H632.63v31.927H313.36v-31.927ZM313.36 583.784h223.49v31.927H313.36v-31.927ZM313.36 719.474h127.709v31.927h-127.71v-31.927ZM889.412 554.809l-39.955-39.971-39.957-39.941c-7.358-7.358-19.285-7.358-26.642 0l-329.7 329.694a14.08 14.08 0 0 0-4.592 6.873L412.078 932.86a14.158 14.158 0 0 0 3.54 14.079l.99.763.77.982a14.174 14.174 0 0 0 14.062 3.555l121.395-36.495a14.04 14.04 0 0 0 6.938-4.677l329.639-329.63c7.35-7.343 7.35-19.284 0-26.627zM541.136 889.756l-95.198 28.622 28.623-95.235 255.02-255.02 66.6 66.599-255.045 255.034zM856.112 574.78l-46.611 46.611-66.59-66.598 46.605-46.597c3.677-3.68 9.641-3.68 13.319-.016l26.892 26.892 26.384 26.394c3.68 3.68 3.68 9.65.001 13.314z" /><path d="M671.874 224.898v-28.934c0-22.004-17.905-39.909-39.909-39.909H314.026c-22.004 0-39.909 17.905-39.909 39.91v28.933h-104.43v643.564c0 35.26 28.592 63.854 63.855 63.854h127.709v-47.89H249.506c-17.632 0-31.928-14.299-31.928-31.928v-579.71h56.54v10.976c0 22.004 17.904 39.909 39.908 39.909h317.938c22.004 0 39.91-17.905 39.91-39.91V272.79h56.538V437.45h47.89V224.898H671.875zm-47.89 50.884H322.007v-71.836h301.974v71.836z" /></symbol><symbol class="icon" viewBox="0 0 1024 1024"  id="icon-section"><path d="M141.074 906.496h741.852c89.581 0 134.583-44.562 134.583-132.846V250.331c0-88.283-45.002-132.845-134.583-132.845H141.074c-89.143.018-134.583 44.16-134.583 132.845V773.67c0 88.704 45.44 132.845 134.583 132.845zm1.28-68.992c-42.861 0-66.852-22.71-66.852-67.291V253.806c0-44.58 23.99-67.292 66.852-67.292h739.292c42.423 0 66.852 22.711 66.852 67.292v516.388c0 44.58-24.43 67.292-66.852 67.292z" /></symbol><symbol class="icon" viewBox="0 0 1024 1024"  id="icon-select-field"><path d="M374.784 649.515a32 32 0 0 1 3.072 41.685l-3.115 3.584L225.28 843.947a32 32 0 0 1-37.845 5.504l-3.968-2.56-85.334-64a32 32 0 0 1 34.432-53.76l3.968 2.56 63.147 47.36 129.835-129.622a32 32 0 0 1 45.269.043zm531.37 75.818a32 32 0 0 1 4.31 63.702l-4.31.298h-448a32 32 0 0 1-4.351-63.744l4.352-.256h448zm.513-256a32 32 0 0 1 4.352 63.702l-4.352.298h-448a32 32 0 0 1-4.352-63.701l4.352-.299h448zm-531.84-331.776a32 32 0 0 1 2.986 41.686l-3.114 3.584-149.846 149.205a32 32 0 0 1-37.888 5.419l-3.925-2.56-84.907-64a32 32 0 0 1 34.518-53.675l3.968 2.56 62.72 47.275L329.6 137.472a32 32 0 0 1 45.227.085zm531.328 75.819a32 32 0 0 1 4.309 63.701l-4.31.299H459.35a32 32 0 0 1-4.352-63.744l4.352-.256h446.806z" /></symbol><symbol class="icon" viewBox="0 0 1024 1024"  id="icon-slider-field"><path d="M951.453 476.844H523.672a131.836 131.836 0 0 0-254.18 0H72.547v70.312h196.945a131.836 131.836 0 0 0 254.18 0h427.781z" /></symbol><symbol class="icon" viewBox="0 0 1024 1024"  id="icon-slot-component"><path d="M512 102.4c-212.48 0-384 171.52-384 384s171.52 384 384 384 384-171.52 384-384-171.52-384-384-384zm25.6 716.8v-128c0-15.36-10.24-25.6-25.6-25.6s-25.6 10.24-25.6 25.6v128C322.56 806.4 192 675.84 179.2 512h128c15.36 0 25.6-10.24 25.6-25.6s-10.24-25.6-25.6-25.6h-128C192 296.96 322.56 166.4 486.4 156.16V281.6c0 15.36 10.24 25.6 25.6 25.6s25.6-10.24 25.6-25.6V156.16C701.44 168.96 832 299.52 844.8 460.8h-128c-15.36 0-25.6 10.24-25.6 25.6s10.24 25.6 25.6 25.6h128C832 675.84 701.44 806.4 537.6 819.2z" /></symbol><symbol class="icon" viewBox="0 0 1024 1024"  id="icon-slot-field"><path d="M493.969 244.87h36.285q18.031 0 18.031 18.03v217.267q0 18.031-18.031 18.031h-36.285q-18.032 0-18.032-18.031V262.901q0-18.031 18.032-18.031ZM323.45000000000005 525.802h36.286q18.031 0 18.031 18.031v217.266q0 18.031-18.031 18.031H323.45q-18.03 0-18.03-18.03V543.832q0-18.031 18.03-18.031ZM664.2639999999999 525.802h36.286q18.03 0 18.03 18.031v217.266q0 18.031-18.03 18.031h-36.286q-18.031 0-18.031-18.03V543.832q0-18.031 18.031-18.031Z" /><path d="M827.437 122.212H196.563a74.574 74.574 0 0 0-74.35 74.351v630.874a74.574 74.574 0 0 0 74.35 74.35h630.874a74.574 74.574 0 0 0 74.35-74.35V196.563a74.574 74.574 0 0 0-74.35-74.35zm52.09 705.225a52.09 52.09 0 0 1-52.09 52.09H196.563a52.09 52.09 0 0 1-52.09-52.09V196.563a52.09 52.09 0 0 1 52.09-52.09h630.874a52.09 52.09 0 0 1 52.09 52.09z" /></symbol><symbol class="icon" viewBox="0 0 1024 1024"  id="icon-static-text"><path d="M213.333 160c-4.821 0-9.472.64-13.824 1.792a32 32 0 0 1-16.554-61.824C192.683 97.408 202.88 96 213.333 96h33.195a32 32 0 0 1 0 64h-33.195zm133.931-32a32 32 0 0 1 32-32h66.347a32 32 0 1 1 0 64h-66.304a32 32 0 0 1-32-32zm199.125 0a32 32 0 0 1 32-32h66.347a32 32 0 0 1 0 64h-66.347a32 32 0 0 1-32-32zm199.083 0a32 32 0 0 1 32-32h33.195c10.453 0 20.65 1.365 30.378 3.968a32 32 0 1 1-16.554 61.867A53.419 53.419 0 0 0 810.667 160h-33.195a32 32 0 0 1-32-32zm-606.293 32.341a32 32 0 0 1 22.613 39.168A53.461 53.461 0 0 0 160 213.333v33.195a32 32 0 0 1-64 0v-33.195c0-10.453 1.365-20.65 3.968-30.378a32 32 0 0 1 39.168-22.614zm745.685 0a32 32 0 0 1 39.168 22.614c2.56 9.728 3.968 19.925 3.968 30.378v33.195a32 32 0 0 1-64 0v-33.195c0-4.821-.64-9.472-1.792-13.824a32 32 0 0 1 22.613-39.168zM128 347.221a32 32 0 0 1 32 32v66.39a32 32 0 1 1-64 0v-66.304a32 32 0 0 1 32-32zm768 0a32 32 0 0 1 32 32v66.39a32 32 0 1 1-64 0v-66.304a32 32 0 0 1 32-32zM128 546.432a32 32 0 0 1 32 32v66.347a32 32 0 0 1-64 0v-66.347a32 32 0 0 1 32-32zm768 0a32 32 0 0 1 32 32v66.347a32 32 0 0 1-64 0v-66.347a32 32 0 0 1 32-32zm0 199.083a32 32 0 0 1 32 32v33.152c0 10.453-1.365 20.65-3.968 30.378a32 32 0 1 1-61.867-16.554c1.195-4.352 1.835-8.96 1.835-13.824v-33.195a32 32 0 0 1 32-32zm-768 0a32 32 0 0 1 32 32v33.152c0 4.821.64 9.472 1.792 13.824a32 32 0 0 1-61.824 16.512A117.461 117.461 0 0 1 96 810.667v-33.195a32 32 0 0 1 32-32zm32.341 139.392a32 32 0 0 1 39.168-22.656 53.814 53.814 0 0 0 13.824 1.792h33.195a32 32 0 0 1 0 64h-33.195c-10.453 0-20.65-1.366-30.378-3.968a32 32 0 0 1-22.614-39.168zm703.318 0a32 32 0 0 1-22.614 39.168c-9.728 2.56-19.925 3.968-30.378 3.968h-33.195a32 32 0 0 1 0-64h33.195c4.821 0 9.472-.64 13.824-1.792a32 32 0 0 1 39.168 22.613zM347.307 896a32 32 0 0 1 32-32h66.346a32 32 0 1 1 0 64h-66.346a32 32 0 0 1-32-32zm199.125 0a32 32 0 0 1 32-32h66.347a32 32 0 0 1 0 64h-66.347a32 32 0 0 1-32-32zM341.333 352a32 32 0 0 0 0 64H480v266.667a32 32 0 0 0 64 0V416h138.667a32 32 0 0 0 0-64H341.333z" /></symbol><symbol class="icon" viewBox="0 0 1024 1024"  id="icon-sub-form"><path d="M512 106.667H112a5.333 5.333 0 0 0-5.333 5.333v800a5.333 5.333 0 0 0 5.333 5.333h800a5.333 5.333 0 0 0 5.333-5.333V112a5.333 5.333 0 0 0-5.333-5.333zm0 74.666h325.333a5.333 5.333 0 0 1 5.334 5.334v160a5.333 5.333 0 0 1-5.334 5.333H186.667a5.333 5.333 0 0 1-5.334-5.333v-160a5.333 5.333 0 0 1 5.334-5.334zM597.333 432v405.333a5.333 5.333 0 0 1-5.333 5.334H432a5.333 5.333 0 0 1-5.333-5.334V432a5.333 5.333 0 0 1 5.333-5.333h160a5.333 5.333 0 0 1 5.333 5.333zm-410.666-5.333h160A5.333 5.333 0 0 1 352 432v405.333a5.333 5.333 0 0 1-5.333 5.334h-160a5.333 5.333 0 0 1-5.334-5.334V432a5.333 5.333 0 0 1 5.334-5.333zM672 837.333V432a5.333 5.333 0 0 1 5.333-5.333h160a5.333 5.333 0 0 1 5.334 5.333v405.333a5.333 5.333 0 0 1-5.334 5.334h-160a5.333 5.333 0 0 1-5.333-5.334z" /></symbol><symbol class="icon" viewBox="0 0 1024 1024"  id="icon-switch-field"><path d="M692 792H332C182 792 62 672 62 522s120-270 270-270h360c150 0 270 120 270 270 0 147-120 270-270 270zM332 312c-117 0-210 93-210 210s93 210 210 210h360c117 0 210-93 210-210s-93-210-210-210H332z" /><path d="M191 522a150 150 0 1 0 300 0 150 150 0 1 0-300 0z" /></symbol><symbol class="icon" viewBox="0 0 1024 1024"  id="icon-tab"><path d="M908.8 1005.44H115.2A101.76 101.76 0 0 1 14.08 903.68V110.72A101.76 101.76 0 0 1 115.2 8.96h296.96a32.64 32.64 0 0 1 32 32V262.4a32 32 0 0 1-32 32 32 32 0 0 1-32-32v-192H115.2a37.76 37.76 0 0 0-37.12 37.76v795.52a37.76 37.76 0 0 0 37.12 37.76h793.6a37.76 37.76 0 0 0 37.12-37.76V267.52a32 32 0 0 1 32-32 32 32 0 0 1 32 32v636.16a101.76 101.76 0 0 1-101.12 101.76z" /><path d="M977.92 299.52a32.64 32.64 0 0 1-32-32v-87.04a37.12 37.12 0 0 0-37.12-37.76H421.12a32 32 0 0 1-32-32 32 32 0 0 1 32-32H908.8a101.76 101.76 0 0 1 101.12 101.76v87.04a32 32 0 0 1-32 32z" /><path d="M977.92 299.52H64a32 32 0 0 1-32-32 32 32 0 0 1 32-32h913.92a32 32 0 0 1 32 32 32 32 0 0 1-32 32z" /><path d="M699.52 299.52a32 32 0 0 1-32-32v-156.8a32 32 0 0 1 64 0v156.8a32 32 0 0 1-32 32z" /></symbol><symbol class="icon" viewBox="0 0 1024 1024"  id="icon-table"><path d="M925.586 0H101.369C69.885 0 42.24 28.924 42.24 62.328v902.8c0 33.403 27.645 58.872 59.129 58.872h824.217c31.484 0 56.057-25.469 56.057-58.873V62.328C981.643 28.924 957.198 0 925.586 0zM373.719 735.908V543.932h276.445v191.976zm276.445 42.235v203.494H373.719V778.143zm287.964-276.446h-244.45V298.203h244.45zm-287.964 0H373.719V298.203h276.445zm-319.96 0H85.754V298.203h244.45zm-244.45 42.235h244.45v191.976H85.754zm607.925 0h244.449v191.976h-244.45zM101.369 42.235h824.217c7.807 0 12.542 10.366 12.542 20.093v193.64H85.755V62.328c0-9.727 7.807-20.093 15.614-20.093zM85.755 964.999V778.143h244.449v203.494H101.369c-7.807 0-15.614-6.91-15.614-16.51zm839.83 16.638H693.68V778.143h244.449v186.856c0 9.727-4.607 16.638-12.542 16.638z" /></symbol><symbol class="icon" viewBox="0 0 1024 1024"  id="icon-text-field"><path d="M896 224H128c-35.2 0-64 28.8-64 64v448c0 35.2 28.8 64 64 64h768c35.2 0 64-28.8 64-64V288c0-35.2-28.8-64-64-64zm0 480c0 19.2-12.8 32-32 32H160c-19.2 0-32-12.8-32-32V320c0-19.2 12.8-32 32-32h704c19.2 0 32 12.8 32 32v384z" /><path d="M224 352c-19.2 0-32 12.8-32 32v256c0 16 12.8 32 32 32s32-12.8 32-32V384c0-16-12.8-32-32-32z" /></symbol><symbol class="icon" viewBox="0 0 1024 1024"  id="icon-textarea-field"><path d="M896.4 173.1H128.9c-35.2 0-49 13.8-49 49v575.6c0 35.2 13.8 49 49 49h767.5c35.2 0 49-13.8 49-49V222.1c0-35.2-13.8-49-49-49zm0 592.6c0 16-12.8 32-32 32H160.9c-19.2 0-32-12.8-32-32V254.1c0-16 12.8-32 32-32h703.5c19.2 0 32 12.8 32 32v511.6z" /><path d="M710.2 766.7h141.5c8.1 0 14.7-6.6 14.7-14.7V610.4c0-1.3-1.6-2-2.6-1.1L709.1 764.1c-1 1-.3 2.6 1.1 2.6zm-503-172.4h-13.5c-10 0-18.2-8.2-18.2-18.2V291.8c0-10.2 8.4-18.6 18.6-18.6h12.8c10.2 0 18.6 8.4 18.6 18.6v284.3c-.1 10-8.3 18.2-18.3 18.2z" /></symbol><symbol class="icon" viewBox="0 0 1024 1024"  id="icon-time-field"><path d="M512 39.385A472.615 472.615 0 1 0 984.615 512 472.615 472.615 0 0 0 512 39.385zm0 866.461A393.846 393.846 0 1 1 905.846 512 393.846 393.846 0 0 1 512 905.846zm75.855-373.72A77.154 77.154 0 0 0 590.769 512a78.454 78.454 0 0 0-39.384-67.86V196.923a39.385 39.385 0 0 0-78.77 0V444.14a78.336 78.336 0 0 0 59.55 143.715l70.144 70.144a39.385 39.385 0 0 0 55.69-55.69zM512 551.385A39.385 39.385 0 1 1 551.385 512 39.385 39.385 0 0 1 512 551.385zm315.077-78.77A39.385 39.385 0 1 0 866.462 512a39.385 39.385 0 0 0-39.385-39.385zm-630.154 0A39.385 39.385 0 1 0 236.308 512a39.385 39.385 0 0 0-39.385-39.385zm509.991 234.3a39.385 39.385 0 1 0 55.69 0 39.385 39.385 0 0 0-55.69 0zM317.007 317.006a39.385 39.385 0 1 0-55.73 0 39.385 39.385 0 0 0 55.809.04zM512 787.692a39.385 39.385 0 1 0 39.385 39.385A39.385 39.385 0 0 0 512 787.692zm-250.604-80.778a39.385 39.385 0 1 0 55.69 0 39.385 39.385 0 0 0-55.69-.039zm445.518-445.518a39.385 39.385 0 1 0 55.69 0 39.385 39.385 0 0 0-55.69-.04z" /></symbol><symbol class="icon" viewBox="0 0 1024 1024"  id="icon-time-range-field"><path d="M498.596 482.29H345.42v57.308h210.478V274.197h-57.301V482.29zm79.089 162.695h379.88v57.302h-379.88v-57.302zm0 128.78h379.88v57.307h-379.88v-57.307zm0 128.785h379.88v57.307h-379.88V902.55zm0 0" /><path d="M102.523 382.29a28.668 28.668 0 0 0 23.367 2.56l190.81-61.886c15.053-4.883 23.298-21.04 18.415-36.09-4.882-15.052-21.04-23.297-36.093-18.415l-123.346 40c15.994-26.117 35.17-50.538 57.37-72.745 73.768-73.767 171.847-114.388 276.169-114.388 104.32 0 202.395 40.622 276.161 114.388S899.77 407.56 899.77 511.882c0 26.428-2.616 52.45-7.71 77.78h58.303c4.465-25.499 6.709-51.47 6.709-77.78 0-60.45-11.846-119.102-35.205-174.336-22.56-53.335-54.85-101.227-95.969-142.35-41.122-41.122-89.017-73.408-142.348-95.968-55.233-23.361-113.89-35.207-174.334-35.207-60.45 0-119.107 11.846-174.337 35.208-53.335 22.56-101.23 54.846-142.35 95.969-23.98 23.98-44.933 50.278-62.727 78.6l-20.738-105.654c-3.043-15.528-18.105-25.642-33.632-22.6-15.528 3.048-25.643 18.105-22.6 33.637l36.103 183.932a28.666 28.666 0 0 0 13.588 19.178zm23.497 205.652H67.768c5.76 33.679 15.368 66.544 28.79 98.278 22.56 53.334 54.85 101.225 95.972 142.348 41.123 41.123 89.014 73.409 142.349 95.969 54.112 22.888 111.518 34.711 170.668 35.182v-57.324c-102.95-.941-199.595-41.446-272.5-114.349-55.501-55.502-92.237-124.77-107.027-200.104zm0 0" /></symbol><symbol class="icon" viewBox="0 0 1024 1024"  id="icon-undo"><path d="M609.206 396.656H193.504l201.87-199.152c17.787-17.787 17.787-43.185 0-60.973s-41.555-18.641-59.42-.778L62.857 402.557c-17.787 17.787-17.787 41.399 0 59.186L336.03 728.858c17.787 17.787 41.555 17.787 59.42-.078 17.787-17.787 17.787-41.166 0-58.953L193.502 474.326h415.702c166.219 0 311.155 129.712 311.155 290.029v41.555c0 23.769 15.069 41.555 38.836 41.555s38.836-17.787 38.836-41.555v-41.555c0-207.852-175.073-367.7-388.828-367.7z" /></symbol><symbol class="icon" viewBox="0 0 1026 1024"  id="icon-vf-dialog"><defs><style>@font-face{font-family:"feedback-iconfont";src:url(//at.alicdn.com/t/font_1031158_u69w8yhxdu.woff2?t=1630033759944) format("woff2"),url(//at.alicdn.com/t/font_1031158_u69w8yhxdu.woff?t=1630033759944) format("woff"),url(//at.alicdn.com/t/font_1031158_u69w8yhxdu.ttf?t=1630033759944) format("truetype")}</style></defs><path d="M897.024 0q26.624 0 49.664 10.24t40.448 27.648 27.648 40.448 10.24 49.664v576.512q0 26.624-10.24 49.664t-27.648 40.448-40.448 27.648-49.664 10.24h-128v-128h63.488q26.624 0 45.568-18.432t18.944-45.056V320.512q0-26.624-18.944-45.568T832.512 256h-512q-26.624 0-45.568 18.944T256 320.512V384H128V128q0-26.624 10.24-49.664t27.648-40.448 40.448-27.648T256 0h641.024zM576.512 448.512q26.624 0 49.664 10.24t40.448 27.648 27.648 40.448 10.24 49.664v256q0 26.624-10.24 49.664t-27.648 40.448-40.448 27.648-49.664 10.24h-384q-26.624 0-50.176-10.24t-40.96-27.648-27.648-40.448-10.24-49.664v-256q0-26.624 10.24-49.664t27.648-40.448 40.96-27.648 50.176-10.24h384zm0 256q0-26.624-18.944-45.056T512 641.024H256q-26.624 0-45.056 18.432t-18.432 45.056v64.512q0 26.624 18.432 45.056T256 832.512h256q26.624 0 45.568-18.432t18.944-45.056v-64.512z" /></symbol><symbol class="icon" viewBox="0 0 1024 1024"  id="icon-vf-drawer"><defs><style>@font-face{font-family:"feedback-iconfont";src:url(//at.alicdn.com/t/font_1031158_u69w8yhxdu.woff2?t=1630033759944) format("woff2"),url(//at.alicdn.com/t/font_1031158_u69w8yhxdu.woff?t=1630033759944) format("woff"),url(//at.alicdn.com/t/font_1031158_u69w8yhxdu.ttf?t=1630033759944) format("truetype")}</style></defs><path d="M128 765.952q0 26.624 18.432 45.056t45.056 18.432h191.488v128H128q-26.624 0-49.664-10.24t-40.448-27.648-27.648-40.448T0 829.44V191.488q0-25.6 10.24-49.152t27.648-40.448 40.448-27.136T128 64.512h701.44q26.624 0 49.664 10.24t40.448 27.136 27.648 40.448 10.24 49.152v251.904l-128 1.024v-61.44q0-26.624-18.432-45.056t-45.056-18.432H191.488q-26.624 0-45.056 18.432T128 382.976v382.976zm862.208-60.416q21.504 18.432 22.016 34.304t-20.992 33.28q-21.504 18.432-51.2 41.472t-60.928 48.128-61.952 49.152-55.296 43.52q-26.624 20.48-43.52 15.36t-16.896-31.744q1.024-16.384 0-40.448t-1.024-41.472q0-19.456-10.752-24.064t-31.232-4.608q-21.504 0-39.936-.512t-35.84-.512-36.352-.512-41.472-.512q-9.216 0-19.968-2.048t-19.456-7.168-14.336-15.36-5.632-27.648v-80.896q0-31.744 15.36-42.496T508.928 640q30.72 1.024 61.44 1.024t71.68 1.024q29.696 0 46.08-5.12t16.384-25.6q-1.024-14.336.512-35.328t1.536-37.376q0-26.624 14.336-33.28t36.864 10.752q22.528 18.432 52.736 43.008t61.952 50.688 62.976 51.2 54.784 44.544z" /></symbol><symbol class="icon" viewBox="0 0 1024 1024"  id="icon-vue-sfc"><path d="M454.138 11.176 54.066 174.092c-72.088 29.49-72.088 120.523 0 150.014l400.276 162.916c36.454 14.95 78.847 14.95 115.506 0l400.071-162.814c72.191-29.593 72.089-120.83-.307-150.116L569.746 11.278a155.339 155.339 0 0 0-115.608-.205zm469.19 237.872L532.37 408.585l-7.885 2.457a55.09 55.09 0 0 1-32.562-2.457L100.35 249.048l391.265-159.23a55.09 55.09 0 0 1 40.447 0l391.162 159.23z" fill="#1890FF" /><path d="M498.681 729.911c-20.275 0-40.652-3.788-59.391-11.673L53.76 561.26C20.48 547.847 0 519.89 0 488.558c0-31.436 20.582-59.391 53.862-72.703l36.556-15.053c21.401-8.806 47.103-1.024 57.24 17.408 10.24 18.227 1.025 40.14-20.479 48.947l-36.454 14.95c-3.072 1.229-4.71 3.584-4.71 6.45 0 3.073 1.536 5.12 4.71 6.452l385.326 156.875c14.336 5.939 30.924 5.939 45.362 0L906.74 495.009c3.072-1.229 4.915-3.584 4.915-6.451 0-3.072-1.536-5.222-4.607-6.451l-44.851-18.227c-21.401-8.806-30.412-30.72-20.377-48.947 10.342-18.329 35.84-26.214 57.24-17.407l44.851 18.431c33.177 13.517 53.76 41.267 53.76 72.703 0 31.334-20.48 59.391-53.76 72.703L558.482 718.238a161.585 161.585 0 0 1-59.801 11.673z" fill="#5DE1C8" /><path d="M498.681 966.247c-20.275 0-40.652-3.89-59.391-11.673L53.76 797.597C20.48 784.08 0 756.227 0 724.997c0-31.437 20.582-59.494 53.862-72.806l36.556-14.95c21.401-8.807 47.103-1.024 57.24 17.407 10.24 18.227 1.025 40.14-20.479 48.947l-36.454 14.95c-3.072 1.126-4.71 3.584-4.71 6.451 0 3.072 1.536 5.12 4.71 6.349l385.326 156.977c14.336 5.939 30.924 5.939 45.362 0L906.74 731.14c3.072-1.126 4.915-3.584 4.915-6.349 0-3.072-1.536-5.324-4.607-6.45l-44.851-18.33c-21.401-8.806-30.412-30.72-20.377-48.947 10.342-18.431 35.84-26.214 57.24-17.407l44.851 18.329c33.177 13.517 53.76 41.369 53.76 72.703 0 31.436-20.48 59.494-53.76 72.805l-385.428 157.08a161.585 161.585 0 0 1-59.801 11.673z" fill="#FF7272" /></symbol><symbol class="icon" viewBox="0 0 1024 1024"  id="icon-custom-search"><path d="M863.3 641.94A416.1 416.1 0 0 0 96.7 318.06a416.1 416.1 0 0 0 766.6 323.88zM480 832a352 352 0 1 1 248.9-103.1A349.69 349.69 0 0 1 480 832z" /><path d="m950.63 841.37-96-96a32 32 0 0 0-45.25 45.25l96 96a13.25 13.25 0 1 1-18.75 18.75l-96-96a32 32 0 0 0-45.25 45.25l96 96a77.25 77.25 0 1 0 109.25-109.25z" /></symbol><symbol class="icon" viewBox="0 0 1024 1024"  id="icon-el-arrow-down"><path d="M512 714.667c-8.533 0-17.067-2.134-23.467-8.534L147.2 364.8c-12.8-12.8-12.8-32 0-44.8 12.8-12.8 32-12.8 44.8 0l320 317.867 317.867-320c12.8-12.8 32-12.8 44.8 0 12.8 12.8 12.8 32 0 44.8L533.333 704c-4.266 8.533-12.8 10.667-21.333 10.667z" /></symbol><symbol class="icon" viewBox="0 0 1024 1024"  id="icon-el-back"><path fill="currentColor" d="M224 480h640a32 32 0 1 1 0 64H224a32 32 0 0 1 0-64z" /><path fill="currentColor" d="m237.248 512 265.408 265.344a32 32 0 0 1-45.312 45.312l-288-288a32 32 0 0 1 0-45.312l288-288a32 32 0 1 1 45.312 45.312L237.248 512z" /></symbol><symbol class="icon" viewBox="0 0 1024 1024"  id="icon-el-clone"><path d="M774.144 839.68c-.683 36.864-13.483 67.755-38.4 92.672s-55.808 37.717-92.672 38.4H184.32c-36.864-.683-67.755-13.483-92.672-38.4s-37.717-55.808-38.4-92.672V380.928c.683-36.864 13.483-67.755 38.4-92.672s55.808-37.717 92.672-38.4v65.536c-18.432.683-33.792 7.168-46.08 19.456s-18.773 27.648-19.456 46.08V839.68c.683 18.432 7.168 33.792 19.456 46.08s27.648 18.773 46.08 19.456h458.752c18.432-.683 33.792-7.168 46.08-19.456s18.773-27.648 19.456-46.08h65.536zM380.928 118.784c-18.432.683-33.792 7.168-46.08 19.456s-18.773 27.648-19.456 46.08v458.752c.683 18.432 7.168 33.792 19.456 46.08s27.648 18.773 46.08 19.456H839.68c18.432-.683 33.792-7.168 46.08-19.456s18.773-27.648 19.456-46.08V184.32c-.683-18.432-7.168-33.792-19.456-46.08s-27.648-18.773-46.08-19.456H380.928zm0-65.536H839.68c36.864.683 67.755 13.483 92.672 38.4s37.717 55.808 38.4 92.672v458.752c-.683 36.864-13.483 67.755-38.4 92.672s-55.808 37.717-92.672 38.4H380.928c-36.864-.683-67.755-13.483-92.672-38.4s-37.717-55.808-38.4-92.672V184.32c.683-36.864 13.483-67.755 38.4-92.672s55.808-37.717 92.672-38.4z" /></symbol><symbol class="icon" viewBox="0 0 1024 1024"  id="icon-el-delete"><path fill="currentColor" d="M160 256H96a32 32 0 0 1 0-64h256V95.936a32 32 0 0 1 32-32h256a32 32 0 0 1 32 32V192h256a32 32 0 1 1 0 64h-64v672a32 32 0 0 1-32 32H192a32 32 0 0 1-32-32V256zm448-64v-64H416v64h192zM224 896h576V256H224v640zm192-128a32 32 0 0 1-32-32V416a32 32 0 0 1 64 0v320a32 32 0 0 1-32 32zm192 0a32 32 0 0 1-32-32V416a32 32 0 0 1 64 0v320a32 32 0 0 1-32 32z" /></symbol><symbol class="icon" viewBox="0 0 1024 1024"  id="icon-el-download"><path d="M896 672c-17.067 0-32 14.933-32 32v128c0 6.4-4.267 10.667-10.667 10.667H170.667c-6.4 0-10.667-4.267-10.667-10.667V704c0-17.067-14.933-32-32-32s-32 14.933-32 32v128c0 40.533 34.133 74.667 74.667 74.667h682.666C893.867 906.667 928 872.533 928 832V704c0-17.067-14.933-32-32-32z" /><path d="M488.533 727.467c6.4 6.4 14.934 8.533 23.467 8.533s17.067-2.133 23.467-8.533L748.8 514.133c12.8-12.8 12.8-32 0-44.8-12.8-12.8-32-12.8-44.8 0L546.133 627.2V170.667c0-17.067-14.933-32-32-32S480 153.6 480 170.667V627.2L322.133 469.333c-12.8-12.8-32-12.8-44.8 0-12.8 12.8-12.8 32 0 44.8l211.2 213.334z" /></symbol><symbol class="icon" viewBox="0 0 1024 1024"  id="icon-el-drag-move"><path d="M909.3 506.3 781.7 405.6c-4.7-3.7-11.7-.4-11.7 5.7V476H548V254h64.8c6 0 9.4-7 5.7-11.7L517.7 114.7c-2.9-3.7-8.5-3.7-11.3 0L405.6 242.3c-3.7 4.7-.4 11.7 5.7 11.7H476v222H254v-64.8c0-6-7-9.4-11.7-5.7L114.7 506.3c-3.7 2.9-3.7 8.5 0 11.3l127.5 100.8c4.7 3.7 11.7.4 11.7-5.7V548h222v222h-64.8c-6 0-9.4 7-5.7 11.7l100.8 127.5c2.9 3.7 8.5 3.7 11.3 0l100.8-127.5c3.7-4.7.4-11.7-5.7-11.7H548V548h222v64.8c0 6 7 9.4 11.7 5.7l127.5-100.8c3.7-2.9 3.7-8.5.1-11.4z" /></symbol><symbol fill="none"  viewBox="0 0 22 21" id="icon-el-error-circle"><mask id="icon-el-error-circle_a" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="0" y="0" width="22" height="21"><path fill-rule="evenodd" clip-rule="evenodd" d="M10.126.907a1 1 0 0 1 1.748 0l9.967 17.94a1 1 0 0 1-.874 1.486H1.033a1 1 0 0 1-.874-1.485L10.126.907ZM9.892 9.25h2.187l-.437 4.667h-1.313L9.892 9.25Zm1.085 7.642a1.138 1.138 0 1 0 0-2.275 1.138 1.138 0 0 0 0 2.275Z" fill="#fff" /></mask><g mask="url(#icon-el-error-circle_a)"><path fill="#ED6A0C" d="M-3-3h28v28H-3z" /></g></symbol><symbol class="icon" viewBox="0 0 1024 1024"  id="icon-el-form-template"><path d="M298.667 981.333A85.333 85.333 0 0 1 213.333 896V128a85.333 85.333 0 0 1 85.334-85.333h426.666A85.333 85.333 0 0 1 810.667 128v768a85.333 85.333 0 0 1-85.334 85.333zm0-832v725.334A21.333 21.333 0 0 0 320 896h384a21.333 21.333 0 0 0 21.333-21.333V149.333A21.333 21.333 0 0 0 704 128H320a21.333 21.333 0 0 0-21.333 21.333zm640 618.667V256a42.667 42.667 0 0 1 42.666-42.667A42.667 42.667 0 0 1 1024 256v512a42.667 42.667 0 0 1-42.667 42.667A42.667 42.667 0 0 1 938.667 768zM0 768V256a42.667 42.667 0 0 1 42.667-42.667A42.667 42.667 0 0 1 85.333 256v512a42.667 42.667 0 0 1-42.666 42.667A42.667 42.667 0 0 1 0 768z" /></symbol><symbol class="icon" viewBox="0 0 1024 1024"  id="icon-el-hide"><path d="M956.8 496c-41.6-70.4-99.2-147.2-176-204.8l105.6-105.6c12.8-12.8 12.8-32 0-44.8s-32-12.8-44.8 0L726.4 256C665.6 214.4 592 192 512 192c-214.4 0-358.4 166.4-444.8 304-6.4 9.6-6.4 22.4 0 32 41.6 70.4 102.4 147.2 176 204.8L134.4 841.6c-12.8 12.8-12.8 32 0 44.8 9.6 6.4 16 9.6 25.6 9.6s16-3.2 22.4-9.6l115.2-115.2C358.4 809.6 432 832 512 832c185.6 0 374.4-128 444.8-307.2 3.2-9.6 3.2-19.2 0-28.8zm-822.4 16C211.2 390.4 336 256 512 256c60.8 0 118.4 16 166.4 44.8l-80 80C576 361.6 544 352 512 352c-89.6 0-160 70.4-160 160 0 32 9.6 64 25.6 89.6L288 691.2C224 640 172.8 572.8 134.4 512zm473.6 0c0 54.4-41.6 96-96 96-16 0-28.8-3.2-41.6-9.6l128-128c6.4 12.8 9.6 25.6 9.6 41.6zm-192 0c0-54.4 41.6-96 96-96 16 0 28.8 3.2 41.6 9.6l-128 128c-6.4-12.8-9.6-25.6-9.6-41.6zm96 256c-60.8 0-118.4-16-166.4-44.8l80-80C448 662.4 480 672 512 672c89.6 0 160-70.4 160-160 0-32-9.6-64-25.6-89.6l89.6-89.6C803.2 384 854.4 451.2 892.8 512 825.6 659.2 665.6 768 512 768z" /></symbol><symbol class="icon" viewBox="0 0 1024 1024"  id="icon-el-info"><path d="M512.001 928.997c230.524 0 418.076-187.552 418.075-418.077 0-230.527-187.552-418.077-418.075-418.077S93.924 280.393 93.924 510.92c0 230.525 187.552 418.077 418.077 418.077zM512 301.88c28.86 0 52.26 23.399 52.26 52.263 0 28.858-23.399 52.257-52.26 52.257s-52.26-23.399-52.26-52.257c0-28.863 23.399-52.263 52.26-52.263zm-52.26 209.042c0-28.86 23.399-52.26 52.26-52.26s52.26 23.399 52.26 52.26v156.775c0 28.86-23.399 52.26-52.26 52.26s-52.26-23.399-52.26-52.26V510.922z" /></symbol><symbol class="icon" viewBox="0 0 1024 1024"  id="icon-el-insert-column"><path d="M653.184 713.6c12.864-12.864 33.6-12.864 46.528 0 6.4 6.4 3.776 14.72 3.776 23.232a32.675 32.675 0 0 1-9.6 23.104L569.92 886.4c-.128.128-.32.192-.512.32-2.88 2.88-9.536 5.184-13.312 6.784-3.456 1.344-.64 1.856-4.096 2.112-.768 0-1.344.384-2.048.384-.512 0-.896-.256-1.344-.256-3.84-.192-5.76-.896-9.344-2.24-3.264-1.344-6.016-3.52-8.64-5.76-.64-.512-1.472-.768-2.048-1.344L391.232 760c-12.864-12.736-6.976-33.6 5.888-46.4 12.8-12.864 33.6-12.864 46.464 0l105.472 100.352L653.184 713.6zM384 64v576h320V64H384zM128 704v256H64V640h256v320h-62.976L256 704H128m704 0v256h-64V640h256v320h-62.976L960 704H832" /></symbol><symbol class="icon" viewBox="0 0 1024 1024"  id="icon-el-insert-row"><path d="M310.336 653.184c12.864 12.864 12.864 33.6 0 46.528-6.4 6.4-14.72 3.776-23.168 3.776s-16.832-3.264-23.168-9.6L137.6 569.92c-.128-.128-.192-.32-.256-.512-2.88-2.816-5.248-9.536-6.848-13.312-1.344-3.392-1.856-.576-2.112-4.096 0-.768-.384-1.344-.384-2.048 0-.512.256-.896.256-1.344.192-3.84.896-5.76 2.24-9.344 1.344-3.264 3.52-6.016 5.76-8.64.512-.704.768-1.536 1.344-2.112l126.336-137.344c12.8-12.864 33.6-6.976 46.4 5.888 12.864 12.8 12.864 33.6 0 46.464L210.048 548.992l100.288 104.192zM960 384H384v320h576V384zM320 128H64V64h320v256H64v-62.976L320 256V128m0 704H64v-64h320v256H64v-62.976L320 960V832" /></symbol><symbol class="icon" viewBox="0 0 1024 1024"  id="icon-el-menu"><path d="M844.8 883.2h-256c-19.2 0-38.4-19.2-38.4-38.4v-256c0-19.2 19.2-38.4 38.4-38.4h256c19.2 0 38.4 19.2 38.4 38.4v256c0 19.2-19.2 38.4-38.4 38.4zm0-403.2h-256c-19.2 0-38.4-19.2-38.4-38.4v-256c0-19.2 19.2-38.4 38.4-38.4h256c19.2 0 38.4 19.2 38.4 38.4v256c0 19.2-19.2 38.4-38.4 38.4zM435.2 883.2h-256c-19.2 0-38.4-19.2-38.4-38.4v-256c0-19.2 19.2-38.4 38.4-38.4h256c19.2 0 38.4 19.2 38.4 38.4v256c6.4 19.2-12.8 38.4-38.4 38.4zm0-403.2h-256c-19.2 0-38.4-19.2-38.4-38.4v-256c0-19.2 19.2-38.4 38.4-38.4h256c19.2 0 38.4 19.2 38.4 38.4v256c6.4 19.2-12.8 38.4-38.4 38.4z" /></symbol><symbol class="icon" viewBox="0 0 1024 1024"  id="icon-el-move-down"><path d="M898.133 512c-12.8-12.8-32-12.8-44.8-2.133L544 800V149.333c0-17.066-14.933-32-32-32s-32 14.934-32 32V800L170.667 509.867c-12.8-12.8-34.134-10.667-44.8 2.133-12.8 12.8-10.667 34.133 2.133 44.8l362.667 341.333c2.133 2.134 6.4 4.267 8.533 6.4 4.267 2.134 6.4 2.134 10.667 2.134s8.533 0 10.666-2.134c4.267-2.133 6.4-4.266 8.534-6.4L891.733 556.8c17.067-12.8 19.2-32 6.4-44.8z" /></symbol><symbol class="icon" viewBox="0 0 1024 1024"  id="icon-el-move-up"><path d="M896 467.2 533.333 125.867c-2.133-2.134-6.4-4.267-8.533-6.4-4.267-2.134-6.4-2.134-10.667-2.134s-8.533 0-10.666 2.134c-4.267 2.133-6.4 4.266-8.534 6.4L132.267 467.2c-12.8 12.8-12.8 32-2.134 44.8 12.8 12.8 32 12.8 44.8 2.133L484.267 224v650.667c0 17.066 14.933 32 32 32s32-14.934 32-32V224l305.066 290.133c6.4 6.4 14.934 8.534 21.334 8.534 8.533 0 17.066-4.267 23.466-10.667 12.8-12.8 10.667-32-2.133-44.8z" /></symbol><symbol class="icon" viewBox="0 0 1024 1024"  id="icon-el-plus"><path d="M554.667 213.333h-85.334v256h-256v85.334h256v256h85.334v-256h256v-85.334h-256z" /></symbol><symbol class="icon" viewBox="0 0 1024 1024"  id="icon-el-set-up"><path d="M217.088 151.552c-18.432.683-33.792 7.168-46.08 19.456s-18.773 27.648-19.456 46.08v589.824c.683 18.432 7.168 33.792 19.456 46.08s27.648 18.773 46.08 19.456h589.824c18.432-.683 33.792-7.168 46.08-19.456s18.773-27.648 19.456-46.08V217.088c-.683-18.432-7.168-33.792-19.456-46.08s-27.648-18.773-46.08-19.456H217.088zm0-65.536h589.824c36.864.683 67.755 13.483 92.672 38.4s37.717 55.808 38.4 92.672v589.824c-.683 36.864-13.483 67.755-38.4 92.672s-55.808 37.717-92.672 38.4H217.088c-36.864-.683-67.755-13.483-92.672-38.4s-37.717-55.808-38.4-92.672V217.088c.683-36.864 13.483-67.755 38.4-92.672s55.808-37.717 92.672-38.4zm163.84 327.68c18.432-.683 33.792-7.168 46.08-19.456s18.432-27.648 18.432-46.08-6.144-33.792-18.432-46.08-27.648-18.432-46.08-18.432-33.792 6.144-46.08 18.432-18.432 27.648-18.432 46.08 6.144 33.792 18.432 46.08 27.648 18.773 46.08 19.456zm0 65.536c-36.864-.683-67.755-13.483-92.672-38.4s-37.717-55.808-38.4-92.672c.683-36.864 13.483-67.755 38.4-92.672s55.808-37.717 92.672-38.4c36.864.683 67.755 13.483 92.672 38.4s37.717 55.808 38.4 92.672c-.683 36.864-13.483 67.755-38.4 92.672s-55.808 37.717-92.672 38.4zm98.304-163.84h262.144c21.845 0 32.768 10.923 32.768 32.768s-10.923 32.768-32.768 32.768H479.232c-21.845 0-32.768-10.923-32.768-32.768s10.923-32.768 32.768-32.768zm163.84 425.984c18.432-.683 33.792-7.168 46.08-19.456s18.432-27.648 18.432-46.08-6.144-33.792-18.432-46.08-27.648-18.432-46.08-18.432-33.792 6.144-46.08 18.432-18.432 27.648-18.432 46.08 6.144 33.792 18.432 46.08 27.648 18.773 46.08 19.456zm0 65.536c-36.864-.683-67.755-13.483-92.672-38.4s-37.717-55.808-38.4-92.672c.683-36.864 13.483-67.755 38.4-92.672s55.808-37.717 92.672-38.4c36.864.683 67.755 13.483 92.672 38.4s37.717 55.808 38.4 92.672c-.683 36.864-13.483 67.755-38.4 92.672s-55.808 37.717-92.672 38.4zm-360.448-163.84h262.144c21.845 0 32.768 10.923 32.768 32.768s-10.923 32.768-32.768 32.768H282.624c-21.845 0-32.768-10.923-32.768-32.768s10.923-32.768 32.768-32.768z" /></symbol><symbol class="icon" viewBox="0 0 1024 1024"  id="icon-el-view"><path fill="currentColor" d="M512 160c320 0 512 352 512 352S832 864 512 864 0 512 0 512s192-352 512-352zm0 64c-225.28 0-384.128 208.064-436.8 288 52.608 79.872 211.456 288 436.8 288 225.28 0 384.128-208.064 436.8-288-52.608-79.872-211.456-288-436.8-288zm0 64a224 224 0 1 1 0 448 224 224 0 0 1 0-448zm0 64a160.192 160.192 0 0 0-160 160c0 88.192 71.744 160 160 160s160-71.808 160-160-71.744-160-160-160z" /></symbol>';
+    svgDom.innerHTML = '<symbol class="icon" viewBox="0 0 1024 1024"  id="icon-alert"><path d="M512 85.163a319.573 319.573 0 0 1 319.83 309.333l.17 10.667v174.805l58.88 134.656a53.29 53.29 0 0 1-48.853 74.71L640 789.418a128 128 0 0 1-255.787 7.509l-.213-7.637-201.6.042a53.333 53.333 0 0 1-48.939-74.581L192 580.011V405.163c0-177.28 143.019-320 320-320zm64 704.17-128 .128a64 64 0 0 0 127.701 6.144l.256-6.272zm-64-640.17c-141.653 0-256 114.09-256 256v188.16l-57.344 132.01h627.072L768 593.365V405.717l-.17-9.6A255.488 255.488 0 0 0 512 149.163zM896 352h85.333a32 32 0 0 1 4.352 63.701l-4.352.299H896a32 32 0 0 1-4.352-63.701L896 352zm-853.333 0H128a32 32 0 0 1 4.352 63.701L128 416H42.667a32 32 0 0 1-4.352-63.701l4.352-.299zm921.6-243.2a32 32 0 0 1-2.816 41.685l-3.584 3.115-85.334 64a32 32 0 0 1-41.984-48.085l3.584-3.115 85.334-64a32 32 0 0 1 44.8 6.4zm-859.734-6.4 85.334 64a32 32 0 1 1-38.4 51.2l-85.334-64a32 32 0 1 1 38.4-51.2z" /></symbol><symbol class="icon" viewBox="0 0 1024 1024"  id="icon-button"><path d="M912 176v416H732.48v-32H880V208H144v352h175.488v32H112V176z" /><path d="m436.384 788.512.544 2.688a16 16 0 0 0 27.776 5.504l44.032-54.336 56.768 97.664a16 16 0 0 0 21.792 5.856l68.672-39.392 2.368-1.664a16 16 0 0 0 3.52-20.256l-55.904-96.16 68.8-12.064a16 16 0 0 0 6.464-28.8l-256-180.64a16 16 0 0 0-25.12 14.976l36.288 306.624z" /></symbol><symbol class="icon" viewBox="0 0 1024 1024"  id="icon-card"><path d="M858.656 864H165.344C109.472 864 64 818.56 64 762.688V261.312C64 205.44 109.472 160 165.344 160h693.312C914.528 160 960 205.44 960 261.312v501.376C960 818.56 914.528 864 858.656 864zM165.344 224C144.736 224 128 240.736 128 261.312v501.376C128 783.264 144.736 800 165.344 800h693.312C879.264 800 896 783.264 896 762.688V261.312C896 240.736 879.264 224 858.656 224H165.344zM800 416H224c-17.664 0-32-14.336-32-32s14.336-32 32-32h576c17.696 0 32 14.336 32 32s-14.304 32-32 32zM320 736h-96c-17.664 0-32-14.304-32-32s14.336-32 32-32h96c17.664 0 32 14.304 32 32s-14.336 32-32 32z" /></symbol><symbol class="icon" viewBox="0 0 1024 1024"  id="icon-cascader-field"><path d="M661.377 411.07v64.595H314.175v395.654H871.32V475.665h-48.447V411.07h48.447c35.675 0 64.595 28.92 64.595 64.595v395.654c0 35.675-28.92 64.595-64.595 64.595H314.175c-35.675 0-64.6-28.92-64.6-64.595V475.665c0-35.675 28.925-64.595 64.6-64.595h347.202zm48.448-322.984c35.675 0 64.6 28.92 64.6 64.595v403.73c0 35.676-28.925 64.595-64.6 64.595H362.623v-64.594h347.202V152.68H152.68v403.73h48.447v64.595H152.68c-35.675 0-64.595-28.92-64.595-64.594V152.68c0-35.675 28.92-64.595 64.595-64.595h557.144z" /></symbol><symbol class="icon" viewBox="0 0 1024 1024"  id="icon-checkbox-field"><path d="M897.94 896.77c6.259-6.278 10.257-14.835 10.257-24.531V147.672c0-9.118-3.998-18.235-10.257-24.533-6.277-6.258-14.815-9.696-24.51-9.696H149.644c-9.688 0-18.236 3.437-24.503 9.696-6.268 6.297-9.687 15.414-9.687 24.533V872.24c0 9.696 3.42 18.253 9.687 24.53 6.267 6.278 14.815 10.276 24.503 10.276h723.784c9.697 0 18.234-3.998 24.511-10.276zM149.645 61.52h723.784c23.933 0 45.586 9.697 60.98 25.111 15.397 15.974 25.073 37.666 25.073 61.04v724.567c0 23.97-9.676 45.643-25.073 61.056-15.394 15.396-37.047 25.093-60.98 25.093H149.645c-23.364 0-45.017-9.697-60.972-25.093-15.396-15.414-25.082-37.087-25.082-61.056V147.672c0-23.374 9.686-45.065 25.082-61.039 15.955-15.415 37.608-25.112 60.972-25.112z" /><path d="M417.42 698.27a23.556 23.556 0 0 1-16.668-6.9L259.5 550.12c-9.173-9.15-9.173-24.095 0-33.291 9.17-9.147 24.115-9.147 33.288 0l124.583 124.607 312.895-312.917c9.194-9.172 24.14-9.172 33.288 0 9.196 9.172 9.196 24.116 0 33.29L433.992 691.37c-4.618 4.645-10.643 6.9-16.666 6.9h.093z" /></symbol><symbol class="icon" viewBox="0 0 1024 1024"  id="icon-color-field"><path d="M619.52 490.667h-.853l-85.334-85.334h.854z" /><path d="M619.52 507.733h-.853a17.067 17.067 0 1 1 0-34.133c9.438 0 17.476 7.646 17.476 17.067s-7.185 17.066-16.623 17.066zM534.187 422.4c-9.438 0-17.494-7.646-17.494-17.067s7.202-17.066 16.64-17.066h.854a17.067 17.067 0 1 1 0 34.133zM192 866.133a34.133 34.133 0 0 1-24.132-58.265l42.666-42.667a34.133 34.133 0 1 1 48.265 48.265l-42.667 42.666A33.963 33.963 0 0 1 192 866.133z" /><path d="m619.52 490.667-.427-.427-84.906-84.907L746.667 192H832v85.333z" /><path d="M662.187 567.467a33.997 33.997 0 0 1-24.133-10.001L467.388 386.799a34.133 34.133 0 0 1 48.281-48.282l170.667 170.667a34.133 34.133 0 0 1-24.15 58.283z" /><path d="M320 806.4h-85.333a17.067 17.067 0 0 1-17.067-17.067V704c0-4.54 1.792-8.875 5-12.066L521.695 392.84a16.52 16.52 0 0 1 3.567-2.731l209.305-210.142a17.117 17.117 0 0 1 12.1-5.018H832a17.067 17.067 0 0 1 17.067 17.067v85.333a17.067 17.067 0 0 1-4.967 12.05L631.62 502.732a17.954 17.954 0 0 1-3.618 2.782L332.066 801.434A17.135 17.135 0 0 1 320 806.4zm-68.267-34.133h61.201l294.093-294.093a16.52 16.52 0 0 1 3.567-2.73l204.34-205.16v-61.217h-61.185L546.287 417.382a17.954 17.954 0 0 1-3.618 2.782L251.733 711.066v61.2z" /></symbol><symbol class="icon" viewBox="0 0 1024 1024"  id="icon-custom-component"><path d="M811.008 335.872c-2.048-7.168-11.264-9.216-17.408-4.096L690.176 435.2c-8.192 8.192-20.48 8.192-28.672 0L588.8 362.496c-8.192-8.192-8.192-20.48 0-28.672l104.448-104.448c5.12-5.12 3.072-14.336-4.096-17.408-17.408-4.096-35.84-7.168-54.272-7.168-108.544 0-195.584 94.208-183.296 204.8 2.048 17.408 6.144 32.768 12.288 48.128L225.28 697.344c-27.648 27.648-27.648 73.728 0 101.376 14.336 14.336 32.768 21.504 51.2 21.504s36.864-7.168 51.2-21.504l238.592-238.592c15.36 6.144 31.744 10.24 48.128 12.288 111.616 12.288 204.8-74.752 204.8-183.296 0-18.432-3.072-36.864-8.192-53.248z" /></symbol><symbol class="icon" viewBox="0 0 1024 1024"  id="icon-data-table"><path d="M915.692 39.385H108.308c-15.754 0-29.539 13.784-29.539 29.538v98.462c0 15.753 13.785 29.538 29.539 29.538h807.384c15.754 0 29.539-13.785 29.539-29.538V68.923c0-15.754-13.785-29.538-29.539-29.538zM285.538 275.692h-177.23c-15.754 0-29.539 13.785-29.539 29.539v59.077c0 15.754 13.785 29.538 29.539 29.538h177.23c15.754 0 29.539-13.784 29.539-29.538V305.23c0-15.754-13.785-29.539-29.539-29.539zm315.077 0h-177.23c-15.754 0-29.539 13.785-29.539 29.539v59.077c0 15.754 13.785 29.538 29.539 29.538h177.23c15.754 0 29.539-13.784 29.539-29.538V305.23c0-15.754-13.785-29.539-29.539-29.539zm315.077 0h-177.23c-15.754 0-29.539 13.785-29.539 29.539v59.077c0 15.754 13.785 29.538 29.539 29.538h177.23c15.754 0 29.539-13.784 29.539-29.538V305.23c0-15.754-13.785-29.539-29.539-29.539zM285.538 472.615h-177.23c-15.754 0-29.539 13.785-29.539 29.539v59.077c0 15.754 13.785 29.538 29.539 29.538h177.23c15.754 0 29.539-13.784 29.539-29.538v-59.077c0-15.754-13.785-29.539-29.539-29.539zm315.077 0h-177.23c-15.754 0-29.539 13.785-29.539 29.539v59.077c0 15.754 13.785 29.538 29.539 29.538h177.23c15.754 0 29.539-13.784 29.539-29.538v-59.077c0-15.754-13.785-29.539-29.539-29.539zm315.077 0h-177.23c-15.754 0-29.539 13.785-29.539 29.539v59.077c0 15.754 13.785 29.538 29.539 29.538h177.23c15.754 0 29.539-13.784 29.539-29.538v-59.077c0-15.754-13.785-29.539-29.539-29.539zM285.538 669.538h-177.23c-15.754 0-29.539 13.785-29.539 29.539v59.077c0 15.754 13.785 29.538 29.539 29.538h177.23c15.754 0 29.539-13.784 29.539-29.538v-59.077c0-15.754-13.785-29.539-29.539-29.539zm315.077 0h-177.23c-15.754 0-29.539 13.785-29.539 29.539v59.077c0 15.754 13.785 29.538 29.539 29.538h177.23c15.754 0 29.539-13.784 29.539-29.538v-59.077c0-15.754-13.785-29.539-29.539-29.539zm315.077 0h-177.23c-15.754 0-29.539 13.785-29.539 29.539v59.077c0 15.754 13.785 29.538 29.539 29.538h177.23c15.754 0 29.539-13.784 29.539-29.538v-59.077c0-15.754-13.785-29.539-29.539-29.539zM285.538 866.462h-177.23c-15.754 0-29.539 13.784-29.539 29.538v59.077c0 15.754 13.785 29.538 29.539 29.538h177.23c15.754 0 29.539-13.784 29.539-29.538V896c0-15.754-13.785-29.538-29.539-29.538zm315.077 0h-177.23c-15.754 0-29.539 13.784-29.539 29.538v59.077c0 15.754 13.785 29.538 29.539 29.538h177.23c15.754 0 29.539-13.784 29.539-29.538V896c0-15.754-13.785-29.538-29.539-29.538zm315.077 0h-177.23c-15.754 0-29.539 13.784-29.539 29.538v59.077c0 15.754 13.785 29.538 29.539 29.538h177.23c15.754 0 29.539-13.784 29.539-29.538V896c0-15.754-13.785-29.538-29.539-29.538z" /></symbol><symbol class="icon" viewBox="0 0 1132 1024"  id="icon-date-field"><path d="M1023.995 1023.995H107.789C48.262 1023.995 0 975.732 0 916.205V188.63C0 129.105 48.262 80.843 107.789 80.843h80.842v53.894h-80.842c-29.777 0-53.895 24.118-53.895 53.895V296.42H1077.89V188.63c0-29.776-24.117-53.894-53.894-53.894h-80.842V80.842h80.842c59.526 0 107.789 48.262 107.789 107.789v727.575c0 59.526-48.263 107.789-107.79 107.789Zm53.894-673.681H53.894v565.892c0 29.777 24.118 53.894 53.895 53.894h916.206c29.777 0 53.894-24.117 53.894-53.894V350.314ZM794.943 628.086l-3.584 5.632c-3.314 6.306-7.087 12.153-11.237 17.731L646.734 861.476H589.12l98.358-160.875c-.108 0-.216.027-.324.027-66.963 0-121.262-60.335-121.262-134.736 0-74.401 54.299-134.736 121.262-134.736 66.964 0 121.263 60.335 121.263 134.736 0 22.42-5.39 43.25-14.12 61.844l.646.35ZM687.154 485.05c-37.214 0-67.368 36.19-67.368 80.842 0 44.651 30.154 80.842 67.368 80.842 19.052 0 36.164-9.567 48.425-24.819l9.781-16.006c5.66-11.83 9.163-25.385 9.163-40.017 0-44.652-30.154-80.842-67.369-80.842Zm-310.216 21.881-80.734 72.327v-66.991l82.405-80.41h52.062v429.727h-53.733V506.93Zm512.32-291.353c-14.874 0-26.947-12.072-26.947-26.947V26.947C862.311 12.072 874.384 0 889.26 0s26.947 12.072 26.947 26.947v161.684c0 14.875-12.072 26.947-26.947 26.947ZM296.42 80.842h538.944v53.894H296.42V80.842Zm-53.895 134.736c-14.875 0-26.947-12.072-26.947-26.947V26.947C215.578 12.072 227.65 0 242.525 0s26.947 12.072 26.947 26.947v161.684c0 14.875-12.072 26.947-26.947 26.947Z" /></symbol><symbol class="icon" viewBox="0 0 1024 1024"  id="icon-date-range-field"><path d="M887.467 192.853H786.773v-73.386c0-10.24-6.826-17.067-17.066-17.067s-17.067 6.827-17.067 17.067v73.386H303.787v-73.386c0-10.24-6.827-17.067-17.067-17.067s-17.067 6.827-17.067 17.067v73.386H168.96c-46.08 0-85.333 37.547-85.333 85.334v558.08c0 46.08 37.546 85.333 85.333 85.333h718.507c46.08 0 85.333-37.547 85.333-85.333v-558.08c0-47.787-37.547-85.334-85.333-85.334zM168.96 226.987h100.693v66.56c0 10.24 6.827 17.066 17.067 17.066s17.067-6.826 17.067-17.066v-66.56h450.56v66.56c0 10.24 6.826 17.066 17.066 17.066s17.067-6.826 17.067-17.066v-66.56h98.987c27.306 0 51.2 22.186 51.2 51.2v88.746H117.76v-88.746c0-29.014 22.187-51.2 51.2-51.2zm718.507 660.48H168.96c-27.307 0-51.2-22.187-51.2-51.2v-435.2h820.907v435.2c0 27.306-22.187 51.2-51.2 51.2z" /><path d="M858.453 493.227H327.68c-10.24 0-17.067 6.826-17.067 17.066V624.64H194.56c-10.24 0-17.067 6.827-17.067 17.067v133.12c0 10.24 6.827 17.066 17.067 17.066H460.8c10.24 0 17.067-6.826 17.067-17.066V660.48h380.586c10.24 0 17.067-6.827 17.067-17.067v-133.12c0-10.24-6.827-17.066-17.067-17.066zM445.44 527.36v97.28h-98.987v-97.28h98.987zm-230.4 131.413h98.987v98.987H215.04v-98.987zm131.413 97.28v-97.28h98.987v97.28h-98.987zm133.12-228.693h97.28v98.987h-97.28V527.36zm131.414 0h98.986v98.987h-98.986V527.36zm230.4 97.28H742.4v-98.987h98.987v98.987z" /></symbol><symbol class="icon" viewBox="0 0 1024 1024"  id="icon-divider"><path d="M62.5 491.773h899v74.918h-899v-74.918z" /></symbol><symbol class="icon" viewBox="0 0 1024 1024"  id="icon-document"><path d="M979.478 706.382a44.522 44.522 0 0 1-11.843 57.967l-4.363 2.85L569.478 995.06l-5.388 4.764a84.013 84.013 0 0 1-43.943 17.808l-8.102.401c-19.056 0-37.31-6.545-52.046-18.254l-5.432-4.72L60.817 767.2a44.522 44.522 0 0 1-18.61-56.187l2.36-4.63a44.522 44.522 0 0 1 60.816-16.25l405.326 234.54 1.336 1.514 1.335-1.514 405.282-234.54a44.522 44.522 0 0 1 60.86 16.25zm0-222.609a44.522 44.522 0 0 1-11.843 57.968l-4.363 2.849-393.794 227.862-5.388 4.764a84.013 84.013 0 0 1-43.943 17.809l-8.102.4c-19.056 0-37.31-6.544-52.046-18.254l-5.432-4.719L60.817 544.59a44.522 44.522 0 0 1-18.61-56.187l2.36-4.63a44.522 44.522 0 0 1 60.816-16.25l405.326 234.54 1.336 1.514 1.335-1.514 405.282-234.54a44.522 44.522 0 0 1 60.86 16.25zM512 0c18.788 0 36.864 6.1 51.645 17.185l4.586 3.74 403.5 199.68 5.61 6.144c32.501 35.44 32.501 89.89 0 125.329l-5.61 6.144-403.5 199.59-4.541 3.785a86.239 86.239 0 0 1-43.676 16.83l-8.014.356c-18.788 0-36.864-6.1-51.645-17.186l-4.63-3.784L52.269 358.222l-5.61-6.144a92.739 92.739 0 0 1 0-125.329l5.61-6.144 403.456-199.68 4.585-3.74C473 7.702 488.136 1.87 503.986.356z" fill="#008df0" /></symbol><symbol class="icon" viewBox="0 0 1024 1024"  id="icon-drag"><path d="M574.958 267.016h-63.454 204.649L511.213 63.655 307.85 267.016h141.191V456.68H258.688v125.917H449.04V772.95h125.917V582.596h188.875V456.679H574.958V267.016zm-63.704 693.33 189.62-187.396H323.126l188.129 187.395zM71.292 518.891l187.395 189.62v-377.75L71.292 518.892zm692.54-188.13v377.75L952.708 518.89 763.833 330.762z" /></symbol><symbol class="icon" viewBox="0 0 1024 1024"  id="icon-dropdown"><path d="M787.692 157.538a78.77 78.77 0 0 1 78.77 78.77v551.384a78.77 78.77 0 0 1-78.77 78.77H236.308a78.77 78.77 0 0 1-78.77-78.77V236.308a78.77 78.77 0 0 1 78.77-78.77h551.384zm0 31.508H236.308a47.262 47.262 0 0 0-47.026 42.417l-.236 4.845v551.384a47.262 47.262 0 0 0 42.417 47.026l4.845.236h551.384a47.262 47.262 0 0 0 47.026-42.417l.236-4.845V236.308a47.262 47.262 0 0 0-42.417-47.026l-4.845-.236zM365.883 417.36l2.481 2.008L512.197 563.2l143.675-143.675a15.754 15.754 0 0 1 19.81-2.009l2.482 2.009a15.754 15.754 0 0 1 2.008 19.81l-2.008 2.482-154.821 154.781a15.754 15.754 0 0 1-19.81 2.048l-2.482-2.008-154.978-154.979a15.754 15.754 0 0 1 19.81-24.3z" /></symbol><symbol class="icon" viewBox="0 0 1024 1024"  id="icon-file-upload-field"><path d="m676.48 72.96 209.92 211.2 9.6 23.04V928l-32 32H160l-32-32V96l32-32h494.08l22.4 8.96zM640 320h192L640 128v192zM192 128v768h640V384H608l-32-32V128H192zm512 320H320v64h384v-64zM320 576h384v64H320v-64zm384 128H320v64h384v-64z" /></symbol><symbol class="icon" viewBox="0 0 1024 1024"  id="icon-github"><path d="M512 0C229.284 0 .142 234.943.142 524.868c0 231.829 146.647 428.553 350.068 497.952 25.593 4.82 34.977-11.389 34.977-25.294 0-12.455-.469-45.47-.725-89.277-142.382 31.735-172.453-70.38-172.453-70.38-23.247-60.57-56.817-76.694-56.817-76.694-46.493-32.588 3.54-31.948 3.54-31.948 51.357 3.71 78.358 54.086 78.358 54.086 45.683 80.191 119.817 57.072 148.993 43.594 4.65-33.911 17.915-57.03 32.503-70.168-113.675-13.223-233.151-58.224-233.151-259.341 0-57.285 19.92-104.163 52.678-140.846-5.246-13.266-22.82-66.627 4.991-138.884 0 0 42.996-14.076 140.76 53.787 40.864-11.644 84.628-17.445 128.179-17.659 43.465.214 87.271 6.015 128.135 17.66 97.68-67.907 140.59-53.788 140.59-53.788 27.939 72.257 10.408 125.618 5.119 138.884 32.844 36.683 52.593 83.56 52.593 140.846 0 201.587-119.647 245.99-233.663 258.957 18.341 16.21 34.72 48.2 34.72 97.21 0 70.168-.639 126.728-.639 143.96 0 14.034 9.214 30.371 35.19 25.21 203.25-69.528 349.77-266.124 349.77-497.867C1023.858 234.943 794.674 0 512 0" fill="#3E75C3" /></symbol><symbol class="icon" viewBox="0 0 1024 1024"  id="icon-grid-sub-form"><defs><style>@font-face{font-family:feedback-iconfont;src:url(//at.alicdn.com/t/font_1031158_u69w8yhxdu.woff2?t=1630033759944) format("woff2"),url(//at.alicdn.com/t/font_1031158_u69w8yhxdu.woff?t=1630033759944) format("woff"),url(//at.alicdn.com/t/font_1031158_u69w8yhxdu.ttf?t=1630033759944) format("truetype")}</style></defs><path d="M448 768h128V640H448v128zM256 384h128V256H256v128zm192 192h128V448H448v128zM256 768h128V640H256v128zm0-192h128V448H256v128zM832 0H192A192 192 0 0 0 0 192v640c0 105.984 85.952 192 192 192h640c105.984 0 192-86.016 192-192V192C1024 85.952 937.984 0 832 0zm64 832c0 35.392-28.608 64-64 64H192a64 64 0 0 1-64-64V192c0-35.328 28.672-64 64-64h640a64 64 0 0 1 64 64v640zM640 576h128V448H640v128zm0-192h128V256H640v128zm-192 0h128V256H448v128zm192 384h128V640H640v128z" /></symbol><symbol class="icon" viewBox="0 0 1024 1024"  id="icon-grid"><path d="M819.354 921.6h102.4V819.2h-102.4v102.4zm102.4-204.8h-102.4a102.4 102.4 0 0 0-102.4 102.4v102.4a102.4 102.4 0 0 0 102.4 102.4h102.4a102.4 102.4 0 0 0 102.4-102.4V819.2a102.4 102.4 0 0 0-102.4-102.4zm-460.8 204.8h102.4V819.2h-102.4v102.4zm102.4-204.8h-102.4a102.4 102.4 0 0 0-102.4 102.4v102.4a102.4 102.4 0 0 0 102.4 102.4h102.4a102.4 102.4 0 0 0 102.4-102.4V819.2a102.4 102.4 0 0 0-102.4-102.4zm-460.8 204.8h102.4V819.2h-102.4v102.4zm102.4-204.8h-102.4A102.4 102.4 0 0 0 .154 819.2v102.4a102.4 102.4 0 0 0 102.4 102.4h102.4a102.4 102.4 0 0 0 102.4-102.4V819.2a102.4 102.4 0 0 0-102.4-102.4zm614.4-153.6h102.4V460.8h-102.4v102.4zm102.4-204.8h-102.4a102.4 102.4 0 0 0-102.4 102.4v102.4a102.4 102.4 0 0 0 102.4 102.4h102.4a102.4 102.4 0 0 0 102.4-102.4V460.8a102.4 102.4 0 0 0-102.4-102.4zm-460.8 204.8h102.4V460.8h-102.4v102.4zm102.4-204.8h-102.4a102.4 102.4 0 0 0-102.4 102.4v102.4a102.4 102.4 0 0 0 102.4 102.4h102.4a102.4 102.4 0 0 0 102.4-102.4V460.8a102.4 102.4 0 0 0-102.4-102.4zm-460.8 204.8h102.4V460.8h-102.4v102.4zm102.4-204.8h-102.4A102.4 102.4 0 0 0 .154 460.8v102.4a102.4 102.4 0 0 0 102.4 102.4h102.4a102.4 102.4 0 0 0 102.4-102.4V460.8a102.4 102.4 0 0 0-102.4-102.4zm614.4-153.6h102.4V102.4h-102.4v102.4zM921.754 0h-102.4a102.4 102.4 0 0 0-102.4 102.4v102.4a102.4 102.4 0 0 0 102.4 102.4h102.4a102.4 102.4 0 0 0 102.4-102.4V102.4A102.4 102.4 0 0 0 921.754 0zm-460.8 204.8h102.4V102.4h-102.4v102.4zM563.354 0h-102.4a102.4 102.4 0 0 0-102.4 102.4v102.4a102.4 102.4 0 0 0 102.4 102.4h102.4a102.4 102.4 0 0 0 102.4-102.4V102.4A102.4 102.4 0 0 0 563.354 0zm-460.8 204.8h102.4V102.4h-102.4v102.4zM204.954 0h-102.4A102.4 102.4 0 0 0 .154 102.4v102.4a102.4 102.4 0 0 0 102.4 102.4h102.4a102.4 102.4 0 0 0 102.4-102.4V102.4A102.4 102.4 0 0 0 204.954 0z" /></symbol><symbol class="icon" viewBox="0 0 1024 1024"  id="icon-html-text"><path d="m137.6 512 204.8-204.8c12.8-12.8 12.8-32 0-44.8-12.8-12.8-32-12.8-44.8 0L70.4 489.6c-6.4 6.4-9.6 12.8-9.6 22.4 0 9.6 3.2 16 9.6 22.4l227.2 227.2c12.8 12.8 32 12.8 44.8 0 12.8-12.8 12.8-32 0-44.8L137.6 512zm464-339.2c-16-3.2-35.2 6.4-38.4 22.4L396.8 812.8c-3.2 16 6.4 35.2 22.4 38.4 16 3.2 35.2-6.4 38.4-22.4L624 211.2c6.4-16-3.2-35.2-22.4-38.4zm352 316.8L726.4 262.4c-12.8-12.8-32-12.8-44.8 0-12.8 12.8-12.8 32 0 44.8L886.4 512 681.6 716.8c-12.8 12.8-12.8 32 0 44.8 12.8 12.8 32 12.8 44.8 0l227.2-227.2c6.4-6.4 9.6-16 9.6-22.4 0-9.6-3.2-16-9.6-22.4z" /></symbol><symbol class="icon" viewBox="0 0 1024 1024"  id="icon-node-tree"><path d="M332.48 500.864a25.6 25.6 0 1 0 0-51.2H192.384v-184.96a115.2 115.2 0 0 0 89.6-112.128c0-63.488-51.712-115.2-115.2-115.2s-115.2 51.712-115.2 115.2a115.2 115.2 0 0 0 89.6 112.128v696.192a25.6 25.6 0 1 0 51.2 0v-141.12c2.304.192 4.48.512 6.912.512H332.48a25.6 25.6 0 1 0 0-51.2H199.296c-3.456 0-5.504-.448-6.08-.256a29.184 29.184 0 0 1-.896-8.576V500.8h140.16zM102.784 152.64c0-35.264 28.736-64 64-64s64 28.736 64 64-28.736 64-64 64-64-28.736-64-64zm818.432 207.424h-486.4c-28.224 0-51.2 22.976-51.2 51.2v128c0 28.224 22.976 51.2 51.2 51.2h486.4c28.224 0 51.2-22.976 51.2-51.2v-128c0-28.224-22.976-51.2-51.2-51.2zm-486.336 179.2v-128h486.4v128h-486.4zm486.336 140.352h-486.4c-28.224 0-51.2 22.976-51.2 51.2v128c0 28.224 22.976 51.2 51.2 51.2h486.4c28.224 0 51.2-22.976 51.2-51.2v-128c0-28.224-22.976-51.2-51.2-51.2zm-486.336 179.2v-128h486.4v128h-486.4z" /></symbol><symbol class="icon" viewBox="0 0 1024 1024"  id="icon-number-field"><path d="M960 1024H64a64 64 0 0 1-64-64V64A64 64 0 0 1 64 0h896a64 64 0 0 1 64 64v896a64 64 0 0 1-64 64zm0-896a64 64 0 0 0-64-64H128a64 64 0 0 0-64 64v768a64 64 0 0 0 64 64h768a64 64 0 0 0 64-64V128zM832 768H704a64 64 0 0 1 0-128h64v-64h-64a64 64 0 0 1 0-128h64v-64h-64a64 64 0 0 1 0-128h128a64 64 0 0 1 64 64v384a64 64 0 0 1-64 64zM512 640a64 64 0 0 1 0 128H384a64 64 0 0 1-64-64V512a64 64 0 0 1 64-64h64v-64h-64a64 64 0 0 1 0-128h128a64 64 0 0 1 64 64v192a64 64 0 0 1-64 64h-64v64h64zM192 768a64 64 0 0 1-64-64V320a64 64 0 0 1 128 0v384a64 64 0 0 1-64 64z" /></symbol><symbol class="icon" viewBox="0 0 1024 1024"  id="icon-picture-upload-field"><path d="M896 1024H128C57.312 1024 0 966.688 0 896V128C0 57.312 57.312 0 128 0h768c70.688 0 128 57.312 128 128v768c0 70.688-57.312 128-128 128zm0-64c35.328 0 64-28.672 64-64V639.968l-192-192L494.816 721.12 730.624 960H896zM64 896c0 35.328 28.672 64 64 64h512.032L318.24 638.208 64 865.952V896zm896-768c0-35.328-28.672-64-64-64H128c-35.328 0-64 28.672-64 64v650.752L320 544l129.856 131.552L768 352l192 196.096V128zM256 384c-70.688 0-128-57.312-128-128s57.312-128 128-128 128 57.312 128 128-57.312 128-128 128zm0-192c-35.328 0-64 28.672-64 64s28.672 64 64 64 64-28.672 64-64-28.672-64-64-64z" /></symbol><symbol class="icon" viewBox="0 0 1024 1024"  id="icon-radio-field"><path d="M512 65.983C266.08 65.983 65.983 266.08 65.983 512c0 245.952 200.065 446.017 446.017 446.017S958.017 757.952 958.017 512c0-245.92-200.065-446.017-446.017-446.017zm0 828.034c-210.656 0-382.017-171.392-382.017-382.017 0-210.656 171.36-382.017 382.017-382.017 210.625 0 382.017 171.36 382.017 382.017 0 210.625-171.392 382.017-382.017 382.017zM512 352C423.776 352 352 423.776 352 512s71.774 160 160 160 160-71.774 160-160-71.776-160-160-160z" /></symbol><symbol class="icon" viewBox="0 0 1069 1024"  id="icon-rate-field"><path d="m633.73 378.02 9.498 18.688 20.78 2.798 206.616 27.332a11.465 11.465 0 0 1 6.61 19.473L729.966 593.665l-14.893 14.893 3.8 20.683 37.847 204.89a11.465 11.465 0 0 1-16.481 12.296l-185.55-94.58-18.687-9.493-18.487 9.992-183.24 99.35a11.465 11.465 0 0 1-16.784-11.867l32.543-205.796 3.297-20.786-15.192-14.492-151.033-143.484a11.465 11.465 0 0 1 6.1-19.64L399 402.998l20.786-3.296 9.092-18.98 89.713-188.078a11.465 11.465 0 0 1 20.569-.263l94.568 185.635zM496.647 85.52 374.89 340.501l-279.126 44.26a34.395 34.395 0 0 0-18.303 58.908l204.873 194.663-44.169 279.115a34.395 34.395 0 0 0 50.366 35.616l248.4-134.679L788.776 946.66a34.395 34.395 0 0 0 49.437-36.894l-51.306-277.854 199.731-199.909a34.395 34.395 0 0 0-19.828-58.408l-280.118-37.032L558.33 84.713a34.395 34.395 0 0 0-61.682.802z" /></symbol><symbol class="icon" viewBox="0 0 1024 1024"  id="icon-redo"><path d="M412.081 346.3h443.415L640.168 133.871c-18.973-18.973-18.973-46.064 0-65.038s44.325-19.884 63.381-.83l291.385 284.591c18.973 18.973 18.973 44.159 0 63.132L703.549 700.649c-18.973 18.973-44.325 18.973-63.381-.083-18.973-18.973-18.973-43.91 0-62.883l215.328-208.534H412.081c-177.3 0-314.335 138.359-314.335 309.364v44.325c0 25.354-16.074 44.325-41.425 44.325s-41.425-18.973-41.425-44.325v-44.325c0-221.709 169.181-392.213 397.185-392.213z" /></symbol><symbol class="icon" viewBox="0 0 1024 1024"  id="icon-rich-editor-field"><path d="M313.36 448.094H632.63v31.927H313.36v-31.927ZM313.36 583.784h223.49v31.927H313.36v-31.927ZM313.36 719.474h127.709v31.927h-127.71v-31.927ZM889.412 554.809l-39.955-39.971-39.957-39.941c-7.358-7.358-19.285-7.358-26.642 0l-329.7 329.694a14.08 14.08 0 0 0-4.592 6.873L412.078 932.86a14.158 14.158 0 0 0 3.54 14.079l.99.763.77.982a14.174 14.174 0 0 0 14.062 3.555l121.395-36.495a14.04 14.04 0 0 0 6.938-4.677l329.639-329.63c7.35-7.343 7.35-19.284 0-26.627zM541.136 889.756l-95.198 28.622 28.623-95.235 255.02-255.02 66.6 66.599-255.045 255.034zM856.112 574.78l-46.611 46.611-66.59-66.598 46.605-46.597c3.677-3.68 9.641-3.68 13.319-.016l26.892 26.892 26.384 26.394c3.68 3.68 3.68 9.65.001 13.314z" /><path d="M671.874 224.898v-28.934c0-22.004-17.905-39.909-39.909-39.909H314.026c-22.004 0-39.909 17.905-39.909 39.91v28.933h-104.43v643.564c0 35.26 28.592 63.854 63.855 63.854h127.709v-47.89H249.506c-17.632 0-31.928-14.299-31.928-31.928v-579.71h56.54v10.976c0 22.004 17.904 39.909 39.908 39.909h317.938c22.004 0 39.91-17.905 39.91-39.91V272.79h56.538V437.45h47.89V224.898H671.875zm-47.89 50.884H322.007v-71.836h301.974v71.836z" /></symbol><symbol class="icon" viewBox="0 0 1024 1024"  id="icon-section"><path d="M141.074 906.496h741.852c89.581 0 134.583-44.562 134.583-132.846V250.331c0-88.283-45.002-132.845-134.583-132.845H141.074c-89.143.018-134.583 44.16-134.583 132.845V773.67c0 88.704 45.44 132.845 134.583 132.845zm1.28-68.992c-42.861 0-66.852-22.71-66.852-67.291V253.806c0-44.58 23.99-67.292 66.852-67.292h739.292c42.423 0 66.852 22.711 66.852 67.292v516.388c0 44.58-24.43 67.292-66.852 67.292z" /></symbol><symbol class="icon" viewBox="0 0 1024 1024"  id="icon-select-field"><path d="M374.784 649.515a32 32 0 0 1 3.072 41.685l-3.115 3.584L225.28 843.947a32 32 0 0 1-37.845 5.504l-3.968-2.56-85.334-64a32 32 0 0 1 34.432-53.76l3.968 2.56 63.147 47.36 129.835-129.622a32 32 0 0 1 45.269.043zm531.37 75.818a32 32 0 0 1 4.31 63.702l-4.31.298h-448a32 32 0 0 1-4.351-63.744l4.352-.256h448zm.513-256a32 32 0 0 1 4.352 63.702l-4.352.298h-448a32 32 0 0 1-4.352-63.701l4.352-.299h448zm-531.84-331.776a32 32 0 0 1 2.986 41.686l-3.114 3.584-149.846 149.205a32 32 0 0 1-37.888 5.419l-3.925-2.56-84.907-64a32 32 0 0 1 34.518-53.675l3.968 2.56 62.72 47.275L329.6 137.472a32 32 0 0 1 45.227.085zm531.328 75.819a32 32 0 0 1 4.309 63.701l-4.31.299H459.35a32 32 0 0 1-4.352-63.744l4.352-.256h446.806z" /></symbol><symbol class="icon" viewBox="0 0 1024 1024"  id="icon-slider-field"><path d="M951.453 476.844H523.672a131.836 131.836 0 0 0-254.18 0H72.547v70.312h196.945a131.836 131.836 0 0 0 254.18 0h427.781z" /></symbol><symbol class="icon" viewBox="0 0 1024 1024"  id="icon-slot-component"><path d="M512 102.4c-212.48 0-384 171.52-384 384s171.52 384 384 384 384-171.52 384-384-171.52-384-384-384zm25.6 716.8v-128c0-15.36-10.24-25.6-25.6-25.6s-25.6 10.24-25.6 25.6v128C322.56 806.4 192 675.84 179.2 512h128c15.36 0 25.6-10.24 25.6-25.6s-10.24-25.6-25.6-25.6h-128C192 296.96 322.56 166.4 486.4 156.16V281.6c0 15.36 10.24 25.6 25.6 25.6s25.6-10.24 25.6-25.6V156.16C701.44 168.96 832 299.52 844.8 460.8h-128c-15.36 0-25.6 10.24-25.6 25.6s10.24 25.6 25.6 25.6h128C832 675.84 701.44 806.4 537.6 819.2z" /></symbol><symbol class="icon" viewBox="0 0 1024 1024"  id="icon-slot-field"><path d="M493.969 244.87h36.285q18.031 0 18.031 18.03v217.267q0 18.031-18.031 18.031h-36.285q-18.032 0-18.032-18.031V262.901q0-18.031 18.032-18.031ZM323.45000000000005 525.802h36.286q18.031 0 18.031 18.031v217.266q0 18.031-18.031 18.031H323.45q-18.03 0-18.03-18.03V543.832q0-18.031 18.03-18.031ZM664.2639999999999 525.802h36.286q18.03 0 18.03 18.031v217.266q0 18.031-18.03 18.031h-36.286q-18.031 0-18.031-18.03V543.832q0-18.031 18.031-18.031Z" /><path d="M827.437 122.212H196.563a74.574 74.574 0 0 0-74.35 74.351v630.874a74.574 74.574 0 0 0 74.35 74.35h630.874a74.574 74.574 0 0 0 74.35-74.35V196.563a74.574 74.574 0 0 0-74.35-74.35zm52.09 705.225a52.09 52.09 0 0 1-52.09 52.09H196.563a52.09 52.09 0 0 1-52.09-52.09V196.563a52.09 52.09 0 0 1 52.09-52.09h630.874a52.09 52.09 0 0 1 52.09 52.09z" /></symbol><symbol class="icon" viewBox="0 0 1024 1024"  id="icon-static-text"><path d="M213.333 160c-4.821 0-9.472.64-13.824 1.792a32 32 0 0 1-16.554-61.824C192.683 97.408 202.88 96 213.333 96h33.195a32 32 0 0 1 0 64h-33.195zm133.931-32a32 32 0 0 1 32-32h66.347a32 32 0 1 1 0 64h-66.304a32 32 0 0 1-32-32zm199.125 0a32 32 0 0 1 32-32h66.347a32 32 0 0 1 0 64h-66.347a32 32 0 0 1-32-32zm199.083 0a32 32 0 0 1 32-32h33.195c10.453 0 20.65 1.365 30.378 3.968a32 32 0 1 1-16.554 61.867A53.419 53.419 0 0 0 810.667 160h-33.195a32 32 0 0 1-32-32zm-606.293 32.341a32 32 0 0 1 22.613 39.168A53.461 53.461 0 0 0 160 213.333v33.195a32 32 0 0 1-64 0v-33.195c0-10.453 1.365-20.65 3.968-30.378a32 32 0 0 1 39.168-22.614zm745.685 0a32 32 0 0 1 39.168 22.614c2.56 9.728 3.968 19.925 3.968 30.378v33.195a32 32 0 0 1-64 0v-33.195c0-4.821-.64-9.472-1.792-13.824a32 32 0 0 1 22.613-39.168zM128 347.221a32 32 0 0 1 32 32v66.39a32 32 0 1 1-64 0v-66.304a32 32 0 0 1 32-32zm768 0a32 32 0 0 1 32 32v66.39a32 32 0 1 1-64 0v-66.304a32 32 0 0 1 32-32zM128 546.432a32 32 0 0 1 32 32v66.347a32 32 0 0 1-64 0v-66.347a32 32 0 0 1 32-32zm768 0a32 32 0 0 1 32 32v66.347a32 32 0 0 1-64 0v-66.347a32 32 0 0 1 32-32zm0 199.083a32 32 0 0 1 32 32v33.152c0 10.453-1.365 20.65-3.968 30.378a32 32 0 1 1-61.867-16.554c1.195-4.352 1.835-8.96 1.835-13.824v-33.195a32 32 0 0 1 32-32zm-768 0a32 32 0 0 1 32 32v33.152c0 4.821.64 9.472 1.792 13.824a32 32 0 0 1-61.824 16.512A117.461 117.461 0 0 1 96 810.667v-33.195a32 32 0 0 1 32-32zm32.341 139.392a32 32 0 0 1 39.168-22.656 53.814 53.814 0 0 0 13.824 1.792h33.195a32 32 0 0 1 0 64h-33.195c-10.453 0-20.65-1.366-30.378-3.968a32 32 0 0 1-22.614-39.168zm703.318 0a32 32 0 0 1-22.614 39.168c-9.728 2.56-19.925 3.968-30.378 3.968h-33.195a32 32 0 0 1 0-64h33.195c4.821 0 9.472-.64 13.824-1.792a32 32 0 0 1 39.168 22.613zM347.307 896a32 32 0 0 1 32-32h66.346a32 32 0 1 1 0 64h-66.346a32 32 0 0 1-32-32zm199.125 0a32 32 0 0 1 32-32h66.347a32 32 0 0 1 0 64h-66.347a32 32 0 0 1-32-32zM341.333 352a32 32 0 0 0 0 64H480v266.667a32 32 0 0 0 64 0V416h138.667a32 32 0 0 0 0-64H341.333z" /></symbol><symbol class="icon" viewBox="0 0 1024 1024"  id="icon-sub-form"><path d="M512 106.667H112a5.333 5.333 0 0 0-5.333 5.333v800a5.333 5.333 0 0 0 5.333 5.333h800a5.333 5.333 0 0 0 5.333-5.333V112a5.333 5.333 0 0 0-5.333-5.333zm0 74.666h325.333a5.333 5.333 0 0 1 5.334 5.334v160a5.333 5.333 0 0 1-5.334 5.333H186.667a5.333 5.333 0 0 1-5.334-5.333v-160a5.333 5.333 0 0 1 5.334-5.334zM597.333 432v405.333a5.333 5.333 0 0 1-5.333 5.334H432a5.333 5.333 0 0 1-5.333-5.334V432a5.333 5.333 0 0 1 5.333-5.333h160a5.333 5.333 0 0 1 5.333 5.333zm-410.666-5.333h160A5.333 5.333 0 0 1 352 432v405.333a5.333 5.333 0 0 1-5.333 5.334h-160a5.333 5.333 0 0 1-5.334-5.334V432a5.333 5.333 0 0 1 5.334-5.333zM672 837.333V432a5.333 5.333 0 0 1 5.333-5.333h160a5.333 5.333 0 0 1 5.334 5.333v405.333a5.333 5.333 0 0 1-5.334 5.334h-160a5.333 5.333 0 0 1-5.333-5.334z" /></symbol><symbol class="icon" viewBox="0 0 1024 1024"  id="icon-switch-field"><path d="M692 792H332C182 792 62 672 62 522s120-270 270-270h360c150 0 270 120 270 270 0 147-120 270-270 270zM332 312c-117 0-210 93-210 210s93 210 210 210h360c117 0 210-93 210-210s-93-210-210-210H332z" /><path d="M191 522a150 150 0 1 0 300 0 150 150 0 1 0-300 0z" /></symbol><symbol class="icon" viewBox="0 0 1024 1024"  id="icon-tab"><path d="M908.8 1005.44H115.2A101.76 101.76 0 0 1 14.08 903.68V110.72A101.76 101.76 0 0 1 115.2 8.96h296.96a32.64 32.64 0 0 1 32 32V262.4a32 32 0 0 1-32 32 32 32 0 0 1-32-32v-192H115.2a37.76 37.76 0 0 0-37.12 37.76v795.52a37.76 37.76 0 0 0 37.12 37.76h793.6a37.76 37.76 0 0 0 37.12-37.76V267.52a32 32 0 0 1 32-32 32 32 0 0 1 32 32v636.16a101.76 101.76 0 0 1-101.12 101.76z" /><path d="M977.92 299.52a32.64 32.64 0 0 1-32-32v-87.04a37.12 37.12 0 0 0-37.12-37.76H421.12a32 32 0 0 1-32-32 32 32 0 0 1 32-32H908.8a101.76 101.76 0 0 1 101.12 101.76v87.04a32 32 0 0 1-32 32z" /><path d="M977.92 299.52H64a32 32 0 0 1-32-32 32 32 0 0 1 32-32h913.92a32 32 0 0 1 32 32 32 32 0 0 1-32 32z" /><path d="M699.52 299.52a32 32 0 0 1-32-32v-156.8a32 32 0 0 1 64 0v156.8a32 32 0 0 1-32 32z" /></symbol><symbol class="icon" viewBox="0 0 1024 1024"  id="icon-table"><path d="M925.586 0H101.369C69.885 0 42.24 28.924 42.24 62.328v902.8c0 33.403 27.645 58.872 59.129 58.872h824.217c31.484 0 56.057-25.469 56.057-58.873V62.328C981.643 28.924 957.198 0 925.586 0zM373.719 735.908V543.932h276.445v191.976zm276.445 42.235v203.494H373.719V778.143zm287.964-276.446h-244.45V298.203h244.45zm-287.964 0H373.719V298.203h276.445zm-319.96 0H85.754V298.203h244.45zm-244.45 42.235h244.45v191.976H85.754zm607.925 0h244.449v191.976h-244.45zM101.369 42.235h824.217c7.807 0 12.542 10.366 12.542 20.093v193.64H85.755V62.328c0-9.727 7.807-20.093 15.614-20.093zM85.755 964.999V778.143h244.449v203.494H101.369c-7.807 0-15.614-6.91-15.614-16.51zm839.83 16.638H693.68V778.143h244.449v186.856c0 9.727-4.607 16.638-12.542 16.638z" /></symbol><symbol class="icon" viewBox="0 0 1024 1024"  id="icon-text-field"><path d="M896 224H128c-35.2 0-64 28.8-64 64v448c0 35.2 28.8 64 64 64h768c35.2 0 64-28.8 64-64V288c0-35.2-28.8-64-64-64zm0 480c0 19.2-12.8 32-32 32H160c-19.2 0-32-12.8-32-32V320c0-19.2 12.8-32 32-32h704c19.2 0 32 12.8 32 32v384z" /><path d="M224 352c-19.2 0-32 12.8-32 32v256c0 16 12.8 32 32 32s32-12.8 32-32V384c0-16-12.8-32-32-32z" /></symbol><symbol class="icon" viewBox="0 0 1024 1024"  id="icon-textarea-field"><path d="M896.4 173.1H128.9c-35.2 0-49 13.8-49 49v575.6c0 35.2 13.8 49 49 49h767.5c35.2 0 49-13.8 49-49V222.1c0-35.2-13.8-49-49-49zm0 592.6c0 16-12.8 32-32 32H160.9c-19.2 0-32-12.8-32-32V254.1c0-16 12.8-32 32-32h703.5c19.2 0 32 12.8 32 32v511.6z" /><path d="M710.2 766.7h141.5c8.1 0 14.7-6.6 14.7-14.7V610.4c0-1.3-1.6-2-2.6-1.1L709.1 764.1c-1 1-.3 2.6 1.1 2.6zm-503-172.4h-13.5c-10 0-18.2-8.2-18.2-18.2V291.8c0-10.2 8.4-18.6 18.6-18.6h12.8c10.2 0 18.6 8.4 18.6 18.6v284.3c-.1 10-8.3 18.2-18.3 18.2z" /></symbol><symbol class="icon" viewBox="0 0 1024 1024"  id="icon-time-field"><path d="M512 39.385A472.615 472.615 0 1 0 984.615 512 472.615 472.615 0 0 0 512 39.385zm0 866.461A393.846 393.846 0 1 1 905.846 512 393.846 393.846 0 0 1 512 905.846zm75.855-373.72A77.154 77.154 0 0 0 590.769 512a78.454 78.454 0 0 0-39.384-67.86V196.923a39.385 39.385 0 0 0-78.77 0V444.14a78.336 78.336 0 0 0 59.55 143.715l70.144 70.144a39.385 39.385 0 0 0 55.69-55.69zM512 551.385A39.385 39.385 0 1 1 551.385 512 39.385 39.385 0 0 1 512 551.385zm315.077-78.77A39.385 39.385 0 1 0 866.462 512a39.385 39.385 0 0 0-39.385-39.385zm-630.154 0A39.385 39.385 0 1 0 236.308 512a39.385 39.385 0 0 0-39.385-39.385zm509.991 234.3a39.385 39.385 0 1 0 55.69 0 39.385 39.385 0 0 0-55.69 0zM317.007 317.006a39.385 39.385 0 1 0-55.73 0 39.385 39.385 0 0 0 55.809.04zM512 787.692a39.385 39.385 0 1 0 39.385 39.385A39.385 39.385 0 0 0 512 787.692zm-250.604-80.778a39.385 39.385 0 1 0 55.69 0 39.385 39.385 0 0 0-55.69-.039zm445.518-445.518a39.385 39.385 0 1 0 55.69 0 39.385 39.385 0 0 0-55.69-.04z" /></symbol><symbol class="icon" viewBox="0 0 1024 1024"  id="icon-time-range-field"><path d="M498.596 482.29H345.42v57.308h210.478V274.197h-57.301V482.29zm79.089 162.695h379.88v57.302h-379.88v-57.302zm0 128.78h379.88v57.307h-379.88v-57.307zm0 128.785h379.88v57.307h-379.88V902.55zm0 0" /><path d="M102.523 382.29a28.668 28.668 0 0 0 23.367 2.56l190.81-61.886c15.053-4.883 23.298-21.04 18.415-36.09-4.882-15.052-21.04-23.297-36.093-18.415l-123.346 40c15.994-26.117 35.17-50.538 57.37-72.745 73.768-73.767 171.847-114.388 276.169-114.388 104.32 0 202.395 40.622 276.161 114.388S899.77 407.56 899.77 511.882c0 26.428-2.616 52.45-7.71 77.78h58.303c4.465-25.499 6.709-51.47 6.709-77.78 0-60.45-11.846-119.102-35.205-174.336-22.56-53.335-54.85-101.227-95.969-142.35-41.122-41.122-89.017-73.408-142.348-95.968-55.233-23.361-113.89-35.207-174.334-35.207-60.45 0-119.107 11.846-174.337 35.208-53.335 22.56-101.23 54.846-142.35 95.969-23.98 23.98-44.933 50.278-62.727 78.6l-20.738-105.654c-3.043-15.528-18.105-25.642-33.632-22.6-15.528 3.048-25.643 18.105-22.6 33.637l36.103 183.932a28.666 28.666 0 0 0 13.588 19.178zm23.497 205.652H67.768c5.76 33.679 15.368 66.544 28.79 98.278 22.56 53.334 54.85 101.225 95.972 142.348 41.123 41.123 89.014 73.409 142.349 95.969 54.112 22.888 111.518 34.711 170.668 35.182v-57.324c-102.95-.941-199.595-41.446-272.5-114.349-55.501-55.502-92.237-124.77-107.027-200.104zm0 0" /></symbol><symbol class="icon" viewBox="0 0 1024 1024"  id="icon-undo"><path d="M609.206 396.656H193.504l201.87-199.152c17.787-17.787 17.787-43.185 0-60.973s-41.555-18.641-59.42-.778L62.857 402.557c-17.787 17.787-17.787 41.399 0 59.186L336.03 728.858c17.787 17.787 41.555 17.787 59.42-.078 17.787-17.787 17.787-41.166 0-58.953L193.502 474.326h415.702c166.219 0 311.155 129.712 311.155 290.029v41.555c0 23.769 15.069 41.555 38.836 41.555s38.836-17.787 38.836-41.555v-41.555c0-207.852-175.073-367.7-388.828-367.7z" /></symbol><symbol class="icon" viewBox="0 0 1026 1024"  id="icon-vf-dialog"><defs><style>@font-face{font-family:"feedback-iconfont";src:url(//at.alicdn.com/t/font_1031158_u69w8yhxdu.woff2?t=1630033759944) format("woff2"),url(//at.alicdn.com/t/font_1031158_u69w8yhxdu.woff?t=1630033759944) format("woff"),url(//at.alicdn.com/t/font_1031158_u69w8yhxdu.ttf?t=1630033759944) format("truetype")}</style></defs><path d="M897.024 0q26.624 0 49.664 10.24t40.448 27.648 27.648 40.448 10.24 49.664v576.512q0 26.624-10.24 49.664t-27.648 40.448-40.448 27.648-49.664 10.24h-128v-128h63.488q26.624 0 45.568-18.432t18.944-45.056V320.512q0-26.624-18.944-45.568T832.512 256h-512q-26.624 0-45.568 18.944T256 320.512V384H128V128q0-26.624 10.24-49.664t27.648-40.448 40.448-27.648T256 0h641.024zM576.512 448.512q26.624 0 49.664 10.24t40.448 27.648 27.648 40.448 10.24 49.664v256q0 26.624-10.24 49.664t-27.648 40.448-40.448 27.648-49.664 10.24h-384q-26.624 0-50.176-10.24t-40.96-27.648-27.648-40.448-10.24-49.664v-256q0-26.624 10.24-49.664t27.648-40.448 40.96-27.648 50.176-10.24h384zm0 256q0-26.624-18.944-45.056T512 641.024H256q-26.624 0-45.056 18.432t-18.432 45.056v64.512q0 26.624 18.432 45.056T256 832.512h256q26.624 0 45.568-18.432t18.944-45.056v-64.512z" /></symbol><symbol class="icon" viewBox="0 0 1024 1024"  id="icon-vf-drawer"><defs><style>@font-face{font-family:"feedback-iconfont";src:url(//at.alicdn.com/t/font_1031158_u69w8yhxdu.woff2?t=1630033759944) format("woff2"),url(//at.alicdn.com/t/font_1031158_u69w8yhxdu.woff?t=1630033759944) format("woff"),url(//at.alicdn.com/t/font_1031158_u69w8yhxdu.ttf?t=1630033759944) format("truetype")}</style></defs><path d="M128 765.952q0 26.624 18.432 45.056t45.056 18.432h191.488v128H128q-26.624 0-49.664-10.24t-40.448-27.648-27.648-40.448T0 829.44V191.488q0-25.6 10.24-49.152t27.648-40.448 40.448-27.136T128 64.512h701.44q26.624 0 49.664 10.24t40.448 27.136 27.648 40.448 10.24 49.152v251.904l-128 1.024v-61.44q0-26.624-18.432-45.056t-45.056-18.432H191.488q-26.624 0-45.056 18.432T128 382.976v382.976zm862.208-60.416q21.504 18.432 22.016 34.304t-20.992 33.28q-21.504 18.432-51.2 41.472t-60.928 48.128-61.952 49.152-55.296 43.52q-26.624 20.48-43.52 15.36t-16.896-31.744q1.024-16.384 0-40.448t-1.024-41.472q0-19.456-10.752-24.064t-31.232-4.608q-21.504 0-39.936-.512t-35.84-.512-36.352-.512-41.472-.512q-9.216 0-19.968-2.048t-19.456-7.168-14.336-15.36-5.632-27.648v-80.896q0-31.744 15.36-42.496T508.928 640q30.72 1.024 61.44 1.024t71.68 1.024q29.696 0 46.08-5.12t16.384-25.6q-1.024-14.336.512-35.328t1.536-37.376q0-26.624 14.336-33.28t36.864 10.752q22.528 18.432 52.736 43.008t61.952 50.688 62.976 51.2 54.784 44.544z" /></symbol><symbol class="icon" viewBox="0 0 1024 1024"  id="icon-vue-sfc"><path d="M454.138 11.176 54.066 174.092c-72.088 29.49-72.088 120.523 0 150.014l400.276 162.916c36.454 14.95 78.847 14.95 115.506 0l400.071-162.814c72.191-29.593 72.089-120.83-.307-150.116L569.746 11.278a155.339 155.339 0 0 0-115.608-.205zm469.19 237.872L532.37 408.585l-7.885 2.457a55.09 55.09 0 0 1-32.562-2.457L100.35 249.048l391.265-159.23a55.09 55.09 0 0 1 40.447 0l391.162 159.23z" fill="#1890FF" /><path d="M498.681 729.911c-20.275 0-40.652-3.788-59.391-11.673L53.76 561.26C20.48 547.847 0 519.89 0 488.558c0-31.436 20.582-59.391 53.862-72.703l36.556-15.053c21.401-8.806 47.103-1.024 57.24 17.408 10.24 18.227 1.025 40.14-20.479 48.947l-36.454 14.95c-3.072 1.229-4.71 3.584-4.71 6.45 0 3.073 1.536 5.12 4.71 6.452l385.326 156.875c14.336 5.939 30.924 5.939 45.362 0L906.74 495.009c3.072-1.229 4.915-3.584 4.915-6.451 0-3.072-1.536-5.222-4.607-6.451l-44.851-18.227c-21.401-8.806-30.412-30.72-20.377-48.947 10.342-18.329 35.84-26.214 57.24-17.407l44.851 18.431c33.177 13.517 53.76 41.267 53.76 72.703 0 31.334-20.48 59.391-53.76 72.703L558.482 718.238a161.585 161.585 0 0 1-59.801 11.673z" fill="#5DE1C8" /><path d="M498.681 966.247c-20.275 0-40.652-3.89-59.391-11.673L53.76 797.597C20.48 784.08 0 756.227 0 724.997c0-31.437 20.582-59.494 53.862-72.806l36.556-14.95c21.401-8.807 47.103-1.024 57.24 17.407 10.24 18.227 1.025 40.14-20.479 48.947l-36.454 14.95c-3.072 1.126-4.71 3.584-4.71 6.451 0 3.072 1.536 5.12 4.71 6.349l385.326 156.977c14.336 5.939 30.924 5.939 45.362 0L906.74 731.14c3.072-1.126 4.915-3.584 4.915-6.349 0-3.072-1.536-5.324-4.607-6.45l-44.851-18.33c-21.401-8.806-30.412-30.72-20.377-48.947 10.342-18.431 35.84-26.214 57.24-17.407l44.851 18.329c33.177 13.517 53.76 41.369 53.76 72.703 0 31.436-20.48 59.494-53.76 72.805l-385.428 157.08a161.585 161.585 0 0 1-59.801 11.673z" fill="#FF7272" /></symbol><symbol class="icon" viewBox="0 0 1024 1024"  id="icon-custom-search"><path d="M863.3 641.94A416.1 416.1 0 0 0 96.7 318.06a416.1 416.1 0 0 0 766.6 323.88zM480 832a352 352 0 1 1 248.9-103.1A349.69 349.69 0 0 1 480 832z" /><path d="m950.63 841.37-96-96a32 32 0 0 0-45.25 45.25l96 96a13.25 13.25 0 1 1-18.75 18.75l-96-96a32 32 0 0 0-45.25 45.25l96 96a77.25 77.25 0 1 0 109.25-109.25z" /></symbol><symbol class="icon" viewBox="0 0 1024 1024"  id="icon-el-arrow-down"><path d="M512 714.667c-8.533 0-17.067-2.134-23.467-8.534L147.2 364.8c-12.8-12.8-12.8-32 0-44.8 12.8-12.8 32-12.8 44.8 0l320 317.867 317.867-320c12.8-12.8 32-12.8 44.8 0 12.8 12.8 12.8 32 0 44.8L533.333 704c-4.266 8.533-12.8 10.667-21.333 10.667z" /></symbol><symbol class="icon" viewBox="0 0 1024 1024"  id="icon-el-back"><path fill="currentColor" d="M224 480h640a32 32 0 1 1 0 64H224a32 32 0 0 1 0-64z" /><path fill="currentColor" d="m237.248 512 265.408 265.344a32 32 0 0 1-45.312 45.312l-288-288a32 32 0 0 1 0-45.312l288-288a32 32 0 1 1 45.312 45.312L237.248 512z" /></symbol><symbol class="icon" viewBox="0 0 1024 1024"  id="icon-el-clone"><path d="M774.144 839.68c-.683 36.864-13.483 67.755-38.4 92.672s-55.808 37.717-92.672 38.4H184.32c-36.864-.683-67.755-13.483-92.672-38.4s-37.717-55.808-38.4-92.672V380.928c.683-36.864 13.483-67.755 38.4-92.672s55.808-37.717 92.672-38.4v65.536c-18.432.683-33.792 7.168-46.08 19.456s-18.773 27.648-19.456 46.08V839.68c.683 18.432 7.168 33.792 19.456 46.08s27.648 18.773 46.08 19.456h458.752c18.432-.683 33.792-7.168 46.08-19.456s18.773-27.648 19.456-46.08h65.536zM380.928 118.784c-18.432.683-33.792 7.168-46.08 19.456s-18.773 27.648-19.456 46.08v458.752c.683 18.432 7.168 33.792 19.456 46.08s27.648 18.773 46.08 19.456H839.68c18.432-.683 33.792-7.168 46.08-19.456s18.773-27.648 19.456-46.08V184.32c-.683-18.432-7.168-33.792-19.456-46.08s-27.648-18.773-46.08-19.456H380.928zm0-65.536H839.68c36.864.683 67.755 13.483 92.672 38.4s37.717 55.808 38.4 92.672v458.752c-.683 36.864-13.483 67.755-38.4 92.672s-55.808 37.717-92.672 38.4H380.928c-36.864-.683-67.755-13.483-92.672-38.4s-37.717-55.808-38.4-92.672V184.32c.683-36.864 13.483-67.755 38.4-92.672s55.808-37.717 92.672-38.4z" /></symbol><symbol class="icon" viewBox="0 0 1024 1024"  id="icon-el-delete"><path fill="currentColor" d="M160 256H96a32 32 0 0 1 0-64h256V95.936a32 32 0 0 1 32-32h256a32 32 0 0 1 32 32V192h256a32 32 0 1 1 0 64h-64v672a32 32 0 0 1-32 32H192a32 32 0 0 1-32-32V256zm448-64v-64H416v64h192zM224 896h576V256H224v640zm192-128a32 32 0 0 1-32-32V416a32 32 0 0 1 64 0v320a32 32 0 0 1-32 32zm192 0a32 32 0 0 1-32-32V416a32 32 0 0 1 64 0v320a32 32 0 0 1-32 32z" /></symbol><symbol class="icon" viewBox="0 0 1024 1024"  id="icon-el-download"><path d="M896 672c-17.067 0-32 14.933-32 32v128c0 6.4-4.267 10.667-10.667 10.667H170.667c-6.4 0-10.667-4.267-10.667-10.667V704c0-17.067-14.933-32-32-32s-32 14.933-32 32v128c0 40.533 34.133 74.667 74.667 74.667h682.666C893.867 906.667 928 872.533 928 832V704c0-17.067-14.933-32-32-32z" /><path d="M488.533 727.467c6.4 6.4 14.934 8.533 23.467 8.533s17.067-2.133 23.467-8.533L748.8 514.133c12.8-12.8 12.8-32 0-44.8-12.8-12.8-32-12.8-44.8 0L546.133 627.2V170.667c0-17.067-14.933-32-32-32S480 153.6 480 170.667V627.2L322.133 469.333c-12.8-12.8-32-12.8-44.8 0-12.8 12.8-12.8 32 0 44.8l211.2 213.334z" /></symbol><symbol class="icon" viewBox="0 0 1024 1024"  id="icon-el-drag-move"><path d="M909.3 506.3 781.7 405.6c-4.7-3.7-11.7-.4-11.7 5.7V476H548V254h64.8c6 0 9.4-7 5.7-11.7L517.7 114.7c-2.9-3.7-8.5-3.7-11.3 0L405.6 242.3c-3.7 4.7-.4 11.7 5.7 11.7H476v222H254v-64.8c0-6-7-9.4-11.7-5.7L114.7 506.3c-3.7 2.9-3.7 8.5 0 11.3l127.5 100.8c4.7 3.7 11.7.4 11.7-5.7V548h222v222h-64.8c-6 0-9.4 7-5.7 11.7l100.8 127.5c2.9 3.7 8.5 3.7 11.3 0l100.8-127.5c3.7-4.7.4-11.7-5.7-11.7H548V548h222v64.8c0 6 7 9.4 11.7 5.7l127.5-100.8c3.7-2.9 3.7-8.5.1-11.4z" /></symbol><symbol fill="none"  viewBox="0 0 22 21" id="icon-el-error-circle"><mask id="icon-el-error-circle_a" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="0" y="0" width="22" height="21"><path fill-rule="evenodd" clip-rule="evenodd" d="M10.126.907a1 1 0 0 1 1.748 0l9.967 17.94a1 1 0 0 1-.874 1.486H1.033a1 1 0 0 1-.874-1.485L10.126.907ZM9.892 9.25h2.187l-.437 4.667h-1.313L9.892 9.25Zm1.085 7.642a1.138 1.138 0 1 0 0-2.275 1.138 1.138 0 0 0 0 2.275Z" fill="#fff" /></mask><g mask="url(#icon-el-error-circle_a)"><path fill="#ED6A0C" d="M-3-3h28v28H-3z" /></g></symbol><symbol class="icon" viewBox="0 0 1024 1024"  id="icon-el-form-template"><path d="M298.667 981.333A85.333 85.333 0 0 1 213.333 896V128a85.333 85.333 0 0 1 85.334-85.333h426.666A85.333 85.333 0 0 1 810.667 128v768a85.333 85.333 0 0 1-85.334 85.333zm0-832v725.334A21.333 21.333 0 0 0 320 896h384a21.333 21.333 0 0 0 21.333-21.333V149.333A21.333 21.333 0 0 0 704 128H320a21.333 21.333 0 0 0-21.333 21.333zm640 618.667V256a42.667 42.667 0 0 1 42.666-42.667A42.667 42.667 0 0 1 1024 256v512a42.667 42.667 0 0 1-42.667 42.667A42.667 42.667 0 0 1 938.667 768zM0 768V256a42.667 42.667 0 0 1 42.667-42.667A42.667 42.667 0 0 1 85.333 256v512a42.667 42.667 0 0 1-42.666 42.667A42.667 42.667 0 0 1 0 768z" /></symbol><symbol class="icon" viewBox="0 0 1024 1024"  id="icon-el-hide"><path d="M956.8 496c-41.6-70.4-99.2-147.2-176-204.8l105.6-105.6c12.8-12.8 12.8-32 0-44.8s-32-12.8-44.8 0L726.4 256C665.6 214.4 592 192 512 192c-214.4 0-358.4 166.4-444.8 304-6.4 9.6-6.4 22.4 0 32 41.6 70.4 102.4 147.2 176 204.8L134.4 841.6c-12.8 12.8-12.8 32 0 44.8 9.6 6.4 16 9.6 25.6 9.6s16-3.2 22.4-9.6l115.2-115.2C358.4 809.6 432 832 512 832c185.6 0 374.4-128 444.8-307.2 3.2-9.6 3.2-19.2 0-28.8zm-822.4 16C211.2 390.4 336 256 512 256c60.8 0 118.4 16 166.4 44.8l-80 80C576 361.6 544 352 512 352c-89.6 0-160 70.4-160 160 0 32 9.6 64 25.6 89.6L288 691.2C224 640 172.8 572.8 134.4 512zm473.6 0c0 54.4-41.6 96-96 96-16 0-28.8-3.2-41.6-9.6l128-128c6.4 12.8 9.6 25.6 9.6 41.6zm-192 0c0-54.4 41.6-96 96-96 16 0 28.8 3.2 41.6 9.6l-128 128c-6.4-12.8-9.6-25.6-9.6-41.6zm96 256c-60.8 0-118.4-16-166.4-44.8l80-80C448 662.4 480 672 512 672c89.6 0 160-70.4 160-160 0-32-9.6-64-25.6-89.6l89.6-89.6C803.2 384 854.4 451.2 892.8 512 825.6 659.2 665.6 768 512 768z" /></symbol><symbol class="icon" viewBox="0 0 1024 1024"  id="icon-el-info"><path d="M512.001 928.997c230.524 0 418.076-187.552 418.075-418.077 0-230.527-187.552-418.077-418.075-418.077S93.924 280.393 93.924 510.92c0 230.525 187.552 418.077 418.077 418.077zM512 301.88c28.86 0 52.26 23.399 52.26 52.263 0 28.858-23.399 52.257-52.26 52.257s-52.26-23.399-52.26-52.257c0-28.863 23.399-52.263 52.26-52.263zm-52.26 209.042c0-28.86 23.399-52.26 52.26-52.26s52.26 23.399 52.26 52.26v156.775c0 28.86-23.399 52.26-52.26 52.26s-52.26-23.399-52.26-52.26V510.922z" /></symbol><symbol class="icon" viewBox="0 0 1024 1024"  id="icon-el-insert-column"><path d="M653.184 713.6c12.864-12.864 33.6-12.864 46.528 0 6.4 6.4 3.776 14.72 3.776 23.232a32.675 32.675 0 0 1-9.6 23.104L569.92 886.4c-.128.128-.32.192-.512.32-2.88 2.88-9.536 5.184-13.312 6.784-3.456 1.344-.64 1.856-4.096 2.112-.768 0-1.344.384-2.048.384-.512 0-.896-.256-1.344-.256-3.84-.192-5.76-.896-9.344-2.24-3.264-1.344-6.016-3.52-8.64-5.76-.64-.512-1.472-.768-2.048-1.344L391.232 760c-12.864-12.736-6.976-33.6 5.888-46.4 12.8-12.864 33.6-12.864 46.464 0l105.472 100.352L653.184 713.6zM384 64v576h320V64H384zM128 704v256H64V640h256v320h-62.976L256 704H128m704 0v256h-64V640h256v320h-62.976L960 704H832" /></symbol><symbol class="icon" viewBox="0 0 1024 1024"  id="icon-el-insert-row"><path d="M310.336 653.184c12.864 12.864 12.864 33.6 0 46.528-6.4 6.4-14.72 3.776-23.168 3.776s-16.832-3.264-23.168-9.6L137.6 569.92c-.128-.128-.192-.32-.256-.512-2.88-2.816-5.248-9.536-6.848-13.312-1.344-3.392-1.856-.576-2.112-4.096 0-.768-.384-1.344-.384-2.048 0-.512.256-.896.256-1.344.192-3.84.896-5.76 2.24-9.344 1.344-3.264 3.52-6.016 5.76-8.64.512-.704.768-1.536 1.344-2.112l126.336-137.344c12.8-12.864 33.6-6.976 46.4 5.888 12.864 12.8 12.864 33.6 0 46.464L210.048 548.992l100.288 104.192zM960 384H384v320h576V384zM320 128H64V64h320v256H64v-62.976L320 256V128m0 704H64v-64h320v256H64v-62.976L320 960V832" /></symbol><symbol class="icon" viewBox="0 0 1024 1024"  id="icon-el-menu"><path d="M844.8 883.2h-256c-19.2 0-38.4-19.2-38.4-38.4v-256c0-19.2 19.2-38.4 38.4-38.4h256c19.2 0 38.4 19.2 38.4 38.4v256c0 19.2-19.2 38.4-38.4 38.4zm0-403.2h-256c-19.2 0-38.4-19.2-38.4-38.4v-256c0-19.2 19.2-38.4 38.4-38.4h256c19.2 0 38.4 19.2 38.4 38.4v256c0 19.2-19.2 38.4-38.4 38.4zM435.2 883.2h-256c-19.2 0-38.4-19.2-38.4-38.4v-256c0-19.2 19.2-38.4 38.4-38.4h256c19.2 0 38.4 19.2 38.4 38.4v256c6.4 19.2-12.8 38.4-38.4 38.4zm0-403.2h-256c-19.2 0-38.4-19.2-38.4-38.4v-256c0-19.2 19.2-38.4 38.4-38.4h256c19.2 0 38.4 19.2 38.4 38.4v256c6.4 19.2-12.8 38.4-38.4 38.4z" /></symbol><symbol class="icon" viewBox="0 0 1024 1024"  id="icon-el-move-down"><path d="M898.133 512c-12.8-12.8-32-12.8-44.8-2.133L544 800V149.333c0-17.066-14.933-32-32-32s-32 14.934-32 32V800L170.667 509.867c-12.8-12.8-34.134-10.667-44.8 2.133-12.8 12.8-10.667 34.133 2.133 44.8l362.667 341.333c2.133 2.134 6.4 4.267 8.533 6.4 4.267 2.134 6.4 2.134 10.667 2.134s8.533 0 10.666-2.134c4.267-2.133 6.4-4.266 8.534-6.4L891.733 556.8c17.067-12.8 19.2-32 6.4-44.8z" /></symbol><symbol class="icon" viewBox="0 0 1024 1024"  id="icon-el-move-up"><path d="M896 467.2 533.333 125.867c-2.133-2.134-6.4-4.267-8.533-6.4-4.267-2.134-6.4-2.134-10.667-2.134s-8.533 0-10.666 2.134c-4.267 2.133-6.4 4.266-8.534 6.4L132.267 467.2c-12.8 12.8-12.8 32-2.134 44.8 12.8 12.8 32 12.8 44.8 2.133L484.267 224v650.667c0 17.066 14.933 32 32 32s32-14.934 32-32V224l305.066 290.133c6.4 6.4 14.934 8.534 21.334 8.534 8.533 0 17.066-4.267 23.466-10.667 12.8-12.8 10.667-32-2.133-44.8z" /></symbol><symbol class="icon" viewBox="0 0 1024 1024"  id="icon-el-plus"><path d="M554.667 213.333h-85.334v256h-256v85.334h256v256h85.334v-256h256v-85.334h-256z" /></symbol><symbol class="icon" viewBox="0 0 1024 1024"  id="icon-el-set-up"><path d="M217.088 151.552c-18.432.683-33.792 7.168-46.08 19.456s-18.773 27.648-19.456 46.08v589.824c.683 18.432 7.168 33.792 19.456 46.08s27.648 18.773 46.08 19.456h589.824c18.432-.683 33.792-7.168 46.08-19.456s18.773-27.648 19.456-46.08V217.088c-.683-18.432-7.168-33.792-19.456-46.08s-27.648-18.773-46.08-19.456H217.088zm0-65.536h589.824c36.864.683 67.755 13.483 92.672 38.4s37.717 55.808 38.4 92.672v589.824c-.683 36.864-13.483 67.755-38.4 92.672s-55.808 37.717-92.672 38.4H217.088c-36.864-.683-67.755-13.483-92.672-38.4s-37.717-55.808-38.4-92.672V217.088c.683-36.864 13.483-67.755 38.4-92.672s55.808-37.717 92.672-38.4zm163.84 327.68c18.432-.683 33.792-7.168 46.08-19.456s18.432-27.648 18.432-46.08-6.144-33.792-18.432-46.08-27.648-18.432-46.08-18.432-33.792 6.144-46.08 18.432-18.432 27.648-18.432 46.08 6.144 33.792 18.432 46.08 27.648 18.773 46.08 19.456zm0 65.536c-36.864-.683-67.755-13.483-92.672-38.4s-37.717-55.808-38.4-92.672c.683-36.864 13.483-67.755 38.4-92.672s55.808-37.717 92.672-38.4c36.864.683 67.755 13.483 92.672 38.4s37.717 55.808 38.4 92.672c-.683 36.864-13.483 67.755-38.4 92.672s-55.808 37.717-92.672 38.4zm98.304-163.84h262.144c21.845 0 32.768 10.923 32.768 32.768s-10.923 32.768-32.768 32.768H479.232c-21.845 0-32.768-10.923-32.768-32.768s10.923-32.768 32.768-32.768zm163.84 425.984c18.432-.683 33.792-7.168 46.08-19.456s18.432-27.648 18.432-46.08-6.144-33.792-18.432-46.08-27.648-18.432-46.08-18.432-33.792 6.144-46.08 18.432-18.432 27.648-18.432 46.08 6.144 33.792 18.432 46.08 27.648 18.773 46.08 19.456zm0 65.536c-36.864-.683-67.755-13.483-92.672-38.4s-37.717-55.808-38.4-92.672c.683-36.864 13.483-67.755 38.4-92.672s55.808-37.717 92.672-38.4c36.864.683 67.755 13.483 92.672 38.4s37.717 55.808 38.4 92.672c-.683 36.864-13.483 67.755-38.4 92.672s-55.808 37.717-92.672 38.4zm-360.448-163.84h262.144c21.845 0 32.768 10.923 32.768 32.768s-10.923 32.768-32.768 32.768H282.624c-21.845 0-32.768-10.923-32.768-32.768s10.923-32.768 32.768-32.768z" /></symbol><symbol class="icon" viewBox="0 0 1024 1024"  id="icon-el-view"><path fill="currentColor" d="M512 160c320 0 512 352 512 352S832 864 512 864 0 512 0 512s192-352 512-352zm0 64c-225.28 0-384.128 208.064-436.8 288 52.608 79.872 211.456 288 436.8 288 225.28 0 384.128-208.064 436.8-288-52.608-79.872-211.456-288-436.8-288zm0 64a224 224 0 1 1 0 448 224 224 0 0 1 0-448zm0 64a160.192 160.192 0 0 0-160 160c0 88.192 71.744 160 160 160s160-71.808 160-160-71.744-160-160-160z" /></symbol>';
     body.insertBefore(svgDom, body.firstChild);
   };
   if (document.readyState === "loading") {
@@ -77856,7 +79630,7 @@ const createInputTextEditor = function(propName, propLabelKey) {
     props: {
       optionModel: Object
     },
-    render(h) {
+    render(h2) {
       return createVNode(resolveComponent("a-form-item"), {
         "label": translate(propLabelKey)
       }, {
@@ -77883,7 +79657,7 @@ const createInputNumberEditor = function(propName, propLabelKey) {
         }
       }
     },
-    render(h) {
+    render(h2) {
       return createVNode(resolveComponent("a-form-item"), {
         "label": translate(propLabelKey)
       }, {
@@ -77903,7 +79677,7 @@ const createBooleanEditor = function(propName, propLabelKey) {
     props: {
       optionModel: Object
     },
-    render(h) {
+    render(h2) {
       return createVNode(resolveComponent("a-form-item"), {
         "label": translate(propLabelKey)
       }, {
@@ -77920,7 +79694,7 @@ const createCheckboxGroupEditor = function(propName, propLabelKey, configs) {
     props: {
       optionModel: Object
     },
-    render(h) {
+    render(h2) {
       let _slot;
       return createVNode(resolveComponent("a-form-item"), {
         "label": translate(propLabelKey)
@@ -77946,7 +79720,7 @@ const createRadioGroupEditor = function(propName, propLabelKey, configs) {
     props: {
       optionModel: Object
     },
-    render(h) {
+    render(h2) {
       let _slot2;
       return createVNode(resolveComponent("a-form-item"), {
         "label": translate(propLabelKey)
@@ -77972,7 +79746,7 @@ const createRadioButtonGroupEditor = function(propName, propLabelKey, configs) {
     props: {
       optionModel: Object
     },
-    render(h) {
+    render(h2) {
       let _slot3;
       return createVNode(resolveComponent("a-form-item"), {
         "label": translate(propLabelKey)
@@ -77998,7 +79772,7 @@ const createSelectEditor = function(propName, propLabelKey, configs) {
     props: {
       optionModel: Object
     },
-    render(h) {
+    render(h2) {
       return createVNode(resolveComponent("a-form-item"), {
         "label": translate(propLabelKey)
       }, {
@@ -78022,7 +79796,7 @@ const createEventHandlerEditor = function(eventPropName, eventParams) {
         this.dispatch("SettingPanel", "editEventHandler", [eventPropName, [...eventParams]]);
       }
     },
-    render(h) {
+    render(h2) {
       let _slot4;
       return createVNode(resolveComponent("a-form-item"), {
         "label": eventPropName,
@@ -78161,10 +79935,10 @@ const registerCWGenerator = function(containerType, ctGenerator) {
 };
 const registerFWGenerator = function(fieldType, ftGenerator) {
 };
-const VFormRegisterHttp = (h) => {
+const VFormRegisterHttp = (h2) => {
   window.$vform = {
     ...window.$vform || {},
-    $http: h || http
+    $http: h2 || http
   };
 };
 VFormDesigner.install = function(app) {
@@ -78182,10 +79956,10 @@ VFormRender.install = function(app) {
   app.component(VFormRender.name, VFormRender);
 };
 const components = [VFormDesigner, VFormRender];
-const install = (app, h) => {
+const install = (app, h2) => {
   console.warn("install:成功");
-  app.config.globalProperties.$http = h || http;
-  VFormRegisterHttp(h || http);
+  app.config.globalProperties.$http = h2 || http;
+  VFormRegisterHttp(h2 || http);
   app.use(ContainerWidgets);
   app.use(ContainerItems);
   registerIcon(app);

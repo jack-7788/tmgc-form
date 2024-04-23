@@ -19,12 +19,12 @@
       :shape="field.options.shape"
       :danger="field.options.danger"
       :ghost="field.options.ghost"
-      :icon="field.options.icon"
       :disabled="field.options.disabled"
       @click="handleButtonWidgetClick"
     >
-      {{ field.options.label }}</a-button
-    >
+      <svg-icon v-if="field.options.icon" :icon-class="field.options.icon" />
+      {{ field.options.label }}
+    </a-button>
   </static-content-wrapper>
 </template>
 
@@ -33,6 +33,7 @@
   import emitter from '@/utils/emitter';
   import i18n, { translate } from '@/utils/i18n';
   import fieldMixin from '@/components/form-designer/form-widget/field-widget/fieldMixin';
+  import SvgIcon from '@/components/svg-icon';
 
   export default {
     name: 'button-widget',
@@ -64,7 +65,8 @@
       }
     },
     components: {
-      StaticContentWrapper
+      StaticContentWrapper,
+      SvgIcon
     },
     computed: {},
     beforeCreate() {

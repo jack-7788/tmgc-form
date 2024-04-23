@@ -16,7 +16,7 @@
   import propertyMixin from '@/components/form-designer/setting-panel/property-editor/propertyMixin';
 
   export default {
-    name: 'button-type-editor',
+    name: 'type-editor',
     mixins: [i18n, propertyMixin],
     props: {
       designer: Object,

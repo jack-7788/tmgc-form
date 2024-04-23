@@ -169,7 +169,9 @@
       right: -2px;
       height: 22px;
       line-height: 22px;
-      background: $--color-primary;
+      // background: $--color-primary;
+      background: var(--ant-primary-4); //$--color-primary;
+
       z-index: 9;
 
       i {

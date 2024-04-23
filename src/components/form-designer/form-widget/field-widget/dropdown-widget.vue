@@ -1,9 +1,9 @@
 <template>
-  <form-item-wrapper
+  <static-content-wrapper
     :designer="designer"
     :field="field"
-    :rules="rules"
     :design-state="designState"
+    :display-style="field.options.displayStyle"
     :parent-widget="parentWidget"
     :parent-list="parentList"
     :index-of-parent-list="indexOfParentList"
@@ -11,30 +11,39 @@
     :sub-form-col-index="subFormColIndex"
     :sub-form-row-id="subFormRowId"
   >
-    <a-switch
-      ref="fieldEditor"
-      v-model:checked="fieldModel"
-      :class="[isReadMode ? 'readonly-mode-switch' : '']"
-      :disabled="field.options.disabled"
-      :checkedValue="field.options.checkedValue"
-      :unCheckedValue="field.options.unCheckedValue"
-      @change="handleChangeEvent"
-      :style="{ width: field.options.switchWidth + 'px' }"
-    />
-    <template v-if="isReadMode">
-      <span class="readonly-mode-field">{{ contentForReadMode }}</span>
-    </template>
-  </form-item-wrapper>
+    <a-dropdown ref="fieldEditor" :disabled="field.options.disabled">
+      <template #overlay>
+        <a-menu @click="handleMenuClick">
+          <a-menu-item :key="item.value" v-for="item in field.options.menuList || []">
+            {{ item.label }}
+          </a-menu-item>
+        </a-menu>
+      </template>
+      <a-button
+        :type="field.options.type"
+        :size="field.options.size"
+        :class="[field.options.label === '' ? 'hide-text-span' : '']"
+        :shape="field.options.shape"
+        :danger="field.options.danger"
+        :ghost="field.options.ghost"
+        :disabled="field.options.disabled"
+      >
+        {{ field.options.label }}
+        <DownOutlined />
+      </a-button>
+    </a-dropdown>
+  </static-content-wrapper>
 </template>
 
 <script>
-  import FormItemWrapper from './form-item-wrapper';
+  import StaticContentWrapper from './static-content-wrapper';
   import emitter from '@/utils/emitter';
   import i18n, { translate } from '@/utils/i18n';
   import fieldMixin from '@/components/form-designer/form-widget/field-widget/fieldMixin';
+  // import { DownOutlined } from '@ant-design/icons-vue';
 
   export default {
-    name: 'switch-widget',
+    name: 'dropdown-widget',
     componentName: 'FieldWidget', //必须固定为FieldWidget，用于接收父级组件的broadcast事件
     mixins: [emitter, fieldMixin, i18n],
     props: {
@@ -63,24 +72,10 @@
       }
     },
     components: {
-      FormItemWrapper
+      StaticContentWrapper
+      // DownOutlined
     },
-    data() {
-      return {
-        oldFieldValue: null, //field组件change之前的值
-        fieldModel: null,
-        rules: []
-      };
-    },
-    computed: {
-      contentForReadMode() {
-        if (!!this.fieldModel) {
-          return this.field.options.checkedValue || this.i18nt('render.hint.defaultActiveText');
-        }
-
-        return this.field.options.unCheckedValue || this.i18nt('render.hint.defaultInactiveText');
-      }
-    },
+    computed: {},
     beforeCreate() {
       /* 这里不能访问方法和属性！！ */
     },
@@ -89,9 +84,7 @@
       /* 注意：子组件mounted在父组件created之后、父组件mounted之前触发，故子组件mounted需要用到的prop
          需要在父组件created中初始化！！ */
       this.registerToRefList();
-      this.initFieldModel();
       this.initEventHandler();
-      this.buildFieldRules();
 
       this.handleOnCreated();
     },
@@ -104,18 +97,22 @@
       this.unregisterFromRefList();
     },
 
-    methods: {}
+    methods: {
+      handleMenuClick(menuItem) {
+        const { onMenuClick } = this.field.options;
+        if (onMenuClick) {
+          const onMenuClickFn = new Function('menuItem', onMenuClick);
+          return onMenuClickFn.call(this, menuItem);
+        }
+      }
+    }
   };
 </script>
 
 <style lang="scss" scoped>
-  @import '../../../../styles/global.scss'; /* form-item-wrapper已引入，还需要重复引入吗？ */
+  @import '../../../../styles/global.scss'; //* static-content-wrapper已引入，还需要重复引入吗？ *//
 
-  .full-width-input {
-    width: 100% !important;
-  }
-
-  .readonly-mode-switch {
+  .hide-text-span :deep(span) {
     display: none;
   }
 </style>

@@ -295,7 +295,7 @@
   import i18n from '@/utils/i18n';
   import { generateCode } from '@/utils/code-generator';
   // import { genSFC } from '@/utils/sfc-generator';
-  import loadBeautifier from '@/utils/beautifierLoader';
+  // import loadBeautifier from '@/utils/beautifierLoader';
   import { saveAs } from 'file-saver';
   import axios from 'axios';
   import SvgIcon from '@/components/svg-icon/index';
@@ -322,7 +322,7 @@
     inject: ['getDesignerConfig'],
     data() {
       return {
-        vfCtx: { type: 'view', ...getLocat() },
+        vfCtx: { type: 'add', ...getLocat() },
         designerConfig: this.getDesignerConfig(),
 
         toolbarWidth: 460,
@@ -737,7 +737,7 @@
         const data = await this.$refs['preForm'].getFormData();
 
         const formConfig = this.designer.formConfig;
-        const res = await fmtHttpParams(formConfig.serveList.vformUpdate, data);
+        const res = await fmtHttpParams.call(this, formConfig.serveList.vformUpdate, data);
         console.log('res: insertData', res);
       },
       async showData(_id) {
@@ -1007,8 +1007,8 @@
                         labelIconPosition: 'rear',
                         labelTooltip: null,
                         switchWidth: 40,
-                        checkedChildren: '',
-                        unCheckedChildren: '',
+                        checkedValue: '',
+                        unCheckedValue: '',
                         activeColor: null,
                         inactiveColor: null,
                         onCreated: '',
@@ -1588,9 +1588,6 @@
             }
           ],
           formConfig: {
-            // modelName: 'formData',
-            // refName: 'vForm',
-            // rulesName: 'rules',
             labelWidth: 150,
             labelPosition: 'horizontal',
             size: '',
@@ -1598,10 +1595,7 @@
             cssCode: '',
             customClass: [],
             functions: '',
-            layoutType: 'PC',
-            // jsonVersion: 3,
             onFormCreated: '',
-            onFormMounted: '',
             onFormDataChange: '',
             onFormValidate: ''
           }

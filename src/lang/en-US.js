@@ -56,6 +56,7 @@ export default {
       'html-text': 'HTML',
       button: 'Button',
       divider: 'Divider',
+      dropdown: 'dropdown',
 
       'picture-upload': 'Picture',
       'file-upload': 'File',
@@ -284,8 +285,8 @@ export default {
       appendButtonIcon: 'Append Button Icon',
       buttonIcon: 'Button Icon',
       switchWidth: 'Width of Switch(px)',
-      checkedChildren: 'Active Text',
-      unCheckedChildren: 'Inactive Text',
+      checkedValue: 'Active Text',
+      unCheckedValue: 'Inactive Text',
       activeColor: 'Active Color',
       inactiveColor: 'Inactive Color',
       maxStars: 'Stars Max Number',

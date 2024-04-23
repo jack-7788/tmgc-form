@@ -269,6 +269,8 @@ export const select = (ops = {}) => {
       labelWidth: null,
       labelHidden: false,
       disabled: false,
+      useModal: true,
+      loadingPage: false,
       hidden: false,
       allowClear: true,
       maxTagCount: 'responsive',
@@ -308,6 +310,7 @@ export const select = (ops = {}) => {
       onFocus: '',
       onBlur: '',
       onValidate: '',
+      onClickIcon: 'console.log(this,"onClickIcon")',
       ...ops
     }
   };
@@ -524,8 +527,8 @@ export const switchCom = (ops = {}) => {
       labelIconPosition: 'rear',
       labelTooltip: null,
       switchWidth: 40,
-      checkedChildren: '',
-      unCheckedChildren: '',
+      checkedValue: '1',
+      unCheckedValue: '0',
       // activeColor: null,
       // inactiveColor: null,
       //-------------------
@@ -760,7 +763,42 @@ export const divider = (ops = {}) => {
     }
   };
 };
+export const dropdown = (ops = {}) => {
+  return {
+    key: getUuidKey(),
+    id: ops.name,
+    type: 'dropdown',
+    icon: 'dropdown',
+    formItemFlag: false,
+    options: {
+      name: '',
+      label: '',
+      // columnWidth: '200px',
+      size: '',
+      displayStyle: 'block',
+      disabled: false,
+      hidden: false,
+      type: 'primary',
+      shape: '',
+      danger: false,
+      ghost: false,
+      placement: 'bottomLeft',
+      menuList: [
+        { value: '1', label: '功能1' },
+        { value: '2', label: '功能2' }
+      ],
 
+      //-------------------
+      customClass: [], //自定义css类名
+      //-------------------
+      onCreated: '',
+      onMounted: '',
+      onClick: '',
+      onMenuClick: '',
+      ...ops
+    }
+  };
+};
 export const basicFieldsEnums = {
   input,
   textarea,
@@ -779,5 +817,6 @@ export const basicFieldsEnums = {
   staticText,
   htmlText,
   button,
-  divider
+  divider,
+  dropdown
 };

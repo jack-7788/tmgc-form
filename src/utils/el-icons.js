@@ -15,8 +15,11 @@ import {
   BottomLeft,
   TopRight
 } from '@element-plus/icons-vue';
+import { DownOutlined, UserOutlined } from '@ant-design/icons-vue';
 
 export function registerIcon(app) {
+  app.component('DownOutlined', DownOutlined);
+  app.component('UserOutlined', UserOutlined);
   app.component('el-icon-edit', Edit);
   app.component('el-icon-minus', Minus);
   app.component('el-icon-plus', Plus);

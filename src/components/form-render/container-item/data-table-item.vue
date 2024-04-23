@@ -9,13 +9,9 @@
       :size="widgetSize"
       :bordered="widget.options.border"
       :style="{ width: widget.options.tableWidth }"
-      :row-class-name="
-        widget.options.stripe
-          ? (_record, index) => (index % 2 === 1 ? 'table-striped' : null)
-          : null
-      "
+      :row-class-name="rowClassName"
       :rowSelection="handleRowSelection(widget.options.rowSelection)"
-      :pagination="widget.options.showPagination && widget.options.pagination"
+      :pagination="fmtPagination()"
       :customRow="handleCustomRow"
       @change="handleTablePageChange"
     >
@@ -71,11 +67,12 @@
   import TableColumnCustomRender from '@/components/form-render/table-column-custom-render';
   import { deepClone, getDSByName, overwriteObj, runDataSourceRequest } from '@/utils/util';
   import { omit } from 'lodash-es';
+  import useDataTableMixin from '@/mixins/useDataTableMixin';
 
   export default {
     name: 'DataTableItem',
     componentName: 'ContainerItem', // 必须固定为ContainerItem，用于接收父级组件的broadcast事件
-    mixins: [emitter, i18n, refMixin, containerItemMixin],
+    mixins: [emitter, i18n, refMixin, containerItemMixin, useDataTableMixin],
     components: {
       ContainerItemWrapper,
       ...FieldComponents
@@ -102,72 +99,71 @@
     inject: ['refList', 'sfRefList', 'globalModel', 'getFormConfig', 'getGlobalDsv'],
     data() {
       return {
-        selectAllFlag: false,
-
-        selectedIndices: [],
-        selectedRows: [],
-        pageSize: this.widget.options.pagination.pageSize,
-        pageSizes: this.widget.options.pagination.pageSizes,
-        currentPage: this.widget.options.pagination.currentPage,
-        total: this.widget.options.pagination.total,
-
+        // selectAllFlag: false,
+        // selectedIndices: [],
+        // selectedRows: []
+        // pageSize: this.widget.options.pagination.pageSize,
+        // pageSizes: this.widget.options.pagination.pageSizes,
+        // currentPage: this.widget.options.pagination.currentPage,
+        // total: this.widget.options.pagination.total,
         // 是否跳过selectionChange事件
-        skipSelectionChangeEvent: false
+        // skipSelectionChangeEvent: false
       };
     },
     computed: {
       formConfig() {
         return this.getFormConfig();
-      },
+      }
 
-      paginationLayout() {
-        return !!this.widget.options.smallPagination
-          ? 'prev, pager, next'
-          : 'total, sizes, prev, pager, next, jumper';
-      },
+      // paginationLayout() {
+      //   return !!this.widget.options.smallPagination
+      //     ? 'prev, pager, next'
+      //     : 'total, sizes, prev, pager, next, jumper';
+      // },
 
-      customClass() {
-        return this.widget.options.customClass || '';
-      },
+      // customClass() {
+      //   return this.widget.options.customClass || '';
+      // },
 
-      widgetSize() {
-        return this.widget.options.tableSize || 'default';
-      },
+      // widgetSize() {
+      //   return this.widget.options.tableSize || 'default';
+      // },
 
       // singleRowSelectFlag() {
       //   return !this.widget.options.showCheckBox;
       // },
 
-      buttonsColumnFixed() {
-        if (this.widget.options.buttonsColumnFixed === undefined) {
-          return 'right';
-        }
+      // buttonsColumnFixed() {
+      //   if (this.widget.options.buttonsColumnFixed === undefined) {
+      //     return 'right';
+      //   }
 
-        return !this.widget.options.buttonsColumnFixed
-          ? false
-          : this.widget.options.buttonsColumnFixed;
-      },
+      //   return !this.widget.options.buttonsColumnFixed
+      //     ? false
+      //     : this.widget.options.buttonsColumnFixed;
+      // },
 
-      tableHeight() {
-        return this.widget.options.tableHeight || undefined;
-      },
+      // tableHeight() {
+      //   return this.widget.options.tableHeight || undefined;
+      // }
 
-      selectionWidth() {
-        return !this.widget.options.showSummary
-          ? !this.widget.options.treeDataEnabled
-            ? 42
-            : 70
-          : 53;
-      }
+      // selectionWidth() {
+      //   return !this.widget.options.showSummary
+      //     ? !this.widget.options.treeDataEnabled
+      //       ? 42
+      //       : 70
+      //     : 53;
+      // }
     },
     created() {
       this.initRefList();
       this.handleOnCreated();
     },
     mounted() {
-      if (!!this.widget.options.dsEnabled) {
-        this.loadDataFromDS({});
-      }
+      this.loadDataTableDataSource();
+      // if (!!this.widget.options.dsEnabled) {
+      //   this.loadDataFromDS({});
+      // }
 
       this.$nextTick(() => {
         this.handleOnMounted();
@@ -177,61 +173,19 @@
       this.unregisterFromRefList();
     },
     methods: {
-      handleCustomRow(record) {
-        const { customRow } = this.widget.options;
-        return {
-          onClick: event => {
-            if (customRow.onClick) {
-              const customFn = new Function('record', 'event', customRow.onClick);
-              customFn.call(this, record, event);
-            }
-          },
-          onDblclick: event => {
-            if (customRow.onDblclick) {
-              const customFn = new Function('record', 'event', customRow.onDblclick);
-              customFn.call(this, record, event);
-            }
-          },
-          onMouseenter: event => {
-            if (customRow.onMouseenter) {
-              const customFn = new Function('record', 'event', customRow.onMouseenter);
-              customFn.call(this, record, event);
-            }
-          },
-          onMouseleave: event => {
-            if (customRow.onMouseleave) {
-              const customFn = new Function('record', 'event', customRow.onMouseleave);
-              customFn.call(this, record, event);
-            }
-          }
-        };
-      },
-      handleColumnItem(item) {
-        const res = omit(item, ['customRender']);
-        const customRenderFn = item.customRender;
-
-        if (!customRenderFn) return item;
-        return {
-          ...res,
-          customRender: ({ text, record, index, column }) => {
-            const cusFunc = new Function('text', 'record', 'index', 'column', customRenderFn);
-            return cusFunc.call(this, text, record, index, column);
-          }
-        };
-      },
-      handleRowSelection(info) {
-        if (!info.hasRowSelection) {
-          return undefined;
-        }
-        return {
-          ...omit(info, ['onChange']),
-          onChange: (selectedRowKeys, selectedRows) => {
-            console.log('选择了操作: ', selectedRowKeys, selectedRows);
-            const rcFunc = new Function('selectedRowKeys', 'selectedRows', info.onChange);
-            rcFunc.call(this, selectedRowKeys, selectedRows);
-          }
-        };
-      },
+      // handleRowSelection(info) {
+      //   if (!info.hasRowSelection) {
+      //     return undefined;
+      //   }
+      //   return {
+      //     ...omit(info, ['onChange']),
+      //     onChange: (selectedRowKeys, selectedRows) => {
+      //       console.log('选择了操作: ', selectedRowKeys, selectedRows);
+      //       const rcFunc = new Function('selectedRowKeys', 'selectedRows', info.onChange);
+      //       rcFunc.call(this, selectedRowKeys, selectedRows);
+      //     }
+      //   };
+      // },
       getDataTableRef() {
         return this;
       },
@@ -240,42 +194,42 @@
         this.designer.setSelected(widget);
       },
 
-      renderHeader(h, { column, $index }) {
-        // debugger
-        // console.log('column=====', column)
-        let colCount = 0;
-        if (this.widget.options.showIndex) {
-          colCount++;
-        }
-        if (this.widget.options.showCheckBox) {
-          colCount++;
-        }
+      // renderHeader(h, { column, $index }) {
+      //   // debugger
+      //   // console.log('column=====', column)
+      //   let colCount = 0;
+      //   if (this.widget.options.showIndex) {
+      //     colCount++;
+      //   }
+      //   if (this.widget.options.showCheckBox) {
+      //     colCount++;
+      //   }
 
-        column.formatS = this.widget.options.tableColumns[$index - colCount].formatS;
-        return column.label;
-      },
+      //   column.formatS = this.widget.options.tableColumns[$index - colCount].formatS;
+      //   return column.label;
+      // },
 
-      formatter(row, column, cellValue) {
-        return cellValue;
-      },
+      // formatter(row, column, cellValue) {
+      //   return cellValue;
+      // },
 
-      getColumnRender(row, column) {
-        /* TODO: 每个table-cell，render函数会执行2次，原因不明！！！ */
-        return new Function('h', 'params', 'components', column.render);
-      },
+      // getColumnRender(row, column) {
+      //   /* TODO: 每个table-cell，render函数会执行2次，原因不明！！！ */
+      //   return new Function('h', 'params', 'components', column.render);
+      // },
 
       /* 注意：在加载树形结构数据时，此方法只能获取第一级选中节点，选择子节点时返回-1，应在文档中加以说明！！！ */
-      getRowIndex(row) {
-        return this.widget.options.tableData.lastIndexOf(row);
-      },
+      // getRowIndex(row) {
+      //   return this.widget.options.tableData.lastIndexOf(row);
+      // },
 
-      findColumnAndSetHidden(columnName, hiddenFlag) {
-        this.widget.options.tableColumns.forEach(tc => {
-          if (tc.prop === columnName) {
-            tc.show = !hiddenFlag;
-          }
-        });
-      },
+      // findColumnAndSetHidden(columnName, hiddenFlag) {
+      //   this.widget.options.tableColumns.forEach(tc => {
+      //     if (tc.prop === columnName) {
+      //       tc.show = !hiddenFlag;
+      //     }
+      //   });
+      // },
 
       handleOnCreated() {
         if (!!this.widget.options.onCreated) {
@@ -291,363 +245,348 @@
         }
       },
 
-      handleCurrentChange(currentRow, oldCurrentRow) {
-        if (!!this.skipSelectionChangeEvent) {
-          return;
-        }
+      // handleCurrentChange(currentRow, oldCurrentRow) {
+      //   if (!!this.skipSelectionChangeEvent) {
+      //     return;
+      //   }
 
-        if (!!this.widget.options.showCheckBox) {
-          return;
-        }
+      //   if (!!this.widget.options.showCheckBox) {
+      //     return;
+      //   }
 
-        this.selectedIndices.length = 0;
-        this.selectedRows.length = 0;
-        const rowIndex = this.getRowIndex(currentRow);
-        this.selectedIndices.push(rowIndex);
-        this.selectedRows.push(currentRow);
+      //   this.selectedIndices.length = 0;
+      //   this.selectedRows.length = 0;
+      //   const rowIndex = this.getRowIndex(currentRow);
+      //   this.selectedIndices.push(rowIndex);
+      //   this.selectedRows.push(currentRow);
 
-        if (!!this.widget.options.onSelectionChange) {
-          const customFn = new Function(
-            'selection',
-            'selectedIndices',
-            this.widget.options.onSelectionChange
-          );
-          customFn.call(this, [currentRow], this.selectedIndices);
-        } else {
-          /* 必须调用mixins中的dispatch方法逐级向父组件发送消息！！ */
-          this.dispatch('VFormRender', 'dataTableSelectionChange', [
-            this,
-            [currentRow],
-            this.selectedIndices
-          ]);
-        }
-      },
+      //   if (!!this.widget.options.onSelectionChange) {
+      //     const customFn = new Function(
+      //       'selection',
+      //       'selectedIndices',
+      //       this.widget.options.onSelectionChange
+      //     );
+      //     customFn.call(this, [currentRow], this.selectedIndices);
+      //   } else {
+      //     /* 必须调用mixins中的dispatch方法逐级向父组件发送消息！！ */
+      //     this.dispatch('VFormRender', 'dataTableSelectionChange', [
+      //       this,
+      //       [currentRow],
+      //       this.selectedIndices
+      //     ]);
+      //   }
+      // },
 
       /**
        * 注意：加载树形数据后，选中行如包含子节点则会触发两次该事件！！
        * @param selection
        */
-      handleSelectionChange(selection) {
-        if (!!this.skipSelectionChangeEvent) {
-          return;
-        }
+      // handleSelectionChange(selection) {
+      //   if (!!this.skipSelectionChangeEvent) {
+      //     return;
+      //   }
 
-        this.selectedIndices.length = 0;
-        this.selectedRows.length = 0;
-        selection.map(row => {
-          const rowIndex = this.getRowIndex(row);
-          this.selectedIndices.push(rowIndex);
-          this.selectedRows.push(row);
-        });
+      //   this.selectedIndices.length = 0;
+      //   this.selectedRows.length = 0;
+      //   selection.map(row => {
+      //     const rowIndex = this.getRowIndex(row);
+      //     this.selectedIndices.push(rowIndex);
+      //     this.selectedRows.push(row);
+      //   });
 
-        if (!!this.widget.options.onSelectionChange) {
-          const customFn = new Function(
-            'selection',
-            'selectedIndices',
-            this.widget.options.onSelectionChange
-          );
-          customFn.call(this, selection, this.selectedIndices);
-        } else {
-          /* 必须调用mixins中的dispatch方法逐级向父组件发送消息！！ */
-          this.dispatch('VFormRender', 'dataTableSelectionChange', [
-            this,
-            selection,
-            this.selectedIndices
-          ]);
-        }
-      },
+      //   if (!!this.widget.options.onSelectionChange) {
+      //     const customFn = new Function(
+      //       'selection',
+      //       'selectedIndices',
+      //       this.widget.options.onSelectionChange
+      //     );
+      //     customFn.call(this, selection, this.selectedIndices);
+      //   } else {
+      //     /* 必须调用mixins中的dispatch方法逐级向父组件发送消息！！ */
+      //     this.dispatch('VFormRender', 'dataTableSelectionChange', [
+      //       this,
+      //       selection,
+      //       this.selectedIndices
+      //     ]);
+      //   }
+      // },
 
-      handleSortChange({ column, prop, order }) {
-        // this.dispatch('VFormRender', 'dataTableSortChange',
-        // 				[this, column, prop, order, this.pageSize, this.currentPage])
-        //
-        // console.log('test====', prop)
-      },
+      // handleSortChange({ column, prop, order }) {
+      // this.dispatch('VFormRender', 'dataTableSortChange',
+      // 				[this, column, prop, order, this.pageSize, this.currentPage])
+      //
+      // console.log('test====', prop)
+      // },
 
-      handlePageSizeChange(pageSize) {
-        this.pageSize = pageSize;
-        if (!!this.widget.options.dsEnabled && !!this.widget.options.dsName) {
-          this.loadDataFromDS();
-        }
+      // handlePageSizeChange(pageSize) {
+      //   this.pageSize = pageSize;
+      //   if (!!this.widget.options.dsEnabled && !!this.widget.options.dsName) {
+      //     this.loadDataFromDS();
+      //   }
 
-        if (!!this.widget.options.onPageSizeChange) {
-          const customFn = new Function(
-            'pageSize',
-            'currentPage',
-            this.widget.options.onPageSizeChange
-          );
-          customFn.call(this, pageSize, this.currentPage);
-        } else {
-          this.dispatch('VFormRender', 'dataTablePageSizeChange', [
-            this,
-            pageSize,
-            this.currentPage
-          ]);
-        }
-      },
+      //   if (!!this.widget.options.onPageSizeChange) {
+      //     const customFn = new Function(
+      //       'pageSize',
+      //       'currentPage',
+      //       this.widget.options.onPageSizeChange
+      //     );
+      //     customFn.call(this, pageSize, this.currentPage);
+      //   } else {
+      //     this.dispatch('VFormRender', 'dataTablePageSizeChange', [
+      //       this,
+      //       pageSize,
+      //       this.currentPage
+      //     ]);
+      //   }
+      // },
 
-      handleCurrentPageChange(currentPage) {
-        this.currentPage = currentPage;
-        if (!!this.widget.options.dsEnabled && !!this.widget.options.dsName) {
-          this.loadDataFromDS();
-        }
+      // handleCurrentPageChange(currentPage) {
+      //   this.currentPage = currentPage;
+      //   if (!!this.widget.options.dsEnabled && !!this.widget.options.dsName) {
+      //     this.loadDataFromDS();
+      //   }
 
-        if (!!this.widget.options.onCurrentPageChange) {
-          const customFn = new Function(
-            'pageSize',
-            'currentPage',
-            this.widget.options.onCurrentPageChange
-          );
-          customFn.call(this, this.pageSize, currentPage);
-        } else {
-          this.dispatch('VFormRender', 'dataTablePageChange', [this, this.pageSize, currentPage]);
-        }
-      },
-      customRenderIndex({ index }) {
-        return index + 1;
-      },
-      handleTablePageChange(pagination, filters, sorter, { currentDataSource }) {
-        console.log('pagination: ', pagination);
-        const fn = this.widget.options.onTableChange;
-        this.widget.options.pagination.current = pagination.current;
-        this.widget.options.pagination.pageSize = pagination.pageSize;
-        if (fn) {
-          const changeFunc = new Function(
-            'pagination',
-            'filters',
-            'sorter',
-            'currentDataSource',
-            fn
-          );
-          changeFunc.call(this, pagination, filters, sorter, {
-            currentDataSource
-          });
-        }
-      },
+      //   if (!!this.widget.options.onCurrentPageChange) {
+      //     const customFn = new Function(
+      //       'pageSize',
+      //       'currentPage',
+      //       this.widget.options.onCurrentPageChange
+      //     );
+      //     customFn.call(this, this.pageSize, currentPage);
+      //   } else {
+      //     this.dispatch('VFormRender', 'dataTablePageChange', [this, this.pageSize, currentPage]);
+      //   }
+      // },
+      // customRenderIndex({ index }) {
+      //   return index + 1;
+      // },
+      // handleTablePageChange(pagination, filters, sorter, { currentDataSource }) {
+      //   console.log('pagination: ', pagination);
+      //   const fn = this.widget.options.onTableChange;
+      //   this.widget.options.pagination.current = pagination.current;
+      //   this.widget.options.pagination.pageSize = pagination.pageSize;
+      //   if (fn) {
+      //     const changeFunc = new Function(
+      //       'pagination',
+      //       'filters',
+      //       'sorter',
+      //       'currentDataSource',
+      //       fn
+      //     );
+      //     changeFunc.call(this, pagination, filters, sorter, {
+      //       currentDataSource
+      //     });
+      //   }
+      // },
 
-      handleOperationButtonClick(btnName, rowIndex, row, scope, ob) {
-        this.skipSelectionChangeEvent = true;
-        try {
-          if (ob.onClick) {
-            const clcFn = new Function('record', 'index', 'column', 'btn', ob.onClick);
-            clcFn.call(this, row, rowIndex, scope.column, ob);
+      // handleOperationButtonClick(btnName, rowIndex, row, scope, ob) {
+      //   this.skipSelectionChangeEvent = true;
+      //   try {
+      //     if (ob.onClick) {
+      //       const clcFn = new Function('record', 'index', 'column', 'btn', ob.onClick);
+      //       clcFn.call(this, row, rowIndex, scope.column, ob);
 
-            return;
-          }
-          if (!!this.widget.options.onOperationButtonClick) {
-            const customFn = new Function(
-              'buttonName',
-              'rowIndex',
-              'row',
-              this.widget.options.onOperationButtonClick
-            );
-            customFn.call(this, btnName, rowIndex, row);
-          } else {
-            this.dispatch('VFormRender', 'operationButtonClick', [this, btnName, rowIndex, row]);
-          }
-        } finally {
-          this.skipSelectionChangeEvent = false;
-        }
-      },
+      //       return;
+      //     }
+      //     if (!!this.widget.options.onOperationButtonClick) {
+      //       const customFn = new Function(
+      //         'buttonName',
+      //         'rowIndex',
+      //         'row',
+      //         this.widget.options.onOperationButtonClick
+      //       );
+      //       customFn.call(this, btnName, rowIndex, row);
+      //     } else {
+      //       this.dispatch('VFormRender', 'operationButtonClick', [this, btnName, rowIndex, row]);
+      //     }
+      //   } finally {
+      //     this.skipSelectionChangeEvent = false;
+      //   }
+      // },
 
-      showOperationButton(buttonConfig, rowIndex, row) {
-        if (!!this.widget.options.onHideOperationButton) {
-          const customFn = new Function(
-            'buttonConfig',
-            'rowIndex',
-            'row',
-            this.widget.options.onHideOperationButton
-          );
-          return !customFn.call(this, buttonConfig, rowIndex, row);
-        } else {
-          return !buttonConfig.hidden;
-        }
-      },
+      // showOperationButton(buttonConfig, rowIndex, row) {
+      //   if (!!this.widget.options.onHideOperationButton) {
+      //     const customFn = new Function(
+      //       'buttonConfig',
+      //       'rowIndex',
+      //       'row',
+      //       this.widget.options.onHideOperationButton
+      //     );
+      //     return !customFn.call(this, buttonConfig, rowIndex, row);
+      //   } else {
+      //     return !buttonConfig.hidden;
+      //   }
+      // },
 
-      disableOperationButton(buttonConfig, rowIndex, row) {
-        if (!!this.widget.options.onDisableOperationButton) {
-          const customFn = new Function(
-            'buttonConfig',
-            'rowIndex',
-            'row',
-            this.widget.options.onDisableOperationButton
-          );
-          return customFn.call(this, buttonConfig, rowIndex, row);
-        } else {
-          return buttonConfig.disabled;
-        }
-      },
+      // disableOperationButton(buttonConfig, rowIndex, row) {
+      //   if (!!this.widget.options.onDisableOperationButton) {
+      //     const customFn = new Function(
+      //       'buttonConfig',
+      //       'rowIndex',
+      //       'row',
+      //       this.widget.options.onDisableOperationButton
+      //     );
+      //     return customFn.call(this, buttonConfig, rowIndex, row);
+      //   } else {
+      //     return buttonConfig.disabled;
+      //   }
+      // },
 
-      getOperationButtonLabel(buttonConfig, rowIndex, row) {
-        if (!!this.widget.options.onGetOperationButtonLabel) {
-          const customFn = new Function(
-            'buttonConfig',
-            'rowIndex',
-            'row',
-            this.widget.options.onGetOperationButtonLabel
-          );
-          // return customFn.call(this, buttonConfig, rowIndex, row) || buttonConfig.label
-          return customFn.call(this, buttonConfig, rowIndex, row);
-        } else {
-          return buttonConfig.label;
-        }
-      },
+      // getRowClassName({ row, rowIndex }) {
+      //   if (!!this.widget.options.onGetRowClassName) {
+      //     const customFn = new Function('rowIndex', 'row', this.widget.options.onGetRowClassName);
+      //     return customFn.call(this, rowIndex, row);
+      //   } else {
+      //     return '';
+      //   }
+      // },
 
-      getRowClassName({ row, rowIndex }) {
-        if (!!this.widget.options.onGetRowClassName) {
-          const customFn = new Function('rowIndex', 'row', this.widget.options.onGetRowClassName);
-          return customFn.call(this, rowIndex, row);
-        } else {
-          return '';
-        }
-      },
+      // getSpanMethod({ row, column, rowIndex, columnIndex }) {
+      //   if (!!this.widget.options.onGetSpanMethod) {
+      //     const customFn = new Function(
+      //       'row',
+      //       'column',
+      //       'rowIndex',
+      //       'columnIndex',
+      //       this.widget.options.onGetSpanMethod
+      //     );
+      //     return customFn.call(this, row, column, rowIndex, columnIndex);
+      //   }
+      // },
 
-      getSpanMethod({ row, column, rowIndex, columnIndex }) {
-        if (!!this.widget.options.onGetSpanMethod) {
-          const customFn = new Function(
-            'row',
-            'column',
-            'rowIndex',
-            'columnIndex',
-            this.widget.options.onGetSpanMethod
-          );
-          return customFn.call(this, row, column, rowIndex, columnIndex);
-        }
-      },
+      // handleHeaderClick(column, event) {
+      //   if (!!this.widget.options.onHeaderClick) {
+      //     const customFn = new Function('column', 'event', this.widget.options.onHeaderClick);
+      //     return customFn.call(this, column, event);
+      //   }
+      // },
 
-      handleHeaderClick(column, event) {
-        if (!!this.widget.options.onHeaderClick) {
-          const customFn = new Function('column', 'event', this.widget.options.onHeaderClick);
-          return customFn.call(this, column, event);
-        }
-      },
+      // handleRowClick(row, column, event) {
+      //   if (!!this.widget.options.onRowClick) {
+      //     const customFn = new Function('row', 'column', 'event', this.widget.options.onRowClick);
+      //     return customFn.call(this, row, column, event);
+      //   }
+      // },
 
-      handleRowClick(row, column, event) {
-        if (!!this.widget.options.onRowClick) {
-          const customFn = new Function('row', 'column', 'event', this.widget.options.onRowClick);
-          return customFn.call(this, row, column, event);
-        }
-      },
+      // handleRowDoubleClick(row, column, event) {
+      //   if (!!this.widget.options.onRowDoubleClick) {
+      //     const customFn = new Function(
+      //       'row',
+      //       'column',
+      //       'event',
+      //       this.widget.options.onRowDoubleClick
+      //     );
+      //     return customFn.call(this, row, column, event);
+      //   }
+      // },
 
-      handleRowDoubleClick(row, column, event) {
-        if (!!this.widget.options.onRowDoubleClick) {
-          const customFn = new Function(
-            'row',
-            'column',
-            'event',
-            this.widget.options.onRowDoubleClick
-          );
-          return customFn.call(this, row, column, event);
-        }
-      },
+      // handleCellClick(row, column, cell, event) {
+      //   if (!!this.widget.options.onCellClick) {
+      //     const customFn = new Function(
+      //       'row',
+      //       'column',
+      //       'cell',
+      //       'event',
+      //       this.widget.options.onCellClick
+      //     );
+      //     return customFn.call(this, row, column, cell, event);
+      //   }
+      // },
 
-      handleCellClick(row, column, cell, event) {
-        if (!!this.widget.options.onCellClick) {
-          const customFn = new Function(
-            'row',
-            'column',
-            'cell',
-            'event',
-            this.widget.options.onCellClick
-          );
-          return customFn.call(this, row, column, cell, event);
-        }
-      },
+      // handleCellDoubleClick(row, column, cell, event) {
+      //   if (!!this.widget.options.onCellDoubleClick) {
+      //     const customFn = new Function(
+      //       'row',
+      //       'column',
+      //       'cell',
+      //       'event',
+      //       this.widget.options.onCellDoubleClick
+      //     );
+      //     return customFn.call(this, row, column, cell, event);
+      //   }
+      // },
 
-      handleCellDoubleClick(row, column, cell, event) {
-        if (!!this.widget.options.onCellDoubleClick) {
-          const customFn = new Function(
-            'row',
-            'column',
-            'cell',
-            'event',
-            this.widget.options.onCellDoubleClick
-          );
-          return customFn.call(this, row, column, cell, event);
-        }
-      },
+      // toggleSelection(row, flag, selectedRows) {
+      //   if (row) {
+      //     this.$refs.dataTable.toggleRowSelection(row, flag);
 
-      toggleSelection(row, flag, selectedRows) {
-        if (row) {
-          this.$refs.dataTable.toggleRowSelection(row, flag);
+      //     if (flag) {
+      //       selectedRows.push(row);
+      //       return;
+      //     }
 
-          if (flag) {
-            selectedRows.push(row);
-            return;
-          }
+      //     let foundRowIdx = -1;
+      //     const rowKey = this.widget.options.rowKey || 'id';
+      //     selectedRows.forEach((sr, idx) => {
+      //       if (sr[rowKey] === row[rowKey]) {
+      //         foundRowIdx = idx;
+      //       }
+      //     });
 
-          let foundRowIdx = -1;
-          const rowKey = this.widget.options.rowKey || 'id';
-          selectedRows.forEach((sr, idx) => {
-            if (sr[rowKey] === row[rowKey]) {
-              foundRowIdx = idx;
-            }
-          });
+      //     if (foundRowIdx > -1) {
+      //       selectedRows.splice(foundRowIdx, 1);
+      //     }
+      //   }
+      // },
 
-          if (foundRowIdx > -1) {
-            selectedRows.splice(foundRowIdx, 1);
-          }
-        }
-      },
+      // setChildrenSelected(children, flag, selectedRows) {
+      //   const childrenKey = this.widget.options.childrenKey || 'children';
+      //   children.map(child => {
+      //     this.toggleSelection(child, flag, selectedRows);
+      //     if (child[childrenKey]) {
+      //       this.setChildrenSelected(child[childrenKey], flag, selectedRows);
+      //     }
+      //   });
+      // },
 
-      setChildrenSelected(children, flag, selectedRows) {
-        const childrenKey = this.widget.options.childrenKey || 'children';
-        children.map(child => {
-          this.toggleSelection(child, flag, selectedRows);
-          if (child[childrenKey]) {
-            this.setChildrenSelected(child[childrenKey], flag, selectedRows);
-          }
-        });
-      },
+      // handleRowSelect(selection, row) {
+      //   this.skipSelectionChangeEvent = true;
 
-      handleRowSelect(selection, row) {
-        this.skipSelectionChangeEvent = true;
+      //   const selectedRows = deepClone(selection);
+      //   const rowKey = this.widget.options.rowKey || 'id';
+      //   const childrenKey = this.widget.options.childrenKey || 'children';
+      //   if (
+      //     selection.some(el => {
+      //       return row[rowKey] === el[rowKey];
+      //     })
+      //   ) {
+      //     if (row[childrenKey]) {
+      //       this.setChildrenSelected(row[childrenKey], true, selectedRows);
+      //     }
+      //   } else {
+      //     if (row[childrenKey]) {
+      //       this.setChildrenSelected(row[childrenKey], false, selectedRows);
+      //     }
+      //   }
 
-        const selectedRows = deepClone(selection);
-        const rowKey = this.widget.options.rowKey || 'id';
-        const childrenKey = this.widget.options.childrenKey || 'children';
-        if (
-          selection.some(el => {
-            return row[rowKey] === el[rowKey];
-          })
-        ) {
-          if (row[childrenKey]) {
-            this.setChildrenSelected(row[childrenKey], true, selectedRows);
-          }
-        } else {
-          if (row[childrenKey]) {
-            this.setChildrenSelected(row[childrenKey], false, selectedRows);
-          }
-        }
+      //   this.skipSelectionChangeEvent = false;
+      //   // 一次性处理多行选中或取消选中，只触发一次事件！！！
+      //   this.$nextTick(() => {
+      //     this.handleSelectionChange(selectedRows);
+      //   });
+      // },
 
-        this.skipSelectionChangeEvent = false;
-        // 一次性处理多行选中或取消选中，只触发一次事件！！！
-        this.$nextTick(() => {
-          this.handleSelectionChange(selectedRows);
-        });
-      },
+      // setSelectedFlag(data, flag) {
+      //   const childrenKey = this.widget.options.childrenKey || 'children';
+      //   data.forEach(row => {
+      //     this.$refs.dataTable.toggleRowSelection(row, flag);
+      //     if (row[childrenKey]) {
+      //       this.setSelectedFlag(row[childrenKey], flag);
+      //     }
+      //   });
+      // },
 
-      setSelectedFlag(data, flag) {
-        const childrenKey = this.widget.options.childrenKey || 'children';
-        data.forEach(row => {
-          this.$refs.dataTable.toggleRowSelection(row, flag);
-          if (row[childrenKey]) {
-            this.setSelectedFlag(row[childrenKey], flag);
-          }
-        });
-      },
+      // handleAllSelect(selection) {
+      //   this.skipSelectionChangeEvent = true;
+      //   this.selectAllFlag = !this.selectAllFlag;
+      //   this.setSelectedFlag(this.widget.options.tableData, this.selectAllFlag);
 
-      handleAllSelect(selection) {
-        this.skipSelectionChangeEvent = true;
-        this.selectAllFlag = !this.selectAllFlag;
-        this.setSelectedFlag(this.widget.options.tableData, this.selectAllFlag);
-
-        this.skipSelectionChangeEvent = false;
-        // 一次性处理多行选中或取消选中，只触发一次事件！！！
-        this.$nextTick(() => {
-          this.handleSelectionChange(selection);
-        });
-      },
+      //   this.skipSelectionChangeEvent = false;
+      //   // 一次性处理多行选中或取消选中，只触发一次事件！！！
+      //   this.$nextTick(() => {
+      //     this.handleSelectionChange(selection);
+      //   });
+      // },
 
       // --------------------- 以下为组件支持外部调用的API方法 begin ------------------//
       /* 提示：用户可自行扩充这些方法！！！ */
@@ -660,136 +599,136 @@
        * 设置表格列
        * @param tableColumns
        */
-      setTableColumns(tableColumns) {
-        this.widget.options.tableColumns = tableColumns;
-        this.$nextTick(() => {
-          this.$refs.dataTable.doLayout(); // 防止行列显示错位！！
-        });
-      },
+      // setTableColumns(tableColumns) {
+      // this.widget.options.tableColumns = tableColumns;
+      // this.$nextTick(() => {
+      //   this.$refs.dataTable.doLayout(); // 防止行列显示错位！！
+      // });
+      // },
 
       /**
        * 设置表格列（为了兼容文档错误，setTableColumn应为setTableColumns）
        * @param tableColumns
        */
-      setTableColumn(tableColumns) {
-        this.setTableColumns(tableColumns);
-      },
+      // setTableColumn(tableColumns) {
+      //   this.setTableColumns(tableColumns);
+      // },
 
       /**
        * 从数据源加载表格列
        * @param localDsv 本地数据源变量DSV
        * @param dsName 数据源名称
        */
-      loadColumnsFromDS(localDsv = {}, dsName) {
-        const curDS = getDSByName(this.formConfig, dsName);
-        if (!!curDS) {
-          const gDsv = this.getGlobalDsv() || {};
-          const newDsv = new Object({});
-          overwriteObj(newDsv, gDsv);
-          overwriteObj(newDsv, localDsv);
-          newDsv.widgetName = this.widget.options.name;
-          runDataSourceRequest(curDS, newDsv, this.getFormRef(), false, this.$message)
-            .then(res => {
-              this.setTableColumns(res);
-            })
-            .catch(err => {
-              this.$message.error(err.message);
-            });
-        }
-      },
+      // loadColumnsFromDS(localDsv = {}, dsName) {
+      //   const curDS = getDSByName(this.formConfig, dsName);
+      //   if (!!curDS) {
+      //     const gDsv = this.getGlobalDsv() || {};
+      //     const newDsv = new Object({});
+      //     overwriteObj(newDsv, gDsv);
+      //     overwriteObj(newDsv, localDsv);
+      //     newDsv.widgetName = this.widget.options.name;
+      //     runDataSourceRequest(curDS, newDsv, this.getFormRef(), false, this.$message)
+      //       .then(res => {
+      //         this.setTableColumns(res);
+      //       })
+      //       .catch(err => {
+      //         this.$message.error(err.message);
+      //       });
+      //   }
+      // },
 
       /**
        * 动态设置表格列的隐藏或显示
        * @param columnNames
        * @param hiddenFlag
        */
-      setTableColumnsHidden(columnNames, hiddenFlag) {
-        if (!!columnNames) {
-          if (typeof columnNames === 'string') {
-            this.findColumnAndSetHidden(columnNames, hiddenFlag);
-          } else if (Array.isArray(columnNames)) {
-            columnNames.forEach(cn => {
-              this.findColumnAndSetHidden(cn, hiddenFlag);
-            });
-          }
+      // setTableColumnsHidden(columnNames, hiddenFlag) {
+      //   if (!!columnNames) {
+      //     if (typeof columnNames === 'string') {
+      //       this.findColumnAndSetHidden(columnNames, hiddenFlag);
+      //     } else if (Array.isArray(columnNames)) {
+      //       columnNames.forEach(cn => {
+      //         this.findColumnAndSetHidden(cn, hiddenFlag);
+      //       });
+      //     }
 
-          this.$nextTick(() => {
-            this.$refs.dataTable.doLayout(); // 防止行列显示错位！！
-          });
-        }
-      },
+      //     this.$nextTick(() => {
+      //       this.$refs.dataTable.doLayout(); // 防止行列显示错位！！
+      //     });
+      //   }
+      // },
 
       /**
        * 获取表格数据
        */
-      getTableData() {
-        return this.widget.options.tableData;
-      },
+      // getTableData() {
+      //   return this.widget.options.tableData;
+      // },
 
       /**
        * 设置表格数据
        * @param tableData
        */
-      setTableData(tableData) {
-        this.widget.options.tableData = tableData;
-      },
+      // setTableData(tableData) {
+      //   this.widget.options.tableData = tableData;
+      // },
 
       /**
        * 从数据源加载表格数据
        * @param localDsv 本地数据源变量DSV
        * @param dsName 数据源名称，不传此值，则使用dsName属性绑定的数据源
        */
-      loadDataFromDS(localDsv = {}, dsName = '') {
-        const curDSName = dsName || this.widget.options.dsName;
-        const curDSetName = this.widget.options.dataSetName;
-        const curDS = getDSByName(this.formConfig, curDSName);
-        if (!!curDS) {
-          const gDsv = this.getGlobalDsv() || {};
-          const newDsv = new Object({});
-          overwriteObj(newDsv, gDsv);
-          overwriteObj(newDsv, localDsv);
-          newDsv.widgetName = this.widget.options.name;
-          newDsv.pageSize = this.pageSize;
-          newDsv.currentPage = this.currentPage;
-          runDataSourceRequest(curDS, newDsv, this.getFormRef(), false, this.$message)
-            .then(res => {
-              if (!!curDSetName && res.hasOwnProperty(curDSetName)) {
-                this.setTableData(res[curDSetName]);
-              } else {
-                this.setTableData(res);
-              }
-            })
-            .catch(err => {
-              this.$message.error(err.message);
-            });
-        }
-      },
+      // loadDataFromDS(localDsv = {}, dsName = '') {
+      // const curDSName = dsName || this.widget.options.dsName;
+      // const curDSetName = this.widget.options.dataSetName;
+      // const curDS = getDSByName(this.formConfig, curDSName);
+      // if (!!curDS) {
+      //   const gDsv = this.getGlobalDsv() || {};
+      //   const newDsv = new Object({});
+      //   overwriteObj(newDsv, gDsv);
+      //   overwriteObj(newDsv, localDsv);
+      //   newDsv.widgetName = this.widget.options.name;
+      //   newDsv.pageSize = this.pageSize;
+      //   newDsv.currentPage = this.currentPage;
+      //   runDataSourceRequest(curDS, newDsv, this.getFormRef(), false, this.$message)
+      //     .then(res => {
+      //       if (!!curDSetName && res.hasOwnProperty(curDSetName)) {
+      //         this.setTableData(res[curDSetName]);
+      //       } else {
+      //         this.setTableData(res);
+      //       }
+      //     })
+      //     .catch(err => {
+      //       this.$message.error(err.message);
+      //     });
+      // }
+      // },
 
-      /**
-       * 设置表格分页
-       * @param pagination
-       */
-      setPagination(pagination) {
-        if (pagination.currentPage !== undefined) {
-          this.currentPage = pagination.currentPage;
-          this.widget.options.pagination.currentPage = pagination.currentPage;
-        }
+      // /**
+      //  * 设置表格分页
+      //  * @param pagination
+      //  */
+      // setPagination(pagination) {
+      //   if (pagination.currentPage !== undefined) {
+      //     this.currentPage = pagination.currentPage;
+      //     this.widget.options.pagination.currentPage = pagination.currentPage;
+      //   }
 
-        if (pagination.pageSize !== undefined) {
-          this.pageSize = pagination.pageSize;
-          this.widget.options.pagination.pageSize = pagination.pageSize;
-        }
+      //   if (pagination.pageSize !== undefined) {
+      //     this.pageSize = pagination.pageSize;
+      //     this.widget.options.pagination.pageSize = pagination.pageSize;
+      //   }
 
-        if (pagination.pageSizes !== undefined) {
-          this.pageSizes = pagination.pageSizes;
-          this.widget.options.pagination.pageSizes = pagination.pageSizes;
-        }
+      //   if (pagination.pageSizes !== undefined) {
+      //     this.pageSizes = pagination.pageSizes;
+      //     this.widget.options.pagination.pageSizes = pagination.pageSizes;
+      //   }
 
-        if (pagination.total !== undefined) {
-          this.total = pagination.total;
-          this.widget.options.pagination.total = pagination.total;
-        }
-      },
+      //   if (pagination.total !== undefined) {
+      //     this.total = pagination.total;
+      //     this.widget.options.pagination.total = pagination.total;
+      //   }
+      // },
 
       /**
        * 获取选中行数据，格式为对象数组

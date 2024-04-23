@@ -3,6 +3,7 @@
     <div id="app">
       <VFormDesigner
         :fieldListApi="fieldListApi"
+        :saveJsonApi="saveJsonApi"
         :designer-config="designerConfig"
         :global-dsv="globalDsv"
         ref="vfdRef"
@@ -44,7 +45,6 @@
             functions: '',
             layoutType: 'PC',
             onFormCreated: '',
-            onFormMounted: '',
             onFormDataChange: '',
             onFormValidate: ''
           }
@@ -75,6 +75,22 @@
     },
 
     methods: {
+      async saveJsonApi(json) {
+        const { id } = getLocat();
+        const params = {
+          formCode,
+          terminalType,
+          entityCode,
+          frontendDefinition: JSON.stringify(json)
+        };
+
+        if (id) {
+          params.formId = id || null;
+        }
+        await http.post(`/api/tmgc2-mgt/formDefinition/save`, params);
+        // const res = await formDefinitionApi.save(params);
+        this.$message.success('操作成功');
+      },
       insertBtn(list = []) {
         const btnId = getUuidKey();
         const btnInfo = {
@@ -110,12 +126,13 @@
       },
       async getComponentJson(list) {
         let json = { widgetList: [], formConfig: {} };
-        if (id && entityCode) {
+        if (formCode && id) {
           const res = await http({
             method: 'get',
-            url: `/api/tmgc2-query/dataQuery/detail/${entityCode}`,
-            params: { id }
-          });
+            url: `/api/tmgc2-query/dataQuery/detail/FormDefinitionManagement`,
+            params: { code: formCode }
+          }).then(res => res.data.object);
+          console.log('res: ', res);
           json = JSON.parse(res.frontendDefinition || '{}');
         } else {
           json.widgetList = this.getInitRenderJSON(list);
@@ -125,7 +142,11 @@
       },
       async fieldListApi() {
         const { entityCode } = getLocat();
-        if (!entityCode) return [];
+        if (!entityCode) {
+          this.getComponentJson([]);
+
+          return [];
+        }
         const p = {
           pageCode: 'EntityPropertyFormItem',
           conditions: [{ fieldCode: 'entityCode', type: 'EQ', value: entityCode }],
@@ -144,7 +165,11 @@
           url: '/api/tmgc2-query/dataQuery/execute',
           data: p
         }).then(res => res.data.object.list || []);
-        return this.getComponentJson(list);
+        this.getComponentJson(list);
+        return list.map(item => ({
+          showName: item.entityPropertyName,
+          fieldCode: item.entityPropertyCode
+        }));
       },
       submitForm() {
         this.$refs.vFormRef

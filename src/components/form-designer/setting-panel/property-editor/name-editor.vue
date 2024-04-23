@@ -8,9 +8,11 @@
         </a-tooltip>
       </span>
     </template>
-    <template v-if="!!selectedWidget.category || noFieldList">
+    <!-- <template v-if="!!selectedWidget.category || noFieldList"> -->
+    <a-form-item-rest>
       <a-input
-        type="text"
+        size="small"
+        class="t-mb-[5px]"
         v-model:value="optionModel.name"
         :readonly="widgetNameReadonly"
         @change="updateWidgetNameAndRef"
@@ -19,22 +21,21 @@
           <a @click="copyFormJson">复制</a>
         </template>
       </a-input>
-    </template>
-    <template v-else>
-      <div class="t-flex">
-        <a-select
-          class="t-flex-1"
-          v-model:value="optionModel.name"
-          allowClear
-          :disabled="widgetNameReadonly"
-          @change="updateWidgetNameAndRef"
-          :title="i18nt('designer.setting.editNameHelp')"
-          :options="fieldList"
-          :fieldNames="{ label: 'showName', value: 'fieldCode' }"
-        />
-        <a @click="copyFormJson">复制</a>
-      </div>
-    </template>
+      <!-- </template>
+    <template v-else> -->
+      <!-- <div class="t-flex"> -->
+      <a-select
+        v-model:value="optionModel.name"
+        allowClear
+        :disabled="widgetNameReadonly"
+        @change="updateWidgetNameAndRef"
+        :title="i18nt('designer.setting.editNameHelp')"
+        :options="fieldList"
+        :fieldNames="{ label: 'showName', value: 'fieldCode' }"
+      />
+    </a-form-item-rest>
+    <!-- </div> -->
+    <!-- </template> -->
   </a-form-item>
 </template>
 
@@ -93,7 +94,9 @@
         copyToClipboard(this.optionModel.name, e, this.$message, '复制成功', '复制失败');
       },
       updateWidgetNameAndRef(newName, ops) {
-        console.log('newName, ops: ', newName, ops);
+        if (newName) {
+          newName = newName.target ? newName.target.value : newName;
+        }
         if (ops) {
           this.optionModel.label = ops.showName;
         }

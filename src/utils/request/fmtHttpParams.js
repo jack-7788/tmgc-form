@@ -1,14 +1,14 @@
 import { getLocat, replaceVars } from '@/utils/util';
 import { getHttp } from './http';
 
-export const fmtHttpParams = async (req, params: any = {}) => {
+export async function fmtHttpParams(req, params = {}) {
   const request = getHttp();
 
-  const { data, vfCtx } = params;
-  console.log('req: ', req);
+  const { data, vfCtx, ...args } = params;
   const { http, dataHandlerCode, dataReqHandlerCode } = req;
+  if (!http.url) return;
 
-  const paramsMap = { ...getLocat(), ...data, ...vfCtx };
+  const paramsMap = { ...getLocat(), ...data, ...vfCtx, ...args };
 
   const method = http.method || 'get';
 
@@ -31,4 +31,4 @@ export const fmtHttpParams = async (req, params: any = {}) => {
     dsResult = dhFn.call(this, dsResult);
   }
   return dsResult;
-};
+}

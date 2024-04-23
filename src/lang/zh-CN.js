@@ -56,6 +56,7 @@ export default {
       'html-text': 'HTML',
       button: '按钮',
       divider: '分隔线',
+      dropdown: '下拉菜单',
 
       'picture-upload': '图片',
       'file-upload': '附件',
@@ -281,8 +282,8 @@ export default {
       appendButtonIcon: '后置按钮Icon',
       buttonIcon: '按钮Icon',
       switchWidth: '开关宽度（像素）',
-      checkedChildren: '开启时文字描述',
-      unCheckedChildren: '关闭时文字描述',
+      checkedValue: '开启时对应枚举',
+      unCheckedValue: '关闭时对应枚举',
       activeColor: '开启时背景色',
       inactiveColor: '关闭时背景色',
       maxStars: '最大评分值',

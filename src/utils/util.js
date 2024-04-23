@@ -466,9 +466,14 @@ export function getDefaultFormConfig() {
     layoutType: 'PC',
     // jsonVersion: 3,
     // dataSources: [], //数据源集合
-
     onFormCreated: '',
-    onFormMounted: '',
+    onFormMounted: `
+    if(!this.vfCtx) return
+    if(!this.vfCtx._id) return
+    this.onFormDetail().then(res=>{
+      this.setFormData({...res})
+    })
+    `,
     onFormDataChange: '',
     serveList: {
       vformUpdate: {
@@ -598,9 +603,7 @@ function buildRequestConfig(dataSource, DSV, VFR, isSandbox) {
 export async function runDataSourceRequest(dataSource, DSV, VFR, isSandbox, $message) {
   try {
     const requestConfig = buildRequestConfig(dataSource, DSV, VFR, isSandbox);
-    //console.log('test------', requestConfig)
     const result = await axios.request(requestConfig);
-    //let result = await axios.create().request(requestConfig)
 
     const dhFn = new Function('result', 'isSandbox', 'DSV', 'VFR', dataSource.dataHandlerCode);
     return dhFn.call(null, result, isSandbox, DSV, VFR);

@@ -225,7 +225,7 @@
     mounted() {
       this.initLocale();
       this.initDataSetRequest();
-      this.handleOnMounted();
+      // this.handleOnMounted();
     },
     methods: {
       async onFormDetail() {

@@ -28630,7 +28630,6 @@ const _sfc_main$3E = {
   mounted() {
     this.initLocale();
     this.initDataSetRequest();
-    this.handleOnMounted();
   },
   methods: {
     async onFormDetail() {
@@ -29436,7 +29435,7 @@ function _sfc_render$3E(_ctx, _cache, $props, $setup, $data, $options) {
     _: 3
   }, 8, ["component-size"]);
 }
-const VFormRender = /* @__PURE__ */ _export_sfc$1(_sfc_main$3E, [["render", _sfc_render$3E], ["__scopeId", "data-v-248f145c"]]);
+const VFormRender = /* @__PURE__ */ _export_sfc$1(_sfc_main$3E, [["render", _sfc_render$3E], ["__scopeId", "data-v-14a42bc3"]]);
 var ace$2 = { exports: {} };
 (function(module, exports) {
   (function() {
@@ -79744,13 +79743,13 @@ function registerIcon(app) {
 if (typeof window !== "undefined") {
   let loadSvg = function() {
     var body = document.body;
-    var svgDom = document.getElementById("__svg__icons__dom__1713948597656__");
+    var svgDom = document.getElementById("__svg__icons__dom__1713954189248__");
     if (!svgDom) {
       svgDom = document.createElementNS("http://www.w3.org/2000/svg", "svg");
       svgDom.style.position = "absolute";
       svgDom.style.width = "0";
       svgDom.style.height = "0";
-      svgDom.id = "__svg__icons__dom__1713948597656__";
+      svgDom.id = "__svg__icons__dom__1713954189248__";
       svgDom.setAttribute("xmlns", "http://www.w3.org/2000/svg");
       svgDom.setAttribute("xmlns:link", "http://www.w3.org/1999/xlink");
     }

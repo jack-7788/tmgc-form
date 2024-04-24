@@ -16,7 +16,7 @@
       v-model:value="fieldModel"
       :size="size"
       v-show="!isReadMode"
-      :disabled="field.options.disabled"
+      :disabled="handleDisabled()"
       :style="{ display: field.options.displayStyle + ' !important' }"
       @change="handleChangeEvent"
     >

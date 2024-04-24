@@ -1,11 +1,12 @@
-import { omit } from 'lodash-es';
+import { omit, isEmpty } from 'lodash-es';
 import { fmtHttpParams } from '@/utils/request/fmtHttpParams';
 import { TpfConfirm } from '@/hooks/TpfConfirm';
 
 export default {
   data() {
     return {
-      selectedRowInfo: { selectedRowKeys: [], selectedRows: [] }
+      selectedRowInfo: { selectedRowKeys: [], selectedRows: [] },
+      selectRow: {}
     };
   },
   computed: {
@@ -26,6 +27,19 @@ export default {
     }
   },
   methods: {
+    disabledClick() {
+      const { hasRowSelection } = this.widget.options;
+      if (hasRowSelection) {
+        return isEmpty(this.selectedRowInfo.selectedRowKeys);
+      }
+      return isEmpty(this.selectRow);
+    },
+    getSelectedRowKeys() {
+      return this.selectedRowInfo.selectedRowKeys;
+    },
+    getSelectedRows() {
+      return this.selectedRowInfo.getSelectedRows;
+    },
     getTableColumns() {
       return this.widget.options.tableColumns;
     },
@@ -37,6 +51,7 @@ export default {
       const data = this.getDataSource();
       const newList = data.filter(item => !delKeys?.includes(item[rowKey]));
       this.setDataSource(newList);
+
       this.$message.success('操作成功');
     },
     fmtPagination() {
@@ -63,6 +78,8 @@ export default {
       }
     },
     setDataSource(list) {
+      this.selectedRowInfo = { selectedRowKeys: [], selectedRows: [] };
+      this.selectRow = {};
       this.widget.options.dataSource = Object.assign([], list);
     },
     setValue(list) {
@@ -87,10 +104,13 @@ export default {
       }
     },
     handleCustomRow(record) {
-      const { customRow } = this.widget.options;
+      const { customRow, hasRowSelection } = this.widget.options;
       if (!customRow) return {};
       return {
         onClick: event => {
+          if (hasRowSelection) {
+            this.selectRow = record;
+          }
           const customFn = new Function('record', 'event', customRow.onClick);
           customFn.call(this, record, event);
         },
@@ -210,7 +230,8 @@ export default {
       }
       this.loadDataTableDataSource();
     },
-    handleRowSelection(info) {
+    handleRowSelection() {
+      const info = this.widget.options.rowSelection;
       if (!info.hasRowSelection) {
         return undefined;
       }

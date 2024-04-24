@@ -18,7 +18,7 @@
         v-show="!isReadMode"
         :size="size"
         class="full-width-input"
-        :disabled="field.options.disabled"
+        :disabled="handleDisabled()"
         :allowClear="field.options.allowClear"
         :showArrow="true"
         :dropdownMatchSelectWidth="false"

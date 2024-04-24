@@ -17,7 +17,7 @@
       v-model:value="fieldModel"
       v-show="!isReadMode"
       :size="size"
-      :disabled="field.options.disabled"
+      :disabled="handleDisabled()"
       :allowClear="field.options.allowClear"
       :readonly="field.options.readonly"
       :placeholder="field.options.placeholder"

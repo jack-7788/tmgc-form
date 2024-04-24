@@ -14,7 +14,7 @@
     <!-- el-upload增加:name="field.options.name"后，会导致又拍云上传失败！故删除之！！ -->
     <a-upload
       ref="fieldEditor"
-      :disabled="field.options.disabled || isReadMode"
+      :disabled="handleDisabled() || isReadMode"
       :action="realUploadURL"
       :headers="uploadHeaders"
       :data="uploadData"

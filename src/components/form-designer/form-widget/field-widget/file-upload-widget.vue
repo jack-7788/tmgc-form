@@ -14,7 +14,7 @@
     <!-- el-upload增加:name="field.options.name"后，会导致又拍云上传失败！故删除之！！ -->
     <a-upload
       ref="fieldEditor"
-      :disabled="field.options.disabled || isReadMode"
+      :disabled="handleDisabled() || isReadMode"
       :style="styleVariables"
       class="dynamicPseudoAfter"
       :action="realUploadURL"
@@ -49,7 +49,7 @@
           <span
             class="file-action"
             :title="i18nt('render.hint.removeFile')"
-            v-if="!field.options.disabled && !isReadMode"
+            v-if="!handleDisabled() && !isReadMode"
             @click="removeUploadFile(file.name, file.url, file.uid)"
             ><svg-icon icon-class="el-delete"
           /></span>

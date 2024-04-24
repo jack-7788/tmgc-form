@@ -21,7 +21,7 @@
         :size="size"
         ref="fieldEditor"
         v-model:value="fieldModel"
-        :disabled="field.options.disabled"
+        :disabled="handleDisabled()"
         :inputReadOnly="field.options.readonly"
         :readonly="field.options.readonly"
         :allowClear="field.options.allowClear"

@@ -17,7 +17,7 @@
       v-model:value="fieldModel"
       v-show="!isReadMode"
       class="full-width-input"
-      :disabled="field.options.disabled"
+      :disabled="handleDisabled()"
       :controls-position="field.options.controlsPosition"
       :placeholder="field.options.placeholder"
       :min="field.options.min"

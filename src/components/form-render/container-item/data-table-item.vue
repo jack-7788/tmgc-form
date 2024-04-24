@@ -15,11 +15,14 @@
       :bordered="widget.options.border"
       :style="{ width: widget.options.tableWidth }"
       :row-class-name="rowClassName"
-      :rowSelection="handleRowSelection(widget.options.rowSelection)"
+      :rowSelection="handleRowSelection()"
       :pagination="fmtPagination()"
       :customRow="handleCustomRow"
       @change="handleTablePageChange"
     >
+      <template #emptyText>
+        <a-empty />
+      </template>
       <a-table-column
         v-if="widget.options.showIndex"
         title="序号"

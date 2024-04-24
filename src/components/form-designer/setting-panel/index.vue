@@ -160,6 +160,7 @@
         :close-on-click-modal="false"
         :close-on-press-escape="false"
         :destroy-on-close="true"
+        :width="800"
       >
         <a-alert type="info" :closable="false" :message="eventHeader" />
         <code-editor
@@ -185,7 +186,7 @@
 </template>
 
 <script>
-  import CodeEditor from '@/components/code-editor/index';
+  import CodeEditor from '@/components/code-editor/index.vue';
   import PropertyEditors from './property-editor/index';
   import FormSetting from './form-setting';
   import DataSourceSetting from './data-source-setting.vue';

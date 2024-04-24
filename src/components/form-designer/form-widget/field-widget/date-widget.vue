@@ -24,7 +24,7 @@
         v-model:value="fieldModel"
         :class="[!!field.options.autoFullWidth ? 'auto-full-width' : '']"
         :readonly="field.options.readonly"
-        :disabled="field.options.disabled"
+        :disabled="handleDisabled()"
         :allowClear="field.options.allowClear"
         :show-time="field.options.showTime"
         :format="field.options.format"

@@ -131,7 +131,7 @@
   };
 </script>
 
-<style lang="scss" scoped>
+<style lang="less" scoped>
   .ace-editor {
     min-height: 300px;
   }

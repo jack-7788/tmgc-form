@@ -25,11 +25,14 @@
         :style="{ width: widget.options.tableWidth }"
         @click.native.stop="selectWidget(widget)"
         :row-class-name="rowClassName"
-        :rowSelection="handleRowSelection(widget.options.rowSelection)"
+        :rowSelection="handleRowSelection()"
         :pagination="fmtPagination()"
         @change="handleTablePageChange"
         :customRow="handleCustomRow"
       >
+        <template #emptyText>
+          <a-empty />
+        </template>
         <a-table-column
           v-if="widget.options.showIndex"
           title="序号"

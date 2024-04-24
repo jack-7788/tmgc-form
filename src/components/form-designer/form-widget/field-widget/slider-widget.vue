@@ -15,7 +15,7 @@
       ref="fieldEditor"
       v-model:value="fieldModel"
       v-show="!isReadMode"
-      :disabled="field.options.disabled"
+      :disabled="handleDisabled()"
       :min="field.options.min"
       :max="field.options.max"
       :step="field.options.step"

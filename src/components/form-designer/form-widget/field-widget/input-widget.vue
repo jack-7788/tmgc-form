@@ -15,7 +15,7 @@
       ref="fieldEditor"
       v-model:value="fieldModel"
       v-show="!isReadMode"
-      :disabled="field.options.disabled"
+      :disabled="handleDisabled()"
       :readonly="field.options.readonly"
       :size="size"
       class="hide-spin-button"
@@ -34,7 +34,7 @@
     >
       <template #append v-if="field.options.appendButton">
         <a-button
-          :disabled="field.options.disabled || field.options.appendButtonDisabled"
+          :disabled="handleDisabled() || field.options.appendButtonDisabled"
           @click="emitAppendButtonClick"
         >
           <svg-icon :icon-class="field.options.buttonIcon" />

@@ -74,6 +74,30 @@ export default {
   },
 
   methods: {
+    handleHidden() {
+      // if (this.designState) {
+      //   return false;
+      // }
+      // const { onHidden, hidden } = this.field.options;
+      // if (hidden) return true;
+      // if (onHidden) {
+      //   const onHiddenFn = new Function(onHidden);
+      //   return onHiddenFn.call(this);
+      // }
+      // return false;
+    },
+    handleDisabled() {
+      if (this.designState) {
+        return false;
+      }
+      const { onDisabled, disabled } = this.field.options;
+      if (disabled) return true;
+      if (onDisabled) {
+        const disabledFn = new Function(onDisabled);
+        return disabledFn.call(this);
+      }
+      return false;
+    },
     findInArray(arrayObject, element) {
       if (!Array.isArray(arrayObject)) {
         return -1;
@@ -613,7 +637,7 @@ export default {
         //设计状态不触发事件
         return;
       }
-      if (this.field.options.disabled) {
+      if (this.handleDisabled()) {
         return;
       }
       if (!!this.field.options.onClickIcon) {

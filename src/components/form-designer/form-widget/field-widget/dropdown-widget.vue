@@ -11,7 +11,7 @@
     :sub-form-col-index="subFormColIndex"
     :sub-form-row-id="subFormRowId"
   >
-    <a-dropdown ref="fieldEditor" :disabled="field.options.disabled">
+    <a-dropdown ref="fieldEditor" :disabled="handleDisabled()">
       <template #overlay>
         <a-menu @click="handleMenuClick">
           <a-menu-item :key="item.value" v-for="item in field.options.menuList || []">
@@ -22,11 +22,11 @@
       <a-button
         :type="field.options.type"
         :size="field.options.size"
-        :class="[field.options.label === '' ? 'hide-text-span' : '']"
+        :class="[field.options.label === '' ? 'hide-text-span' : '', 'tpf-button']"
         :shape="field.options.shape"
         :danger="field.options.danger"
         :ghost="field.options.ghost"
-        :disabled="field.options.disabled"
+        :disabled="handleDisabled()"
       >
         {{ field.options.label }}
         <DownOutlined />

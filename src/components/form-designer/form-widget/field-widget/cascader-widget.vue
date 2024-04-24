@@ -26,7 +26,7 @@
         :size="size"
         :options="field.options.optionItems"
         v-model:value="fieldModel"
-        :disabled="field.options.disabled"
+        :disabled="handleDisabled()"
         :allowClear="field.options.allowClear"
         :placeholder="field.options.placeholder || i18nt('render.hint.selectPlaceholder')"
         :fieldNames="{ value: valueKey, label: labelKey, children: childrenKey }"

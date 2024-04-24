@@ -16,7 +16,7 @@
         ref="fieldEditor"
         v-model:value="fieldModel"
         :options="editorOption"
-        :disabled="field.options.disabled || isReadMode"
+        :disabled="handleDisabled() || isReadMode"
         @blur="handleRichEditorBlurEvent"
         @focus="handleRichEditorFocusEvent"
         @change="handleRichEditorChangeEvent"

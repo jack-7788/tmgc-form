@@ -22,7 +22,7 @@
         :size="size"
         v-model:value="fieldModel"
         :class="[!!field.options.autoFullWidth ? 'full-width-input' : '']"
-        :disabled="field.options.disabled"
+        :disabled="handleDisabled()"
         :readonly="field.options.readonly"
         :inputReadOnly="field.options.readonly"
         :allowClear="field.options.allowClear"

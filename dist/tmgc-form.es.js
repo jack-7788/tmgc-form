@@ -1,6 +1,6 @@
 import require$$0$2, { openBlock, createElementBlock, normalizeClass, createElementVNode, toDisplayString, createCommentVNode, reactive, createVNode, resolveComponent, withCtx, createTextVNode, createBlock, normalizeStyle, renderSlot, withModifiers, Fragment, withDirectives, renderList, vShow, createSlots, watch, ref, onBeforeUnmount, onMounted, onUnmounted, mergeProps, resolveDynamicComponent, normalizeProps, guardReactiveProps, pushScopeId, popScopeId, render, defineComponent, h, nextTick, isVNode } from "vue";
 import { Modal, message } from "ant-design-vue";
-import { isArray as isArray$1, omit, isEmpty } from "lodash-es";
+import { isArray as isArray$1, isEmpty, omit } from "lodash-es";
 function bind(fn, thisArg) {
   return function wrap() {
     return fn.apply(thisArg, arguments);
@@ -9068,6 +9068,21 @@ const fieldMixin = {
     }
   },
   methods: {
+    handleHidden() {
+    },
+    handleDisabled() {
+      if (this.designState) {
+        return false;
+      }
+      const { onDisabled, disabled } = this.field.options;
+      if (disabled)
+        return true;
+      if (onDisabled) {
+        const disabledFn = new Function(onDisabled);
+        return disabledFn.call(this);
+      }
+      return false;
+    },
     findInArray(arrayObject, element) {
       if (!Array.isArray(arrayObject)) {
         return -1;
@@ -9482,7 +9497,7 @@ const fieldMixin = {
       if (!!this.designState) {
         return;
       }
-      if (this.field.options.disabled) {
+      if (this.handleDisabled()) {
         return;
       }
       if (!!this.field.options.onClickIcon) {
@@ -9778,11 +9793,11 @@ function _sfc_render$4f(_ctx, _cache, $props, $setup, $data, $options) {
         ref: "fieldEditor",
         type: $props.field.options.type,
         size: $props.field.options.size,
-        class: normalizeClass([$props.field.options.label === "" ? "hide-text-span" : ""]),
+        class: normalizeClass([$props.field.options.label === "" ? "hide-text-span" : "", "tpf-button"]),
         shape: $props.field.options.shape,
         danger: $props.field.options.danger,
         ghost: $props.field.options.ghost,
-        disabled: $props.field.options.disabled,
+        disabled: _ctx.handleDisabled(),
         onClick: _ctx.handleButtonWidgetClick
       }, {
         default: withCtx(() => [
@@ -9798,7 +9813,7 @@ function _sfc_render$4f(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["designer", "field", "design-state", "display-style", "parent-widget", "parent-list", "index-of-parent-list", "sub-form-row-index", "sub-form-col-index", "sub-form-row-id"]);
 }
-const buttonWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$4f, [["render", _sfc_render$4f], ["__scopeId", "data-v-98b1bde1"]]);
+const buttonWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$4f, [["render", _sfc_render$4f], ["__scopeId", "data-v-98a9b931"]]);
 const __vite_glob_0_0$2 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: buttonWidget
@@ -10302,7 +10317,7 @@ function _sfc_render$4d(_ctx, _cache, $props, $setup, $data, $options) {
           options: $props.field.options.optionItems,
           value: $data.fieldModel,
           "onUpdate:value": _cache[0] || (_cache[0] = ($event) => $data.fieldModel = $event),
-          disabled: $props.field.options.disabled,
+          disabled: _ctx.handleDisabled(),
           allowClear: $props.field.options.allowClear,
           placeholder: $props.field.options.placeholder || _ctx.i18nt("render.hint.selectPlaceholder"),
           fieldNames: { value: $options.valueKey, label: $options.labelKey, children: $options.childrenKey },
@@ -10328,7 +10343,7 @@ function _sfc_render$4d(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["designer", "field", "rules", "design-state", "parent-widget", "parent-list", "index-of-parent-list", "sub-form-row-index", "sub-form-col-index", "sub-form-row-id"]);
 }
-const cascaderWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$4d, [["render", _sfc_render$4d], ["__scopeId", "data-v-b97857ea"]]);
+const cascaderWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$4d, [["render", _sfc_render$4d], ["__scopeId", "data-v-9815d2f7"]]);
 const __vite_glob_0_1$3 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: cascaderWidget
@@ -10419,7 +10434,7 @@ function _sfc_render$4c(_ctx, _cache, $props, $setup, $data, $options) {
         ref: "fieldEditor",
         value: $data.fieldModel,
         "onUpdate:value": _cache[0] || (_cache[0] = ($event) => $data.fieldModel = $event),
-        disabled: $props.field.options.disabled,
+        disabled: _ctx.handleDisabled(),
         onChange: _ctx.handleChangeEvent
       }, {
         default: withCtx(() => [
@@ -10447,7 +10462,7 @@ function _sfc_render$4c(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["designer", "field", "rules", "design-state", "parent-widget", "parent-list", "index-of-parent-list", "sub-form-row-index", "sub-form-col-index", "sub-form-row-id"]);
 }
-const checkboxWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$4c, [["render", _sfc_render$4c], ["__scopeId", "data-v-ecf56bcf"]]);
+const checkboxWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$4c, [["render", _sfc_render$4c], ["__scopeId", "data-v-0df5bd5e"]]);
 const __vite_glob_0_2$3 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: checkboxWidget
@@ -10650,7 +10665,7 @@ function _sfc_render$4a(_ctx, _cache, $props, $setup, $data, $options) {
           value: $data.fieldModel,
           "onUpdate:value": _cache[0] || (_cache[0] = ($event) => $data.fieldModel = $event),
           class: normalizeClass([!!$props.field.options.autoFullWidth ? "auto-full-width" : ""]),
-          disabled: $props.field.options.disabled,
+          disabled: _ctx.handleDisabled(),
           readonly: $props.field.options.readonly,
           allowClear: $props.field.options.allowClear,
           "show-time": $props.field.options.showTime,
@@ -10678,7 +10693,7 @@ function _sfc_render$4a(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["designer", "field", "rules", "design-state", "parent-widget", "parent-list", "index-of-parent-list", "sub-form-row-index", "sub-form-col-index", "sub-form-row-id"]);
 }
-const dateRangeWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$4a, [["render", _sfc_render$4a], ["__scopeId", "data-v-2f648af4"]]);
+const dateRangeWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$4a, [["render", _sfc_render$4a], ["__scopeId", "data-v-cc3613dd"]]);
 const __vite_glob_0_4$3 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: dateRangeWidget
@@ -10786,7 +10801,7 @@ function _sfc_render$49(_ctx, _cache, $props, $setup, $data, $options) {
           "onUpdate:value": _cache[0] || (_cache[0] = ($event) => $data.fieldModel = $event),
           class: normalizeClass([!!$props.field.options.autoFullWidth ? "auto-full-width" : ""]),
           readonly: $props.field.options.readonly,
-          disabled: $props.field.options.disabled,
+          disabled: _ctx.handleDisabled(),
           allowClear: $props.field.options.allowClear,
           "show-time": $props.field.options.showTime,
           format: $props.field.options.format,
@@ -10812,7 +10827,7 @@ function _sfc_render$49(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["designer", "field", "rules", "design-state", "parent-widget", "parent-list", "index-of-parent-list", "sub-form-row-index", "sub-form-col-index", "sub-form-row-id"]);
 }
-const dateWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$49, [["render", _sfc_render$49], ["__scopeId", "data-v-14ac59d8"]]);
+const dateWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$49, [["render", _sfc_render$49], ["__scopeId", "data-v-74795a48"]]);
 const __vite_glob_0_5$3 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: dateWidget
@@ -10982,7 +10997,7 @@ function _sfc_render$47(_ctx, _cache, $props, $setup, $data, $options) {
     default: withCtx(() => [
       createVNode(_component_a_dropdown, {
         ref: "fieldEditor",
-        disabled: $props.field.options.disabled
+        disabled: _ctx.handleDisabled()
       }, {
         overlay: withCtx(() => [
           createVNode(_component_a_menu, { onClick: $options.handleMenuClick }, {
@@ -11005,11 +11020,11 @@ function _sfc_render$47(_ctx, _cache, $props, $setup, $data, $options) {
           createVNode(_component_a_button, {
             type: $props.field.options.type,
             size: $props.field.options.size,
-            class: normalizeClass([$props.field.options.label === "" ? "hide-text-span" : ""]),
+            class: normalizeClass([$props.field.options.label === "" ? "hide-text-span" : "", "tpf-button"]),
             shape: $props.field.options.shape,
             danger: $props.field.options.danger,
             ghost: $props.field.options.ghost,
-            disabled: $props.field.options.disabled
+            disabled: _ctx.handleDisabled()
           }, {
             default: withCtx(() => [
               createTextVNode(toDisplayString($props.field.options.label) + " ", 1),
@@ -11024,7 +11039,7 @@ function _sfc_render$47(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["designer", "field", "design-state", "display-style", "parent-widget", "parent-list", "index-of-parent-list", "sub-form-row-index", "sub-form-col-index", "sub-form-row-id"]);
 }
-const dropdownWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$47, [["render", _sfc_render$47], ["__scopeId", "data-v-595437cc"]]);
+const dropdownWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$47, [["render", _sfc_render$47], ["__scopeId", "data-v-50748ac2"]]);
 const __vite_glob_0_7$3 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: dropdownWidget
@@ -11270,7 +11285,7 @@ function _sfc_render$46(_ctx, _cache, $props, $setup, $data, $options) {
     default: withCtx(() => [
       createVNode(_component_a_upload, {
         ref: "fieldEditor",
-        disabled: $props.field.options.disabled || _ctx.isReadMode,
+        disabled: _ctx.handleDisabled() || _ctx.isReadMode,
         style: normalizeStyle($data.styleVariables),
         class: normalizeClass(["dynamicPseudoAfter", { hideUploadDiv: $options.uploadBtnHidden || _ctx.isReadMode }]),
         action: $options.realUploadURL,
@@ -11304,7 +11319,7 @@ function _sfc_render$46(_ctx, _cache, $props, $setup, $data, $options) {
                 createVNode(_component_svg_icon, { "icon-class": "el-download" })
               ], 8, _hoisted_4$f)
             ], 8, _hoisted_3$q),
-            !$props.field.options.disabled && !_ctx.isReadMode ? (openBlock(), createElementBlock("span", {
+            !_ctx.handleDisabled() && !_ctx.isReadMode ? (openBlock(), createElementBlock("span", {
               key: 0,
               class: "file-action",
               title: _ctx.i18nt("render.hint.removeFile"),
@@ -11328,7 +11343,7 @@ function _sfc_render$46(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["designer", "field", "rules", "design-state", "parent-widget", "parent-list", "index-of-parent-list", "sub-form-row-index", "sub-form-col-index", "sub-form-row-id"]);
 }
-const fileUploadWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$46, [["render", _sfc_render$46], ["__scopeId", "data-v-35db51bf"]]);
+const fileUploadWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$46, [["render", _sfc_render$46], ["__scopeId", "data-v-7fd7982c"]]);
 const __vite_glob_0_8$3 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: fileUploadWidget
@@ -11513,7 +11528,7 @@ function _sfc_render$44(_ctx, _cache, $props, $setup, $data, $options) {
         ref: "fieldEditor",
         value: $data.fieldModel,
         "onUpdate:value": _cache[0] || (_cache[0] = ($event) => $data.fieldModel = $event),
-        disabled: $props.field.options.disabled,
+        disabled: _ctx.handleDisabled(),
         readonly: $props.field.options.readonly,
         size: $options.size,
         class: "hide-spin-button",
@@ -11534,7 +11549,7 @@ function _sfc_render$44(_ctx, _cache, $props, $setup, $data, $options) {
           name: "append",
           fn: withCtx(() => [
             createVNode(_component_a_button, {
-              disabled: $props.field.options.disabled || $props.field.options.appendButtonDisabled,
+              disabled: _ctx.handleDisabled() || $props.field.options.appendButtonDisabled,
               onClick: _ctx.emitAppendButtonClick
             }, {
               default: withCtx(() => [
@@ -11565,7 +11580,7 @@ function _sfc_render$44(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["designer", "field", "rules", "design-state", "parent-widget", "parent-list", "index-of-parent-list", "sub-form-row-index", "sub-form-col-index", "sub-form-row-id"]);
 }
-const inputWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$44, [["render", _sfc_render$44], ["__scopeId", "data-v-4e026e80"]]);
+const inputWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$44, [["render", _sfc_render$44], ["__scopeId", "data-v-369bcc95"]]);
 const __vite_glob_0_11$1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: inputWidget
@@ -11665,7 +11680,7 @@ function _sfc_render$43(_ctx, _cache, $props, $setup, $data, $options) {
         value: $data.fieldModel,
         "onUpdate:value": _cache[0] || (_cache[0] = ($event) => $data.fieldModel = $event),
         class: "full-width-input",
-        disabled: $props.field.options.disabled,
+        disabled: _ctx.handleDisabled(),
         "controls-position": $props.field.options.controlsPosition,
         placeholder: $props.field.options.placeholder,
         min: $props.field.options.min,
@@ -11693,7 +11708,7 @@ function _sfc_render$43(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["designer", "field", "rules", "design-state", "parent-widget", "parent-list", "index-of-parent-list", "sub-form-row-index", "sub-form-col-index", "sub-form-row-id"]);
 }
-const numberWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$43, [["render", _sfc_render$43], ["__scopeId", "data-v-a4e8c866"]]);
+const numberWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$43, [["render", _sfc_render$43], ["__scopeId", "data-v-d369e350"]]);
 const __vite_glob_0_12$1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: numberWidget
@@ -11939,7 +11954,7 @@ function _sfc_render$42(_ctx, _cache, $props, $setup, $data, $options) {
     default: withCtx(() => [
       createVNode(_component_a_upload, {
         ref: "fieldEditor",
-        disabled: $props.field.options.disabled || _ctx.isReadMode,
+        disabled: _ctx.handleDisabled() || _ctx.isReadMode,
         action: $options.realUploadURL,
         headers: $data.uploadHeaders,
         data: $data.uploadData,
@@ -11993,7 +12008,7 @@ function _sfc_render$42(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["designer", "field", "rules", "design-state", "parent-widget", "parent-list", "index-of-parent-list", "sub-form-row-index", "sub-form-col-index", "sub-form-row-id"]);
 }
-const pictureUploadWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$42, [["render", _sfc_render$42], ["__scopeId", "data-v-5053346b"]]);
+const pictureUploadWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$42, [["render", _sfc_render$42], ["__scopeId", "data-v-a28d8b63"]]);
 const __vite_glob_0_13$1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: pictureUploadWidget
@@ -12098,7 +12113,7 @@ function _sfc_render$41(_ctx, _cache, $props, $setup, $data, $options) {
         value: $data.fieldModel,
         "onUpdate:value": _cache[0] || (_cache[0] = ($event) => $data.fieldModel = $event),
         size: $options.size,
-        disabled: $props.field.options.disabled,
+        disabled: _ctx.handleDisabled(),
         style: normalizeStyle({ display: $props.field.options.displayStyle + " !important" }),
         onChange: _ctx.handleChangeEvent
       }, {
@@ -12140,7 +12155,7 @@ function _sfc_render$41(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["designer", "field", "rules", "design-state", "parent-widget", "parent-list", "index-of-parent-list", "sub-form-row-index", "sub-form-col-index", "sub-form-row-id"]);
 }
-const radioWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$41, [["render", _sfc_render$41], ["__scopeId", "data-v-fe6b4b60"]]);
+const radioWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$41, [["render", _sfc_render$41], ["__scopeId", "data-v-a3e4f5ee"]]);
 const __vite_glob_0_14$1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: radioWidget
@@ -12225,7 +12240,7 @@ function _sfc_render$40(_ctx, _cache, $props, $setup, $data, $options) {
         ref: "fieldEditor",
         value: $data.fieldModel,
         "onUpdate:value": _cache[0] || (_cache[0] = ($event) => $data.fieldModel = $event),
-        disabled: $props.field.options.disabled,
+        disabled: _ctx.handleDisabled(),
         allowClear: $props.field.options.allowClear,
         count: $props.field.options.count,
         "allow-half": $props.field.options.allowHalf,
@@ -12235,7 +12250,7 @@ function _sfc_render$40(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["designer", "field", "rules", "design-state", "parent-widget", "parent-list", "index-of-parent-list", "sub-form-row-index", "sub-form-col-index", "sub-form-row-id"]);
 }
-const rateWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$40, [["render", _sfc_render$40], ["__scopeId", "data-v-738380e2"]]);
+const rateWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$40, [["render", _sfc_render$40], ["__scopeId", "data-v-4b0abebd"]]);
 const __vite_glob_0_15$1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: rateWidget
@@ -24126,7 +24141,7 @@ function _sfc_render$3_(_ctx, _cache, $props, $setup, $data, $options) {
           value: $data.fieldModel,
           "onUpdate:value": _cache[0] || (_cache[0] = ($event) => $data.fieldModel = $event),
           options: $options.editorOption,
-          disabled: $props.field.options.disabled || _ctx.isReadMode,
+          disabled: _ctx.handleDisabled() || _ctx.isReadMode,
           onBlur: $options.handleRichEditorBlurEvent,
           onFocus: $options.handleRichEditorFocusEvent,
           onChange: $options.handleRichEditorChangeEvent,
@@ -24137,7 +24152,7 @@ function _sfc_render$3_(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["designer", "field", "rules", "design-state", "parent-widget", "parent-list", "index-of-parent-list", "sub-form-row-index", "sub-form-col-index", "sub-form-row-id"]);
 }
-const richEditorWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$3_, [["render", _sfc_render$3_], ["__scopeId", "data-v-ce567f99"]]);
+const richEditorWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$3_, [["render", _sfc_render$3_], ["__scopeId", "data-v-e6c3367f"]]);
 const __vite_glob_0_16$1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: richEditorWidget
@@ -24278,7 +24293,7 @@ function _sfc_render$3Z(_ctx, _cache, $props, $setup, $data, $options) {
           "onUpdate:value": _cache[0] || (_cache[0] = ($event) => $data.fieldModel = $event),
           size: $options.size,
           class: "full-width-input",
-          disabled: $props.field.options.disabled,
+          disabled: _ctx.handleDisabled(),
           allowClear: $props.field.options.allowClear,
           showArrow: true,
           dropdownMatchSelectWidth: false,
@@ -24325,7 +24340,7 @@ function _sfc_render$3Z(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["designer", "field", "rules", "design-state", "parent-widget", "parent-list", "index-of-parent-list", "sub-form-row-index", "sub-form-col-index", "sub-form-row-id"]);
 }
-const selectWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$3Z, [["render", _sfc_render$3Z], ["__scopeId", "data-v-010d0372"]]);
+const selectWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$3Z, [["render", _sfc_render$3Z], ["__scopeId", "data-v-5574144a"]]);
 const __vite_glob_0_17$1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: selectWidget
@@ -24420,7 +24435,7 @@ function _sfc_render$3Y(_ctx, _cache, $props, $setup, $data, $options) {
         ref: "fieldEditor",
         value: $data.fieldModel,
         "onUpdate:value": _cache[0] || (_cache[0] = ($event) => $data.fieldModel = $event),
-        disabled: $props.field.options.disabled,
+        disabled: _ctx.handleDisabled(),
         min: $props.field.options.min,
         max: $props.field.options.max,
         step: $props.field.options.step,
@@ -24435,7 +24450,7 @@ function _sfc_render$3Y(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["designer", "field", "rules", "design-state", "parent-widget", "parent-list", "index-of-parent-list", "sub-form-row-index", "sub-form-col-index", "sub-form-row-id"]);
 }
-const sliderWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$3Y, [["render", _sfc_render$3Y], ["__scopeId", "data-v-29105d1f"]]);
+const sliderWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$3Y, [["render", _sfc_render$3Y], ["__scopeId", "data-v-8166af68"]]);
 const __vite_glob_0_18$1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: sliderWidget
@@ -24689,7 +24704,7 @@ function _sfc_render$3V(_ctx, _cache, $props, $setup, $data, $options) {
         checked: $data.fieldModel,
         "onUpdate:checked": _cache[0] || (_cache[0] = ($event) => $data.fieldModel = $event),
         class: normalizeClass([_ctx.isReadMode ? "readonly-mode-switch" : ""]),
-        disabled: $props.field.options.disabled,
+        disabled: _ctx.handleDisabled(),
         checkedValue: $props.field.options.checkedValue,
         unCheckedValue: $props.field.options.unCheckedValue,
         onChange: _ctx.handleChangeEvent,
@@ -24700,7 +24715,7 @@ function _sfc_render$3V(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["designer", "field", "rules", "design-state", "parent-widget", "parent-list", "index-of-parent-list", "sub-form-row-index", "sub-form-col-index", "sub-form-row-id"]);
 }
-const switchWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$3V, [["render", _sfc_render$3V], ["__scopeId", "data-v-1f63c735"]]);
+const switchWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$3V, [["render", _sfc_render$3V], ["__scopeId", "data-v-03f748da"]]);
 const __vite_glob_0_22$1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: switchWidget
@@ -24800,7 +24815,7 @@ function _sfc_render$3U(_ctx, _cache, $props, $setup, $data, $options) {
         value: $data.fieldModel,
         "onUpdate:value": _cache[0] || (_cache[0] = ($event) => $data.fieldModel = $event),
         size: $options.size,
-        disabled: $props.field.options.disabled,
+        disabled: _ctx.handleDisabled(),
         allowClear: $props.field.options.allowClear,
         readonly: $props.field.options.readonly,
         placeholder: $props.field.options.placeholder,
@@ -24833,7 +24848,7 @@ function _sfc_render$3U(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["designer", "field", "rules", "design-state", "parent-widget", "parent-list", "index-of-parent-list", "sub-form-row-index", "sub-form-col-index", "sub-form-row-id"]);
 }
-const textareaWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$3U, [["render", _sfc_render$3U], ["__scopeId", "data-v-5176e368"]]);
+const textareaWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$3U, [["render", _sfc_render$3U], ["__scopeId", "data-v-176f7777"]]);
 const __vite_glob_0_23$1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: textareaWidget
@@ -24948,7 +24963,7 @@ function _sfc_render$3T(_ctx, _cache, $props, $setup, $data, $options) {
           value: $data.fieldModel,
           "onUpdate:value": _cache[0] || (_cache[0] = ($event) => $data.fieldModel = $event),
           class: normalizeClass([!!$props.field.options.autoFullWidth ? "full-width-input" : ""]),
-          disabled: $props.field.options.disabled,
+          disabled: _ctx.handleDisabled(),
           readonly: $props.field.options.readonly,
           inputReadOnly: $props.field.options.readonly,
           allowClear: $props.field.options.allowClear,
@@ -24968,7 +24983,7 @@ function _sfc_render$3T(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["designer", "field", "rules", "design-state", "parent-widget", "parent-list", "index-of-parent-list", "sub-form-row-index", "sub-form-col-index", "sub-form-row-id"]);
 }
-const timeRangeWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$3T, [["render", _sfc_render$3T], ["__scopeId", "data-v-849e262c"]]);
+const timeRangeWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$3T, [["render", _sfc_render$3T], ["__scopeId", "data-v-c3e907db"]]);
 const __vite_glob_0_24$1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: timeRangeWidget
@@ -25075,7 +25090,7 @@ function _sfc_render$3S(_ctx, _cache, $props, $setup, $data, $options) {
           ref: "fieldEditor",
           value: $data.fieldModel,
           "onUpdate:value": _cache[0] || (_cache[0] = ($event) => $data.fieldModel = $event),
-          disabled: $props.field.options.disabled,
+          disabled: _ctx.handleDisabled(),
           inputReadOnly: $props.field.options.readonly,
           readonly: $props.field.options.readonly,
           allowClear: $props.field.options.allowClear,
@@ -25092,7 +25107,7 @@ function _sfc_render$3S(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["designer", "field", "rules", "design-state", "parent-widget", "parent-list", "index-of-parent-list", "sub-form-row-index", "sub-form-col-index", "sub-form-row-id"]);
 }
-const timeWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$3S, [["render", _sfc_render$3S], ["__scopeId", "data-v-0db1f432"]]);
+const timeWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$3S, [["render", _sfc_render$3S], ["__scopeId", "data-v-6943e235"]]);
 const __vite_glob_0_25$1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: timeWidget
@@ -25223,7 +25238,7 @@ function _sfc_render$3R(_ctx, _cache, $props, $setup, $data, $options) {
           treeData: $props.field.options.optionItems,
           value: $data.fieldModel,
           "onUpdate:value": _cache[0] || (_cache[0] = ($event) => $data.fieldModel = $event),
-          disabled: $props.field.options.disabled,
+          disabled: _ctx.handleDisabled(),
           allowClear: $props.field.options.allowClear,
           placeholder: $props.field.options.placeholder || _ctx.i18nt("render.hint.selectPlaceholder"),
           fieldNames: { value: $options.valueKey, label: $options.labelKey, children: $options.childrenKey },
@@ -25250,7 +25265,7 @@ function _sfc_render$3R(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["designer", "field", "rules", "design-state", "parent-widget", "parent-list", "index-of-parent-list", "sub-form-row-index", "sub-form-col-index", "sub-form-row-id"]);
 }
-const treeSelectWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$3R, [["render", _sfc_render$3R], ["__scopeId", "data-v-59b67522"]]);
+const treeSelectWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$3R, [["render", _sfc_render$3R], ["__scopeId", "data-v-132b6a1f"]]);
 const __vite_glob_0_26$1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: treeSelectWidget
@@ -25563,7 +25578,8 @@ const containerItemMixin = {
 const useDataTableMixin = {
   data() {
     return {
-      selectedRowInfo: { selectedRowKeys: [], selectedRows: [] }
+      selectedRowInfo: { selectedRowKeys: [], selectedRows: [] },
+      selectRow: {}
     };
   },
   computed: {
@@ -25584,6 +25600,19 @@ const useDataTableMixin = {
     }
   },
   methods: {
+    disabledClick() {
+      const { hasRowSelection } = this.widget.options;
+      if (hasRowSelection) {
+        return isEmpty(this.selectedRowInfo.selectedRowKeys);
+      }
+      return isEmpty(this.selectRow);
+    },
+    getSelectedRowKeys() {
+      return this.selectedRowInfo.selectedRowKeys;
+    },
+    getSelectedRows() {
+      return this.selectedRowInfo.getSelectedRows;
+    },
     getTableColumns() {
       return this.widget.options.tableColumns;
     },
@@ -25620,6 +25649,8 @@ const useDataTableMixin = {
       }
     },
     setDataSource(list) {
+      this.selectedRowInfo = { selectedRowKeys: [], selectedRows: [] };
+      this.selectRow = {};
       this.widget.options.dataSource = Object.assign([], list);
     },
     setValue(list) {
@@ -25644,11 +25675,14 @@ const useDataTableMixin = {
       }
     },
     handleCustomRow(record) {
-      const { customRow } = this.widget.options;
+      const { customRow, hasRowSelection } = this.widget.options;
       if (!customRow)
         return {};
       return {
         onClick: (event) => {
+          if (hasRowSelection) {
+            this.selectRow = record;
+          }
           const customFn = new Function("record", "event", customRow.onClick);
           customFn.call(this, record, event);
         },
@@ -25758,7 +25792,8 @@ const useDataTableMixin = {
       }
       this.loadDataTableDataSource();
     },
-    handleRowSelection(info) {
+    handleRowSelection() {
+      const info = this.widget.options.rowSelection;
       if (!info.hasRowSelection) {
         return void 0;
       }
@@ -26385,6 +26420,7 @@ const _sfc_main$3Q = {
   }
 };
 function _sfc_render$3Q(_ctx, _cache, $props, $setup, $data, $options) {
+  const _component_a_empty = resolveComponent("a-empty");
   const _component_a_table_column = resolveComponent("a-table-column");
   const _component_a_button = resolveComponent("a-button");
   const _component_a_table = resolveComponent("a-table");
@@ -26404,11 +26440,14 @@ function _sfc_render$3Q(_ctx, _cache, $props, $setup, $data, $options) {
         bordered: $props.widget.options.border,
         style: normalizeStyle({ width: $props.widget.options.tableWidth }),
         "row-class-name": _ctx.rowClassName,
-        rowSelection: _ctx.handleRowSelection($props.widget.options.rowSelection),
+        rowSelection: _ctx.handleRowSelection(),
         pagination: _ctx.fmtPagination(),
         customRow: _ctx.handleCustomRow,
         onChange: _ctx.handleTablePageChange
       }, {
+        emptyText: withCtx(() => [
+          createVNode(_component_a_empty)
+        ]),
         default: withCtx(() => [
           $props.widget.options.showIndex ? (openBlock(), createBlock(_component_a_table_column, {
             key: 0,
@@ -26462,7 +26501,7 @@ function _sfc_render$3Q(_ctx, _cache, $props, $setup, $data, $options) {
     [vShow, !$props.widget.options.hidden]
   ]);
 }
-const dataTableItem = /* @__PURE__ */ _export_sfc$1(_sfc_main$3Q, [["render", _sfc_render$3Q], ["__scopeId", "data-v-2d8e436a"]]);
+const dataTableItem = /* @__PURE__ */ _export_sfc$1(_sfc_main$3Q, [["render", _sfc_render$3Q], ["__scopeId", "data-v-4c1eab5b"]]);
 const __vite_glob_0_1$2 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: dataTableItem
@@ -52934,7 +52973,7 @@ function _sfc_render$3D(_ctx, _cache, $props, $setup, $data, $options) {
     createElementVNode("div", _hoisted_2$r, null, 512)
   ]);
 }
-const CodeEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3D, [["render", _sfc_render$3D], ["__scopeId", "data-v-055c035a"]]);
+const CodeEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3D, [["render", _sfc_render$3D], ["__scopeId", "data-v-84220a09"]]);
 const generateCode = function(formJson, codeType = "vue") {
   const formJsonStr = JSON.stringify(formJson);
   if (codeType === "html") {
@@ -61085,24 +61124,47 @@ const __vite_glob_0_53 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.de
 }, Symbol.toStringTag, { value: "Module" }));
 const _sfc_main$2J = {
   name: "disabled-editor",
-  mixins: [i18n$1],
+  mixins: [i18n$1, eventMixin],
   props: {
     designer: Object,
     selectedWidget: Object,
     optionModel: Object
+  },
+  data() {
+    return {
+      eventParams: ["event"]
+    };
   }
 };
 function _sfc_render$2J(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_switch = resolveComponent("a-switch");
+  const _component_a_button = resolveComponent("a-button");
+  const _component_a_space = resolveComponent("a-space");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
     label: _ctx.i18nt("designer.setting.disabled")
   }, {
     default: withCtx(() => [
-      createVNode(_component_a_switch, {
-        checked: $props.optionModel.disabled,
-        "onUpdate:checked": _cache[0] || (_cache[0] = ($event) => $props.optionModel.disabled = $event)
-      }, null, 8, ["checked"])
+      createVNode(_component_a_space, null, {
+        default: withCtx(() => [
+          createVNode(_component_a_switch, {
+            checked: $props.optionModel.disabled,
+            "onUpdate:checked": _cache[0] || (_cache[0] = ($event) => $props.optionModel.disabled = $event)
+          }, null, 8, ["checked"]),
+          createVNode(_component_a_button, {
+            type: "info",
+            shape: "round",
+            class: normalizeClass([!!$props.optionModel.onDisabled ? "button-text-highlight" : ""]),
+            onClick: _cache[1] || (_cache[1] = ($event) => _ctx.editEventHandler("onDisabled", $data.eventParams))
+          }, {
+            default: withCtx(() => [
+              createTextVNode(" 编辑函数 ")
+            ]),
+            _: 1
+          }, 8, ["class"])
+        ]),
+        _: 1
+      })
     ]),
     _: 1
   }, 8, ["label"]);
@@ -65428,24 +65490,47 @@ const __vite_glob_0_154 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.d
 }, Symbol.toStringTag, { value: "Module" }));
 const _sfc_main$18 = {
   name: "hidden-editor",
-  mixins: [i18n$1],
+  mixins: [i18n$1, eventMixin],
   props: {
     designer: Object,
     selectedWidget: Object,
     optionModel: Object
+  },
+  data() {
+    return {
+      eventParams: ["event"]
+    };
   }
 };
 function _sfc_render$18(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_switch = resolveComponent("a-switch");
+  const _component_a_button = resolveComponent("a-button");
+  const _component_a_space = resolveComponent("a-space");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
     label: _ctx.i18nt("designer.setting.hidden")
   }, {
     default: withCtx(() => [
-      createVNode(_component_a_switch, {
-        checked: $props.optionModel.hidden,
-        "onUpdate:checked": _cache[0] || (_cache[0] = ($event) => $props.optionModel.hidden = $event)
-      }, null, 8, ["checked"])
+      createVNode(_component_a_space, null, {
+        default: withCtx(() => [
+          createVNode(_component_a_switch, {
+            checked: $props.optionModel.hidden,
+            "onUpdate:checked": _cache[0] || (_cache[0] = ($event) => $props.optionModel.hidden = $event)
+          }, null, 8, ["checked"]),
+          createVNode(_component_a_button, {
+            type: "info",
+            shape: "round",
+            class: normalizeClass([!!$props.optionModel.onHidden ? "button-text-highlight" : ""]),
+            onClick: _cache[1] || (_cache[1] = ($event) => _ctx.editEventHandler("onHidden", $data.eventParams))
+          }, {
+            default: withCtx(() => [
+              createTextVNode(" 编辑函数 ")
+            ]),
+            _: 1
+          }, 8, ["class"])
+        ]),
+        _: 1
+      })
     ]),
     _: 1
   }, 8, ["label"]);
@@ -70303,7 +70388,8 @@ function _sfc_render$s(_ctx, _cache, $props, $setup, $data, $options) {
             "append-to-body": "",
             "close-on-click-modal": false,
             "close-on-press-escape": false,
-            "destroy-on-close": true
+            "destroy-on-close": true,
+            width: 800
           }, {
             footer: withCtx(() => [
               createElementVNode("div", _hoisted_1$p, [
@@ -70354,7 +70440,7 @@ function _sfc_render$s(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   });
 }
-const SettingPanel = /* @__PURE__ */ _export_sfc$1(_sfc_main$s, [["render", _sfc_render$s], ["__scopeId", "data-v-b4ea9120"]]);
+const SettingPanel = /* @__PURE__ */ _export_sfc$1(_sfc_main$s, [["render", _sfc_render$s], ["__scopeId", "data-v-886da528"]]);
 const containerMixin = {
   inject: ["getFormConfig"],
   computed: {
@@ -70796,6 +70882,7 @@ const _sfc_main$q = {
   }
 };
 function _sfc_render$q(_ctx, _cache, $props, $setup, $data, $options) {
+  const _component_a_empty = resolveComponent("a-empty");
   const _component_a_table_column = resolveComponent("a-table-column");
   const _component_a_button = resolveComponent("a-button");
   const _component_a_space = resolveComponent("a-space");
@@ -70826,11 +70913,14 @@ function _sfc_render$q(_ctx, _cache, $props, $setup, $data, $options) {
           style: normalizeStyle({ width: $props.widget.options.tableWidth }),
           onClick: _cache[0] || (_cache[0] = withModifiers(($event) => $options.selectWidget($props.widget), ["stop"])),
           "row-class-name": _ctx.rowClassName,
-          rowSelection: _ctx.handleRowSelection($props.widget.options.rowSelection),
+          rowSelection: _ctx.handleRowSelection(),
           pagination: _ctx.fmtPagination(),
           onChange: _ctx.handleTablePageChange,
           customRow: _ctx.handleCustomRow
         }, {
+          emptyText: withCtx(() => [
+            createVNode(_component_a_empty)
+          ]),
           default: withCtx(() => [
             $props.widget.options.showIndex ? (openBlock(), createBlock(_component_a_table_column, {
               key: 0,
@@ -70887,7 +70977,7 @@ function _sfc_render$q(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["designer", "widget", "parent-widget", "parent-list", "index-of-parent-list", "style"]);
 }
-const dataTableWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$q, [["render", _sfc_render$q], ["__scopeId", "data-v-36ca924c"]]);
+const dataTableWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$q, [["render", _sfc_render$q], ["__scopeId", "data-v-89ba0ecd"]]);
 const __vite_glob_0_1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: dataTableWidget
@@ -79617,13 +79707,13 @@ function registerIcon(app) {
 if (typeof window !== "undefined") {
   let loadSvg = function() {
     var body = document.body;
-    var svgDom = document.getElementById("__svg__icons__dom__1713923879245__");
+    var svgDom = document.getElementById("__svg__icons__dom__1713936186797__");
     if (!svgDom) {
       svgDom = document.createElementNS("http://www.w3.org/2000/svg", "svg");
       svgDom.style.position = "absolute";
       svgDom.style.width = "0";
       svgDom.style.height = "0";
-      svgDom.id = "__svg__icons__dom__1713923879245__";
+      svgDom.id = "__svg__icons__dom__1713936186797__";
       svgDom.setAttribute("xmlns", "http://www.w3.org/2000/svg");
       svgDom.setAttribute("xmlns:link", "http://www.w3.org/1999/xlink");
     }

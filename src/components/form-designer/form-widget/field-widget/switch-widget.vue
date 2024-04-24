@@ -15,7 +15,7 @@
       ref="fieldEditor"
       v-model:checked="fieldModel"
       :class="[isReadMode ? 'readonly-mode-switch' : '']"
-      :disabled="field.options.disabled"
+      :disabled="handleDisabled()"
       :checkedValue="field.options.checkedValue"
       :unCheckedValue="field.options.unCheckedValue"
       @change="handleChangeEvent"

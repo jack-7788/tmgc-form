@@ -14,7 +14,7 @@
     <a-rate
       ref="fieldEditor"
       v-model:value="fieldModel"
-      :disabled="field.options.disabled"
+      :disabled="handleDisabled()"
       :allowClear="field.options.allowClear"
       :count="field.options.count"
       :allow-half="field.options.allowHalf"

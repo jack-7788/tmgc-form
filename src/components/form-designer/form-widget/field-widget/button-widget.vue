@@ -15,11 +15,11 @@
       ref="fieldEditor"
       :type="field.options.type"
       :size="field.options.size"
-      :class="[field.options.label === '' ? 'hide-text-span' : '']"
+      :class="[field.options.label === '' ? 'hide-text-span' : '', 'tpf-button']"
       :shape="field.options.shape"
       :danger="field.options.danger"
       :ghost="field.options.ghost"
-      :disabled="field.options.disabled"
+      :disabled="handleDisabled()"
       @click="handleButtonWidgetClick"
     >
       <svg-icon v-if="field.options.icon" :icon-class="field.options.icon" />

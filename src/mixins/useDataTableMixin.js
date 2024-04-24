@@ -65,11 +65,20 @@ export default {
     setDataSource(list) {
       this.widget.options.dataSource = Object.assign([], list);
     },
+    setValue(list) {
+      this.setDataSource(list);
+    },
     getDataSource() {
       return this.widget.options.dataSource;
     },
+    getValue() {
+      return this.getDataSource();
+    },
     async loadDataTableDataSource() {
-      if (!this.widget.options.dsEnabled) return;
+      if (!this.widget.options.dsEnabled) {
+        this.setDataSource([]);
+        return;
+      }
       const ops = this.widget.options;
       if (ops.dsEnabled && ops.http.url) {
         const res = await fmtHttpParams.call(this, ops);

@@ -1,4 +1,4 @@
-import require$$0$2, { openBlock, createElementBlock, normalizeClass, createElementVNode, toDisplayString, createCommentVNode, reactive, createVNode, resolveComponent, withCtx, createTextVNode, createBlock, renderSlot, normalizeStyle, withModifiers, Fragment, withDirectives, renderList, vShow, createSlots, watch, ref, onBeforeUnmount, onMounted, onUnmounted, mergeProps, resolveDynamicComponent, normalizeProps, guardReactiveProps, pushScopeId, popScopeId, render, defineComponent, h, nextTick, isVNode } from "vue";
+import require$$0$2, { openBlock, createElementBlock, normalizeClass, createElementVNode, toDisplayString, createCommentVNode, reactive, createVNode, resolveComponent, withCtx, createTextVNode, createBlock, normalizeStyle, renderSlot, withModifiers, Fragment, withDirectives, renderList, vShow, createSlots, watch, ref, onBeforeUnmount, onMounted, onUnmounted, mergeProps, resolveDynamicComponent, normalizeProps, guardReactiveProps, pushScopeId, popScopeId, render, defineComponent, h, nextTick, isVNode } from "vue";
 import { Modal, message } from "ant-design-vue";
 import { isArray as isArray$1, omit, isEmpty } from "lodash-es";
 function bind(fn, thisArg) {
@@ -6725,10 +6725,11 @@ const _sfc_main$4h = {
 };
 function _sfc_render$4h(_ctx, _cache, $props, $setup, $data, $options) {
   return openBlock(), createElementBlock("div", {
-    class: normalizeClass(["container-wrapper", [$options.customClass]])
+    class: normalizeClass(["container-wrapper", [$options.customClass]]),
+    style: normalizeStyle(_ctx.$attrs.containerStyle)
   }, [
     renderSlot(_ctx.$slots, "default")
-  ], 2);
+  ], 6);
 }
 const ContainerItemWrapper = /* @__PURE__ */ _export_sfc$1(_sfc_main$4h, [["render", _sfc_render$4h]]);
 const __vite_glob_0_0$3 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
@@ -25621,12 +25622,20 @@ const useDataTableMixin = {
     setDataSource(list) {
       this.widget.options.dataSource = Object.assign([], list);
     },
+    setValue(list) {
+      this.setDataSource(list);
+    },
     getDataSource() {
       return this.widget.options.dataSource;
     },
+    getValue() {
+      return this.getDataSource();
+    },
     async loadDataTableDataSource() {
-      if (!this.widget.options.dsEnabled)
+      if (!this.widget.options.dsEnabled) {
+        this.setDataSource([]);
         return;
+      }
       const ops = this.widget.options;
       if (ops.dsEnabled && ops.http.url) {
         const res = await fmtHttpParams.call(this, ops);
@@ -26380,14 +26389,17 @@ function _sfc_render$3Q(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_button = resolveComponent("a-button");
   const _component_a_table = resolveComponent("a-table");
   const _component_container_item_wrapper = resolveComponent("container-item-wrapper");
-  return withDirectives((openBlock(), createBlock(_component_container_item_wrapper, { widget: $props.widget }, {
+  return withDirectives((openBlock(), createBlock(_component_container_item_wrapper, {
+    style: normalizeStyle({ display: "flex", height: parseFloat(_ctx.tableHeight || 0) + "px" }),
+    widget: $props.widget
+  }, {
     default: withCtx(() => [
       createVNode(_component_a_table, {
+        class: normalizeClass(["tpf-table", [_ctx.customClass]]),
         ref: "dataTable2",
         dataSource: $props.widget.options.dataSource,
         rowKey: (record) => record[$props.widget.options.rowKey],
         scroll: { y: parseFloat(_ctx.tableHeight || 0), x: 300 },
-        class: normalizeClass([_ctx.customClass]),
         size: _ctx.widgetSize,
         bordered: $props.widget.options.border,
         style: normalizeStyle({ width: $props.widget.options.tableWidth }),
@@ -26446,11 +26458,11 @@ function _sfc_render$3Q(_ctx, _cache, $props, $setup, $data, $options) {
       }, 8, ["dataSource", "rowKey", "scroll", "class", "size", "bordered", "style", "row-class-name", "rowSelection", "pagination", "customRow", "onChange"])
     ]),
     _: 1
-  }, 8, ["widget"])), [
+  }, 8, ["style", "widget"])), [
     [vShow, !$props.widget.options.hidden]
   ]);
 }
-const dataTableItem = /* @__PURE__ */ _export_sfc$1(_sfc_main$3Q, [["render", _sfc_render$3Q], ["__scopeId", "data-v-3670849f"]]);
+const dataTableItem = /* @__PURE__ */ _export_sfc$1(_sfc_main$3Q, [["render", _sfc_render$3Q], ["__scopeId", "data-v-2d8e436a"]]);
 const __vite_glob_0_1$2 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: dataTableItem
@@ -70598,6 +70610,7 @@ const _sfc_main$q = {
     this.initRefList();
   },
   mounted() {
+    this.loadDataTableDataSource();
   },
   beforeUnmount() {
   },
@@ -70793,7 +70806,8 @@ function _sfc_render$q(_ctx, _cache, $props, $setup, $data, $options) {
     widget: $props.widget,
     "parent-widget": $props.parentWidget,
     "parent-list": $props.parentList,
-    "index-of-parent-list": $props.indexOfParentList
+    "index-of-parent-list": $props.indexOfParentList,
+    style: normalizeStyle({ display: "flex", height: parseFloat(_ctx.tableHeight || 0) + "px" })
   }, {
     default: withCtx(() => [
       (openBlock(), createElementBlock("div", {
@@ -70803,10 +70817,10 @@ function _sfc_render$q(_ctx, _cache, $props, $setup, $data, $options) {
       }, [
         createVNode(_component_a_table, {
           ref: "dataTable1",
+          class: normalizeClass(["tpf-table", [_ctx.customClass]]),
           dataSource: $props.widget.options.dataSource,
           rowKey: (record) => record[$props.widget.options.rowKey],
           scroll: { y: parseFloat(_ctx.tableHeight || 0), x: 300 },
-          class: normalizeClass([_ctx.customClass]),
           size: _ctx.widgetSize,
           bordered: $props.widget.options.border,
           style: normalizeStyle({ width: $props.widget.options.tableWidth }),
@@ -70871,9 +70885,9 @@ function _sfc_render$q(_ctx, _cache, $props, $setup, $data, $options) {
       ], 2))
     ]),
     _: 1
-  }, 8, ["designer", "widget", "parent-widget", "parent-list", "index-of-parent-list"]);
+  }, 8, ["designer", "widget", "parent-widget", "parent-list", "index-of-parent-list", "style"]);
 }
-const dataTableWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$q, [["render", _sfc_render$q], ["__scopeId", "data-v-7dd2ee5f"]]);
+const dataTableWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$q, [["render", _sfc_render$q], ["__scopeId", "data-v-36ca924c"]]);
 const __vite_glob_0_1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: dataTableWidget
@@ -79603,13 +79617,13 @@ function registerIcon(app) {
 if (typeof window !== "undefined") {
   let loadSvg = function() {
     var body = document.body;
-    var svgDom = document.getElementById("__svg__icons__dom__1713858058709__");
+    var svgDom = document.getElementById("__svg__icons__dom__1713923879245__");
     if (!svgDom) {
       svgDom = document.createElementNS("http://www.w3.org/2000/svg", "svg");
       svgDom.style.position = "absolute";
       svgDom.style.width = "0";
       svgDom.style.height = "0";
-      svgDom.id = "__svg__icons__dom__1713858058709__";
+      svgDom.id = "__svg__icons__dom__1713923879245__";
       svgDom.setAttribute("xmlns", "http://www.w3.org/2000/svg");
       svgDom.setAttribute("xmlns:link", "http://www.w3.org/1999/xlink");
     }

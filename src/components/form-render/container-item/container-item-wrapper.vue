@@ -1,5 +1,5 @@
 <template>
-  <div class="container-wrapper" :class="[customClass]">
+  <div class="container-wrapper" :style="$attrs.containerStyle" :class="[customClass]">
     <slot></slot>
   </div>
 </template>

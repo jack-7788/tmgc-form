@@ -1,0 +1,244 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+img {
+  border: none;
+  border: 0;
+}
+img[src=''],
+img:not([src]) {
+  outline: none;
+}
+body {
+  padding-right: 0 !important;
+  line-height: 1.2;
+}
+div,
+span,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+abbr,
+address,
+cite,
+code,
+del,
+dfn,
+em,
+img:not([src]),
+ins,
+kbd,
+q,
+samp,
+small,
+strong,
+sub,
+sup,
+var,
+b,
+i,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+figcaption,
+figure,
+footer,
+header,
+menu,
+nav,
+section,
+summary,
+time,
+mark,
+audio,
+video,
+button {
+  font-weight: normal;
+  font-size: 100%;
+  font-style: normal;
+  background: transparent;
+  border: 0;
+  outline: 0;
+  margin: 0;
+  padding: 0;
+}
+input,
+textarea,
+select {
+  font-family: 'Helvetica Neue', Helvetica, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', '微软雅黑', Arial, sans-serif;
+}
+input::placeholder,
+textarea::placeholder,
+select::placeholder {
+  font-family: 'Helvetica Neue', Helvetica, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', '微软雅黑', Arial, sans-serif;
+}
+*:focus {
+  outline: none;
+}
+ul,
+li {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+a {
+  text-decoration: none;
+}
+.cursor {
+  cursor: pointer;
+}
+.tpf-table {
+  flex: 1 0 0;
+}
+.tpf-table .ant-spin-nested-loading,
+.tpf-table .ant-spin-container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.tpf-table .ant-spin-nested-loading .ant-table,
+.tpf-table .ant-spin-container .ant-table {
+  overflow: auto;
+  flex: 1 0 0;
+}
+.tpf-table .ant-table {
+  overflow: hidden;
+}
+.tpf-table .ant-table .ant-table-tbody .colorRowClassName td {
+  background: var(--ant-primary-2);
+}
+.tpf-table .ant-table .colorRowClassName {
+  background: var(--ant-primary-2);
+}
+.tpf-table .ant-table .colorRowClassName .ant-table-cell.ant-table-cell-row-hover {
+  background: var(--ant-primary-2);
+}
+.tpf-table .ant-table .ant-table-container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.tpf-table .ant-table .ant-table-container .ant-table-body {
+  min-height: 0;
+  max-height: unset !important;
+  flex: 1 0 0;
+}
+.tpf-table .table-striped td {
+  background-color: #fafafa;
+}
+.tpf-link {
+  color: var(--ant-primary-color);
+  cursor: pointer;
+}
+.noData {
+  position: relative;
+  min-height: 40px;
+}
+.noData::after {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  font-size: 14px;
+  content: '----暂无数据----';
+  display: flex;
+  color: rgba(0, 0, 0, 0.25);
+  justify-content: center;
+  align-items: center;
+  z-index: 9;
+}
+.noData.en::after {
+  content: '----no Data----';
+}
+.required {
+  font-weight: 500;
+}
+.required::before {
+  display: inline-block;
+  margin-right: 2px;
+  color: #ff4d4f;
+  font-size: 14px;
+  line-height: 1;
+  content: '*';
+  position: relative;
+  top: 3px;
+}
+.error-border {
+  background-color: #fff;
+  border-color: var(--ant-error-color);
+}
+.error-border [class^='ant-'] {
+  background-color: #fff;
+  border-color: var(--ant-error-color) !important;
+}
+.table-form {
+  display: flex;
+  flex: 1 0 0;
+}
+.table-form .tpf-table-form .ant-table-cell .ant-form-item {
+  margin-bottom: 0;
+}
+.table-form .tpf-table-form .ant-table-cell .ant-form-item .ant-form-item-control {
+  position: relative;
+}
+.table-form .tpf-table-form .ant-table-cell .ant-form-item .ant-form-item-explain {
+  position: absolute;
+  bottom: -14px;
+}
+.ant-empty .ant-empty-description {
+  color: rgba(0, 0, 0, 0.25);
+}
+.render-form ::-webkit-scrollbar-track {
+  width: 8px;
+  background: rgba(16, 31, 28, 0.1);
+  -webkit-border-radius: 2em;
+  -moz-border-radius: 2em;
+  border-radius: 2em;
+}
+.render-form ::-webkit-scrollbar-thumb {
+  background-color: rgba(16, 31, 28, 0.35);
+  background-clip: padding-box;
+  min-height: 28px;
+  -webkit-border-radius: 2em;
+  -moz-border-radius: 2em;
+  border-radius: 2em;
+}
+.render-form ::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(16, 31, 28, 0.85);
+}

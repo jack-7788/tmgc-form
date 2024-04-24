@@ -1,6 +1,11 @@
 <template>
-  <container-item-wrapper v-show="!widget.options.hidden" :widget="widget">
+  <container-item-wrapper
+    :style="{ display: 'flex', height: parseFloat(tableHeight || 0) + 'px' }"
+    v-show="!widget.options.hidden"
+    :widget="widget"
+  >
     <a-table
+      class="tpf-table"
       ref="dataTable2"
       :dataSource="widget.options.dataSource"
       :rowKey="record => record[widget.options.rowKey]"
@@ -56,7 +61,7 @@
 </template>
 
 <script>
-  import ContainerItemWrapper from '@/components/form-render/container-item/container-item-wrapper';
+  import ContainerItemWrapper from '@/components/form-render/container-item/container-item-wrapper.vue';
   import emitter from '@/utils/emitter';
 
   import i18n from '@/utils/i18n';

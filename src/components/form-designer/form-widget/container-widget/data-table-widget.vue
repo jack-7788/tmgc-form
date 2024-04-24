@@ -5,6 +5,7 @@
     :parent-widget="parentWidget"
     :parent-list="parentList"
     :index-of-parent-list="indexOfParentList"
+    :style="{ display: 'flex', height: parseFloat(tableHeight || 0) + 'px' }"
   >
     <div
       :key="widget.id"
@@ -14,6 +15,7 @@
     >
       <a-table
         ref="dataTable1"
+        class="tpf-table"
         :dataSource="widget.options.dataSource"
         :rowKey="record => record[widget.options.rowKey]"
         :scroll="{ y: parseFloat(tableHeight || 0), x: 300 }"
@@ -117,6 +119,8 @@
       this.initRefList();
     },
     mounted() {
+      this.loadDataTableDataSource();
+
       //
     },
     beforeUnmount() {
@@ -323,7 +327,11 @@
 
 <style lang="scss" scoped>
   .collapse-container {
+    display: flex;
     margin: 2px;
+    height: 100%;
+    width: 100%;
+    flex: 1 0 0;
 
     .form-widget-list {
       min-height: 28px;

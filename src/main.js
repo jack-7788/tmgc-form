@@ -2,8 +2,7 @@ import { createApp } from 'vue';
 import App from './App.vue';
 import Antd from 'ant-design-vue';
 
-import '@/styles/breakpoint.less';
-import '@/styles/index.scss';
+import '@/styles/tmgc2.less';
 
 import http from '@/utils/request/http';
 

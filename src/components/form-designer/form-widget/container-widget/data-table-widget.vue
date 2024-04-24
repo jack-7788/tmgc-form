@@ -29,6 +29,7 @@
         :pagination="fmtPagination()"
         @change="handleTablePageChange"
         :customRow="handleCustomRow"
+        @resizeColumn="handleResizeColumn"
       >
         <template #emptyText>
           <a-empty />
@@ -42,7 +43,12 @@
           :customRender="customRenderIndex"
         />
         <template v-for="(item, index) in widget.options.tableColumns">
-          <a-table-column v-if="item.show !== false" :key="index" v-bind="handleColumnItem(item)" />
+          <a-table-column
+            v-if="item.show !== false"
+            :key="index"
+            v-bind="handleColumnItem(item)"
+            :showSorterTooltip="false"
+          />
         </template>
         <template v-if="!!widget.options.showButtonsColumn">
           <a-table-column

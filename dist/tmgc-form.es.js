@@ -4229,9 +4229,11 @@ const containers$1 = [
           show: true,
           align: "center",
           fixed: "",
-          sorter: true,
+          sorter: false,
           customRender: "",
-          ellipsis: true
+          ellipsis: true,
+          resizable: true,
+          showSorterTooltip: false
         }
       ],
       showButtonsColumn: false,
@@ -25600,6 +25602,16 @@ const useDataTableMixin = {
     }
   },
   methods: {
+    handleResizeColumn(w, col) {
+      const { tableColumns } = this.widget.options;
+      const newTableColumns = tableColumns.map((item) => {
+        if (item.dataIndex === col.dataIndex) {
+          item.width = w;
+        }
+        return { ...item };
+      });
+      this.setTableColumns(newTableColumns);
+    },
     disabledClick() {
       const { hasRowSelection } = this.widget.options;
       if (hasRowSelection) {
@@ -25616,6 +25628,9 @@ const useDataTableMixin = {
     getTableColumns() {
       return this.widget.options.tableColumns;
     },
+    setTableColumns(list) {
+      return this.widget.options.tableColumns = list;
+    },
     async delSelectRow(delKeys) {
       await TpfConfirm({ content: "确定删除选中的数据吗" });
       delKeys = delKeys || this.selectedRowInfo.selectedRowKeys;
@@ -25628,6 +25643,9 @@ const useDataTableMixin = {
       this.$message.success("操作成功");
     },
     fmtPagination() {
+      const { showPagination } = this.widget.options;
+      if (!showPagination)
+        return false;
       return {
         ...this.widget.options.pagination,
         showTotal: (total) => `共 ${total} 条`
@@ -25664,9 +25682,11 @@ const useDataTableMixin = {
     },
     async loadDataTableDataSource() {
       if (!this.widget.options.dsEnabled) {
-        this.setDataSource([]);
+        this.widget.options.pagination.total = this.widget.options.dataSource.length;
         return;
       }
+      this.setDataSource([]);
+      this.widget.options.pagination.total = this.widget.options.dataSource.length;
       const ops = this.widget.options;
       if (ops.dsEnabled && ops.http.url) {
         const res = await fmtHttpParams.call(this, ops);
@@ -26443,7 +26463,8 @@ function _sfc_render$3Q(_ctx, _cache, $props, $setup, $data, $options) {
         rowSelection: _ctx.handleRowSelection(),
         pagination: _ctx.fmtPagination(),
         customRow: _ctx.handleCustomRow,
-        onChange: _ctx.handleTablePageChange
+        onChange: _ctx.handleTablePageChange,
+        onResizeColumn: _ctx.handleResizeColumn
       }, {
         emptyText: withCtx(() => [
           createVNode(_component_a_empty)
@@ -26455,11 +26476,12 @@ function _sfc_render$3Q(_ctx, _cache, $props, $setup, $data, $options) {
             align: "left",
             width: 80,
             fixed: "left",
+            resizable: true,
             customRender: _ctx.customRenderIndex
           }, null, 8, ["customRender"])) : createCommentVNode("", true),
           (openBlock(true), createElementBlock(Fragment, null, renderList($props.widget.options.tableColumns, (item, index2) => {
             return openBlock(), createElementBlock(Fragment, null, [
-              item.show !== false ? (openBlock(), createBlock(_component_a_table_column, mergeProps({ key: index2 }, _ctx.handleColumnItem(item)), null, 16)) : createCommentVNode("", true)
+              item.show !== false ? (openBlock(), createBlock(_component_a_table_column, mergeProps({ key: index2 }, _ctx.handleColumnItem(item), { showSorterTooltip: false }), null, 16)) : createCommentVNode("", true)
             ], 64);
           }), 256)),
           !!$props.widget.options.showButtonsColumn ? (openBlock(), createBlock(_component_a_table_column, {
@@ -26468,7 +26490,8 @@ function _sfc_render$3Q(_ctx, _cache, $props, $setup, $data, $options) {
             "class-name": "data-table-buttons-column",
             align: "center",
             title: $props.widget.options.buttonsColumnTitle,
-            width: $props.widget.options.buttonsColumnWidth
+            width: $props.widget.options.buttonsColumnWidth,
+            resizable: true
           }, {
             default: withCtx((scope) => [
               (openBlock(true), createElementBlock(Fragment, null, renderList($props.widget.options.operationButtons, (ob, inx) => {
@@ -26494,14 +26517,14 @@ function _sfc_render$3Q(_ctx, _cache, $props, $setup, $data, $options) {
           }, 8, ["title", "width"])) : createCommentVNode("", true)
         ]),
         _: 1
-      }, 8, ["dataSource", "rowKey", "scroll", "class", "size", "bordered", "style", "row-class-name", "rowSelection", "pagination", "customRow", "onChange"])
+      }, 8, ["dataSource", "rowKey", "scroll", "class", "size", "bordered", "style", "row-class-name", "rowSelection", "pagination", "customRow", "onChange", "onResizeColumn"])
     ]),
     _: 1
   }, 8, ["style", "widget"])), [
     [vShow, !$props.widget.options.hidden]
   ]);
 }
-const dataTableItem = /* @__PURE__ */ _export_sfc$1(_sfc_main$3Q, [["render", _sfc_render$3Q], ["__scopeId", "data-v-4c1eab5b"]]);
+const dataTableItem = /* @__PURE__ */ _export_sfc$1(_sfc_main$3Q, [["render", _sfc_render$3Q], ["__scopeId", "data-v-be02402c"]]);
 const __vite_glob_0_1$2 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: dataTableItem
@@ -56436,8 +56459,9 @@ const _sfc_main$3j = {
 };
 function _sfc_render$3j(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_switch = resolveComponent("a-switch");
-  const _component_a_form_item = resolveComponent("a-form-item");
   const _component_a_button = resolveComponent("a-button");
+  const _component_a_space = resolveComponent("a-space");
+  const _component_a_form_item = resolveComponent("a-form-item");
   const _component_a_input_number = resolveComponent("a-input-number");
   const _component_a_input = resolveComponent("a-input");
   const _component_a_form = resolveComponent("a-form");
@@ -56446,32 +56470,30 @@ function _sfc_render$3j(_ctx, _cache, $props, $setup, $data, $options) {
   return openBlock(), createElementBlock(Fragment, null, [
     createVNode(_component_a_form_item, { label: "启用左侧勾选设置" }, {
       default: withCtx(() => [
-        createVNode(_component_a_switch, {
-          checked: $props.optionModel.rowSelection.hasRowSelection,
-          "onUpdate:checked": _cache[0] || (_cache[0] = ($event) => $props.optionModel.rowSelection.hasRowSelection = $event)
-        }, null, 8, ["checked"])
+        createVNode(_component_a_space, null, {
+          default: withCtx(() => [
+            createVNode(_component_a_switch, {
+              checked: $props.optionModel.rowSelection.hasRowSelection,
+              "onUpdate:checked": _cache[0] || (_cache[0] = ($event) => $props.optionModel.rowSelection.hasRowSelection = $event)
+            }, null, 8, ["checked"]),
+            $props.optionModel.rowSelection.hasRowSelection ? (openBlock(), createBlock(_component_a_button, {
+              key: 0,
+              type: "primary",
+              plain: "",
+              shape: "round",
+              onClick: $options.editSelections
+            }, {
+              default: withCtx(() => [
+                createTextVNode(" 编辑 ")
+              ]),
+              _: 1
+            }, 8, ["onClick"])) : createCommentVNode("", true)
+          ]),
+          _: 1
+        })
       ]),
       _: 1
     }),
-    $props.optionModel.rowSelection.hasRowSelection ? (openBlock(), createBlock(_component_a_form_item, {
-      key: 0,
-      label: "左侧勾选设置"
-    }, {
-      default: withCtx(() => [
-        createVNode(_component_a_button, {
-          type: "primary",
-          plain: "",
-          shape: "round",
-          onClick: $options.editSelections
-        }, {
-          default: withCtx(() => [
-            createTextVNode("编辑")
-          ]),
-          _: 1
-        }, 8, ["onClick"])
-      ]),
-      _: 1
-    })) : createCommentVNode("", true),
     createVNode(_component_a_drawer, {
       class: "editor-Selection-drawer",
       visible: $data.visible,
@@ -59389,7 +59411,9 @@ const _sfc_main$3f = {
         fixed: "",
         align: "center",
         title: "标题名",
-        dataIndex: ""
+        dataIndex: "",
+        resizable: true,
+        showSorterTooltip: false
       };
       this.optionModel.tableColumns.push(newRow);
       this.designer.emitHistoryChange();
@@ -59413,7 +59437,7 @@ const _sfc_main$3f = {
     }
   }
 };
-const _withScopeId$2 = (n) => (pushScopeId("data-v-444c6f63"), n = n(), popScopeId(), n);
+const _withScopeId$2 = (n) => (pushScopeId("data-v-3b5eb05e"), n = n(), popScopeId(), n);
 const _hoisted_1$A = /* @__PURE__ */ _withScopeId$2(() => /* @__PURE__ */ createElementVNode("i", { class: "iconfont icon-drag drag-option" }, null, -1));
 const _hoisted_2$o = { class: "dialog-footer" };
 function _sfc_render$3f(_ctx, _cache, $props, $setup, $data, $options) {
@@ -59450,12 +59474,11 @@ function _sfc_render$3f(_ctx, _cache, $props, $setup, $data, $options) {
       visible: $data.dialogVisible,
       "onUpdate:visible": _cache[1] || (_cache[1] = ($event) => $data.dialogVisible = $event),
       "show-close": true,
-      dialogClass: "drag-dialog",
       "append-to-body": "",
       "close-on-click-modal": false,
       "close-on-press-escape": false,
       "destroy-on-close": true,
-      width: "1250px"
+      width: "1000px"
     }, {
       footer: withCtx(() => [
         createElementVNode("div", _hoisted_2$o, [
@@ -59494,13 +59517,13 @@ function _sfc_render$3f(_ctx, _cache, $props, $setup, $data, $options) {
           default: withCtx(() => [
             createVNode(_component_a_table_column, {
               title: "序号",
-              width: 42,
+              width: 60,
               fixed: "left",
               customRender: ({ index: index2 }) => index2 + 1
             }, null, 8, ["customRender"]),
             createVNode(_component_a_table_column, {
               title: "排序",
-              width: 40
+              width: 60
             }, {
               default: withCtx(() => [
                 _hoisted_1$A
@@ -59552,7 +59575,7 @@ function _sfc_render$3f(_ctx, _cache, $props, $setup, $data, $options) {
             }, 8, ["title"]),
             createVNode(_component_a_table_column, {
               title: _ctx.i18nt("designer.setting.visibleColumn"),
-              width: 70,
+              width: 90,
               dataIndex: "show"
             }, {
               default: withCtx((scope) => [
@@ -59565,7 +59588,7 @@ function _sfc_render$3f(_ctx, _cache, $props, $setup, $data, $options) {
             }, 8, ["title"]),
             createVNode(_component_a_table_column, {
               title: _ctx.i18nt("designer.setting.sortableColumn"),
-              width: 70,
+              width: 90,
               dataIndex: "sorter"
             }, {
               default: withCtx((scope) => [
@@ -59577,8 +59600,21 @@ function _sfc_render$3f(_ctx, _cache, $props, $setup, $data, $options) {
               _: 1
             }, 8, ["title"]),
             createVNode(_component_a_table_column, {
+              title: `可拖动调整宽度`,
+              width: 150,
+              dataIndex: "resizable"
+            }, {
+              default: withCtx((scope) => [
+                createVNode(_component_a_switch, {
+                  checked: scope.record.resizable,
+                  "onUpdate:checked": ($event) => scope.record.resizable = $event
+                }, null, 8, ["checked", "onUpdate:checked"])
+              ]),
+              _: 1
+            }),
+            createVNode(_component_a_table_column, {
               title: "超过宽度将自动省略",
-              width: 70,
+              width: 150,
               dataIndex: "ellipsis"
             }, {
               default: withCtx((scope) => [
@@ -59638,7 +59674,7 @@ function _sfc_render$3f(_ctx, _cache, $props, $setup, $data, $options) {
             createVNode(_component_a_table_column, {
               align: "center",
               title: "自定义渲染函数",
-              width: 90,
+              width: 120,
               fixed: "right"
             }, {
               default: withCtx((scope) => [
@@ -59709,7 +59745,7 @@ function _sfc_render$3f(_ctx, _cache, $props, $setup, $data, $options) {
     }, null, 8, ["modelValue", "onSave", "title", "event-header"])
   ], 64);
 }
-const dataTableTableColumnsEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3f, [["render", _sfc_render$3f], ["__scopeId", "data-v-444c6f63"]]);
+const dataTableTableColumnsEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3f, [["render", _sfc_render$3f], ["__scopeId", "data-v-3b5eb05e"]]);
 const __vite_glob_0_20 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: dataTableTableColumnsEditor
@@ -69776,12 +69812,12 @@ const COMMON_PROPERTIES$1 = {
   tableHeight: "tableHeight-editor",
   showIndex: "showIndex-editor",
   stripe: "stripe-editor",
-  pagination: "pagination-editor",
-  rowSelection: "rowSelection-editor",
   tableSize: "tableSize-editor",
+  pagination: "pagination-editor",
   showButtonsColumn: "showButtonsColumn-editor",
-  tableColumns: "tableColumns-editor",
+  rowSelection: "rowSelection-editor",
   dsEnabled: "dsEnabled-editor",
+  tableColumns: "tableColumns-editor",
   treeDataEnabled: "treeDataEnabled-editor",
   allowClear: "allowClear-editor",
   treeDefaultExpandAll: "treeDefaultExpandAll-editor",
@@ -70916,7 +70952,8 @@ function _sfc_render$q(_ctx, _cache, $props, $setup, $data, $options) {
           rowSelection: _ctx.handleRowSelection(),
           pagination: _ctx.fmtPagination(),
           onChange: _ctx.handleTablePageChange,
-          customRow: _ctx.handleCustomRow
+          customRow: _ctx.handleCustomRow,
+          onResizeColumn: _ctx.handleResizeColumn
         }, {
           emptyText: withCtx(() => [
             createVNode(_component_a_empty)
@@ -70932,7 +70969,7 @@ function _sfc_render$q(_ctx, _cache, $props, $setup, $data, $options) {
             }, null, 8, ["customRender"])) : createCommentVNode("", true),
             (openBlock(true), createElementBlock(Fragment, null, renderList($props.widget.options.tableColumns, (item, index2) => {
               return openBlock(), createElementBlock(Fragment, null, [
-                item.show !== false ? (openBlock(), createBlock(_component_a_table_column, mergeProps({ key: index2 }, _ctx.handleColumnItem(item)), null, 16)) : createCommentVNode("", true)
+                item.show !== false ? (openBlock(), createBlock(_component_a_table_column, mergeProps({ key: index2 }, _ctx.handleColumnItem(item), { showSorterTooltip: false }), null, 16)) : createCommentVNode("", true)
               ], 64);
             }), 256)),
             !!$props.widget.options.showButtonsColumn ? (openBlock(), createBlock(_component_a_table_column, {
@@ -70971,13 +71008,13 @@ function _sfc_render$q(_ctx, _cache, $props, $setup, $data, $options) {
             }, 8, ["title", "width"])) : createCommentVNode("", true)
           ]),
           _: 1
-        }, 8, ["dataSource", "rowKey", "scroll", "class", "size", "bordered", "style", "row-class-name", "rowSelection", "pagination", "onChange", "customRow"])
+        }, 8, ["dataSource", "rowKey", "scroll", "class", "size", "bordered", "style", "row-class-name", "rowSelection", "pagination", "onChange", "customRow", "onResizeColumn"])
       ], 2))
     ]),
     _: 1
   }, 8, ["designer", "widget", "parent-widget", "parent-list", "index-of-parent-list", "style"]);
 }
-const dataTableWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$q, [["render", _sfc_render$q], ["__scopeId", "data-v-89ba0ecd"]]);
+const dataTableWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$q, [["render", _sfc_render$q], ["__scopeId", "data-v-9d12c34b"]]);
 const __vite_glob_0_1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: dataTableWidget
@@ -79707,13 +79744,13 @@ function registerIcon(app) {
 if (typeof window !== "undefined") {
   let loadSvg = function() {
     var body = document.body;
-    var svgDom = document.getElementById("__svg__icons__dom__1713936186797__");
+    var svgDom = document.getElementById("__svg__icons__dom__1713948597656__");
     if (!svgDom) {
       svgDom = document.createElementNS("http://www.w3.org/2000/svg", "svg");
       svgDom.style.position = "absolute";
       svgDom.style.width = "0";
       svgDom.style.height = "0";
-      svgDom.id = "__svg__icons__dom__1713936186797__";
+      svgDom.id = "__svg__icons__dom__1713948597656__";
       svgDom.setAttribute("xmlns", "http://www.w3.org/2000/svg");
       svgDom.setAttribute("xmlns:link", "http://www.w3.org/1999/xlink");
     }

@@ -27,6 +27,16 @@ export default {
     }
   },
   methods: {
+    handleResizeColumn(w, col) {
+      const { tableColumns } = this.widget.options;
+      const newTableColumns = tableColumns.map(item => {
+        if (item.dataIndex === col.dataIndex) {
+          item.width = w;
+        }
+        return { ...item };
+      });
+      this.setTableColumns(newTableColumns);
+    },
     disabledClick() {
       const { hasRowSelection } = this.widget.options;
       if (hasRowSelection) {
@@ -43,6 +53,9 @@ export default {
     getTableColumns() {
       return this.widget.options.tableColumns;
     },
+    setTableColumns(list) {
+      return (this.widget.options.tableColumns = list);
+    },
     async delSelectRow(delKeys) {
       await TpfConfirm({ content: '确定删除选中的数据吗' });
       delKeys = delKeys || this.selectedRowInfo.selectedRowKeys;
@@ -55,6 +68,8 @@ export default {
       this.$message.success('操作成功');
     },
     fmtPagination() {
+      const { showPagination } = this.widget.options;
+      if (!showPagination) return false;
       return {
         ...this.widget.options.pagination,
         showTotal: total => `共 ${total} 条`
@@ -93,9 +108,11 @@ export default {
     },
     async loadDataTableDataSource() {
       if (!this.widget.options.dsEnabled) {
-        this.setDataSource([]);
+        this.widget.options.pagination.total = this.widget.options.dataSource.length;
         return;
       }
+      this.setDataSource([]);
+      this.widget.options.pagination.total = this.widget.options.dataSource.length;
       const ops = this.widget.options;
       if (ops.dsEnabled && ops.http.url) {
         const res = await fmtHttpParams.call(this, ops);

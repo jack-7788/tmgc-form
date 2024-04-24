@@ -8,12 +8,11 @@
     :title="i18nt('designer.setting.tableColEdit')"
     v-model:visible="dialogVisible"
     :show-close="true"
-    dialogClass="drag-dialog"
     append-to-body
     :close-on-click-modal="false"
     :close-on-press-escape="false"
     :destroy-on-close="true"
-    width="1250px"
+    width="1000px"
   >
     <a-table
       :dataSource="optionModel.tableColumns"
@@ -27,11 +26,11 @@
     >
       <a-table-column
         title="序号"
-        :width="42"
+        :width="60"
         fixed="left"
         :customRender="({ index }) => index + 1"
       />
-      <a-table-column title="排序" :width="40">
+      <a-table-column title="排序" :width="60">
         <i class="iconfont icon-drag drag-option"></i>
       </a-table-column>
       <a-table-column
@@ -53,21 +52,26 @@
           <a-input-number :min="20" :max="500" v-model:value="scope.record.width" />
         </template>
       </a-table-column>
-      <a-table-column :title="i18nt('designer.setting.visibleColumn')" :width="70" dataIndex="show">
+      <a-table-column :title="i18nt('designer.setting.visibleColumn')" :width="90" dataIndex="show">
         <template #default="scope">
           <a-switch v-model:checked="scope.record.show" />
         </template>
       </a-table-column>
       <a-table-column
         :title="i18nt('designer.setting.sortableColumn')"
-        :width="70"
+        :width="90"
         dataIndex="sorter"
       >
         <template #default="scope">
           <a-switch v-model:checked="scope.record.sorter" />
         </template>
       </a-table-column>
-      <a-table-column :title="'超过宽度将自动省略'" :width="70" dataIndex="ellipsis">
+      <a-table-column :title="`可拖动调整宽度`" :width="150" dataIndex="resizable">
+        <template #default="scope">
+          <a-switch v-model:checked="scope.record.resizable" />
+        </template>
+      </a-table-column>
+      <a-table-column :title="'超过宽度将自动省略'" :width="150" dataIndex="ellipsis">
         <template #default="scope">
           <a-switch v-model:checked="scope.record.ellipsis" />
         </template>
@@ -93,7 +97,7 @@
           />
         </template>
       </a-table-column>
-      <a-table-column align="center" :title="'自定义渲染函数'" :width="90" fixed="right">
+      <a-table-column align="center" :title="'自定义渲染函数'" :width="120" fixed="right">
         <template #default="scope">
           <a-button @click="showRenderDialog(scope.record)" size="small" shape="round">
             edit
@@ -222,7 +226,9 @@
           fixed: '',
           align: 'center',
           title: '标题名',
-          dataIndex: ''
+          dataIndex: '',
+          resizable: true,
+          showSorterTooltip: false
         };
         this.optionModel.tableColumns.push(newRow);
         this.designer.emitHistoryChange();

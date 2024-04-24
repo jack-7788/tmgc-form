@@ -151,9 +151,11 @@ export const containers = [
           show: true,
           align: 'center',
           fixed: '',
-          sorter: true,
+          sorter: false,
           customRender: '',
-          ellipsis: true
+          ellipsis: true,
+          resizable: true,
+          showSorterTooltip: false
         }
       ],
       showButtonsColumn: false, // 是否显示操作列

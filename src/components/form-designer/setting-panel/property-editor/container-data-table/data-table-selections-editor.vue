@@ -1,9 +1,17 @@
 <template>
   <a-form-item label="启用左侧勾选设置">
-    <a-switch v-model:checked="optionModel.rowSelection.hasRowSelection" />
-  </a-form-item>
-  <a-form-item label="左侧勾选设置" v-if="optionModel.rowSelection.hasRowSelection">
-    <a-button type="primary" plain shape="round" @click="editSelections">编辑</a-button>
+    <a-space>
+      <a-switch v-model:checked="optionModel.rowSelection.hasRowSelection" />
+      <a-button
+        type="primary"
+        plain
+        shape="round"
+        @click="editSelections"
+        v-if="optionModel.rowSelection.hasRowSelection"
+      >
+        编辑
+      </a-button>
+    </a-space>
   </a-form-item>
   <a-drawer
     class="editor-Selection-drawer"

@@ -2060,14 +2060,14 @@ const _sfc_main$4j = {
   }
 };
 const _hoisted_1$15 = ["xlink:href"];
-const _hoisted_2$B = { key: 0 };
+const _hoisted_2$C = { key: 0 };
 function _sfc_render$4j(_ctx, _cache, $props, $setup, $data, $options) {
   return openBlock(), createElementBlock("svg", {
     class: normalizeClass($options.svgClass),
     "aria-hidden": "true"
   }, [
     createElementVNode("use", { "xlink:href": $options.iconName }, null, 8, _hoisted_1$15),
-    !!$props.title ? (openBlock(), createElementBlock("title", _hoisted_2$B, toDisplayString($props.title), 1)) : createCommentVNode("", true)
+    !!$props.title ? (openBlock(), createElementBlock("title", _hoisted_2$C, toDisplayString($props.title), 1)) : createCommentVNode("", true)
   ], 2);
 }
 const SvgIcon = /* @__PURE__ */ _export_sfc$1(_sfc_main$4j, [["render", _sfc_render$4j], ["__scopeId", "data-v-db5a1437"]]);
@@ -3090,7 +3090,7 @@ return {...data,data:d}`,
  }
  })
 return {...data,data:d}`,
-        dataHandlerCode: ""
+        dataHandlerCode: "return data.data.object||{}"
       }
     }
   };
@@ -3232,6 +3232,7 @@ const input = (ops = {}) => {
       readonly: false,
       disabled: false,
       hidden: false,
+      holdHidden: true,
       allowClear: true,
       required: false,
       requiredHint: "",
@@ -3280,6 +3281,7 @@ const textarea = (ops = {}) => {
       readonly: false,
       disabled: false,
       hidden: false,
+      holdHidden: true,
       allowClear: true,
       required: false,
       requiredHint: "",
@@ -3325,6 +3327,7 @@ const number = (ops = {}) => {
       labelHidden: false,
       disabled: false,
       hidden: false,
+      holdHidden: true,
       required: false,
       requiredHint: "",
       validation: "",
@@ -3371,6 +3374,7 @@ const radio = (ops = {}) => {
       labelHidden: false,
       disabled: false,
       hidden: false,
+      holdHidden: true,
       dsEnabled: false,
       // 是否使用数据源数据
       labelKey: "label",
@@ -3433,6 +3437,7 @@ const checkbox = (ops = {}) => {
       labelHidden: false,
       disabled: false,
       hidden: false,
+      holdHidden: true,
       // dsName: '', // 数据源名称
       // dataSetName: '', //数据集名称
       labelKey: "label",
@@ -3495,9 +3500,10 @@ const select = (ops = {}) => {
       labelWidth: null,
       labelHidden: false,
       disabled: false,
-      useModal: true,
+      useModal: false,
       loadingPage: false,
       hidden: false,
+      holdHidden: true,
       allowClear: true,
       maxTagCount: "responsive",
       mode: "combobox",
@@ -3571,6 +3577,7 @@ const time = (ops = {}) => {
       readonly: false,
       disabled: false,
       hidden: false,
+      holdHidden: true,
       allowClear: true,
       // editable: false,
       format: "HH:mm:ss",
@@ -3618,6 +3625,7 @@ const timeRange = (ops = {}) => {
       readonly: false,
       disabled: false,
       hidden: false,
+      holdHidden: true,
       allowClear: true,
       // editable: false,
       format: "HH:mm:ss",
@@ -3665,6 +3673,7 @@ const date = (ops = {}) => {
       readonly: false,
       disabled: false,
       hidden: false,
+      holdHidden: true,
       allowClear: true,
       showTime: false,
       // editable: false,
@@ -3716,6 +3725,7 @@ const dataRange = (ops = {}) => {
       readonly: false,
       disabled: false,
       hidden: false,
+      holdHidden: true,
       allowClear: true,
       showTime: false,
       // editable: false,
@@ -3761,6 +3771,7 @@ const switchCom = (ops = {}) => {
       labelHidden: false,
       disabled: false,
       hidden: false,
+      holdHidden: true,
       //-------------------
       customClass: [],
       //自定义css类名
@@ -3799,6 +3810,7 @@ const rate = (ops = {}) => {
       labelHidden: false,
       disabled: false,
       hidden: false,
+      holdHidden: true,
       required: false,
       requiredHint: "",
       validation: "",
@@ -3842,6 +3854,7 @@ const color = (ops = {}) => {
       labelHidden: false,
       disabled: false,
       hidden: false,
+      holdHidden: true,
       required: false,
       requiredHint: "",
       validation: "",
@@ -3879,6 +3892,7 @@ const slider = (ops = {}) => {
       labelHidden: false,
       disabled: false,
       hidden: false,
+      holdHidden: true,
       required: false,
       requiredHint: "",
       validation: "",
@@ -3915,6 +3929,7 @@ const staticText = (ops = {}) => {
       name: "",
       columnWidth: "200px",
       hidden: false,
+      holdHidden: true,
       textContent: "static text",
       //-------------------
       customClass: [],
@@ -3937,6 +3952,7 @@ const htmlText = (ops = {}) => {
       name: "",
       columnWidth: "200px",
       hidden: false,
+      holdHidden: true,
       htmlContent: "<b>html text</b>",
       //-------------------
       customClass: [],
@@ -3963,6 +3979,7 @@ const button = (ops = {}) => {
       displayStyle: "block",
       disabled: false,
       hidden: false,
+      holdHidden: true,
       type: "primary",
       shape: "",
       danger: false,
@@ -3996,6 +4013,7 @@ const divider = (ops = {}) => {
       direction: "horizontal",
       contentPosition: "center",
       hidden: false,
+      holdHidden: true,
       //-------------------
       customClass: [],
       //自定义css类名
@@ -4021,6 +4039,7 @@ const dropdown = (ops = {}) => {
       displayStyle: "block",
       disabled: false,
       hidden: false,
+      holdHidden: true,
       type: "primary",
       shape: "",
       danger: false,
@@ -6438,7 +6457,7 @@ const _sfc_main$4i = {
   }
 };
 const _hoisted_1$14 = { class: "side-scroll-bar" };
-const _hoisted_2$A = { class: "panel-container" };
+const _hoisted_2$B = { class: "panel-container" };
 const _hoisted_3$t = ["title", "onDblclick"];
 const _hoisted_4$i = ["title", "onDblclick"];
 const _hoisted_5$d = ["title", "onDblclick"];
@@ -6454,7 +6473,7 @@ function _sfc_render$4i(_ctx, _cache, $props, $setup, $data, $options) {
   resolveComponent("a-card");
   const _component_a_tabs = resolveComponent("a-tabs");
   return openBlock(), createElementBlock("div", _hoisted_1$14, [
-    createElementVNode("div", _hoisted_2$A, [
+    createElementVNode("div", _hoisted_2$B, [
       createVNode(_component_a_tabs, {
         activeKey: $data.firstTab,
         "onUpdate:activeKey": _cache[1] || (_cache[1] = ($event) => $data.firstTab = $event),
@@ -6829,7 +6848,7 @@ const _hoisted_1$13 = {
   key: 0,
   class: "field-action"
 };
-const _hoisted_2$z = ["title"];
+const _hoisted_2$A = ["title"];
 const _hoisted_3$s = ["title"];
 const _hoisted_4$h = ["title"];
 const _hoisted_5$c = ["title"];
@@ -6860,7 +6879,7 @@ function _sfc_render$4g(_ctx, _cache, $props, $setup, $data, $options) {
           onClick: _cache[1] || (_cache[1] = withModifiers(($event) => $options.selectParentWidget($props.field), ["stop"]))
         }, [
           createVNode(_component_svg_icon, { "icon-class": "el-back" })
-        ], 8, _hoisted_2$z),
+        ], 8, _hoisted_2$A),
         !!$props.parentList && $props.parentList.length > 1 ? (openBlock(), createElementBlock("i", {
           key: 0,
           title: _ctx.i18nt("designer.hint.moveUpWidget"),
@@ -9963,7 +9982,7 @@ const _sfc_main$4e = {
   }
 };
 const _hoisted_1$12 = { class: "label-box" };
-const _hoisted_2$y = {
+const _hoisted_2$z = {
   key: 0,
   class: "custom-label"
 };
@@ -10006,7 +10025,7 @@ function _sfc_render$4e(_ctx, _cache, $props, $setup, $data, $options) {
     }, {
       label: withCtx(() => [
         createElementVNode("div", _hoisted_1$12, [
-          !!$props.field.options.labelIconClass ? (openBlock(), createElementBlock("span", _hoisted_2$y, [
+          !!$props.field.options.labelIconClass ? (openBlock(), createElementBlock("span", _hoisted_2$z, [
             $props.field.options.labelIconPosition === "front" ? (openBlock(), createElementBlock(Fragment, { key: 0 }, [
               !!$props.field.options.labelTooltip ? (openBlock(), createElementBlock(Fragment, { key: 0 }, [
                 createVNode(_component_a_tooltip, {
@@ -11263,7 +11282,7 @@ const _sfc_main$46 = {
   }
 };
 const _hoisted_1$Y = { class: "upload-file-list" };
-const _hoisted_2$x = ["title"];
+const _hoisted_2$y = ["title"];
 const _hoisted_3$q = ["href"];
 const _hoisted_4$f = ["title"];
 const _hoisted_5$a = ["title", "onClick"];
@@ -11308,7 +11327,7 @@ function _sfc_render$46(_ctx, _cache, $props, $setup, $data, $options) {
             createElementVNode("span", {
               class: "upload-file-name",
               title: file.name
-            }, toDisplayString(file.name), 9, _hoisted_2$x),
+            }, toDisplayString(file.name), 9, _hoisted_2$y),
             createElementVNode("a", {
               href: file.url,
               download: "",
@@ -11934,7 +11953,7 @@ const _hoisted_1$U = {
   key: 0,
   class: "el-upload__tip"
 };
-const _hoisted_2$w = { class: "uploader-icon" };
+const _hoisted_2$x = { class: "uploader-icon" };
 const _hoisted_3$p = ["src"];
 function _sfc_render$42(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_svg_icon = resolveComponent("svg-icon");
@@ -11979,7 +11998,7 @@ function _sfc_render$42(_ctx, _cache, $props, $setup, $data, $options) {
           !!$props.field.options.uploadTip ? (openBlock(), createElementBlock("div", _hoisted_1$U, toDisplayString($props.field.options.uploadTip), 1)) : createCommentVNode("", true)
         ]),
         default: withCtx(() => [
-          createElementVNode("div", _hoisted_2$w, [
+          createElementVNode("div", _hoisted_2$x, [
             createVNode(_component_svg_icon, { "icon-class": "el-plus" })
           ])
         ]),
@@ -24269,7 +24288,7 @@ const _sfc_main$3Z = {
   }
 };
 const _hoisted_1$R = { class: "design-select-box" };
-const _hoisted_2$v = { class: "readonly-mode-field" };
+const _hoisted_2$w = { class: "readonly-mode-field" };
 function _sfc_render$3Z(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_select = resolveComponent("a-select");
   const _component_svg_icon = resolveComponent("svg-icon");
@@ -24334,7 +24353,7 @@ function _sfc_render$3Z(_ctx, _cache, $props, $setup, $data, $options) {
         overlayStyle: { zIndex: 1e3 }
       }, {
         default: withCtx(() => [
-          createElementVNode("span", _hoisted_2$v, toDisplayString(_ctx.optionLabel), 1)
+          createElementVNode("span", _hoisted_2$w, toDisplayString(_ctx.optionLabel), 1)
         ]),
         _: 1
       }, 8, ["title"])) : createCommentVNode("", true)
@@ -26576,6 +26595,14 @@ const _sfc_main$3P = {
     };
   },
   computed: {
+    isHidden() {
+      return this.widget.widgetList.some((item) => {
+        if (item.options.holdHidden) {
+          return false;
+        }
+        return item.options.hidden;
+      });
+    },
     formConfig() {
       return this.getFormConfig();
     },
@@ -26617,7 +26644,7 @@ const _sfc_main$3P = {
   }
 };
 const _hoisted_1$J = { class: "blank-cell" };
-const _hoisted_2$u = { class: "invisible-content" };
+const _hoisted_2$v = { class: "invisible-content" };
 function _sfc_render$3P(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_col = resolveComponent("a-col");
   return withDirectives((openBlock(), createBlock(_component_a_col, mergeProps({
@@ -26671,7 +26698,7 @@ function _sfc_render$3P(_ctx, _cache, $props, $setup, $data, $options) {
       }), 256)) : (openBlock(), createBlock(_component_a_col, { key: 1 }, {
         default: withCtx(() => [
           createElementVNode("div", _hoisted_1$J, [
-            createElementVNode("span", _hoisted_2$u, toDisplayString(_ctx.i18nt("render.hint.blankCellContent")), 1)
+            createElementVNode("span", _hoisted_2$v, toDisplayString(_ctx.i18nt("render.hint.blankCellContent")), 1)
           ])
         ]),
         _: 1
@@ -26679,10 +26706,10 @@ function _sfc_render$3P(_ctx, _cache, $props, $setup, $data, $options) {
     ]),
     _: 3
   }, 16, ["class", "style"])), [
-    [vShow, !$props.widget.options.hidden]
+    [vShow, !$options.isHidden && !$props.widget.options.hidden]
   ]);
 }
-const GridColItem = /* @__PURE__ */ _export_sfc$1(_sfc_main$3P, [["render", _sfc_render$3P], ["__scopeId", "data-v-347374d9"]]);
+const GridColItem = /* @__PURE__ */ _export_sfc$1(_sfc_main$3P, [["render", _sfc_render$3P], ["__scopeId", "data-v-fce0759c"]]);
 const __vite_glob_0_2$2 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: GridColItem
@@ -27047,7 +27074,7 @@ const _sfc_main$3N = {
 };
 const _withScopeId$5 = (n) => (pushScopeId("data-v-50d62ca2"), n = n(), popScopeId(), n);
 const _hoisted_1$I = { class: "action-header-column" };
-const _hoisted_2$t = { class: "action-label" };
+const _hoisted_2$u = { class: "action-label" };
 const _hoisted_3$o = /* @__PURE__ */ _withScopeId$5(() => /* @__PURE__ */ createElementVNode("i", { class: "el-icon-plus el-icon-right" }, null, -1));
 const _hoisted_4$e = {
   key: 0,
@@ -27085,7 +27112,7 @@ function _sfc_render$3N(_ctx, _cache, $props, $setup, $data, $options) {
         createVNode(_component_a_row, { class: "header-row" }, {
           default: withCtx(() => [
             createElementVNode("div", _hoisted_1$I, [
-              createElementVNode("span", _hoisted_2$t, toDisplayString(_ctx.i18nt("render.hint.subFormAction")), 1),
+              createElementVNode("span", _hoisted_2$u, toDisplayString(_ctx.i18nt("render.hint.subFormAction")), 1),
               !$options.isReadMode ? (openBlock(), createBlock(_component_a_button, {
                 key: 0,
                 disabled: $data.actionDisabled || $data.insertDisabled,
@@ -27450,7 +27477,7 @@ const _hoisted_1$H = {
   key: 0,
   class: "action-header-column"
 };
-const _hoisted_2$s = { class: "action-label" };
+const _hoisted_2$t = { class: "action-label" };
 const _hoisted_3$n = {
   key: 1,
   class: "row-no-header-column"
@@ -27502,7 +27529,7 @@ function _sfc_render$3M(_ctx, _cache, $props, $setup, $data, $options) {
         createVNode(_component_a_row, { class: "header-row" }, {
           default: withCtx(() => [
             $options.leftActionColumn ? (openBlock(), createElementBlock("div", _hoisted_1$H, [
-              createElementVNode("span", _hoisted_2$s, toDisplayString(_ctx.i18nt("render.hint.subFormAction")), 1),
+              createElementVNode("span", _hoisted_2$t, toDisplayString(_ctx.i18nt("render.hint.subFormAction")), 1),
               !$options.isReadMode ? (openBlock(), createBlock(_component_a_button, {
                 key: 0,
                 disabled: $data.actionDisabled || $data.insertDisabled,
@@ -52986,13 +53013,13 @@ const _sfc_main$3D = {
   }
 };
 const _hoisted_1$E = { class: "ace-container" };
-const _hoisted_2$r = {
+const _hoisted_2$s = {
   class: "ace-editor",
   ref: "ace"
 };
 function _sfc_render$3D(_ctx, _cache, $props, $setup, $data, $options) {
   return openBlock(), createElementBlock("div", _hoisted_1$E, [
-    createElementVNode("div", _hoisted_2$r, null, 512)
+    createElementVNode("div", _hoisted_2$s, null, 512)
   ]);
 }
 const CodeEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3D, [["render", _sfc_render$3D], ["__scopeId", "data-v-84220a09"]]);
@@ -54392,7 +54419,7 @@ const _sfc_main$3C = {
 };
 const _withScopeId$4 = (n) => (pushScopeId("data-v-3bb998d8"), n = n(), popScopeId(), n);
 const _hoisted_1$D = { class: "toolbar-container" };
-const _hoisted_2$q = /* @__PURE__ */ _withScopeId$4(() => /* @__PURE__ */ createElementVNode("div", { class: "left-toolbar" }, null, -1));
+const _hoisted_2$r = /* @__PURE__ */ _withScopeId$4(() => /* @__PURE__ */ createElementVNode("div", { class: "left-toolbar" }, null, -1));
 const _hoisted_3$m = { class: "right-toolbar" };
 const _hoisted_4$c = { class: "right-toolbar-con" };
 const _hoisted_5$7 = { class: "dialog-footer" };
@@ -54413,7 +54440,7 @@ function _sfc_render$3C(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_tab_pane = resolveComponent("a-tab-pane");
   const _component_a_tabs = resolveComponent("a-tabs");
   return openBlock(), createElementBlock("div", _hoisted_1$D, [
-    _hoisted_2$q,
+    _hoisted_2$r,
     createVNode(_component_a_drawer, {
       title: _ctx.i18nt("designer.toolbar.nodeTreeTitle"),
       direction: "ltr",
@@ -56649,7 +56676,7 @@ const _sfc_main$3i = {
 };
 const _withScopeId$3 = (n) => (pushScopeId("data-v-dd00e485"), n = n(), popScopeId(), n);
 const _hoisted_1$B = /* @__PURE__ */ _withScopeId$3(() => /* @__PURE__ */ createElementVNode("i", { class: "iconfont icon-drag drag-handler" }, null, -1));
-const _hoisted_2$p = { class: "dialog-footer" };
+const _hoisted_2$q = { class: "dialog-footer" };
 function _sfc_render$3i(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_switch = resolveComponent("a-switch");
   const _component_a_button = resolveComponent("a-button");
@@ -56707,7 +56734,7 @@ function _sfc_render$3i(_ctx, _cache, $props, $setup, $data, $options) {
       width: "1250px"
     }, {
       footer: withCtx(() => [
-        createElementVNode("div", _hoisted_2$p, [
+        createElementVNode("div", _hoisted_2$q, [
           createVNode(_component_a_button, {
             size: "default",
             onClick: _cache[5] || (_cache[5] = ($event) => $data.showButtonsEditDialog = false)
@@ -59438,7 +59465,7 @@ const _sfc_main$3f = {
 };
 const _withScopeId$2 = (n) => (pushScopeId("data-v-3b5eb05e"), n = n(), popScopeId(), n);
 const _hoisted_1$A = /* @__PURE__ */ _withScopeId$2(() => /* @__PURE__ */ createElementVNode("i", { class: "iconfont icon-drag drag-option" }, null, -1));
-const _hoisted_2$o = { class: "dialog-footer" };
+const _hoisted_2$p = { class: "dialog-footer" };
 function _sfc_render$3f(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_button = resolveComponent("a-button");
   const _component_a_form_item = resolveComponent("a-form-item");
@@ -59480,7 +59507,7 @@ function _sfc_render$3f(_ctx, _cache, $props, $setup, $data, $options) {
       width: "1000px"
     }, {
       footer: withCtx(() => [
-        createElementVNode("div", _hoisted_2$o, [
+        createElementVNode("div", _hoisted_2$p, [
           createVNode(_component_a_button, {
             size: "default",
             type: "primary",
@@ -60218,6 +60245,7 @@ const __vite_glob_0_30 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.de
 }, Symbol.toStringTag, { value: "Module" }));
 const _sfc_main$34 = {
   name: "gutter-editor",
+  components: { SvgIcon },
   mixins: [i18n$1],
   props: {
     designer: Object,
@@ -60245,12 +60273,15 @@ const _sfc_main$34 = {
     }
   }
 };
-const _hoisted_1$z = { class: "col-span-title" };
+const _hoisted_1$z = { class: "col-item" };
+const _hoisted_2$o = { class: "col-span-title" };
 function _sfc_render$34(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_divider = resolveComponent("a-divider");
   const _component_a_form_item = resolveComponent("a-form-item");
   const _component_a_input_number = resolveComponent("a-input-number");
   const _component_a_button = resolveComponent("a-button");
+  const _component_svg_icon = resolveComponent("svg-icon");
+  const _component_draggable = resolveComponent("draggable");
   return openBlock(), createElementBlock("div", null, [
     createVNode(_component_a_form_item, { "label-width": "0" }, {
       default: withCtx(() => [
@@ -60280,35 +60311,53 @@ function _sfc_render$34(_ctx, _cache, $props, $setup, $data, $options) {
     }, null, 8, ["label"]),
     createVNode(_component_a_form_item, { "label-width": "0" }, {
       default: withCtx(() => [
-        (openBlock(true), createElementBlock(Fragment, null, renderList($props.selectedWidget.cols, (colItem, colIdx) => {
-          return openBlock(), createElementBlock("li", {
-            key: colIdx,
-            class: "col-item"
-          }, [
-            createElementVNode("span", _hoisted_1$z, toDisplayString(_ctx.i18nt("designer.setting.colSpanTitle")) + toDisplayString(colIdx + 1), 1),
-            createVNode(_component_a_input_number, {
-              value: colItem.options.span,
-              "onUpdate:value": ($event) => colItem.options.span = $event,
-              min: 1,
-              max: 24,
-              onChange: (newValue, oldValue) => $options.spanChanged($props.selectedWidget, colItem, colIdx, newValue, oldValue),
-              class: "cell-span-input"
-            }, null, 8, ["value", "onUpdate:value", "onChange"]),
-            createVNode(_component_a_button, {
-              circle: "",
-              shape: "plain",
-              size: "small",
-              type: "danger",
-              onClick: ($event) => $options.deleteCol($props.selectedWidget, colIdx),
-              class: "col-delete-button"
-            }, {
-              default: withCtx(() => [
-                createTextVNode(" 删除 ")
-              ]),
-              _: 2
-            }, 1032, ["onClick"])
-          ]);
-        }), 128)),
+        createVNode(_component_draggable, mergeProps({
+          list: $props.selectedWidget.cols,
+          "item-key": "id"
+        }, { group: "dragGroup", ghostClass: "ghost", animation: 300 }, {
+          tag: "transition-group",
+          "component-data": { name: "fade" },
+          handle: ".drag-handler"
+        }), {
+          item: withCtx(({ element: colItem, index: colIdx }) => [
+            createElementVNode("li", _hoisted_1$z, [
+              createElementVNode("span", _hoisted_2$o, toDisplayString(_ctx.i18nt("designer.setting.colSpanTitle")) + toDisplayString(colIdx + 1), 1),
+              createVNode(_component_a_input_number, {
+                value: colItem.options.span,
+                "onUpdate:value": ($event) => colItem.options.span = $event,
+                min: 1,
+                max: 24,
+                onChange: (newValue, oldValue) => $options.spanChanged($props.selectedWidget, colItem, colIdx, newValue, oldValue),
+                class: "cell-span-input"
+              }, null, 8, ["value", "onUpdate:value", "onChange"]),
+              createVNode(_component_a_button, {
+                circle: "",
+                shape: "plain",
+                size: "small",
+                type: "danger",
+                onClick: ($event) => $options.deleteCol($props.selectedWidget, colIdx),
+                class: "col-delete-button"
+              }, {
+                default: withCtx(() => [
+                  createTextVNode(" 删除 ")
+                ]),
+                _: 2
+              }, 1032, ["onClick"]),
+              createVNode(_component_a_button, {
+                circle: "",
+                shape: "plain",
+                size: "small",
+                class: "col-delete-button drag-handler"
+              }, {
+                default: withCtx(() => [
+                  createVNode(_component_svg_icon, { "icon-class": "move1" })
+                ]),
+                _: 1
+              })
+            ])
+          ]),
+          _: 1
+        }, 16, ["list"]),
         createElementVNode("div", null, [
           createVNode(_component_a_button, {
             type: "primary",
@@ -60325,7 +60374,7 @@ function _sfc_render$34(_ctx, _cache, $props, $setup, $data, $options) {
     })
   ]);
 }
-const gutterEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$34, [["render", _sfc_render$34], ["__scopeId", "data-v-95f1b976"]]);
+const gutterEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$34, [["render", _sfc_render$34], ["__scopeId", "data-v-35700e4d"]]);
 const __vite_glob_0_31 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: gutterEditor
@@ -65542,33 +65591,52 @@ function _sfc_render$18(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_button = resolveComponent("a-button");
   const _component_a_space = resolveComponent("a-space");
   const _component_a_form_item = resolveComponent("a-form-item");
-  return openBlock(), createBlock(_component_a_form_item, {
-    label: _ctx.i18nt("designer.setting.hidden")
-  }, {
-    default: withCtx(() => [
-      createVNode(_component_a_space, null, {
-        default: withCtx(() => [
-          createVNode(_component_a_switch, {
-            checked: $props.optionModel.hidden,
-            "onUpdate:checked": _cache[0] || (_cache[0] = ($event) => $props.optionModel.hidden = $event)
-          }, null, 8, ["checked"]),
-          createVNode(_component_a_button, {
-            type: "info",
-            shape: "round",
-            class: normalizeClass([!!$props.optionModel.onHidden ? "button-text-highlight" : ""]),
-            onClick: _cache[1] || (_cache[1] = ($event) => _ctx.editEventHandler("onHidden", $data.eventParams))
-          }, {
-            default: withCtx(() => [
-              createTextVNode(" 编辑函数 ")
-            ]),
-            _: 1
-          }, 8, ["class"])
-        ]),
-        _: 1
-      })
-    ]),
-    _: 1
-  }, 8, ["label"]);
+  return openBlock(), createElementBlock(Fragment, null, [
+    createVNode(_component_a_form_item, {
+      label: _ctx.i18nt("designer.setting.hidden")
+    }, {
+      default: withCtx(() => [
+        createVNode(_component_a_space, null, {
+          default: withCtx(() => [
+            createVNode(_component_a_switch, {
+              checked: $props.optionModel.hidden,
+              "onUpdate:checked": _cache[0] || (_cache[0] = ($event) => $props.optionModel.hidden = $event)
+            }, null, 8, ["checked"]),
+            createVNode(_component_a_button, {
+              type: "info",
+              shape: "round",
+              class: normalizeClass([!!$props.optionModel.onHidden ? "button-text-highlight" : ""]),
+              onClick: _cache[1] || (_cache[1] = ($event) => _ctx.editEventHandler("onHidden", $data.eventParams))
+            }, {
+              default: withCtx(() => [
+                createTextVNode(" 编辑函数 ")
+              ]),
+              _: 1
+            }, 8, ["class"])
+          ]),
+          _: 1
+        })
+      ]),
+      _: 1
+    }, 8, ["label"]),
+    !!$props.optionModel.hidden ? (openBlock(), createBlock(_component_a_form_item, {
+      key: 0,
+      label: `隐藏时是否占位`
+    }, {
+      default: withCtx(() => [
+        createVNode(_component_a_space, null, {
+          default: withCtx(() => [
+            createVNode(_component_a_switch, {
+              checked: $props.optionModel.holdHidden,
+              "onUpdate:checked": _cache[2] || (_cache[2] = ($event) => $props.optionModel.holdHidden = $event)
+            }, null, 8, ["checked"])
+          ]),
+          _: 1
+        })
+      ]),
+      _: 1
+    })) : createCommentVNode("", true)
+  ], 64);
 }
 const hiddenEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$18, [["render", _sfc_render$18]]);
 const __vite_glob_0_155 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
@@ -69653,12 +69721,7 @@ const _sfc_main$t = {
       curEventName: "",
       formEventHandlerCode: "",
       showFormEventDialogFlag: false,
-      eventParamsMap: {
-        // onVformAdd: 'onVformAdd(data) {',
-        // onVformUpdate: 'onVformUpdate(data) {',
-        // onVformDetail: 'onVformUpdate(data) {'
-        // onVformDel: 'onVformUpdate(data) {'
-      }
+      eventParamsMap: {}
     };
   },
   methods: {
@@ -79743,13 +79806,13 @@ function registerIcon(app) {
 if (typeof window !== "undefined") {
   let loadSvg = function() {
     var body = document.body;
-    var svgDom = document.getElementById("__svg__icons__dom__1713954189248__");
+    var svgDom = document.getElementById("__svg__icons__dom__1714285049067__");
     if (!svgDom) {
       svgDom = document.createElementNS("http://www.w3.org/2000/svg", "svg");
       svgDom.style.position = "absolute";
       svgDom.style.width = "0";
       svgDom.style.height = "0";
-      svgDom.id = "__svg__icons__dom__1713954189248__";
+      svgDom.id = "__svg__icons__dom__1714285049067__";
       svgDom.setAttribute("xmlns", "http://www.w3.org/2000/svg");
       svgDom.setAttribute("xmlns:link", "http://www.w3.org/1999/xlink");
     }
@@ -80078,7 +80141,7 @@ const registerFWGenerator = function(fieldType, ftGenerator) {
 const VFormRegisterHttp = (h2) => {
   window.$vform = {
     ...window.$vform || {},
-    $http: h2 || http
+    $http: h2
   };
 };
 VFormDesigner.install = function(app) {
@@ -80098,8 +80161,8 @@ VFormRender.install = function(app) {
 const components = [VFormDesigner, VFormRender];
 const install = (app, h2) => {
   console.warn("install:成功");
-  app.config.globalProperties.$http = h2 || http;
-  VFormRegisterHttp(h2 || http);
+  app.config.globalProperties.$http = h2;
+  VFormRegisterHttp(h2);
   app.use(ContainerWidgets);
   app.use(ContainerItems);
   registerIcon(app);

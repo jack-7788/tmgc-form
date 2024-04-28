@@ -21,6 +21,7 @@ export const input = (ops = {}) => {
       readonly: false,
       disabled: false,
       hidden: false,
+      holdHidden: true,
       allowClear: true,
       required: false,
       requiredHint: '',
@@ -69,6 +70,7 @@ export const textarea = (ops = {}) => {
       readonly: false,
       disabled: false,
       hidden: false,
+      holdHidden: true,
       allowClear: true,
       required: false,
       requiredHint: '',
@@ -114,6 +116,7 @@ export const number = (ops = {}) => {
       labelHidden: false,
       disabled: false,
       hidden: false,
+      holdHidden: true,
       required: false,
       requiredHint: '',
       validation: '',
@@ -160,6 +163,7 @@ export const radio = (ops = {}) => {
       labelHidden: false,
       disabled: false,
       hidden: false,
+      holdHidden: true,
       dsEnabled: false, // 是否使用数据源数据
       labelKey: 'label',
       valueKey: 'value',
@@ -214,6 +218,7 @@ export const checkbox = (ops = {}) => {
       labelHidden: false,
       disabled: false,
       hidden: false,
+      holdHidden: true,
       // dsName: '', // 数据源名称
       // dataSetName: '', //数据集名称
       labelKey: 'label',
@@ -269,9 +274,10 @@ export const select = (ops = {}) => {
       labelWidth: null,
       labelHidden: false,
       disabled: false,
-      useModal: true,
+      useModal: false,
       loadingPage: false,
       hidden: false,
+      holdHidden: true,
       allowClear: true,
       maxTagCount: 'responsive',
       mode: 'combobox',
@@ -337,6 +343,7 @@ export const time = (ops = {}) => {
       readonly: false,
       disabled: false,
       hidden: false,
+      holdHidden: true,
       allowClear: true,
       // editable: false,
       format: 'HH:mm:ss', //时间格式
@@ -383,6 +390,7 @@ export const timeRange = (ops = {}) => {
       readonly: false,
       disabled: false,
       hidden: false,
+      holdHidden: true,
       allowClear: true,
       // editable: false,
       format: 'HH:mm:ss', //时间格式
@@ -429,6 +437,7 @@ export const date = (ops = {}) => {
       readonly: false,
       disabled: false,
       hidden: false,
+      holdHidden: true,
       allowClear: true,
       showTime: false,
       // editable: false,
@@ -478,6 +487,7 @@ export const dataRange = (ops = {}) => {
       readonly: false,
       disabled: false,
       hidden: false,
+      holdHidden: true,
       allowClear: true,
       showTime: false,
       // editable: false,
@@ -521,6 +531,7 @@ export const switchCom = (ops = {}) => {
       labelHidden: false,
       disabled: false,
       hidden: false,
+      holdHidden: true,
       //-------------------
       customClass: [], //自定义css类名
       labelIconClass: null,
@@ -558,6 +569,7 @@ export const rate = (ops = {}) => {
       labelHidden: false,
       disabled: false,
       hidden: false,
+      holdHidden: true,
       required: false,
       requiredHint: '',
       validation: '',
@@ -601,6 +613,7 @@ export const color = (ops = {}) => {
       labelHidden: false,
       disabled: false,
       hidden: false,
+      holdHidden: true,
       required: false,
       requiredHint: '',
       validation: '',
@@ -638,6 +651,7 @@ export const slider = (ops = {}) => {
       labelHidden: false,
       disabled: false,
       hidden: false,
+      holdHidden: true,
       required: false,
       requiredHint: '',
       validation: '',
@@ -673,6 +687,7 @@ export const staticText = (ops = {}) => {
       name: '',
       columnWidth: '200px',
       hidden: false,
+      holdHidden: true,
       textContent: 'static text',
       //-------------------
       customClass: [], //自定义css类名
@@ -695,6 +710,7 @@ export const htmlText = (ops = {}) => {
       name: '',
       columnWidth: '200px',
       hidden: false,
+      holdHidden: true,
       htmlContent: '<b>html text</b>',
       //-------------------
       customClass: [], //自定义css类名
@@ -721,6 +737,7 @@ export const button = (ops = {}) => {
       displayStyle: 'block',
       disabled: false,
       hidden: false,
+      holdHidden: true,
       type: 'primary',
       shape: '',
       danger: false,
@@ -754,6 +771,7 @@ export const divider = (ops = {}) => {
       direction: 'horizontal',
       contentPosition: 'center',
       hidden: false,
+      holdHidden: true,
       //-------------------
       customClass: [], //自定义css类名
       //-------------------
@@ -778,6 +796,7 @@ export const dropdown = (ops = {}) => {
       displayStyle: 'block',
       disabled: false,
       hidden: false,
+      holdHidden: true,
       type: 'primary',
       shape: '',
       danger: false,

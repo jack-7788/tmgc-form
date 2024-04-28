@@ -41,12 +41,11 @@ import StaticContentWrapper from '@/components/form-designer/form-widget/field-w
 import FormItemWrapper from '@/components/form-designer/form-widget/field-widget/form-item-wrapper';
 import emitter from '@/utils/emitter';
 import fieldMixin from '@/components/form-designer/form-widget/field-widget/fieldMixin';
-import http from '@/utils/request/http';
 // sdk import end
 const VFormRegisterHttp = h => {
   window.$vform = {
     ...(window.$vform || {}),
-    $http: h || http
+    $http: h
   };
 };
 
@@ -82,8 +81,8 @@ const install = (app, h) => {
   // addDirective(app);
   // loadExtension(app);
 
-  app.config.globalProperties.$http = h || http;
-  VFormRegisterHttp(h || http);
+  app.config.globalProperties.$http = h;
+  VFormRegisterHttp(h);
 
   app.use(ContainerWidgets);
   app.use(ContainerItems);

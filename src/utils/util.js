@@ -494,7 +494,7 @@ export function getDefaultFormConfig() {
           params: {}
         },
         dataReqHandlerCode: `const d=data.data||{};\n Object.keys(d).forEach(k=>{\n if(d[k]==='null'){\n d[k]=null\n }\n })\nreturn {...data,data:d}`,
-        dataHandlerCode: ''
+        dataHandlerCode: 'return data.data.object||{}'
       }
     }
   };

@@ -9,12 +9,11 @@ import '@/iconfont/iconfont.css';
 // import '@/styles/_common.less';
 
 import { loadExtension } from '@/extension/extension-loader';
-import http from '@/utils/request/http';
 
 const VFormRegisterHttp = h => {
   window.$vform = {
     ...(window.$vform || {}),
-    $http: h || http
+    $http: h
   };
 };
 VFormRender.install = function (app) {
@@ -33,8 +32,8 @@ const install = (app, h) => {
   console.warn('install:成功');
 
   // loadExtension(app);
-  app.config.globalProperties.$http = h || http;
-  VFormRegisterHttp(h || http);
+  app.config.globalProperties.$http = h;
+  VFormRegisterHttp(h);
 
   app.use(ContainerItems);
   registerIcon(app);

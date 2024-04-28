@@ -8,30 +8,46 @@
     </a-form-item>
     <a-form-item :label="i18nt('designer.setting.colsOfGrid')" />
     <a-form-item label-width="0">
-      <li v-for="(colItem, colIdx) in selectedWidget.cols" :key="colIdx" class="col-item">
-        <span class="col-span-title">
-          {{ i18nt('designer.setting.colSpanTitle') }}{{ colIdx + 1 }}
-        </span>
-        <a-input-number
-          v-model:value="colItem.options.span"
-          :min="1"
-          :max="24"
-          @change="
-            (newValue, oldValue) => spanChanged(selectedWidget, colItem, colIdx, newValue, oldValue)
-          "
-          class="cell-span-input"
-        />
-        <a-button
-          circle
-          shape="plain"
-          size="small"
-          type="danger"
-          @click="deleteCol(selectedWidget, colIdx)"
-          class="col-delete-button"
-        >
-          删除
-        </a-button>
-      </li>
+      <draggable
+        :list="selectedWidget.cols"
+        item-key="id"
+        v-bind="{ group: 'dragGroup', ghostClass: 'ghost', animation: 300 }"
+        tag="transition-group"
+        :component-data="{ name: 'fade' }"
+        handle=".drag-handler"
+      >
+        <template #item="{ element: colItem, index: colIdx }">
+          <li class="col-item">
+            <span class="col-span-title">
+              {{ i18nt('designer.setting.colSpanTitle') }}{{ colIdx + 1 }}
+            </span>
+            <a-input-number
+              v-model:value="colItem.options.span"
+              :min="1"
+              :max="24"
+              @change="
+                (newValue, oldValue) =>
+                  spanChanged(selectedWidget, colItem, colIdx, newValue, oldValue)
+              "
+              class="cell-span-input"
+            />
+            <a-button
+              circle
+              shape="plain"
+              size="small"
+              type="danger"
+              @click="deleteCol(selectedWidget, colIdx)"
+              class="col-delete-button"
+            >
+              删除
+            </a-button>
+
+            <a-button circle shape="plain" size="small" class="col-delete-button drag-handler">
+              <svg-icon icon-class="move1" />
+            </a-button>
+          </li>
+        </template>
+      </draggable>
       <div>
         <a-button type="primary" @click="addNewCol(selectedWidget)">
           {{ i18nt('designer.setting.addColumn') }}
@@ -43,9 +59,11 @@
 
 <script>
   import i18n from '@/utils/i18n';
+  import SvgIcon from '@/components/svg-icon';
 
   export default {
     name: 'gutter-editor',
+    components: { SvgIcon },
     mixins: [i18n],
     props: {
       designer: Object,

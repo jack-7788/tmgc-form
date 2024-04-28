@@ -11,3 +11,6 @@ this.setFormData({...data})
 this.getFormData()
 this.onFormUpdate()
 this.getFormRef().onFormUpdate()
+this.getFormRef().getFormData().then(res=>{
+  console.log('res',res)
+})

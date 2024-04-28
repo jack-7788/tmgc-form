@@ -12,6 +12,11 @@
       </a-button>
     </a-space>
   </a-form-item>
+  <a-form-item :label="`隐藏时是否占位`" v-if="!!optionModel.hidden">
+    <a-space>
+      <a-switch v-model:checked="optionModel.holdHidden" />
+    </a-space>
+  </a-form-item>
 </template>
 
 <script>

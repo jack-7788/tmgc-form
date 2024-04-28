@@ -5,7 +5,7 @@
     v-bind="layoutProps"
     :style="colHeightStyle"
     :key="widget.id"
-    v-show="!widget.options.hidden"
+    v-show="!isHidden && !widget.options.hidden"
   >
     <template v-if="!!widget.widgetList && widget.widgetList.length > 0">
       <template v-for="(subWidget, swIdx) in widget.widgetList">
@@ -110,6 +110,14 @@
       };
     },
     computed: {
+      isHidden() {
+        return this.widget.widgetList.some(item => {
+          if (item.options.holdHidden) {
+            return false;
+          }
+          return item.options.hidden;
+        });
+      },
       formConfig() {
         return this.getFormConfig();
       },

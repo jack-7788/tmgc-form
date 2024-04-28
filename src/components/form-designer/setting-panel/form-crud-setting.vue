@@ -1,15 +1,6 @@
 <template>
   <div class="t-p-[10px]">
-    <!-- <a-form-item label="使用内置逻辑">
-      <a-switch v-model:checked="formConfig.useInnerLogic" />
-    </a-form-item> -->
     <a-form-item>
-      <!-- <HttpEditor
-        label="设置表单初始化api"
-        buttonName="编辑"
-        drawerTitle="表单配置"
-        :optionModel="formConfig.serveList.vformInit"
-      /> -->
       <HttpEditor
         label="设置表单编辑api"
         buttonName="编辑"
@@ -22,12 +13,6 @@
         drawerTitle="表单配置"
         :optionModel="formConfig.serveList.vformDetail"
       />
-      <!-- <HttpEditor
-        label="设置表单删除api"
-        buttonName="编辑"
-        drawerTitle="表单配置"
-        :optionModel="formConfig.serveList.vformDel"
-      /> -->
     </a-form-item>
     <a-form-item v-if="false">
       <a-form-item
@@ -96,12 +81,7 @@
         curEventName: '',
         formEventHandlerCode: '',
         showFormEventDialogFlag: false,
-        eventParamsMap: {
-          // onVformAdd: 'onVformAdd(data) {',
-          // onVformUpdate: 'onVformUpdate(data) {',
-          // onVformDetail: 'onVformUpdate(data) {'
-          // onVformDel: 'onVformUpdate(data) {'
-        }
+        eventParamsMap: {}
       };
     },
     methods: {

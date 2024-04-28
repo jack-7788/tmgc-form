@@ -9625,6 +9625,9 @@ const fieldMixin = {
       }
       this.getFormRef().getNativeForm().clearValidate(this.getPropName());
     },
+    getVfCtx() {
+      return this.getFormRef().vfCtx;
+    },
     setLabel(newLabel) {
       this.field.options.label = newLabel;
     },
@@ -68120,7 +68123,8 @@ function _sfc_render$v(_ctx, _cache, $props, $setup, $data, $options) {
         "append-to-body": "",
         "close-on-click-modal": false,
         "close-on-press-escape": false,
-        "destroy-on-close": true
+        "destroy-on-close": true,
+        width: 800
       }, {
         footer: withCtx(() => [
           createElementVNode("div", _hoisted_2$l, [
@@ -79806,13 +79810,13 @@ function registerIcon(app) {
 if (typeof window !== "undefined") {
   let loadSvg = function() {
     var body = document.body;
-    var svgDom = document.getElementById("__svg__icons__dom__1714285049067__");
+    var svgDom = document.getElementById("__svg__icons__dom__1714296172183__");
     if (!svgDom) {
       svgDom = document.createElementNS("http://www.w3.org/2000/svg", "svg");
       svgDom.style.position = "absolute";
       svgDom.style.width = "0";
       svgDom.style.height = "0";
-      svgDom.id = "__svg__icons__dom__1714285049067__";
+      svgDom.id = "__svg__icons__dom__1714296172183__";
       svgDom.setAttribute("xmlns", "http://www.w3.org/2000/svg");
       svgDom.setAttribute("xmlns:link", "http://www.w3.org/1999/xlink");
     }

@@ -782,6 +782,9 @@ export default {
 
       this.getFormRef().getNativeForm().clearValidate(this.getPropName());
     },
+    getVfCtx() {
+      return this.getFormRef().vfCtx;
+    },
 
     setLabel(newLabel) {
       this.field.options.label = newLabel;

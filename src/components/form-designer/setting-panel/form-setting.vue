@@ -143,6 +143,7 @@
         :close-on-click-modal="false"
         :close-on-press-escape="false"
         :destroy-on-close="true"
+        :width="800"
       >
         <a-alert type="info" :closable="false" :message="'form.' + eventParamsMap[curEventName]" />
         <code-editor

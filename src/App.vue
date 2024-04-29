@@ -88,7 +88,6 @@
           params.formId = id || null;
         }
         await http.post(`/api/tmgc2-mgt/formDefinition/save`, params);
-        // const res = await formDefinitionApi.save(params);
         this.$message.success('操作成功');
       },
       insertBtn(list = []) {

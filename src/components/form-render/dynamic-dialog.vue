@@ -1,9 +1,17 @@
 <template>
   <a-modal
+    class="tpf-model"
+    :transitionName="!dialogVisible ? '' : 'zoom'"
+    :maskTransitionName="!dialogVisible ? '' : 'fade'"
+    :destroyOnClose="true"
     :title="options.title"
+    :bodyStyle="{
+      height: options.height,
+      overflow: 'auto',
+      ...JSON.parse(this.options.bodyStyle || '{}')
+    }"
     :centered="true"
     v-model:visible="dialogVisible"
-    destroy-on-close
     :width="options.width"
     :mask="options.showModal"
     :maskClosable="options.closeOnClickModal"
@@ -21,7 +29,8 @@
       :dynamic-creation="true"
     />
     <template #footer>
-      <div>
+      <div class="footer-left"></div>
+      <div class="footer-right">
         <a-button v-if="!options.cancelButtonHidden" @click="handleCancelClick">
           {{ cancelBtnLabel }}
         </a-button>
@@ -95,6 +104,9 @@
       this.parentFormRef.setChildFormRef(null);
     },
     methods: {
+      setTitle(title) {
+        this.options.title = title;
+      },
       show() {
         this.dialogVisible = true;
 
@@ -130,17 +142,17 @@
         }
       },
 
-      // handleBeforeClose(done) {
-      //   if (!!this.options.onDialogBeforeClose) {
-      //     const customFn = new Function('done', this.options.onDialogBeforeClose);
-      //     const closeResult = customFn.call(this);
-      //     return closeResult === false ? closeResult : done();
-      //   }
+      handleBeforeClose() {
+        if (!!this.options.onDialogBeforeClose) {
+          const customFn = new Function(this.options.onDialogBeforeClose);
+          return customFn.call(this);
+        }
 
-      //   return done();
-      // },
+        return true;
+      },
 
       handleCloseEvent() {
+        if (!this.handleBeforeClose()) return;
         this.dialogVisible = false;
         setTimeout(this.deleteWrapperNode, 150);
       },
@@ -153,6 +165,7 @@
       },
 
       handleCancelClick() {
+        if (!this.handleBeforeClose()) return;
         if (!!this.options.onCancelButtonClick) {
           const customFn = new Function(this.options.onCancelButtonClick);
           const clickResult = customFn.call(this);

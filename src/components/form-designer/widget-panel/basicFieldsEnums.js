@@ -219,8 +219,6 @@ export const checkbox = (ops = {}) => {
       disabled: false,
       hidden: false,
       holdHidden: true,
-      // dsName: '', // 数据源名称
-      // dataSetName: '', //数据集名称
       labelKey: 'label',
       valueKey: 'value',
       optionItems: [
@@ -229,10 +227,10 @@ export const checkbox = (ops = {}) => {
         { label: 'check 3', value: 3 }
       ],
       http: {
-        url: '', // '/api/tmgc2-mgt/pageFieldConfig/queryPageFieldValueOptions',
+        url: '',
         method: 'get',
         data: {},
-        params: {} // { pageCode: '${pageCode}', fieldCode: '${fieldCode}' }
+        params: {}
       },
       dataHandlerCode: 'return data.data;\n ',
       dataReqHandlerCode: `const d=data.data||{};\n Object.keys(d).forEach(k=>{\n if(d[k]==='null'){\n d[k]=null\n }\n })\nreturn {...data,data:d}`,
@@ -291,10 +289,10 @@ export const select = (ops = {}) => {
         { label: 'select 3', value: 3 }
       ],
       http: {
-        url: '', //'/api/tmgc2-mgt/pageFieldConfig/queryPageFieldValueOptions',
+        url: '',
         method: 'get',
         data: {},
-        params: {} // { pageCode: '${pageCode}', fieldCode: '${fieldCode}' }
+        params: {}
       },
       dataHandlerCode: 'return data.data;\n ',
       dataReqHandlerCode: `const d=data.data||{};\n Object.keys(d).forEach(k=>{\n if(d[k]==='null'){\n d[k]=null\n }\n })\nreturn {...data,data:d}`,
@@ -345,7 +343,6 @@ export const time = (ops = {}) => {
       hidden: false,
       holdHidden: true,
       allowClear: true,
-      // editable: false,
       format: 'HH:mm:ss', //时间格式
       required: false,
       requiredHint: '',
@@ -392,7 +389,6 @@ export const timeRange = (ops = {}) => {
       hidden: false,
       holdHidden: true,
       allowClear: true,
-      // editable: false,
       format: 'HH:mm:ss', //时间格式
       required: false,
       requiredHint: '',
@@ -440,7 +436,6 @@ export const date = (ops = {}) => {
       holdHidden: true,
       allowClear: true,
       showTime: false,
-      // editable: false,
       format: 'YYYY-MM-DD', //日期显示格式
       valueFormat: 'YYYY-MM-DD', //日期对象格式
       required: false,
@@ -490,7 +485,6 @@ export const dataRange = (ops = {}) => {
       holdHidden: true,
       allowClear: true,
       showTime: false,
-      // editable: false,
       format: 'YYYY-MM-DD', //日期显示格式
       valueFormat: 'YYYY-MM-DD', //日期对象格式
       required: false,
@@ -540,8 +534,6 @@ export const switchCom = (ops = {}) => {
       switchWidth: 40,
       checkedValue: '1',
       unCheckedValue: '0',
-      // activeColor: null,
-      // inactiveColor: null,
       //-------------------
       onCreated: '',
       onMounted: '',
@@ -580,11 +572,7 @@ export const rate = (ops = {}) => {
       labelIconPosition: 'rear',
       labelTooltip: null,
       count: 5,
-      // lowThreshold: 2,
-      // highThreshold: 4,
       allowHalf: false,
-      // showText: false,
-      // showScore: false,
       //-------------------
       onCreated: '',
       onMounted: '',
@@ -645,7 +633,6 @@ export const slider = (ops = {}) => {
       label: '',
       labelAlign: '',
       columnWidth: '200px',
-      // showStops: true,
       size: '',
       labelWidth: null,
       labelHidden: false,
@@ -665,7 +652,6 @@ export const slider = (ops = {}) => {
       max: 100,
       step: 1,
       range: false,
-      //vertical: false,
       height: null,
       //-------------------
       onCreated: '',
@@ -732,7 +718,6 @@ export const button = (ops = {}) => {
     options: {
       name: '',
       label: '',
-      // columnWidth: '200px',
       size: '',
       displayStyle: 'block',
       disabled: false,
@@ -742,9 +727,6 @@ export const button = (ops = {}) => {
       shape: '',
       danger: false,
       ghost: false,
-      // plain: false,
-      // round: false,
-      // circle: false,
       icon: null,
       //-------------------
       customClass: [], //自定义css类名
@@ -791,7 +773,6 @@ export const dropdown = (ops = {}) => {
     options: {
       name: '',
       label: '',
-      // columnWidth: '200px',
       size: '',
       displayStyle: 'block',
       disabled: false,

@@ -96,6 +96,8 @@ const COMMON_PROPERTIES = {
   pull: 'pull-editor',
   title: 'title-editor',
   width: 'width-editor',
+  height: 'height-editor',
+  bodyStyle: 'bodyStyle-editor',
   fullscreen: 'fullscreen-editor',
   // showModal: 'showModal-editor',
   showClose: 'showClose-editor',

@@ -129,16 +129,12 @@ export const containers = [
       name: '',
       label: 'data-table',
       hidden: false,
-      // rowSpacing: 8,
       tableHeight: '300px', //高度，百分比或像素
       tableWidth: '100%', //宽度，百分比或像素宽度
       customClass: [], //自定义css样式
       stripe: true, // 是否斑马线
       showIndex: false, // 是否显示行号列
-      // showCheckBox: true, // 是否显示复选框列
       showPagination: true, // 是否分页
-      // smallPagination: false, //是否显示小型分页
-      // showSummary: false, // 是否合计
       border: true, // 是否带有纵向边框（拖拽）
       tableSize: 'default', // 表格大小，large大、default中、small小
       tableColumns: [
@@ -176,10 +172,10 @@ export const containers = [
       ],
       dsEnabled: false, //是否使用数据源数据
       http: {
-        url: '', //'/api/tmgc2-mgt/pageFieldConfig/queryPageFieldValueOptions',
+        url: '',
         method: 'get',
         data: {},
-        params: {} //{ pageCode: '${pageCode}', fieldCode: '${fieldCode}' }
+        params: {}
       },
       editReqDataHandlerCode: '',
       editDataHandlerCode: '',
@@ -198,33 +194,16 @@ export const containers = [
       ],
       onCreated: '',
       onMounted: '',
-      //分页大小改变事件
-      // onPageSizeChange: '',
-      //当前页改变事件
-      // onCurrentPageChange: '',
-      //选择项改变事件
-      // onSelectionChange: '',
-
       //设置操作按钮是否隐藏回调事件（必须有返回值）
       onHideOperationButton: '',
       //设置操作按钮是否禁用回调事件（必须有返回值）
       onDisableOperationButton: '',
       //设置操作按钮文本回调事件（必须有返回值）
-      // onGetOperationButtonLabel: '',
       //操作按钮点击事件
       onOperationButtonClick: '',
       customRow: { onClick: '', onDblclick: '', onMouseenter: '', onMouseleave: '' },
 
-      // onHeaderClick: '',
-      // onRowClick: '',
-      // onRowDoubleClick: '',
-      // onCellClick: '',
-      // onCellDoubleClick: '',
-
-      //获取行样式名称事件
-      // onGetRowClassName: '',
       //合并行、列事件
-      // onGetSpanMethod: '',
       onTableChange: '', //分页、排序、筛选变化时触发
       pagination: {
         pageSizeOptions: ['10', '20', '50', '100'],
@@ -257,12 +236,11 @@ export const containers = [
   //     name: '',
   //     title: '标题',
   //     width: '50%',
-  //     // fullscreen: false,
-  //     // showModal: true,
+  //     height: '600px',
+  //     bodyStyle: '',
   //     showClose: true,
   //     closeOnClickModal: false,
   //     closeOnPressEscape: false,
-  //     // center: false,
   //     readMode: false,
   //     disabledMode: false,
   //     okButtonLabel: '',
@@ -418,10 +396,10 @@ export const advancedFields = [
       valueKey: 'value',
       childrenKey: 'children',
       http: {
-        url: '', //'/api/tmgc2-mgt/pageFieldConfig/queryPageFieldValueOptions',
+        url: '',
         method: 'get',
         data: {},
-        params: {} // { pageCode: '${pageCode}', fieldCode: '${fieldCode}' }
+        params: {}
       },
       optionItems: [
         { label: 'select 1', value: 1, children: [{ label: 'child 1', value: 11 }] },
@@ -473,10 +451,10 @@ export const advancedFields = [
       valueKey: 'value',
       childrenKey: 'children',
       http: {
-        url: '', // '/api/tmgc2-mgt/pageFieldConfig/queryPageFieldValueOptions',
+        url: '',
         method: 'get',
         data: {},
-        params: {} // { pageCode: '${pageCode}', fieldCode: '${fieldCode}' }
+        params: {}
       },
       optionItems: [
         { label: 'select 1', value: 1, children: [{ label: 'child 1', value: 11 }] },

@@ -17,6 +17,7 @@
     :maskClosable="options.closeOnClickModal"
     :keyboard="options.closeOnPressEscape"
     @cancel="handleCloseEvent"
+    v-bind="otherAttrs"
   >
     <VFormRender
       ref="dFormRef"
@@ -44,6 +45,7 @@
 
 <script>
   import i18n from '@/utils/i18n';
+  import http from '@/utils/http';
 
   export default {
     name: 'dynamic-dialog',
@@ -89,6 +91,12 @@
       };
     },
     computed: {
+      otherAttrs() {
+        if (this.options.cancelButtonHidden && this.options.okButtonHidden) {
+          return { footer: null };
+        }
+        return {};
+      },
       cancelBtnLabel() {
         return this.options.cancelButtonLabel || this.i18nt('designer.hint.cancel');
       },
@@ -104,6 +112,16 @@
       this.parentFormRef.setChildFormRef(null);
     },
     methods: {
+      async loadFormCode() {
+        if (this.options.formCode) {
+          const res = await http
+            .get(`/api/tmgc2-query/dataQuery/detail/FormDefinitionManagement`, {
+              params: { code: this.options.formCode }
+            })
+            .then(res => res.data.object.frontendDefinition || '{}');
+          this.$refs.dFormRef.setFormJson(JSON.parse(res));
+        }
+      },
       setTitle(title) {
         this.options.title = title;
       },
@@ -115,7 +133,7 @@
           if (!!this.options.readMode) {
             this.$refs['dFormRef'].setReadMode(true);
           }
-
+          this.loadFormCode();
           this.$refs['dFormRef'].setDialogOrDrawerRef(this);
           this.parentFormRef.setChildFormRef(this.$refs['dFormRef']);
           this.handleOpenedEvent();

@@ -8,6 +8,9 @@ dependencies:
   '@element-plus/icons-vue':
     specifier: ^0.2.4
     version: 0.2.7(vue@3.3.11)
+  animate.css:
+    specifier: ^4.1.1
+    version: 4.1.1
   ant-design-vue:
     specifier: 3.2.20
     version: 3.2.20(vue@3.3.11)
@@ -1442,6 +1445,10 @@ packages:
       json-schema-traverse: 0.4.1
       uri-js: 4.4.1
     dev: true
+
+  /animate.css@4.1.1:
+    resolution: {integrity: sha512-+mRmCTv6SbCmtYJCN4faJMNFVNN5EuCTTprDTAo7YzIGji2KADmakjVA3+8mVDkZ2Bf09vayB35lSQIex2+QaQ==}
+    dev: false
 
   /ansi-regex@2.1.1:
     resolution: {integrity: sha512-TIGnTpdo+E3+pCyAluZvtED5p5wCqLdezCyhPZzKPcxvFplEt4i+W7OONCKgeZFT3+y5NZZfOOS/Bdcanm1MYA==}

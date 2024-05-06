@@ -36,6 +36,7 @@ export default {
       'tab-pane': '选项卡页',
       'data-table': '数据表格',
       'vf-dialog': '弹出窗口',
+      'vf-collapse': '折叠面板',
       'vf-drawer': '侧滑抽屉',
 
       input: '单行文本',

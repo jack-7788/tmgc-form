@@ -25,19 +25,23 @@
         :mode="field.options.mode"
         :maxTagCount="field.options.maxTagCount"
         :placeholder="field.options.placeholder || i18nt('render.hint.selectPlaceholder')"
-        :showSearch="field.options.showSearch"
-        @search="remoteQuery"
-        @focus="handleFocusCustomEvent"
+        :onFocus="handleFocusCustomEvent"
         @blur="handleBlurCustomEvent"
         @change="handleChangeEvent"
-        @popupScroll="onPopupScroll"
         :options="field.options.optionItems"
-        :fieldNames="{
+        v-bind="selectOps"
+      />
+      <!--
+         :fieldNames="{
           label: field.options.labelKey || 'label',
           value: field.options.valueKey || 'value',
           options: 'options'
         }"
-      />
+        @popupScroll="onPopupScroll"
+
+         @search="remoteQuery"
+        :showSearch="field.options.showSearch"
+       -->
       <div v-if="field.options.useModal" class="useModal-svg" @click="handleClickIcon">
         <svg-icon icon-class="sousuo" />
       </div>
@@ -56,11 +60,12 @@
   import i18n, { translate } from '@/utils/i18n';
   import fieldMixin from '@/components/form-designer/form-widget/field-widget/fieldMixin.js';
   import SvgIcon from '@/components/svg-icon';
+  import useSelectMixin from '@/mixins/useSelectMixin.js';
 
   export default {
     name: 'select-widget',
     componentName: 'FieldWidget', //必须固定为FieldWidget，用于接收父级组件的broadcast事件
-    mixins: [emitter, fieldMixin, i18n],
+    mixins: [emitter, fieldMixin, i18n, useSelectMixin],
 
     props: {
       field: Object,
@@ -92,13 +97,13 @@
       return {
         oldFieldValue: null, //field组件change之前的值
         fieldModel: null,
-        rules: [],
-        pager: {
-          page: 1,
-          pageSize: 20,
-          totalPage: 0,
-          total: 0
-        }
+        rules: []
+        // pager: {
+        //   page: 1,
+        //   pageSize: 20,
+        //   totalPage: 0,
+        //   total: 0
+        // }
       };
     },
     computed: {
@@ -158,18 +163,18 @@
        */
       getSelectedLabel() {
         return this.$refs.fieldEditor.selectedLabel;
-      },
-      onPopupScroll(e) {
-        if (!this.field.options.loadingPage) return;
-        const { target } = e;
-        const { scrollTop, scrollHeight, clientHeight } = target;
-        if (scrollHeight - (scrollTop + clientHeight) <= 30) {
-          if (this.pager.totalPage > this.pager.page) {
-            this.pager.page += 1;
-            this.initOptionItems(true);
-          }
-        }
       }
+      // onPopupScroll(e) {
+      //   if (!this.field.options.loadingPage) return;
+      //   const { target } = e;
+      //   const { scrollTop, scrollHeight, clientHeight } = target;
+      //   if (scrollHeight - (scrollTop + clientHeight) <= 30) {
+      //     if (this.pager.totalPage > this.pager.page) {
+      //       this.pager.page += 1;
+      //       this.initOptionItems(true);
+      //     }
+      //   }
+      // }
     }
   };
 </script>

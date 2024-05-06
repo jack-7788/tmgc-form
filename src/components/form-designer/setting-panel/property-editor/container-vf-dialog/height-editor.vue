@@ -1,5 +1,5 @@
 <template>
-  <a-form-item label="弹窗高度(px)">
+  <a-form-item label="高度(px)">
     <a-input type="text" v-model:value="optionModel.height" />
   </a-form-item>
 </template>

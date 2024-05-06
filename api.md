@@ -14,3 +14,6 @@ this.getFormRef().onFormUpdate()
 this.getFormRef().getFormData().then(res=>{
   console.log('res',res)
 })
+
+
+const res =this.getWidgetRef('vfcollapse51277').getFormRef()

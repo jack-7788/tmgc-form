@@ -225,34 +225,55 @@ export const containers = [
         columnWidth: 100
       } //antd 功能的配置
     }
-  }
+  },
 
-  // {
-  //   type: 'vf-dialog', //弹窗
-  //   category: 'container',
-  //   icon: 'vf-dialog',
-  //   widgetList: [],
-  //   options: {
-  //     name: '',
-  //     title: '标题',
-  //     width: '50%',
-  //     height: '600px',
-  //     bodyStyle: '',
-  //     showClose: true,
-  //     closeOnClickModal: false,
-  //     closeOnPressEscape: false,
-  //     readMode: false,
-  //     disabledMode: false,
-  //     okButtonLabel: '',
-  //     okButtonHidden: false,
-  //     cancelButtonLabel: '',
-  //     cancelButtonHidden: false,
-  //     onOkButtonClick: '',
-  //     onCancelButtonClick: '',
-  //     onDialogOpened: '',
-  //     onDialogBeforeClose: ''
-  //   }
-  // },
+  {
+    type: 'vf-dialog', //弹窗
+    category: 'container',
+    icon: 'vf-dialog',
+    widgetList: [],
+    options: {
+      name: '',
+      title: '标题',
+      width: '50%',
+      height: '600px',
+      bodyStyle: '',
+      formCode: '',
+      showClose: true,
+      closeOnClickModal: false,
+      closeOnPressEscape: false,
+      readMode: false,
+      disabledMode: false,
+      okButtonLabel: '',
+      okButtonHidden: false,
+      cancelButtonLabel: '',
+      cancelButtonHidden: false,
+      onOkButtonClick: '',
+      onCancelButtonClick: '',
+      onDialogOpened: '',
+      onDialogBeforeClose: ''
+    }
+  },
+  {
+    type: 'vf-collapse', //折叠面板
+    category: 'container',
+    icon: 'vf-dialog',
+    widgetList: [],
+    headerRightSlotList: [],
+    defaultSlotsList: [],
+    cols: [],
+    options: {
+      name: '',
+      title: '标题',
+      height: '',
+      bodyStyle: '',
+      formCode: '',
+      collapseIcon: 'xiangshang',
+      unCollapseIcon: 'xiangxia',
+      isCollapse: true,
+      rightSlotCss: []
+    }
+  }
 
   // {
   //   type: 'vf-drawer', // 侧滑抽屉

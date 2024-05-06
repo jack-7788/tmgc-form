@@ -7,6 +7,7 @@ import {
 } from '@/utils/util';
 import FormValidators from '@/utils/validators';
 import { fmtHttpParams } from '@/utils/request/fmtHttpParams';
+import { debounce, cloneDeep, isArray } from 'lodash-es';
 
 export default {
   inject: [
@@ -291,15 +292,21 @@ export default {
         if (!!this.field.options.dsEnabled && this.field.options.http?.url) {
           this.field.options.optionItems.splice(0, this.field.options.optionItems.length); // 清空原有选项
           try {
-            // const sendParams = JSON.stringify(this.field.options.http);
             const dsResult = await fmtHttpParams.call(this, this.field.options, {
               fieldCode: this.field.options.name
             });
-
-            this.loadOptions(dsResult);
+            if (isArray(dsResult)) {
+              this.loadOptions(dsResult);
+            }
+            if (isArray(dsResult.list)) {
+              if (this.field.options.loadingPage) {
+                this.pager.total = dsResult.total || 0;
+                this.pager.totalPage = dsResult.totalPage || 0;
+              }
+              this.loadOptions(dsResult.list);
+            }
           } catch (err) {
             console.error('err: ', err);
-            // this.$message.error(err);
           }
         }
 
@@ -646,17 +653,17 @@ export default {
       }
     },
 
-    remoteQuery(keyword) {
-      if (!!this.designState) {
-        //设计状态不触发事件
-        return;
-      }
+    // remoteQuery(keyword) {
+    //   if (!!this.designState) {
+    //     //设计状态不触发事件
+    //     return;
+    //   }
 
-      if (!!this.field.options.onRemoteQuery) {
-        const remoteFn = new Function('keyword', this.field.options.onRemoteQuery);
-        remoteFn.call(this, keyword);
-      }
-    },
+    //   if (!!this.field.options.onRemoteQuery) {
+    //     const remoteFn = new Function('keyword', this.field.options.onRemoteQuery);
+    //     remoteFn.call(this, keyword);
+    //   }
+    // },
 
     //--------------------- 事件处理 end ------------------//
 

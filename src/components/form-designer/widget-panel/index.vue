@@ -58,7 +58,8 @@
                     @dblclick="addFieldByDbClick(fld)"
                   >
                     <span>
-                      <svg-icon :icon-class="fld.icon" class-name="color-svg-icon" />{{
+                      <svg-icon :icon-class="fld.icon" class-name="color-svg-icon" />
+                      {{
                         i18n2t(
                           `designer.widgetLabel.${fld.type}`,
                           `extension.widgetLabel.${fld.type}`
@@ -90,14 +91,15 @@
                     :title="fld.displayName"
                     @dblclick="addFieldByDbClick(fld)"
                   >
-                    <span
-                      ><svg-icon :icon-class="fld.icon" class-name="color-svg-icon" />{{
+                    <span>
+                      <svg-icon :icon-class="fld.icon" class-name="color-svg-icon" />
+                      {{
                         i18n2t(
                           `designer.widgetLabel.${fld.type}`,
                           `extension.widgetLabel.${fld.type}`
                         )
-                      }}</span
-                    >
+                      }}
+                    </span>
                   </li>
                 </template>
               </draggable>
@@ -146,7 +148,7 @@
           </template>
 
           <template v-for="(ft, idx) in formTemplates" :key="idx">
-            <a-card :bord-style="{ padding: '0' }" shadow="hover" class="ft-card">
+            <a-card :body-style="{ padding: '0' }" shadow="hover" class="ft-card">
               <a-popover placement="right" trigger="hover">
                 <template #content>
                   <img :src="ftImages[idx].imgUrl" style="width: 200px" />
@@ -180,22 +182,12 @@
   import i18n from '@/utils/i18n';
   import axios from 'axios';
 
-  // import ftImg1 from '@/assets/ft-images/t1.png';
-  // import ftImg2 from '@/assets/ft-images/t2.png';
-  // import ftImg3 from '@/assets/ft-images/t3.png';
-  // import ftImg4 from '@/assets/ft-images/t4.png';
-  // import ftImg5 from '@/assets/ft-images/t5.png';
-  // import ftImg6 from '@/assets/ft-images/t6.png';
-  // import ftImg7 from '@/assets/ft-images/t7.png';
-  // import ftImg8 from '@/assets/ft-images/t8.png';
   import { TpfConfirm } from '@/hooks/TpfConfirm';
 
   export default {
     name: 'FieldPanel',
     mixins: [i18n],
-    components: {
-      SvgIcon
-    },
+    components: { SvgIcon },
     props: {
       designer: Object
     },
@@ -221,16 +213,7 @@
         customFields: [],
 
         formTemplates: formTemplates,
-        ftImages: [
-          // { imgUrl: ftImg1 },
-          // { imgUrl: ftImg2 },
-          // { imgUrl: ftImg3 },
-          // { imgUrl: ftImg4 },
-          // { imgUrl: ftImg5 },
-          // { imgUrl: ftImg6 },
-          // { imgUrl: ftImg7 },
-          // { imgUrl: ftImg8 }
-        ]
+        ftImages: []
       };
     },
     computed: {
@@ -256,8 +239,6 @@
       },
 
       showFormTemplates() {
-        //lucdt
-        // return false;
         if (this.designerConfig['formTemplates'] === undefined) {
           return true;
         }
@@ -437,9 +418,6 @@
         .container-widget-item,
         .field-widget-item {
           //text-align: center; // 居中显示不太美观
-          // height: 28px;
-          // line-height: 28px;
-          // width: 115px;
           width: calc(50% - 5px);
           padding: 5px;
           margin-bottom: 5px;
@@ -482,13 +460,6 @@
       margin-top: 10px;
       line-height: 12px;
     }
-
-    /*
-    .image-zoom {
-      height: 500px;
-      width: 620px
-    }
-    */
 
     .ft-title {
       font-size: 13px;

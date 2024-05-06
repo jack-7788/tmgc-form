@@ -121,7 +121,7 @@
           }
           return t;
         }, []);
-        return this.insertBtn(res);
+        return res.length ? this.insertBtn(res) : res;
       },
       async getComponentJson(list) {
         let json = { widgetList: [], formConfig: {} };

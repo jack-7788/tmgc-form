@@ -1,5 +1,5 @@
 <template>
-  <svg :class="svgClass" aria-hidden="true">
+  <svg :class="svgClass" aria-hidden="true" :style="getStyle">
     <use :xlink:href="iconName" />
     <title v-if="!!title">{{ title }}</title>
   </svg>
@@ -19,6 +19,10 @@
       title: {
         type: String,
         default: ''
+      },
+      size: {
+        type: String,
+        default: '1.1em'
       }
     },
     computed: {
@@ -31,6 +35,13 @@
         } else {
           return 'svg-icon';
         }
+      },
+      getStyle() {
+        return {
+          width: this.size,
+          height: this.size,
+          cursor: 'pointer' //cursor ? 'pointer' : move ? 'move' : ''
+        };
       }
     }
   };

@@ -36,6 +36,7 @@ export default {
       'tab-pane': 'TabPane',
       'data-table': 'DataTable',
       'vf-dialog': 'Dialog',
+      'vf-collapse': 'Collapse',
       'vf-drawer': 'Drawer',
 
       input: 'Input',

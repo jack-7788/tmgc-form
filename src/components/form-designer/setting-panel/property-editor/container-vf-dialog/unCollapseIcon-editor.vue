@@ -1,6 +1,6 @@
 <template>
-  <a-form-item :label="i18nt('designer.setting.showSearch')">
-    <a-switch v-model:checked="optionModel.showSearch" @change="onRemoteChange" />
+  <a-form-item label="未折叠时icon">
+    <a-input type="text" v-model:value="optionModel.unCollapseIcon" />
   </a-form-item>
 </template>
 
@@ -9,7 +9,7 @@
   import propertyMixin from '@/components/form-designer/setting-panel/property-editor/propertyMixin';
 
   export default {
-    name: 'showSearch-editor',
+    name: 'unCollapseIcon-editor',
     mixins: [i18n, propertyMixin],
     props: {
       designer: Object,
@@ -18,3 +18,5 @@
     }
   };
 </script>
+
+<style scoped></style>

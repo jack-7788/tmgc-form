@@ -1,7 +1,13 @@
 <template>
   <div class="toolbar-container">
     <div class="left-toolbar">
-      <!-- <a-button
+      <a-button type="link" @click="changeLeftWidth()">
+        <svg-icon
+          :style="`transform:${leftWidth === 0 ? 'rotate(180deg)' : 'rotate(0deg)'}`"
+          icon-class="a-ipadarrow_back"
+        />
+      </a-button>
+      <a-button
         type="link"
         :disabled="undoDisabled"
         :title="i18nt('designer.toolbar.undoHint')"
@@ -16,7 +22,7 @@
         @click="redoHistory"
       >
         <svg-icon icon-class="redo"
-      /></a-button> -->
+      /></a-button>
       <!-- <div  style="margin-left: 20px"> -->
       <!-- <a-button :type="layoutType === 'PC' ? 'primary' : ''" @click="changeLayoutType('PC')">
         {{ i18nt('designer.toolbar.pcLayout') }}</a-button
@@ -72,6 +78,12 @@
         </a-button>
         <a-button v-if="showToolButton('exportCodeButton')" type="link" @click="saveJson">
           保存
+        </a-button>
+        <a-button type="link" @click="changeRightWidth()">
+          <svg-icon
+            :style="`transform:${rightWidth === 0 ? 'rotate(0deg)' : 'rotate(180deg)'}`"
+            icon-class="a-ipadarrow_back"
+          />
         </a-button>
         <template v-for="(idx, slotName) in $slots">
           <slot :name="slotName"></slot>
@@ -312,6 +324,10 @@
       SvgIcon
     },
     props: {
+      leftWidth: Number,
+      rightWidth: Number,
+      changeRightWidth: Function,
+      changeLeftWidth: Function,
       designer: Object,
       saveJsonApi: Function,
       globalDsv: {

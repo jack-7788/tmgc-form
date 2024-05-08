@@ -1,11 +1,12 @@
-import { debounce, cloneDeep, isArray } from 'lodash-es';
+import { debounce } from 'lodash-es';
 
 export default {
   data() {
     return {
+      keyword: '',
       pager: {
         page: 1,
-        pageSize: 20,
+        pageSize: 5,
         totalPage: 0,
         total: 0
       }
@@ -48,11 +49,13 @@ export default {
         return;
       }
 
-      if (!!this.field.options.onRemoteQuery) {
-        this.initPager();
-        const remoteFn = new Function('keyword', this.field.options.onRemoteQuery);
-        remoteFn.call(this, keyword);
-      }
+      // if (!!this.field.options.onRemoteQuery) {
+      this.initPager();
+      this.keyword = keyword;
+      this.initOptionItems(true);
+      // const remoteFn = new Function('keyword', this.field.options.onRemoteQuery);
+      // remoteFn.call(this, keyword);
+      // }
     },
     onPopupScroll(e) {
       if (!this.field.options.loadingPage) return;

@@ -2031,7 +2031,7 @@ const _export_sfc$1 = (sfc, props) => {
   }
   return target;
 };
-const _sfc_main$4t = {
+const _sfc_main$4v = {
   name: "SvgIcon",
   props: {
     iconClass: {
@@ -2071,19 +2071,19 @@ const _sfc_main$4t = {
     }
   }
 };
-const _hoisted_1$1a = ["xlink:href"];
+const _hoisted_1$1b = ["xlink:href"];
 const _hoisted_2$F = { key: 0 };
-function _sfc_render$4s(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$4u(_ctx, _cache, $props, $setup, $data, $options) {
   return openBlock(), createElementBlock("svg", {
     class: normalizeClass($options.svgClass),
     "aria-hidden": "true",
     style: normalizeStyle($options.getStyle)
   }, [
-    createElementVNode("use", { "xlink:href": $options.iconName }, null, 8, _hoisted_1$1a),
+    createElementVNode("use", { "xlink:href": $options.iconName }, null, 8, _hoisted_1$1b),
     !!$props.title ? (openBlock(), createElementBlock("title", _hoisted_2$F, toDisplayString($props.title), 1)) : createCommentVNode("", true)
   ], 6);
 }
-const SvgIcon = /* @__PURE__ */ _export_sfc$1(_sfc_main$4t, [["render", _sfc_render$4s], ["__scopeId", "data-v-dfe46d5e"]]);
+const SvgIcon = /* @__PURE__ */ _export_sfc$1(_sfc_main$4v, [["render", _sfc_render$4u], ["__scopeId", "data-v-dfe46d5e"]]);
 var commonjsGlobal = typeof globalThis !== "undefined" ? globalThis : typeof window !== "undefined" ? window : typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : {};
 function getDefaultExportFromCjs(x) {
   return x && x.__esModule && Object.prototype.hasOwnProperty.call(x, "default") ? x["default"] : x;
@@ -3553,7 +3553,7 @@ return {...data,data:d}`,
       //-------------------
       onCreated: "",
       onMounted: "",
-      onRemoteQuery: "",
+      // onRemoteQuery: '',
       onChange: "",
       onFocus: "",
       onBlur: "",
@@ -4072,6 +4072,574 @@ const basicFieldsEnums = {
   divider,
   dropdown
 };
+const userSelect = (ops = {}) => {
+  return {
+    key: getUuidKey(),
+    id: ops.name,
+    showName: "选择用户",
+    type: "select",
+    icon: "yonghu1",
+    formItemFlag: true,
+    options: {
+      name: "",
+      label: "",
+      labelAlign: "",
+      defaultValue: "",
+      placeholder: "",
+      columnWidth: "200px",
+      size: "",
+      labelWidth: null,
+      labelHidden: false,
+      disabled: false,
+      useModal: false,
+      loadingPage: true,
+      hidden: false,
+      holdHidden: true,
+      allowClear: true,
+      maxTagCount: "responsive",
+      mode: "combobox",
+      showSearch: true,
+      dsEnabled: true,
+      // 是否使用数据源数据
+      labelKey: "userName",
+      valueKey: "userId",
+      optionItems: [
+        { label: "select 1", value: 1 },
+        { label: "select 2", value: 2 },
+        { label: "select 3", value: 3 }
+      ],
+      http: {
+        url: "/api/tmgc2-org/user/queryUserPageByParam",
+        method: "post",
+        data: {
+          limitStatus: 0,
+          lockFlag: 1
+        },
+        params: {}
+      },
+      dataHandlerCode: "return data.data.object;\n ",
+      dataReqHandlerCode: `
+      const d=data.data||{};
+      Object.keys(d).forEach(k=>{
+        if(d[k]==='null'){
+          d[k]=null
+        }
+        });
+        const userName = this.keyword||'';
+        const {page,pageSize} =this.pager ;
+        const p = {userName,page,pageSize} ;
+
+        return {...data,data:{...d,...p}}
+        `,
+      required: false,
+      requiredHint: "",
+      validation: "",
+      validationHint: "",
+      //-------------------
+      customClass: [],
+      //自定义css类名
+      labelIconClass: null,
+      labelIconPosition: "rear",
+      labelTooltip: null,
+      //-------------------
+      onCreated: "",
+      onMounted: "",
+      // onRemoteQuery: '',
+      onChange: "",
+      onFocus: "",
+      onBlur: "",
+      onValidate: "",
+      onClickIcon: 'console.log(this,"onClickIcon")',
+      ...ops
+    }
+  };
+};
+const departmentSelect = (ops = {}) => {
+  return {
+    key: getUuidKey(),
+    id: ops.name,
+    showName: "选择部门",
+    type: "select",
+    icon: "bumen",
+    formItemFlag: true,
+    options: {
+      name: "",
+      label: "",
+      labelAlign: "",
+      defaultValue: "",
+      placeholder: "",
+      columnWidth: "200px",
+      size: "",
+      labelWidth: null,
+      labelHidden: false,
+      disabled: false,
+      useModal: false,
+      loadingPage: true,
+      hidden: false,
+      holdHidden: true,
+      allowClear: true,
+      maxTagCount: "responsive",
+      mode: "combobox",
+      showSearch: true,
+      dsEnabled: true,
+      // 是否使用数据源数据
+      labelKey: "departmentName",
+      valueKey: "departmentCode",
+      optionItems: [
+        { label: "select 1", value: 1 },
+        { label: "select 2", value: 2 },
+        { label: "select 3", value: 3 }
+      ],
+      http: {
+        url: "/api/tmgc2-org/department/getDepartmentList",
+        method: "post",
+        data: {},
+        params: {}
+      },
+      dataHandlerCode: "return data.data.object;\n ",
+      dataReqHandlerCode: `
+      const d=data.data||{};
+      Object.keys(d).forEach(k=>{
+        if(d[k]==='null'){
+          d[k]=null
+        }
+        });
+        const departmentName = this.keyword||'';
+        const {page,pageSize} =this.pager ;
+        const p = {departmentName,page,pageSize} ;
+
+        return {...data,data:{...d,...p}}
+        `,
+      required: false,
+      requiredHint: "",
+      validation: "",
+      validationHint: "",
+      //-------------------
+      customClass: [],
+      //自定义css类名
+      labelIconClass: null,
+      labelIconPosition: "rear",
+      labelTooltip: null,
+      //-------------------
+      onCreated: "",
+      onMounted: "",
+      // onRemoteQuery: '',
+      onChange: "",
+      onFocus: "",
+      onBlur: "",
+      onValidate: "",
+      onClickIcon: 'console.log(this,"onClickIcon")',
+      ...ops
+    }
+  };
+};
+const postSelect = (ops = {}) => {
+  return {
+    key: getUuidKey(),
+    id: ops.name,
+    showName: "选择岗位",
+    type: "select",
+    icon: "gangweitubiao",
+    formItemFlag: true,
+    options: {
+      name: "",
+      label: "",
+      labelAlign: "",
+      defaultValue: "",
+      placeholder: "",
+      columnWidth: "200px",
+      size: "",
+      labelWidth: null,
+      labelHidden: false,
+      disabled: false,
+      useModal: false,
+      loadingPage: true,
+      hidden: false,
+      holdHidden: true,
+      allowClear: true,
+      maxTagCount: "responsive",
+      mode: "combobox",
+      showSearch: true,
+      dsEnabled: true,
+      // 是否使用数据源数据
+      labelKey: "postName",
+      valueKey: "postCode",
+      optionItems: [
+        { label: "select 1", value: 1 },
+        { label: "select 2", value: 2 },
+        { label: "select 3", value: 3 }
+      ],
+      http: {
+        url: "/api/tmgc2-org/post/getPostList",
+        method: "post",
+        data: { lockFlag: "" },
+        params: {}
+      },
+      dataHandlerCode: "return data.data.object;\n ",
+      dataReqHandlerCode: `
+      const d=data.data||{};
+      Object.keys(d).forEach(k=>{
+        if(d[k]==='null'){
+          d[k]=null
+        }
+        });
+        const postName = this.keyword||'';
+        const {page,pageSize} =this.pager ;
+        const p = {postName,page,pageSize} ;
+        return {...data,data:{...d,...p}}
+        `,
+      required: false,
+      requiredHint: "",
+      validation: "",
+      validationHint: "",
+      //-------------------
+      customClass: [],
+      //自定义css类名
+      labelIconClass: null,
+      labelIconPosition: "rear",
+      labelTooltip: null,
+      //-------------------
+      onCreated: "",
+      onMounted: "",
+      // onRemoteQuery: '',
+      onChange: "",
+      onFocus: "",
+      onBlur: "",
+      onValidate: "",
+      onClickIcon: 'console.log(this,"onClickIcon")',
+      ...ops
+    }
+  };
+};
+const operationSelect = (ops = {}) => {
+  return {
+    key: getUuidKey(),
+    id: ops.name,
+    showName: "选择工序",
+    type: "select",
+    icon: "gongxu",
+    formItemFlag: true,
+    options: {
+      name: "",
+      label: "",
+      labelAlign: "",
+      defaultValue: "",
+      placeholder: "",
+      columnWidth: "200px",
+      size: "",
+      labelWidth: null,
+      labelHidden: false,
+      disabled: false,
+      useModal: false,
+      loadingPage: true,
+      hidden: false,
+      holdHidden: true,
+      allowClear: true,
+      maxTagCount: "responsive",
+      mode: "combobox",
+      showSearch: true,
+      dsEnabled: true,
+      // 是否使用数据源数据
+      labelKey: "operationName",
+      valueKey: "operationCode",
+      optionItems: [
+        { label: "select 1", value: 1 },
+        { label: "select 2", value: 2 },
+        { label: "select 3", value: 3 }
+      ],
+      http: {
+        url: "/api/tmgc2-query/dataQuery/execute",
+        method: "post",
+        data: {},
+        params: {}
+      },
+      dataHandlerCode: "return data.data.object;\n ",
+      dataReqHandlerCode: `
+        const operationName = this.keyword||'';
+        const {page,pageSize} =this.pager ;
+        const p = {
+          "pageCode":"OperationInfo",
+          "conditions":[
+            {"fieldCode":"operationName","type":"CONTAINS","value":operationName}
+          ],
+          "requiredFields":["operationCode","operationName"],
+          "page":page,
+          "pageSize":pageSize,
+          "sorts":[{"fieldCode":"createDatetime","order":"DESC"}]
+        }
+        return {...data,data:{...p}}
+        `,
+      required: false,
+      requiredHint: "",
+      validation: "",
+      validationHint: "",
+      //-------------------
+      customClass: [],
+      //自定义css类名
+      labelIconClass: null,
+      labelIconPosition: "rear",
+      labelTooltip: null,
+      //-------------------
+      onCreated: "",
+      onMounted: "",
+      // onRemoteQuery: '',
+      onChange: "",
+      onFocus: "",
+      onBlur: "",
+      onValidate: "",
+      onClickIcon: 'console.log(this,"onClickIcon")',
+      ...ops
+    }
+  };
+};
+const materialSelect = (ops = {}) => {
+  return {
+    key: getUuidKey(),
+    id: ops.name,
+    showName: "选择物料",
+    type: "select",
+    icon: "navicon-wlpp",
+    formItemFlag: true,
+    options: {
+      name: "",
+      label: "",
+      labelAlign: "",
+      defaultValue: "",
+      placeholder: "",
+      columnWidth: "200px",
+      size: "",
+      labelWidth: null,
+      labelHidden: false,
+      disabled: false,
+      useModal: false,
+      loadingPage: true,
+      hidden: false,
+      holdHidden: true,
+      allowClear: true,
+      maxTagCount: "responsive",
+      mode: "combobox",
+      showSearch: true,
+      dsEnabled: true,
+      // 是否使用数据源数据
+      labelKey: "materialName",
+      valueKey: "materialCode",
+      optionItems: [
+        { label: "select 1", value: 1 },
+        { label: "select 2", value: 2 },
+        { label: "select 3", value: 3 }
+      ],
+      http: {
+        url: "/api/tmgc2-material/material/queryMaterialListByPage-v2",
+        method: "post",
+        data: {},
+        params: {}
+      },
+      dataHandlerCode: "return data.data.object;\n ",
+      dataReqHandlerCode: `
+        const materialName = this.keyword||'';
+        const {page,pageSize} =this.pager ;
+        const p = {
+          "pageCode":"Material",
+          "conditions":[
+            {"fieldCode":"materialName","type":"CONTAINS","value":materialName}
+          ],
+          "requiredFields":["materialName","materialCode"],
+          "page":page,
+          "pageSize":pageSize,
+          "sorts":[{"fieldCode":"modifyDatetime","order":"DESC"}]
+        }
+        return {...data,data:{...p}}
+        `,
+      required: false,
+      requiredHint: "",
+      validation: "",
+      validationHint: "",
+      //-------------------
+      customClass: [],
+      //自定义css类名
+      labelIconClass: null,
+      labelIconPosition: "rear",
+      labelTooltip: null,
+      //-------------------
+      onCreated: "",
+      onMounted: "",
+      // onRemoteQuery: '',
+      onChange: "",
+      onFocus: "",
+      onBlur: "",
+      onValidate: "",
+      onClickIcon: 'console.log(this,"onClickIcon")',
+      ...ops
+    }
+  };
+};
+const projectSelect = (ops = {}) => {
+  return {
+    key: getUuidKey(),
+    id: ops.name,
+    showName: "选择项目",
+    type: "select",
+    icon: "xiangmu",
+    formItemFlag: true,
+    options: {
+      name: "",
+      label: "",
+      labelAlign: "",
+      defaultValue: "",
+      placeholder: "",
+      columnWidth: "200px",
+      size: "",
+      labelWidth: null,
+      labelHidden: false,
+      disabled: false,
+      useModal: false,
+      loadingPage: true,
+      hidden: false,
+      holdHidden: true,
+      allowClear: true,
+      maxTagCount: "responsive",
+      mode: "combobox",
+      showSearch: true,
+      dsEnabled: true,
+      // 是否使用数据源数据
+      labelKey: "projectName",
+      valueKey: "projectCode",
+      optionItems: [
+        { label: "select 1", value: 1 },
+        { label: "select 2", value: 2 },
+        { label: "select 3", value: 3 }
+      ],
+      http: {
+        url: "/api/tmgc2-production/project/queryPopProjectListByPage",
+        method: "post",
+        data: {},
+        params: {}
+      },
+      dataHandlerCode: "return data.data.object;\n ",
+      dataReqHandlerCode: `
+        const projectName = this.keyword||'';
+        const {page,pageSize} =this.pager ;
+        const p = {
+          "forbidden": "1",
+          "projectName":projectName,
+          "page":page,
+          "pageSize":pageSize
+        }
+        return {...data,data:{...p}}
+        `,
+      required: false,
+      requiredHint: "",
+      validation: "",
+      validationHint: "",
+      //-------------------
+      customClass: [],
+      //自定义css类名
+      labelIconClass: null,
+      labelIconPosition: "rear",
+      labelTooltip: null,
+      //-------------------
+      onCreated: "",
+      onMounted: "",
+      // onRemoteQuery: '',
+      onChange: "",
+      onFocus: "",
+      onBlur: "",
+      onValidate: "",
+      onClickIcon: 'console.log(this,"onClickIcon")',
+      ...ops
+    }
+  };
+};
+const projectGroupSelect = (ops = {}) => {
+  return {
+    key: getUuidKey(),
+    id: ops.name,
+    showName: "选择项目组",
+    type: "select",
+    icon: "changyongtubiao_xiangmuzushezhi",
+    formItemFlag: true,
+    options: {
+      name: "",
+      label: "",
+      labelAlign: "",
+      defaultValue: "",
+      placeholder: "",
+      columnWidth: "200px",
+      size: "",
+      labelWidth: null,
+      labelHidden: false,
+      disabled: false,
+      useModal: false,
+      loadingPage: true,
+      hidden: false,
+      holdHidden: true,
+      allowClear: true,
+      maxTagCount: "responsive",
+      mode: "combobox",
+      showSearch: true,
+      dsEnabled: true,
+      // 是否使用数据源数据
+      labelKey: "projectGroupName",
+      valueKey: "projectGroupCode",
+      optionItems: [
+        { label: "select 1", value: 1 },
+        { label: "select 2", value: 2 },
+        { label: "select 3", value: 3 }
+      ],
+      http: {
+        url: "/api/tmgc2-query/dataQuery/execute",
+        method: "post",
+        data: {},
+        params: {}
+      },
+      dataHandlerCode: "return data.data.object;\n ",
+      dataReqHandlerCode: `
+        const projectGroupName = this.keyword||'';
+        const {page,pageSize} =this.pager ;
+        const p = {
+          "pageCode":"projectGroup",
+          "conditions":[
+            {"fieldCode":"projectGroupName","type":"CONTAINS","value":projectGroupName}
+          ],
+          "requiredFields":["projectGroupCode","projectGroupName"],
+          "page":page,
+          "pageSize":pageSize,
+          "sorts":[]
+        }
+        return {...data,data:{...p}}
+        `,
+      required: false,
+      requiredHint: "",
+      validation: "",
+      validationHint: "",
+      //-------------------
+      customClass: [],
+      //自定义css类名
+      labelIconClass: null,
+      labelIconPosition: "rear",
+      labelTooltip: null,
+      //-------------------
+      onCreated: "",
+      onMounted: "",
+      // onRemoteQuery: '',
+      onChange: "",
+      onFocus: "",
+      onBlur: "",
+      onValidate: "",
+      onClickIcon: 'console.log(this,"onClickIcon")',
+      ...ops
+    }
+  };
+};
+const businessFieldsEnums = {
+  userSelect,
+  departmentSelect,
+  postSelect,
+  operationSelect,
+  materialSelect,
+  projectSelect,
+  projectGroupSelect
+};
 const containers$1 = [
   {
     type: "grid",
@@ -4359,7 +4927,7 @@ const containers$1 = [
     type: "vf-collapse",
     //折叠面板
     category: "container",
-    icon: "vf-dialog",
+    icon: "zhediemianban",
     widgetList: [],
     headerRightSlotList: [],
     defaultSlotsList: [],
@@ -4374,6 +4942,21 @@ const containers$1 = [
       unCollapseIcon: "xiangxia",
       isCollapse: true,
       rightSlotCss: []
+    }
+  },
+  {
+    type: "vf-box",
+    showName: "盒容器",
+    category: "container",
+    icon: "ccgl-zhouzhuanxiang-4",
+    widgetList: [],
+    options: {
+      name: "",
+      title: "标题",
+      width: "100%",
+      height: "600px",
+      formCode: "",
+      customClass: []
     }
   }
   // {
@@ -4404,6 +4987,7 @@ const containers$1 = [
   // }
 ];
 const basicFields = Object.values(basicFieldsEnums).map((fn) => fn());
+const businessFields = Object.values(businessFieldsEnums).map((fn) => fn());
 const advancedFields = [
   // {
   //   type: 'picture-upload',
@@ -4554,7 +5138,7 @@ return {...data,data:d}`,
   },
   {
     type: "treeSelect",
-    icon: "cascader-field",
+    icon: "tree_line",
     formItemFlag: true,
     options: {
       name: "",
@@ -6281,7 +6865,7 @@ const TpfConfirm = (ops) => {
     });
   });
 };
-const _sfc_main$4s = {
+const _sfc_main$4u = {
   name: "FieldPanel",
   mixins: [i18n$1],
   components: { SvgIcon },
@@ -6298,12 +6882,14 @@ const _sfc_main$4s = {
         "containerTitle",
         "basicFieldTitle",
         "advancedFieldTitle",
+        "yyzj",
         "customFieldTitle"
       ],
       containers: [],
       basicFields: [],
       advancedFields: [],
       customFields: [],
+      businessFields: [],
       formTemplates,
       ftImages: []
     };
@@ -6381,6 +6967,18 @@ const _sfc_main$4s = {
       }).filter((fld) => {
         return !this.isBanned(fld.type);
       });
+      this.businessFields = businessFields.map((fld) => {
+        return {
+          key: generateId(),
+          ...fld,
+          displayName: this.i18n2t(
+            `designer.widgetLabel.${fld.type}`,
+            `extension.widgetLabel.${fld.type}`
+          )
+        };
+      }).filter((fld) => {
+        return !this.isBanned(fld.type);
+      });
     },
     handleContainerWidgetClone(origin) {
       return this.designer.copyNewContainerWidget(origin);
@@ -6434,13 +7032,14 @@ const _sfc_main$4s = {
     }
   }
 };
-const _hoisted_1$19 = { class: "side-scroll-bar" };
+const _hoisted_1$1a = { class: "side-scroll-bar" };
 const _hoisted_2$E = { class: "panel-container" };
 const _hoisted_3$u = ["title", "onDblclick"];
 const _hoisted_4$j = ["title", "onDblclick"];
 const _hoisted_5$d = ["title", "onDblclick"];
 const _hoisted_6$b = ["title", "onDblclick"];
-function _sfc_render$4r(_ctx, _cache, $props, $setup, $data, $options) {
+const _hoisted_7$9 = ["title", "onDblclick"];
+function _sfc_render$4t(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_svg_icon = resolveComponent("svg-icon");
   const _component_draggable = resolveComponent("draggable");
   const _component_a_collapse_panel = resolveComponent("a-collapse-panel");
@@ -6450,7 +7049,7 @@ function _sfc_render$4r(_ctx, _cache, $props, $setup, $data, $options) {
   resolveComponent("a-button");
   resolveComponent("a-card");
   const _component_a_tabs = resolveComponent("a-tabs");
-  return openBlock(), createElementBlock("div", _hoisted_1$19, [
+  return openBlock(), createElementBlock("div", _hoisted_1$1a, [
     createElementVNode("div", _hoisted_2$E, [
       createVNode(_component_a_tabs, {
         activeKey: $data.firstTab,
@@ -6499,7 +7098,7 @@ function _sfc_render$4r(_ctx, _cache, $props, $setup, $data, $options) {
                                 "icon-class": ctn.icon,
                                 "class-name": "color-svg-icon"
                               }, null, 8, ["icon-class"]),
-                              createTextVNode(" " + toDisplayString(_ctx.i18n2t(
+                              createTextVNode(" " + toDisplayString(ctn.showName || _ctx.i18n2t(
                                 `designer.widgetLabel.${ctn.type}`,
                                 `extension.widgetLabel.${ctn.type}`
                               )), 1)
@@ -6587,6 +7186,44 @@ function _sfc_render$4r(_ctx, _cache, $props, $setup, $data, $options) {
                     ]),
                     _: 1
                   }, 8, ["header"]),
+                  createVNode(_component_a_collapse_panel, {
+                    key: "yyzj",
+                    header: `业务组件`
+                  }, {
+                    default: withCtx(() => [
+                      createVNode(_component_draggable, {
+                        tag: "ul",
+                        list: $data.businessFields,
+                        "item-key": "key",
+                        group: { name: "dragGroup", pull: "clone", put: false },
+                        move: $options.checkFieldMove,
+                        clone: $options.handleFieldWidgetClone,
+                        "ghost-class": "ghost",
+                        sort: false
+                      }, {
+                        item: withCtx(({ element: bfld }) => [
+                          createElementVNode("li", {
+                            class: "field-widget-item",
+                            title: bfld.displayName,
+                            onDblclick: ($event) => $options.addFieldByDbClick(bfld)
+                          }, [
+                            createElementVNode("span", null, [
+                              createVNode(_component_svg_icon, {
+                                "icon-class": bfld.icon,
+                                "class-name": "color-svg-icon"
+                              }, null, 8, ["icon-class"]),
+                              createTextVNode(" " + toDisplayString(bfld.showName || _ctx.i18n2t(
+                                `designer.widgetLabel.${bfld.type}`,
+                                `extension.widgetLabel.${bfld.type}`
+                              )), 1)
+                            ])
+                          ], 40, _hoisted_6$b)
+                        ]),
+                        _: 1
+                      }, 8, ["list", "move", "clone"])
+                    ]),
+                    _: 1
+                  }),
                   $data.customFields.length ? (openBlock(), createBlock(_component_a_collapse_panel, {
                     key: "customFieldTitle",
                     header: _ctx.i18nt("designer.customFieldTitle")
@@ -6618,7 +7255,7 @@ function _sfc_render$4r(_ctx, _cache, $props, $setup, $data, $options) {
                                 `extension.widgetLabel.${fld.type}`
                               )), 1)
                             ])
-                          ], 40, _hoisted_6$b)
+                          ], 40, _hoisted_7$9)
                         ]),
                         _: 1
                       }, 8, ["list", "move", "clone"])
@@ -6638,7 +7275,7 @@ function _sfc_render$4r(_ctx, _cache, $props, $setup, $data, $options) {
     ])
   ]);
 }
-const WidgetPanel = /* @__PURE__ */ _export_sfc$1(_sfc_main$4s, [["render", _sfc_render$4r], ["__scopeId", "data-v-2764e355"]]);
+const WidgetPanel = /* @__PURE__ */ _export_sfc$1(_sfc_main$4u, [["render", _sfc_render$4t], ["__scopeId", "data-v-d3296a01"]]);
 const emitter = {
   data() {
     return {
@@ -6711,7 +7348,7 @@ const emitter = {
     }
   }
 };
-const _sfc_main$4r = {
+const _sfc_main$4t = {
   name: "container-item-wrapper",
   props: {
     widget: Object
@@ -6722,7 +7359,7 @@ const _sfc_main$4r = {
     }
   }
 };
-function _sfc_render$4q(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$4s(_ctx, _cache, $props, $setup, $data, $options) {
   return openBlock(), createElementBlock("div", {
     class: normalizeClass(["container-wrapper", [$options.customClass]]),
     style: normalizeStyle(_ctx.$attrs.containerStyle)
@@ -6730,12 +7367,12 @@ function _sfc_render$4q(_ctx, _cache, $props, $setup, $data, $options) {
     renderSlot(_ctx.$slots, "default")
   ], 6);
 }
-const ContainerItemWrapper = /* @__PURE__ */ _export_sfc$1(_sfc_main$4r, [["render", _sfc_render$4q]]);
+const ContainerItemWrapper = /* @__PURE__ */ _export_sfc$1(_sfc_main$4t, [["render", _sfc_render$4s]]);
 const __vite_glob_0_0$3 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: ContainerItemWrapper
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$4q = {
+const _sfc_main$4s = {
   name: "static-content-wrapper",
   mixins: [i18n$1],
   components: {
@@ -6822,7 +7459,7 @@ const _sfc_main$4q = {
     }
   }
 };
-const _hoisted_1$18 = {
+const _hoisted_1$19 = {
   key: 0,
   class: "field-action"
 };
@@ -6836,7 +7473,7 @@ const _hoisted_6$a = {
 };
 const _hoisted_7$8 = ["title"];
 const _hoisted_8$8 = { key: 0 };
-function _sfc_render$4p(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$4r(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_svg_icon = resolveComponent("svg-icon");
   return openBlock(), createElementBlock("div", {
     class: normalizeClass(["field-wrapper", { "design-time-bottom-margin": !!this.designer }]),
@@ -6851,7 +7488,7 @@ function _sfc_render$4p(_ctx, _cache, $props, $setup, $data, $options) {
       renderSlot(_ctx.$slots, "default", {}, void 0, true)
     ], 6)) : createCommentVNode("", true),
     !!this.designer ? (openBlock(), createElementBlock(Fragment, { key: 1 }, [
-      $props.designer.selectedId === $props.field.id ? (openBlock(), createElementBlock("div", _hoisted_1$18, [
+      $props.designer.selectedId === $props.field.id ? (openBlock(), createElementBlock("div", _hoisted_1$19, [
         createElementVNode("i", {
           title: _ctx.i18nt("designer.hint.selectParentWidget"),
           onClick: _cache[1] || (_cache[1] = withModifiers(($event) => $options.selectParentWidget($props.field), ["stop"]))
@@ -6893,7 +7530,7 @@ function _sfc_render$4p(_ctx, _cache, $props, $setup, $data, $options) {
     ], 64)) : createCommentVNode("", true)
   ], 6);
 }
-const StaticContentWrapper = /* @__PURE__ */ _export_sfc$1(_sfc_main$4q, [["render", _sfc_render$4p], ["__scopeId", "data-v-ca4513b3"]]);
+const StaticContentWrapper = /* @__PURE__ */ _export_sfc$1(_sfc_main$4s, [["render", _sfc_render$4r], ["__scopeId", "data-v-ca4513b3"]]);
 const __vite_glob_0_20$1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: StaticContentWrapper
@@ -9218,6 +9855,11 @@ const fieldMixin = {
         }
       }
     },
+    clearOptionItems() {
+      if (!!this.field.options.dsEnabled) {
+        this.field.options.optionItems.splice(0, this.field.options.optionItems.length);
+      }
+    },
     async initOptionItems(keepSelected) {
       var _a;
       if (this.designState) {
@@ -9228,7 +9870,6 @@ const fieldMixin = {
       this.loading = true;
       if (["radio", "checkbox", "select", "cascader", "treeSelect"].includes(this.field.type)) {
         if (!!this.field.options.dsEnabled && ((_a = this.field.options.http) == null ? void 0 : _a.url)) {
-          this.field.options.optionItems.splice(0, this.field.options.optionItems.length);
           try {
             const dsResult = await fmtHttpParams.call(this, this.field.options, {
               fieldCode: this.field.options.name
@@ -9240,8 +9881,10 @@ const fieldMixin = {
               if (this.field.options.loadingPage) {
                 this.pager.total = dsResult.total || 0;
                 this.pager.totalPage = dsResult.totalPage || 0;
+                this.loadOptions([...this.getOptionItems(), ...dsResult.list]);
+              } else {
+                this.loadOptions(dsResult.list);
               }
-              this.loadOptions(dsResult.list);
             }
           } catch (err) {
             console.error("err: ", err);
@@ -9487,13 +10130,24 @@ const fieldMixin = {
         changeFn.call(this, val, oldVal, ops[0], subFormData, rowId);
       }
     },
+    onBtnSubmit() {
+      if (!!this.designState) {
+        return;
+      }
+      if (!!this.field.options.onClick) {
+        const customFn = new Function(this.field.options.onClick);
+        return customFn.call(this);
+      } else {
+        this.dispatch("VFormRender", "buttonClick", [this]);
+      }
+    },
     handleButtonWidgetClick() {
       if (!!this.designState) {
         return;
       }
       if (!!this.field.options.onClick) {
         const customFn = new Function(this.field.options.onClick);
-        customFn.call(this);
+        return customFn.call(this);
       } else {
         this.dispatch("VFormRender", "buttonClick", [this]);
       }
@@ -9733,7 +10387,7 @@ const fieldMixin = {
     //--------------------- 以上为组件支持外部调用的API方法 end ------------------//
   }
 };
-const _sfc_main$4p = {
+const _sfc_main$4r = {
   name: "button-widget",
   componentName: "FieldWidget",
   //必须固定为FieldWidget，用于接收父级组件的broadcast事件
@@ -9784,7 +10438,7 @@ const _sfc_main$4p = {
   },
   methods: {}
 };
-function _sfc_render$4o(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$4q(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_svg_icon = resolveComponent("svg-icon");
   const _component_a_button = resolveComponent("a-button");
   const _component_static_content_wrapper = resolveComponent("static-content-wrapper");
@@ -9825,12 +10479,12 @@ function _sfc_render$4o(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["designer", "field", "design-state", "display-style", "parent-widget", "parent-list", "index-of-parent-list", "sub-form-row-index", "sub-form-col-index", "sub-form-row-id"]);
 }
-const buttonWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$4p, [["render", _sfc_render$4o], ["__scopeId", "data-v-98a9b931"]]);
+const buttonWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$4r, [["render", _sfc_render$4q], ["__scopeId", "data-v-98a9b931"]]);
 const __vite_glob_0_0$2 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: buttonWidget
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$4o = {
+const _sfc_main$4q = {
   name: "form-item-wrapper",
   mixins: [i18n$1],
   components: {
@@ -9972,7 +10626,7 @@ const _sfc_main$4o = {
     }
   }
 };
-const _hoisted_1$17 = { class: "label-box" };
+const _hoisted_1$18 = { class: "label-box" };
 const _hoisted_2$C = {
   key: 0,
   class: "custom-label"
@@ -9996,7 +10650,7 @@ const _hoisted_13$1 = {
 };
 const _hoisted_14$1 = ["title"];
 const _hoisted_15 = { key: 0 };
-function _sfc_render$4n(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$4p(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_svg_icon = resolveComponent("svg-icon");
   const _component_a_tooltip = resolveComponent("a-tooltip");
   const _component_a_form_item = resolveComponent("a-form-item");
@@ -10015,7 +10669,7 @@ function _sfc_render$4n(_ctx, _cache, $props, $setup, $data, $options) {
       onClick: _cache[0] || (_cache[0] = withModifiers(($event) => $options.selectField($props.field), ["stop"]))
     }, {
       label: withCtx(() => [
-        createElementVNode("div", _hoisted_1$17, [
+        createElementVNode("div", _hoisted_1$18, [
           !!$props.field.options.labelIconClass ? (openBlock(), createElementBlock("span", _hoisted_2$C, [
             $props.field.options.labelIconPosition === "front" ? (openBlock(), createElementBlock(Fragment, { key: 0 }, [
               !!$props.field.options.labelTooltip ? (openBlock(), createElementBlock(Fragment, { key: 0 }, [
@@ -10150,7 +10804,7 @@ function _sfc_render$4n(_ctx, _cache, $props, $setup, $data, $options) {
     ], 64)) : createCommentVNode("", true)
   ], 2);
 }
-const FormItemWrapper = /* @__PURE__ */ _export_sfc$1(_sfc_main$4o, [["render", _sfc_render$4n], ["__scopeId", "data-v-557be97f"]]);
+const FormItemWrapper = /* @__PURE__ */ _export_sfc$1(_sfc_main$4q, [["render", _sfc_render$4p], ["__scopeId", "data-v-557be97f"]]);
 const __vite_glob_0_9$3 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: FormItemWrapper
@@ -10205,7 +10859,7 @@ const getListName = (val, list, fieldNames) => {
   });
   return res;
 };
-const _sfc_main$4n = {
+const _sfc_main$4p = {
   name: "cascader-widget",
   componentName: "FieldWidget",
   //必须固定为FieldWidget，用于接收父级组件的broadcast事件
@@ -10302,8 +10956,8 @@ const _sfc_main$4n = {
     }
   }
 };
-const _hoisted_1$16 = { class: "readonly-mode-field" };
-function _sfc_render$4m(_ctx, _cache, $props, $setup, $data, $options) {
+const _hoisted_1$17 = { class: "readonly-mode-field" };
+function _sfc_render$4o(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_cascader = resolveComponent("a-cascader");
   const _component_a_tooltip = resolveComponent("a-tooltip");
   const _component_form_item_wrapper = resolveComponent("form-item-wrapper");
@@ -10346,7 +11000,7 @@ function _sfc_render$4m(_ctx, _cache, $props, $setup, $data, $options) {
           overlayStyle: { zIndex: 1e3 }
         }, {
           default: withCtx(() => [
-            createElementVNode("span", _hoisted_1$16, toDisplayString($options.contentForReadMode), 1)
+            createElementVNode("span", _hoisted_1$17, toDisplayString($options.contentForReadMode), 1)
           ]),
           _: 1
         }, 8, ["title"])) : createCommentVNode("", true)
@@ -10355,12 +11009,12 @@ function _sfc_render$4m(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["designer", "field", "rules", "design-state", "parent-widget", "parent-list", "index-of-parent-list", "sub-form-row-index", "sub-form-col-index", "sub-form-row-id"]);
 }
-const cascaderWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$4n, [["render", _sfc_render$4m], ["__scopeId", "data-v-9815d2f7"]]);
+const cascaderWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$4p, [["render", _sfc_render$4o], ["__scopeId", "data-v-9815d2f7"]]);
 const __vite_glob_0_1$3 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: cascaderWidget
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$4m = {
+const _sfc_main$4o = {
   name: "checkbox-widget",
   componentName: "FieldWidget",
   //必须固定为FieldWidget，用于接收父级组件的broadcast事件
@@ -10421,11 +11075,11 @@ const _sfc_main$4m = {
   },
   methods: {}
 };
-const _hoisted_1$15 = {
+const _hoisted_1$16 = {
   key: 0,
   class: "readonly-mode-field"
 };
-function _sfc_render$4l(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$4n(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_checkbox = resolveComponent("a-checkbox");
   const _component_a_checkbox_group = resolveComponent("a-checkbox-group");
   const _component_form_item_wrapper = resolveComponent("form-item-wrapper");
@@ -10469,17 +11123,17 @@ function _sfc_render$4l(_ctx, _cache, $props, $setup, $data, $options) {
       }, 8, ["value", "disabled", "onChange"]), [
         [vShow, !_ctx.isReadMode]
       ]),
-      _ctx.isReadMode ? (openBlock(), createElementBlock("span", _hoisted_1$15, toDisplayString(_ctx.optionLabel), 1)) : createCommentVNode("", true)
+      _ctx.isReadMode ? (openBlock(), createElementBlock("span", _hoisted_1$16, toDisplayString(_ctx.optionLabel), 1)) : createCommentVNode("", true)
     ]),
     _: 1
   }, 8, ["designer", "field", "rules", "design-state", "parent-widget", "parent-list", "index-of-parent-list", "sub-form-row-index", "sub-form-col-index", "sub-form-row-id"]);
 }
-const checkboxWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$4m, [["render", _sfc_render$4l], ["__scopeId", "data-v-0df5bd5e"]]);
+const checkboxWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$4o, [["render", _sfc_render$4n], ["__scopeId", "data-v-0df5bd5e"]]);
 const __vite_glob_0_2$3 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: checkboxWidget
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$4l = {
+const _sfc_main$4n = {
   name: "color-widget",
   componentName: "FieldWidget",
   //必须固定为FieldWidget，用于接收父级组件的broadcast事件
@@ -10539,11 +11193,11 @@ const _sfc_main$4l = {
   },
   methods: {}
 };
-const _hoisted_1$14 = {
+const _hoisted_1$15 = {
   key: 0,
   class: "readonly-mode-field"
 };
-function _sfc_render$4k(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$4m(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_input = resolveComponent("a-input");
   const _component_form_item_wrapper = resolveComponent("form-item-wrapper");
   return openBlock(), createBlock(_component_form_item_wrapper, {
@@ -10569,18 +11223,18 @@ function _sfc_render$4k(_ctx, _cache, $props, $setup, $data, $options) {
           onChange: _ctx.handleChangeEvent,
           type: "color"
         }, null, 8, ["value", "onChange"]),
-        _ctx.isReadMode ? (openBlock(), createElementBlock("span", _hoisted_1$14, toDisplayString($data.fieldModel), 1)) : createCommentVNode("", true)
+        _ctx.isReadMode ? (openBlock(), createElementBlock("span", _hoisted_1$15, toDisplayString($data.fieldModel), 1)) : createCommentVNode("", true)
       ], 2)
     ]),
     _: 1
   }, 8, ["designer", "field", "rules", "design-state", "parent-widget", "parent-list", "index-of-parent-list", "sub-form-row-index", "sub-form-col-index", "sub-form-row-id"]);
 }
-const colorWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$4l, [["render", _sfc_render$4k], ["__scopeId", "data-v-cbaee193"]]);
+const colorWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$4n, [["render", _sfc_render$4m], ["__scopeId", "data-v-cbaee193"]]);
 const __vite_glob_0_3$3 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: colorWidget
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$4k = {
+const _sfc_main$4m = {
   name: "date-range-widget",
   componentName: "FieldWidget",
   //必须固定为FieldWidget，用于接收父级组件的broadcast事件
@@ -10648,8 +11302,8 @@ const _sfc_main$4k = {
   },
   methods: {}
 };
-const _hoisted_1$13 = { class: "readonly-mode-field" };
-function _sfc_render$4j(_ctx, _cache, $props, $setup, $data, $options) {
+const _hoisted_1$14 = { class: "readonly-mode-field" };
+function _sfc_render$4l(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_range_picker = resolveComponent("a-range-picker");
   const _component_a_tooltip = resolveComponent("a-tooltip");
   const _component_form_item_wrapper = resolveComponent("form-item-wrapper");
@@ -10696,7 +11350,7 @@ function _sfc_render$4j(_ctx, _cache, $props, $setup, $data, $options) {
           overlayStyle: { zIndex: 1e3 }
         }, {
           default: withCtx(() => [
-            createElementVNode("span", _hoisted_1$13, toDisplayString($options.contentForReadMode), 1)
+            createElementVNode("span", _hoisted_1$14, toDisplayString($options.contentForReadMode), 1)
           ]),
           _: 1
         }, 8, ["title"])) : createCommentVNode("", true)
@@ -10705,12 +11359,12 @@ function _sfc_render$4j(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["designer", "field", "rules", "design-state", "parent-widget", "parent-list", "index-of-parent-list", "sub-form-row-index", "sub-form-col-index", "sub-form-row-id"]);
 }
-const dateRangeWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$4k, [["render", _sfc_render$4j], ["__scopeId", "data-v-cc3613dd"]]);
+const dateRangeWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$4m, [["render", _sfc_render$4l], ["__scopeId", "data-v-cc3613dd"]]);
 const __vite_glob_0_4$3 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: dateRangeWidget
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$4j = {
+const _sfc_main$4l = {
   name: "date-widget",
   componentName: "FieldWidget",
   //必须固定为FieldWidget，用于接收父级组件的broadcast事件
@@ -10781,8 +11435,8 @@ const _sfc_main$4j = {
   },
   methods: {}
 };
-const _hoisted_1$12 = { class: "readonly-mode-field" };
-function _sfc_render$4i(_ctx, _cache, $props, $setup, $data, $options) {
+const _hoisted_1$13 = { class: "readonly-mode-field" };
+function _sfc_render$4k(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_date_picker = resolveComponent("a-date-picker");
   const _component_a_tooltip = resolveComponent("a-tooltip");
   const _component_form_item_wrapper = resolveComponent("form-item-wrapper");
@@ -10830,7 +11484,7 @@ function _sfc_render$4i(_ctx, _cache, $props, $setup, $data, $options) {
           overlayStyle: { zIndex: 1e3 }
         }, {
           default: withCtx(() => [
-            createElementVNode("span", _hoisted_1$12, toDisplayString($data.fieldModel), 1)
+            createElementVNode("span", _hoisted_1$13, toDisplayString($data.fieldModel), 1)
           ]),
           _: 1
         }, 8, ["title"])) : createCommentVNode("", true)
@@ -10839,12 +11493,12 @@ function _sfc_render$4i(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["designer", "field", "rules", "design-state", "parent-widget", "parent-list", "index-of-parent-list", "sub-form-row-index", "sub-form-col-index", "sub-form-row-id"]);
 }
-const dateWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$4j, [["render", _sfc_render$4i], ["__scopeId", "data-v-74795a48"]]);
+const dateWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$4l, [["render", _sfc_render$4k], ["__scopeId", "data-v-74795a48"]]);
 const __vite_glob_0_5$3 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: dateWidget
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$4i = {
+const _sfc_main$4k = {
   name: "divider-widget",
   componentName: "FieldWidget",
   //必须固定为FieldWidget，用于接收父级组件的broadcast事件
@@ -10894,7 +11548,7 @@ const _sfc_main$4i = {
   },
   methods: {}
 };
-function _sfc_render$4h(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$4j(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_divider = resolveComponent("a-divider");
   const _component_static_content_wrapper = resolveComponent("static-content-wrapper");
   return openBlock(), createBlock(_component_static_content_wrapper, {
@@ -10923,12 +11577,12 @@ function _sfc_render$4h(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["designer", "field", "design-state", "parent-widget", "parent-list", "index-of-parent-list", "sub-form-row-index", "sub-form-col-index", "sub-form-row-id"]);
 }
-const dividerWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$4i, [["render", _sfc_render$4h], ["__scopeId", "data-v-5e29648b"]]);
+const dividerWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$4k, [["render", _sfc_render$4j], ["__scopeId", "data-v-5e29648b"]]);
 const __vite_glob_0_6$3 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: dividerWidget
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$4h = {
+const _sfc_main$4j = {
   name: "dropdown-widget",
   componentName: "FieldWidget",
   //必须固定为FieldWidget，用于接收父级组件的broadcast事件
@@ -10987,7 +11641,7 @@ const _sfc_main$4h = {
     }
   }
 };
-function _sfc_render$4g(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$4i(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_menu_item = resolveComponent("a-menu-item");
   const _component_a_menu = resolveComponent("a-menu");
   const _component_DownOutlined = resolveComponent("DownOutlined");
@@ -11051,13 +11705,13 @@ function _sfc_render$4g(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["designer", "field", "design-state", "display-style", "parent-widget", "parent-list", "index-of-parent-list", "sub-form-row-index", "sub-form-col-index", "sub-form-row-id"]);
 }
-const dropdownWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$4h, [["render", _sfc_render$4g], ["__scopeId", "data-v-50748ac2"]]);
+const dropdownWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$4j, [["render", _sfc_render$4i], ["__scopeId", "data-v-50748ac2"]]);
 const __vite_glob_0_7$3 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: dropdownWidget
 }, Symbol.toStringTag, { value: "Module" }));
 const selectFileText = "'" + translate("render.hint.selectFile") + "'";
-const _sfc_main$4g = {
+const _sfc_main$4i = {
   name: "file-upload-widget",
   componentName: "FieldWidget",
   //必须固定为FieldWidget，用于接收父级组件的broadcast事件
@@ -11272,12 +11926,12 @@ const _sfc_main$4g = {
     }
   }
 };
-const _hoisted_1$11 = { class: "upload-file-list" };
+const _hoisted_1$12 = { class: "upload-file-list" };
 const _hoisted_2$B = ["title"];
 const _hoisted_3$r = ["href"];
 const _hoisted_4$g = ["title"];
 const _hoisted_5$a = ["title", "onClick"];
-function _sfc_render$4f(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$4h(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_button = resolveComponent("a-button");
   const _component_svg_icon = resolveComponent("svg-icon");
   const _component_a_upload = resolveComponent("a-upload");
@@ -11314,7 +11968,7 @@ function _sfc_render$4f(_ctx, _cache, $props, $setup, $data, $options) {
         "on-error": $options.handleUploadError
       }, {
         file: withCtx(({ file }) => [
-          createElementVNode("div", _hoisted_1$11, [
+          createElementVNode("div", _hoisted_1$12, [
             createElementVNode("span", {
               class: "upload-file-name",
               title: file.name
@@ -11355,12 +12009,12 @@ function _sfc_render$4f(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["designer", "field", "rules", "design-state", "parent-widget", "parent-list", "index-of-parent-list", "sub-form-row-index", "sub-form-col-index", "sub-form-row-id"]);
 }
-const fileUploadWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$4g, [["render", _sfc_render$4f], ["__scopeId", "data-v-7fd7982c"]]);
+const fileUploadWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$4i, [["render", _sfc_render$4h], ["__scopeId", "data-v-7fd7982c"]]);
 const __vite_glob_0_8$3 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: fileUploadWidget
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$4f = {
+const _sfc_main$4h = {
   name: "html-text-widget",
   componentName: "FieldWidget",
   //必须固定为FieldWidget，用于接收父级组件的broadcast事件
@@ -11410,8 +12064,8 @@ const _sfc_main$4f = {
   },
   methods: {}
 };
-const _hoisted_1$10 = ["innerHTML"];
-function _sfc_render$4e(_ctx, _cache, $props, $setup, $data, $options) {
+const _hoisted_1$11 = ["innerHTML"];
+function _sfc_render$4g(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_static_content_wrapper = resolveComponent("static-content-wrapper");
   return openBlock(), createBlock(_component_static_content_wrapper, {
     designer: $props.designer,
@@ -11428,17 +12082,17 @@ function _sfc_render$4e(_ctx, _cache, $props, $setup, $data, $options) {
       createElementVNode("div", {
         ref: "fieldEditor",
         innerHTML: $props.field.options.htmlContent
-      }, null, 8, _hoisted_1$10)
+      }, null, 8, _hoisted_1$11)
     ]),
     _: 1
   }, 8, ["designer", "field", "design-state", "parent-widget", "parent-list", "index-of-parent-list", "sub-form-row-index", "sub-form-col-index", "sub-form-row-id"]);
 }
-const htmlTextWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$4f, [["render", _sfc_render$4e], ["__scopeId", "data-v-625c91c9"]]);
+const htmlTextWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$4h, [["render", _sfc_render$4g], ["__scopeId", "data-v-625c91c9"]]);
 const __vite_glob_0_10$3 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: htmlTextWidget
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$4e = {
+const _sfc_main$4g = {
   name: "input-widget",
   componentName: "FieldWidget",
   //必须固定为FieldWidget，用于接收父级组件的broadcast事件
@@ -11516,8 +12170,8 @@ const _sfc_main$4e = {
   },
   methods: {}
 };
-const _hoisted_1$$ = { class: "readonly-mode-field" };
-function _sfc_render$4d(_ctx, _cache, $props, $setup, $data, $options) {
+const _hoisted_1$10 = { class: "readonly-mode-field" };
+function _sfc_render$4f(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_svg_icon = resolveComponent("svg-icon");
   const _component_a_button = resolveComponent("a-button");
   const _component_a_input = resolveComponent("a-input");
@@ -11584,7 +12238,7 @@ function _sfc_render$4d(_ctx, _cache, $props, $setup, $data, $options) {
         overlayStyle: { zIndex: 1e3 }
       }, {
         default: withCtx(() => [
-          createElementVNode("span", _hoisted_1$$, toDisplayString($data.fieldModel), 1)
+          createElementVNode("span", _hoisted_1$10, toDisplayString($data.fieldModel), 1)
         ]),
         _: 1
       }, 8, ["title"])) : createCommentVNode("", true)
@@ -11592,12 +12246,12 @@ function _sfc_render$4d(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["designer", "field", "rules", "design-state", "parent-widget", "parent-list", "index-of-parent-list", "sub-form-row-index", "sub-form-col-index", "sub-form-row-id"]);
 }
-const inputWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$4e, [["render", _sfc_render$4d], ["__scopeId", "data-v-369bcc95"]]);
+const inputWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$4g, [["render", _sfc_render$4f], ["__scopeId", "data-v-369bcc95"]]);
 const __vite_glob_0_11$3 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: inputWidget
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$4d = {
+const _sfc_main$4f = {
   name: "number-widget",
   componentName: "FieldWidget",
   //必须固定为FieldWidget，用于接收父级组件的broadcast事件
@@ -11668,8 +12322,8 @@ const _sfc_main$4d = {
   },
   methods: {}
 };
-const _hoisted_1$_ = { class: "readonly-mode-field" };
-function _sfc_render$4c(_ctx, _cache, $props, $setup, $data, $options) {
+const _hoisted_1$$ = { class: "readonly-mode-field" };
+function _sfc_render$4e(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_input_number = resolveComponent("a-input-number");
   const _component_a_tooltip = resolveComponent("a-tooltip");
   const _component_form_item_wrapper = resolveComponent("form-item-wrapper");
@@ -11712,7 +12366,7 @@ function _sfc_render$4c(_ctx, _cache, $props, $setup, $data, $options) {
         overlayStyle: { zIndex: 1e3 }
       }, {
         default: withCtx(() => [
-          createElementVNode("span", _hoisted_1$_, toDisplayString($data.fieldModel), 1)
+          createElementVNode("span", _hoisted_1$$, toDisplayString($data.fieldModel), 1)
         ]),
         _: 1
       }, 8, ["title"])) : createCommentVNode("", true)
@@ -11720,12 +12374,12 @@ function _sfc_render$4c(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["designer", "field", "rules", "design-state", "parent-widget", "parent-list", "index-of-parent-list", "sub-form-row-index", "sub-form-col-index", "sub-form-row-id"]);
 }
-const numberWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$4d, [["render", _sfc_render$4c], ["__scopeId", "data-v-d369e350"]]);
-const __vite_glob_0_12$1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const numberWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$4f, [["render", _sfc_render$4e], ["__scopeId", "data-v-d369e350"]]);
+const __vite_glob_0_12$2 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: numberWidget
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$4c = {
+const _sfc_main$4e = {
   name: "picture-upload-widget",
   componentName: "FieldWidget",
   //必须固定为FieldWidget，用于接收父级组件的broadcast事件
@@ -11940,13 +12594,13 @@ const _sfc_main$4c = {
     }
   }
 };
-const _hoisted_1$Z = {
+const _hoisted_1$_ = {
   key: 0,
   class: "el-upload__tip"
 };
 const _hoisted_2$A = { class: "uploader-icon" };
 const _hoisted_3$q = ["src"];
-function _sfc_render$4b(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$4d(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_svg_icon = resolveComponent("svg-icon");
   const _component_a_upload = resolveComponent("a-upload");
   const _component_a_modal = resolveComponent("a-modal");
@@ -11986,7 +12640,7 @@ function _sfc_render$4b(_ctx, _cache, $props, $setup, $data, $options) {
         "on-remove": $options.handlePictureRemove
       }, {
         tip: withCtx(() => [
-          !!$props.field.options.uploadTip ? (openBlock(), createElementBlock("div", _hoisted_1$Z, toDisplayString($props.field.options.uploadTip), 1)) : createCommentVNode("", true)
+          !!$props.field.options.uploadTip ? (openBlock(), createElementBlock("div", _hoisted_1$_, toDisplayString($props.field.options.uploadTip), 1)) : createCommentVNode("", true)
         ]),
         default: withCtx(() => [
           createElementVNode("div", _hoisted_2$A, [
@@ -12020,12 +12674,12 @@ function _sfc_render$4b(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["designer", "field", "rules", "design-state", "parent-widget", "parent-list", "index-of-parent-list", "sub-form-row-index", "sub-form-col-index", "sub-form-row-id"]);
 }
-const pictureUploadWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$4c, [["render", _sfc_render$4b], ["__scopeId", "data-v-a28d8b63"]]);
-const __vite_glob_0_13$1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const pictureUploadWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$4e, [["render", _sfc_render$4d], ["__scopeId", "data-v-a28d8b63"]]);
+const __vite_glob_0_13$2 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: pictureUploadWidget
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$4b = {
+const _sfc_main$4d = {
   name: "radio-widget",
   componentName: "FieldWidget",
   //必须固定为FieldWidget，用于接收父级组件的broadcast事件
@@ -12098,11 +12752,11 @@ const _sfc_main$4b = {
   },
   methods: {}
 };
-const _hoisted_1$Y = {
+const _hoisted_1$Z = {
   key: 0,
   class: "readonly-mode-field"
 };
-function _sfc_render$4a(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$4c(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_radio_button = resolveComponent("a-radio-button");
   const _component_a_radio = resolveComponent("a-radio");
   const _component_a_radio_group = resolveComponent("a-radio-group");
@@ -12162,17 +12816,17 @@ function _sfc_render$4a(_ctx, _cache, $props, $setup, $data, $options) {
       }, 8, ["value", "size", "disabled", "style", "onChange"]), [
         [vShow, !_ctx.isReadMode]
       ]),
-      _ctx.isReadMode ? (openBlock(), createElementBlock("span", _hoisted_1$Y, toDisplayString(_ctx.optionLabel), 1)) : createCommentVNode("", true)
+      _ctx.isReadMode ? (openBlock(), createElementBlock("span", _hoisted_1$Z, toDisplayString(_ctx.optionLabel), 1)) : createCommentVNode("", true)
     ]),
     _: 1
   }, 8, ["designer", "field", "rules", "design-state", "parent-widget", "parent-list", "index-of-parent-list", "sub-form-row-index", "sub-form-col-index", "sub-form-row-id"]);
 }
-const radioWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$4b, [["render", _sfc_render$4a], ["__scopeId", "data-v-a3e4f5ee"]]);
+const radioWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$4d, [["render", _sfc_render$4c], ["__scopeId", "data-v-a3e4f5ee"]]);
 const __vite_glob_0_14$1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: radioWidget
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$4a = {
+const _sfc_main$4c = {
   name: "rate-widget",
   componentName: "FieldWidget",
   //必须固定为FieldWidget，用于接收父级组件的broadcast事件
@@ -12232,7 +12886,7 @@ const _sfc_main$4a = {
   },
   methods: {}
 };
-function _sfc_render$49(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$4b(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_rate = resolveComponent("a-rate");
   const _component_form_item_wrapper = resolveComponent("form-item-wrapper");
   return openBlock(), createBlock(_component_form_item_wrapper, {
@@ -12262,7 +12916,7 @@ function _sfc_render$49(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["designer", "field", "rules", "design-state", "parent-widget", "parent-list", "index-of-parent-list", "sub-form-row-index", "sub-form-col-index", "sub-form-row-id"]);
 }
-const rateWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$4a, [["render", _sfc_render$49], ["__scopeId", "data-v-4b0abebd"]]);
+const rateWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$4c, [["render", _sfc_render$4b], ["__scopeId", "data-v-4b0abebd"]]);
 const __vite_glob_0_15$1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: rateWidget
@@ -23920,7 +24574,7 @@ const defaultOptions = {
   placeholder: "Insert content here ...",
   readOnly: false
 };
-const _sfc_main$49 = {
+const _sfc_main$4b = {
   name: "quill-editor",
   props: {
     content: String,
@@ -24033,15 +24687,15 @@ const _sfc_main$49 = {
     return { editor };
   }
 };
-const _hoisted_1$X = { ref: "editor" };
-function _sfc_render$48(_ctx, _cache, $props, $setup, $data, $options) {
-  return openBlock(), createElementBlock("section", _hoisted_1$X, null, 512);
+const _hoisted_1$Y = { ref: "editor" };
+function _sfc_render$4a(_ctx, _cache, $props, $setup, $data, $options) {
+  return openBlock(), createElementBlock("section", _hoisted_1$Y, null, 512);
 }
-const quillEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$49, [["render", _sfc_render$48]]);
+const quillEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$4b, [["render", _sfc_render$4a]]);
 quillEditor.install = function(app) {
   app.component(quillEditor.name, quillEditor);
 };
-const _sfc_main$48 = {
+const _sfc_main$4a = {
   name: "rich-editor-widget",
   componentName: "FieldWidget",
   //必须固定为FieldWidget，用于接收父级组件的broadcast事件
@@ -24129,7 +24783,7 @@ const _sfc_main$48 = {
     }
   }
 };
-function _sfc_render$47(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$49(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_quill_editor = resolveComponent("quill-editor");
   const _component_form_item_wrapper = resolveComponent("form-item-wrapper");
   return openBlock(), createBlock(_component_form_item_wrapper, {
@@ -24164,7 +24818,7 @@ function _sfc_render$47(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["designer", "field", "rules", "design-state", "parent-widget", "parent-list", "index-of-parent-list", "sub-form-row-index", "sub-form-col-index", "sub-form-row-id"]);
 }
-const richEditorWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$48, [["render", _sfc_render$47], ["__scopeId", "data-v-e6c3367f"]]);
+const richEditorWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$4a, [["render", _sfc_render$49], ["__scopeId", "data-v-e6c3367f"]]);
 const __vite_glob_0_16$1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: richEditorWidget
@@ -24172,9 +24826,10 @@ const __vite_glob_0_16$1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.
 const useSelectMixin = {
   data() {
     return {
+      keyword: "",
       pager: {
         page: 1,
-        pageSize: 20,
+        pageSize: 5,
         totalPage: 0,
         total: 0
       }
@@ -24216,11 +24871,9 @@ const useSelectMixin = {
       if (!!this.designState) {
         return;
       }
-      if (!!this.field.options.onRemoteQuery) {
-        this.initPager();
-        const remoteFn = new Function("keyword", this.field.options.onRemoteQuery);
-        remoteFn.call(this, keyword);
-      }
+      this.initPager();
+      this.keyword = keyword;
+      this.initOptionItems(true);
     },
     onPopupScroll(e) {
       if (!this.field.options.loadingPage)
@@ -24242,7 +24895,7 @@ const useSelectMixin = {
     }, 500)
   }
 };
-const _sfc_main$47 = {
+const _sfc_main$49 = {
   name: "select-widget",
   componentName: "FieldWidget",
   //必须固定为FieldWidget，用于接收父级组件的broadcast事件
@@ -24317,6 +24970,7 @@ const _sfc_main$47 = {
   },
   created() {
     this.registerToRefList();
+    this.clearOptionItems();
     this.initOptionItems();
     this.initFieldModel();
     this.initEventHandler();
@@ -24350,9 +25004,9 @@ const _sfc_main$47 = {
     // }
   }
 };
-const _hoisted_1$W = { class: "design-select-box" };
+const _hoisted_1$X = { class: "design-select-box" };
 const _hoisted_2$z = { class: "readonly-mode-field" };
-function _sfc_render$46(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$48(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_select = resolveComponent("a-select");
   const _component_svg_icon = resolveComponent("svg-icon");
   const _component_a_tooltip = resolveComponent("a-tooltip");
@@ -24370,7 +25024,7 @@ function _sfc_render$46(_ctx, _cache, $props, $setup, $data, $options) {
     "sub-form-row-id": $props.subFormRowId
   }, {
     default: withCtx(() => [
-      withDirectives(createElementVNode("div", _hoisted_1$W, [
+      withDirectives(createElementVNode("div", _hoisted_1$X, [
         withDirectives(createVNode(_component_a_select, mergeProps({
           ref: "fieldEditor",
           value: $data.fieldModel,
@@ -24416,12 +25070,12 @@ function _sfc_render$46(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["designer", "field", "rules", "design-state", "parent-widget", "parent-list", "index-of-parent-list", "sub-form-row-index", "sub-form-col-index", "sub-form-row-id"]);
 }
-const selectWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$47, [["render", _sfc_render$46], ["__scopeId", "data-v-08f0a275"]]);
+const selectWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$49, [["render", _sfc_render$48], ["__scopeId", "data-v-e64d7d03"]]);
 const __vite_glob_0_17$1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: selectWidget
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$46 = {
+const _sfc_main$48 = {
   name: "slider-widget",
   componentName: "FieldWidget",
   //必须固定为FieldWidget，用于接收父级组件的broadcast事件
@@ -24487,11 +25141,11 @@ const _sfc_main$46 = {
     }
   }
 };
-const _hoisted_1$V = {
+const _hoisted_1$W = {
   key: 0,
   class: "readonly-mode-field"
 };
-function _sfc_render$45(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$47(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_slider = resolveComponent("a-slider");
   const _component_form_item_wrapper = resolveComponent("form-item-wrapper");
   return openBlock(), createBlock(_component_form_item_wrapper, {
@@ -24521,17 +25175,17 @@ function _sfc_render$45(_ctx, _cache, $props, $setup, $data, $options) {
       }, null, 8, ["value", "disabled", "min", "max", "step", "range", "vertical", "onChange"]), [
         [vShow, !_ctx.isReadMode]
       ]),
-      _ctx.isReadMode ? (openBlock(), createElementBlock("span", _hoisted_1$V, toDisplayString($data.fieldModel), 1)) : createCommentVNode("", true)
+      _ctx.isReadMode ? (openBlock(), createElementBlock("span", _hoisted_1$W, toDisplayString($data.fieldModel), 1)) : createCommentVNode("", true)
     ]),
     _: 1
   }, 8, ["designer", "field", "rules", "design-state", "parent-widget", "parent-list", "index-of-parent-list", "sub-form-row-index", "sub-form-col-index", "sub-form-row-id"]);
 }
-const sliderWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$46, [["render", _sfc_render$45], ["__scopeId", "data-v-8166af68"]]);
+const sliderWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$48, [["render", _sfc_render$47], ["__scopeId", "data-v-8166af68"]]);
 const __vite_glob_0_18$1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: sliderWidget
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$45 = {
+const _sfc_main$47 = {
   name: "slot-widget",
   componentName: "FieldWidget",
   //必须固定为FieldWidget，用于接收父级组件的broadcast事件
@@ -24581,11 +25235,11 @@ const _sfc_main$45 = {
   },
   methods: {}
 };
-const _hoisted_1$U = {
+const _hoisted_1$V = {
   key: 0,
   class: "slot-title"
 };
-function _sfc_render$44(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$46(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_static_content_wrapper = resolveComponent("static-content-wrapper");
   return openBlock(), createBlock(_component_static_content_wrapper, {
     designer: $props.designer,
@@ -24603,18 +25257,18 @@ function _sfc_render$44(_ctx, _cache, $props, $setup, $data, $options) {
         class: normalizeClass([!!$props.designState ? "slot-wrapper-design" : "slot-wrapper-render"])
       }, [
         renderSlot(_ctx.$slots, $props.field.options.name, { formModel: _ctx.formModel }, void 0, true),
-        !!$props.designState ? (openBlock(), createElementBlock("div", _hoisted_1$U, toDisplayString($props.field.options.label), 1)) : createCommentVNode("", true)
+        !!$props.designState ? (openBlock(), createElementBlock("div", _hoisted_1$V, toDisplayString($props.field.options.label), 1)) : createCommentVNode("", true)
       ], 2)
     ]),
     _: 3
   }, 8, ["designer", "field", "design-state", "parent-widget", "parent-list", "index-of-parent-list", "sub-form-row-index", "sub-form-col-index", "sub-form-row-id"]);
 }
-const slotWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$45, [["render", _sfc_render$44], ["__scopeId", "data-v-4d60db4d"]]);
+const slotWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$47, [["render", _sfc_render$46], ["__scopeId", "data-v-4d60db4d"]]);
 const __vite_glob_0_19$1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: slotWidget
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$44 = {
+const _sfc_main$46 = {
   name: "static-text-widget",
   componentName: "FieldWidget",
   //必须固定为FieldWidget，用于接收父级组件的broadcast事件
@@ -24664,7 +25318,7 @@ const _sfc_main$44 = {
   },
   methods: {}
 };
-function _sfc_render$43(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$45(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_static_content_wrapper = resolveComponent("static-content-wrapper");
   return openBlock(), createBlock(_component_static_content_wrapper, {
     designer: $props.designer,
@@ -24683,12 +25337,12 @@ function _sfc_render$43(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["designer", "field", "design-state", "parent-widget", "parent-list", "index-of-parent-list", "sub-form-row-index", "sub-form-col-index", "sub-form-row-id"]);
 }
-const staticTextWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$44, [["render", _sfc_render$43], ["__scopeId", "data-v-11d19d63"]]);
+const staticTextWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$46, [["render", _sfc_render$45], ["__scopeId", "data-v-11d19d63"]]);
 const __vite_glob_0_21$1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: staticTextWidget
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$43 = {
+const _sfc_main$45 = {
   name: "switch-widget",
   componentName: "FieldWidget",
   //必须固定为FieldWidget，用于接收父级组件的broadcast事件
@@ -24755,11 +25409,11 @@ const _sfc_main$43 = {
   },
   methods: {}
 };
-const _hoisted_1$T = {
+const _hoisted_1$U = {
   key: 0,
   class: "readonly-mode-field"
 };
-function _sfc_render$42(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$44(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_switch = resolveComponent("a-switch");
   const _component_form_item_wrapper = resolveComponent("form-item-wrapper");
   return openBlock(), createBlock(_component_form_item_wrapper, {
@@ -24786,17 +25440,17 @@ function _sfc_render$42(_ctx, _cache, $props, $setup, $data, $options) {
         onChange: _ctx.handleChangeEvent,
         style: normalizeStyle({ width: $props.field.options.switchWidth + "px" })
       }, null, 8, ["checked", "class", "disabled", "checkedValue", "unCheckedValue", "onChange", "style"]),
-      _ctx.isReadMode ? (openBlock(), createElementBlock("span", _hoisted_1$T, toDisplayString($options.contentForReadMode), 1)) : createCommentVNode("", true)
+      _ctx.isReadMode ? (openBlock(), createElementBlock("span", _hoisted_1$U, toDisplayString($options.contentForReadMode), 1)) : createCommentVNode("", true)
     ]),
     _: 1
   }, 8, ["designer", "field", "rules", "design-state", "parent-widget", "parent-list", "index-of-parent-list", "sub-form-row-index", "sub-form-col-index", "sub-form-row-id"]);
 }
-const switchWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$43, [["render", _sfc_render$42], ["__scopeId", "data-v-03f748da"]]);
+const switchWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$45, [["render", _sfc_render$44], ["__scopeId", "data-v-03f748da"]]);
 const __vite_glob_0_22$1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: switchWidget
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$42 = {
+const _sfc_main$44 = {
   name: "textarea-widget",
   componentName: "FieldWidget",
   //必须固定为FieldWidget，用于接收父级组件的broadcast事件
@@ -24867,8 +25521,8 @@ const _sfc_main$42 = {
   },
   methods: {}
 };
-const _hoisted_1$S = ["innerHTML"];
-function _sfc_render$41(_ctx, _cache, $props, $setup, $data, $options) {
+const _hoisted_1$T = ["innerHTML"];
+function _sfc_render$43(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_textarea = resolveComponent("a-textarea");
   const _component_a_tooltip = resolveComponent("a-tooltip");
   const _component_form_item_wrapper = resolveComponent("form-item-wrapper");
@@ -24916,7 +25570,7 @@ function _sfc_render$41(_ctx, _cache, $props, $setup, $data, $options) {
           createElementVNode("div", {
             innerHTML: $data.fieldModel,
             class: "readonly-mode-field"
-          }, null, 8, _hoisted_1$S)
+          }, null, 8, _hoisted_1$T)
         ]),
         _: 1
       }, 8, ["title"])) : createCommentVNode("", true)
@@ -24924,12 +25578,12 @@ function _sfc_render$41(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["designer", "field", "rules", "design-state", "parent-widget", "parent-list", "index-of-parent-list", "sub-form-row-index", "sub-form-col-index", "sub-form-row-id"]);
 }
-const textareaWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$42, [["render", _sfc_render$41], ["__scopeId", "data-v-176f7777"]]);
+const textareaWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$44, [["render", _sfc_render$43], ["__scopeId", "data-v-176f7777"]]);
 const __vite_glob_0_23$1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: textareaWidget
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$41 = {
+const _sfc_main$43 = {
   name: "time-range-widget",
   componentName: "FieldWidget",
   //必须固定为FieldWidget，用于接收父级组件的broadcast事件
@@ -25007,11 +25661,11 @@ const _sfc_main$41 = {
   },
   methods: {}
 };
-const _hoisted_1$R = {
+const _hoisted_1$S = {
   key: 0,
   class: "readonly-mode-field"
 };
-function _sfc_render$40(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$42(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_time_range_picker = resolveComponent("a-time-range-picker");
   const _component_form_item_wrapper = resolveComponent("form-item-wrapper");
   return openBlock(), createBlock(_component_form_item_wrapper, {
@@ -25053,18 +25707,18 @@ function _sfc_render$40(_ctx, _cache, $props, $setup, $data, $options) {
           onBlur: _ctx.handleBlurCustomEvent,
           onChange: _ctx.handleChangeEvent
         }, null, 8, ["size", "value", "class", "disabled", "readonly", "inputReadOnly", "allowClear", "format", "placeholder", "onFocus", "onBlur", "onChange"]),
-        _ctx.isReadMode ? (openBlock(), createElementBlock("span", _hoisted_1$R, toDisplayString($options.contentForReadMode), 1)) : createCommentVNode("", true)
+        _ctx.isReadMode ? (openBlock(), createElementBlock("span", _hoisted_1$S, toDisplayString($options.contentForReadMode), 1)) : createCommentVNode("", true)
       ], 2)
     ]),
     _: 1
   }, 8, ["designer", "field", "rules", "design-state", "parent-widget", "parent-list", "index-of-parent-list", "sub-form-row-index", "sub-form-col-index", "sub-form-row-id"]);
 }
-const timeRangeWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$41, [["render", _sfc_render$40], ["__scopeId", "data-v-c3e907db"]]);
+const timeRangeWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$43, [["render", _sfc_render$42], ["__scopeId", "data-v-c3e907db"]]);
 const __vite_glob_0_24$1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: timeRangeWidget
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$40 = {
+const _sfc_main$42 = {
   name: "time-widget",
   componentName: "FieldWidget",
   //必须固定为FieldWidget，用于接收父级组件的broadcast事件
@@ -25135,11 +25789,11 @@ const _sfc_main$40 = {
   },
   methods: {}
 };
-const _hoisted_1$Q = {
+const _hoisted_1$R = {
   key: 0,
   class: "readonly-mode-field"
 };
-function _sfc_render$3$(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$41(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_time_picker = resolveComponent("a-time-picker");
   const _component_form_item_wrapper = resolveComponent("form-item-wrapper");
   return openBlock(), createBlock(_component_form_item_wrapper, {
@@ -25177,18 +25831,18 @@ function _sfc_render$3$(_ctx, _cache, $props, $setup, $data, $options) {
           onBlur: _ctx.handleBlurCustomEvent,
           onChange: _ctx.handleChangeEvent
         }, null, 8, ["size", "value", "disabled", "inputReadOnly", "readonly", "allowClear", "format", "placeholder", "onFocus", "onBlur", "onChange"]),
-        _ctx.isReadMode ? (openBlock(), createElementBlock("span", _hoisted_1$Q, toDisplayString($data.fieldModel), 1)) : createCommentVNode("", true)
+        _ctx.isReadMode ? (openBlock(), createElementBlock("span", _hoisted_1$R, toDisplayString($data.fieldModel), 1)) : createCommentVNode("", true)
       ], 2)
     ]),
     _: 1
   }, 8, ["designer", "field", "rules", "design-state", "parent-widget", "parent-list", "index-of-parent-list", "sub-form-row-index", "sub-form-col-index", "sub-form-row-id"]);
 }
-const timeWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$40, [["render", _sfc_render$3$], ["__scopeId", "data-v-6943e235"]]);
+const timeWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$42, [["render", _sfc_render$41], ["__scopeId", "data-v-6943e235"]]);
 const __vite_glob_0_25$1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: timeWidget
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$3$ = {
+const _sfc_main$41 = {
   name: "treeSelect-widget",
   componentName: "FieldWidget",
   //必须固定为FieldWidget，用于接收父级组件的broadcast事件
@@ -25286,8 +25940,8 @@ const _sfc_main$3$ = {
     }
   }
 };
-const _hoisted_1$P = { class: "readonly-mode-field" };
-function _sfc_render$3_(_ctx, _cache, $props, $setup, $data, $options) {
+const _hoisted_1$Q = { class: "readonly-mode-field" };
+function _sfc_render$40(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_tree_select = resolveComponent("a-tree-select");
   const _component_a_tooltip = resolveComponent("a-tooltip");
   const _component_form_item_wrapper = resolveComponent("form-item-wrapper");
@@ -25332,7 +25986,7 @@ function _sfc_render$3_(_ctx, _cache, $props, $setup, $data, $options) {
           overlayStyle: { zIndex: 1e3 }
         }, {
           default: withCtx(() => [
-            createElementVNode("span", _hoisted_1$P, toDisplayString($options.contentForReadMode), 1)
+            createElementVNode("span", _hoisted_1$Q, toDisplayString($options.contentForReadMode), 1)
           ]),
           _: 1
         }, 8, ["title"])) : createCommentVNode("", true)
@@ -25341,13 +25995,13 @@ function _sfc_render$3_(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["designer", "field", "rules", "design-state", "parent-widget", "parent-list", "index-of-parent-list", "sub-form-row-index", "sub-form-col-index", "sub-form-row-id"]);
 }
-const treeSelectWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$3$, [["render", _sfc_render$3_], ["__scopeId", "data-v-132b6a1f"]]);
+const treeSelectWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$41, [["render", _sfc_render$40], ["__scopeId", "data-v-132b6a1f"]]);
 const __vite_glob_0_26$1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: treeSelectWidget
 }, Symbol.toStringTag, { value: "Module" }));
 const comps$1 = {};
-const modules$3 = /* @__PURE__ */ Object.assign({ "./button-widget.vue": __vite_glob_0_0$2, "./cascader-widget.vue": __vite_glob_0_1$3, "./checkbox-widget.vue": __vite_glob_0_2$3, "./color-widget.vue": __vite_glob_0_3$3, "./date-range-widget.vue": __vite_glob_0_4$3, "./date-widget.vue": __vite_glob_0_5$3, "./divider-widget.vue": __vite_glob_0_6$3, "./dropdown-widget.vue": __vite_glob_0_7$3, "./file-upload-widget.vue": __vite_glob_0_8$3, "./form-item-wrapper.vue": __vite_glob_0_9$3, "./html-text-widget.vue": __vite_glob_0_10$3, "./input-widget.vue": __vite_glob_0_11$3, "./number-widget.vue": __vite_glob_0_12$1, "./picture-upload-widget.vue": __vite_glob_0_13$1, "./radio-widget.vue": __vite_glob_0_14$1, "./rate-widget.vue": __vite_glob_0_15$1, "./rich-editor-widget.vue": __vite_glob_0_16$1, "./select-widget.vue": __vite_glob_0_17$1, "./slider-widget.vue": __vite_glob_0_18$1, "./slot-widget.vue": __vite_glob_0_19$1, "./static-content-wrapper.vue": __vite_glob_0_20$1, "./static-text-widget.vue": __vite_glob_0_21$1, "./switch-widget.vue": __vite_glob_0_22$1, "./textarea-widget.vue": __vite_glob_0_23$1, "./time-range-widget.vue": __vite_glob_0_24$1, "./time-widget.vue": __vite_glob_0_25$1, "./treeSelect-widget.vue": __vite_glob_0_26$1 });
+const modules$3 = /* @__PURE__ */ Object.assign({ "./button-widget.vue": __vite_glob_0_0$2, "./cascader-widget.vue": __vite_glob_0_1$3, "./checkbox-widget.vue": __vite_glob_0_2$3, "./color-widget.vue": __vite_glob_0_3$3, "./date-range-widget.vue": __vite_glob_0_4$3, "./date-widget.vue": __vite_glob_0_5$3, "./divider-widget.vue": __vite_glob_0_6$3, "./dropdown-widget.vue": __vite_glob_0_7$3, "./file-upload-widget.vue": __vite_glob_0_8$3, "./form-item-wrapper.vue": __vite_glob_0_9$3, "./html-text-widget.vue": __vite_glob_0_10$3, "./input-widget.vue": __vite_glob_0_11$3, "./number-widget.vue": __vite_glob_0_12$2, "./picture-upload-widget.vue": __vite_glob_0_13$2, "./radio-widget.vue": __vite_glob_0_14$1, "./rate-widget.vue": __vite_glob_0_15$1, "./rich-editor-widget.vue": __vite_glob_0_16$1, "./select-widget.vue": __vite_glob_0_17$1, "./slider-widget.vue": __vite_glob_0_18$1, "./slot-widget.vue": __vite_glob_0_19$1, "./static-content-wrapper.vue": __vite_glob_0_20$1, "./static-text-widget.vue": __vite_glob_0_21$1, "./switch-widget.vue": __vite_glob_0_22$1, "./textarea-widget.vue": __vite_glob_0_23$1, "./time-range-widget.vue": __vite_glob_0_24$1, "./time-widget.vue": __vite_glob_0_25$1, "./treeSelect-widget.vue": __vite_glob_0_26$1 });
 for (const path in modules$3) {
   const cname = modules$3[path].default.name;
   comps$1[cname] = modules$3[path].default;
@@ -25902,7 +26556,7 @@ const useDataTableMixin = {
     }
   }
 };
-const _sfc_main$3_ = {
+const _sfc_main$40 = {
   name: "DataTableItem",
   componentName: "ContainerItem",
   // 必须固定为ContainerItem，用于接收父级组件的broadcast事件
@@ -26005,7 +26659,7 @@ const _sfc_main$3_ = {
     // --------------------- 以上为组件支持外部调用的API方法 end ------------------//
   }
 };
-function _sfc_render$3Z(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$3$(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_empty = resolveComponent("a-empty");
   const _component_a_table_column = resolveComponent("a-table-column");
   const _component_a_button = resolveComponent("a-button");
@@ -26090,12 +26744,12 @@ function _sfc_render$3Z(_ctx, _cache, $props, $setup, $data, $options) {
     [vShow, !$props.widget.options.hidden]
   ]);
 }
-const dataTableItem = /* @__PURE__ */ _export_sfc$1(_sfc_main$3_, [["render", _sfc_render$3Z], ["__scopeId", "data-v-d11195c3"]]);
+const dataTableItem = /* @__PURE__ */ _export_sfc$1(_sfc_main$40, [["render", _sfc_render$3$], ["__scopeId", "data-v-d11195c3"]]);
 const __vite_glob_0_1$2 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: dataTableItem
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$3Z = {
+const _sfc_main$3$ = {
   name: "GridColItem",
   componentName: "ContainerItem",
   mixins: [emitter, i18n$1, refMixin],
@@ -26190,9 +26844,9 @@ const _sfc_main$3Z = {
     }
   }
 };
-const _hoisted_1$O = { class: "blank-cell" };
+const _hoisted_1$P = { class: "blank-cell" };
 const _hoisted_2$y = { class: "invisible-content" };
-function _sfc_render$3Y(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$3_(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_col = resolveComponent("a-col");
   return withDirectives((openBlock(), createBlock(_component_a_col, mergeProps({
     class: ["grid-cell", [$options.customClass]]
@@ -26244,7 +26898,7 @@ function _sfc_render$3Y(_ctx, _cache, $props, $setup, $data, $options) {
         ], 64);
       }), 256)) : (openBlock(), createBlock(_component_a_col, { key: 1 }, {
         default: withCtx(() => [
-          createElementVNode("div", _hoisted_1$O, [
+          createElementVNode("div", _hoisted_1$P, [
             createElementVNode("span", _hoisted_2$y, toDisplayString(_ctx.i18nt("render.hint.blankCellContent")), 1)
           ])
         ]),
@@ -26256,12 +26910,12 @@ function _sfc_render$3Y(_ctx, _cache, $props, $setup, $data, $options) {
     [vShow, !$options.isHidden && !$props.widget.options.hidden]
   ]);
 }
-const GridColItem = /* @__PURE__ */ _export_sfc$1(_sfc_main$3Z, [["render", _sfc_render$3Y], ["__scopeId", "data-v-fce0759c"]]);
+const GridColItem = /* @__PURE__ */ _export_sfc$1(_sfc_main$3$, [["render", _sfc_render$3_], ["__scopeId", "data-v-fce0759c"]]);
 const __vite_glob_0_2$2 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: GridColItem
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$3Y = {
+const _sfc_main$3_ = {
   name: "vf-grid-item",
   //grid-item跟VueGridLayout全局注册组件重名，故特殊处理！！
   componentName: "ContainerItem",
@@ -26299,7 +26953,7 @@ const _sfc_main$3Y = {
   },
   methods: {}
 };
-function _sfc_render$3X(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$3Z(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_grid_col_item = resolveComponent("grid-col-item");
   const _component_a_row = resolveComponent("a-row");
   const _component_container_item_wrapper = resolveComponent("container-item-wrapper");
@@ -26343,12 +26997,12 @@ function _sfc_render$3X(_ctx, _cache, $props, $setup, $data, $options) {
     _: 3
   }, 8, ["widget"]);
 }
-const gridItem = /* @__PURE__ */ _export_sfc$1(_sfc_main$3Y, [["render", _sfc_render$3X]]);
+const gridItem = /* @__PURE__ */ _export_sfc$1(_sfc_main$3_, [["render", _sfc_render$3Z]]);
 const __vite_glob_0_3$2 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: gridItem
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$3X = {
+const _sfc_main$3Z = {
   name: "grid-sub-form-item",
   componentName: "ContainerItem",
   mixins: [emitter, i18n$1, refMixin, containerItemMixin],
@@ -26619,10 +27273,10 @@ const _sfc_main$3X = {
     }
   }
 };
-const _withScopeId$5 = (n) => (pushScopeId("data-v-50d62ca2"), n = n(), popScopeId(), n);
-const _hoisted_1$N = { class: "action-header-column" };
+const _withScopeId$4 = (n) => (pushScopeId("data-v-50d62ca2"), n = n(), popScopeId(), n);
+const _hoisted_1$O = { class: "action-header-column" };
 const _hoisted_2$x = { class: "action-label" };
-const _hoisted_3$p = /* @__PURE__ */ _withScopeId$5(() => /* @__PURE__ */ createElementVNode("i", { class: "el-icon-plus el-icon-right" }, null, -1));
+const _hoisted_3$p = /* @__PURE__ */ _withScopeId$4(() => /* @__PURE__ */ createElementVNode("i", { class: "el-icon-plus el-icon-right" }, null, -1));
 const _hoisted_4$f = {
   key: 0,
   class: "sub-form-action-column hide-label"
@@ -26646,7 +27300,7 @@ const _hoisted_10$4 = {
   class: "sub-form-action-column hide-label"
 };
 const _hoisted_11$3 = { class: "action-button-column" };
-function _sfc_render$3W(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$3Y(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_button = resolveComponent("a-button");
   const _component_a_row = resolveComponent("a-row");
   const _component_container_item_wrapper = resolveComponent("container-item-wrapper");
@@ -26658,7 +27312,7 @@ function _sfc_render$3W(_ctx, _cache, $props, $setup, $data, $options) {
       }, [
         createVNode(_component_a_row, { class: "header-row" }, {
           default: withCtx(() => [
-            createElementVNode("div", _hoisted_1$N, [
+            createElementVNode("div", _hoisted_1$O, [
               createElementVNode("span", _hoisted_2$x, toDisplayString(_ctx.i18nt("render.hint.subFormAction")), 1),
               !$options.isReadMode ? (openBlock(), createBlock(_component_a_button, {
                 key: 0,
@@ -26760,12 +27414,12 @@ function _sfc_render$3W(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["widget"]);
 }
-const gridSubFormItem = /* @__PURE__ */ _export_sfc$1(_sfc_main$3X, [["render", _sfc_render$3W], ["__scopeId", "data-v-50d62ca2"]]);
+const gridSubFormItem = /* @__PURE__ */ _export_sfc$1(_sfc_main$3Z, [["render", _sfc_render$3Y], ["__scopeId", "data-v-50d62ca2"]]);
 const __vite_glob_0_4$2 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: gridSubFormItem
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$3W = {
+const _sfc_main$3Y = {
   name: "sub-form-item",
   componentName: "ContainerItem",
   mixins: [emitter, i18n$1, refMixin, containerItemMixin],
@@ -27020,7 +27674,7 @@ const _sfc_main$3W = {
     }
   }
 };
-const _hoisted_1$M = {
+const _hoisted_1$N = {
   key: 0,
   class: "action-header-column"
 };
@@ -27061,7 +27715,7 @@ const _hoisted_13 = {
   class: "sub-form-action-column hide-label"
 };
 const _hoisted_14 = { class: "action-button-column" };
-function _sfc_render$3V(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$3X(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_svg_icon = resolveComponent("svg-icon");
   const _component_a_button = resolveComponent("a-button");
   const _component_a_tooltip = resolveComponent("a-tooltip");
@@ -27075,7 +27729,7 @@ function _sfc_render$3V(_ctx, _cache, $props, $setup, $data, $options) {
       }, [
         createVNode(_component_a_row, { class: "header-row" }, {
           default: withCtx(() => [
-            $options.leftActionColumn ? (openBlock(), createElementBlock("div", _hoisted_1$M, [
+            $options.leftActionColumn ? (openBlock(), createElementBlock("div", _hoisted_1$N, [
               createElementVNode("span", _hoisted_2$w, toDisplayString(_ctx.i18nt("render.hint.subFormAction")), 1),
               !$options.isReadMode ? (openBlock(), createBlock(_component_a_button, {
                 key: 0,
@@ -27280,12 +27934,12 @@ function _sfc_render$3V(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["widget"]);
 }
-const subFormItem = /* @__PURE__ */ _export_sfc$1(_sfc_main$3W, [["render", _sfc_render$3V], ["__scopeId", "data-v-43c56bd4"]]);
+const subFormItem = /* @__PURE__ */ _export_sfc$1(_sfc_main$3Y, [["render", _sfc_render$3X], ["__scopeId", "data-v-43c56bd4"]]);
 const __vite_glob_0_5$2 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: subFormItem
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$3V = {
+const _sfc_main$3X = {
   name: "tab-item",
   componentName: "ContainerItem",
   mixins: [emitter, i18n$1, refMixin, containerItemMixin],
@@ -27358,7 +28012,7 @@ const _sfc_main$3V = {
     }
   }
 };
-function _sfc_render$3U(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$3W(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_tab_pane = resolveComponent("a-tab-pane");
   const _component_a_tabs = resolveComponent("a-tabs");
   const _component_container_item_wrapper = resolveComponent("container-item-wrapper");
@@ -27439,12 +28093,12 @@ function _sfc_render$3U(_ctx, _cache, $props, $setup, $data, $options) {
     _: 3
   }, 8, ["widget"]);
 }
-const tabItem = /* @__PURE__ */ _export_sfc$1(_sfc_main$3V, [["render", _sfc_render$3U]]);
+const tabItem = /* @__PURE__ */ _export_sfc$1(_sfc_main$3X, [["render", _sfc_render$3W]]);
 const __vite_glob_0_6$2 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: tabItem
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$3U = {
+const _sfc_main$3W = {
   name: "TableCellItem",
   componentName: "ContainerItem",
   mixins: [emitter, i18n$1, refMixin],
@@ -27481,8 +28135,8 @@ const _sfc_main$3U = {
   },
   methods: {}
 };
-const _hoisted_1$L = ["colspan", "rowspan"];
-function _sfc_render$3T(_ctx, _cache, $props, $setup, $data, $options) {
+const _hoisted_1$M = ["colspan", "rowspan"];
+function _sfc_render$3V(_ctx, _cache, $props, $setup, $data, $options) {
   return openBlock(), createElementBlock("td", {
     class: normalizeClass(["table-cell", [$options.customClass]]),
     colspan: $props.widget.options.colspan || 1,
@@ -27533,14 +28187,14 @@ function _sfc_render$3T(_ctx, _cache, $props, $setup, $data, $options) {
         ]), 1032, ["field", "parent-list", "index-of-parent-list", "parent-widget", "sub-form-row-id", "sub-form-row-index", "sub-form-col-index"]))
       ], 64);
     }), 256))
-  ], 14, _hoisted_1$L);
+  ], 14, _hoisted_1$M);
 }
-const TableCellItem = /* @__PURE__ */ _export_sfc$1(_sfc_main$3U, [["render", _sfc_render$3T], ["__scopeId", "data-v-ae7f3b63"]]);
+const TableCellItem = /* @__PURE__ */ _export_sfc$1(_sfc_main$3W, [["render", _sfc_render$3V], ["__scopeId", "data-v-ae7f3b63"]]);
 const __vite_glob_0_7$2 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: TableCellItem
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$3T = {
+const _sfc_main$3V = {
   name: "table-item",
   componentName: "ContainerItem",
   mixins: [emitter, i18n$1, refMixin, containerItemMixin],
@@ -27577,7 +28231,7 @@ const _sfc_main$3T = {
   },
   methods: {}
 };
-function _sfc_render$3S(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$3U(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_table_cell_item = resolveComponent("table-cell-item");
   const _component_container_item_wrapper = resolveComponent("container-item-wrapper");
   return openBlock(), createBlock(_component_container_item_wrapper, { widget: $props.widget }, {
@@ -27630,16 +28284,16 @@ function _sfc_render$3S(_ctx, _cache, $props, $setup, $data, $options) {
     _: 3
   }, 8, ["widget"]);
 }
-const tableItem = /* @__PURE__ */ _export_sfc$1(_sfc_main$3T, [["render", _sfc_render$3S], ["__scopeId", "data-v-48955c34"]]);
+const tableItem = /* @__PURE__ */ _export_sfc$1(_sfc_main$3V, [["render", _sfc_render$3U], ["__scopeId", "data-v-48955c34"]]);
 const __vite_glob_0_8$2 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: tableItem
 }, Symbol.toStringTag, { value: "Module" }));
 const http = getHttp() || http$1;
-const _hoisted_1$K = {
+const _hoisted_1$L = {
   class: "tpf-collapse-title"
 };
-const _sfc_main$3S = /* @__PURE__ */ defineComponent({
+const _sfc_main$3U = /* @__PURE__ */ defineComponent({
   __name: "TpfCollapseTitle",
   props: {
     title: {
@@ -27648,12 +28302,12 @@ const _sfc_main$3S = /* @__PURE__ */ defineComponent({
   },
   setup(__props) {
     return (_ctx, _cache) => {
-      return openBlock(), createElementBlock("div", _hoisted_1$K, toDisplayString(_ctx.title), 1);
+      return openBlock(), createElementBlock("div", _hoisted_1$L, toDisplayString(_ctx.title), 1);
     };
   }
 });
-const TpfCollapseTitle = /* @__PURE__ */ _export_sfc$1(_sfc_main$3S, [["__scopeId", "data-v-07185a23"]]);
-const _sfc_main$3R = {
+const TpfCollapseTitle = /* @__PURE__ */ _export_sfc$1(_sfc_main$3U, [["__scopeId", "data-v-07185a23"]]);
+const _sfc_main$3T = {
   name: "VfCollapseItem",
   componentName: "ContainerItem",
   // 必须固定为ContainerItem，用于接收父级组件的broadcast事件
@@ -27768,9 +28422,9 @@ const _sfc_main$3R = {
     }
   }
 };
-const _hoisted_1$J = { class: "tpf-collapse" };
+const _hoisted_1$K = { class: "tpf-collapse" };
 const _hoisted_2$v = { class: "tpf-collapse-header" };
-function _sfc_render$3R(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$3T(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_TpfCollapseTitle = resolveComponent("TpfCollapseTitle");
   const _component_SvgIcon = resolveComponent("SvgIcon");
   const _component_a_space = resolveComponent("a-space");
@@ -27778,7 +28432,7 @@ function _sfc_render$3R(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_container_item_wrapper = resolveComponent("container-item-wrapper");
   return withDirectives((openBlock(), createBlock(_component_container_item_wrapper, { widget: $props.widget }, {
     default: withCtx(() => [
-      createElementVNode("div", _hoisted_1$J, [
+      createElementVNode("div", _hoisted_1$K, [
         createElementVNode("div", _hoisted_2$v, [
           createVNode(_component_a_space, { size: 5 }, {
             default: withCtx(() => [
@@ -27915,29 +28569,29 @@ function _sfc_render$3R(_ctx, _cache, $props, $setup, $data, $options) {
     [vShow, !$props.widget.options.hidden]
   ]);
 }
-const vfCollapseItem = /* @__PURE__ */ _export_sfc$1(_sfc_main$3R, [["render", _sfc_render$3R], ["__scopeId", "data-v-029bbeb8"]]);
+const vfCollapseItem = /* @__PURE__ */ _export_sfc$1(_sfc_main$3T, [["render", _sfc_render$3T], ["__scopeId", "data-v-029bbeb8"]]);
 const __vite_glob_0_9$2 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: vfCollapseItem
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$3Q = {
+const _sfc_main$3S = {
   name: "vf-dialog-item"
 };
-function _sfc_render$3Q(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$3S(_ctx, _cache, $props, $setup, $data, $options) {
   return createCommentVNode("", true);
 }
-const vfDialogItem = /* @__PURE__ */ _export_sfc$1(_sfc_main$3Q, [["render", _sfc_render$3Q]]);
+const vfDialogItem = /* @__PURE__ */ _export_sfc$1(_sfc_main$3S, [["render", _sfc_render$3S]]);
 const __vite_glob_0_10$2 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: vfDialogItem
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$3P = {
+const _sfc_main$3R = {
   name: "vf-drawer-item"
 };
-function _sfc_render$3P(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$3R(_ctx, _cache, $props, $setup, $data, $options) {
   return createCommentVNode("", true);
 }
-const vfDrawerItem = /* @__PURE__ */ _export_sfc$1(_sfc_main$3P, [["render", _sfc_render$3P]]);
+const vfDrawerItem = /* @__PURE__ */ _export_sfc$1(_sfc_main$3R, [["render", _sfc_render$3R]]);
 const __vite_glob_0_11$2 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: vfDrawerItem
@@ -27951,7 +28605,7 @@ const ContainerItems = {
     }
   }
 };
-const _sfc_main$3O = {
+const _sfc_main$3Q = {
   name: "dynamic-dialog",
   mixins: [i18n$1],
   props: {
@@ -28111,9 +28765,9 @@ const _sfc_main$3O = {
     }
   }
 };
-const _hoisted_1$I = /* @__PURE__ */ createElementVNode("div", { class: "footer-left" }, null, -1);
+const _hoisted_1$J = /* @__PURE__ */ createElementVNode("div", { class: "footer-left" }, null, -1);
 const _hoisted_2$u = { class: "footer-right" };
-function _sfc_render$3O(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$3Q(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_VFormRender = resolveComponent("VFormRender");
   const _component_a_button = resolveComponent("a-button");
   const _component_a_modal = resolveComponent("a-modal");
@@ -28138,7 +28792,7 @@ function _sfc_render$3O(_ctx, _cache, $props, $setup, $data, $options) {
     onCancel: $options.handleCloseEvent
   }, $options.otherAttrs), {
     footer: withCtx(() => [
-      _hoisted_1$I,
+      _hoisted_1$J,
       createElementVNode("div", _hoisted_2$u, [
         !$props.options.cancelButtonHidden ? (openBlock(), createBlock(_component_a_button, {
           key: 0,
@@ -28176,8 +28830,8 @@ function _sfc_render$3O(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 16, ["transitionName", "maskTransitionName", "title", "bodyStyle", "visible", "width", "mask", "maskClosable", "keyboard", "onCancel"]);
 }
-const DynamicDialog = /* @__PURE__ */ _export_sfc$1(_sfc_main$3O, [["render", _sfc_render$3O]]);
-const _sfc_main$3N = {
+const DynamicDialog = /* @__PURE__ */ _export_sfc$1(_sfc_main$3Q, [["render", _sfc_render$3Q]]);
+const _sfc_main$3P = {
   name: "dynamic-drawer",
   mixins: [i18n$1],
   props: {
@@ -28316,8 +28970,8 @@ const _sfc_main$3N = {
     }
   }
 };
-const _hoisted_1$H = { style: { "float": "right" } };
-function _sfc_render$3N(_ctx, _cache, $props, $setup, $data, $options) {
+const _hoisted_1$I = { style: { "float": "right" } };
+function _sfc_render$3P(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_VFormRender = resolveComponent("VFormRender");
   const _component_a_button = resolveComponent("a-button");
   const _component_a_drawer = resolveComponent("a-drawer");
@@ -28340,7 +28994,7 @@ function _sfc_render$3N(_ctx, _cache, $props, $setup, $data, $options) {
     onOpened: $options.handleOpenedEvent
   }, {
     footer: withCtx(() => [
-      createElementVNode("div", _hoisted_1$H, [
+      createElementVNode("div", _hoisted_1$I, [
         !$props.options.cancelButtonHidden ? (openBlock(), createBlock(_component_a_button, {
           key: 0,
           onClick: $options.handleCancelClick
@@ -28377,8 +29031,8 @@ function _sfc_render$3N(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["title", "visible", "size", "modal", "direction", "show-close", "close-on-click-modal", "close-on-press-escape", "before-close", "onClose", "onOpened"]);
 }
-const DynamicDrawer = /* @__PURE__ */ _export_sfc$1(_sfc_main$3N, [["render", _sfc_render$3N], ["__scopeId", "data-v-de083670"]]);
-const _sfc_main$3M = {
+const DynamicDrawer = /* @__PURE__ */ _export_sfc$1(_sfc_main$3P, [["render", _sfc_render$3P], ["__scopeId", "data-v-de083670"]]);
+const _sfc_main$3O = {
   name: "VFormRender",
   componentName: "VFormRender",
   mixins: [emitter, i18n$1],
@@ -29263,7 +29917,7 @@ const _sfc_main$3M = {
     //--------------------- 以上为组件支持外部调用的API方法 end ------------------//
   }
 };
-function _sfc_render$3M(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$3O(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_form = resolveComponent("a-form");
   const _component_a_config_provider = resolveComponent("a-config-provider");
   return openBlock(), createBlock(_component_a_config_provider, {
@@ -29326,7 +29980,7 @@ function _sfc_render$3M(_ctx, _cache, $props, $setup, $data, $options) {
     _: 3
   }, 8, ["component-size"]);
 }
-const VFormRender = /* @__PURE__ */ _export_sfc$1(_sfc_main$3M, [["render", _sfc_render$3M], ["__scopeId", "data-v-14a42bc3"]]);
+const VFormRender = /* @__PURE__ */ _export_sfc$1(_sfc_main$3O, [["render", _sfc_render$3O], ["__scopeId", "data-v-14a42bc3"]]);
 var ace$2 = { exports: {} };
 (function(module, exports) {
   (function() {
@@ -52769,7 +53423,7 @@ var extLanguage_tools = { exports: {} };
 })(extLanguage_tools);
 const VARIANT_FORM_VERSION = "3.1.6";
 const ACE_BASE_PATH = "https://ks3-cn-beijing.ksyun.com/vform2021/ace-mini";
-const _sfc_main$3L = {
+const _sfc_main$3N = {
   name: "CodeEditor",
   props: {
     modelValue: {
@@ -52876,17 +53530,17 @@ const _sfc_main$3L = {
     }
   }
 };
-const _hoisted_1$G = { class: "ace-container" };
+const _hoisted_1$H = { class: "ace-container" };
 const _hoisted_2$t = {
   class: "ace-editor",
   ref: "ace"
 };
-function _sfc_render$3L(_ctx, _cache, $props, $setup, $data, $options) {
-  return openBlock(), createElementBlock("div", _hoisted_1$G, [
+function _sfc_render$3N(_ctx, _cache, $props, $setup, $data, $options) {
+  return openBlock(), createElementBlock("div", _hoisted_1$H, [
     createElementVNode("div", _hoisted_2$t, null, 512)
   ]);
 }
-const CodeEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3L, [["render", _sfc_render$3L], ["__scopeId", "data-v-84220a09"]]);
+const CodeEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3N, [["render", _sfc_render$3N], ["__scopeId", "data-v-84220a09"]]);
 const generateCode = function(formJson, codeType = "vue") {
   const formJsonStr = JSON.stringify(formJson);
   if (codeType === "html") {
@@ -53043,7 +53697,7 @@ var FileSaver_min = { exports: {} };
   });
 })(FileSaver_min);
 var FileSaver_minExports = FileSaver_min.exports;
-const _sfc_main$3K = {
+const _sfc_main$3M = {
   name: "ToolbarPanel",
   mixins: [i18n$1],
   components: {
@@ -53053,6 +53707,10 @@ const _sfc_main$3K = {
     SvgIcon
   },
   props: {
+    leftWidth: Number,
+    rightWidth: Number,
+    changeRightWidth: Function,
+    changeLeftWidth: Function,
     designer: Object,
     saveJsonApi: Function,
     globalDsv: {
@@ -54281,9 +54939,8 @@ const _sfc_main$3K = {
     }
   }
 };
-const _withScopeId$4 = (n) => (pushScopeId("data-v-3bb998d8"), n = n(), popScopeId(), n);
-const _hoisted_1$F = { class: "toolbar-container" };
-const _hoisted_2$s = /* @__PURE__ */ _withScopeId$4(() => /* @__PURE__ */ createElementVNode("div", { class: "left-toolbar" }, null, -1));
+const _hoisted_1$G = { class: "toolbar-container" };
+const _hoisted_2$s = { class: "left-toolbar" };
 const _hoisted_3$n = { class: "right-toolbar" };
 const _hoisted_4$d = { class: "right-toolbar-con" };
 const _hoisted_5$7 = { class: "dialog-footer" };
@@ -54292,24 +54949,59 @@ const _hoisted_7$4 = { class: "dialog-footer" };
 const _hoisted_8$4 = { style: { "border": "1px solid #dcdfe6" } };
 const _hoisted_9$3 = { class: "dialog-footer" };
 const _hoisted_10$2 = { class: "dialog-footer" };
-function _sfc_render$3K(_ctx, _cache, $props, $setup, $data, $options) {
-  const _component_a_tree = resolveComponent("a-tree");
-  const _component_a_drawer = resolveComponent("a-drawer");
+function _sfc_render$3M(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_svg_icon = resolveComponent("svg-icon");
   const _component_a_button = resolveComponent("a-button");
+  const _component_a_tree = resolveComponent("a-tree");
+  const _component_a_drawer = resolveComponent("a-drawer");
   const _component_VFormRender = resolveComponent("VFormRender");
   const _component_a_modal = resolveComponent("a-modal");
   const _component_a_alert = resolveComponent("a-alert");
   const _component_code_editor = resolveComponent("code-editor");
   const _component_a_tab_pane = resolveComponent("a-tab-pane");
   const _component_a_tabs = resolveComponent("a-tabs");
-  return openBlock(), createElementBlock("div", _hoisted_1$F, [
-    _hoisted_2$s,
+  return openBlock(), createElementBlock("div", _hoisted_1$G, [
+    createElementVNode("div", _hoisted_2$s, [
+      createVNode(_component_a_button, {
+        type: "link",
+        onClick: _cache[0] || (_cache[0] = ($event) => $props.changeLeftWidth())
+      }, {
+        default: withCtx(() => [
+          createVNode(_component_svg_icon, {
+            style: normalizeStyle(`transform:${$props.leftWidth === 0 ? "rotate(180deg)" : "rotate(0deg)"}`),
+            "icon-class": "a-ipadarrow_back"
+          }, null, 8, ["style"])
+        ]),
+        _: 1
+      }),
+      createVNode(_component_a_button, {
+        type: "link",
+        disabled: $options.undoDisabled,
+        title: _ctx.i18nt("designer.toolbar.undoHint"),
+        onClick: $options.undoHistory
+      }, {
+        default: withCtx(() => [
+          createVNode(_component_svg_icon, { "icon-class": "undo" })
+        ]),
+        _: 1
+      }, 8, ["disabled", "title", "onClick"]),
+      createVNode(_component_a_button, {
+        type: "link",
+        disabled: $options.redoDisabled,
+        title: _ctx.i18nt("designer.toolbar.redoHint"),
+        onClick: $options.redoHistory
+      }, {
+        default: withCtx(() => [
+          createVNode(_component_svg_icon, { "icon-class": "redo" })
+        ]),
+        _: 1
+      }, 8, ["disabled", "title", "onClick"])
+    ]),
     createVNode(_component_a_drawer, {
       title: _ctx.i18nt("designer.toolbar.nodeTreeTitle"),
       direction: "ltr",
       visible: $data.showNodeTreeDrawerFlag,
-      "onUpdate:visible": _cache[0] || (_cache[0] = ($event) => $data.showNodeTreeDrawerFlag = $event),
+      "onUpdate:visible": _cache[1] || (_cache[1] = ($event) => $data.showNodeTreeDrawerFlag = $event),
       width: 280,
       "destroy-on-close": true,
       class: "node-tree-drawer"
@@ -54381,6 +55073,18 @@ function _sfc_render$3K(_ctx, _cache, $props, $setup, $data, $options) {
           ]),
           _: 1
         }, 8, ["onClick"])) : createCommentVNode("", true),
+        createVNode(_component_a_button, {
+          type: "link",
+          onClick: _cache[2] || (_cache[2] = ($event) => $props.changeRightWidth())
+        }, {
+          default: withCtx(() => [
+            createVNode(_component_svg_icon, {
+              style: normalizeStyle(`transform:${$props.rightWidth === 0 ? "rotate(0deg)" : "rotate(180deg)"}`),
+              "icon-class": "a-ipadarrow_back"
+            }, null, 8, ["style"])
+          ]),
+          _: 1
+        }),
         (openBlock(true), createElementBlock(Fragment, null, renderList(_ctx.$slots, (idx, slotName) => {
           return renderSlot(_ctx.$slots, slotName, {}, void 0, true);
         }), 256))
@@ -54389,7 +55093,7 @@ function _sfc_render$3K(_ctx, _cache, $props, $setup, $data, $options) {
     createVNode(_component_a_modal, {
       title: _ctx.i18nt("designer.toolbar.preview"),
       visible: $data.showPreviewDialogFlag,
-      "onUpdate:visible": _cache[2] || (_cache[2] = ($event) => $data.showPreviewDialogFlag = $event),
+      "onUpdate:visible": _cache[4] || (_cache[4] = ($event) => $data.showPreviewDialogFlag = $event),
       "show-close": true,
       "close-on-click-modal": false,
       "close-on-press-escape": false,
@@ -54439,7 +55143,7 @@ function _sfc_render$3K(_ctx, _cache, $props, $setup, $data, $options) {
             _: 1
           }, 8, ["onClick"]),
           createVNode(_component_a_button, {
-            onClick: _cache[1] || (_cache[1] = ($event) => $data.showPreviewDialogFlag = false)
+            onClick: _cache[3] || (_cache[3] = ($event) => $data.showPreviewDialogFlag = false)
           }, {
             default: withCtx(() => [
               createTextVNode(toDisplayString(_ctx.i18nt("designer.hint.closePreview")), 1)
@@ -54483,7 +55187,7 @@ function _sfc_render$3K(_ctx, _cache, $props, $setup, $data, $options) {
     createVNode(_component_a_modal, {
       title: _ctx.i18nt("designer.toolbar.importJson"),
       visible: $data.showImportJsonDialogFlag,
-      "onUpdate:visible": _cache[5] || (_cache[5] = ($event) => $data.showImportJsonDialogFlag = $event),
+      "onUpdate:visible": _cache[7] || (_cache[7] = ($event) => $data.showImportJsonDialogFlag = $event),
       "show-close": true,
       class: "drag-dialog small-padding-dialog",
       "append-to-body": true,
@@ -54504,7 +55208,7 @@ function _sfc_render$3K(_ctx, _cache, $props, $setup, $data, $options) {
             _: 1
           }, 8, ["onClick"]),
           createVNode(_component_a_button, {
-            onClick: _cache[4] || (_cache[4] = ($event) => $data.showImportJsonDialogFlag = false)
+            onClick: _cache[6] || (_cache[6] = ($event) => $data.showImportJsonDialogFlag = false)
           }, {
             default: withCtx(() => [
               createTextVNode(toDisplayString(_ctx.i18nt("designer.hint.cancel")), 1)
@@ -54524,7 +55228,7 @@ function _sfc_render$3K(_ctx, _cache, $props, $setup, $data, $options) {
           mode: "json",
           readonly: false,
           modelValue: $data.importTemplate,
-          "onUpdate:modelValue": _cache[3] || (_cache[3] = ($event) => $data.importTemplate = $event)
+          "onUpdate:modelValue": _cache[5] || (_cache[5] = ($event) => $data.importTemplate = $event)
         }, null, 8, ["modelValue"])
       ]),
       _: 1
@@ -54532,7 +55236,7 @@ function _sfc_render$3K(_ctx, _cache, $props, $setup, $data, $options) {
     createVNode(_component_a_modal, {
       title: _ctx.i18nt("designer.toolbar.exportJson"),
       visible: $data.showExportJsonDialogFlag,
-      "onUpdate:visible": _cache[8] || (_cache[8] = ($event) => $data.showExportJsonDialogFlag = $event),
+      "onUpdate:visible": _cache[10] || (_cache[10] = ($event) => $data.showExportJsonDialogFlag = $event),
       "show-close": true,
       class: "drag-dialog small-padding-dialog",
       center: "",
@@ -54561,7 +55265,7 @@ function _sfc_render$3K(_ctx, _cache, $props, $setup, $data, $options) {
             _: 1
           }, 8, ["onClick"]),
           createVNode(_component_a_button, {
-            onClick: _cache[7] || (_cache[7] = ($event) => $data.showExportJsonDialogFlag = false)
+            onClick: _cache[9] || (_cache[9] = ($event) => $data.showExportJsonDialogFlag = false)
           }, {
             default: withCtx(() => [
               createTextVNode(toDisplayString(_ctx.i18nt("designer.hint.closePreview")), 1)
@@ -54575,7 +55279,7 @@ function _sfc_render$3K(_ctx, _cache, $props, $setup, $data, $options) {
           mode: "json",
           readonly: true,
           modelValue: $data.jsonContent,
-          "onUpdate:modelValue": _cache[6] || (_cache[6] = ($event) => $data.jsonContent = $event)
+          "onUpdate:modelValue": _cache[8] || (_cache[8] = ($event) => $data.jsonContent = $event)
         }, null, 8, ["modelValue"])
       ]),
       _: 1
@@ -54583,7 +55287,7 @@ function _sfc_render$3K(_ctx, _cache, $props, $setup, $data, $options) {
     createVNode(_component_a_modal, {
       title: _ctx.i18nt("designer.hint.exportFormData"),
       visible: $data.showFormDataDialogFlag,
-      "onUpdate:visible": _cache[11] || (_cache[11] = ($event) => $data.showFormDataDialogFlag = $event),
+      "onUpdate:visible": _cache[13] || (_cache[13] = ($event) => $data.showFormDataDialogFlag = $event),
       "show-close": true,
       class: "nested-drag-dialog dialog-title-light-bg",
       center: "",
@@ -54612,7 +55316,7 @@ function _sfc_render$3K(_ctx, _cache, $props, $setup, $data, $options) {
             _: 1
           }, 8, ["onClick"]),
           createVNode(_component_a_button, {
-            onClick: _cache[10] || (_cache[10] = ($event) => $data.showFormDataDialogFlag = false)
+            onClick: _cache[12] || (_cache[12] = ($event) => $data.showFormDataDialogFlag = false)
           }, {
             default: withCtx(() => [
               createTextVNode(toDisplayString(_ctx.i18nt("designer.hint.closePreview")), 1)
@@ -54627,7 +55331,7 @@ function _sfc_render$3K(_ctx, _cache, $props, $setup, $data, $options) {
             mode: "json",
             readonly: true,
             modelValue: $data.formDataJson,
-            "onUpdate:modelValue": _cache[9] || (_cache[9] = ($event) => $data.formDataJson = $event)
+            "onUpdate:modelValue": _cache[11] || (_cache[11] = ($event) => $data.formDataJson = $event)
           }, null, 8, ["modelValue"])
         ])
       ]),
@@ -54637,7 +55341,7 @@ function _sfc_render$3K(_ctx, _cache, $props, $setup, $data, $options) {
       key: 0,
       title: _ctx.i18nt("designer.toolbar.generateSFC"),
       visible: $data.showExportSFCDialogFlag,
-      "onUpdate:visible": _cache[16] || (_cache[16] = ($event) => $data.showExportSFCDialogFlag = $event),
+      "onUpdate:visible": _cache[18] || (_cache[18] = ($event) => $data.showExportSFCDialogFlag = $event),
       "append-to-body": "",
       "show-close": true,
       class: "drag-dialog small-padding-dialog",
@@ -54684,7 +55388,7 @@ function _sfc_render$3K(_ctx, _cache, $props, $setup, $data, $options) {
             _: 1
           }, 8, ["onClick"]),
           createVNode(_component_a_button, {
-            onClick: _cache[15] || (_cache[15] = ($event) => $data.showExportSFCDialogFlag = false)
+            onClick: _cache[17] || (_cache[17] = ($event) => $data.showExportSFCDialogFlag = false)
           }, {
             default: withCtx(() => [
               createTextVNode(toDisplayString(_ctx.i18nt("designer.hint.closePreview")), 1)
@@ -54698,7 +55402,7 @@ function _sfc_render$3K(_ctx, _cache, $props, $setup, $data, $options) {
           type: "border-card",
           class: "no-box-shadow no-padding",
           activeKey: $data.activeSFCTab,
-          "onUpdate:activeKey": _cache[14] || (_cache[14] = ($event) => $data.activeSFCTab = $event)
+          "onUpdate:activeKey": _cache[16] || (_cache[16] = ($event) => $data.activeSFCTab = $event)
         }, {
           default: withCtx(() => [
             createVNode(_component_a_tab_pane, {
@@ -54710,7 +55414,7 @@ function _sfc_render$3K(_ctx, _cache, $props, $setup, $data, $options) {
                   mode: "html",
                   readonly: true,
                   modelValue: $data.sfcCode,
-                  "onUpdate:modelValue": _cache[12] || (_cache[12] = ($event) => $data.sfcCode = $event),
+                  "onUpdate:modelValue": _cache[14] || (_cache[14] = ($event) => $data.sfcCode = $event),
                   "user-worker": false
                 }, null, 8, ["modelValue"])
               ]),
@@ -54725,7 +55429,7 @@ function _sfc_render$3K(_ctx, _cache, $props, $setup, $data, $options) {
                   mode: "html",
                   readonly: true,
                   modelValue: $data.sfcCodeV3,
-                  "onUpdate:modelValue": _cache[13] || (_cache[13] = ($event) => $data.sfcCodeV3 = $event),
+                  "onUpdate:modelValue": _cache[15] || (_cache[15] = ($event) => $data.sfcCodeV3 = $event),
                   "user-worker": false
                 }, null, 8, ["modelValue"])
               ]),
@@ -54739,8 +55443,8 @@ function _sfc_render$3K(_ctx, _cache, $props, $setup, $data, $options) {
     }, 8, ["title", "visible"])) : createCommentVNode("", true)
   ]);
 }
-const ToolbarPanel = /* @__PURE__ */ _export_sfc$1(_sfc_main$3K, [["render", _sfc_render$3K], ["__scopeId", "data-v-3bb998d8"]]);
-const _sfc_main$3J = {
+const ToolbarPanel = /* @__PURE__ */ _export_sfc$1(_sfc_main$3M, [["render", _sfc_render$3M], ["__scopeId", "data-v-65589f15"]]);
+const _sfc_main$3L = {
   name: "actionColumnPosition-editor",
   mixins: [i18n$1],
   props: {
@@ -54754,7 +55458,7 @@ const _sfc_main$3J = {
     }
   }
 };
-function _sfc_render$3J(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$3L(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_radio_button = resolveComponent("a-radio-button");
   const _component_a_radio_group = resolveComponent("a-radio-group");
   const _component_a_form_item = resolveComponent("a-form-item");
@@ -54787,12 +55491,12 @@ function _sfc_render$3J(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const actionColumnPositionEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3J, [["render", _sfc_render$3J], ["__scopeId", "data-v-d3a47f26"]]);
+const actionColumnPositionEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3L, [["render", _sfc_render$3L], ["__scopeId", "data-v-d3a47f26"]]);
 const __vite_glob_0_0$1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: actionColumnPositionEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$3I = {
+const _sfc_main$3K = {
   name: "addonAfter-editor",
   mixins: [i18n$1],
   props: {
@@ -54801,7 +55505,7 @@ const _sfc_main$3I = {
     optionModel: Object
   }
 };
-function _sfc_render$3I(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$3K(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_input = resolveComponent("a-input");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -54817,12 +55521,12 @@ function _sfc_render$3I(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const addonAfterEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3I, [["render", _sfc_render$3I]]);
+const addonAfterEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3K, [["render", _sfc_render$3K]]);
 const __vite_glob_0_1$1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: addonAfterEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$3H = {
+const _sfc_main$3J = {
   name: "addonBefore-editor",
   mixins: [i18n$1],
   props: {
@@ -54831,7 +55535,7 @@ const _sfc_main$3H = {
     optionModel: Object
   }
 };
-function _sfc_render$3H(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$3J(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_input = resolveComponent("a-input");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -54847,12 +55551,12 @@ function _sfc_render$3H(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const addonBeforeEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3H, [["render", _sfc_render$3H]]);
+const addonBeforeEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3J, [["render", _sfc_render$3J]]);
 const __vite_glob_0_2$1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: addonBeforeEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$3G = {
+const _sfc_main$3I = {
   name: "allowClear-editor",
   mixins: [i18n$1],
   props: {
@@ -54861,7 +55565,7 @@ const _sfc_main$3G = {
     optionModel: Object
   }
 };
-function _sfc_render$3G(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$3I(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_switch = resolveComponent("a-switch");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -54876,12 +55580,12 @@ function _sfc_render$3G(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const allowClearEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3G, [["render", _sfc_render$3G]]);
+const allowClearEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3I, [["render", _sfc_render$3I]]);
 const __vite_glob_0_3$1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: allowClearEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$3F = {
+const _sfc_main$3H = {
   name: "appendButton-editor",
   mixins: [i18n$1],
   props: {
@@ -54890,7 +55594,7 @@ const _sfc_main$3F = {
     optionModel: Object
   }
 };
-function _sfc_render$3F(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$3H(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_divider = resolveComponent("a-divider");
   const _component_a_form_item = resolveComponent("a-form-item");
   const _component_a_switch = resolveComponent("a-switch");
@@ -54919,12 +55623,12 @@ function _sfc_render$3F(_ctx, _cache, $props, $setup, $data, $options) {
     }, 8, ["label"])
   ]);
 }
-const appendButtonEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3F, [["render", _sfc_render$3F]]);
+const appendButtonEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3H, [["render", _sfc_render$3H]]);
 const __vite_glob_0_4$1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: appendButtonEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$3E = {
+const _sfc_main$3G = {
   name: "appendButtonDisabled-editor",
   mixins: [i18n$1],
   props: {
@@ -54933,7 +55637,7 @@ const _sfc_main$3E = {
     optionModel: Object
   }
 };
-function _sfc_render$3E(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$3G(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_switch = resolveComponent("a-switch");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -54948,12 +55652,12 @@ function _sfc_render$3E(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const appendButtonDisabledEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3E, [["render", _sfc_render$3E]]);
+const appendButtonDisabledEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3G, [["render", _sfc_render$3G]]);
 const __vite_glob_0_5$1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: appendButtonDisabledEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$3D = {
+const _sfc_main$3F = {
   name: "autoFullWidth-editor",
   mixins: [i18n$1],
   props: {
@@ -54962,7 +55666,7 @@ const _sfc_main$3D = {
     optionModel: Object
   }
 };
-function _sfc_render$3D(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$3F(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_switch = resolveComponent("a-switch");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -54977,12 +55681,12 @@ function _sfc_render$3D(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const autoFullWidthEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3D, [["render", _sfc_render$3D]]);
+const autoFullWidthEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3F, [["render", _sfc_render$3F]]);
 const __vite_glob_0_6$1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: autoFullWidthEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$3C = {
+const _sfc_main$3E = {
   name: "border-editor",
   mixins: [i18n$1],
   props: {
@@ -54991,7 +55695,7 @@ const _sfc_main$3C = {
     optionModel: Object
   }
 };
-function _sfc_render$3C(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$3E(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_switch = resolveComponent("a-switch");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -55006,12 +55710,12 @@ function _sfc_render$3C(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const borderEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3C, [["render", _sfc_render$3C]]);
+const borderEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3E, [["render", _sfc_render$3E]]);
 const __vite_glob_0_7$1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: borderEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$3B = {
+const _sfc_main$3D = {
   name: "buttonIcon-editor",
   mixins: [i18n$1],
   props: {
@@ -55020,7 +55724,7 @@ const _sfc_main$3B = {
     optionModel: Object
   }
 };
-function _sfc_render$3B(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$3D(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_input = resolveComponent("a-input");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -55036,12 +55740,12 @@ function _sfc_render$3B(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const buttonIconEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3B, [["render", _sfc_render$3B]]);
+const buttonIconEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3D, [["render", _sfc_render$3D]]);
 const __vite_glob_0_8$1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: buttonIconEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$3A = {
+const _sfc_main$3C = {
   name: "buttonStyle-editor",
   mixins: [i18n$1],
   props: {
@@ -55050,7 +55754,7 @@ const _sfc_main$3A = {
     optionModel: Object
   }
 };
-function _sfc_render$3A(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$3C(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_switch = resolveComponent("a-switch");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -55065,12 +55769,12 @@ function _sfc_render$3A(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const buttonStyleEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3A, [["render", _sfc_render$3A]]);
+const buttonStyleEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3C, [["render", _sfc_render$3C]]);
 const __vite_glob_0_9$1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: buttonStyleEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$3z = {
+const _sfc_main$3B = {
   name: "columnWidth-editor",
   mixins: [i18n$1],
   props: {
@@ -55080,7 +55784,7 @@ const _sfc_main$3z = {
   },
   inject: ["isSubFormChildWidget"]
 };
-function _sfc_render$3z(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$3B(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_input = resolveComponent("a-input");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createElementBlock("div", null, [
@@ -55100,7 +55804,7 @@ function _sfc_render$3z(_ctx, _cache, $props, $setup, $data, $options) {
     ])
   ]);
 }
-const columnWidthEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3z, [["render", _sfc_render$3z]]);
+const columnWidthEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3B, [["render", _sfc_render$3B]]);
 const __vite_glob_0_10$1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: columnWidthEditor
@@ -55115,7 +55819,7 @@ const eventMixin = {
     }
   }
 };
-const _sfc_main$3y = {
+const _sfc_main$3A = {
   name: "data-table-customRow-editor",
   mixins: [i18n$1, eventMixin],
   props: {
@@ -55133,7 +55837,7 @@ const _sfc_main$3y = {
     };
   }
 };
-function _sfc_render$3y(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$3A(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_button = resolveComponent("a-button");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createElementBlock(Fragment, null, [
@@ -55219,12 +55923,12 @@ function _sfc_render$3y(_ctx, _cache, $props, $setup, $data, $options) {
     })
   ], 64);
 }
-const dataTableCustomRowEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3y, [["render", _sfc_render$3y]]);
+const dataTableCustomRowEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3A, [["render", _sfc_render$3A]]);
 const __vite_glob_0_11$1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: dataTableCustomRowEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$3x = {
+const _sfc_main$3z = {
   name: "data-table-customClass-editor",
   componentName: "PropertyEditor",
   mixins: [i18n$1],
@@ -55286,7 +55990,7 @@ const _sfc_main$3x = {
     }
   }
 };
-function _sfc_render$3x(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$3z(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_select = resolveComponent("a-select");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -55304,12 +56008,12 @@ function _sfc_render$3x(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const dataTableCustomClassEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3x, [["render", _sfc_render$3x]]);
-const __vite_glob_0_12 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const dataTableCustomClassEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3z, [["render", _sfc_render$3z]]);
+const __vite_glob_0_12$1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: dataTableCustomClassEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$3w = {
+const _sfc_main$3y = {
   name: "code-modal-editor",
   mixins: [i18n$1],
   components: {
@@ -55351,8 +56055,8 @@ const _sfc_main$3w = {
     }
   }
 };
-const _hoisted_1$E = { class: "dialog-footer" };
-function _sfc_render$3w(_ctx, _cache, $props, $setup, $data, $options) {
+const _hoisted_1$F = { class: "dialog-footer" };
+function _sfc_render$3y(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_alert = resolveComponent("a-alert");
   const _component_code_editor = resolveComponent("code-editor");
   const _component_a_button = resolveComponent("a-button");
@@ -55366,10 +56070,11 @@ function _sfc_render$3w(_ctx, _cache, $props, $setup, $data, $options) {
     "append-to-body": "",
     "close-on-click-modal": false,
     "close-on-press-escape": false,
-    "destroy-on-close": true
+    "destroy-on-close": true,
+    width: 800
   }, {
     footer: withCtx(() => [
-      createElementVNode("div", _hoisted_1$E, [
+      createElementVNode("div", _hoisted_1$F, [
         createVNode(_component_a_button, {
           onClick: _cache[1] || (_cache[1] = ($event) => $data.showWidgetEventDialogFlag = false)
         }, {
@@ -55413,8 +56118,8 @@ function _sfc_render$3w(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["title", "visible"]);
 }
-const CodeModalEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3w, [["render", _sfc_render$3w]]);
-const _sfc_main$3v = {
+const CodeModalEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3y, [["render", _sfc_render$3y]]);
+const _sfc_main$3x = {
   name: "http-editor",
   inheritAttrs: false,
   mixins: [i18n$1],
@@ -55557,7 +56262,7 @@ const _sfc_main$3v = {
     }
   }
 };
-function _sfc_render$3v(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$3x(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_button = resolveComponent("a-button");
   const _component_a_form_item = resolveComponent("a-form-item");
   const _component_a_input = resolveComponent("a-input");
@@ -56003,8 +56708,8 @@ function _sfc_render$3v(_ctx, _cache, $props, $setup, $data, $options) {
     }, null, 8, ["modelValue", "event-header"])
   ], 64);
 }
-const HttpEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3v, [["render", _sfc_render$3v], ["__scopeId", "data-v-6b88b608"]]);
-const _sfc_main$3u = {
+const HttpEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3x, [["render", _sfc_render$3x], ["__scopeId", "data-v-6b88b608"]]);
+const _sfc_main$3w = {
   name: "data-table-dsEnabled-editor",
   mixins: [i18n$1],
   components: { HttpEditor, CodeModalEditor },
@@ -56032,7 +56737,7 @@ const _sfc_main$3u = {
     }
   }
 };
-function _sfc_render$3u(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$3w(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_switch = resolveComponent("a-switch");
   const _component_a_form_item = resolveComponent("a-form-item");
   const _component_a_button = resolveComponent("a-button");
@@ -56085,12 +56790,12 @@ function _sfc_render$3u(_ctx, _cache, $props, $setup, $data, $options) {
     }, null, 8, ["designer", "selected-widget", "optionModel"])) : createCommentVNode("", true)
   ], 64);
 }
-const dataTableDsEnabledEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3u, [["render", _sfc_render$3u]]);
-const __vite_glob_0_13 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const dataTableDsEnabledEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3w, [["render", _sfc_render$3w]]);
+const __vite_glob_0_13$1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: dataTableDsEnabledEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$3t = {
+const _sfc_main$3v = {
   name: "pagination-editor",
   mixins: [i18n$1],
   props: {
@@ -56140,7 +56845,7 @@ const _sfc_main$3t = {
     }
   }
 };
-function _sfc_render$3t(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$3v(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_switch = resolveComponent("a-switch");
   const _component_a_button = resolveComponent("a-button");
   const _component_a_space = resolveComponent("a-space");
@@ -56287,12 +56992,12 @@ function _sfc_render$3t(_ctx, _cache, $props, $setup, $data, $options) {
     }, 8, ["visible"])
   ], 64);
 }
-const dataTablePaginationEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3t, [["render", _sfc_render$3t]]);
+const dataTablePaginationEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3v, [["render", _sfc_render$3v]]);
 const __vite_glob_0_14 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: dataTablePaginationEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$3s = {
+const _sfc_main$3u = {
   name: "rowKey-editor",
   props: {
     designer: Object,
@@ -56304,7 +57009,7 @@ const _sfc_main$3s = {
   },
   methods: {}
 };
-function _sfc_render$3s(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$3u(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_input = resolveComponent("a-input");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, { label: "列表主键(唯一性)" }, {
@@ -56318,12 +57023,12 @@ function _sfc_render$3s(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   });
 }
-const dataTableRowKeyEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3s, [["render", _sfc_render$3s]]);
+const dataTableRowKeyEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3u, [["render", _sfc_render$3u]]);
 const __vite_glob_0_15 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: dataTableRowKeyEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$3r = {
+const _sfc_main$3t = {
   name: "rowSelection-editor",
   mixins: [i18n$1],
   components: { CodeModalEditor },
@@ -56347,7 +57052,7 @@ const _sfc_main$3r = {
     }
   }
 };
-function _sfc_render$3r(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$3t(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_switch = resolveComponent("a-switch");
   const _component_a_button = resolveComponent("a-button");
   const _component_a_space = resolveComponent("a-space");
@@ -56468,12 +57173,12 @@ function _sfc_render$3r(_ctx, _cache, $props, $setup, $data, $options) {
     }, null, 8, ["modelValue", "event-header"])
   ], 64);
 }
-const dataTableSelectionsEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3r, [["render", _sfc_render$3r]]);
+const dataTableSelectionsEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3t, [["render", _sfc_render$3t]]);
 const __vite_glob_0_16 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: dataTableSelectionsEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$3q = {
+const _sfc_main$3s = {
   name: "showButtonsColumn-editor",
   mixins: [i18n$1],
   components: { CodeModalEditor },
@@ -56539,9 +57244,9 @@ const _sfc_main$3q = {
   }
 };
 const _withScopeId$3 = (n) => (pushScopeId("data-v-dd00e485"), n = n(), popScopeId(), n);
-const _hoisted_1$D = /* @__PURE__ */ _withScopeId$3(() => /* @__PURE__ */ createElementVNode("i", { class: "iconfont icon-drag drag-handler" }, null, -1));
+const _hoisted_1$E = /* @__PURE__ */ _withScopeId$3(() => /* @__PURE__ */ createElementVNode("i", { class: "iconfont icon-drag drag-handler" }, null, -1));
 const _hoisted_2$r = { class: "dialog-footer" };
-function _sfc_render$3q(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$3s(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_switch = resolveComponent("a-switch");
   const _component_a_button = resolveComponent("a-button");
   const _component_a_space = resolveComponent("a-space");
@@ -56723,7 +57428,7 @@ function _sfc_render$3q(_ctx, _cache, $props, $setup, $data, $options) {
                       class: "drag-sort-col"
                     }, {
                       default: withCtx(() => [
-                        _hoisted_1$D
+                        _hoisted_1$E
                       ]),
                       _: 1
                     }),
@@ -57006,12 +57711,12 @@ function _sfc_render$3q(_ctx, _cache, $props, $setup, $data, $options) {
     }, null, 8, ["modelValue", "event-header"])
   ], 64);
 }
-const dataTableShowButtonsColumnEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3q, [["render", _sfc_render$3q], ["__scopeId", "data-v-dd00e485"]]);
+const dataTableShowButtonsColumnEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3s, [["render", _sfc_render$3s], ["__scopeId", "data-v-dd00e485"]]);
 const __vite_glob_0_17 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: dataTableShowButtonsColumnEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$3p = {
+const _sfc_main$3r = {
   name: "showIndex-editor",
   mixins: [i18n$1],
   props: {
@@ -57024,7 +57729,7 @@ const _sfc_main$3p = {
   },
   methods: {}
 };
-function _sfc_render$3p(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$3r(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_switch = resolveComponent("a-switch");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -57039,12 +57744,12 @@ function _sfc_render$3p(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const dataTableShowIndexEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3p, [["render", _sfc_render$3p]]);
+const dataTableShowIndexEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3r, [["render", _sfc_render$3r]]);
 const __vite_glob_0_18 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: dataTableShowIndexEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$3o = {
+const _sfc_main$3q = {
   name: "stripe-editor",
   mixins: [i18n$1],
   props: {
@@ -57057,7 +57762,7 @@ const _sfc_main$3o = {
   },
   methods: {}
 };
-function _sfc_render$3o(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$3q(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_switch = resolveComponent("a-switch");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -57072,7 +57777,7 @@ function _sfc_render$3o(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const dataTableStripeEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3o, [["render", _sfc_render$3o]]);
+const dataTableStripeEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3q, [["render", _sfc_render$3q]]);
 const __vite_glob_0_19 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: dataTableStripeEditor
@@ -59237,7 +59942,7 @@ _extends(Remove, {
 });
 Sortable.mount(new AutoScrollPlugin());
 Sortable.mount(Remove, Revert);
-const _sfc_main$3n = {
+const _sfc_main$3p = {
   name: "tableColumns-editor",
   mixins: [i18n$1],
   components: { CodeModalEditor },
@@ -59328,9 +60033,9 @@ const _sfc_main$3n = {
   }
 };
 const _withScopeId$2 = (n) => (pushScopeId("data-v-3b5eb05e"), n = n(), popScopeId(), n);
-const _hoisted_1$C = /* @__PURE__ */ _withScopeId$2(() => /* @__PURE__ */ createElementVNode("i", { class: "iconfont icon-drag drag-option" }, null, -1));
+const _hoisted_1$D = /* @__PURE__ */ _withScopeId$2(() => /* @__PURE__ */ createElementVNode("i", { class: "iconfont icon-drag drag-option" }, null, -1));
 const _hoisted_2$q = { class: "dialog-footer" };
-function _sfc_render$3n(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$3p(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_button = resolveComponent("a-button");
   const _component_a_form_item = resolveComponent("a-form-item");
   const _component_a_table_column = resolveComponent("a-table-column");
@@ -59416,7 +60121,7 @@ function _sfc_render$3n(_ctx, _cache, $props, $setup, $data, $options) {
               width: 60
             }, {
               default: withCtx(() => [
-                _hoisted_1$C
+                _hoisted_1$D
               ]),
               _: 1
             }),
@@ -59635,12 +60340,12 @@ function _sfc_render$3n(_ctx, _cache, $props, $setup, $data, $options) {
     }, null, 8, ["modelValue", "onSave", "title", "event-header"])
   ], 64);
 }
-const dataTableTableColumnsEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3n, [["render", _sfc_render$3n], ["__scopeId", "data-v-3b5eb05e"]]);
+const dataTableTableColumnsEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3p, [["render", _sfc_render$3p], ["__scopeId", "data-v-3b5eb05e"]]);
 const __vite_glob_0_20 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: dataTableTableColumnsEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$3m = {
+const _sfc_main$3o = {
   name: "tableHeight-editor",
   mixins: [i18n$1],
   props: {
@@ -59653,7 +60358,7 @@ const _sfc_main$3m = {
   },
   methods: {}
 };
-function _sfc_render$3m(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$3o(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_input = resolveComponent("a-input");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -59668,12 +60373,12 @@ function _sfc_render$3m(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const dataTableTableHeightEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3m, [["render", _sfc_render$3m]]);
+const dataTableTableHeightEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3o, [["render", _sfc_render$3o]]);
 const __vite_glob_0_21 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: dataTableTableHeightEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$3l = {
+const _sfc_main$3n = {
   name: "tableSize-editor",
   mixins: [i18n$1],
   props: {
@@ -59692,7 +60397,7 @@ const _sfc_main$3l = {
   },
   methods: {}
 };
-function _sfc_render$3l(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$3n(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_select = resolveComponent("a-select");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -59708,12 +60413,12 @@ function _sfc_render$3l(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const dataTableTableSizeEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3l, [["render", _sfc_render$3l]]);
+const dataTableTableSizeEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3n, [["render", _sfc_render$3n]]);
 const __vite_glob_0_22 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: dataTableTableSizeEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$3k = {
+const _sfc_main$3m = {
   name: "tableWidth-editor",
   mixins: [i18n$1],
   props: {
@@ -59726,7 +60431,7 @@ const _sfc_main$3k = {
   },
   methods: {}
 };
-function _sfc_render$3k(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$3m(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_input = resolveComponent("a-input");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -59741,12 +60446,12 @@ function _sfc_render$3k(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const dataTableTableWidthEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3k, [["render", _sfc_render$3k]]);
+const dataTableTableWidthEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3m, [["render", _sfc_render$3m]]);
 const __vite_glob_0_23 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: dataTableTableWidthEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$3j = {
+const _sfc_main$3l = {
   name: "treeDataEnabled-editor",
   mixins: [i18n$1],
   props: {
@@ -59769,7 +60474,7 @@ const _sfc_main$3j = {
     }
   }
 };
-function _sfc_render$3j(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$3l(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_switch = resolveComponent("a-switch");
   const _component_a_form_item = resolveComponent("a-form-item");
   const _component_a_input = resolveComponent("a-input");
@@ -59812,12 +60517,12 @@ function _sfc_render$3j(_ctx, _cache, $props, $setup, $data, $options) {
     }, 8, ["label"])) : createCommentVNode("", true)
   ], 64);
 }
-const dataTableTreeDataEnabledEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3j, [["render", _sfc_render$3j]]);
+const dataTableTreeDataEnabledEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3l, [["render", _sfc_render$3l]]);
 const __vite_glob_0_24 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: dataTableTreeDataEnabledEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$3i = {
+const _sfc_main$3k = {
   name: "grid-col-offset-editor",
   mixins: [i18n$1],
   props: {
@@ -59826,7 +60531,7 @@ const _sfc_main$3i = {
     optionModel: Object
   }
 };
-function _sfc_render$3i(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$3k(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_input_number = resolveComponent("a-input-number");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -59844,12 +60549,12 @@ function _sfc_render$3i(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const gridColOffsetEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3i, [["render", _sfc_render$3i]]);
+const gridColOffsetEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3k, [["render", _sfc_render$3k]]);
 const __vite_glob_0_25 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: gridColOffsetEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$3h = {
+const _sfc_main$3j = {
   name: "grid-col-pull-editor",
   mixins: [i18n$1],
   props: {
@@ -59858,7 +60563,7 @@ const _sfc_main$3h = {
     optionModel: Object
   }
 };
-function _sfc_render$3h(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$3j(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_input_number = resolveComponent("a-input-number");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -59876,12 +60581,12 @@ function _sfc_render$3h(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const gridColPullEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3h, [["render", _sfc_render$3h]]);
+const gridColPullEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3j, [["render", _sfc_render$3j]]);
 const __vite_glob_0_26 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: gridColPullEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$3g = {
+const _sfc_main$3i = {
   name: "grid-col-push-editor",
   mixins: [i18n$1],
   props: {
@@ -59890,7 +60595,7 @@ const _sfc_main$3g = {
     optionModel: Object
   }
 };
-function _sfc_render$3g(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$3i(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_input_number = resolveComponent("a-input-number");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -59908,12 +60613,12 @@ function _sfc_render$3g(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const gridColPushEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3g, [["render", _sfc_render$3g]]);
+const gridColPushEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3i, [["render", _sfc_render$3i]]);
 const __vite_glob_0_27 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: gridColPushEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$3f = {
+const _sfc_main$3h = {
   name: "grid-col-responsive-editor",
   mixins: [i18n$1],
   props: {
@@ -59922,7 +60627,7 @@ const _sfc_main$3f = {
     optionModel: Object
   }
 };
-function _sfc_render$3f(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$3h(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_switch = resolveComponent("a-switch");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -59937,12 +60642,12 @@ function _sfc_render$3f(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const gridColResponsiveEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3f, [["render", _sfc_render$3f]]);
+const gridColResponsiveEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3h, [["render", _sfc_render$3h]]);
 const __vite_glob_0_28 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: gridColResponsiveEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$3e = {
+const _sfc_main$3g = {
   name: "grid-col-span-editor",
   mixins: [i18n$1],
   props: {
@@ -59956,7 +60661,7 @@ const _sfc_main$3e = {
     }
   }
 };
-function _sfc_render$3e(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$3g(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_input_number = resolveComponent("a-input-number");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createElementBlock("div", null, [
@@ -60022,7 +60727,7 @@ function _sfc_render$3e(_ctx, _cache, $props, $setup, $data, $options) {
     }, 8, ["label"])) : createCommentVNode("", true)
   ]);
 }
-const gridColSpanEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3e, [["render", _sfc_render$3e]]);
+const gridColSpanEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3g, [["render", _sfc_render$3g]]);
 const __vite_glob_0_29 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: gridColSpanEditor
@@ -60073,7 +60778,7 @@ const propertyMixin = {
     }
   }
 };
-const _sfc_main$3d = {
+const _sfc_main$3f = {
   name: "colHeight-editor",
   mixins: [i18n$1, propertyMixin],
   props: {
@@ -60082,7 +60787,7 @@ const _sfc_main$3d = {
     optionModel: Object
   }
 };
-function _sfc_render$3d(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$3f(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_input_number = resolveComponent("a-input-number");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createElementBlock("div", null, [
@@ -60102,12 +60807,12 @@ function _sfc_render$3d(_ctx, _cache, $props, $setup, $data, $options) {
     }, 8, ["label"])
   ]);
 }
-const colHeightEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3d, [["render", _sfc_render$3d]]);
+const colHeightEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3f, [["render", _sfc_render$3f]]);
 const __vite_glob_0_30 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: colHeightEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$3c = {
+const _sfc_main$3e = {
   name: "gutter-editor",
   components: { SvgIcon },
   mixins: [i18n$1],
@@ -60137,9 +60842,9 @@ const _sfc_main$3c = {
     }
   }
 };
-const _hoisted_1$B = { class: "col-item" };
+const _hoisted_1$C = { class: "col-item" };
 const _hoisted_2$p = { class: "col-span-title" };
-function _sfc_render$3c(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$3e(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_divider = resolveComponent("a-divider");
   const _component_a_form_item = resolveComponent("a-form-item");
   const _component_a_input_number = resolveComponent("a-input-number");
@@ -60184,7 +60889,7 @@ function _sfc_render$3c(_ctx, _cache, $props, $setup, $data, $options) {
           handle: ".drag-handler"
         }), {
           item: withCtx(({ element: colItem, index: colIdx }) => [
-            createElementVNode("li", _hoisted_1$B, [
+            createElementVNode("li", _hoisted_1$C, [
               createElementVNode("span", _hoisted_2$p, toDisplayString(_ctx.i18nt("designer.setting.colSpanTitle")) + toDisplayString(colIdx + 1), 1),
               createVNode(_component_a_input_number, {
                 value: colItem.options.span,
@@ -60238,12 +60943,12 @@ function _sfc_render$3c(_ctx, _cache, $props, $setup, $data, $options) {
     })
   ]);
 }
-const gutterEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3c, [["render", _sfc_render$3c], ["__scopeId", "data-v-35700e4d"]]);
+const gutterEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3e, [["render", _sfc_render$3e], ["__scopeId", "data-v-35700e4d"]]);
 const __vite_glob_0_31 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: gutterEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$3b = {
+const _sfc_main$3d = {
   name: "showBlankRow-editor",
   mixins: [i18n$1],
   props: {
@@ -60252,7 +60957,7 @@ const _sfc_main$3b = {
     optionModel: Object
   }
 };
-function _sfc_render$3b(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$3d(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_switch = resolveComponent("a-switch");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -60267,12 +60972,12 @@ function _sfc_render$3b(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const showBlankRowEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3b, [["render", _sfc_render$3b]]);
+const showBlankRowEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3d, [["render", _sfc_render$3d]]);
 const __vite_glob_0_32 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: showBlankRowEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$3a = {
+const _sfc_main$3c = {
   name: "showRowNumber-editor",
   mixins: [i18n$1],
   props: {
@@ -60281,7 +60986,7 @@ const _sfc_main$3a = {
     optionModel: Object
   }
 };
-function _sfc_render$3a(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$3c(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_switch = resolveComponent("a-switch");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -60296,12 +61001,12 @@ function _sfc_render$3a(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const showRowNumberEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3a, [["render", _sfc_render$3a]]);
+const showRowNumberEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3c, [["render", _sfc_render$3c]]);
 const __vite_glob_0_33 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: showRowNumberEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$39 = {
+const _sfc_main$3b = {
   name: "sub-form-labelAlign-editor",
   mixins: [i18n$1],
   props: {
@@ -60310,7 +61015,7 @@ const _sfc_main$39 = {
     optionModel: Object
   }
 };
-function _sfc_render$39(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$3b(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_radio_button = resolveComponent("a-radio-button");
   const _component_a_radio_group = resolveComponent("a-radio-group");
   const _component_a_form_item = resolveComponent("a-form-item");
@@ -60343,12 +61048,12 @@ function _sfc_render$39(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const subFormLabelAlignEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$39, [["render", _sfc_render$39], ["__scopeId", "data-v-35af70d0"]]);
+const subFormLabelAlignEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3b, [["render", _sfc_render$3b], ["__scopeId", "data-v-35af70d0"]]);
 const __vite_glob_0_34 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: subFormLabelAlignEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$38 = {
+const _sfc_main$3a = {
   name: "tab-customClass-editor",
   componentName: "PropertyEditor",
   mixins: [i18n$1],
@@ -60389,9 +61094,9 @@ const _sfc_main$38 = {
   }
 };
 const _withScopeId$1 = (n) => (pushScopeId("data-v-11d9c5b8"), n = n(), popScopeId(), n);
-const _hoisted_1$A = { class: "col-item" };
+const _hoisted_1$B = { class: "col-item" };
 const _hoisted_2$o = /* @__PURE__ */ _withScopeId$1(() => /* @__PURE__ */ createElementVNode("i", { class: "iconfont icon-drag drag-option" }, null, -1));
-function _sfc_render$38(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$3a(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_select = resolveComponent("a-select");
   const _component_a_form_item = resolveComponent("a-form-item");
   const _component_a_radio = resolveComponent("a-radio");
@@ -60433,7 +61138,7 @@ function _sfc_render$38(_ctx, _cache, $props, $setup, $data, $options) {
               "item-key": "id"
             }, { group: "panesGroup", ghostClass: "ghost", handle: ".drag-option" }), {
               item: withCtx(({ element: tpItem, index: tpIdx }) => [
-                createElementVNode("li", _hoisted_1$A, [
+                createElementVNode("li", _hoisted_1$B, [
                   createVNode(_component_a_radio, {
                     value: tpItem.options.label,
                     style: { "margin-right": "8px" }
@@ -60484,12 +61189,12 @@ function _sfc_render$38(_ctx, _cache, $props, $setup, $data, $options) {
     })
   ]);
 }
-const tabCustomClassEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$38, [["render", _sfc_render$38], ["__scopeId", "data-v-11d9c5b8"]]);
+const tabCustomClassEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3a, [["render", _sfc_render$3a], ["__scopeId", "data-v-11d9c5b8"]]);
 const __vite_glob_0_35 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: tabCustomClassEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$37 = {
+const _sfc_main$39 = {
   name: "cellHeight-editor",
   mixins: [i18n$1],
   props: {
@@ -60498,7 +61203,7 @@ const _sfc_main$37 = {
     optionModel: Object
   }
 };
-function _sfc_render$37(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$39(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_input = resolveComponent("a-input");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -60514,12 +61219,12 @@ function _sfc_render$37(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const cellHeightEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$37, [["render", _sfc_render$37]]);
+const cellHeightEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$39, [["render", _sfc_render$39]]);
 const __vite_glob_0_36 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: cellHeightEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$36 = {
+const _sfc_main$38 = {
   name: "cellWidth-editor",
   mixins: [i18n$1],
   props: {
@@ -60528,7 +61233,7 @@ const _sfc_main$36 = {
     optionModel: Object
   }
 };
-function _sfc_render$36(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$38(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_input = resolveComponent("a-input");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -60544,12 +61249,12 @@ function _sfc_render$36(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const cellWidthEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$36, [["render", _sfc_render$36]]);
+const cellWidthEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$38, [["render", _sfc_render$38]]);
 const __vite_glob_0_37 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: cellWidthEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$35 = {
+const _sfc_main$37 = {
   name: "bodyStyle-editor",
   mixins: [i18n$1, propertyMixin],
   components: { CodeEditor },
@@ -60575,8 +61280,8 @@ const _sfc_main$35 = {
     }
   }
 };
-const _hoisted_1$z = { class: "dialog-footer" };
-function _sfc_render$35(_ctx, _cache, $props, $setup, $data, $options) {
+const _hoisted_1$A = { class: "dialog-footer" };
+function _sfc_render$37(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_button = resolveComponent("a-button");
   const _component_a_form_item = resolveComponent("a-form-item");
   const _component_code_editor = resolveComponent("code-editor");
@@ -60605,7 +61310,7 @@ function _sfc_render$35(_ctx, _cache, $props, $setup, $data, $options) {
       "destroy-on-close": true
     }, {
       footer: withCtx(() => [
-        createElementVNode("div", _hoisted_1$z, [
+        createElementVNode("div", _hoisted_1$A, [
           createVNode(_component_a_button, {
             onClick: _cache[1] || (_cache[1] = ($event) => $data.showEditFormCssDialogFlag = false)
           }, {
@@ -60637,12 +61342,12 @@ function _sfc_render$35(_ctx, _cache, $props, $setup, $data, $options) {
     }, 8, ["visible"])
   ], 64);
 }
-const bodyStyleEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$35, [["render", _sfc_render$35]]);
+const bodyStyleEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$37, [["render", _sfc_render$37]]);
 const __vite_glob_0_38 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: bodyStyleEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$34 = {
+const _sfc_main$36 = {
   name: "cancelButtonHidden-editor",
   mixins: [i18n$1],
   props: {
@@ -60651,7 +61356,7 @@ const _sfc_main$34 = {
     optionModel: Object
   }
 };
-function _sfc_render$34(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$36(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_switch = resolveComponent("a-switch");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -60666,12 +61371,12 @@ function _sfc_render$34(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const cancelButtonHiddenEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$34, [["render", _sfc_render$34]]);
+const cancelButtonHiddenEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$36, [["render", _sfc_render$36]]);
 const __vite_glob_0_39 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: cancelButtonHiddenEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$33 = {
+const _sfc_main$35 = {
   name: "cancelButtonLabel-editor",
   mixins: [i18n$1, propertyMixin],
   props: {
@@ -60680,7 +61385,7 @@ const _sfc_main$33 = {
     optionModel: Object
   }
 };
-function _sfc_render$33(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$35(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_input = resolveComponent("a-input");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -60696,12 +61401,12 @@ function _sfc_render$33(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const cancelButtonLabelEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$33, [["render", _sfc_render$33]]);
+const cancelButtonLabelEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$35, [["render", _sfc_render$35]]);
 const __vite_glob_0_40 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: cancelButtonLabelEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$32 = {
+const _sfc_main$34 = {
   name: "closeOnClickModal-editor",
   mixins: [i18n$1],
   props: {
@@ -60710,7 +61415,7 @@ const _sfc_main$32 = {
     optionModel: Object
   }
 };
-function _sfc_render$32(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$34(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_switch = resolveComponent("a-switch");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -60725,12 +61430,12 @@ function _sfc_render$32(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const closeOnClickModalEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$32, [["render", _sfc_render$32]]);
+const closeOnClickModalEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$34, [["render", _sfc_render$34]]);
 const __vite_glob_0_41 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: closeOnClickModalEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$31 = {
+const _sfc_main$33 = {
   name: "closeOnPressEscape-editor",
   mixins: [i18n$1],
   props: {
@@ -60739,7 +61444,7 @@ const _sfc_main$31 = {
     optionModel: Object
   }
 };
-function _sfc_render$31(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$33(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_switch = resolveComponent("a-switch");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -60754,12 +61459,12 @@ function _sfc_render$31(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const closeOnPressEscapeEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$31, [["render", _sfc_render$31]]);
+const closeOnPressEscapeEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$33, [["render", _sfc_render$33]]);
 const __vite_glob_0_42 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: closeOnPressEscapeEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$30 = {
+const _sfc_main$32 = {
   name: "collapseIcon-editor",
   mixins: [i18n$1, propertyMixin],
   props: {
@@ -60768,7 +61473,7 @@ const _sfc_main$30 = {
     optionModel: Object
   }
 };
-function _sfc_render$30(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$32(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_input = resolveComponent("a-input");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, { label: "折叠时icon" }, {
@@ -60782,12 +61487,12 @@ function _sfc_render$30(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   });
 }
-const collapseIconEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$30, [["render", _sfc_render$30]]);
+const collapseIconEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$32, [["render", _sfc_render$32]]);
 const __vite_glob_0_43 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: collapseIconEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$2$ = {
+const _sfc_main$31 = {
   name: "disabledMode-editor",
   mixins: [i18n$1],
   props: {
@@ -60796,7 +61501,7 @@ const _sfc_main$2$ = {
     optionModel: Object
   }
 };
-function _sfc_render$2$(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$31(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_switch = resolveComponent("a-switch");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -60811,12 +61516,12 @@ function _sfc_render$2$(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const disabledModeEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2$, [["render", _sfc_render$2$]]);
+const disabledModeEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$31, [["render", _sfc_render$31]]);
 const __vite_glob_0_44 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: disabledModeEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$2_ = {
+const _sfc_main$30 = {
   name: "formCode-editor",
   mixins: [i18n$1],
   props: {
@@ -60854,7 +61559,7 @@ const _sfc_main$2_ = {
     }
   }
 };
-function _sfc_render$2_(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$30(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_select = resolveComponent("a-select");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, { label: `关联表单` }, {
@@ -60870,12 +61575,12 @@ function _sfc_render$2_(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   });
 }
-const formCodeEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2_, [["render", _sfc_render$2_]]);
+const formCodeEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$30, [["render", _sfc_render$30]]);
 const __vite_glob_0_45 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: formCodeEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$2Z = {
+const _sfc_main$2$ = {
   name: "fullscreen-editor",
   mixins: [i18n$1],
   props: {
@@ -60884,7 +61589,7 @@ const _sfc_main$2Z = {
     optionModel: Object
   }
 };
-function _sfc_render$2Z(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$2$(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_switch = resolveComponent("a-switch");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -60899,12 +61604,12 @@ function _sfc_render$2Z(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const fullscreenEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2Z, [["render", _sfc_render$2Z]]);
+const fullscreenEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2$, [["render", _sfc_render$2$]]);
 const __vite_glob_0_46 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: fullscreenEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$2Y = {
+const _sfc_main$2_ = {
   name: "height-editor",
   mixins: [i18n$1, propertyMixin],
   props: {
@@ -60913,7 +61618,7 @@ const _sfc_main$2Y = {
     optionModel: Object
   }
 };
-function _sfc_render$2Y(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$2_(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_input = resolveComponent("a-input");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, { label: "高度(px)" }, {
@@ -60927,12 +61632,12 @@ function _sfc_render$2Y(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   });
 }
-const heightEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2Y, [["render", _sfc_render$2Y]]);
+const heightEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2_, [["render", _sfc_render$2_]]);
 const __vite_glob_0_47 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: heightEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$2X = {
+const _sfc_main$2Z = {
   name: "isCollapse-editor",
   mixins: [i18n$1],
   props: {
@@ -60941,7 +61646,7 @@ const _sfc_main$2X = {
     optionModel: Object
   }
 };
-function _sfc_render$2X(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$2Z(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_switch = resolveComponent("a-switch");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, { label: "默认折叠" }, {
@@ -60954,12 +61659,12 @@ function _sfc_render$2X(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   });
 }
-const isCollapseEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2X, [["render", _sfc_render$2X]]);
+const isCollapseEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2Z, [["render", _sfc_render$2Z]]);
 const __vite_glob_0_48 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: isCollapseEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$2W = {
+const _sfc_main$2Y = {
   name: "okButtonHidden-editor",
   mixins: [i18n$1],
   props: {
@@ -60968,7 +61673,7 @@ const _sfc_main$2W = {
     optionModel: Object
   }
 };
-function _sfc_render$2W(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$2Y(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_switch = resolveComponent("a-switch");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -60983,12 +61688,12 @@ function _sfc_render$2W(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const okButtonHiddenEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2W, [["render", _sfc_render$2W]]);
+const okButtonHiddenEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2Y, [["render", _sfc_render$2Y]]);
 const __vite_glob_0_49 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: okButtonHiddenEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$2V = {
+const _sfc_main$2X = {
   name: "okButtonLabel-editor",
   mixins: [i18n$1, propertyMixin],
   props: {
@@ -60997,7 +61702,7 @@ const _sfc_main$2V = {
     optionModel: Object
   }
 };
-function _sfc_render$2V(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$2X(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_input = resolveComponent("a-input");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -61013,12 +61718,12 @@ function _sfc_render$2V(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const okButtonLabelEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2V, [["render", _sfc_render$2V]]);
+const okButtonLabelEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2X, [["render", _sfc_render$2X]]);
 const __vite_glob_0_50 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: okButtonLabelEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$2U = {
+const _sfc_main$2W = {
   name: "readMode-editor",
   mixins: [i18n$1],
   props: {
@@ -61027,7 +61732,7 @@ const _sfc_main$2U = {
     optionModel: Object
   }
 };
-function _sfc_render$2U(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$2W(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_switch = resolveComponent("a-switch");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -61042,12 +61747,12 @@ function _sfc_render$2U(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const readModeEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2U, [["render", _sfc_render$2U]]);
+const readModeEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2W, [["render", _sfc_render$2W]]);
 const __vite_glob_0_51 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: readModeEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$2T = {
+const _sfc_main$2V = {
   name: "showClose-editor",
   mixins: [i18n$1],
   props: {
@@ -61056,7 +61761,7 @@ const _sfc_main$2T = {
     optionModel: Object
   }
 };
-function _sfc_render$2T(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$2V(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_switch = resolveComponent("a-switch");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -61071,12 +61776,12 @@ function _sfc_render$2T(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const showCloseEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2T, [["render", _sfc_render$2T]]);
+const showCloseEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2V, [["render", _sfc_render$2V]]);
 const __vite_glob_0_52 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: showCloseEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$2S = {
+const _sfc_main$2U = {
   name: "title-editor",
   mixins: [i18n$1, propertyMixin],
   props: {
@@ -61085,7 +61790,7 @@ const _sfc_main$2S = {
     optionModel: Object
   }
 };
-function _sfc_render$2S(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$2U(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_input = resolveComponent("a-input");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -61101,12 +61806,12 @@ function _sfc_render$2S(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const titleEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2S, [["render", _sfc_render$2S]]);
+const titleEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2U, [["render", _sfc_render$2U]]);
 const __vite_glob_0_53 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: titleEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$2R = {
+const _sfc_main$2T = {
   name: "unCollapseIcon-editor",
   mixins: [i18n$1, propertyMixin],
   props: {
@@ -61115,7 +61820,7 @@ const _sfc_main$2R = {
     optionModel: Object
   }
 };
-function _sfc_render$2R(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$2T(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_input = resolveComponent("a-input");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, { label: "未折叠时icon" }, {
@@ -61129,12 +61834,12 @@ function _sfc_render$2R(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   });
 }
-const unCollapseIconEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2R, [["render", _sfc_render$2R]]);
+const unCollapseIconEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2T, [["render", _sfc_render$2T]]);
 const __vite_glob_0_54 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: unCollapseIconEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$2Q = {
+const _sfc_main$2S = {
   name: "width-editor",
   mixins: [i18n$1, propertyMixin],
   props: {
@@ -61143,7 +61848,7 @@ const _sfc_main$2Q = {
     optionModel: Object
   }
 };
-function _sfc_render$2Q(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$2S(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_input = resolveComponent("a-input");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -61159,12 +61864,12 @@ function _sfc_render$2Q(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const widthEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2Q, [["render", _sfc_render$2Q]]);
+const widthEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2S, [["render", _sfc_render$2S]]);
 const __vite_glob_0_55 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: widthEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$2P = {
+const _sfc_main$2R = {
   name: "vf-drawer-direction-editor",
   mixins: [i18n$1],
   components: {},
@@ -61177,7 +61882,7 @@ const _sfc_main$2P = {
     //
   }
 };
-function _sfc_render$2P(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$2R(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_radio_button = resolveComponent("a-radio-button");
   const _component_a_radio_group = resolveComponent("a-radio-group");
   const _component_a_form_item = resolveComponent("a-form-item");
@@ -61222,12 +61927,12 @@ function _sfc_render$2P(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const vfDrawerDirectionEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2P, [["render", _sfc_render$2P], ["__scopeId", "data-v-3da0396a"]]);
+const vfDrawerDirectionEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2R, [["render", _sfc_render$2R], ["__scopeId", "data-v-3da0396a"]]);
 const __vite_glob_0_56 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: vfDrawerDirectionEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$2O = {
+const _sfc_main$2Q = {
   name: "vf-drawer-size-editor",
   mixins: [i18n$1, propertyMixin],
   props: {
@@ -61236,7 +61941,7 @@ const _sfc_main$2O = {
     optionModel: Object
   }
 };
-function _sfc_render$2O(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$2Q(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_input = resolveComponent("a-input");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -61252,12 +61957,12 @@ function _sfc_render$2O(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const vfDrawerSizeEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2O, [["render", _sfc_render$2O]]);
+const vfDrawerSizeEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2Q, [["render", _sfc_render$2Q]]);
 const __vite_glob_0_57 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: vfDrawerSizeEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$2N = {
+const _sfc_main$2P = {
   name: "customClass-editor",
   componentName: "PropertyEditor",
   mixins: [i18n$1],
@@ -61278,7 +61983,7 @@ const _sfc_main$2N = {
     });
   }
 };
-function _sfc_render$2N(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$2P(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_select = resolveComponent("a-select");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -61296,12 +62001,12 @@ function _sfc_render$2N(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const customClassEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2N, [["render", _sfc_render$2N]]);
+const customClassEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2P, [["render", _sfc_render$2P]]);
 const __vite_glob_0_58 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: customClassEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$2M = {
+const _sfc_main$2O = {
   name: "defaultValue-editor",
   mixins: [i18n$1, propertyMixin],
   props: {
@@ -61310,7 +62015,7 @@ const _sfc_main$2M = {
     optionModel: Object
   }
 };
-function _sfc_render$2M(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$2O(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_input = resolveComponent("a-input");
   const _component_a_form_item = resolveComponent("a-form-item");
   return !_ctx.hasConfig("optionItems") ? (openBlock(), createBlock(_component_a_form_item, {
@@ -61328,12 +62033,12 @@ function _sfc_render$2M(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"])) : createCommentVNode("", true);
 }
-const defaultValueEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2M, [["render", _sfc_render$2M]]);
+const defaultValueEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2O, [["render", _sfc_render$2O]]);
 const __vite_glob_0_59 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: defaultValueEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$2L = {
+const _sfc_main$2N = {
   name: "disabled-editor",
   mixins: [i18n$1, eventMixin],
   props: {
@@ -61347,7 +62052,7 @@ const _sfc_main$2L = {
     };
   }
 };
-function _sfc_render$2L(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$2N(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_switch = resolveComponent("a-switch");
   const _component_a_button = resolveComponent("a-button");
   const _component_a_space = resolveComponent("a-space");
@@ -61380,12 +62085,12 @@ function _sfc_render$2L(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const disabledEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2L, [["render", _sfc_render$2L]]);
+const disabledEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2N, [["render", _sfc_render$2N]]);
 const __vite_glob_0_60 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: disabledEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$2K = {
+const _sfc_main$2M = {
   name: "displayStyle-editor",
   mixins: [i18n$1],
   props: {
@@ -61394,7 +62099,7 @@ const _sfc_main$2K = {
     optionModel: Object
   }
 };
-function _sfc_render$2K(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$2M(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_radio = resolveComponent("a-radio");
   const _component_a_radio_group = resolveComponent("a-radio-group");
   const _component_a_form_item = resolveComponent("a-form-item");
@@ -61426,12 +62131,12 @@ function _sfc_render$2K(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const displayStyleEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2K, [["render", _sfc_render$2K]]);
+const displayStyleEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2M, [["render", _sfc_render$2M]]);
 const __vite_glob_0_61 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: displayStyleEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$2J = {
+const _sfc_main$2L = {
   name: "editable-editor",
   mixins: [i18n$1],
   props: {
@@ -61440,7 +62145,7 @@ const _sfc_main$2J = {
     optionModel: Object
   }
 };
-function _sfc_render$2J(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$2L(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_switch = resolveComponent("a-switch");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -61455,12 +62160,12 @@ function _sfc_render$2J(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const editableEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2J, [["render", _sfc_render$2J]]);
+const editableEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2L, [["render", _sfc_render$2L]]);
 const __vite_glob_0_62 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: editableEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$2I = {
+const _sfc_main$2K = {
   name: "endPlaceholder-editor",
   mixins: [i18n$1],
   props: {
@@ -61469,7 +62174,7 @@ const _sfc_main$2I = {
     optionModel: Object
   }
 };
-function _sfc_render$2I(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$2K(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_input = resolveComponent("a-input");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -61485,12 +62190,12 @@ function _sfc_render$2I(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const endPlaceholderEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2I, [["render", _sfc_render$2I]]);
+const endPlaceholderEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2K, [["render", _sfc_render$2K]]);
 const __vite_glob_0_63 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: endPlaceholderEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$2H = {
+const _sfc_main$2J = {
   name: "onAppendButtonClick-editor",
   mixins: [i18n$1, eventMixin],
   props: {
@@ -61508,7 +62213,7 @@ const _sfc_main$2H = {
     };
   }
 };
-function _sfc_render$2H(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$2J(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_button = resolveComponent("a-button");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -61533,12 +62238,12 @@ function _sfc_render$2H(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   });
 }
-const onAppendButtonClickEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2H, [["render", _sfc_render$2H]]);
+const onAppendButtonClickEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2J, [["render", _sfc_render$2J]]);
 const __vite_glob_0_64 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: onAppendButtonClickEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$2G = {
+const _sfc_main$2I = {
   name: "onBeforeUpload-editor",
   mixins: [i18n$1, eventMixin],
   props: {
@@ -61556,7 +62261,7 @@ const _sfc_main$2G = {
     };
   }
 };
-function _sfc_render$2G(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$2I(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_button = resolveComponent("a-button");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -61580,12 +62285,12 @@ function _sfc_render$2G(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   });
 }
-const onBeforeUploadEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2G, [["render", _sfc_render$2G]]);
+const onBeforeUploadEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2I, [["render", _sfc_render$2I]]);
 const __vite_glob_0_65 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: onBeforeUploadEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$2F = {
+const _sfc_main$2H = {
   name: "onBlur-editor",
   mixins: [i18n$1, eventMixin],
   props: {
@@ -61603,7 +62308,7 @@ const _sfc_main$2F = {
     };
   }
 };
-function _sfc_render$2F(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$2H(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_button = resolveComponent("a-button");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -61628,12 +62333,12 @@ function _sfc_render$2F(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   });
 }
-const onBlurEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2F, [["render", _sfc_render$2F]]);
+const onBlurEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2H, [["render", _sfc_render$2H]]);
 const __vite_glob_0_66 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: onBlurEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$2E = {
+const _sfc_main$2G = {
   name: "onCancelButtonClick-editor",
   mixins: [i18n$1, eventMixin],
   props: {
@@ -61651,7 +62356,7 @@ const _sfc_main$2E = {
     };
   }
 };
-function _sfc_render$2E(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$2G(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_button = resolveComponent("a-button");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -61675,12 +62380,12 @@ function _sfc_render$2E(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   });
 }
-const onCancelButtonClickEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2E, [["render", _sfc_render$2E]]);
+const onCancelButtonClickEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2G, [["render", _sfc_render$2G]]);
 const __vite_glob_0_67 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: onCancelButtonClickEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$2D = {
+const _sfc_main$2F = {
   name: "onCellClick-editor",
   mixins: [i18n$1, eventMixin],
   props: {
@@ -61698,7 +62403,7 @@ const _sfc_main$2D = {
     };
   }
 };
-function _sfc_render$2D(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$2F(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_button = resolveComponent("a-button");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -61722,12 +62427,12 @@ function _sfc_render$2D(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   });
 }
-const onCellClickEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2D, [["render", _sfc_render$2D]]);
+const onCellClickEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2F, [["render", _sfc_render$2F]]);
 const __vite_glob_0_68 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: onCellClickEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$2C = {
+const _sfc_main$2E = {
   name: "onCellDoubleClick-editor",
   mixins: [i18n$1, eventMixin],
   props: {
@@ -61745,7 +62450,7 @@ const _sfc_main$2C = {
     };
   }
 };
-function _sfc_render$2C(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$2E(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_button = resolveComponent("a-button");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -61769,12 +62474,12 @@ function _sfc_render$2C(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   });
 }
-const onCellDoubleClickEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2C, [["render", _sfc_render$2C]]);
+const onCellDoubleClickEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2E, [["render", _sfc_render$2E]]);
 const __vite_glob_0_69 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: onCellDoubleClickEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$2B = {
+const _sfc_main$2D = {
   name: "onChange-editor",
   mixins: [i18n$1, eventMixin],
   props: {
@@ -61792,7 +62497,7 @@ const _sfc_main$2B = {
     };
   }
 };
-function _sfc_render$2B(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$2D(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_button = resolveComponent("a-button");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -61817,12 +62522,12 @@ function _sfc_render$2B(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   });
 }
-const onChangeEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2B, [["render", _sfc_render$2B]]);
+const onChangeEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2D, [["render", _sfc_render$2D]]);
 const __vite_glob_0_70 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: onChangeEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$2A = {
+const _sfc_main$2C = {
   name: "onClick-editor",
   mixins: [i18n$1, eventMixin],
   props: {
@@ -61840,7 +62545,7 @@ const _sfc_main$2A = {
     };
   }
 };
-function _sfc_render$2A(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$2C(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_button = resolveComponent("a-button");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -61864,12 +62569,12 @@ function _sfc_render$2A(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   });
 }
-const onClickEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2A, [["render", _sfc_render$2A]]);
+const onClickEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2C, [["render", _sfc_render$2C]]);
 const __vite_glob_0_71 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: onClickEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$2z = {
+const _sfc_main$2B = {
   name: "onClickIcon-editor",
   mixins: [i18n$1, eventMixin],
   props: {
@@ -61887,7 +62592,7 @@ const _sfc_main$2z = {
     };
   }
 };
-function _sfc_render$2z(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$2B(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_button = resolveComponent("a-button");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -61912,12 +62617,12 @@ function _sfc_render$2z(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   });
 }
-const onClickIconEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2z, [["render", _sfc_render$2z]]);
+const onClickIconEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2B, [["render", _sfc_render$2B]]);
 const __vite_glob_0_72 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: onClickIconEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$2y = {
+const _sfc_main$2A = {
   name: "onCreated-editor",
   mixins: [i18n$1, eventMixin],
   props: {
@@ -61935,7 +62640,7 @@ const _sfc_main$2y = {
     };
   }
 };
-function _sfc_render$2y(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$2A(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_button = resolveComponent("a-button");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -61960,12 +62665,12 @@ function _sfc_render$2y(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   });
 }
-const onCreatedEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2y, [["render", _sfc_render$2y]]);
+const onCreatedEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2A, [["render", _sfc_render$2A]]);
 const __vite_glob_0_73 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: onCreatedEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$2x = {
+const _sfc_main$2z = {
   name: "onCurrentPageChange-editor",
   mixins: [i18n$1, eventMixin],
   props: {
@@ -61983,7 +62688,7 @@ const _sfc_main$2x = {
     };
   }
 };
-function _sfc_render$2x(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$2z(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_button = resolveComponent("a-button");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -62007,12 +62712,12 @@ function _sfc_render$2x(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   });
 }
-const onCurrentPageChangeEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2x, [["render", _sfc_render$2x]]);
+const onCurrentPageChangeEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2z, [["render", _sfc_render$2z]]);
 const __vite_glob_0_74 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: onCurrentPageChangeEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$2w = {
+const _sfc_main$2y = {
   name: "onDialogBeforeClose-editor",
   mixins: [i18n$1, eventMixin],
   props: {
@@ -62030,7 +62735,7 @@ const _sfc_main$2w = {
     };
   }
 };
-function _sfc_render$2w(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$2y(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_button = resolveComponent("a-button");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -62054,12 +62759,12 @@ function _sfc_render$2w(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   });
 }
-const onDialogBeforeCloseEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2w, [["render", _sfc_render$2w]]);
+const onDialogBeforeCloseEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2y, [["render", _sfc_render$2y]]);
 const __vite_glob_0_75 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: onDialogBeforeCloseEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$2v = {
+const _sfc_main$2x = {
   name: "onDialogOpened-editor",
   mixins: [i18n$1, eventMixin],
   props: {
@@ -62077,7 +62782,7 @@ const _sfc_main$2v = {
     };
   }
 };
-function _sfc_render$2v(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$2x(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_button = resolveComponent("a-button");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -62101,12 +62806,12 @@ function _sfc_render$2v(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   });
 }
-const onDialogOpenedEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2v, [["render", _sfc_render$2v]]);
+const onDialogOpenedEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2x, [["render", _sfc_render$2x]]);
 const __vite_glob_0_76 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: onDialogOpenedEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$2u = {
+const _sfc_main$2w = {
   name: "onDisableOperationButton-editor",
   mixins: [i18n$1, eventMixin],
   props: {
@@ -62124,7 +62829,7 @@ const _sfc_main$2u = {
     };
   }
 };
-function _sfc_render$2u(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$2w(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_button = resolveComponent("a-button");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -62149,12 +62854,12 @@ function _sfc_render$2u(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   });
 }
-const onDisableOperationButtonEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2u, [["render", _sfc_render$2u]]);
+const onDisableOperationButtonEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2w, [["render", _sfc_render$2w]]);
 const __vite_glob_0_77 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: onDisableOperationButtonEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$2t = {
+const _sfc_main$2v = {
   name: "onDrawerBeforeClose-editor",
   mixins: [i18n$1, eventMixin],
   props: {
@@ -62172,7 +62877,7 @@ const _sfc_main$2t = {
     };
   }
 };
-function _sfc_render$2t(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$2v(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_button = resolveComponent("a-button");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -62196,12 +62901,12 @@ function _sfc_render$2t(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   });
 }
-const onDrawerBeforeCloseEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2t, [["render", _sfc_render$2t]]);
+const onDrawerBeforeCloseEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2v, [["render", _sfc_render$2v]]);
 const __vite_glob_0_78 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: onDrawerBeforeCloseEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$2s = {
+const _sfc_main$2u = {
   name: "onDrawerOpened-editor",
   mixins: [i18n$1, eventMixin],
   props: {
@@ -62219,7 +62924,7 @@ const _sfc_main$2s = {
     };
   }
 };
-function _sfc_render$2s(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$2u(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_button = resolveComponent("a-button");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -62243,12 +62948,12 @@ function _sfc_render$2s(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   });
 }
-const onDrawerOpenedEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2s, [["render", _sfc_render$2s]]);
+const onDrawerOpenedEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2u, [["render", _sfc_render$2u]]);
 const __vite_glob_0_79 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: onDrawerOpenedEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$2r = {
+const _sfc_main$2t = {
   name: "onFileRemove-editor",
   mixins: [i18n$1, eventMixin],
   props: {
@@ -62266,7 +62971,7 @@ const _sfc_main$2r = {
     };
   }
 };
-function _sfc_render$2r(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$2t(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_button = resolveComponent("a-button");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -62290,12 +62995,12 @@ function _sfc_render$2r(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   });
 }
-const onFileRemove = /* @__PURE__ */ _export_sfc$1(_sfc_main$2r, [["render", _sfc_render$2r]]);
+const onFileRemove = /* @__PURE__ */ _export_sfc$1(_sfc_main$2t, [["render", _sfc_render$2t]]);
 const __vite_glob_0_80 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: onFileRemove
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$2q = {
+const _sfc_main$2s = {
   name: "onFocus-editor",
   mixins: [i18n$1, eventMixin],
   props: {
@@ -62313,7 +63018,7 @@ const _sfc_main$2q = {
     };
   }
 };
-function _sfc_render$2q(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$2s(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_button = resolveComponent("a-button");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -62338,12 +63043,12 @@ function _sfc_render$2q(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   });
 }
-const onFocusEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2q, [["render", _sfc_render$2q]]);
+const onFocusEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2s, [["render", _sfc_render$2s]]);
 const __vite_glob_0_81 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: onFocusEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$2p = {
+const _sfc_main$2r = {
   name: "onGetOperationButtonLabel-editor",
   mixins: [i18n$1, eventMixin],
   props: {
@@ -62361,7 +63066,7 @@ const _sfc_main$2p = {
     };
   }
 };
-function _sfc_render$2p(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$2r(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_button = resolveComponent("a-button");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -62386,12 +63091,12 @@ function _sfc_render$2p(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   });
 }
-const onGetOperationButtonLabelEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2p, [["render", _sfc_render$2p]]);
+const onGetOperationButtonLabelEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2r, [["render", _sfc_render$2r]]);
 const __vite_glob_0_82 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: onGetOperationButtonLabelEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$2o = {
+const _sfc_main$2q = {
   name: "onGetRowClassName-editor",
   mixins: [i18n$1, eventMixin],
   props: {
@@ -62409,7 +63114,7 @@ const _sfc_main$2o = {
     };
   }
 };
-function _sfc_render$2o(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$2q(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_button = resolveComponent("a-button");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -62433,12 +63138,12 @@ function _sfc_render$2o(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   });
 }
-const onGetRowClassNameEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2o, [["render", _sfc_render$2o]]);
+const onGetRowClassNameEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2q, [["render", _sfc_render$2q]]);
 const __vite_glob_0_83 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: onGetRowClassNameEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$2n = {
+const _sfc_main$2p = {
   name: "onGetSpanMethod-editor",
   mixins: [i18n$1, eventMixin],
   props: {
@@ -62456,7 +63161,7 @@ const _sfc_main$2n = {
     };
   }
 };
-function _sfc_render$2n(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$2p(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_button = resolveComponent("a-button");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -62480,12 +63185,12 @@ function _sfc_render$2n(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   });
 }
-const onGetSpanMethodEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2n, [["render", _sfc_render$2n]]);
+const onGetSpanMethodEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2p, [["render", _sfc_render$2p]]);
 const __vite_glob_0_84 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: onGetSpanMethodEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$2m = {
+const _sfc_main$2o = {
   name: "onHeaderClick-editor",
   mixins: [i18n$1, eventMixin],
   props: {
@@ -62503,7 +63208,7 @@ const _sfc_main$2m = {
     };
   }
 };
-function _sfc_render$2m(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$2o(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_button = resolveComponent("a-button");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -62527,12 +63232,12 @@ function _sfc_render$2m(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   });
 }
-const onHeaderClickEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2m, [["render", _sfc_render$2m]]);
+const onHeaderClickEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2o, [["render", _sfc_render$2o]]);
 const __vite_glob_0_85 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: onHeaderClickEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$2l = {
+const _sfc_main$2n = {
   name: "onHideOperationButton-editor",
   mixins: [i18n$1, eventMixin],
   props: {
@@ -62550,7 +63255,7 @@ const _sfc_main$2l = {
     };
   }
 };
-function _sfc_render$2l(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$2n(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_button = resolveComponent("a-button");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -62574,12 +63279,12 @@ function _sfc_render$2l(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   });
 }
-const onHideOperationButtonEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2l, [["render", _sfc_render$2l]]);
+const onHideOperationButtonEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2n, [["render", _sfc_render$2n]]);
 const __vite_glob_0_86 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: onHideOperationButtonEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$2k = {
+const _sfc_main$2m = {
   name: "onInput-editor",
   mixins: [i18n$1, eventMixin],
   props: {
@@ -62597,7 +63302,7 @@ const _sfc_main$2k = {
     };
   }
 };
-function _sfc_render$2k(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$2m(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_button = resolveComponent("a-button");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -62622,12 +63327,12 @@ function _sfc_render$2k(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   });
 }
-const onInputEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2k, [["render", _sfc_render$2k]]);
+const onInputEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2m, [["render", _sfc_render$2m]]);
 const __vite_glob_0_87 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: onInputEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$2j = {
+const _sfc_main$2l = {
   name: "onMenuClick-editor",
   mixins: [i18n$1, eventMixin],
   props: {
@@ -62645,7 +63350,7 @@ const _sfc_main$2j = {
     };
   }
 };
-function _sfc_render$2j(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$2l(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_button = resolveComponent("a-button");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -62669,12 +63374,12 @@ function _sfc_render$2j(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   });
 }
-const onMenuClickEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2j, [["render", _sfc_render$2j]]);
+const onMenuClickEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2l, [["render", _sfc_render$2l]]);
 const __vite_glob_0_88 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: onMenuClickEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$2i = {
+const _sfc_main$2k = {
   name: "onMounted-editor",
   mixins: [i18n$1, eventMixin],
   props: {
@@ -62692,7 +63397,7 @@ const _sfc_main$2i = {
     };
   }
 };
-function _sfc_render$2i(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$2k(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_button = resolveComponent("a-button");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -62717,12 +63422,12 @@ function _sfc_render$2i(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   });
 }
-const onMountedEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2i, [["render", _sfc_render$2i]]);
+const onMountedEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2k, [["render", _sfc_render$2k]]);
 const __vite_glob_0_89 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: onMountedEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$2h = {
+const _sfc_main$2j = {
   name: "onOkButtonClick-editor",
   mixins: [i18n$1, eventMixin],
   props: {
@@ -62740,7 +63445,7 @@ const _sfc_main$2h = {
     };
   }
 };
-function _sfc_render$2h(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$2j(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_button = resolveComponent("a-button");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -62764,12 +63469,12 @@ function _sfc_render$2h(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   });
 }
-const onOkButtonClickEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2h, [["render", _sfc_render$2h]]);
+const onOkButtonClickEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2j, [["render", _sfc_render$2j]]);
 const __vite_glob_0_90 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: onOkButtonClickEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$2g = {
+const _sfc_main$2i = {
   name: "onOperationButtonClick-editor",
   mixins: [i18n$1, eventMixin],
   props: {
@@ -62787,7 +63492,7 @@ const _sfc_main$2g = {
     };
   }
 };
-function _sfc_render$2g(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$2i(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_button = resolveComponent("a-button");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -62811,12 +63516,12 @@ function _sfc_render$2g(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   });
 }
-const onOperationButtonClickEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2g, [["render", _sfc_render$2g]]);
+const onOperationButtonClickEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2i, [["render", _sfc_render$2i]]);
 const __vite_glob_0_91 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: onOperationButtonClickEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$2f = {
+const _sfc_main$2h = {
   name: "onPageSizeChange-editor",
   mixins: [i18n$1, eventMixin],
   props: {
@@ -62834,7 +63539,7 @@ const _sfc_main$2f = {
     };
   }
 };
-function _sfc_render$2f(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$2h(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_button = resolveComponent("a-button");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -62858,12 +63563,12 @@ function _sfc_render$2f(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   });
 }
-const onPageSizeChangeEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2f, [["render", _sfc_render$2f]]);
+const onPageSizeChangeEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2h, [["render", _sfc_render$2h]]);
 const __vite_glob_0_92 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: onPageSizeChangeEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$2e = {
+const _sfc_main$2g = {
   name: "onRemoteQuery-editor",
   mixins: [i18n$1, eventMixin],
   props: {
@@ -62881,7 +63586,7 @@ const _sfc_main$2e = {
     };
   }
 };
-function _sfc_render$2e(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$2g(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_button = resolveComponent("a-button");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -62905,12 +63610,12 @@ function _sfc_render$2e(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   });
 }
-const onRemoteQueryEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2e, [["render", _sfc_render$2e]]);
+const onRemoteQueryEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2g, [["render", _sfc_render$2g]]);
 const __vite_glob_0_93 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: onRemoteQueryEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$2d = {
+const _sfc_main$2f = {
   name: "onRowClick-editor",
   mixins: [i18n$1, eventMixin],
   props: {
@@ -62928,7 +63633,7 @@ const _sfc_main$2d = {
     };
   }
 };
-function _sfc_render$2d(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$2f(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_button = resolveComponent("a-button");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -62952,12 +63657,12 @@ function _sfc_render$2d(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   });
 }
-const onRowClickEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2d, [["render", _sfc_render$2d]]);
+const onRowClickEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2f, [["render", _sfc_render$2f]]);
 const __vite_glob_0_94 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: onRowClickEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$2c = {
+const _sfc_main$2e = {
   name: "onRowDoubleClick-editor",
   mixins: [i18n$1, eventMixin],
   props: {
@@ -62975,7 +63680,7 @@ const _sfc_main$2c = {
     };
   }
 };
-function _sfc_render$2c(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$2e(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_button = resolveComponent("a-button");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -62999,12 +63704,12 @@ function _sfc_render$2c(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   });
 }
-const onRowDoubleClickEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2c, [["render", _sfc_render$2c]]);
+const onRowDoubleClickEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2e, [["render", _sfc_render$2e]]);
 const __vite_glob_0_95 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: onRowDoubleClickEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$2b = {
+const _sfc_main$2d = {
   name: "onSelectionChange-editor",
   mixins: [i18n$1, eventMixin],
   props: {
@@ -63022,7 +63727,7 @@ const _sfc_main$2b = {
     };
   }
 };
-function _sfc_render$2b(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$2d(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_button = resolveComponent("a-button");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -63046,12 +63751,12 @@ function _sfc_render$2b(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   });
 }
-const onSelectionChangeEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2b, [["render", _sfc_render$2b]]);
+const onSelectionChangeEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2d, [["render", _sfc_render$2d]]);
 const __vite_glob_0_96 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: onSelectionChangeEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$2a = {
+const _sfc_main$2c = {
   name: "onSubFormRowAdd-editor",
   mixins: [i18n$1, eventMixin],
   props: {
@@ -63069,7 +63774,7 @@ const _sfc_main$2a = {
     };
   }
 };
-function _sfc_render$2a(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$2c(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_button = resolveComponent("a-button");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -63093,12 +63798,12 @@ function _sfc_render$2a(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   });
 }
-const onSubFormRowAddEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2a, [["render", _sfc_render$2a]]);
+const onSubFormRowAddEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2c, [["render", _sfc_render$2c]]);
 const __vite_glob_0_97 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: onSubFormRowAddEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$29 = {
+const _sfc_main$2b = {
   name: "onSubFormRowChange-editor",
   mixins: [i18n$1, eventMixin],
   props: {
@@ -63116,7 +63821,7 @@ const _sfc_main$29 = {
     };
   }
 };
-function _sfc_render$29(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$2b(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_button = resolveComponent("a-button");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -63140,12 +63845,12 @@ function _sfc_render$29(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   });
 }
-const onSubFormRowChangeEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$29, [["render", _sfc_render$29]]);
+const onSubFormRowChangeEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2b, [["render", _sfc_render$2b]]);
 const __vite_glob_0_98 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: onSubFormRowChangeEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$28 = {
+const _sfc_main$2a = {
   name: "onSubFormRowDelete-editor",
   mixins: [i18n$1, eventMixin],
   props: {
@@ -63163,7 +63868,7 @@ const _sfc_main$28 = {
     };
   }
 };
-function _sfc_render$28(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$2a(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_button = resolveComponent("a-button");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -63187,12 +63892,12 @@ function _sfc_render$28(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   });
 }
-const onSubFormRowDeleteEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$28, [["render", _sfc_render$28]]);
+const onSubFormRowDeleteEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2a, [["render", _sfc_render$2a]]);
 const __vite_glob_0_99 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: onSubFormRowDeleteEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$27 = {
+const _sfc_main$29 = {
   name: "onSubFormRowInsert-editor",
   mixins: [i18n$1, eventMixin],
   props: {
@@ -63210,7 +63915,7 @@ const _sfc_main$27 = {
     };
   }
 };
-function _sfc_render$27(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$29(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_button = resolveComponent("a-button");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -63234,12 +63939,12 @@ function _sfc_render$27(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   });
 }
-const onSubFormRowInsertEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$27, [["render", _sfc_render$27]]);
+const onSubFormRowInsertEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$29, [["render", _sfc_render$29]]);
 const __vite_glob_0_100 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: onSubFormRowInsertEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$26 = {
+const _sfc_main$28 = {
   name: "onTabClick-editor",
   mixins: [i18n$1, eventMixin],
   props: {
@@ -63257,7 +63962,7 @@ const _sfc_main$26 = {
     };
   }
 };
-function _sfc_render$26(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$28(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_button = resolveComponent("a-button");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -63281,12 +63986,12 @@ function _sfc_render$26(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   });
 }
-const onTabClickEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$26, [["render", _sfc_render$26]]);
+const onTabClickEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$28, [["render", _sfc_render$28]]);
 const __vite_glob_0_101 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: onTabClickEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$25 = {
+const _sfc_main$27 = {
   name: "onTableChange-editor",
   mixins: [i18n$1, eventMixin],
   props: {
@@ -63304,7 +64009,7 @@ const _sfc_main$25 = {
     };
   }
 };
-function _sfc_render$25(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$27(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_button = resolveComponent("a-button");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -63329,12 +64034,12 @@ function _sfc_render$25(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   });
 }
-const onTableChangeEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$25, [["render", _sfc_render$25]]);
+const onTableChangeEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$27, [["render", _sfc_render$27]]);
 const __vite_glob_0_102 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: onTableChangeEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$24 = {
+const _sfc_main$26 = {
   name: "onUploadError-editor",
   mixins: [i18n$1, eventMixin],
   props: {
@@ -63352,7 +64057,7 @@ const _sfc_main$24 = {
     };
   }
 };
-function _sfc_render$24(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$26(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_button = resolveComponent("a-button");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -63376,12 +64081,12 @@ function _sfc_render$24(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   });
 }
-const onUploadErrorEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$24, [["render", _sfc_render$24]]);
+const onUploadErrorEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$26, [["render", _sfc_render$26]]);
 const __vite_glob_0_103 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: onUploadErrorEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$23 = {
+const _sfc_main$25 = {
   name: "onUploadSuccess-editor",
   mixins: [i18n$1, eventMixin],
   props: {
@@ -63399,7 +64104,7 @@ const _sfc_main$23 = {
     };
   }
 };
-function _sfc_render$23(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$25(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_button = resolveComponent("a-button");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -63423,12 +64128,12 @@ function _sfc_render$23(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   });
 }
-const onUploadSuccessEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$23, [["render", _sfc_render$23]]);
+const onUploadSuccessEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$25, [["render", _sfc_render$25]]);
 const __vite_glob_0_104 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: onUploadSuccessEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$22 = {
+const _sfc_main$24 = {
   name: "onValidate-editor",
   mixins: [i18n$1, eventMixin],
   props: {
@@ -63446,7 +64151,7 @@ const _sfc_main$22 = {
     };
   }
 };
-function _sfc_render$22(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$24(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_button = resolveComponent("a-button");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -63471,12 +64176,12 @@ function _sfc_render$22(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   });
 }
-const onValidateEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$22, [["render", _sfc_render$22]]);
+const onValidateEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$24, [["render", _sfc_render$24]]);
 const __vite_glob_0_105 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: onValidateEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$21 = {
+const _sfc_main$23 = {
   name: "onVformAdd-editor",
   mixins: [i18n$1, eventMixin],
   props: {
@@ -63494,7 +64199,7 @@ const _sfc_main$21 = {
     };
   }
 };
-function _sfc_render$21(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$23(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_button = resolveComponent("a-button");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -63519,12 +64224,12 @@ function _sfc_render$21(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   });
 }
-const onVformAddEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$21, [["render", _sfc_render$21]]);
+const onVformAddEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$23, [["render", _sfc_render$23]]);
 const __vite_glob_0_106 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: onVformAddEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$20 = {
+const _sfc_main$22 = {
   name: "circle-editor",
   mixins: [i18n$1],
   props: {
@@ -63533,7 +64238,7 @@ const _sfc_main$20 = {
     optionModel: Object
   }
 };
-function _sfc_render$20(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$22(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_switch = resolveComponent("a-switch");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -63548,12 +64253,12 @@ function _sfc_render$20(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const circleEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$20, [["render", _sfc_render$20]]);
+const circleEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$22, [["render", _sfc_render$22]]);
 const __vite_glob_0_107 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: circleEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$1$ = {
+const _sfc_main$21 = {
   name: "danger-editor",
   mixins: [i18n$1],
   props: {
@@ -63562,7 +64267,7 @@ const _sfc_main$1$ = {
     optionModel: Object
   }
 };
-function _sfc_render$1$(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$21(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_switch = resolveComponent("a-switch");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, { label: "设置危险按钮" }, {
@@ -63575,12 +64280,12 @@ function _sfc_render$1$(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   });
 }
-const dangerEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1$, [["render", _sfc_render$1$]]);
+const dangerEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$21, [["render", _sfc_render$21]]);
 const __vite_glob_0_108 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: dangerEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$1_ = {
+const _sfc_main$20 = {
   name: "ghost-editor",
   mixins: [i18n$1],
   props: {
@@ -63589,7 +64294,7 @@ const _sfc_main$1_ = {
     optionModel: Object
   }
 };
-function _sfc_render$1_(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$20(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_switch = resolveComponent("a-switch");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, { label: "幽灵属性，使按钮背景透明" }, {
@@ -63602,12 +64307,12 @@ function _sfc_render$1_(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   });
 }
-const ghostEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1_, [["render", _sfc_render$1_]]);
+const ghostEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$20, [["render", _sfc_render$20]]);
 const __vite_glob_0_109 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: ghostEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$1Z = {
+const _sfc_main$1$ = {
   name: "icon-editor",
   mixins: [i18n$1],
   props: {
@@ -63616,7 +64321,7 @@ const _sfc_main$1Z = {
     optionModel: Object
   }
 };
-function _sfc_render$1Z(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$1$(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_input = resolveComponent("a-input");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -63632,12 +64337,12 @@ function _sfc_render$1Z(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const iconEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1Z, [["render", _sfc_render$1Z]]);
+const iconEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1$, [["render", _sfc_render$1$]]);
 const __vite_glob_0_110 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: iconEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$1Y = {
+const _sfc_main$1_ = {
   name: "plain-editor",
   mixins: [i18n$1],
   props: {
@@ -63646,7 +64351,7 @@ const _sfc_main$1Y = {
     optionModel: Object
   }
 };
-function _sfc_render$1Y(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$1_(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_switch = resolveComponent("a-switch");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -63661,12 +64366,12 @@ function _sfc_render$1Y(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const plainEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1Y, [["render", _sfc_render$1Y]]);
+const plainEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1_, [["render", _sfc_render$1_]]);
 const __vite_glob_0_111 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: plainEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$1X = {
+const _sfc_main$1Z = {
   name: "round-editor",
   mixins: [i18n$1],
   props: {
@@ -63675,7 +64380,7 @@ const _sfc_main$1X = {
     optionModel: Object
   }
 };
-function _sfc_render$1X(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$1Z(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_switch = resolveComponent("a-switch");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -63690,12 +64395,12 @@ function _sfc_render$1X(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const roundEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1X, [["render", _sfc_render$1X]]);
+const roundEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1Z, [["render", _sfc_render$1Z]]);
 const __vite_glob_0_112 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: roundEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$1W = {
+const _sfc_main$1Y = {
   name: "shape-editor",
   mixins: [i18n$1, propertyMixin],
   props: {
@@ -63704,7 +64409,7 @@ const _sfc_main$1W = {
     optionModel: Object
   }
 };
-function _sfc_render$1W(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$1Y(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_select_option = resolveComponent("a-select-option");
   const _component_a_select = resolveComponent("a-select");
   const _component_a_form_item = resolveComponent("a-form-item");
@@ -63740,12 +64445,12 @@ function _sfc_render$1W(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   });
 }
-const shapeEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1W, [["render", _sfc_render$1W]]);
+const shapeEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1Y, [["render", _sfc_render$1Y]]);
 const __vite_glob_0_113 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: shapeEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$1V = {
+const _sfc_main$1X = {
   name: "type-editor",
   mixins: [i18n$1, propertyMixin],
   props: {
@@ -63754,7 +64459,7 @@ const _sfc_main$1V = {
     optionModel: Object
   }
 };
-function _sfc_render$1V(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$1X(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_select_option = resolveComponent("a-select-option");
   const _component_a_select = resolveComponent("a-select");
   const _component_a_form_item = resolveComponent("a-form-item");
@@ -63828,12 +64533,12 @@ function _sfc_render$1V(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const typeEditor$1 = /* @__PURE__ */ _export_sfc$1(_sfc_main$1V, [["render", _sfc_render$1V]]);
+const typeEditor$1 = /* @__PURE__ */ _export_sfc$1(_sfc_main$1X, [["render", _sfc_render$1X]]);
 const __vite_glob_0_114 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: typeEditor$1
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$1U = {
+const _sfc_main$1W = {
   name: "cascader-defaultValue-editor",
   props: {
     designer: Object,
@@ -63841,16 +64546,16 @@ const _sfc_main$1U = {
     optionModel: Object
   }
 };
-const _hoisted_1$y = { style: { "display": "none" } };
-function _sfc_render$1U(_ctx, _cache, $props, $setup, $data, $options) {
-  return openBlock(), createElementBlock("div", _hoisted_1$y);
+const _hoisted_1$z = { style: { "display": "none" } };
+function _sfc_render$1W(_ctx, _cache, $props, $setup, $data, $options) {
+  return openBlock(), createElementBlock("div", _hoisted_1$z);
 }
-const cascaderDefaultValueEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1U, [["render", _sfc_render$1U]]);
+const cascaderDefaultValueEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1W, [["render", _sfc_render$1W]]);
 const __vite_glob_0_115 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: cascaderDefaultValueEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$1T = {
+const _sfc_main$1V = {
   name: "cascader-multiple-editor",
   mixins: [i18n$1, propertyMixin],
   props: {
@@ -63859,7 +64564,7 @@ const _sfc_main$1T = {
     optionModel: Object
   }
 };
-function _sfc_render$1T(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$1V(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_switch = resolveComponent("a-switch");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -63874,12 +64579,12 @@ function _sfc_render$1T(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const cascaderMultipleEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1T, [["render", _sfc_render$1T]]);
+const cascaderMultipleEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1V, [["render", _sfc_render$1V]]);
 const __vite_glob_0_116 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: cascaderMultipleEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$1S = {
+const _sfc_main$1U = {
   name: "checkbox-defaultValue-editor",
   props: {
     designer: Object,
@@ -63887,16 +64592,16 @@ const _sfc_main$1S = {
     optionModel: Object
   }
 };
-const _hoisted_1$x = { style: { "display": "none" } };
-function _sfc_render$1S(_ctx, _cache, $props, $setup, $data, $options) {
-  return openBlock(), createElementBlock("div", _hoisted_1$x);
+const _hoisted_1$y = { style: { "display": "none" } };
+function _sfc_render$1U(_ctx, _cache, $props, $setup, $data, $options) {
+  return openBlock(), createElementBlock("div", _hoisted_1$y);
 }
-const checkboxDefaultValueEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1S, [["render", _sfc_render$1S]]);
+const checkboxDefaultValueEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1U, [["render", _sfc_render$1U]]);
 const __vite_glob_0_117 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: checkboxDefaultValueEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$1R = {
+const _sfc_main$1T = {
   name: "color-defaultValue-editor",
   mixins: [i18n$1, propertyMixin],
   props: {
@@ -63905,7 +64610,7 @@ const _sfc_main$1R = {
     optionModel: Object
   }
 };
-function _sfc_render$1R(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$1T(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_input = resolveComponent("a-input");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -63923,12 +64628,12 @@ function _sfc_render$1R(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const colorDefaultValueEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1R, [["render", _sfc_render$1R]]);
+const colorDefaultValueEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1T, [["render", _sfc_render$1T]]);
 const __vite_glob_0_118 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: colorDefaultValueEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$1Q = {
+const _sfc_main$1S = {
   name: "date-range-defaultValue-editor",
   mixins: [i18n$1, propertyMixin],
   props: {
@@ -63937,7 +64642,7 @@ const _sfc_main$1Q = {
     optionModel: Object
   }
 };
-function _sfc_render$1Q(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$1S(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_date_picker = resolveComponent("a-date-picker");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -63957,12 +64662,12 @@ function _sfc_render$1Q(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const dateRangeDefaultValueEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1Q, [["render", _sfc_render$1Q]]);
+const dateRangeDefaultValueEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1S, [["render", _sfc_render$1S]]);
 const __vite_glob_0_119 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: dateRangeDefaultValueEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$1P = {
+const _sfc_main$1R = {
   name: "date-range-format-editor",
   mixins: [i18n$1],
   props: {
@@ -63971,7 +64676,7 @@ const _sfc_main$1P = {
     optionModel: Object
   }
 };
-function _sfc_render$1P(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$1R(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_select_option = resolveComponent("a-select-option");
   const _component_a_select = resolveComponent("a-select");
   const _component_a_form_item = resolveComponent("a-form-item");
@@ -64037,12 +64742,12 @@ function _sfc_render$1P(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const dateRangeFormatEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1P, [["render", _sfc_render$1P]]);
+const dateRangeFormatEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1R, [["render", _sfc_render$1R]]);
 const __vite_glob_0_120 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: dateRangeFormatEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$1O = {
+const _sfc_main$1Q = {
   name: "date-range-type-editor",
   mixins: [i18n$1],
   props: {
@@ -64051,7 +64756,7 @@ const _sfc_main$1O = {
     optionModel: Object
   }
 };
-function _sfc_render$1O(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$1Q(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_select_option = resolveComponent("a-select-option");
   const _component_a_select = resolveComponent("a-select");
   const _component_a_form_item = resolveComponent("a-form-item");
@@ -64098,12 +64803,12 @@ function _sfc_render$1O(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const dateRangeTypeEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1O, [["render", _sfc_render$1O]]);
+const dateRangeTypeEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1Q, [["render", _sfc_render$1Q]]);
 const __vite_glob_0_121 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: dateRangeTypeEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$1N = {
+const _sfc_main$1P = {
   name: "date-range-valueFormat-editor",
   mixins: [i18n$1],
   props: {
@@ -64112,7 +64817,7 @@ const _sfc_main$1N = {
     optionModel: Object
   }
 };
-function _sfc_render$1N(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$1P(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_select_option = resolveComponent("a-select-option");
   const _component_a_select = resolveComponent("a-select");
   const _component_a_form_item = resolveComponent("a-form-item");
@@ -64169,12 +64874,12 @@ function _sfc_render$1N(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const dateRangeValueFormatEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1N, [["render", _sfc_render$1N]]);
+const dateRangeValueFormatEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1P, [["render", _sfc_render$1P]]);
 const __vite_glob_0_122 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: dateRangeValueFormatEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$1M = {
+const _sfc_main$1O = {
   name: "date-defaultValue-editor",
   mixins: [i18n$1, propertyMixin],
   props: {
@@ -64183,7 +64888,7 @@ const _sfc_main$1M = {
     optionModel: Object
   }
 };
-function _sfc_render$1M(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$1O(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_date_picker = resolveComponent("a-date-picker");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -64203,12 +64908,12 @@ function _sfc_render$1M(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const dateDefaultValueEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1M, [["render", _sfc_render$1M]]);
+const dateDefaultValueEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1O, [["render", _sfc_render$1O]]);
 const __vite_glob_0_123 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: dateDefaultValueEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$1L = {
+const _sfc_main$1N = {
   name: "date-format-editor",
   mixins: [i18n$1],
   props: {
@@ -64217,7 +64922,7 @@ const _sfc_main$1L = {
     optionModel: Object
   }
 };
-function _sfc_render$1L(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$1N(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_select_option = resolveComponent("a-select-option");
   const _component_a_select = resolveComponent("a-select");
   const _component_a_form_item = resolveComponent("a-form-item");
@@ -64274,12 +64979,12 @@ function _sfc_render$1L(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const dateFormatEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1L, [["render", _sfc_render$1L]]);
+const dateFormatEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1N, [["render", _sfc_render$1N]]);
 const __vite_glob_0_124 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: dateFormatEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$1K = {
+const _sfc_main$1M = {
   name: "date-type-editor",
   mixins: [i18n$1],
   props: {
@@ -64288,7 +64993,7 @@ const _sfc_main$1K = {
     optionModel: Object
   }
 };
-function _sfc_render$1K(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$1M(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_select_option = resolveComponent("a-select-option");
   const _component_a_select = resolveComponent("a-select");
   const _component_a_form_item = resolveComponent("a-form-item");
@@ -64353,12 +65058,12 @@ function _sfc_render$1K(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const dateTypeEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1K, [["render", _sfc_render$1K]]);
+const dateTypeEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1M, [["render", _sfc_render$1M]]);
 const __vite_glob_0_125 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: dateTypeEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$1J = {
+const _sfc_main$1L = {
   name: "date-valueFormat-editor",
   mixins: [i18n$1],
   props: {
@@ -64367,7 +65072,7 @@ const _sfc_main$1J = {
     optionModel: Object
   }
 };
-function _sfc_render$1J(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$1L(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_select_option = resolveComponent("a-select-option");
   const _component_a_select = resolveComponent("a-select");
   const _component_a_form_item = resolveComponent("a-form-item");
@@ -64424,12 +65129,12 @@ function _sfc_render$1J(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const dateValueFormatEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1J, [["render", _sfc_render$1J]]);
+const dateValueFormatEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1L, [["render", _sfc_render$1L]]);
 const __vite_glob_0_126 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: dateValueFormatEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$1I = {
+const _sfc_main$1K = {
   name: "contentPosition-editor",
   mixins: [i18n$1],
   props: {
@@ -64438,7 +65143,7 @@ const _sfc_main$1I = {
     optionModel: Object
   }
 };
-function _sfc_render$1I(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$1K(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_select_option = resolveComponent("a-select-option");
   const _component_a_select = resolveComponent("a-select");
   const _component_a_form_item = resolveComponent("a-form-item");
@@ -64485,12 +65190,12 @@ function _sfc_render$1I(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const contentPositionEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1I, [["render", _sfc_render$1I]]);
+const contentPositionEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1K, [["render", _sfc_render$1K]]);
 const __vite_glob_0_127 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: contentPositionEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$1H = {
+const _sfc_main$1J = {
   name: "divider-direction-editor",
   mixins: [i18n$1],
   props: {
@@ -64499,7 +65204,7 @@ const _sfc_main$1H = {
     optionModel: Object
   }
 };
-function _sfc_render$1H(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$1J(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_select_option = resolveComponent("a-select-option");
   const _component_a_select = resolveComponent("a-select");
   const _component_a_form_item = resolveComponent("a-form-item");
@@ -64537,12 +65242,12 @@ function _sfc_render$1H(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const dividerDirectionEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1H, [["render", _sfc_render$1H]]);
+const dividerDirectionEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1J, [["render", _sfc_render$1J]]);
 const __vite_glob_0_128 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: dividerDirectionEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$1G = {
+const _sfc_main$1I = {
   name: "menuList-editor",
   mixins: [i18n$1],
   components: { CodeModalEditor },
@@ -64570,7 +65275,7 @@ const _sfc_main$1G = {
     }
   }
 };
-function _sfc_render$1G(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$1I(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_button = resolveComponent("a-button");
   const _component_a_form_item = resolveComponent("a-form-item");
   const _component_CodeModalEditor = resolveComponent("CodeModalEditor");
@@ -64601,12 +65306,12 @@ function _sfc_render$1G(_ctx, _cache, $props, $setup, $data, $options) {
     }, null, 8, ["modelValue", "title", "onSave"])
   ], 64);
 }
-const dropdownMenuListEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1G, [["render", _sfc_render$1G]]);
+const dropdownMenuListEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1I, [["render", _sfc_render$1I]]);
 const __vite_glob_0_129 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: dropdownMenuListEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$1F = {
+const _sfc_main$1H = {
   name: "file-upload-fileTypes-editor",
   mixins: [i18n$1],
   components: {
@@ -64628,7 +65333,7 @@ const _sfc_main$1F = {
     };
   }
 };
-function _sfc_render$1F(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$1H(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_svg_icon = resolveComponent("svg-icon");
   const _component_a_tooltip = resolveComponent("a-tooltip");
   const _component_a_select = resolveComponent("a-select");
@@ -64662,12 +65367,12 @@ function _sfc_render$1F(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   });
 }
-const fileUploadFileTypesEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1F, [["render", _sfc_render$1F]]);
+const fileUploadFileTypesEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1H, [["render", _sfc_render$1H]]);
 const __vite_glob_0_130 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: fileUploadFileTypesEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$1E = {
+const _sfc_main$1G = {
   name: "htmlContent-editor",
   mixins: [i18n$1],
   props: {
@@ -64676,7 +65381,7 @@ const _sfc_main$1E = {
     optionModel: Object
   }
 };
-function _sfc_render$1E(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$1G(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_form_item = resolveComponent("a-form-item");
   const _component_a_textarea = resolveComponent("a-textarea");
   return openBlock(), createElementBlock("div", null, [
@@ -64696,12 +65401,12 @@ function _sfc_render$1E(_ctx, _cache, $props, $setup, $data, $options) {
     })
   ]);
 }
-const htmlContentEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1E, [["render", _sfc_render$1E], ["__scopeId", "data-v-85305ed8"]]);
+const htmlContentEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1G, [["render", _sfc_render$1G], ["__scopeId", "data-v-85305ed8"]]);
 const __vite_glob_0_131 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: htmlContentEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$1D = {
+const _sfc_main$1F = {
   name: "controlsPosition-editor",
   mixins: [i18n$1],
   props: {
@@ -64710,7 +65415,7 @@ const _sfc_main$1D = {
     optionModel: Object
   }
 };
-function _sfc_render$1D(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$1F(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_select_option = resolveComponent("a-select-option");
   const _component_a_select = resolveComponent("a-select");
   const _component_a_form_item = resolveComponent("a-form-item");
@@ -64748,12 +65453,12 @@ function _sfc_render$1D(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const controlsPositionEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1D, [["render", _sfc_render$1D]]);
+const controlsPositionEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1F, [["render", _sfc_render$1F]]);
 const __vite_glob_0_132 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: controlsPositionEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$1C = {
+const _sfc_main$1E = {
   name: "number-defaultValue-editor",
   mixins: [i18n$1, propertyMixin],
   props: {
@@ -64762,7 +65467,7 @@ const _sfc_main$1C = {
     optionModel: Object
   }
 };
-function _sfc_render$1C(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$1E(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_input_number = resolveComponent("a-input-number");
   const _component_a_form_item = resolveComponent("a-form-item");
   return !_ctx.hasConfig("optionItems") ? (openBlock(), createBlock(_component_a_form_item, {
@@ -64781,12 +65486,12 @@ function _sfc_render$1C(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"])) : createCommentVNode("", true);
 }
-const numberDefaultValueEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1C, [["render", _sfc_render$1C]]);
+const numberDefaultValueEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1E, [["render", _sfc_render$1E]]);
 const __vite_glob_0_133 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: numberDefaultValueEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$1B = {
+const _sfc_main$1D = {
   name: "picture-upload-fileTypes-editor",
   mixins: [i18n$1],
   components: {
@@ -64811,7 +65516,7 @@ const _sfc_main$1B = {
     };
   }
 };
-function _sfc_render$1B(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$1D(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_svg_icon = resolveComponent("svg-icon");
   const _component_a_tooltip = resolveComponent("a-tooltip");
   const _component_a_select = resolveComponent("a-select");
@@ -64845,12 +65550,12 @@ function _sfc_render$1B(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   });
 }
-const pictureUploadFileTypesEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1B, [["render", _sfc_render$1B]]);
+const pictureUploadFileTypesEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1D, [["render", _sfc_render$1D]]);
 const __vite_glob_0_134 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: pictureUploadFileTypesEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$1A = {
+const _sfc_main$1C = {
   name: "radio-defaultValue-editor",
   props: {
     designer: Object,
@@ -64858,16 +65563,16 @@ const _sfc_main$1A = {
     optionModel: Object
   }
 };
-const _hoisted_1$w = { style: { "display": "none" } };
-function _sfc_render$1A(_ctx, _cache, $props, $setup, $data, $options) {
-  return openBlock(), createElementBlock("div", _hoisted_1$w);
+const _hoisted_1$x = { style: { "display": "none" } };
+function _sfc_render$1C(_ctx, _cache, $props, $setup, $data, $options) {
+  return openBlock(), createElementBlock("div", _hoisted_1$x);
 }
-const radioDefaultValueEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1A, [["render", _sfc_render$1A]]);
+const radioDefaultValueEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1C, [["render", _sfc_render$1C]]);
 const __vite_glob_0_135 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: radioDefaultValueEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$1z = {
+const _sfc_main$1B = {
   name: "allowHalf-editor",
   mixins: [i18n$1],
   props: {
@@ -64876,7 +65581,7 @@ const _sfc_main$1z = {
     optionModel: Object
   }
 };
-function _sfc_render$1z(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$1B(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_switch = resolveComponent("a-switch");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -64891,12 +65596,12 @@ function _sfc_render$1z(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const allowHalfEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1z, [["render", _sfc_render$1z]]);
+const allowHalfEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1B, [["render", _sfc_render$1B]]);
 const __vite_glob_0_136 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: allowHalfEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$1y = {
+const _sfc_main$1A = {
   name: "highThreshold-editor",
   mixins: [i18n$1],
   props: {
@@ -64905,7 +65610,7 @@ const _sfc_main$1y = {
     optionModel: Object
   }
 };
-function _sfc_render$1y(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$1A(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_input_number = resolveComponent("a-input-number");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -64924,12 +65629,12 @@ function _sfc_render$1y(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const highThresholdEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1y, [["render", _sfc_render$1y]]);
+const highThresholdEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1A, [["render", _sfc_render$1A]]);
 const __vite_glob_0_137 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: highThresholdEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$1x = {
+const _sfc_main$1z = {
   name: "lowThreshold-editor",
   mixins: [i18n$1],
   props: {
@@ -64938,7 +65643,7 @@ const _sfc_main$1x = {
     optionModel: Object
   }
 };
-function _sfc_render$1x(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$1z(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_input_number = resolveComponent("a-input-number");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -64957,12 +65662,12 @@ function _sfc_render$1x(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const lowThresholdEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1x, [["render", _sfc_render$1x]]);
+const lowThresholdEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1z, [["render", _sfc_render$1z]]);
 const __vite_glob_0_138 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: lowThresholdEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$1w = {
+const _sfc_main$1y = {
   name: "rate-count-editor",
   mixins: [i18n$1],
   props: {
@@ -64971,7 +65676,7 @@ const _sfc_main$1w = {
     optionModel: Object
   }
 };
-function _sfc_render$1w(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$1y(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_input_number = resolveComponent("a-input-number");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -64990,12 +65695,12 @@ function _sfc_render$1w(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const rateCountEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1w, [["render", _sfc_render$1w]]);
+const rateCountEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1y, [["render", _sfc_render$1y]]);
 const __vite_glob_0_139 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: rateCountEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$1v = {
+const _sfc_main$1x = {
   name: "rate-defaultValue-editor",
   mixins: [i18n$1, propertyMixin],
   props: {
@@ -65004,7 +65709,7 @@ const _sfc_main$1v = {
     optionModel: Object
   }
 };
-function _sfc_render$1v(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$1x(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_input_number = resolveComponent("a-input-number");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -65023,12 +65728,12 @@ function _sfc_render$1v(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const rateDefaultValueEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1v, [["render", _sfc_render$1v]]);
+const rateDefaultValueEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1x, [["render", _sfc_render$1x]]);
 const __vite_glob_0_140 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: rateDefaultValueEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$1u = {
+const _sfc_main$1w = {
   name: "showScore-editor",
   mixins: [i18n$1],
   props: {
@@ -65037,7 +65742,7 @@ const _sfc_main$1u = {
     optionModel: Object
   }
 };
-function _sfc_render$1u(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$1w(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_switch = resolveComponent("a-switch");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -65052,12 +65757,12 @@ function _sfc_render$1u(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const showScoreEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1u, [["render", _sfc_render$1u]]);
+const showScoreEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1w, [["render", _sfc_render$1w]]);
 const __vite_glob_0_141 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: showScoreEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$1t = {
+const _sfc_main$1v = {
   name: "showText-editor",
   mixins: [i18n$1],
   props: {
@@ -65066,7 +65771,7 @@ const _sfc_main$1t = {
     optionModel: Object
   }
 };
-function _sfc_render$1t(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$1v(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_switch = resolveComponent("a-switch");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -65081,12 +65786,12 @@ function _sfc_render$1t(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const showTextEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1t, [["render", _sfc_render$1t]]);
+const showTextEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1v, [["render", _sfc_render$1v]]);
 const __vite_glob_0_142 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: showTextEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$1s = {
+const _sfc_main$1u = {
   name: "rich-editor-contentHeight-editor",
   mixins: [i18n$1],
   props: {
@@ -65095,7 +65800,7 @@ const _sfc_main$1s = {
     optionModel: Object
   }
 };
-function _sfc_render$1s(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$1u(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_input = resolveComponent("a-input");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createElementBlock("div", null, [
@@ -65113,12 +65818,12 @@ function _sfc_render$1s(_ctx, _cache, $props, $setup, $data, $options) {
     }, 8, ["label"])
   ]);
 }
-const richEditorContentHeightEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1s, [["render", _sfc_render$1s]]);
+const richEditorContentHeightEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1u, [["render", _sfc_render$1u]]);
 const __vite_glob_0_143 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: richEditorContentHeightEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$1r = {
+const _sfc_main$1t = {
   name: "mode-editor",
   mixins: [i18n$1],
   props: {
@@ -65145,7 +65850,7 @@ const _sfc_main$1r = {
     }
   }
 };
-function _sfc_render$1r(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$1t(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_select = resolveComponent("a-select");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, { label: "模式" }, {
@@ -65160,12 +65865,12 @@ function _sfc_render$1r(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   });
 }
-const modeEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1r, [["render", _sfc_render$1r]]);
+const modeEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1t, [["render", _sfc_render$1t]]);
 const __vite_glob_0_144 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: modeEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$1q = {
+const _sfc_main$1s = {
   name: "select-defaultValue-editor",
   props: {
     designer: Object,
@@ -65173,16 +65878,16 @@ const _sfc_main$1q = {
     optionModel: Object
   }
 };
-const _hoisted_1$v = { style: { "display": "none" } };
-function _sfc_render$1q(_ctx, _cache, $props, $setup, $data, $options) {
-  return openBlock(), createElementBlock("div", _hoisted_1$v);
+const _hoisted_1$w = { style: { "display": "none" } };
+function _sfc_render$1s(_ctx, _cache, $props, $setup, $data, $options) {
+  return openBlock(), createElementBlock("div", _hoisted_1$w);
 }
-const selectDefaultValueEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1q, [["render", _sfc_render$1q]]);
+const selectDefaultValueEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1s, [["render", _sfc_render$1s]]);
 const __vite_glob_0_145 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: selectDefaultValueEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$1p = {
+const _sfc_main$1r = {
   name: "range-editor",
   mixins: [i18n$1],
   props: {
@@ -65206,7 +65911,7 @@ const _sfc_main$1p = {
     }
   }
 };
-function _sfc_render$1p(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$1r(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_switch = resolveComponent("a-switch");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -65222,12 +65927,12 @@ function _sfc_render$1p(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const rangeEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1p, [["render", _sfc_render$1p]]);
+const rangeEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1r, [["render", _sfc_render$1r]]);
 const __vite_glob_0_146 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: rangeEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$1o = {
+const _sfc_main$1q = {
   name: "vertical-editor",
   mixins: [i18n$1],
   props: {
@@ -65236,7 +65941,7 @@ const _sfc_main$1o = {
     optionModel: Object
   }
 };
-function _sfc_render$1o(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$1q(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_switch = resolveComponent("a-switch");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -65251,12 +65956,12 @@ function _sfc_render$1o(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const verticalEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1o, [["render", _sfc_render$1o]]);
+const verticalEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1q, [["render", _sfc_render$1q]]);
 const __vite_glob_0_147 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: verticalEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$1n = {
+const _sfc_main$1p = {
   name: "textContent-editor",
   mixins: [i18n$1],
   props: {
@@ -65265,7 +65970,7 @@ const _sfc_main$1n = {
     optionModel: Object
   }
 };
-function _sfc_render$1n(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$1p(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_input = resolveComponent("a-input");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -65280,12 +65985,12 @@ function _sfc_render$1n(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const textContentEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1n, [["render", _sfc_render$1n]]);
+const textContentEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1p, [["render", _sfc_render$1p]]);
 const __vite_glob_0_148 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: textContentEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$1m = {
+const _sfc_main$1o = {
   name: "activeColor-editor",
   mixins: [i18n$1],
   props: {
@@ -65294,7 +65999,7 @@ const _sfc_main$1m = {
     optionModel: Object
   }
 };
-function _sfc_render$1m(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$1o(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_input = resolveComponent("a-input");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -65312,12 +66017,12 @@ function _sfc_render$1m(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const activeColorEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1m, [["render", _sfc_render$1m]]);
+const activeColorEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1o, [["render", _sfc_render$1o]]);
 const __vite_glob_0_149 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: activeColorEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$1l = {
+const _sfc_main$1n = {
   name: "checkedValue-editor",
   mixins: [i18n$1],
   props: {
@@ -65326,7 +66031,7 @@ const _sfc_main$1l = {
     optionModel: Object
   }
 };
-function _sfc_render$1l(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$1n(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_input = resolveComponent("a-input");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -65341,12 +66046,12 @@ function _sfc_render$1l(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const checkedValueEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1l, [["render", _sfc_render$1l]]);
+const checkedValueEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1n, [["render", _sfc_render$1n]]);
 const __vite_glob_0_150 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: checkedValueEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$1k = {
+const _sfc_main$1m = {
   name: "inactiveColor-editor",
   mixins: [i18n$1],
   props: {
@@ -65355,7 +66060,7 @@ const _sfc_main$1k = {
     optionModel: Object
   }
 };
-function _sfc_render$1k(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$1m(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_input = resolveComponent("a-input");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -65373,12 +66078,12 @@ function _sfc_render$1k(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const inactiveColorEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1k, [["render", _sfc_render$1k]]);
+const inactiveColorEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1m, [["render", _sfc_render$1m]]);
 const __vite_glob_0_151 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: inactiveColorEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$1j = {
+const _sfc_main$1l = {
   name: "switch-defaultValue-editor",
   mixins: [i18n$1, propertyMixin],
   props: {
@@ -65387,7 +66092,7 @@ const _sfc_main$1j = {
     optionModel: Object
   }
 };
-function _sfc_render$1j(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$1l(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_switch = resolveComponent("a-switch");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -65403,12 +66108,12 @@ function _sfc_render$1j(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const switchDefaultValueEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1j, [["render", _sfc_render$1j]]);
+const switchDefaultValueEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1l, [["render", _sfc_render$1l]]);
 const __vite_glob_0_152 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: switchDefaultValueEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$1i = {
+const _sfc_main$1k = {
   name: "switchWidth-editor",
   mixins: [i18n$1],
   props: {
@@ -65417,7 +66122,7 @@ const _sfc_main$1i = {
     optionModel: Object
   }
 };
-function _sfc_render$1i(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$1k(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_input_number = resolveComponent("a-input-number");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -65433,12 +66138,12 @@ function _sfc_render$1i(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const switchWidthEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1i, [["render", _sfc_render$1i]]);
+const switchWidthEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1k, [["render", _sfc_render$1k]]);
 const __vite_glob_0_153 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: switchWidthEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$1h = {
+const _sfc_main$1j = {
   name: "unCheckedValue-editor",
   mixins: [i18n$1],
   props: {
@@ -65447,7 +66152,7 @@ const _sfc_main$1h = {
     optionModel: Object
   }
 };
-function _sfc_render$1h(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$1j(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_input = resolveComponent("a-input");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -65462,12 +66167,12 @@ function _sfc_render$1h(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const unCheckedValueEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1h, [["render", _sfc_render$1h]]);
+const unCheckedValueEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1j, [["render", _sfc_render$1j]]);
 const __vite_glob_0_154 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: unCheckedValueEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$1g = {
+const _sfc_main$1i = {
   name: "time-range-defaultValue-editor",
   mixins: [i18n$1, propertyMixin],
   props: {
@@ -65476,7 +66181,7 @@ const _sfc_main$1g = {
     optionModel: Object
   }
 };
-function _sfc_render$1g(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$1i(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_time_range_picker = resolveComponent("a-time-range-picker");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -65496,13 +66201,99 @@ function _sfc_render$1g(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const timeRangeDefaultValueEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1g, [["render", _sfc_render$1g]]);
+const timeRangeDefaultValueEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1i, [["render", _sfc_render$1i]]);
 const __vite_glob_0_155 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: timeRangeDefaultValueEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$1f = {
+const _sfc_main$1h = {
   name: "time-range-format-editor",
+  mixins: [i18n$1],
+  props: {
+    designer: Object,
+    selectedWidget: Object,
+    optionModel: Object
+  }
+};
+function _sfc_render$1h(_ctx, _cache, $props, $setup, $data, $options) {
+  const _component_a_select_option = resolveComponent("a-select-option");
+  const _component_a_select = resolveComponent("a-select");
+  const _component_a_form_item = resolveComponent("a-form-item");
+  return openBlock(), createBlock(_component_a_form_item, {
+    label: _ctx.i18nt("designer.setting.format")
+  }, {
+    default: withCtx(() => [
+      createVNode(_component_a_select, {
+        value: $props.optionModel.format,
+        "onUpdate:value": _cache[0] || (_cache[0] = ($event) => $props.optionModel.format = $event),
+        allowClear: ""
+      }, {
+        default: withCtx(() => [
+          createVNode(_component_a_select_option, {
+            label: "HH:mm:ss",
+            value: "HH:mm:ss"
+          }, {
+            default: withCtx(() => [
+              createTextVNode("HH:mm:ss")
+            ]),
+            _: 1
+          }),
+          createVNode(_component_a_select_option, {
+            label: "HH时mm分ss秒",
+            value: "HH时mm分ss秒"
+          }, {
+            default: withCtx(() => [
+              createTextVNode("HH时mm分ss秒")
+            ]),
+            _: 1
+          })
+        ]),
+        _: 1
+      }, 8, ["value"])
+    ]),
+    _: 1
+  }, 8, ["label"]);
+}
+const timeRangeFormatEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1h, [["render", _sfc_render$1h]]);
+const __vite_glob_0_156 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+  __proto__: null,
+  default: timeRangeFormatEditor
+}, Symbol.toStringTag, { value: "Module" }));
+const _sfc_main$1g = {
+  name: "time-defaultValue-editor",
+  mixins: [i18n$1, propertyMixin],
+  props: {
+    designer: Object,
+    selectedWidget: Object,
+    optionModel: Object
+  }
+};
+function _sfc_render$1g(_ctx, _cache, $props, $setup, $data, $options) {
+  const _component_a_time_picker = resolveComponent("a-time-picker");
+  const _component_a_form_item = resolveComponent("a-form-item");
+  return openBlock(), createBlock(_component_a_form_item, {
+    label: _ctx.i18nt("designer.setting.defaultValue")
+  }, {
+    default: withCtx(() => [
+      createVNode(_component_a_time_picker, {
+        value: $props.optionModel.defaultValue,
+        "onUpdate:value": _cache[0] || (_cache[0] = ($event) => $props.optionModel.defaultValue = $event),
+        onChange: _ctx.emitDefaultValueChange,
+        format: $props.optionModel.format,
+        "value-format": "HH:mm:ss",
+        style: { "width": "100%" }
+      }, null, 8, ["value", "onChange", "format"])
+    ]),
+    _: 1
+  }, 8, ["label"]);
+}
+const timeDefaultValueEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1g, [["render", _sfc_render$1g]]);
+const __vite_glob_0_157 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+  __proto__: null,
+  default: timeDefaultValueEditor
+}, Symbol.toStringTag, { value: "Module" }));
+const _sfc_main$1f = {
+  name: "time-format-editor",
   mixins: [i18n$1],
   props: {
     designer: Object,
@@ -65549,98 +66340,12 @@ function _sfc_render$1f(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const timeRangeFormatEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1f, [["render", _sfc_render$1f]]);
-const __vite_glob_0_156 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
-  __proto__: null,
-  default: timeRangeFormatEditor
-}, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$1e = {
-  name: "time-defaultValue-editor",
-  mixins: [i18n$1, propertyMixin],
-  props: {
-    designer: Object,
-    selectedWidget: Object,
-    optionModel: Object
-  }
-};
-function _sfc_render$1e(_ctx, _cache, $props, $setup, $data, $options) {
-  const _component_a_time_picker = resolveComponent("a-time-picker");
-  const _component_a_form_item = resolveComponent("a-form-item");
-  return openBlock(), createBlock(_component_a_form_item, {
-    label: _ctx.i18nt("designer.setting.defaultValue")
-  }, {
-    default: withCtx(() => [
-      createVNode(_component_a_time_picker, {
-        value: $props.optionModel.defaultValue,
-        "onUpdate:value": _cache[0] || (_cache[0] = ($event) => $props.optionModel.defaultValue = $event),
-        onChange: _ctx.emitDefaultValueChange,
-        format: $props.optionModel.format,
-        "value-format": "HH:mm:ss",
-        style: { "width": "100%" }
-      }, null, 8, ["value", "onChange", "format"])
-    ]),
-    _: 1
-  }, 8, ["label"]);
-}
-const timeDefaultValueEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1e, [["render", _sfc_render$1e]]);
-const __vite_glob_0_157 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
-  __proto__: null,
-  default: timeDefaultValueEditor
-}, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$1d = {
-  name: "time-format-editor",
-  mixins: [i18n$1],
-  props: {
-    designer: Object,
-    selectedWidget: Object,
-    optionModel: Object
-  }
-};
-function _sfc_render$1d(_ctx, _cache, $props, $setup, $data, $options) {
-  const _component_a_select_option = resolveComponent("a-select-option");
-  const _component_a_select = resolveComponent("a-select");
-  const _component_a_form_item = resolveComponent("a-form-item");
-  return openBlock(), createBlock(_component_a_form_item, {
-    label: _ctx.i18nt("designer.setting.format")
-  }, {
-    default: withCtx(() => [
-      createVNode(_component_a_select, {
-        value: $props.optionModel.format,
-        "onUpdate:value": _cache[0] || (_cache[0] = ($event) => $props.optionModel.format = $event),
-        allowClear: ""
-      }, {
-        default: withCtx(() => [
-          createVNode(_component_a_select_option, {
-            label: "HH:mm:ss",
-            value: "HH:mm:ss"
-          }, {
-            default: withCtx(() => [
-              createTextVNode("HH:mm:ss")
-            ]),
-            _: 1
-          }),
-          createVNode(_component_a_select_option, {
-            label: "HH时mm分ss秒",
-            value: "HH时mm分ss秒"
-          }, {
-            default: withCtx(() => [
-              createTextVNode("HH时mm分ss秒")
-            ]),
-            _: 1
-          })
-        ]),
-        _: 1
-      }, 8, ["value"])
-    ]),
-    _: 1
-  }, 8, ["label"]);
-}
-const timeFormatEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1d, [["render", _sfc_render$1d]]);
+const timeFormatEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1f, [["render", _sfc_render$1f]]);
 const __vite_glob_0_158 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: timeFormatEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$1c = {
+const _sfc_main$1e = {
   name: "treeDefaultExpandAll-editor",
   mixins: [i18n$1, propertyMixin],
   props: {
@@ -65649,7 +66354,7 @@ const _sfc_main$1c = {
     optionModel: Object
   }
 };
-function _sfc_render$1c(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$1e(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_switch = resolveComponent("a-switch");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, { label: `默认展开所有树节点` }, {
@@ -65662,12 +66367,12 @@ function _sfc_render$1c(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   });
 }
-const treeSelectTreeDefaultExpandAllEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1c, [["render", _sfc_render$1c]]);
+const treeSelectTreeDefaultExpandAllEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1e, [["render", _sfc_render$1e]]);
 const __vite_glob_0_159 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: treeSelectTreeDefaultExpandAllEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$1b = {
+const _sfc_main$1d = {
   name: "fileMaxSize-editor",
   mixins: [i18n$1],
   props: {
@@ -65676,7 +66381,7 @@ const _sfc_main$1b = {
     optionModel: Object
   }
 };
-function _sfc_render$1b(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$1d(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_input_number = resolveComponent("a-input-number");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -65694,12 +66399,12 @@ function _sfc_render$1b(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const fileMaxSizeEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1b, [["render", _sfc_render$1b]]);
+const fileMaxSizeEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1d, [["render", _sfc_render$1d]]);
 const __vite_glob_0_160 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: fileMaxSizeEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$1a = {
+const _sfc_main$1c = {
   name: "hidden-editor",
   mixins: [i18n$1, eventMixin],
   props: {
@@ -65713,7 +66418,7 @@ const _sfc_main$1a = {
     };
   }
 };
-function _sfc_render$1a(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$1c(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_switch = resolveComponent("a-switch");
   const _component_a_button = resolveComponent("a-button");
   const _component_a_space = resolveComponent("a-space");
@@ -65765,12 +66470,12 @@ function _sfc_render$1a(_ctx, _cache, $props, $setup, $data, $options) {
     })) : createCommentVNode("", true)
   ], 64);
 }
-const hiddenEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1a, [["render", _sfc_render$1a]]);
+const hiddenEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1c, [["render", _sfc_render$1c]]);
 const __vite_glob_0_161 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: hiddenEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$19 = {
+const _sfc_main$1b = {
   name: "label-editor",
   mixins: [i18n$1],
   props: {
@@ -65784,7 +66489,7 @@ const _sfc_main$19 = {
     }
   }
 };
-function _sfc_render$19(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$1b(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_input = resolveComponent("a-input");
   const _component_a_form_item = resolveComponent("a-form-item");
   return !$options.noLabelSetting ? (openBlock(), createBlock(_component_a_form_item, {
@@ -65801,12 +66506,12 @@ function _sfc_render$19(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"])) : createCommentVNode("", true);
 }
-const labelEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$19, [["render", _sfc_render$19]]);
+const labelEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1b, [["render", _sfc_render$1b]]);
 const __vite_glob_0_162 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: labelEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$18 = {
+const _sfc_main$1a = {
   name: "labelAlign-editor",
   mixins: [i18n$1],
   props: {
@@ -65820,7 +66525,7 @@ const _sfc_main$18 = {
     }
   }
 };
-function _sfc_render$18(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$1a(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_radio_button = resolveComponent("a-radio-button");
   const _component_a_radio_group = resolveComponent("a-radio-group");
   const _component_a_form_item = resolveComponent("a-form-item");
@@ -65854,12 +66559,12 @@ function _sfc_render$18(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"])) : createCommentVNode("", true);
 }
-const labelAlignEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$18, [["render", _sfc_render$18], ["__scopeId", "data-v-c7ae9c26"]]);
+const labelAlignEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1a, [["render", _sfc_render$1a], ["__scopeId", "data-v-c7ae9c26"]]);
 const __vite_glob_0_163 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: labelAlignEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$17 = {
+const _sfc_main$19 = {
   name: "labelHidden-editor",
   mixins: [i18n$1],
   props: {
@@ -65868,7 +66573,7 @@ const _sfc_main$17 = {
     optionModel: Object
   }
 };
-function _sfc_render$17(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$19(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_switch = resolveComponent("a-switch");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -65883,12 +66588,12 @@ function _sfc_render$17(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const labelHiddenEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$17, [["render", _sfc_render$17]]);
+const labelHiddenEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$19, [["render", _sfc_render$19]]);
 const __vite_glob_0_164 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: labelHiddenEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$16 = {
+const _sfc_main$18 = {
   name: "labelIconClass-editor",
   mixins: [i18n$1],
   props: {
@@ -65897,7 +66602,7 @@ const _sfc_main$16 = {
     optionModel: Object
   }
 };
-function _sfc_render$16(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$18(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_divider = resolveComponent("a-divider");
   const _component_a_form_item = resolveComponent("a-form-item");
   const _component_a_input = resolveComponent("a-input");
@@ -65927,12 +66632,12 @@ function _sfc_render$16(_ctx, _cache, $props, $setup, $data, $options) {
     }, 8, ["label"])
   ]);
 }
-const labelIconClassEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$16, [["render", _sfc_render$16]]);
+const labelIconClassEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$18, [["render", _sfc_render$18]]);
 const __vite_glob_0_165 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: labelIconClassEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$15 = {
+const _sfc_main$17 = {
   name: "labelIconPosition-editor",
   mixins: [i18n$1],
   props: {
@@ -65949,7 +66654,7 @@ const _sfc_main$15 = {
     };
   }
 };
-function _sfc_render$15(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$17(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_select_option = resolveComponent("a-select-option");
   const _component_a_select = resolveComponent("a-select");
   const _component_a_form_item = resolveComponent("a-form-item");
@@ -65981,12 +66686,12 @@ function _sfc_render$15(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const labelIconPositionEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$15, [["render", _sfc_render$15]]);
+const labelIconPositionEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$17, [["render", _sfc_render$17]]);
 const __vite_glob_0_166 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: labelIconPositionEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$14 = {
+const _sfc_main$16 = {
   name: "labelTooltip-editor",
   mixins: [i18n$1],
   props: {
@@ -65995,7 +66700,7 @@ const _sfc_main$14 = {
     optionModel: Object
   }
 };
-function _sfc_render$14(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$16(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_input = resolveComponent("a-input");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -66011,12 +66716,12 @@ function _sfc_render$14(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const labelTooltipEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$14, [["render", _sfc_render$14]]);
+const labelTooltipEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$16, [["render", _sfc_render$16]]);
 const __vite_glob_0_167 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: labelTooltipEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$13 = {
+const _sfc_main$15 = {
   name: "labelWidth-editor",
   mixins: [i18n$1, propertyMixin],
   props: {
@@ -66025,7 +66730,7 @@ const _sfc_main$13 = {
     optionModel: Object
   }
 };
-function _sfc_render$13(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$15(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_input_number = resolveComponent("a-input-number");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -66044,12 +66749,12 @@ function _sfc_render$13(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const labelWidthEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$13, [["render", _sfc_render$13]]);
+const labelWidthEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$15, [["render", _sfc_render$15]]);
 const __vite_glob_0_168 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: labelWidthEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$12 = {
+const _sfc_main$14 = {
   name: "limit-editor",
   mixins: [i18n$1],
   props: {
@@ -66058,7 +66763,7 @@ const _sfc_main$12 = {
     optionModel: Object
   }
 };
-function _sfc_render$12(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$14(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_input_number = resolveComponent("a-input-number");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -66076,12 +66781,12 @@ function _sfc_render$12(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const limitEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$12, [["render", _sfc_render$12]]);
+const limitEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$14, [["render", _sfc_render$14]]);
 const __vite_glob_0_169 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: limitEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$11 = {
+const _sfc_main$13 = {
   name: "loadingPage-editor",
   mixins: [i18n$1],
   props: {
@@ -66090,7 +66795,7 @@ const _sfc_main$11 = {
     optionModel: Object
   }
 };
-function _sfc_render$11(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$13(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_switch = resolveComponent("a-switch");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, { label: `使用分页加载` }, {
@@ -66103,12 +66808,12 @@ function _sfc_render$11(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   });
 }
-const loadingPageEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$11, [["render", _sfc_render$11]]);
+const loadingPageEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$13, [["render", _sfc_render$13]]);
 const __vite_glob_0_170 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: loadingPageEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$10 = {
+const _sfc_main$12 = {
   name: "max-editor",
   mixins: [i18n$1],
   props: {
@@ -66131,7 +66836,7 @@ const _sfc_main$10 = {
     }
   }
 };
-function _sfc_render$10(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$12(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_input_number = resolveComponent("a-input-number");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -66150,12 +66855,12 @@ function _sfc_render$10(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const maxEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$10, [["render", _sfc_render$10]]);
+const maxEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$12, [["render", _sfc_render$12]]);
 const __vite_glob_0_171 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: maxEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$$ = {
+const _sfc_main$11 = {
   name: "maxLength-editor",
   mixins: [i18n$1, propertyMixin],
   props: {
@@ -66178,7 +66883,7 @@ const _sfc_main$$ = {
     }
   }
 };
-function _sfc_render$$(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$11(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_input_number = resolveComponent("a-input-number");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -66197,12 +66902,12 @@ function _sfc_render$$(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const maxLengthEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$$, [["render", _sfc_render$$]]);
+const maxLengthEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$11, [["render", _sfc_render$11]]);
 const __vite_glob_0_172 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: maxLengthEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$_ = {
+const _sfc_main$10 = {
   name: "min-editor",
   mixins: [i18n$1],
   props: {
@@ -66225,7 +66930,7 @@ const _sfc_main$_ = {
     }
   }
 };
-function _sfc_render$_(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$10(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_input_number = resolveComponent("a-input-number");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -66244,12 +66949,12 @@ function _sfc_render$_(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const minEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$_, [["render", _sfc_render$_]]);
+const minEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$10, [["render", _sfc_render$10]]);
 const __vite_glob_0_173 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: minEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$Z = {
+const _sfc_main$$ = {
   name: "minLength-editor",
   mixins: [i18n$1, propertyMixin],
   props: {
@@ -66272,7 +66977,7 @@ const _sfc_main$Z = {
     }
   }
 };
-function _sfc_render$Z(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$$(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_input_number = resolveComponent("a-input-number");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -66291,12 +66996,12 @@ function _sfc_render$Z(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const minLengthEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$Z, [["render", _sfc_render$Z]]);
+const minLengthEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$$, [["render", _sfc_render$$]]);
 const __vite_glob_0_174 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: minLengthEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$Y = {
+const _sfc_main$_ = {
   name: "multiple-editor",
   mixins: [i18n$1],
   props: {
@@ -66320,7 +67025,7 @@ const _sfc_main$Y = {
     }
   }
 };
-function _sfc_render$Y(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$_(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_switch = resolveComponent("a-switch");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -66336,12 +67041,12 @@ function _sfc_render$Y(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const multipleEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$Y, [["render", _sfc_render$Y]]);
+const multipleEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$_, [["render", _sfc_render$_]]);
 const __vite_glob_0_175 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: multipleEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$X = {
+const _sfc_main$Z = {
   name: "multipleSelect-editor",
   mixins: [i18n$1],
   props: {
@@ -66350,7 +67055,7 @@ const _sfc_main$X = {
     optionModel: Object
   }
 };
-function _sfc_render$X(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$Z(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_switch = resolveComponent("a-switch");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -66365,12 +67070,12 @@ function _sfc_render$X(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const multipleSelectEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$X, [["render", _sfc_render$X]]);
+const multipleSelectEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$Z, [["render", _sfc_render$Z]]);
 const __vite_glob_0_176 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: multipleSelectEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$W = {
+const _sfc_main$Y = {
   name: "name-editor",
   mixins: [i18n$1],
   components: {
@@ -66456,7 +67161,7 @@ const _sfc_main$W = {
     }
   }
 };
-function _sfc_render$W(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$Y(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_svg_icon = resolveComponent("svg-icon");
   const _component_a_tooltip = resolveComponent("a-tooltip");
   const _component_a_input = resolveComponent("a-input");
@@ -66515,12 +67220,12 @@ function _sfc_render$W(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["rules"]);
 }
-const nameEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$W, [["render", _sfc_render$W]]);
+const nameEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$Y, [["render", _sfc_render$Y]]);
 const __vite_glob_0_177 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: nameEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$V = {
+const _sfc_main$X = {
   name: "OptionItemsSetting",
   mixins: [i18n$1],
   components: {
@@ -66634,7 +67339,7 @@ const _sfc_main$V = {
   }
 };
 const _withScopeId = (n) => (pushScopeId("data-v-ae832d59"), n = n(), popScopeId(), n);
-const _hoisted_1$u = { class: "option-items-pane" };
+const _hoisted_1$v = { class: "option-items-pane" };
 const _hoisted_2$n = /* @__PURE__ */ _withScopeId(() => /* @__PURE__ */ createElementVNode("i", { class: "iconfont icon-drag drag-option" }, null, -1));
 const _hoisted_3$m = /* @__PURE__ */ _withScopeId(() => /* @__PURE__ */ createElementVNode("i", { class: "iconfont icon-drag drag-option" }, null, -1));
 const _hoisted_4$c = {
@@ -66649,7 +67354,7 @@ const _hoisted_6$5 = { key: 4 };
 const _hoisted_7$3 = { key: 5 };
 const _hoisted_8$3 = { class: "dialog-footer" };
 const _hoisted_9$2 = { class: "dialog-footer" };
-function _sfc_render$V(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$X(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_input = resolveComponent("a-input");
   const _component_a_button = resolveComponent("a-button");
   const _component_a_radio = resolveComponent("a-radio");
@@ -66663,7 +67368,7 @@ function _sfc_render$V(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_form_item = resolveComponent("a-form-item");
   const _component_a_modal = resolveComponent("a-modal");
   const _component_code_editor = resolveComponent("code-editor");
-  return openBlock(), createElementBlock("div", _hoisted_1$u, [
+  return openBlock(), createElementBlock("div", _hoisted_1$v, [
     $props.selectedWidget.type === "radio" || $props.selectedWidget.type === "select" && ["combobox"].includes($props.selectedWidget.options.mode) ? (openBlock(), createBlock(_component_a_radio_group, {
       key: 0,
       value: $options.optionModel.defaultValue,
@@ -66927,8 +67632,8 @@ function _sfc_render$V(_ctx, _cache, $props, $setup, $data, $options) {
     }, 8, ["title", "visible"])
   ]);
 }
-const OptionItemsSetting = /* @__PURE__ */ _export_sfc$1(_sfc_main$V, [["render", _sfc_render$V], ["__scopeId", "data-v-ae832d59"]]);
-const _sfc_main$U = {
+const OptionItemsSetting = /* @__PURE__ */ _export_sfc$1(_sfc_main$X, [["render", _sfc_render$X], ["__scopeId", "data-v-ae832d59"]]);
+const _sfc_main$W = {
   name: "optionItems-editor",
   mixins: [i18n$1, propertyMixin],
   props: {
@@ -66987,7 +67692,7 @@ const _sfc_main$U = {
     }
   }
 };
-function _sfc_render$U(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$W(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_divider = resolveComponent("a-divider");
   const _component_a_form_item = resolveComponent("a-form-item");
   const _component_a_input = resolveComponent("a-input");
@@ -67077,12 +67782,12 @@ function _sfc_render$U(_ctx, _cache, $props, $setup, $data, $options) {
     })) : createCommentVNode("", true)
   ], 64);
 }
-const optionItemsEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$U, [["render", _sfc_render$U]]);
+const optionItemsEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$W, [["render", _sfc_render$W]]);
 const __vite_glob_0_178 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: optionItemsEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$T = {
+const _sfc_main$V = {
   name: "placeholder-editor",
   mixins: [i18n$1, propertyMixin],
   props: {
@@ -67091,7 +67796,7 @@ const _sfc_main$T = {
     optionModel: Object
   }
 };
-function _sfc_render$T(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$V(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_input = resolveComponent("a-input");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -67107,12 +67812,12 @@ function _sfc_render$T(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const placeholderEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$T, [["render", _sfc_render$T]]);
+const placeholderEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$V, [["render", _sfc_render$V]]);
 const __vite_glob_0_179 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: placeholderEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$S = {
+const _sfc_main$U = {
   name: "placement-editor",
   componentName: "PropertyEditor",
   mixins: [i18n$1],
@@ -67136,7 +67841,7 @@ const _sfc_main$S = {
   created() {
   }
 };
-function _sfc_render$S(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$U(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_select = resolveComponent("a-select");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, { label: `菜单弹出位置` }, {
@@ -67151,12 +67856,12 @@ function _sfc_render$S(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   });
 }
-const placementEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$S, [["render", _sfc_render$S]]);
+const placementEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$U, [["render", _sfc_render$U]]);
 const __vite_glob_0_180 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: placementEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$R = {
+const _sfc_main$T = {
   name: "precision-editor",
   mixins: [i18n$1],
   props: {
@@ -67165,7 +67870,7 @@ const _sfc_main$R = {
     optionModel: Object
   }
 };
-function _sfc_render$R(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$T(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_input_number = resolveComponent("a-input-number");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -67183,12 +67888,12 @@ function _sfc_render$R(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const precisionEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$R, [["render", _sfc_render$R]]);
+const precisionEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$T, [["render", _sfc_render$T]]);
 const __vite_glob_0_181 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: precisionEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$Q = {
+const _sfc_main$S = {
   name: "readonly-editor",
   mixins: [i18n$1],
   props: {
@@ -67197,7 +67902,7 @@ const _sfc_main$Q = {
     optionModel: Object
   }
 };
-function _sfc_render$Q(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$S(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_switch = resolveComponent("a-switch");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -67212,12 +67917,12 @@ function _sfc_render$Q(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const readonlyEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$Q, [["render", _sfc_render$Q]]);
+const readonlyEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$S, [["render", _sfc_render$S]]);
 const __vite_glob_0_182 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: readonlyEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$P = {
+const _sfc_main$R = {
   name: "required-editor",
   mixins: [i18n$1],
   props: {
@@ -67226,7 +67931,7 @@ const _sfc_main$P = {
     optionModel: Object
   }
 };
-function _sfc_render$P(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$R(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_switch = resolveComponent("a-switch");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -67241,12 +67946,12 @@ function _sfc_render$P(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const requiredEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$P, [["render", _sfc_render$P]]);
+const requiredEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$R, [["render", _sfc_render$R]]);
 const __vite_glob_0_183 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: requiredEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$O = {
+const _sfc_main$Q = {
   name: "requiredHint-editor",
   mixins: [i18n$1, propertyMixin],
   props: {
@@ -67255,7 +67960,7 @@ const _sfc_main$O = {
     optionModel: Object
   }
 };
-function _sfc_render$O(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$Q(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_input = resolveComponent("a-input");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -67273,12 +67978,12 @@ function _sfc_render$O(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const requiredHintEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$O, [["render", _sfc_render$O]]);
+const requiredHintEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$Q, [["render", _sfc_render$Q]]);
 const __vite_glob_0_184 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: requiredHintEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$N = {
+const _sfc_main$P = {
   name: "rightSlotCss-editor",
   componentName: "PropertyEditor",
   mixins: [i18n$1],
@@ -67299,7 +68004,7 @@ const _sfc_main$N = {
     });
   }
 };
-function _sfc_render$N(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$P(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_select = resolveComponent("a-select");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, { label: "头部右插槽样式" }, {
@@ -67315,12 +68020,12 @@ function _sfc_render$N(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   });
 }
-const rightSlotCssEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$N, [["render", _sfc_render$N]]);
+const rightSlotCssEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$P, [["render", _sfc_render$P]]);
 const __vite_glob_0_185 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: rightSlotCssEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$M = {
+const _sfc_main$O = {
   name: "rows-editor",
   mixins: [i18n$1],
   props: {
@@ -67329,7 +68034,7 @@ const _sfc_main$M = {
     optionModel: Object
   }
 };
-function _sfc_render$M(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$O(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_input_number = resolveComponent("a-input-number");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -67347,12 +68052,12 @@ function _sfc_render$M(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const rowsEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$M, [["render", _sfc_render$M]]);
+const rowsEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$O, [["render", _sfc_render$O]]);
 const __vite_glob_0_186 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: rowsEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$L = {
+const _sfc_main$N = {
   name: "showCount-editor",
   mixins: [i18n$1],
   props: {
@@ -67361,7 +68066,7 @@ const _sfc_main$L = {
     optionModel: Object
   }
 };
-function _sfc_render$L(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$N(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_switch = resolveComponent("a-switch");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -67376,12 +68081,12 @@ function _sfc_render$L(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const showCountEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$L, [["render", _sfc_render$L]]);
+const showCountEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$N, [["render", _sfc_render$N]]);
 const __vite_glob_0_187 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: showCountEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$K = {
+const _sfc_main$M = {
   name: "showFileList-editor",
   mixins: [i18n$1],
   props: {
@@ -67390,7 +68095,7 @@ const _sfc_main$K = {
     optionModel: Object
   }
 };
-function _sfc_render$K(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$M(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_switch = resolveComponent("a-switch");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -67405,12 +68110,12 @@ function _sfc_render$K(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const showFileListEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$K, [["render", _sfc_render$K]]);
+const showFileListEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$M, [["render", _sfc_render$M]]);
 const __vite_glob_0_188 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: showFileListEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$J = {
+const _sfc_main$L = {
   name: "showPassword-editor",
   mixins: [i18n$1],
   props: {
@@ -67419,7 +68124,7 @@ const _sfc_main$J = {
     optionModel: Object
   }
 };
-function _sfc_render$J(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$L(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_switch = resolveComponent("a-switch");
   const _component_a_form_item = resolveComponent("a-form-item");
   return $props.optionModel.type === "password" ? (openBlock(), createBlock(_component_a_form_item, {
@@ -67435,12 +68140,12 @@ function _sfc_render$J(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"])) : createCommentVNode("", true);
 }
-const showPasswordEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$J, [["render", _sfc_render$J]]);
+const showPasswordEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$L, [["render", _sfc_render$L]]);
 const __vite_glob_0_189 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: showPasswordEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$I = {
+const _sfc_main$K = {
   name: "showSearch-editor",
   mixins: [i18n$1, propertyMixin],
   props: {
@@ -67449,7 +68154,7 @@ const _sfc_main$I = {
     optionModel: Object
   }
 };
-function _sfc_render$I(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$K(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_switch = resolveComponent("a-switch");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -67465,12 +68170,12 @@ function _sfc_render$I(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const showSearchEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$I, [["render", _sfc_render$I]]);
+const showSearchEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$K, [["render", _sfc_render$K]]);
 const __vite_glob_0_190 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: showSearchEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$H = {
+const _sfc_main$J = {
   name: "showTime-editor",
   mixins: [i18n$1],
   props: {
@@ -67479,7 +68184,7 @@ const _sfc_main$H = {
     optionModel: Object
   }
 };
-function _sfc_render$H(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$J(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_switch = resolveComponent("a-switch");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, { label: "增加时间选择功能" }, {
@@ -67492,12 +68197,12 @@ function _sfc_render$H(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   });
 }
-const showTimeEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$H, [["render", _sfc_render$H]]);
+const showTimeEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$J, [["render", _sfc_render$J]]);
 const __vite_glob_0_191 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: showTimeEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$G = {
+const _sfc_main$I = {
   name: "size-editor",
   mixins: [i18n$1],
   props: {
@@ -67515,7 +68220,7 @@ const _sfc_main$G = {
     };
   }
 };
-function _sfc_render$G(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$I(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_select = resolveComponent("a-select");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -67532,12 +68237,12 @@ function _sfc_render$G(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const sizeEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$G, [["render", _sfc_render$G]]);
+const sizeEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$I, [["render", _sfc_render$I]]);
 const __vite_glob_0_192 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: sizeEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$F = {
+const _sfc_main$H = {
   name: "startPlaceholder-editor",
   mixins: [i18n$1],
   props: {
@@ -67546,7 +68251,7 @@ const _sfc_main$F = {
     optionModel: Object
   }
 };
-function _sfc_render$F(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$H(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_input = resolveComponent("a-input");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -67562,12 +68267,12 @@ function _sfc_render$F(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const startPlaceholderEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$F, [["render", _sfc_render$F]]);
+const startPlaceholderEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$H, [["render", _sfc_render$H]]);
 const __vite_glob_0_193 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: startPlaceholderEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$E = {
+const _sfc_main$G = {
   name: "step-editor",
   mixins: [i18n$1],
   props: {
@@ -67576,7 +68281,7 @@ const _sfc_main$E = {
     optionModel: Object
   }
 };
-function _sfc_render$E(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$G(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_input_number = resolveComponent("a-input-number");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -67593,12 +68298,12 @@ function _sfc_render$E(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const stepEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$E, [["render", _sfc_render$E]]);
+const stepEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$G, [["render", _sfc_render$G]]);
 const __vite_glob_0_194 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: stepEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$D = {
+const _sfc_main$F = {
   name: "type-editor",
   mixins: [i18n$1],
   props: {
@@ -67608,7 +68313,7 @@ const _sfc_main$D = {
   },
   computed: {}
 };
-function _sfc_render$D(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$F(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_select_option = resolveComponent("a-select-option");
   const _component_a_select = resolveComponent("a-select");
   const _component_a_form_item = resolveComponent("a-form-item");
@@ -67641,12 +68346,12 @@ function _sfc_render$D(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"])) : createCommentVNode("", true);
 }
-const typeEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$D, [["render", _sfc_render$D]]);
+const typeEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$F, [["render", _sfc_render$F]]);
 const __vite_glob_0_195 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: typeEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$C = {
+const _sfc_main$E = {
   name: "uploadTip-editor",
   mixins: [i18n$1],
   props: {
@@ -67655,7 +68360,7 @@ const _sfc_main$C = {
     optionModel: Object
   }
 };
-function _sfc_render$C(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$E(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_input = resolveComponent("a-input");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -67671,12 +68376,12 @@ function _sfc_render$C(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const uploadTipEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$C, [["render", _sfc_render$C]]);
+const uploadTipEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$E, [["render", _sfc_render$E]]);
 const __vite_glob_0_196 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: uploadTipEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$B = {
+const _sfc_main$D = {
   name: "uploadURL-editor",
   mixins: [i18n$1],
   props: {
@@ -67685,7 +68390,7 @@ const _sfc_main$B = {
     optionModel: Object
   }
 };
-function _sfc_render$B(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$D(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_divider = resolveComponent("a-divider");
   const _component_a_form_item = resolveComponent("a-form-item");
   const _component_a_input = resolveComponent("a-input");
@@ -67715,12 +68420,12 @@ function _sfc_render$B(_ctx, _cache, $props, $setup, $data, $options) {
     }, 8, ["label"])
   ]);
 }
-const uploadURLEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$B, [["render", _sfc_render$B]]);
+const uploadURLEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$D, [["render", _sfc_render$D]]);
 const __vite_glob_0_197 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: uploadURLEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$A = {
+const _sfc_main$C = {
   name: "useModal-editor",
   mixins: [i18n$1],
   props: {
@@ -67729,7 +68434,7 @@ const _sfc_main$A = {
     optionModel: Object
   }
 };
-function _sfc_render$A(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$C(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_switch = resolveComponent("a-switch");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, { label: `使用功能按钮` }, {
@@ -67742,12 +68447,12 @@ function _sfc_render$A(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   });
 }
-const useModelEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$A, [["render", _sfc_render$A]]);
+const useModelEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$C, [["render", _sfc_render$C]]);
 const __vite_glob_0_198 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: useModelEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$z = {
+const _sfc_main$B = {
   name: "validation-editor",
   mixins: [i18n$1],
   components: {
@@ -67773,7 +68478,7 @@ const _sfc_main$z = {
     };
   }
 };
-function _sfc_render$z(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$B(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_select = resolveComponent("a-select");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, null, {
@@ -67791,12 +68496,12 @@ function _sfc_render$z(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   });
 }
-const validationEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$z, [["render", _sfc_render$z]]);
+const validationEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$B, [["render", _sfc_render$B]]);
 const __vite_glob_0_199 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: validationEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$y = {
+const _sfc_main$A = {
   name: "validationHint-editor",
   mixins: [i18n$1],
   props: {
@@ -67805,7 +68510,7 @@ const _sfc_main$y = {
     optionModel: Object
   }
 };
-function _sfc_render$y(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$A(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_input = resolveComponent("a-input");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -67823,12 +68528,12 @@ function _sfc_render$y(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const validationHintEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$y, [["render", _sfc_render$y]]);
+const validationHintEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$A, [["render", _sfc_render$A]]);
 const __vite_glob_0_200 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: validationHintEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$x = {
+const _sfc_main$z = {
   name: "withCredentials-editor",
   mixins: [i18n$1],
   props: {
@@ -67837,7 +68542,7 @@ const _sfc_main$x = {
     optionModel: Object
   }
 };
-function _sfc_render$x(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$z(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_switch = resolveComponent("a-switch");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -67852,18 +68557,18 @@ function _sfc_render$x(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const withCredentialsEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$x, [["render", _sfc_render$x]]);
+const withCredentialsEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$z, [["render", _sfc_render$z]]);
 const __vite_glob_0_201 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: withCredentialsEditor
 }, Symbol.toStringTag, { value: "Module" }));
 const comps = {};
-const modules$1 = /* @__PURE__ */ Object.assign({ "./actionColumnPosition-editor.vue": __vite_glob_0_0$1, "./addonAfter-editor.vue": __vite_glob_0_1$1, "./addonBefore-editor.vue": __vite_glob_0_2$1, "./allowClear-editor.vue": __vite_glob_0_3$1, "./appendButton-editor.vue": __vite_glob_0_4$1, "./appendButtonDisabled-editor.vue": __vite_glob_0_5$1, "./autoFullWidth-editor.vue": __vite_glob_0_6$1, "./border-editor.vue": __vite_glob_0_7$1, "./buttonIcon-editor.vue": __vite_glob_0_8$1, "./buttonStyle-editor.vue": __vite_glob_0_9$1, "./columnWidth-editor.vue": __vite_glob_0_10$1, "./container-data-table/customRowEvent/data-table-customRow-editor.vue": __vite_glob_0_11$1, "./container-data-table/data-table-customClass-editor.vue": __vite_glob_0_12, "./container-data-table/data-table-dsEnabled-editor.vue": __vite_glob_0_13, "./container-data-table/data-table-pagination-editor.vue": __vite_glob_0_14, "./container-data-table/data-table-rowKey-editor.vue": __vite_glob_0_15, "./container-data-table/data-table-selections-editor.vue": __vite_glob_0_16, "./container-data-table/data-table-showButtonsColumn-editor.vue": __vite_glob_0_17, "./container-data-table/data-table-showIndex-editor.vue": __vite_glob_0_18, "./container-data-table/data-table-stripe-editor.vue": __vite_glob_0_19, "./container-data-table/data-table-tableColumns-editor.vue": __vite_glob_0_20, "./container-data-table/data-table-tableHeight-editor.vue": __vite_glob_0_21, "./container-data-table/data-table-tableSize-editor.vue": __vite_glob_0_22, "./container-data-table/data-table-tableWidth-editor.vue": __vite_glob_0_23, "./container-data-table/data-table-treeDataEnabled-editor.vue": __vite_glob_0_24, "./container-grid-col/grid-col-offset-editor.vue": __vite_glob_0_25, "./container-grid-col/grid-col-pull-editor.vue": __vite_glob_0_26, "./container-grid-col/grid-col-push-editor.vue": __vite_glob_0_27, "./container-grid-col/grid-col-responsive-editor.vue": __vite_glob_0_28, "./container-grid-col/grid-col-span-editor.vue": __vite_glob_0_29, "./container-grid/colHeight-editor.vue": __vite_glob_0_30, "./container-grid/gutter-editor.vue": __vite_glob_0_31, "./container-sub-form/showBlankRow-editor.vue": __vite_glob_0_32, "./container-sub-form/showRowNumber-editor.vue": __vite_glob_0_33, "./container-sub-form/sub-form-labelAlign-editor.vue": __vite_glob_0_34, "./container-tab/tab-customClass-editor.vue": __vite_glob_0_35, "./container-table-cell/cellHeight-editor.vue": __vite_glob_0_36, "./container-table-cell/cellWidth-editor.vue": __vite_glob_0_37, "./container-vf-dialog/bodyStyle-editor.vue": __vite_glob_0_38, "./container-vf-dialog/cancelButtonHidden-editor.vue": __vite_glob_0_39, "./container-vf-dialog/cancelButtonLabel-editor.vue": __vite_glob_0_40, "./container-vf-dialog/closeOnClickModal-editor.vue": __vite_glob_0_41, "./container-vf-dialog/closeOnPressEscape-editor.vue": __vite_glob_0_42, "./container-vf-dialog/collapseIcon-editor.vue": __vite_glob_0_43, "./container-vf-dialog/disabledMode-editor.vue": __vite_glob_0_44, "./container-vf-dialog/formCode-editor.vue": __vite_glob_0_45, "./container-vf-dialog/fullscreen-editor.vue": __vite_glob_0_46, "./container-vf-dialog/height-editor.vue": __vite_glob_0_47, "./container-vf-dialog/isCollapse-editor.vue": __vite_glob_0_48, "./container-vf-dialog/okButtonHidden-editor.vue": __vite_glob_0_49, "./container-vf-dialog/okButtonLabel-editor.vue": __vite_glob_0_50, "./container-vf-dialog/readMode-editor.vue": __vite_glob_0_51, "./container-vf-dialog/showClose-editor.vue": __vite_glob_0_52, "./container-vf-dialog/title-editor.vue": __vite_glob_0_53, "./container-vf-dialog/unCollapseIcon-editor.vue": __vite_glob_0_54, "./container-vf-dialog/width-editor.vue": __vite_glob_0_55, "./container-vf-drawer/vf-drawer-direction-editor.vue": __vite_glob_0_56, "./container-vf-drawer/vf-drawer-size-editor.vue": __vite_glob_0_57, "./customClass-editor.vue": __vite_glob_0_58, "./defaultValue-editor.vue": __vite_glob_0_59, "./disabled-editor.vue": __vite_glob_0_60, "./displayStyle-editor.vue": __vite_glob_0_61, "./editable-editor.vue": __vite_glob_0_62, "./endPlaceholder-editor.vue": __vite_glob_0_63, "./event-handler/onAppendButtonClick-editor.vue": __vite_glob_0_64, "./event-handler/onBeforeUpload-editor.vue": __vite_glob_0_65, "./event-handler/onBlur-editor.vue": __vite_glob_0_66, "./event-handler/onCancelButtonClick-editor.vue": __vite_glob_0_67, "./event-handler/onCellClick-editor.vue": __vite_glob_0_68, "./event-handler/onCellDoubleClick-editor.vue": __vite_glob_0_69, "./event-handler/onChange-editor.vue": __vite_glob_0_70, "./event-handler/onClick-editor.vue": __vite_glob_0_71, "./event-handler/onClickIcon-editor.vue": __vite_glob_0_72, "./event-handler/onCreated-editor.vue": __vite_glob_0_73, "./event-handler/onCurrentPageChange-editor.vue": __vite_glob_0_74, "./event-handler/onDialogBeforeClose-editor.vue": __vite_glob_0_75, "./event-handler/onDialogOpened-editor.vue": __vite_glob_0_76, "./event-handler/onDisableOperationButton-editor.vue": __vite_glob_0_77, "./event-handler/onDrawerBeforeClose-editor.vue": __vite_glob_0_78, "./event-handler/onDrawerOpened-editor.vue": __vite_glob_0_79, "./event-handler/onFileRemove.vue": __vite_glob_0_80, "./event-handler/onFocus-editor.vue": __vite_glob_0_81, "./event-handler/onGetOperationButtonLabel-editor.vue": __vite_glob_0_82, "./event-handler/onGetRowClassName-editor.vue": __vite_glob_0_83, "./event-handler/onGetSpanMethod-editor.vue": __vite_glob_0_84, "./event-handler/onHeaderClick-editor.vue": __vite_glob_0_85, "./event-handler/onHideOperationButton-editor.vue": __vite_glob_0_86, "./event-handler/onInput-editor.vue": __vite_glob_0_87, "./event-handler/onMenuClick-editor.vue": __vite_glob_0_88, "./event-handler/onMounted-editor.vue": __vite_glob_0_89, "./event-handler/onOkButtonClick-editor.vue": __vite_glob_0_90, "./event-handler/onOperationButtonClick-editor.vue": __vite_glob_0_91, "./event-handler/onPageSizeChange-editor.vue": __vite_glob_0_92, "./event-handler/onRemoteQuery-editor.vue": __vite_glob_0_93, "./event-handler/onRowClick-editor.vue": __vite_glob_0_94, "./event-handler/onRowDoubleClick-editor.vue": __vite_glob_0_95, "./event-handler/onSelectionChange-editor.vue": __vite_glob_0_96, "./event-handler/onSubFormRowAdd-editor.vue": __vite_glob_0_97, "./event-handler/onSubFormRowChange-editor.vue": __vite_glob_0_98, "./event-handler/onSubFormRowDelete-editor.vue": __vite_glob_0_99, "./event-handler/onSubFormRowInsert-editor.vue": __vite_glob_0_100, "./event-handler/onTabClick-editor.vue": __vite_glob_0_101, "./event-handler/onTableChange-editor.vue": __vite_glob_0_102, "./event-handler/onUploadError-editor.vue": __vite_glob_0_103, "./event-handler/onUploadSuccess-editor.vue": __vite_glob_0_104, "./event-handler/onValidate-editor.vue": __vite_glob_0_105, "./event-handler/onVformAdd-editor.vue": __vite_glob_0_106, "./field-button/circle-editor.vue": __vite_glob_0_107, "./field-button/danger-editor.vue": __vite_glob_0_108, "./field-button/ghost-editor.vue": __vite_glob_0_109, "./field-button/icon-editor.vue": __vite_glob_0_110, "./field-button/plain-editor.vue": __vite_glob_0_111, "./field-button/round-editor.vue": __vite_glob_0_112, "./field-button/shape-editor.vue": __vite_glob_0_113, "./field-button/type-editor.vue": __vite_glob_0_114, "./field-cascader/cascader-defaultValue-editor.vue": __vite_glob_0_115, "./field-cascader/cascader-multiple-editor.vue": __vite_glob_0_116, "./field-checkbox/checkbox-defaultValue-editor.vue": __vite_glob_0_117, "./field-color/color-defaultValue-editor.vue": __vite_glob_0_118, "./field-date-range/date-range-defaultValue-editor.vue": __vite_glob_0_119, "./field-date-range/date-range-format-editor.vue": __vite_glob_0_120, "./field-date-range/date-range-type-editor.vue": __vite_glob_0_121, "./field-date-range/date-range-valueFormat-editor.vue": __vite_glob_0_122, "./field-date/date-defaultValue-editor.vue": __vite_glob_0_123, "./field-date/date-format-editor.vue": __vite_glob_0_124, "./field-date/date-type-editor.vue": __vite_glob_0_125, "./field-date/date-valueFormat-editor.vue": __vite_glob_0_126, "./field-divider/contentPosition-editor.vue": __vite_glob_0_127, "./field-divider/divider-direction-editor.vue": __vite_glob_0_128, "./field-dropdown/dropdown-menuList-editor.vue": __vite_glob_0_129, "./field-file-upload/file-upload-fileTypes-editor.vue": __vite_glob_0_130, "./field-html-text/htmlContent-editor.vue": __vite_glob_0_131, "./field-number/controlsPosition-editor.vue": __vite_glob_0_132, "./field-number/number-defaultValue-editor.vue": __vite_glob_0_133, "./field-picture-upload/picture-upload-fileTypes-editor.vue": __vite_glob_0_134, "./field-radio/radio-defaultValue-editor.vue": __vite_glob_0_135, "./field-rate/allowHalf-editor.vue": __vite_glob_0_136, "./field-rate/highThreshold-editor.vue": __vite_glob_0_137, "./field-rate/lowThreshold-editor.vue": __vite_glob_0_138, "./field-rate/rate-count-editor.vue": __vite_glob_0_139, "./field-rate/rate-defaultValue-editor.vue": __vite_glob_0_140, "./field-rate/showScore-editor.vue": __vite_glob_0_141, "./field-rate/showText-editor.vue": __vite_glob_0_142, "./field-rich-editor/rich-editor-contentHeight-editor.vue": __vite_glob_0_143, "./field-select/mode-editor.vue": __vite_glob_0_144, "./field-select/select-defaultValue-editor.vue": __vite_glob_0_145, "./field-slider/range-editor.vue": __vite_glob_0_146, "./field-slider/vertical-editor.vue": __vite_glob_0_147, "./field-static-text/textContent-editor.vue": __vite_glob_0_148, "./field-switch/activeColor-editor.vue": __vite_glob_0_149, "./field-switch/checkedValue-editor.vue": __vite_glob_0_150, "./field-switch/inactiveColor-editor.vue": __vite_glob_0_151, "./field-switch/switch-defaultValue-editor.vue": __vite_glob_0_152, "./field-switch/switchWidth-editor.vue": __vite_glob_0_153, "./field-switch/unCheckedValue-editor.vue": __vite_glob_0_154, "./field-time-range/time-range-defaultValue-editor.vue": __vite_glob_0_155, "./field-time-range/time-range-format-editor.vue": __vite_glob_0_156, "./field-time/time-defaultValue-editor.vue": __vite_glob_0_157, "./field-time/time-format-editor.vue": __vite_glob_0_158, "./field-treeSelect/treeSelect-treeDefaultExpandAll-editor.vue": __vite_glob_0_159, "./fileMaxSize-editor.vue": __vite_glob_0_160, "./hidden-editor.vue": __vite_glob_0_161, "./label-editor.vue": __vite_glob_0_162, "./labelAlign-editor.vue": __vite_glob_0_163, "./labelHidden-editor.vue": __vite_glob_0_164, "./labelIconClass-editor.vue": __vite_glob_0_165, "./labelIconPosition-editor.vue": __vite_glob_0_166, "./labelTooltip-editor.vue": __vite_glob_0_167, "./labelWidth-editor.vue": __vite_glob_0_168, "./limit-editor.vue": __vite_glob_0_169, "./loadingPage-editor.vue": __vite_glob_0_170, "./max-editor.vue": __vite_glob_0_171, "./maxLength-editor.vue": __vite_glob_0_172, "./min-editor.vue": __vite_glob_0_173, "./minLength-editor.vue": __vite_glob_0_174, "./multiple-editor.vue": __vite_glob_0_175, "./multipleSelect-editor.vue": __vite_glob_0_176, "./name-editor.vue": __vite_glob_0_177, "./optionItems-editor.vue": __vite_glob_0_178, "./placeholder-editor.vue": __vite_glob_0_179, "./placement-editor.vue": __vite_glob_0_180, "./precision-editor.vue": __vite_glob_0_181, "./readonly-editor.vue": __vite_glob_0_182, "./required-editor.vue": __vite_glob_0_183, "./requiredHint-editor.vue": __vite_glob_0_184, "./rightSlotCss-editor.vue": __vite_glob_0_185, "./rows-editor.vue": __vite_glob_0_186, "./showCount-editor.vue": __vite_glob_0_187, "./showFileList-editor.vue": __vite_glob_0_188, "./showPassword-editor.vue": __vite_glob_0_189, "./showSearch-editor.vue": __vite_glob_0_190, "./showTime-editor.vue": __vite_glob_0_191, "./size-editor.vue": __vite_glob_0_192, "./startPlaceholder-editor.vue": __vite_glob_0_193, "./step-editor.vue": __vite_glob_0_194, "./type-editor.vue": __vite_glob_0_195, "./uploadTip-editor.vue": __vite_glob_0_196, "./uploadURL-editor.vue": __vite_glob_0_197, "./useModel-editor.vue": __vite_glob_0_198, "./validation-editor.vue": __vite_glob_0_199, "./validationHint-editor.vue": __vite_glob_0_200, "./withCredentials-editor.vue": __vite_glob_0_201 });
+const modules$1 = /* @__PURE__ */ Object.assign({ "./actionColumnPosition-editor.vue": __vite_glob_0_0$1, "./addonAfter-editor.vue": __vite_glob_0_1$1, "./addonBefore-editor.vue": __vite_glob_0_2$1, "./allowClear-editor.vue": __vite_glob_0_3$1, "./appendButton-editor.vue": __vite_glob_0_4$1, "./appendButtonDisabled-editor.vue": __vite_glob_0_5$1, "./autoFullWidth-editor.vue": __vite_glob_0_6$1, "./border-editor.vue": __vite_glob_0_7$1, "./buttonIcon-editor.vue": __vite_glob_0_8$1, "./buttonStyle-editor.vue": __vite_glob_0_9$1, "./columnWidth-editor.vue": __vite_glob_0_10$1, "./container-data-table/customRowEvent/data-table-customRow-editor.vue": __vite_glob_0_11$1, "./container-data-table/data-table-customClass-editor.vue": __vite_glob_0_12$1, "./container-data-table/data-table-dsEnabled-editor.vue": __vite_glob_0_13$1, "./container-data-table/data-table-pagination-editor.vue": __vite_glob_0_14, "./container-data-table/data-table-rowKey-editor.vue": __vite_glob_0_15, "./container-data-table/data-table-selections-editor.vue": __vite_glob_0_16, "./container-data-table/data-table-showButtonsColumn-editor.vue": __vite_glob_0_17, "./container-data-table/data-table-showIndex-editor.vue": __vite_glob_0_18, "./container-data-table/data-table-stripe-editor.vue": __vite_glob_0_19, "./container-data-table/data-table-tableColumns-editor.vue": __vite_glob_0_20, "./container-data-table/data-table-tableHeight-editor.vue": __vite_glob_0_21, "./container-data-table/data-table-tableSize-editor.vue": __vite_glob_0_22, "./container-data-table/data-table-tableWidth-editor.vue": __vite_glob_0_23, "./container-data-table/data-table-treeDataEnabled-editor.vue": __vite_glob_0_24, "./container-grid-col/grid-col-offset-editor.vue": __vite_glob_0_25, "./container-grid-col/grid-col-pull-editor.vue": __vite_glob_0_26, "./container-grid-col/grid-col-push-editor.vue": __vite_glob_0_27, "./container-grid-col/grid-col-responsive-editor.vue": __vite_glob_0_28, "./container-grid-col/grid-col-span-editor.vue": __vite_glob_0_29, "./container-grid/colHeight-editor.vue": __vite_glob_0_30, "./container-grid/gutter-editor.vue": __vite_glob_0_31, "./container-sub-form/showBlankRow-editor.vue": __vite_glob_0_32, "./container-sub-form/showRowNumber-editor.vue": __vite_glob_0_33, "./container-sub-form/sub-form-labelAlign-editor.vue": __vite_glob_0_34, "./container-tab/tab-customClass-editor.vue": __vite_glob_0_35, "./container-table-cell/cellHeight-editor.vue": __vite_glob_0_36, "./container-table-cell/cellWidth-editor.vue": __vite_glob_0_37, "./container-vf-dialog/bodyStyle-editor.vue": __vite_glob_0_38, "./container-vf-dialog/cancelButtonHidden-editor.vue": __vite_glob_0_39, "./container-vf-dialog/cancelButtonLabel-editor.vue": __vite_glob_0_40, "./container-vf-dialog/closeOnClickModal-editor.vue": __vite_glob_0_41, "./container-vf-dialog/closeOnPressEscape-editor.vue": __vite_glob_0_42, "./container-vf-dialog/collapseIcon-editor.vue": __vite_glob_0_43, "./container-vf-dialog/disabledMode-editor.vue": __vite_glob_0_44, "./container-vf-dialog/formCode-editor.vue": __vite_glob_0_45, "./container-vf-dialog/fullscreen-editor.vue": __vite_glob_0_46, "./container-vf-dialog/height-editor.vue": __vite_glob_0_47, "./container-vf-dialog/isCollapse-editor.vue": __vite_glob_0_48, "./container-vf-dialog/okButtonHidden-editor.vue": __vite_glob_0_49, "./container-vf-dialog/okButtonLabel-editor.vue": __vite_glob_0_50, "./container-vf-dialog/readMode-editor.vue": __vite_glob_0_51, "./container-vf-dialog/showClose-editor.vue": __vite_glob_0_52, "./container-vf-dialog/title-editor.vue": __vite_glob_0_53, "./container-vf-dialog/unCollapseIcon-editor.vue": __vite_glob_0_54, "./container-vf-dialog/width-editor.vue": __vite_glob_0_55, "./container-vf-drawer/vf-drawer-direction-editor.vue": __vite_glob_0_56, "./container-vf-drawer/vf-drawer-size-editor.vue": __vite_glob_0_57, "./customClass-editor.vue": __vite_glob_0_58, "./defaultValue-editor.vue": __vite_glob_0_59, "./disabled-editor.vue": __vite_glob_0_60, "./displayStyle-editor.vue": __vite_glob_0_61, "./editable-editor.vue": __vite_glob_0_62, "./endPlaceholder-editor.vue": __vite_glob_0_63, "./event-handler/onAppendButtonClick-editor.vue": __vite_glob_0_64, "./event-handler/onBeforeUpload-editor.vue": __vite_glob_0_65, "./event-handler/onBlur-editor.vue": __vite_glob_0_66, "./event-handler/onCancelButtonClick-editor.vue": __vite_glob_0_67, "./event-handler/onCellClick-editor.vue": __vite_glob_0_68, "./event-handler/onCellDoubleClick-editor.vue": __vite_glob_0_69, "./event-handler/onChange-editor.vue": __vite_glob_0_70, "./event-handler/onClick-editor.vue": __vite_glob_0_71, "./event-handler/onClickIcon-editor.vue": __vite_glob_0_72, "./event-handler/onCreated-editor.vue": __vite_glob_0_73, "./event-handler/onCurrentPageChange-editor.vue": __vite_glob_0_74, "./event-handler/onDialogBeforeClose-editor.vue": __vite_glob_0_75, "./event-handler/onDialogOpened-editor.vue": __vite_glob_0_76, "./event-handler/onDisableOperationButton-editor.vue": __vite_glob_0_77, "./event-handler/onDrawerBeforeClose-editor.vue": __vite_glob_0_78, "./event-handler/onDrawerOpened-editor.vue": __vite_glob_0_79, "./event-handler/onFileRemove.vue": __vite_glob_0_80, "./event-handler/onFocus-editor.vue": __vite_glob_0_81, "./event-handler/onGetOperationButtonLabel-editor.vue": __vite_glob_0_82, "./event-handler/onGetRowClassName-editor.vue": __vite_glob_0_83, "./event-handler/onGetSpanMethod-editor.vue": __vite_glob_0_84, "./event-handler/onHeaderClick-editor.vue": __vite_glob_0_85, "./event-handler/onHideOperationButton-editor.vue": __vite_glob_0_86, "./event-handler/onInput-editor.vue": __vite_glob_0_87, "./event-handler/onMenuClick-editor.vue": __vite_glob_0_88, "./event-handler/onMounted-editor.vue": __vite_glob_0_89, "./event-handler/onOkButtonClick-editor.vue": __vite_glob_0_90, "./event-handler/onOperationButtonClick-editor.vue": __vite_glob_0_91, "./event-handler/onPageSizeChange-editor.vue": __vite_glob_0_92, "./event-handler/onRemoteQuery-editor.vue": __vite_glob_0_93, "./event-handler/onRowClick-editor.vue": __vite_glob_0_94, "./event-handler/onRowDoubleClick-editor.vue": __vite_glob_0_95, "./event-handler/onSelectionChange-editor.vue": __vite_glob_0_96, "./event-handler/onSubFormRowAdd-editor.vue": __vite_glob_0_97, "./event-handler/onSubFormRowChange-editor.vue": __vite_glob_0_98, "./event-handler/onSubFormRowDelete-editor.vue": __vite_glob_0_99, "./event-handler/onSubFormRowInsert-editor.vue": __vite_glob_0_100, "./event-handler/onTabClick-editor.vue": __vite_glob_0_101, "./event-handler/onTableChange-editor.vue": __vite_glob_0_102, "./event-handler/onUploadError-editor.vue": __vite_glob_0_103, "./event-handler/onUploadSuccess-editor.vue": __vite_glob_0_104, "./event-handler/onValidate-editor.vue": __vite_glob_0_105, "./event-handler/onVformAdd-editor.vue": __vite_glob_0_106, "./field-button/circle-editor.vue": __vite_glob_0_107, "./field-button/danger-editor.vue": __vite_glob_0_108, "./field-button/ghost-editor.vue": __vite_glob_0_109, "./field-button/icon-editor.vue": __vite_glob_0_110, "./field-button/plain-editor.vue": __vite_glob_0_111, "./field-button/round-editor.vue": __vite_glob_0_112, "./field-button/shape-editor.vue": __vite_glob_0_113, "./field-button/type-editor.vue": __vite_glob_0_114, "./field-cascader/cascader-defaultValue-editor.vue": __vite_glob_0_115, "./field-cascader/cascader-multiple-editor.vue": __vite_glob_0_116, "./field-checkbox/checkbox-defaultValue-editor.vue": __vite_glob_0_117, "./field-color/color-defaultValue-editor.vue": __vite_glob_0_118, "./field-date-range/date-range-defaultValue-editor.vue": __vite_glob_0_119, "./field-date-range/date-range-format-editor.vue": __vite_glob_0_120, "./field-date-range/date-range-type-editor.vue": __vite_glob_0_121, "./field-date-range/date-range-valueFormat-editor.vue": __vite_glob_0_122, "./field-date/date-defaultValue-editor.vue": __vite_glob_0_123, "./field-date/date-format-editor.vue": __vite_glob_0_124, "./field-date/date-type-editor.vue": __vite_glob_0_125, "./field-date/date-valueFormat-editor.vue": __vite_glob_0_126, "./field-divider/contentPosition-editor.vue": __vite_glob_0_127, "./field-divider/divider-direction-editor.vue": __vite_glob_0_128, "./field-dropdown/dropdown-menuList-editor.vue": __vite_glob_0_129, "./field-file-upload/file-upload-fileTypes-editor.vue": __vite_glob_0_130, "./field-html-text/htmlContent-editor.vue": __vite_glob_0_131, "./field-number/controlsPosition-editor.vue": __vite_glob_0_132, "./field-number/number-defaultValue-editor.vue": __vite_glob_0_133, "./field-picture-upload/picture-upload-fileTypes-editor.vue": __vite_glob_0_134, "./field-radio/radio-defaultValue-editor.vue": __vite_glob_0_135, "./field-rate/allowHalf-editor.vue": __vite_glob_0_136, "./field-rate/highThreshold-editor.vue": __vite_glob_0_137, "./field-rate/lowThreshold-editor.vue": __vite_glob_0_138, "./field-rate/rate-count-editor.vue": __vite_glob_0_139, "./field-rate/rate-defaultValue-editor.vue": __vite_glob_0_140, "./field-rate/showScore-editor.vue": __vite_glob_0_141, "./field-rate/showText-editor.vue": __vite_glob_0_142, "./field-rich-editor/rich-editor-contentHeight-editor.vue": __vite_glob_0_143, "./field-select/mode-editor.vue": __vite_glob_0_144, "./field-select/select-defaultValue-editor.vue": __vite_glob_0_145, "./field-slider/range-editor.vue": __vite_glob_0_146, "./field-slider/vertical-editor.vue": __vite_glob_0_147, "./field-static-text/textContent-editor.vue": __vite_glob_0_148, "./field-switch/activeColor-editor.vue": __vite_glob_0_149, "./field-switch/checkedValue-editor.vue": __vite_glob_0_150, "./field-switch/inactiveColor-editor.vue": __vite_glob_0_151, "./field-switch/switch-defaultValue-editor.vue": __vite_glob_0_152, "./field-switch/switchWidth-editor.vue": __vite_glob_0_153, "./field-switch/unCheckedValue-editor.vue": __vite_glob_0_154, "./field-time-range/time-range-defaultValue-editor.vue": __vite_glob_0_155, "./field-time-range/time-range-format-editor.vue": __vite_glob_0_156, "./field-time/time-defaultValue-editor.vue": __vite_glob_0_157, "./field-time/time-format-editor.vue": __vite_glob_0_158, "./field-treeSelect/treeSelect-treeDefaultExpandAll-editor.vue": __vite_glob_0_159, "./fileMaxSize-editor.vue": __vite_glob_0_160, "./hidden-editor.vue": __vite_glob_0_161, "./label-editor.vue": __vite_glob_0_162, "./labelAlign-editor.vue": __vite_glob_0_163, "./labelHidden-editor.vue": __vite_glob_0_164, "./labelIconClass-editor.vue": __vite_glob_0_165, "./labelIconPosition-editor.vue": __vite_glob_0_166, "./labelTooltip-editor.vue": __vite_glob_0_167, "./labelWidth-editor.vue": __vite_glob_0_168, "./limit-editor.vue": __vite_glob_0_169, "./loadingPage-editor.vue": __vite_glob_0_170, "./max-editor.vue": __vite_glob_0_171, "./maxLength-editor.vue": __vite_glob_0_172, "./min-editor.vue": __vite_glob_0_173, "./minLength-editor.vue": __vite_glob_0_174, "./multiple-editor.vue": __vite_glob_0_175, "./multipleSelect-editor.vue": __vite_glob_0_176, "./name-editor.vue": __vite_glob_0_177, "./optionItems-editor.vue": __vite_glob_0_178, "./placeholder-editor.vue": __vite_glob_0_179, "./placement-editor.vue": __vite_glob_0_180, "./precision-editor.vue": __vite_glob_0_181, "./readonly-editor.vue": __vite_glob_0_182, "./required-editor.vue": __vite_glob_0_183, "./requiredHint-editor.vue": __vite_glob_0_184, "./rightSlotCss-editor.vue": __vite_glob_0_185, "./rows-editor.vue": __vite_glob_0_186, "./showCount-editor.vue": __vite_glob_0_187, "./showFileList-editor.vue": __vite_glob_0_188, "./showPassword-editor.vue": __vite_glob_0_189, "./showSearch-editor.vue": __vite_glob_0_190, "./showTime-editor.vue": __vite_glob_0_191, "./size-editor.vue": __vite_glob_0_192, "./startPlaceholder-editor.vue": __vite_glob_0_193, "./step-editor.vue": __vite_glob_0_194, "./type-editor.vue": __vite_glob_0_195, "./uploadTip-editor.vue": __vite_glob_0_196, "./uploadURL-editor.vue": __vite_glob_0_197, "./useModel-editor.vue": __vite_glob_0_198, "./validation-editor.vue": __vite_glob_0_199, "./validationHint-editor.vue": __vite_glob_0_200, "./withCredentials-editor.vue": __vite_glob_0_201 });
 for (const path in modules$1) {
   const cname = modules$1[path].default.name;
   comps[cname] = modules$1[path].default;
 }
-const _sfc_main$w = {
+const _sfc_main$y = {
   name: "form-setting",
   mixins: [i18n$1],
   components: {
@@ -68019,7 +68724,7 @@ const _sfc_main$w = {
     }
   }
 };
-const _hoisted_1$t = {
+const _hoisted_1$u = {
   key: 0,
   class: ""
 };
@@ -68034,7 +68739,7 @@ const _hoisted_5$5 = {
   class: ""
 };
 const _hoisted_6$4 = { class: "dialog-footer" };
-function _sfc_render$w(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$y(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_select = resolveComponent("a-select");
   const _component_a_form_item = resolveComponent("a-form-item");
   const _component_a_radio_button = resolveComponent("a-radio-button");
@@ -68278,7 +68983,7 @@ function _sfc_render$w(_ctx, _cache, $props, $setup, $data, $options) {
       ]),
       _: 1
     }, 8, ["model"]),
-    $data.showFormEventDialogFlag ? (openBlock(), createElementBlock("div", _hoisted_1$t, [
+    $data.showFormEventDialogFlag ? (openBlock(), createElementBlock("div", _hoisted_1$u, [
       createVNode(_component_a_modal, {
         title: _ctx.i18nt("designer.setting.editFormEventHandler"),
         visible: $data.showFormEventDialogFlag,
@@ -68426,8 +69131,8 @@ function _sfc_render$w(_ctx, _cache, $props, $setup, $data, $options) {
     ])) : createCommentVNode("", true)
   ]);
 }
-const FormSetting = /* @__PURE__ */ _export_sfc$1(_sfc_main$w, [["render", _sfc_render$w]]);
-const _sfc_main$v = {
+const FormSetting = /* @__PURE__ */ _export_sfc$1(_sfc_main$y, [["render", _sfc_render$y]]);
+const _sfc_main$x = {
   name: "data-source-setting",
   mixins: [i18n$1],
   inject: ["getGlobalDsv"],
@@ -68721,7 +69426,7 @@ const _sfc_main$v = {
     }
   }
 };
-const _hoisted_1$s = { class: "ds-list" };
+const _hoisted_1$t = { class: "ds-list" };
 const _hoisted_2$l = ["title"];
 const _hoisted_3$k = ["title"];
 const _hoisted_4$a = { class: "ds-button-wrapper" };
@@ -68735,7 +69440,7 @@ const _hoisted_8$2 = {
 const _hoisted_9$1 = ["title"];
 const _hoisted_10$1 = ["title"];
 const _hoisted_11$1 = { class: "dialog-footer-center" };
-function _sfc_render$v(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$x(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_button = resolveComponent("a-button");
   const _component_a_descriptions_item = resolveComponent("a-descriptions-item");
   const _component_a_descriptions = resolveComponent("a-descriptions");
@@ -68759,7 +69464,7 @@ function _sfc_render$v(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_modal = resolveComponent("a-modal");
   const _component_a_checkbox = resolveComponent("a-checkbox");
   return openBlock(), createElementBlock(Fragment, null, [
-    createElementVNode("div", _hoisted_1$s, [
+    createElementVNode("div", _hoisted_1$t, [
       !!$props.formConfig.dataSources && $props.formConfig.dataSources.length > 0 ? (openBlock(true), createElementBlock(Fragment, { key: 0 }, renderList($props.formConfig.dataSources, (ds, dsIdx) => {
         return openBlock(), createBlock(_component_a_descriptions, {
           column: 1,
@@ -69875,8 +70580,8 @@ function _sfc_render$v(_ctx, _cache, $props, $setup, $data, $options) {
     }, 8, ["title", "visible"])
   ], 64);
 }
-const DataSourceSetting = /* @__PURE__ */ _export_sfc$1(_sfc_main$v, [["render", _sfc_render$v], ["__scopeId", "data-v-7f11bff7"]]);
-const _sfc_main$u = {
+const DataSourceSetting = /* @__PURE__ */ _export_sfc$1(_sfc_main$x, [["render", _sfc_render$x], ["__scopeId", "data-v-7f11bff7"]]);
+const _sfc_main$w = {
   name: "form-crud-setting",
   mixins: [i18n$1],
   inject: ["getGlobalDsv"],
@@ -69921,16 +70626,16 @@ const _sfc_main$u = {
     }
   }
 };
-const _hoisted_1$r = { class: "t-p-[10px]" };
+const _hoisted_1$s = { class: "t-p-[10px]" };
 const _hoisted_2$k = { class: "dialog-footer" };
-function _sfc_render$u(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$w(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_HttpEditor = resolveComponent("HttpEditor");
   const _component_a_form_item = resolveComponent("a-form-item");
   const _component_a_button = resolveComponent("a-button");
   const _component_a_alert = resolveComponent("a-alert");
   const _component_code_editor = resolveComponent("code-editor");
   const _component_a_modal = resolveComponent("a-modal");
-  return openBlock(), createElementBlock("div", _hoisted_1$r, [
+  return openBlock(), createElementBlock("div", _hoisted_1$s, [
     createVNode(_component_a_form_item, null, {
       default: withCtx(() => [
         createVNode(_component_HttpEditor, {
@@ -70003,7 +70708,7 @@ function _sfc_render$u(_ctx, _cache, $props, $setup, $data, $options) {
     }, 8, ["title", "visible"])
   ]);
 }
-const FormCrudSetting = /* @__PURE__ */ _export_sfc$1(_sfc_main$u, [["render", _sfc_render$u]]);
+const FormCrudSetting = /* @__PURE__ */ _export_sfc$1(_sfc_main$w, [["render", _sfc_render$w]]);
 const COMMON_PROPERTIES$1 = {
   //字段
   name: "name-editor",
@@ -70237,7 +70942,7 @@ const PERegister = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.definePr
   registerEventProperty
 }, Symbol.toStringTag, { value: "Module" }));
 const { COMMON_PROPERTIES, ADVANCED_PROPERTIES, EVENT_PROPERTIES } = WidgetProperties;
-const _sfc_main$t = {
+const _sfc_main$v = {
   name: "SettingPanel",
   componentName: "SettingPanel",
   mixins: [i18n$1, emitter],
@@ -70416,8 +71121,8 @@ const _sfc_main$t = {
     }
   }
 };
-const _hoisted_1$q = { class: "dialog-footer" };
-function _sfc_render$t(_ctx, _cache, $props, $setup, $data, $options) {
+const _hoisted_1$r = { class: "dialog-footer" };
+function _sfc_render$v(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_collapse_panel = resolveComponent("a-collapse-panel");
   const _component_a_collapse = resolveComponent("a-collapse");
   const _component_a_form = resolveComponent("a-form");
@@ -70666,7 +71371,7 @@ function _sfc_render$t(_ctx, _cache, $props, $setup, $data, $options) {
             width: 800
           }, {
             footer: withCtx(() => [
-              createElementVNode("div", _hoisted_1$q, [
+              createElementVNode("div", _hoisted_1$r, [
                 createVNode(_component_a_button, {
                   onClick: _cache[6] || (_cache[6] = ($event) => $data.showWidgetEventDialogFlag = false)
                 }, {
@@ -70714,7 +71419,7 @@ function _sfc_render$t(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   });
 }
-const SettingPanel = /* @__PURE__ */ _export_sfc$1(_sfc_main$t, [["render", _sfc_render$t], ["__scopeId", "data-v-886da528"]]);
+const SettingPanel = /* @__PURE__ */ _export_sfc$1(_sfc_main$v, [["render", _sfc_render$v], ["__scopeId", "data-v-886da528"]]);
 const containerMixin = {
   inject: ["getFormConfig"],
   computed: {
@@ -70796,7 +71501,7 @@ const containerMixin = {
     }
   }
 };
-const _sfc_main$s = {
+const _sfc_main$u = {
   name: "container-wrapper",
   mixins: [i18n$1, containerMixin],
   components: {
@@ -70815,7 +71520,7 @@ const _sfc_main$s = {
     }
   }
 };
-const _hoisted_1$p = {
+const _hoisted_1$q = {
   key: 0,
   class: "container-action"
 };
@@ -70832,13 +71537,13 @@ const _hoisted_9 = {
 };
 const _hoisted_10 = ["title"];
 const _hoisted_11 = { key: 0 };
-function _sfc_render$s(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$u(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_svg_icon = resolveComponent("svg-icon");
   return openBlock(), createElementBlock("div", {
     class: normalizeClass(["container-wrapper", [$options.customClass]])
   }, [
     renderSlot(_ctx.$slots, "default", {}, void 0, true),
-    $props.designer.selectedId === $props.widget.id && !$props.widget.internal ? (openBlock(), createElementBlock("div", _hoisted_1$p, [
+    $props.designer.selectedId === $props.widget.id && !$props.widget.internal ? (openBlock(), createElementBlock("div", _hoisted_1$q, [
       createElementVNode("i", {
         title: _ctx.i18nt("designer.hint.selectParentWidget"),
         onClick: _cache[0] || (_cache[0] = withModifiers(($event) => _ctx.selectParentWidget($props.widget), ["stop"]))
@@ -70893,14 +71598,14 @@ function _sfc_render$s(_ctx, _cache, $props, $setup, $data, $options) {
       }, [
         createVNode(_component_svg_icon, { "icon-class": "el-drag-move" })
       ], 8, _hoisted_10),
-      createElementVNode("i", null, toDisplayString(_ctx.i18n2t(`designer.widgetLabel.${$props.widget.type}`, `extension.widgetLabel.${$props.widget.type}`)), 1),
+      createElementVNode("i", null, toDisplayString($props.widget.showName || _ctx.i18n2t(`designer.widgetLabel.${$props.widget.type}`, `extension.widgetLabel.${$props.widget.type}`)), 1),
       $props.widget.options.hidden === true ? (openBlock(), createElementBlock("i", _hoisted_11, [
         createVNode(_component_svg_icon, { "icon-class": "el-hide" })
       ])) : createCommentVNode("", true)
     ])) : createCommentVNode("", true)
   ], 2);
 }
-const ContainerWrapper = /* @__PURE__ */ _export_sfc$1(_sfc_main$s, [["render", _sfc_render$s], ["__scopeId", "data-v-4a8e2be6"]]);
+const ContainerWrapper = /* @__PURE__ */ _export_sfc$1(_sfc_main$u, [["render", _sfc_render$u], ["__scopeId", "data-v-a00b7598"]]);
 const __vite_glob_0_0 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: ContainerWrapper
@@ -70930,7 +71635,7 @@ const refMixinDesign = {
     }
   }
 };
-const _sfc_main$r = {
+const _sfc_main$t = {
   name: "DataTableWidget",
   componentName: "DataTableWidget",
   mixins: [i18n$1, containerMixin, refMixinDesign, emitter, useDataTableMixin],
@@ -71155,7 +71860,7 @@ const _sfc_main$r = {
     // }
   }
 };
-function _sfc_render$r(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$t(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_empty = resolveComponent("a-empty");
   const _component_a_table_column = resolveComponent("a-table-column");
   const _component_a_button = resolveComponent("a-button");
@@ -71252,12 +71957,12 @@ function _sfc_render$r(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["designer", "widget", "parent-widget", "parent-list", "index-of-parent-list", "style"]);
 }
-const dataTableWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$r, [["render", _sfc_render$r], ["__scopeId", "data-v-9d12c34b"]]);
+const dataTableWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$t, [["render", _sfc_render$t], ["__scopeId", "data-v-9d12c34b"]]);
 const __vite_glob_0_1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: dataTableWidget
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$q = {
+const _sfc_main$s = {
   name: "GridColWidget",
   componentName: "GridColWidget",
   mixins: [i18n$1, refMixinDesign],
@@ -71445,7 +72150,7 @@ const _sfc_main$q = {
     }
   }
 };
-const _hoisted_1$o = { class: "form-widget-list" };
+const _hoisted_1$p = { class: "form-widget-list" };
 const _hoisted_2$i = {
   key: 0,
   class: "grid-col-action"
@@ -71459,7 +72164,7 @@ const _hoisted_8 = {
   key: 1,
   class: "grid-col-handler"
 };
-function _sfc_render$q(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$s(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_draggable = resolveComponent("draggable");
   const _component_svg_icon = resolveComponent("svg-icon");
   const _component_a_col = resolveComponent("a-col");
@@ -71486,7 +72191,7 @@ function _sfc_render$q(_ctx, _cache, $props, $setup, $data, $options) {
         move: $options.checkContainerMove
       }), {
         item: withCtx(({ element: subWidget, index: swIdx }) => [
-          createElementVNode("div", _hoisted_1$o, [
+          createElementVNode("div", _hoisted_1$p, [
             "container" === subWidget.category ? (openBlock(), createBlock(resolveDynamicComponent(subWidget.type + "-widget"), {
               widget: subWidget,
               designer: $props.designer,
@@ -71548,12 +72253,12 @@ function _sfc_render$q(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 16, ["class", "style"])) : createCommentVNode("", true);
 }
-const GridColWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$q, [["render", _sfc_render$q], ["__scopeId", "data-v-e53ef040"]]);
+const GridColWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$s, [["render", _sfc_render$s], ["__scopeId", "data-v-e53ef040"]]);
 const __vite_glob_0_2 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: GridColWidget
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$p = {
+const _sfc_main$r = {
   name: "grid-sub-form-widget",
   componentName: "ContainerWidget",
   mixins: [i18n$1, containerMixin, refMixinDesign],
@@ -71606,8 +72311,8 @@ const _sfc_main$p = {
     }
   }
 };
-const _hoisted_1$n = { class: "grid-sub-form" };
-function _sfc_render$p(_ctx, _cache, $props, $setup, $data, $options) {
+const _hoisted_1$o = { class: "grid-sub-form" };
+function _sfc_render$r(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_draggable = resolveComponent("draggable");
   const _component_container_wrapper = resolveComponent("container-wrapper");
   return openBlock(), createBlock(_component_container_wrapper, {
@@ -71623,7 +72328,7 @@ function _sfc_render$p(_ctx, _cache, $props, $setup, $data, $options) {
         class: normalizeClass(["sub-form-container", { selected: $options.selected }]),
         onClick: _cache[1] || (_cache[1] = withModifiers(($event) => _ctx.selectWidget($props.widget), ["stop"]))
       }, [
-        createElementVNode("div", _hoisted_1$n, [
+        createElementVNode("div", _hoisted_1$o, [
           createVNode(_component_draggable, mergeProps({
             list: $props.widget.widgetList,
             "item-key": "id"
@@ -71654,12 +72359,12 @@ function _sfc_render$p(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["designer", "widget", "parent-widget", "parent-list", "index-of-parent-list"]);
 }
-const gridSubFormWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$p, [["render", _sfc_render$p], ["__scopeId", "data-v-1fae3721"]]);
+const gridSubFormWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$r, [["render", _sfc_render$r], ["__scopeId", "data-v-1fae3721"]]);
 const __vite_glob_0_3 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: gridSubFormWidget
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$o = {
+const _sfc_main$q = {
   name: "grid-widget",
   componentName: "ContainerWidget",
   mixins: [i18n$1, containerMixin, refMixinDesign],
@@ -71693,7 +72398,7 @@ const _sfc_main$o = {
   },
   methods: {}
 };
-function _sfc_render$o(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$q(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_grid_col_widget = resolveComponent("grid-col-widget");
   const _component_a_row = resolveComponent("a-row");
   const _component_container_wrapper = resolveComponent("container-wrapper");
@@ -71730,12 +72435,12 @@ function _sfc_render$o(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["designer", "widget", "parent-widget", "parent-list", "index-of-parent-list"]);
 }
-const gridWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$o, [["render", _sfc_render$o], ["__scopeId", "data-v-95f5c98f"]]);
+const gridWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$q, [["render", _sfc_render$q], ["__scopeId", "data-v-95f5c98f"]]);
 const __vite_glob_0_4 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: gridWidget
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$n = {
+const _sfc_main$p = {
   name: "sub-form-widget",
   componentName: "ContainerWidget",
   mixins: [i18n$1, containerMixin, refMixinDesign],
@@ -71788,8 +72493,8 @@ const _sfc_main$n = {
     }
   }
 };
-const _hoisted_1$m = { class: "sub-form-table" };
-function _sfc_render$n(_ctx, _cache, $props, $setup, $data, $options) {
+const _hoisted_1$n = { class: "sub-form-table" };
+function _sfc_render$p(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_draggable = resolveComponent("draggable");
   const _component_a_form = resolveComponent("a-form");
   const _component_container_wrapper = resolveComponent("container-wrapper");
@@ -71811,7 +72516,7 @@ function _sfc_render$n(_ctx, _cache, $props, $setup, $data, $options) {
           class: "tpf-form"
         }, {
           default: withCtx(() => [
-            createElementVNode("div", _hoisted_1$m, [
+            createElementVNode("div", _hoisted_1$n, [
               createVNode(_component_draggable, mergeProps({
                 list: $props.widget.widgetList,
                 "item-key": "id"
@@ -71852,12 +72557,12 @@ function _sfc_render$n(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["designer", "widget", "parent-widget", "parent-list", "index-of-parent-list"]);
 }
-const subFormWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$n, [["render", _sfc_render$n], ["__scopeId", "data-v-6f4a48e4"]]);
+const subFormWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$p, [["render", _sfc_render$p], ["__scopeId", "data-v-6f4a48e4"]]);
 const __vite_glob_0_5 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: subFormWidget
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$m = {
+const _sfc_main$o = {
   name: "tab-widget",
   componentName: "ContainerWidget",
   mixins: [i18n$1, containerMixin, refMixinDesign],
@@ -71905,8 +72610,8 @@ const _sfc_main$m = {
     }
   }
 };
-const _hoisted_1$l = { class: "form-widget-list" };
-function _sfc_render$m(_ctx, _cache, $props, $setup, $data, $options) {
+const _hoisted_1$m = { class: "form-widget-list" };
+function _sfc_render$o(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_draggable = resolveComponent("draggable");
   const _component_a_tab_pane = resolveComponent("a-tab-pane");
   const _component_a_tabs = resolveComponent("a-tabs");
@@ -71950,7 +72655,7 @@ function _sfc_render$m(_ctx, _cache, $props, $setup, $data, $options) {
                     move: _ctx.checkContainerMove
                   }), {
                     item: withCtx(({ element: subWidget, index: swIdx }) => [
-                      createElementVNode("div", _hoisted_1$l, [
+                      createElementVNode("div", _hoisted_1$m, [
                         "container" === subWidget.category ? (openBlock(), createBlock(resolveDynamicComponent(subWidget.type + "-widget"), {
                           widget: subWidget,
                           designer: $props.designer,
@@ -71983,12 +72688,12 @@ function _sfc_render$m(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["designer", "widget", "parent-widget", "parent-list", "index-of-parent-list"]);
 }
-const tabWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$m, [["render", _sfc_render$m], ["__scopeId", "data-v-3c23526d"]]);
+const tabWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$o, [["render", _sfc_render$o], ["__scopeId", "data-v-3c23526d"]]);
 const __vite_glob_0_6 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: tabWidget
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$l = {
+const _sfc_main$n = {
   name: "TableCellWidget",
   componentName: "TableCellWidget",
   mixins: [i18n$1, refMixinDesign],
@@ -72211,7 +72916,7 @@ const _sfc_main$l = {
     }
   }
 };
-const _hoisted_1$k = ["colspan", "rowspan"];
+const _hoisted_1$l = ["colspan", "rowspan"];
 const _hoisted_2$h = { class: "form-widget-list" };
 const _hoisted_3$h = {
   key: 0,
@@ -72223,7 +72928,7 @@ const _hoisted_6 = {
   key: 1,
   class: "table-cell-handler"
 };
-function _sfc_render$l(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$n(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_draggable = resolveComponent("draggable");
   const _component_svg_icon = resolveComponent("svg-icon");
   const _component_a_menu_item = resolveComponent("a-menu-item");
@@ -72423,14 +73128,14 @@ function _sfc_render$l(_ctx, _cache, $props, $setup, $data, $options) {
     $props.designer.selectedId === $props.widget.id && $props.widget.type === "table-cell" ? (openBlock(), createElementBlock("div", _hoisted_6, [
       createElementVNode("i", null, toDisplayString(_ctx.i18nt("designer.widgetLabel." + $props.widget.type)), 1)
     ])) : createCommentVNode("", true)
-  ], 14, _hoisted_1$k);
+  ], 14, _hoisted_1$l);
 }
-const TableCellWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$l, [["render", _sfc_render$l], ["__scopeId", "data-v-fd07d4fd"]]);
+const TableCellWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$n, [["render", _sfc_render$n], ["__scopeId", "data-v-fd07d4fd"]]);
 const __vite_glob_0_7 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: TableCellWidget
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$k = {
+const _sfc_main$m = {
   name: "table-widget",
   componentName: "ContainerWidget",
   mixins: [i18n$1, containerMixin, refMixinDesign],
@@ -72464,8 +73169,8 @@ const _sfc_main$k = {
   },
   methods: {}
 };
-const _hoisted_1$j = { class: "table-layout" };
-function _sfc_render$k(_ctx, _cache, $props, $setup, $data, $options) {
+const _hoisted_1$k = { class: "table-layout" };
+function _sfc_render$m(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_table_cell_widget = resolveComponent("table-cell-widget");
   const _component_container_wrapper = resolveComponent("container-wrapper");
   return openBlock(), createBlock(_component_container_wrapper, {
@@ -72481,7 +73186,7 @@ function _sfc_render$k(_ctx, _cache, $props, $setup, $data, $options) {
         class: normalizeClass(["table-container", [$options.selected ? "selected" : "", $options.customClass]]),
         onClick: _cache[0] || (_cache[0] = withModifiers(($event) => _ctx.selectWidget($props.widget), ["stop"]))
       }, [
-        createElementVNode("table", _hoisted_1$j, [
+        createElementVNode("table", _hoisted_1$k, [
           createElementVNode("tbody", null, [
             (openBlock(true), createElementBlock(Fragment, null, renderList($props.widget.rows, (row, rowIdx) => {
               return openBlock(), createElementBlock("tr", {
@@ -72513,10 +73218,363 @@ function _sfc_render$k(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["designer", "widget", "parent-widget", "parent-list", "index-of-parent-list"]);
 }
-const tableWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$k, [["render", _sfc_render$k], ["__scopeId", "data-v-264f6e94"]]);
+const tableWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$m, [["render", _sfc_render$m], ["__scopeId", "data-v-264f6e94"]]);
 const __vite_glob_0_8 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: tableWidget
+}, Symbol.toStringTag, { value: "Module" }));
+const _sfc_main$l = {
+  name: "VfBoxItem",
+  componentName: "boxItem",
+  // 必须固定为ContainerItem，用于接收父级组件的broadcast事件
+  mixins: [emitter, i18n$1, refMixin, containerItemMixin],
+  components: {
+    ContainerItemWrapper,
+    SvgIcon,
+    ...comps$1
+  },
+  props: {
+    widget: Object,
+    parentWidget: Object,
+    parentList: Array,
+    indexOfParentList: Number,
+    subFormRowIndex: {
+      /* 子表单组件行索引，从0开始计数 */
+      type: Number,
+      default: -1
+    },
+    subFormColIndex: {
+      /* 子表单组件列索引，从0开始计数 */
+      type: Number,
+      default: -1
+    },
+    subFormRowId: {
+      /* 子表单组件行Id，唯一id且不可变 */
+      type: String,
+      default: ""
+    },
+    formJson: {
+      type: Object
+    },
+    formData: {
+      type: Object,
+      default: () => ({})
+    },
+    optionData: {
+      //prop传入的选项数据
+      type: Object,
+      default: () => ({})
+    },
+    globalDsv: {
+      // 全局数据源变量
+      type: Object,
+      default: () => ({})
+    },
+    parentFormRef: {
+      type: Object,
+      default: null
+    },
+    extraData: {
+      type: Object,
+      default: () => ({})
+    },
+    wrapperId: {
+      type: String,
+      default: null
+    }
+  },
+  inject: ["refList", "sfRefList", "globalModel", "getFormConfig", "getGlobalDsv"],
+  data() {
+    return {};
+  },
+  computed: {
+    customClass() {
+      return this.widget.options.customClass || "";
+    },
+    formConfig() {
+      return this.getFormConfig();
+    }
+  },
+  created() {
+    this.initRefList();
+    this.handleOnCreated();
+  },
+  mounted() {
+    this.loadFormCode(this.widget.options.formCode);
+    this.$nextTick(() => {
+      this.handleOnMounted();
+    });
+  },
+  beforeUnmount() {
+    this.unregisterFromRefList();
+  },
+  methods: {
+    async loadFormCode(formCode) {
+      if (formCode) {
+        const res = await http.get(`/api/tmgc2-query/dataQuery/detail/FormDefinitionManagement`, {
+          params: { code: formCode }
+        }).then((res2) => res2.data.object.frontendDefinition || "{}");
+        this.$refs.dFormRef.setFormJson(JSON.parse(res));
+      }
+    },
+    handleOnCreated() {
+      if (!!this.widget.options.onCreated) {
+        const customFunc = new Function(this.widget.options.onCreated);
+        customFunc.call(this);
+      }
+    },
+    handleOnMounted() {
+      if (!!this.widget.options.onMounted) {
+        const customFunc = new Function(this.widget.options.onMounted);
+        customFunc.call(this);
+      }
+    },
+    getFormRef() {
+      return this.$refs.dFormRef;
+    }
+  }
+};
+function _sfc_render$l(_ctx, _cache, $props, $setup, $data, $options) {
+  const _component_VFormRender = resolveComponent("VFormRender");
+  const _component_container_item_wrapper = resolveComponent("container-item-wrapper");
+  return withDirectives((openBlock(), createBlock(_component_container_item_wrapper, { widget: $props.widget }, {
+    default: withCtx(() => [
+      (openBlock(), createElementBlock("div", {
+        class: normalizeClass(["box-container-item", [$options.customClass]]),
+        key: $props.widget.id
+      }, [
+        $props.widget.options.formCode ? (openBlock(), createBlock(_component_VFormRender, {
+          key: 0,
+          ref: "dFormRef",
+          "parent-form": $props.parentFormRef,
+          "disabled-mode": $props.widget.options.disabledMode,
+          "dynamic-creation": true
+        }, null, 8, ["parent-form", "disabled-mode"])) : createCommentVNode("", true),
+        !!$props.widget.widgetList && $props.widget.widgetList.length > 0 ? (openBlock(true), createElementBlock(Fragment, { key: 1 }, renderList($props.widget.widgetList, (subWidget, swIdx) => {
+          return openBlock(), createElementBlock(Fragment, null, [
+            "container" === subWidget.category ? (openBlock(), createBlock(resolveDynamicComponent(_ctx.getComponentByContainer(subWidget)), {
+              widget: subWidget,
+              key: swIdx,
+              "parent-list": $props.widget.widgetList,
+              "index-of-parent-list": swIdx,
+              "parent-widget": $props.widget,
+              "sub-form-row-id": $props.subFormRowId,
+              "sub-form-row-index": $props.subFormRowIndex,
+              "sub-form-col-index": $props.subFormColIndex
+            }, createSlots({ _: 2 }, [
+              renderList(Object.keys(_ctx.$slots), (slot) => {
+                return {
+                  name: slot,
+                  fn: withCtx((scope) => [
+                    renderSlot(_ctx.$slots, slot, normalizeProps(guardReactiveProps(scope)), void 0, true)
+                  ])
+                };
+              })
+            ]), 1032, ["widget", "parent-list", "index-of-parent-list", "parent-widget", "sub-form-row-id", "sub-form-row-index", "sub-form-col-index"])) : (openBlock(), createBlock(resolveDynamicComponent(subWidget.type + "-widget"), {
+              field: subWidget,
+              designer: null,
+              key: swIdx,
+              "parent-list": $props.widget.widgetList,
+              "index-of-parent-list": swIdx,
+              "parent-widget": $props.widget
+            }, createSlots({ _: 2 }, [
+              renderList(Object.keys(_ctx.$slots), (slot) => {
+                return {
+                  name: slot,
+                  fn: withCtx((scope) => [
+                    renderSlot(_ctx.$slots, slot, normalizeProps(guardReactiveProps(scope)), void 0, true)
+                  ])
+                };
+              })
+            ]), 1032, ["field", "parent-list", "index-of-parent-list", "parent-widget"]))
+          ], 64);
+        }), 256)) : createCommentVNode("", true)
+      ], 2))
+    ]),
+    _: 3
+  }, 8, ["widget"])), [
+    [vShow, !$props.widget.options.hidden]
+  ]);
+}
+const vfBoxItem = /* @__PURE__ */ _export_sfc$1(_sfc_main$l, [["render", _sfc_render$l], ["__scopeId", "data-v-e1daf681"]]);
+const __vite_glob_0_9 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+  __proto__: null,
+  default: vfBoxItem
+}, Symbol.toStringTag, { value: "Module" }));
+const _sfc_main$k = {
+  name: "vf-box-widget",
+  componentName: "VfBoxWidget",
+  mixins: [i18n$1, refMixinDesign],
+  inject: ["refList"],
+  components: {
+    ContainerWrapper,
+    ...comps$1
+  },
+  props: {
+    widget: Object,
+    parentWidget: Object,
+    parentList: Array,
+    indexOfParentList: Number,
+    designer: Object,
+    parentFormRef: {
+      type: Object,
+      default: null
+    }
+  },
+  data() {
+    return {
+      //
+    };
+  },
+  computed: {
+    selected() {
+      return this.widget.id === this.designer.selectedId;
+    },
+    customClass() {
+      return this.widget.options.customClass || "";
+    }
+  },
+  created() {
+    this.initRefList();
+    this.loadFormCode(this.widget.options.formCode);
+  },
+  watch: {
+    "widget.options.formCode"(val) {
+      this.loadFormCode(val);
+    }
+  },
+  methods: {
+    async loadFormCode(formCode) {
+      if (formCode) {
+        const res = await http.get(`/api/tmgc2-query/dataQuery/detail/FormDefinitionManagement`, {
+          params: { code: formCode }
+        }).then((res2) => res2.data.object.frontendDefinition || "{}");
+        this.$refs.dFormRef.setFormJson(JSON.parse(res));
+      }
+    },
+    onDialogDragEnd(evt, subList) {
+    },
+    onDialogDragAdd(evt, subList) {
+      const newIndex2 = evt.newIndex;
+      if (!!subList[newIndex2]) {
+        this.designer.setSelected(subList[newIndex2]);
+      }
+      this.designer.emitHistoryChange();
+      this.designer.emitEvent("field-selected", this.widget);
+    },
+    onDialogDragUpdate() {
+      this.designer.emitHistoryChange();
+    },
+    selectWidget(widget) {
+      console.log("id: " + widget.id);
+      this.designer.setSelected(widget);
+    },
+    checkContainerMove(evt) {
+      return this.designer.checkWidgetMove(evt);
+    },
+    selectParentWidget() {
+      if (this.parentWidget) {
+        this.designer.setSelected(this.parentWidget);
+      } else {
+        this.designer.clearSelected();
+      }
+    },
+    moveUpWidget() {
+      this.designer.moveUpWidget(this.parentList, this.indexOfParentList);
+    },
+    moveDownWidget() {
+      this.designer.moveDownWidget(this.parentList, this.indexOfParentList);
+    },
+    removeWidget() {
+      if (!!this.parentList) {
+        let nextSelected = null;
+        if (this.parentList.length === 1) {
+          if (!!this.parentWidget) {
+            nextSelected = this.parentWidget;
+          }
+        } else if (this.parentList.length === 1 + this.indexOfParentList) {
+          nextSelected = this.parentList[this.indexOfParentList - 1];
+        } else {
+          nextSelected = this.parentList[this.indexOfParentList + 1];
+        }
+        this.$nextTick(() => {
+          this.parentList.splice(this.indexOfParentList, 1);
+          this.designer.setSelected(nextSelected);
+          this.designer.emitHistoryChange();
+        });
+      }
+    },
+    getFormRef() {
+      return this.$refs.dFormRef;
+    }
+  }
+};
+const _hoisted_1$j = { class: "vf-box-drop-zone" };
+function _sfc_render$k(_ctx, _cache, $props, $setup, $data, $options) {
+  const _component_VFormRender = resolveComponent("VFormRender");
+  const _component_draggable = resolveComponent("draggable");
+  const _component_container_wrapper = resolveComponent("container-wrapper");
+  return openBlock(), createBlock(_component_container_wrapper, {
+    designer: $props.designer,
+    widget: $props.widget,
+    "parent-widget": $props.parentWidget,
+    "parent-list": $props.parentList,
+    "index-of-parent-list": $props.indexOfParentList
+  }, {
+    default: withCtx(() => [
+      (openBlock(), createElementBlock("div", {
+        class: normalizeClass(["box-container", [$options.selected ? "selected" : "", $options.customClass]]),
+        key: $props.widget.id,
+        onClick: _cache[2] || (_cache[2] = withModifiers(($event) => $options.selectWidget($props.widget), ["stop"]))
+      }, [
+        $props.widget.options.formCode ? (openBlock(), createBlock(_component_VFormRender, {
+          key: 0,
+          ref: "dFormRef",
+          "parent-form": $props.parentFormRef,
+          "disabled-mode": $props.widget.options.disabledMode,
+          "dynamic-creation": true
+        }, null, 8, ["parent-form", "disabled-mode"])) : createCommentVNode("", true),
+        createVNode(_component_draggable, mergeProps({
+          list: $props.widget.widgetList,
+          "item-key": "id"
+        }, { group: "dragGroup", ghostClass: "ghost", animation: 200 }, {
+          handle: ".drag-handler",
+          onEnd: _cache[0] || (_cache[0] = (evt) => $options.onDialogDragEnd(evt, $props.widget.widgetList)),
+          onAdd: _cache[1] || (_cache[1] = (evt) => $options.onDialogDragAdd(evt, $props.widget.widgetList)),
+          onUpdate: $options.onDialogDragUpdate,
+          move: $options.checkContainerMove
+        }), {
+          item: withCtx(({ element: subWidget, index: swIdx }) => [
+            createElementVNode("div", _hoisted_1$j, [
+              "container" === subWidget.category ? (openBlock(), createBlock(resolveDynamicComponent(subWidget.type + "-widget"), {
+                widget: subWidget,
+                designer: $props.designer,
+                key: subWidget.id,
+                "parent-list": $props.widget.widgetList,
+                "index-of-parent-list": swIdx,
+                "parent-widget": $props.widget
+              }, null, 8, ["widget", "designer", "parent-list", "index-of-parent-list", "parent-widget"])) : (openBlock(), createBlock(resolveDynamicComponent(subWidget.type + "-widget"), {
+                field: subWidget,
+                designer: $props.designer,
+                key: subWidget.id,
+                "parent-list": $props.widget.widgetList,
+                "index-of-parent-list": swIdx,
+                "parent-widget": $props.widget,
+                "design-state": true
+              }, null, 8, ["field", "designer", "parent-list", "index-of-parent-list", "parent-widget"]))
+            ])
+          ]),
+          _: 1
+        }, 16, ["list", "onUpdate", "move"])
+      ], 2))
+    ]),
+    _: 1
+  }, 8, ["designer", "widget", "parent-widget", "parent-list", "index-of-parent-list"]);
+}
+const vfBoxWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$k, [["render", _sfc_render$k], ["__scopeId", "data-v-1f9ad5f0"]]);
+const __vite_glob_0_10 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+  __proto__: null,
+  default: vfBoxWidget
 }, Symbol.toStringTag, { value: "Module" }));
 const _sfc_main$j = {
   name: "VfCollapseWidget",
@@ -72780,7 +73838,7 @@ function _sfc_render$j(_ctx, _cache, $props, $setup, $data, $options) {
   }, 8, ["designer", "widget", "parent-widget", "parent-list", "index-of-parent-list"]);
 }
 const vfCollapseWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$j, [["render", _sfc_render$j], ["__scopeId", "data-v-aa785742"]]);
-const __vite_glob_0_9 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_11 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: vfCollapseWidget
 }, Symbol.toStringTag, { value: "Module" }));
@@ -72926,7 +73984,7 @@ function _sfc_render$i(_ctx, _cache, $props, $setup, $data, $options) {
   }, 8, ["designer", "widget", "parent-widget", "parent-list", "index-of-parent-list"]);
 }
 const vfDialogWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$i, [["render", _sfc_render$i], ["__scopeId", "data-v-38e82f5f"]]);
-const __vite_glob_0_10 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_12 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: vfDialogWidget
 }, Symbol.toStringTag, { value: "Module" }));
@@ -73072,11 +74130,11 @@ function _sfc_render$h(_ctx, _cache, $props, $setup, $data, $options) {
   }, 8, ["designer", "widget", "parent-widget", "parent-list", "index-of-parent-list"]);
 }
 const vfDrawerWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$h, [["render", _sfc_render$h], ["__scopeId", "data-v-20e0629d"]]);
-const __vite_glob_0_11 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_13 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: vfDrawerWidget
 }, Symbol.toStringTag, { value: "Module" }));
-const modules = /* @__PURE__ */ Object.assign({ "./container-wrapper.vue": __vite_glob_0_0, "./data-table-widget.vue": __vite_glob_0_1, "./grid-col-widget.vue": __vite_glob_0_2, "./grid-sub-form-widget.vue": __vite_glob_0_3, "./grid-widget.vue": __vite_glob_0_4, "./sub-form-widget.vue": __vite_glob_0_5, "./tab-widget.vue": __vite_glob_0_6, "./table-cell-widget.vue": __vite_glob_0_7, "./table-widget.vue": __vite_glob_0_8, "./vf-collapse-widget.vue": __vite_glob_0_9, "./vf-dialog-widget.vue": __vite_glob_0_10, "./vf-drawer-widget.vue": __vite_glob_0_11 });
+const modules = /* @__PURE__ */ Object.assign({ "./container-wrapper.vue": __vite_glob_0_0, "./data-table-widget.vue": __vite_glob_0_1, "./grid-col-widget.vue": __vite_glob_0_2, "./grid-sub-form-widget.vue": __vite_glob_0_3, "./grid-widget.vue": __vite_glob_0_4, "./sub-form-widget.vue": __vite_glob_0_5, "./tab-widget.vue": __vite_glob_0_6, "./table-cell-widget.vue": __vite_glob_0_7, "./table-widget.vue": __vite_glob_0_8, "./vf-box-item.vue": __vite_glob_0_9, "./vf-box-widget.vue": __vite_glob_0_10, "./vf-collapse-widget.vue": __vite_glob_0_11, "./vf-dialog-widget.vue": __vite_glob_0_12, "./vf-drawer-widget.vue": __vite_glob_0_13 });
 const ContainerWidgets = {
   install(app) {
     for (const path in modules) {
@@ -74234,6 +75292,8 @@ const _sfc_main$f = {
   },
   data() {
     return {
+      leftWidth: 270,
+      rightWidth: 300,
       vFormVersion: VARIANT_FORM_VERSION,
       curLangName: "",
       curLocale: "",
@@ -74269,6 +75329,20 @@ const _sfc_main$f = {
     this.loadFieldListFromServer();
   },
   methods: {
+    changeLeftWidth() {
+      if (this.leftWidth === 270) {
+        this.leftWidth = 0;
+      } else {
+        this.leftWidth = 270;
+      }
+    },
+    changeRightWidth() {
+      if (this.rightWidth === 300) {
+        this.rightWidth = 0;
+      } else {
+        this.rightWidth = 300;
+      }
+    },
     /**
      * json回填
      * @param {*} importObj
@@ -74499,14 +75573,14 @@ function _sfc_render$f(_ctx, _cache, $props, $setup, $data, $options) {
       createVNode(_component_a_layout, null, {
         default: withCtx(() => [
           createVNode(_component_a_layout_sider, {
-            width: 270,
+            width: $data.leftWidth,
             class: "side-panel"
           }, {
             default: withCtx(() => [
               createVNode(_component_widget_panel, { designer: $data.designer }, null, 8, ["designer"])
             ]),
             _: 1
-          }),
+          }, 8, ["width"]),
           createVNode(_component_a_layout_content, { class: "center-layout-container" }, {
             default: withCtx(() => [
               createVNode(_component_a_layout_header, { class: "toolbar-header" }, {
@@ -74515,6 +75589,10 @@ function _sfc_render$f(_ctx, _cache, $props, $setup, $data, $options) {
                     saveJsonApi: $props.saveJsonApi,
                     designer: $data.designer,
                     "global-dsv": $props.globalDsv,
+                    changeLeftWidth: $options.changeLeftWidth,
+                    changeRightWidth: $options.changeRightWidth,
+                    leftWidth: $data.leftWidth,
+                    rightWidth: $data.rightWidth,
                     ref: "toolbarRef"
                   }, createSlots({ _: 2 }, [
                     renderList(_ctx.$slots, (idx, slotName) => {
@@ -74525,7 +75603,7 @@ function _sfc_render$f(_ctx, _cache, $props, $setup, $data, $options) {
                         ])
                       };
                     })
-                  ]), 1032, ["saveJsonApi", "designer", "global-dsv"])
+                  ]), 1032, ["saveJsonApi", "designer", "global-dsv", "changeLeftWidth", "changeRightWidth", "leftWidth", "rightWidth"])
                 ]),
                 _: 3
               }),
@@ -74545,7 +75623,7 @@ function _sfc_render$f(_ctx, _cache, $props, $setup, $data, $options) {
             ]),
             _: 3
           }),
-          createVNode(_component_a_layout_sider, { width: 300 }, {
+          createVNode(_component_a_layout_sider, { width: $data.rightWidth }, {
             default: withCtx(() => [
               createVNode(_component_setting_panel, {
                 designer: $data.designer,
@@ -74556,7 +75634,7 @@ function _sfc_render$f(_ctx, _cache, $props, $setup, $data, $options) {
               }, null, 8, ["designer", "selected-widget", "global-dsv", "form-config", "onEditEventHandler"])
             ]),
             _: 1
-          })
+          }, 8, ["width"])
         ]),
         _: 3
       })
@@ -74564,7 +75642,7 @@ function _sfc_render$f(_ctx, _cache, $props, $setup, $data, $options) {
     _: 3
   });
 }
-const VFormDesigner = /* @__PURE__ */ _export_sfc$1(_sfc_main$f, [["render", _sfc_render$f], ["__scopeId", "data-v-076132a8"]]);
+const VFormDesigner = /* @__PURE__ */ _export_sfc$1(_sfc_main$f, [["render", _sfc_render$f], ["__scopeId", "data-v-8a4df010"]]);
 var vuedraggable_umd = { exports: {} };
 (function(module, exports) {
   (function webpackUniversalModuleDefinition(root, factory) {
@@ -80248,13 +81326,13 @@ function registerIcon(app) {
 if (typeof window !== "undefined") {
   let loadSvg = function() {
     var body = document.body;
-    var svgDom = document.getElementById("__svg__icons__dom__1714989012347__");
+    var svgDom = document.getElementById("__svg__icons__dom__1715138992306__");
     if (!svgDom) {
       svgDom = document.createElementNS("http://www.w3.org/2000/svg", "svg");
       svgDom.style.position = "absolute";
       svgDom.style.width = "0";
       svgDom.style.height = "0";
-      svgDom.id = "__svg__icons__dom__1714989012347__";
+      svgDom.id = "__svg__icons__dom__1715138992306__";
       svgDom.setAttribute("xmlns", "http://www.w3.org/2000/svg");
       svgDom.setAttribute("xmlns:link", "http://www.w3.org/1999/xlink");
     }

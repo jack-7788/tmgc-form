@@ -8,6 +8,7 @@
     :close-on-click-modal="false"
     :close-on-press-escape="false"
     :destroy-on-close="true"
+    :width="800"
   >
     <a-alert type="info" :closable="false" :message="eventHeader" v-if="eventHeader" />
     <code-editor :mode="mode" :readonly="readonly" v-model="eventHandlerCode" ref="ecEditor" />

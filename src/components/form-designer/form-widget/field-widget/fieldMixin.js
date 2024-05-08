@@ -1,13 +1,7 @@
-import {
-  deepClone,
-  getDSByName,
-  overwriteObj,
-  runDataSourceRequest,
-  translateOptionItems
-} from '@/utils/util';
+import { deepClone, translateOptionItems } from '@/utils/util';
 import FormValidators from '@/utils/validators';
 import { fmtHttpParams } from '@/utils/request/fmtHttpParams';
-import { debounce, cloneDeep, isArray } from 'lodash-es';
+import { isArray } from 'lodash-es';
 
 export default {
   inject: [
@@ -280,6 +274,11 @@ export default {
         }
       }
     },
+    clearOptionItems() {
+      if (!!this.field.options.dsEnabled) {
+        this.field.options.optionItems.splice(0, this.field.options.optionItems.length); // 清空原有选项
+      }
+    },
 
     async initOptionItems(keepSelected) {
       if (this.designState) {
@@ -290,7 +289,6 @@ export default {
       if (['radio', 'checkbox', 'select', 'cascader', 'treeSelect'].includes(this.field.type)) {
         /* 首先处理数据源选项加载 */
         if (!!this.field.options.dsEnabled && this.field.options.http?.url) {
-          this.field.options.optionItems.splice(0, this.field.options.optionItems.length); // 清空原有选项
           try {
             const dsResult = await fmtHttpParams.call(this, this.field.options, {
               fieldCode: this.field.options.name
@@ -302,8 +300,10 @@ export default {
               if (this.field.options.loadingPage) {
                 this.pager.total = dsResult.total || 0;
                 this.pager.totalPage = dsResult.totalPage || 0;
+                this.loadOptions([...this.getOptionItems(), ...dsResult.list]);
+              } else {
+                this.loadOptions(dsResult.list);
               }
-              this.loadOptions(dsResult.list);
             }
           } catch (err) {
             console.error('err: ', err);
@@ -622,6 +622,19 @@ export default {
         changeFn.call(this, val, oldVal, ops[0], subFormData, rowId);
       }
     },
+    onBtnSubmit() {
+      if (!!this.designState) {
+        //设计状态不触发点击事件
+        return;
+      }
+
+      if (!!this.field.options.onClick) {
+        const customFn = new Function(this.field.options.onClick);
+        return customFn.call(this);
+      } else {
+        this.dispatch('VFormRender', 'buttonClick', [this]);
+      }
+    },
 
     handleButtonWidgetClick() {
       if (!!this.designState) {
@@ -631,7 +644,7 @@ export default {
 
       if (!!this.field.options.onClick) {
         const customFn = new Function(this.field.options.onClick);
-        customFn.call(this);
+        return customFn.call(this);
       } else {
         this.dispatch('VFormRender', 'buttonClick', [this]);
       }

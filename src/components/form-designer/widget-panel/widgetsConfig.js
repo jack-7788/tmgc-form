@@ -1,4 +1,5 @@
 import { basicFieldsEnums } from './basicFieldsEnums';
+import { businessFieldsEnums } from './businessFieldsEnums';
 
 export const containers = [
   {
@@ -257,7 +258,7 @@ export const containers = [
   {
     type: 'vf-collapse', //折叠面板
     category: 'container',
-    icon: 'vf-dialog',
+    icon: 'zhediemianban',
     widgetList: [],
     headerRightSlotList: [],
     defaultSlotsList: [],
@@ -272,6 +273,21 @@ export const containers = [
       unCollapseIcon: 'xiangxia',
       isCollapse: true,
       rightSlotCss: []
+    }
+  },
+  {
+    type: 'vf-box',
+    showName: '盒容器',
+    category: 'container',
+    icon: 'ccgl-zhouzhuanxiang-4',
+    widgetList: [],
+    options: {
+      name: '',
+      title: '标题',
+      width: '100%',
+      height: '600px',
+      formCode: '',
+      customClass: []
     }
   }
 
@@ -304,6 +320,8 @@ export const containers = [
 ];
 
 export const basicFields = Object.values(basicFieldsEnums).map(fn => fn());
+
+export const businessFields = Object.values(businessFieldsEnums).map(fn => fn());
 
 export const advancedFields = [
   // {
@@ -450,7 +468,7 @@ export const advancedFields = [
   },
   {
     type: 'treeSelect',
-    icon: 'cascader-field',
+    icon: 'tree_line',
     formItemFlag: true,
     options: {
       name: '',

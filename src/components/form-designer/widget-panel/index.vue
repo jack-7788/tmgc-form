@@ -29,6 +29,7 @@
                     <span>
                       <svg-icon :icon-class="ctn.icon" class-name="color-svg-icon" />
                       {{
+                        ctn.showName ||
                         i18n2t(
                           `designer.widgetLabel.${ctn.type}`,
                           `extension.widgetLabel.${ctn.type}`
@@ -97,6 +98,37 @@
                         i18n2t(
                           `designer.widgetLabel.${fld.type}`,
                           `extension.widgetLabel.${fld.type}`
+                        )
+                      }}
+                    </span>
+                  </li>
+                </template>
+              </draggable>
+            </a-collapse-panel>
+            <a-collapse-panel key="yyzj" :header="`业务组件`">
+              <draggable
+                tag="ul"
+                :list="businessFields"
+                item-key="key"
+                :group="{ name: 'dragGroup', pull: 'clone', put: false }"
+                :move="checkFieldMove"
+                :clone="handleFieldWidgetClone"
+                ghost-class="ghost"
+                :sort="false"
+              >
+                <template #item="{ element: bfld }">
+                  <li
+                    class="field-widget-item"
+                    :title="bfld.displayName"
+                    @dblclick="addFieldByDbClick(bfld)"
+                  >
+                    <span>
+                      <svg-icon :icon-class="bfld.icon" class-name="color-svg-icon" />
+                      {{
+                        bfld.showName ||
+                        i18n2t(
+                          `designer.widgetLabel.${bfld.type}`,
+                          `extension.widgetLabel.${bfld.type}`
                         )
                       }}
                     </span>
@@ -175,7 +207,8 @@
     containers as CONS,
     basicFields as BFS,
     advancedFields as AFS,
-    customFields as CFS
+    customFields as CFS,
+    businessFields as BUFS
   } from './widgetsConfig';
   import { formTemplates } from './templatesConfig';
   import { addWindowResizeHandler, generateId } from '@/utils/util';
@@ -204,6 +237,7 @@
           'containerTitle',
           'basicFieldTitle',
           'advancedFieldTitle',
+          'yyzj',
           'customFieldTitle'
         ],
 
@@ -211,6 +245,7 @@
         basicFields: [],
         advancedFields: [],
         customFields: [],
+        businessFields: [],
 
         formTemplates: formTemplates,
         ftImages: []
@@ -287,6 +322,18 @@
         });
 
         this.customFields = CFS.map(fld => {
+          return {
+            key: generateId(),
+            ...fld,
+            displayName: this.i18n2t(
+              `designer.widgetLabel.${fld.type}`,
+              `extension.widgetLabel.${fld.type}`
+            )
+          };
+        }).filter(fld => {
+          return !this.isBanned(fld.type);
+        });
+        this.businessFields = BUFS.map(fld => {
           return {
             key: generateId(),
             ...fld,

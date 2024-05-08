@@ -309,7 +309,7 @@ export const select = (ops = {}) => {
       //-------------------
       onCreated: '',
       onMounted: '',
-      onRemoteQuery: '',
+      // onRemoteQuery: '',
       onChange: '',
       onFocus: '',
       onBlur: '',

@@ -18,7 +18,7 @@
     </a-layout-header>
 
     <a-layout>
-      <a-layout-sider :width="270" class="side-panel">
+      <a-layout-sider :width="leftWidth" class="side-panel">
         <widget-panel :designer="designer" />
       </a-layout-sider>
 
@@ -28,6 +28,10 @@
             :saveJsonApi="saveJsonApi"
             :designer="designer"
             :global-dsv="globalDsv"
+            :changeLeftWidth="changeLeftWidth"
+            :changeRightWidth="changeRightWidth"
+            :leftWidth="leftWidth"
+            :rightWidth="rightWidth"
             ref="toolbarRef"
           >
             <template v-for="(idx, slotName) in $slots" #[slotName]>
@@ -47,7 +51,7 @@
         </a-layout-content>
       </a-layout-content>
 
-      <a-layout-sider :width="300">
+      <a-layout-sider :width="rightWidth">
         <setting-panel
           :designer="designer"
           :selected-widget="designer.selectedWidget"
@@ -141,6 +145,8 @@
     },
     data() {
       return {
+        leftWidth: 270,
+        rightWidth: 300,
         vFormVersion: VARIANT_FORM_VERSION,
         curLangName: '',
         curLocale: '',
@@ -185,6 +191,20 @@
       this.loadFieldListFromServer();
     },
     methods: {
+      changeLeftWidth() {
+        if (this.leftWidth === 270) {
+          this.leftWidth = 0;
+        } else {
+          this.leftWidth = 270;
+        }
+      },
+      changeRightWidth() {
+        if (this.rightWidth === 300) {
+          this.rightWidth = 0;
+        } else {
+          this.rightWidth = 300;
+        }
+      },
       /**
        * json回填
        * @param {*} importObj
@@ -561,8 +581,21 @@
   .ant-layout-sider.side-panel {
     width: 260px !important;
     overflow-y: hidden;
-    background: #f99;
   }
+  // .left-aside-toggle-bar {
+  //   position: relative;
+  //   width: 0px;
+  //   .icons {
+  //     position: absolute;
+  //     right: 100%;
+  //     top: 50%;
+  //     transform: translate(100%, -50%);
+  //     z-index: 9999;
+  //     background: #fff;
+  //     width: 12px !important;
+  //     height: 36px !important;
+  //   }
+  // }
 
   .ant-layout-content.form-widget-main {
     padding: 0;

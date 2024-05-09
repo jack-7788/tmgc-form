@@ -428,6 +428,7 @@ export const advancedFields = [
       columnWidth: '200px',
       disabled: false,
       hidden: false,
+      holdHidden: true,
       allowClear: true,
       multiple: false,
       dsEnabled: true, // 是否使用数据源数据
@@ -482,6 +483,7 @@ export const advancedFields = [
       columnWidth: '200px',
       disabled: false,
       hidden: false,
+      holdHidden: true,
       allowClear: true,
       multiple: false,
       treeDefaultExpandAll: false,

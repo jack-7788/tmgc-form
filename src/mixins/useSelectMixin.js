@@ -6,7 +6,7 @@ export default {
       keyword: '',
       pager: {
         page: 1,
-        pageSize: 5,
+        pageSize: 20,
         totalPage: 0,
         total: 0
       }

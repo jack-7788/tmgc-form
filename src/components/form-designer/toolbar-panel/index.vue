@@ -100,7 +100,7 @@
       center
       :destroy-on-close="true"
       :append-to-body="true"
-      class="drag-dialog small-padding-dialog"
+      class="drag-dialog"
       width="75%"
       :fullscreen="layoutType === 'H5' || layoutType === 'Pad'"
     >
@@ -155,7 +155,7 @@
       :title="i18nt('designer.toolbar.importJson')"
       v-model:visible="showImportJsonDialogFlag"
       :show-close="true"
-      class="drag-dialog small-padding-dialog"
+      class="drag-dialog"
       :append-to-body="true"
       center
       :close-on-click-modal="false"
@@ -185,7 +185,7 @@
       :title="i18nt('designer.toolbar.exportJson')"
       v-model:visible="showExportJsonDialogFlag"
       :show-close="true"
-      class="drag-dialog small-padding-dialog"
+      class="drag-dialog"
       center
       append-to-body
       :close-on-click-modal="false"
@@ -249,7 +249,7 @@
       append-to-body
       v-if="showExportSFCDialogFlag"
       :show-close="true"
-      class="drag-dialog small-padding-dialog"
+      class="drag-dialog"
       center
       width="65%"
       :close-on-click-modal="false"
@@ -1728,63 +1728,14 @@
       // width: 600px;
     }
 
-    :deep(.el-button) {
-      margin-left: 10px;
-    }
-
-    :deep(.el-button--text) {
-      font-size: 14px !important;
-    }
-
     :deep(.svg-icon) {
       margin-left: 0;
       margin-right: 0.05em;
     }
   }
 
-  .el-button i {
-    margin-right: 3px;
-  }
-
-  .small-padding-dialog {
-    :deep(.el-dialog__header) {
-      //padding-top: 3px;
-      //padding-bottom: 3px;
-      background: #f1f2f3;
-    }
-
-    :deep(.el-dialog__body) {
-      padding: 12px 15px 12px 15px;
-
-      .el-alert.alert-padding {
-        padding: 0 10px;
-      }
-    }
-
-    :deep(.ace-container) {
-      border: 1px solid #dcdfe6;
-    }
-  }
-
-  .dialog-title-light-bg {
-    :deep(.el-dialog__header) {
-      background: #f1f2f3;
-    }
-  }
-
   .no-box-shadow {
     box-shadow: none;
-  }
-
-  .no-padding.el-tabs--border-card {
-    :deep(.el-tabs__content) {
-      padding: 0;
-    }
-  }
-
-  .form-render-wrapper {
-    //height: calc(100vh - 142px);
-    //all: revert !important; /* 防止表单继承el-dialog等外部样式，未生效，原因不明？？ */
   }
 
   .form-render-wrapper.h5-layout {

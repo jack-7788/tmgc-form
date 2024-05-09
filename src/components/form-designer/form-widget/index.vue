@@ -230,10 +230,9 @@
   };
 </script>
 
-<style lang="scss" scoped>
+<style lang="less" scoped>
   .form-widget-container {
-    padding: 10px;
-    padding-right: 0px;
+    padding: 5px;
     background: #f1f2f3;
 
     overflow-x: hidden;

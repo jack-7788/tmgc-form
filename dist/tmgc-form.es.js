@@ -24829,7 +24829,7 @@ const useSelectMixin = {
       keyword: "",
       pager: {
         page: 1,
-        pageSize: 5,
+        pageSize: 20,
         totalPage: 0,
         total: 0
       }
@@ -55100,7 +55100,7 @@ function _sfc_render$3M(_ctx, _cache, $props, $setup, $data, $options) {
       center: "",
       "destroy-on-close": true,
       "append-to-body": true,
-      class: "drag-dialog small-padding-dialog",
+      class: "drag-dialog",
       width: "75%",
       fullscreen: $options.layoutType === "H5" || $options.layoutType === "Pad"
     }, {
@@ -55189,7 +55189,7 @@ function _sfc_render$3M(_ctx, _cache, $props, $setup, $data, $options) {
       visible: $data.showImportJsonDialogFlag,
       "onUpdate:visible": _cache[7] || (_cache[7] = ($event) => $data.showImportJsonDialogFlag = $event),
       "show-close": true,
-      class: "drag-dialog small-padding-dialog",
+      class: "drag-dialog",
       "append-to-body": true,
       center: "",
       "close-on-click-modal": false,
@@ -55238,7 +55238,7 @@ function _sfc_render$3M(_ctx, _cache, $props, $setup, $data, $options) {
       visible: $data.showExportJsonDialogFlag,
       "onUpdate:visible": _cache[10] || (_cache[10] = ($event) => $data.showExportJsonDialogFlag = $event),
       "show-close": true,
-      class: "drag-dialog small-padding-dialog",
+      class: "drag-dialog",
       center: "",
       "append-to-body": "",
       "close-on-click-modal": false,
@@ -55344,7 +55344,7 @@ function _sfc_render$3M(_ctx, _cache, $props, $setup, $data, $options) {
       "onUpdate:visible": _cache[18] || (_cache[18] = ($event) => $data.showExportSFCDialogFlag = $event),
       "append-to-body": "",
       "show-close": true,
-      class: "drag-dialog small-padding-dialog",
+      class: "drag-dialog",
       center: "",
       width: "65%",
       "close-on-click-modal": false,
@@ -55443,7 +55443,7 @@ function _sfc_render$3M(_ctx, _cache, $props, $setup, $data, $options) {
     }, 8, ["title", "visible"])) : createCommentVNode("", true)
   ]);
 }
-const ToolbarPanel = /* @__PURE__ */ _export_sfc$1(_sfc_main$3M, [["render", _sfc_render$3M], ["__scopeId", "data-v-65589f15"]]);
+const ToolbarPanel = /* @__PURE__ */ _export_sfc$1(_sfc_main$3M, [["render", _sfc_render$3M], ["__scopeId", "data-v-57b6cf5a"]]);
 const _sfc_main$3L = {
   name: "actionColumnPosition-editor",
   mixins: [i18n$1],
@@ -74352,7 +74352,7 @@ function _sfc_render$g(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["component-size"]);
 }
-const VFormWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$g, [["render", _sfc_render$g], ["__scopeId", "data-v-ea48c627"]]);
+const VFormWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$g, [["render", _sfc_render$g], ["__scopeId", "data-v-59a33f21"]]);
 function mitt(n) {
   return { all: n = n || /* @__PURE__ */ new Map(), on: function(t, e) {
     var i = n.get(t);
@@ -81326,13 +81326,13 @@ function registerIcon(app) {
 if (typeof window !== "undefined") {
   let loadSvg = function() {
     var body = document.body;
-    var svgDom = document.getElementById("__svg__icons__dom__1715138992306__");
+    var svgDom = document.getElementById("__svg__icons__dom__1715225827315__");
     if (!svgDom) {
       svgDom = document.createElementNS("http://www.w3.org/2000/svg", "svg");
       svgDom.style.position = "absolute";
       svgDom.style.width = "0";
       svgDom.style.height = "0";
-      svgDom.id = "__svg__icons__dom__1715138992306__";
+      svgDom.id = "__svg__icons__dom__1715225827315__";
       svgDom.setAttribute("xmlns", "http://www.w3.org/2000/svg");
       svgDom.setAttribute("xmlns:link", "http://www.w3.org/1999/xlink");
     }

@@ -2,15 +2,14 @@ import {
   buildActiveTabs,
   buildDefaultValueListFn,
   buildFieldOptionsFn,
-  buildRulesListFn, buildUploadDataFn
-} from "@/utils/vue2js-generator";
-import {sfcTraverseFieldWidgets} from "@/utils/sfc-util";
+  buildRulesListFn,
+  buildUploadDataFn
+} from '@/utils/vue2js-generator';
+import { sfcTraverseFieldWidgets } from '@/utils/sfc-util';
 
 export function buildSubFormMethods(widgetList) {
   let template = ``;
-  let widget = widgetList.find(
-      (x) => x.type === "sub-form" || x.type === "grid-sub-form"
-  );
+  const widget = widgetList.find(x => x.type === 'sub-form' || x.type === 'grid-sub-form');
   if (widget) {
     template = `
     methods.addSubFormRow=(widgetId)=>{
@@ -32,7 +31,7 @@ export function buildSubFormMethods(widgetList) {
 
 export function buildDataTableMethods(widgetList) {
   let template = ``;
-  let widget = widgetList.find((x) => x.type === "data-table");
+  const widget = widgetList.find(x => x.type === 'data-table');
   if (widget) {
     template = `
     methods.formatterValue=(row, column, cellValue)=> {
@@ -40,7 +39,7 @@ export function buildDataTableMethods(widgetList) {
         return ''
       }
 
-      let date=cellValue;      
+      let date=cellValue;
       let v=cellValue;
       let y,m,d,res,length
 
@@ -95,7 +94,7 @@ export function buildDataTableMethods(widgetList) {
             if (typeof(v) != "number") {
               return v;
             }
-          
+
             length = v.toString().split(".")[1].length;
             switch(length){
               case 0:
@@ -129,7 +128,7 @@ export function buildDataTableMethods(widgetList) {
             if (typeof(v) != "number") {
               return v;
             }
-          
+
             length = v.toString().split(".")[1].length;
             switch(length){
               case 0:
@@ -149,7 +148,7 @@ export function buildDataTableMethods(widgetList) {
               default:
                   v = v.toFixed(6)
             }
-          
+
             res = v.toString().replace(/\d+/, function(n){ // 先提取整数部分
               return n.replace(/(\d)(?=(\d{3})+$)/g,function($1){
                 return $1+",";
@@ -160,7 +159,7 @@ export function buildDataTableMethods(widgetList) {
             if (typeof(v) != "number") {
               return v;
             }
-          
+
             v = v.toFixed(6)
             res = v.toString().replace(/\d+/, function(n){ // 先提取整数部分
               return n.replace(/(\d)(?=(\d{3})+$)/g,function($1){
@@ -172,7 +171,7 @@ export function buildDataTableMethods(widgetList) {
             if (typeof(v) != "number") {
               return v;
             }
-          
+
             v = v.toFixed(3)
             res = v.toString().replace(/\d+/, function(n){ // 先提取整数部分
               return n.replace(/(\d)(?=(\d{3})+$)/g,function($1){
@@ -184,7 +183,7 @@ export function buildDataTableMethods(widgetList) {
             if (typeof(v) != "number") {
               return v;
             }
-          
+
             v = v.toFixed(2)
             res = v.toString().replace(/\d+/, function(n){ // 先提取整数部分
               return n.replace(/(\d)(?=(\d{3})+$)/g,function($1){
@@ -196,7 +195,7 @@ export function buildDataTableMethods(widgetList) {
             if (typeof(v) != "number") {
               return v;
             }
-          
+
             v = v.toFixed(0)
             res = v.toString().replace(/\d+/, function(n){ // 先提取整数部分
               return n.replace(/(\d)(?=(\d{3})+$)/g,function($1){
@@ -208,7 +207,7 @@ export function buildDataTableMethods(widgetList) {
             if (typeof(v) != "number") {
               return v;
             }
-          
+
             length = v.toString().split(".")[1].length;
             v = v*100
             switch(length){
@@ -223,7 +222,7 @@ export function buildDataTableMethods(widgetList) {
               default:
                   v = v.toFixed(4)
             }
-          
+
             res = v.toString().replace(/\d+/, function(n){ // 先提取整数部分
               return n.replace(/(\d)(?=(\d{3})+$)/g,function($1){
                 return $1+",";
@@ -241,22 +240,21 @@ export function buildDataTableMethods(widgetList) {
 }
 
 export const genVue3JS = function (formConfig, widgetList) {
-  let defaultValueList = []
-  let rulesList = []
-  let fieldOptions = []
-  let uploadData = []
-  sfcTraverseFieldWidgets(widgetList, (widget) => {
-    buildDefaultValueListFn(formConfig, widgetList, defaultValueList)(widget)
-    buildRulesListFn(formConfig, widgetList, rulesList)(widget)
-    buildFieldOptionsFn(formConfig, widgetList, fieldOptions)(widget)
-    buildUploadDataFn(formConfig, widgetList, uploadData)(widget)
-  })
+  const defaultValueList = [];
+  const rulesList = [];
+  const fieldOptions = [];
+  const uploadData = [];
+  sfcTraverseFieldWidgets(widgetList, widget => {
+    buildDefaultValueListFn(formConfig, widgetList, defaultValueList)(widget);
+    buildRulesListFn(formConfig, widgetList, rulesList)(widget);
+    buildFieldOptionsFn(formConfig, widgetList, fieldOptions)(widget);
+    buildUploadDataFn(formConfig, widgetList, uploadData)(widget);
+  });
 
-  const activeTabs = buildActiveTabs(formConfig, widgetList)
+  const activeTabs = buildActiveTabs(formConfig, widgetList);
 
-  const v3JSTemplate =
-`  import { defineComponent, toRefs, reactive, getCurrentInstance } from 'vue'
-  
+  const v3JSTemplate = `  import { defineComponent, toRefs, reactive, getCurrentInstance } from 'vue'
+
   export default defineComponent({
     components: {},
     props: {},
@@ -265,37 +263,37 @@ export const genVue3JS = function (formConfig, widgetList) {
         ${formConfig.modelName}: {
           ${defaultValueList.join('\n')}
         },
-        
+
         ${formConfig.rulesName}: {
           ${rulesList.join('\n')}
         },
-        
+
         ${activeTabs.join('\n')}
-        
+
         ${fieldOptions.join('\n')}
-        
+
         ${uploadData.join('\n')}
       })
-    
+
       const methods = {}
-      
+
       const instance = getCurrentInstance()
-      
+
       const submitForm = () => {
         instance.proxy.$refs['vForm'].validate(valid => {
           if (!valid) return
-          
+
           //TODO: 提交表单
         })
       }
-      
+
       const resetForm = () => {
         instance.proxy.$refs['vForm'].resetFields()
       }
-      
+
       ${buildSubFormMethods(widgetList)}
       ${buildDataTableMethods(widgetList)}
-      
+
       return {
         ...toRefs(state),
         ...methods,
@@ -303,8 +301,7 @@ export const genVue3JS = function (formConfig, widgetList) {
         resetForm
       }
     }
-  })`
+  })`;
 
-  return v3JSTemplate
-}
-
+  return v3JSTemplate;
+};

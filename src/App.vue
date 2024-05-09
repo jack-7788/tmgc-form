@@ -149,12 +149,7 @@
         const p = {
           pageCode: 'EntityPropertyFormItem',
           conditions: [{ fieldCode: 'entityCode', type: 'EQ', value: entityCode }],
-          requiredFields: [
-            'entityPropertyCode',
-            'entityPropertyName',
-            'valueType',
-            'valueTypeLength'
-          ],
+          requiredFields: ['entityPropertyCode', 'entityPropertyName', 'valueType'],
           page: 1,
           pageSize: null,
           sorts: []

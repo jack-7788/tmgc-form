@@ -178,8 +178,8 @@ export const containers = [
         data: {},
         params: {}
       },
-      editReqDataHandlerCode: '',
-      editDataHandlerCode: '',
+      dataReqHandlerCode: '',
+      dataHandlerCode: '',
       rowKey: 'name', //树形数据数据row-key
       childrenKey: 'children', //树形数据children
       dataSource: [
@@ -283,9 +283,9 @@ export const containers = [
     widgetList: [],
     options: {
       name: '',
-      title: '标题',
-      width: '100%',
-      height: '600px',
+      // title: '标题',
+      // width: '100%',
+      // height: '600px',
       formCode: '',
       customClass: []
     }

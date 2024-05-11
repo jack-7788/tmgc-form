@@ -19,8 +19,7 @@
   import 'dayjs/locale/zh-cn';
   import http from '@/utils/http';
   import { basicFieldsEnums } from '@/components/form-designer/widget-panel/basicFieldsEnums';
-  import { getLocat } from '@/utils/util';
-  import { getUuidKey } from '@/utils/util';
+  import { getLocat, getUuidKey } from '@/utils/util';
 
   const { entityCode = '', terminalType = '', formCode = '', id = '' } = getLocat();
 

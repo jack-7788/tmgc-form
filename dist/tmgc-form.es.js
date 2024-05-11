@@ -4834,8 +4834,8 @@ const containers$1 = [
         data: {},
         params: {}
       },
-      editReqDataHandlerCode: "",
-      editDataHandlerCode: "",
+      dataReqHandlerCode: "",
+      dataHandlerCode: "",
       rowKey: "name",
       //树形数据数据row-key
       childrenKey: "children",
@@ -4952,9 +4952,9 @@ const containers$1 = [
     widgetList: [],
     options: {
       name: "",
-      title: "标题",
-      width: "100%",
-      height: "600px",
+      // title: '标题',
+      // width: '100%',
+      // height: '600px',
       formCode: "",
       customClass: []
     }
@@ -81328,13 +81328,13 @@ function registerIcon(app) {
 if (typeof window !== "undefined") {
   let loadSvg = function() {
     var body = document.body;
-    var svgDom = document.getElementById("__svg__icons__dom__1715243853323__");
+    var svgDom = document.getElementById("__svg__icons__dom__1715418601347__");
     if (!svgDom) {
       svgDom = document.createElementNS("http://www.w3.org/2000/svg", "svg");
       svgDom.style.position = "absolute";
       svgDom.style.width = "0";
       svgDom.style.height = "0";
-      svgDom.id = "__svg__icons__dom__1715243853323__";
+      svgDom.id = "__svg__icons__dom__1715418601347__";
       svgDom.setAttribute("xmlns", "http://www.w3.org/2000/svg");
       svgDom.setAttribute("xmlns:link", "http://www.w3.org/1999/xlink");
     }

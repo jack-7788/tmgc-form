@@ -61,6 +61,7 @@
                     <span>
                       <svg-icon :icon-class="fld.icon" class-name="color-svg-icon" />
                       {{
+                        fld.showName ||
                         i18n2t(
                           `designer.widgetLabel.${fld.type}`,
                           `extension.widgetLabel.${fld.type}`
@@ -95,6 +96,7 @@
                     <span>
                       <svg-icon :icon-class="fld.icon" class-name="color-svg-icon" />
                       {{
+                        fld.showName ||
                         i18n2t(
                           `designer.widgetLabel.${fld.type}`,
                           `extension.widgetLabel.${fld.type}`
@@ -105,7 +107,7 @@
                 </template>
               </draggable>
             </a-collapse-panel>
-            <a-collapse-panel key="yyzj" :header="`业务组件`">
+            <a-collapse-panel key="yyzj" :header="`业务组件`" v-if="0">
               <draggable
                 tag="ul"
                 :list="businessFields"

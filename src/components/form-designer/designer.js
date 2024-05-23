@@ -1,4 +1,4 @@
-import { deepClone, generateId, getDefaultFormConfig, overwriteObj } from '@/utils/util';
+import { deepClone, generateId, getDefaultFormConfig, overwriteObj, fmtArray } from '@/utils/util';
 import {
   containers,
   advancedFields,
@@ -7,7 +7,6 @@ import {
 } from '@/components/form-designer/widget-panel/widgetsConfig.js';
 import { VARIANT_FORM_VERSION } from '@/utils/config';
 import eventBus from '@/utils/event-bus';
-
 export function createDesigner(vueInstance) {
   const defaultFormConfig = deepClone(getDefaultFormConfig());
 
@@ -89,6 +88,7 @@ export function createDesigner(vueInstance) {
       let modifiedFlag = false;
 
       if (!!formJson && !!formJson.widgetList) {
+        // const widgetList = fmtArray(formJson.widgetList);
         this.widgetList = formJson.widgetList;
         modifiedFlag = true;
       }

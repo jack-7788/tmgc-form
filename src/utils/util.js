@@ -1,6 +1,12 @@
 import Clipboard from 'clipboard';
 import axios from 'axios';
-
+import { isArray, isEmpty } from 'lodash-es';
+import {
+  containers,
+  advancedFields,
+  basicFields,
+  customFields
+} from '@/components/form-designer/widget-panel/widgetsConfig.js';
 export function isNull(value) {
   return value === null || value === undefined;
 }
@@ -37,6 +43,48 @@ export const overwriteObj = function (obj1, obj2) {
   Object.keys(obj2).forEach(prop => {
     obj1[prop] = obj2[prop];
   });
+};
+
+const getComTypeMap = type => {
+  const allWidgets = [...containers, ...basicFields, ...advancedFields, ...customFields];
+  const map = new Map();
+  allWidgets.forEach(item => {
+    const type = item.type.replace(/-/g, '').toLowerCase();
+    map.set(type, item);
+  });
+  return map.get(type.replace(/-/g, '').toLowerCase());
+};
+
+export const fmtArray = a => {
+  a = a.map(item => {
+    item = overwriteDeep(item);
+    return item;
+  });
+  return a;
+};
+
+export const overwriteDeep = (a, ops) => {
+  if (isArray(a)) {
+    const res = fmtArray(a);
+    return res;
+  }
+  let b = ops;
+  const type = a.type;
+
+  if (a.options) {
+    if (type) {
+      b = getComTypeMap(type) || b;
+    }
+  }
+
+  for (const k in b) {
+    if (typeof b[k] === 'object' && b[k] !== null) {
+      a[k] = isEmpty(a[k]) ? b[k] : overwriteDeep(a[k], b[k]);
+    } else {
+      a[k] = a[k] === void 0 ? b[k] : a[k];
+    }
+  }
+  return a;
 };
 
 export const addWindowResizeHandler = function (handler) {

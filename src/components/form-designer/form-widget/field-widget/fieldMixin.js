@@ -413,7 +413,7 @@ export default {
         };
         this.rules.push({
           validator: customFn,
-          trigger: ['blur', 'change'],
+          trigger: ['blur'],
           label: this.field.options.label
         });
       }

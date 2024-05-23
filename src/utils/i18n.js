@@ -16,7 +16,6 @@ const langResources = {
     something: {
       //...
     },
-    // ...enLocaleElement,
     ...enUS,
     ...enLocale,
     ...enLocale_render,
@@ -27,7 +26,6 @@ const langResources = {
     something: {
       //...
     },
-    // ...zhLocaleElement,
     ...zhCN,
     ...zhLocale,
     ...zhLocale_render,

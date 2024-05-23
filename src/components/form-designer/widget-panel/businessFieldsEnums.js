@@ -15,7 +15,7 @@ const userSelect = (ops = {}) => {
     formItemFlag: true,
     options: {
       name: '',
-      label: '',
+      label: '选择用户',
       labelAlign: '',
       defaultValue: '',
       placeholder: '',
@@ -101,7 +101,7 @@ const departmentSelect = (ops = {}) => {
     formItemFlag: true,
     options: {
       name: '',
-      label: '',
+      label: '选择部门',
       labelAlign: '',
       defaultValue: '',
       placeholder: '',
@@ -184,7 +184,7 @@ const postSelect = (ops = {}) => {
     formItemFlag: true,
     options: {
       name: '',
-      label: '',
+      label: '选择岗位',
       labelAlign: '',
       defaultValue: '',
       placeholder: '',
@@ -266,7 +266,7 @@ const operationSelect = (ops = {}) => {
     formItemFlag: true,
     options: {
       name: '',
-      label: '',
+      label: '选择工序',
       labelAlign: '',
       defaultValue: '',
       placeholder: '',
@@ -351,7 +351,7 @@ const materialSelect = (ops = {}) => {
     formItemFlag: true,
     options: {
       name: '',
-      label: '',
+      label: '选择物料',
       labelAlign: '',
       defaultValue: '',
       placeholder: '',
@@ -436,7 +436,7 @@ const projectSelect = (ops = {}) => {
     formItemFlag: true,
     options: {
       name: '',
-      label: '',
+      label: '选择项目',
       labelAlign: '',
       defaultValue: '',
       placeholder: '',
@@ -517,7 +517,7 @@ const projectGroupSelect = (ops = {}) => {
     formItemFlag: true,
     options: {
       name: '',
-      label: '',
+      label: '选择项目组',
       labelAlign: '',
       defaultValue: '',
       placeholder: '',

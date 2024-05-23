@@ -41,45 +41,9 @@
         default: true
       }
     },
-    emits: ['update:modelValue'],
+    emits: ['update:modelValue', 'change', 'blur'],
     mounted() {
-      //ace.config.set('basePath', 'https://ks3-cn-beijing.ksyun.com/vform2021/ace')
-      ace.config.set('basePath', ACE_BASE_PATH);
-
-      this.addAutoCompletion(ace); //添加自定义代码提示！！
-
-      this.aceEditor = ace.edit(this.$refs.ace, {
-        maxLines: 20, // 最大行数，超过会自动出现滚动条
-        minLines: 5, // 最小行数，还未到最大行数时，编辑器会自动伸缩大小
-        fontSize: 12, // 编辑器内字体大小
-        theme: this.themePath, // 默认设置的主题
-        mode: this.modePath, // 默认设置的语言模式
-        tabSize: 2, // 制表符设置为2个空格大小
-        readOnly: this.readonly,
-        highlightActiveLine: true,
-        value: this.codeValue
-      });
-
-      this.aceEditor.setOptions({
-        enableBasicAutocompletion: true,
-        enableSnippets: true, // 设置代码片段提示
-        enableLiveAutocompletion: true // 设置自动提示
-      });
-
-      if (this.mode === 'json') {
-        this.setJsonMode();
-      } else if (this.mode === 'css') {
-        this.setCssMode();
-      }
-
-      if (!this.userWorker) {
-        this.aceEditor.getSession().setUseWorker(false);
-      }
-
-      //编辑时同步数据
-      this.aceEditor.getSession().on('change', ev => {
-        this.$emit('update:modelValue', this.aceEditor.getValue());
-      });
+      this.init();
     },
     data() {
       return {
@@ -91,8 +55,58 @@
     },
     watch: {
       //
+      mode(val) {
+        if (val) {
+          this.init();
+        }
+      }
     },
     methods: {
+      init() {
+        //ace.config.set('basePath', 'https://ks3-cn-beijing.ksyun.com/vform2021/ace')
+        ace.config.set('basePath', ACE_BASE_PATH);
+
+        this.addAutoCompletion(ace); //添加自定义代码提示！！
+
+        this.aceEditor = ace.edit(this.$refs.ace, {
+          maxLines: 20, // 最大行数，超过会自动出现滚动条
+          minLines: 5, // 最小行数，还未到最大行数时，编辑器会自动伸缩大小
+          fontSize: 12, // 编辑器内字体大小
+          theme: this.themePath, // 默认设置的主题
+          mode: this.modePath, // 默认设置的语言模式
+          tabSize: 2, // 制表符设置为2个空格大小
+          readOnly: this.readonly,
+          highlightActiveLine: true,
+          value: this.codeValue
+        });
+
+        this.aceEditor.setOptions({
+          enableBasicAutocompletion: true,
+          enableSnippets: true, // 设置代码片段提示
+          enableLiveAutocompletion: true // 设置自动提示
+        });
+
+        if (this.mode === 'json') {
+          this.setJsonMode();
+        } else if (this.mode === 'css') {
+          this.setCssMode();
+        } else if (this.mode === 'groovy') {
+          this.setGroovyMode();
+        }
+
+        if (!this.userWorker) {
+          this.aceEditor.getSession().setUseWorker(false);
+        }
+
+        //编辑时同步数据
+        this.aceEditor.getSession().on('change', ev => {
+          this.$emit('update:modelValue', this.aceEditor.getValue());
+          this.$emit('change', this.aceEditor.getValue());
+        });
+        this.aceEditor.getSession().on('blur', ev => {
+          this.$emit('blur', this.aceEditor.getValue());
+        });
+      },
       addAutoCompletion(ace) {
         const acData = [
           { meta: 'VForm API', caption: 'getWidgetRef', value: 'getWidgetRef()', score: 1 },
@@ -120,12 +134,33 @@
         this.aceEditor.getSession().setMode('ace/mode/css');
       },
 
+      setGroovyMode() {
+        this.aceEditor.getSession().setMode('ace/mode/groovy');
+      },
+
       getEditorAnnotations() {
         return this.aceEditor.getSession().getAnnotations();
       },
 
       setValue(newValue) {
         this.aceEditor.getSession().setValue(newValue);
+      },
+      validateCode() {
+        const codeHints = this.getEditorAnnotations();
+        let syntaxErrorFlag = false;
+        if (!!codeHints && codeHints.length > 0) {
+          codeHints.forEach(chItem => {
+            if (chItem.type === 'error') {
+              syntaxErrorFlag = true;
+            }
+          });
+
+          if (syntaxErrorFlag) {
+            this.$message.error('语法存在错误,请检查');
+            return false;
+          }
+        }
+        return true;
       }
     }
   };

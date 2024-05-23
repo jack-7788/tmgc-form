@@ -1,7 +1,8 @@
 import { basicFieldsEnums } from './basicFieldsEnums';
 import { businessFieldsEnums } from './businessFieldsEnums';
-
-export const containers = [
+import { containersEnums } from './containersEnums';
+export const containers = Object.values(containersEnums).map(fn => fn());
+export const containers1 = [
   {
     type: 'grid', // 组件类型
     alias: '', //组件别名，可以自定义

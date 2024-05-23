@@ -68,8 +68,10 @@
     overwriteObj,
     getContainerWidgetByName,
     traverseFieldWidgetsOfContainer,
-    cloneFormConfigWithoutEventHandler
+    cloneFormConfigWithoutEventHandler,
+    getDefaultFormConfig
   } from '@/utils/util';
+
   import i18n, { changeLocale } from '@/utils/i18n';
   import DynamicDialog from './dynamic-dialog';
   import DynamicDrawer from './dynamic-drawer';
@@ -642,8 +644,12 @@
             //this.formDataModel = {}  //清空表单数据对象（有bug，会导致表单校验失败！！）
             this.clearFormDataModel(); //上行代码有问题，会导致表单校验失败，故保留原对象引用只清空对象属性！！
             this.buildFormModel(newFormJsonObj.widgetList);
+            console.log('newFormJsonObj: ', JSON.parse(JSON.stringify(newFormJsonObj)));
+            const defaultFormConfig = deepClone(getDefaultFormConfig());
 
-            this.formJsonObj['formConfig'] = newFormJsonObj.formConfig;
+            overwriteObj(defaultFormConfig, newFormJsonObj.formConfig); //
+
+            this.formJsonObj['formConfig'] = defaultFormConfig; //newFormJsonObj.formConfig;
             this.formJsonObj['widgetList'] = newFormJsonObj.widgetList;
 
             this.insertCustomStyleAndScriptNode(); /* 必须先插入表单全局函数，否则VForm内部引用全局函数会报错！！！ */

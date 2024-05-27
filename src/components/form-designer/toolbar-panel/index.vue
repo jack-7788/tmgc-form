@@ -112,7 +112,7 @@
           <VFormRender
             :vfCtx="vfCtx"
             ref="preForm"
-            :form-json="formJson"
+            :form-json="cloneDeep(formJson)"
             :form-data="testFormData"
             :preview-state="true"
             :option-data="testOptionData"
@@ -297,7 +297,6 @@
   import VFormRender from '@/components/form-render/index.vue';
   import CodeEditor from '@/components/code-editor/index';
   import {
-    deepClone,
     copyToClipboard,
     generateId,
     getQueryParam,
@@ -313,6 +312,7 @@
   import SvgIcon from '@/components/svg-icon/index';
   import { fmtHttpParams } from '@/utils/request/fmtHttpParams';
   import { getLocat } from '@/utils/util';
+  import { cloneDeep } from 'lodash-es';
 
   export default {
     name: 'ToolbarPanel',
@@ -338,6 +338,7 @@
     inject: ['getDesignerConfig'],
     data() {
       return {
+        cloneDeep,
         vfCtx: { type: 'add', ...getLocat() },
         designerConfig: this.getDesignerConfig(),
 
@@ -398,8 +399,8 @@
           // widgetList: this.designer.widgetList,
           // formConfig: this.designer.formConfig
 
-          widgetList: deepClone(this.designer.widgetList),
-          formConfig: deepClone(this.designer.formConfig)
+          widgetList: cloneDeep(this.designer.widgetList),
+          formConfig: cloneDeep(this.designer.formConfig)
         };
       },
 
@@ -654,8 +655,8 @@
       },
 
       exportJson() {
-        const widgetList = deepClone(this.designer.widgetList);
-        const formConfig = deepClone(this.designer.formConfig);
+        const widgetList = cloneDeep(this.designer.widgetList);
+        const formConfig = cloneDeep(this.designer.formConfig);
         this.jsonContent = JSON.stringify({ widgetList, formConfig }, null, '  ');
         this.jsonRawContent = JSON.stringify({ widgetList, formConfig });
         this.showExportJsonDialogFlag = true;

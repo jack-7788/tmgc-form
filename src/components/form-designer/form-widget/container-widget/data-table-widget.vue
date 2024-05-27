@@ -26,7 +26,7 @@
         @click.native.stop="selectWidget(widget)"
         :row-class-name="rowClassName"
         :rowSelection="handleRowSelection()"
-        :pagination="fmtPagination()"
+        :pagination="fmtPagination"
         @change="handleTablePageChange"
         :customRow="handleCustomRow"
         @resizeColumn="handleResizeColumn"

@@ -1,5 +1,5 @@
 import require$$0$2, { openBlock, createElementBlock, normalizeClass, normalizeStyle, createElementVNode, toDisplayString, createCommentVNode, reactive, createVNode, resolveComponent, withCtx, createTextVNode, createBlock, renderSlot, withModifiers, Fragment, withDirectives, renderList, vShow, createSlots, watch, ref, onBeforeUnmount, onMounted, onUnmounted, mergeProps, resolveDynamicComponent, normalizeProps, guardReactiveProps, pushScopeId, popScopeId, defineComponent, Transition, render, h, nextTick, isVNode } from "vue";
-import { isArray as isArray$1, debounce, isEmpty, omit } from "lodash-es";
+import { cloneDeep, isArray as isArray$1, debounce, isEmpty, omit } from "lodash-es";
 import { Modal, message } from "ant-design-vue";
 function bind(fn, thisArg) {
   return function wrap() {
@@ -2748,10 +2748,7 @@ const generateId = function() {
   return Math.floor(Math.random() * 1e5 + Math.random() * 2e4 + Math.random() * 5e3);
 };
 const deepClone = function(origin) {
-  if (origin === void 0) {
-    return void 0;
-  }
-  return JSON.parse(JSON.stringify(origin));
+  return cloneDeep(origin);
 };
 const overwriteObj = function(obj1, obj2) {
   Object.keys(obj2).forEach((prop) => {
@@ -49971,6 +49968,15 @@ const useDataTableMixin = {
     },
     widgetSize() {
       return this.widget.options.tableSize || "default";
+    },
+    fmtPagination() {
+      const { showPagination } = this.widget.options;
+      if (!showPagination)
+        return false;
+      return {
+        ...this.widget.options.pagination,
+        showTotal: (total) => `共 ${total} 条`
+      };
     }
   },
   methods: {
@@ -50014,14 +50020,8 @@ const useDataTableMixin = {
       this.setDataSource(newList);
       this.$message.success("操作成功");
     },
-    fmtPagination() {
-      const { showPagination } = this.widget.options;
-      if (!showPagination)
-        return false;
-      return {
-        ...this.widget.options.pagination,
-        showTotal: (total) => `共 ${total} 条`
-      };
+    getPagination() {
+      return this.widget.options.pagination;
     },
     /**
      * 设置表格分页
@@ -50055,11 +50055,8 @@ const useDataTableMixin = {
     },
     async loadDataTableDataSource() {
       if (!this.widget.options.dsEnabled) {
-        this.widget.options.pagination.total = this.widget.options.dataSource.length;
         return;
       }
-      this.setDataSource([]);
-      this.widget.options.pagination.total = this.widget.options.dataSource.length;
       const ops = this.widget.options;
       if (ops.dsEnabled && ops.http.url) {
         this.loading = true;
@@ -50328,7 +50325,7 @@ function _sfc_render$3$(_ctx, _cache, $props, $setup, $data, $options) {
         style: normalizeStyle({ width: $props.widget.options.tableWidth }),
         "row-class-name": _ctx.rowClassName,
         rowSelection: _ctx.handleRowSelection(),
-        pagination: _ctx.fmtPagination(),
+        pagination: _ctx.fmtPagination,
         customRow: _ctx.handleCustomRow,
         onChange: _ctx.handleTablePageChange,
         onResizeColumn: _ctx.handleResizeColumn,
@@ -50392,7 +50389,7 @@ function _sfc_render$3$(_ctx, _cache, $props, $setup, $data, $options) {
     [vShow, !$props.widget.options.hidden]
   ]);
 }
-const dataTableItem = /* @__PURE__ */ _export_sfc$1(_sfc_main$40, [["render", _sfc_render$3$], ["__scopeId", "data-v-70e4674e"]]);
+const dataTableItem = /* @__PURE__ */ _export_sfc$1(_sfc_main$40, [["render", _sfc_render$3$], ["__scopeId", "data-v-897bc145"]]);
 const __vite_glob_0_1$2 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: dataTableItem
@@ -53812,6 +53809,7 @@ const _sfc_main$3N = {
   inject: ["getDesignerConfig"],
   data() {
     return {
+      cloneDeep,
       vfCtx: { type: "add", ...getLocat() },
       designerConfig: this.getDesignerConfig(),
       toolbarWidth: 460,
@@ -53861,8 +53859,8 @@ const _sfc_main$3N = {
       return {
         // widgetList: this.designer.widgetList,
         // formConfig: this.designer.formConfig
-        widgetList: deepClone(this.designer.widgetList),
-        formConfig: deepClone(this.designer.formConfig)
+        widgetList: cloneDeep(this.designer.widgetList),
+        formConfig: cloneDeep(this.designer.formConfig)
       };
     },
     undoDisabled() {
@@ -54053,8 +54051,8 @@ const _sfc_main$3N = {
       }
     },
     exportJson() {
-      const widgetList = deepClone(this.designer.widgetList);
-      const formConfig = deepClone(this.designer.formConfig);
+      const widgetList = cloneDeep(this.designer.widgetList);
+      const formConfig = cloneDeep(this.designer.formConfig);
       this.jsonContent = JSON.stringify({ widgetList, formConfig }, null, "  ");
       this.jsonRawContent = JSON.stringify({ widgetList, formConfig });
       this.showExportJsonDialogFlag = true;
@@ -55260,7 +55258,7 @@ function _sfc_render$3N(_ctx, _cache, $props, $setup, $data, $options) {
             createVNode(_component_VFormRender, {
               vfCtx: $data.vfCtx,
               ref: "preForm",
-              "form-json": $options.formJson,
+              "form-json": $data.cloneDeep($options.formJson),
               "form-data": $data.testFormData,
               "preview-state": true,
               "option-data": $data.testOptionData,
@@ -55534,7 +55532,7 @@ function _sfc_render$3N(_ctx, _cache, $props, $setup, $data, $options) {
     }, 8, ["title", "visible"])) : createCommentVNode("", true)
   ]);
 }
-const ToolbarPanel = /* @__PURE__ */ _export_sfc$1(_sfc_main$3N, [["render", _sfc_render$3N], ["__scopeId", "data-v-57b6cf5a"]]);
+const ToolbarPanel = /* @__PURE__ */ _export_sfc$1(_sfc_main$3N, [["render", _sfc_render$3N], ["__scopeId", "data-v-76c73736"]]);
 const _sfc_main$3M = {
   name: "actionColumnPosition-editor",
   mixins: [i18n$1],
@@ -72031,7 +72029,7 @@ function _sfc_render$t(_ctx, _cache, $props, $setup, $data, $options) {
           onClick: _cache[0] || (_cache[0] = withModifiers(($event) => $options.selectWidget($props.widget), ["stop"])),
           "row-class-name": _ctx.rowClassName,
           rowSelection: _ctx.handleRowSelection(),
-          pagination: _ctx.fmtPagination(),
+          pagination: _ctx.fmtPagination,
           onChange: _ctx.handleTablePageChange,
           customRow: _ctx.handleCustomRow,
           onResizeColumn: _ctx.handleResizeColumn
@@ -72095,7 +72093,7 @@ function _sfc_render$t(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["designer", "widget", "parent-widget", "parent-list", "index-of-parent-list", "style"]);
 }
-const dataTableWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$t, [["render", _sfc_render$t], ["__scopeId", "data-v-9d12c34b"]]);
+const dataTableWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$t, [["render", _sfc_render$t], ["__scopeId", "data-v-c11b0f3e"]]);
 const __vite_glob_0_1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: dataTableWidget
@@ -81464,13 +81462,13 @@ function registerIcon(app) {
 if (typeof window !== "undefined") {
   let loadSvg = function() {
     var body = document.body;
-    var svgDom = document.getElementById("__svg__icons__dom__1716803383287__");
+    var svgDom = document.getElementById("__svg__icons__dom__1716809238760__");
     if (!svgDom) {
       svgDom = document.createElementNS("http://www.w3.org/2000/svg", "svg");
       svgDom.style.position = "absolute";
       svgDom.style.width = "0";
       svgDom.style.height = "0";
-      svgDom.id = "__svg__icons__dom__1716803383287__";
+      svgDom.id = "__svg__icons__dom__1716809238760__";
       svgDom.setAttribute("xmlns", "http://www.w3.org/2000/svg");
       svgDom.setAttribute("xmlns:link", "http://www.w3.org/1999/xlink");
     }

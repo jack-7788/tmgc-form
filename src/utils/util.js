@@ -1,6 +1,6 @@
 import Clipboard from 'clipboard';
 import axios from 'axios';
-import { isArray, isEmpty } from 'lodash-es';
+import { isArray, isEmpty, cloneDeep } from 'lodash-es';
 import {
   containers,
   advancedFields,
@@ -25,11 +25,7 @@ export const generateId = function () {
 };
 
 export const deepClone = function (origin) {
-  if (origin === undefined) {
-    return undefined;
-  }
-
-  return JSON.parse(JSON.stringify(origin));
+  return cloneDeep(origin);
 };
 
 export const overwriteObj = function (obj1, obj2) {

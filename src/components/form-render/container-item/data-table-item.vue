@@ -16,7 +16,7 @@
       :style="{ width: widget.options.tableWidth }"
       :row-class-name="rowClassName"
       :rowSelection="handleRowSelection()"
-      :pagination="fmtPagination()"
+      :pagination="fmtPagination"
       :customRow="handleCustomRow"
       @change="handleTablePageChange"
       @resizeColumn="handleResizeColumn"

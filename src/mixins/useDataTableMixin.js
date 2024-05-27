@@ -25,6 +25,14 @@ export default {
     },
     widgetSize() {
       return this.widget.options.tableSize || 'default';
+    },
+    fmtPagination() {
+      const { showPagination } = this.widget.options;
+      if (!showPagination) return false;
+      return {
+        ...this.widget.options.pagination,
+        showTotal: total => `共 ${total} 条`
+      };
     }
   },
   methods: {
@@ -68,13 +76,9 @@ export default {
 
       this.$message.success('操作成功');
     },
-    fmtPagination() {
-      const { showPagination } = this.widget.options;
-      if (!showPagination) return false;
-      return {
-        ...this.widget.options.pagination,
-        showTotal: total => `共 ${total} 条`
-      };
+
+    getPagination() {
+      return this.widget.options.pagination;
     },
     /**
      * 设置表格分页
@@ -110,11 +114,8 @@ export default {
     },
     async loadDataTableDataSource() {
       if (!this.widget.options.dsEnabled) {
-        this.widget.options.pagination.total = this.widget.options.dataSource.length;
         return;
       }
-      this.setDataSource([]);
-      this.widget.options.pagination.total = this.widget.options.dataSource.length;
       const ops = this.widget.options;
       if (ops.dsEnabled && ops.http.url) {
         this.loading = true;

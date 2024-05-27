@@ -1,6 +1,6 @@
 <template>
   <a-modal
-    class="tpf-model"
+    class="tpf-model design-model"
     :transitionName="!dialogVisible ? '' : 'zoom'"
     :maskTransitionName="!dialogVisible ? '' : 'fade'"
     :destroyOnClose="true"
@@ -227,3 +227,11 @@
     }
   };
 </script>
+
+<style lang="less">
+  .design-model {
+    .ant-modal-close-x {
+      padding: 0 20px !important;
+    }
+  }
+</style>

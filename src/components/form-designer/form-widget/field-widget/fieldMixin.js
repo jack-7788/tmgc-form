@@ -70,16 +70,16 @@ export default {
 
   methods: {
     handleHidden() {
-      // if (this.designState) {
-      //   return false;
-      // }
-      // const { onHidden, hidden } = this.field.options;
-      // if (hidden) return true;
-      // if (onHidden) {
-      //   const onHiddenFn = new Function(onHidden);
-      //   return onHiddenFn.call(this);
-      // }
-      // return false;
+      if (this.designState) {
+        return false;
+      }
+      const { onHidden, hidden } = this.field.options;
+      if (hidden) return true;
+      if (onHidden) {
+        const onHiddenFn = new Function(onHidden);
+        return onHiddenFn.call(this);
+      }
+      return false;
     },
     handleDisabled() {
       if (this.designState) {
@@ -622,7 +622,7 @@ export default {
         changeFn.call(this, val, oldVal, ops[0], subFormData, rowId);
       }
     },
-    onBtnSubmit() {
+    onClick() {
       if (!!this.designState) {
         //设计状态不触发点击事件
         return;

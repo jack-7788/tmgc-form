@@ -1,4 +1,4 @@
-import { omit, isEmpty } from 'lodash-es';
+import { omit, isEmpty, isArray } from 'lodash-es';
 import { fmtHttpParams } from '@/utils/request/fmtHttpParams';
 import { TpfConfirm } from '@/hooks/TpfConfirm';
 
@@ -6,7 +6,8 @@ export default {
   data() {
     return {
       selectedRowInfo: { selectedRowKeys: [], selectedRows: [] },
-      selectRow: {}
+      selectRow: {},
+      loading: false
     };
   },
   computed: {
@@ -95,7 +96,8 @@ export default {
     setDataSource(list) {
       this.selectedRowInfo = { selectedRowKeys: [], selectedRows: [] };
       this.selectRow = {};
-      this.widget.options.dataSource = Object.assign([], list);
+      const val = isArray(list) ? list : [list];
+      this.widget.options.dataSource = [...val];
     },
     setValue(list) {
       this.setDataSource(list);
@@ -115,9 +117,11 @@ export default {
       this.widget.options.pagination.total = this.widget.options.dataSource.length;
       const ops = this.widget.options;
       if (ops.dsEnabled && ops.http.url) {
+        this.loading = true;
         const res = await fmtHttpParams.call(this, ops);
         this.setPagination(res);
         this.setDataSource(res.list);
+        this.loading = false;
       }
     },
     handleCustomRow(record) {
@@ -192,7 +196,7 @@ export default {
       const { onHideOperationButton } = this.widget.options;
       if (!!onHideOperationButton) {
         const customFn = new Function('buttonConfig', 'rowIndex', 'row', onHideOperationButton);
-        return !customFn.call(this, buttonConfig, rowIndex, row);
+        return !!customFn.call(this, buttonConfig, rowIndex, row);
       } else {
         return !buttonConfig.hidden;
       }

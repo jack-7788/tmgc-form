@@ -9635,6 +9635,17 @@ const fieldMixin = {
   },
   methods: {
     handleHidden() {
+      if (this.designState) {
+        return false;
+      }
+      const { onHidden, hidden } = this.field.options;
+      if (hidden)
+        return true;
+      if (onHidden) {
+        const onHiddenFn = new Function(onHidden);
+        return onHiddenFn.call(this);
+      }
+      return false;
     },
     handleDisabled() {
       if (this.designState) {
@@ -10060,7 +10071,7 @@ const fieldMixin = {
         changeFn.call(this, val, oldVal, ops[0], subFormData, rowId);
       }
     },
-    onBtnSubmit() {
+    onClick() {
       if (!!this.designState) {
         return;
       }
@@ -10372,7 +10383,8 @@ function _sfc_render$4s(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_svg_icon = resolveComponent("svg-icon");
   const _component_a_button = resolveComponent("a-button");
   const _component_static_content_wrapper = resolveComponent("static-content-wrapper");
-  return openBlock(), createBlock(_component_static_content_wrapper, {
+  return !_ctx.handleHidden() ? (openBlock(), createBlock(_component_static_content_wrapper, {
+    key: 0,
     designer: $props.designer,
     field: $props.field,
     "design-state": $props.designState,
@@ -10407,9 +10419,9 @@ function _sfc_render$4s(_ctx, _cache, $props, $setup, $data, $options) {
       }, 8, ["type", "size", "class", "shape", "danger", "ghost", "disabled", "onClick"])
     ]),
     _: 1
-  }, 8, ["designer", "field", "design-state", "display-style", "parent-widget", "parent-list", "index-of-parent-list", "sub-form-row-index", "sub-form-col-index", "sub-form-row-id"]);
+  }, 8, ["designer", "field", "design-state", "display-style", "parent-widget", "parent-list", "index-of-parent-list", "sub-form-row-index", "sub-form-col-index", "sub-form-row-id"])) : createCommentVNode("", true);
 }
-const buttonWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$4t, [["render", _sfc_render$4s], ["__scopeId", "data-v-98a9b931"]]);
+const buttonWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$4t, [["render", _sfc_render$4s], ["__scopeId", "data-v-c331f217"]]);
 const __vite_glob_0_0$2 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: buttonWidget
@@ -10507,6 +10519,19 @@ const _sfc_main$4s = {
   created() {
   },
   methods: {
+    handleHidden() {
+      if (this.designState) {
+        return false;
+      }
+      const { onHidden, hidden } = this.field.options;
+      if (hidden)
+        return true;
+      if (onHidden) {
+        const onHiddenFn = new Function(onHidden);
+        return onHiddenFn.call(this);
+      }
+      return false;
+    },
     selectField(field) {
       if (!!this.designer) {
         this.designer.setSelected(field);
@@ -10587,7 +10612,7 @@ function _sfc_render$4r(_ctx, _cache, $props, $setup, $data, $options) {
   return openBlock(), createElementBlock("div", {
     class: normalizeClass(["field-wrapper", { "design-time-bottom-margin": !!this.designer }])
   }, [
-    !!$props.field.formItemFlag && (!$props.field.options.hidden || $props.designState === true) ? (openBlock(), createBlock(_component_a_form_item, {
+    !!$props.field.formItemFlag && !$options.handleHidden() ? (openBlock(), createBlock(_component_a_form_item, {
       key: 0,
       labelCol: { style: { width: $options.labelWidth + "px" } },
       title: $props.field.options.labelTooltip,
@@ -10734,7 +10759,7 @@ function _sfc_render$4r(_ctx, _cache, $props, $setup, $data, $options) {
     ], 64)) : createCommentVNode("", true)
   ], 2);
 }
-const FormItemWrapper = /* @__PURE__ */ _export_sfc$1(_sfc_main$4s, [["render", _sfc_render$4r], ["__scopeId", "data-v-557be97f"]]);
+const FormItemWrapper = /* @__PURE__ */ _export_sfc$1(_sfc_main$4s, [["render", _sfc_render$4r], ["__scopeId", "data-v-2c44d737"]]);
 const __vite_glob_0_10$3 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: FormItemWrapper
@@ -49927,7 +49952,8 @@ const useDataTableMixin = {
   data() {
     return {
       selectedRowInfo: { selectedRowKeys: [], selectedRows: [] },
-      selectRow: {}
+      selectRow: {},
+      loading: false
     };
   },
   computed: {
@@ -50015,7 +50041,8 @@ const useDataTableMixin = {
     setDataSource(list) {
       this.selectedRowInfo = { selectedRowKeys: [], selectedRows: [] };
       this.selectRow = {};
-      this.widget.options.dataSource = Object.assign([], list);
+      const val = isArray$1(list) ? list : [list];
+      this.widget.options.dataSource = [...val];
     },
     setValue(list) {
       this.setDataSource(list);
@@ -50035,9 +50062,11 @@ const useDataTableMixin = {
       this.widget.options.pagination.total = this.widget.options.dataSource.length;
       const ops = this.widget.options;
       if (ops.dsEnabled && ops.http.url) {
+        this.loading = true;
         const res = await fmtHttpParams.call(this, ops);
         this.setPagination(res);
         this.setDataSource(res.list);
+        this.loading = false;
       }
     },
     handleCustomRow(record) {
@@ -50111,7 +50140,7 @@ const useDataTableMixin = {
       const { onHideOperationButton } = this.widget.options;
       if (!!onHideOperationButton) {
         const customFn = new Function("buttonConfig", "rowIndex", "row", onHideOperationButton);
-        return !customFn.call(this, buttonConfig, rowIndex, row);
+        return !!customFn.call(this, buttonConfig, rowIndex, row);
       } else {
         return !buttonConfig.hidden;
       }
@@ -50302,7 +50331,8 @@ function _sfc_render$3$(_ctx, _cache, $props, $setup, $data, $options) {
         pagination: _ctx.fmtPagination(),
         customRow: _ctx.handleCustomRow,
         onChange: _ctx.handleTablePageChange,
-        onResizeColumn: _ctx.handleResizeColumn
+        onResizeColumn: _ctx.handleResizeColumn,
+        loading: _ctx.loading
       }, {
         emptyText: withCtx(() => [
           createVNode(_component_a_empty)
@@ -50355,14 +50385,14 @@ function _sfc_render$3$(_ctx, _cache, $props, $setup, $data, $options) {
           }, 8, ["title", "width"])) : createCommentVNode("", true)
         ]),
         _: 1
-      }, 8, ["dataSource", "rowKey", "scroll", "class", "size", "bordered", "style", "row-class-name", "rowSelection", "pagination", "customRow", "onChange", "onResizeColumn"])
+      }, 8, ["dataSource", "rowKey", "scroll", "class", "size", "bordered", "style", "row-class-name", "rowSelection", "pagination", "customRow", "onChange", "onResizeColumn", "loading"])
     ]),
     _: 1
   }, 8, ["style", "widget"])), [
     [vShow, !$props.widget.options.hidden]
   ]);
 }
-const dataTableItem = /* @__PURE__ */ _export_sfc$1(_sfc_main$40, [["render", _sfc_render$3$], ["__scopeId", "data-v-d11195c3"]]);
+const dataTableItem = /* @__PURE__ */ _export_sfc$1(_sfc_main$40, [["render", _sfc_render$3$], ["__scopeId", "data-v-70e4674e"]]);
 const __vite_glob_0_1$2 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: dataTableItem
@@ -52390,7 +52420,7 @@ function _sfc_render$3Q(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_button = resolveComponent("a-button");
   const _component_a_modal = resolveComponent("a-modal");
   return openBlock(), createBlock(_component_a_modal, mergeProps({
-    class: "tpf-model",
+    class: "tpf-model design-model",
     transitionName: !$data.dialogVisible ? "" : "zoom",
     maskTransitionName: !$data.dialogVisible ? "" : "fade",
     destroyOnClose: true,
@@ -81434,13 +81464,13 @@ function registerIcon(app) {
 if (typeof window !== "undefined") {
   let loadSvg = function() {
     var body = document.body;
-    var svgDom = document.getElementById("__svg__icons__dom__1716435169857__");
+    var svgDom = document.getElementById("__svg__icons__dom__1716803383287__");
     if (!svgDom) {
       svgDom = document.createElementNS("http://www.w3.org/2000/svg", "svg");
       svgDom.style.position = "absolute";
       svgDom.style.width = "0";
       svgDom.style.height = "0";
-      svgDom.id = "__svg__icons__dom__1716435169857__";
+      svgDom.id = "__svg__icons__dom__1716803383287__";
       svgDom.setAttribute("xmlns", "http://www.w3.org/2000/svg");
       svgDom.setAttribute("xmlns:link", "http://www.w3.org/1999/xlink");
     }

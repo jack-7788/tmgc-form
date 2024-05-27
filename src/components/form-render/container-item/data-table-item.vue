@@ -20,6 +20,7 @@
       :customRow="handleCustomRow"
       @change="handleTablePageChange"
       @resizeColumn="handleResizeColumn"
+      :loading="loading"
     >
       <template #emptyText>
         <a-empty />

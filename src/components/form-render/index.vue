@@ -644,7 +644,6 @@
             //this.formDataModel = {}  //清空表单数据对象（有bug，会导致表单校验失败！！）
             this.clearFormDataModel(); //上行代码有问题，会导致表单校验失败，故保留原对象引用只清空对象属性！！
             this.buildFormModel(newFormJsonObj.widgetList);
-            console.log('newFormJsonObj: ', JSON.parse(JSON.stringify(newFormJsonObj)));
             const defaultFormConfig = deepClone(getDefaultFormConfig());
 
             overwriteObj(defaultFormConfig, newFormJsonObj.formConfig); //

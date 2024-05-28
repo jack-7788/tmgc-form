@@ -300,7 +300,7 @@
             p = dataReqHandlerCodeFn.call(this, p);
           }
           if (!p) return;
-          console.log('请求参数 ', p);
+          // console.log('请求参数 ', p);
 
           let dsResult = await getHttp()(p);
 

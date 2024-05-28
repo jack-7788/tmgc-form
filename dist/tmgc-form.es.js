@@ -53181,7 +53181,6 @@ const _sfc_main$3O = {
           }
           this.clearFormDataModel();
           this.buildFormModel(newFormJsonObj.widgetList);
-          console.log("newFormJsonObj: ", JSON.parse(JSON.stringify(newFormJsonObj)));
           const defaultFormConfig = deepClone(getDefaultFormConfig());
           overwriteObj(defaultFormConfig, newFormJsonObj.formConfig);
           this.formJsonObj["formConfig"] = defaultFormConfig;
@@ -53633,7 +53632,7 @@ function _sfc_render$3O(_ctx, _cache, $props, $setup, $data, $options) {
     _: 3
   }, 8, ["component-size"]);
 }
-const VFormRender = /* @__PURE__ */ _export_sfc$1(_sfc_main$3O, [["render", _sfc_render$3O], ["__scopeId", "data-v-fb081279"]]);
+const VFormRender = /* @__PURE__ */ _export_sfc$1(_sfc_main$3O, [["render", _sfc_render$3O], ["__scopeId", "data-v-381d3407"]]);
 const generateCode = function(formJson, codeType = "vue") {
   const formJsonStr = JSON.stringify(formJson);
   if (codeType === "html") {
@@ -56387,7 +56386,6 @@ const _sfc_main$3x = {
         }
         if (!p)
           return;
-        console.log("请求参数 ", p);
         let dsResult = await getHttp()(p);
         if (dataHandlerCode) {
           const dhFn = new Function("data", dataHandlerCode);
@@ -56849,7 +56847,7 @@ function _sfc_render$3x(_ctx, _cache, $props, $setup, $data, $options) {
     }, null, 8, ["modelValue", "event-header"])
   ], 64);
 }
-const HttpEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3x, [["render", _sfc_render$3x], ["__scopeId", "data-v-6b88b608"]]);
+const HttpEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3x, [["render", _sfc_render$3x], ["__scopeId", "data-v-64609521"]]);
 const _sfc_main$3w = {
   name: "data-table-dsEnabled-editor",
   mixins: [i18n$1],
@@ -81467,13 +81465,13 @@ function registerIcon(app) {
 if (typeof window !== "undefined") {
   let loadSvg = function() {
     var body = document.body;
-    var svgDom = document.getElementById("__svg__icons__dom__1716873827528__");
+    var svgDom = document.getElementById("__svg__icons__dom__1716878759562__");
     if (!svgDom) {
       svgDom = document.createElementNS("http://www.w3.org/2000/svg", "svg");
       svgDom.style.position = "absolute";
       svgDom.style.width = "0";
       svgDom.style.height = "0";
-      svgDom.id = "__svg__icons__dom__1716873827528__";
+      svgDom.id = "__svg__icons__dom__1716878759562__";
       svgDom.setAttribute("xmlns", "http://www.w3.org/2000/svg");
       svgDom.setAttribute("xmlns:link", "http://www.w3.org/1999/xlink");
     }

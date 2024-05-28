@@ -25,7 +25,7 @@
       :form-data="formData"
       :option-data="optionData"
       :global-dsv="globalDsv"
-      :parent-form="parentFormRef"
+      :parent-form="parentForm"
       :disabled-mode="options.disabledMode"
       :dynamic-creation="true"
     />
@@ -90,7 +90,11 @@
         dialogVisible: false
       };
     },
+    created() {},
     computed: {
+      parentForm() {
+        return { ...this.parentFormRef, parentDom: this };
+      },
       otherAttrs() {
         if (this.options.cancelButtonHidden && this.options.okButtonHidden) {
           return { footer: null };

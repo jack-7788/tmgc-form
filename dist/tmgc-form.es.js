@@ -52293,7 +52293,12 @@ const _sfc_main$3Q = {
       dialogVisible: false
     };
   },
+  created() {
+  },
   computed: {
+    parentForm() {
+      return { ...this.parentFormRef, parentDom: this };
+    },
     otherAttrs() {
       if (this.options.cancelButtonHidden && this.options.okButtonHidden) {
         return { footer: null };
@@ -52467,7 +52472,7 @@ function _sfc_render$3Q(_ctx, _cache, $props, $setup, $data, $options) {
         "form-data": $props.formData,
         "option-data": $props.optionData,
         "global-dsv": $props.globalDsv,
-        "parent-form": $props.parentFormRef,
+        "parent-form": $options.parentForm,
         "disabled-mode": $props.options.disabledMode,
         "dynamic-creation": true
       }, null, 8, ["form-json", "form-data", "option-data", "global-dsv", "parent-form", "disabled-mode"])
@@ -81462,13 +81467,13 @@ function registerIcon(app) {
 if (typeof window !== "undefined") {
   let loadSvg = function() {
     var body = document.body;
-    var svgDom = document.getElementById("__svg__icons__dom__1716809238760__");
+    var svgDom = document.getElementById("__svg__icons__dom__1716873827528__");
     if (!svgDom) {
       svgDom = document.createElementNS("http://www.w3.org/2000/svg", "svg");
       svgDom.style.position = "absolute";
       svgDom.style.width = "0";
       svgDom.style.height = "0";
-      svgDom.id = "__svg__icons__dom__1716809238760__";
+      svgDom.id = "__svg__icons__dom__1716873827528__";
       svgDom.setAttribute("xmlns", "http://www.w3.org/2000/svg");
       svgDom.setAttribute("xmlns:link", "http://www.w3.org/1999/xlink");
     }

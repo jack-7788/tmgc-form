@@ -63,7 +63,8 @@ export default {
       return this.widget.options.tableColumns;
     },
     setTableColumns(list) {
-      return (this.widget.options.tableColumns = list);
+      this.widget.options.tableColumns = list;
+      return;
     },
     async delSelectRow(delKeys) {
       await TpfConfirm({ content: '确定删除选中的数据吗' });

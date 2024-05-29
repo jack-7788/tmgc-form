@@ -169,8 +169,7 @@
       right: -2px;
       height: 22px;
       line-height: 22px;
-      // background: $--color-primary;
-      background: var(--ant-primary-4); //$--color-primary;
+      background: var(--ant-primary-4);
 
       z-index: 9;
 
@@ -189,7 +188,6 @@
       left: -1px;
       height: 20px;
       line-height: 20px;
-      //background: $--color-primary;
       z-index: 9;
 
       i {
@@ -202,7 +200,7 @@
 
       &:hover {
         //opacity: 1;
-        background: $--color-primary;
+        background: var(--ant-primary-color);
       }
     }
   }
@@ -219,14 +217,11 @@
     min-height: 20px;
     display: flex; /* 垂直居中 */
     align-items: center; /* 垂直居中 */
-
-    :deep(.el-divider--horizontal) {
-      margin: 0;
-    }
+    margin-bottom: 5px;
   }
 
   .el-form-item.selected,
   .static-content-item.selected {
-    outline: 2px solid $--color-primary;
+    outline: 2px solid var(--ant-primary-color);
   }
 </style>

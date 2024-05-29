@@ -93,7 +93,7 @@
     created() {},
     computed: {
       parentForm() {
-        return { ...this.parentFormRef, parentDom: this };
+        return { ...this.parentFormRef, parentDom: this, getParentFormRef: this.getParentFormRef };
       },
       otherAttrs() {
         if (this.options.cancelButtonHidden && this.options.okButtonHidden) {

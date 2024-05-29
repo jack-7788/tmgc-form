@@ -7457,7 +7457,7 @@ function _sfc_render$4t(_ctx, _cache, $props, $setup, $data, $options) {
     ], 64)) : createCommentVNode("", true)
   ], 6);
 }
-const StaticContentWrapper = /* @__PURE__ */ _export_sfc$1(_sfc_main$4u, [["render", _sfc_render$4t], ["__scopeId", "data-v-ca4513b3"]]);
+const StaticContentWrapper = /* @__PURE__ */ _export_sfc$1(_sfc_main$4u, [["render", _sfc_render$4t], ["__scopeId", "data-v-44f8840e"]]);
 const __vite_glob_0_21$1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: StaticContentWrapper
@@ -50007,7 +50007,8 @@ const useDataTableMixin = {
       return this.widget.options.tableColumns;
     },
     setTableColumns(list) {
-      return this.widget.options.tableColumns = list;
+      this.widget.options.tableColumns = list;
+      return;
     },
     async delSelectRow(delKeys) {
       await TpfConfirm({ content: "确定删除选中的数据吗" });
@@ -52297,7 +52298,7 @@ const _sfc_main$3Q = {
   },
   computed: {
     parentForm() {
-      return { ...this.parentFormRef, parentDom: this };
+      return { ...this.parentFormRef, parentDom: this, getParentFormRef: this.getParentFormRef };
     },
     otherAttrs() {
       if (this.options.cancelButtonHidden && this.options.okButtonHidden) {
@@ -53519,7 +53520,8 @@ const _sfc_main$3O = {
         globalDsv: topFormRef.globalDsv,
         parentFormRef: this,
         extraData,
-        wrapperId: wrapperDivId
+        wrapperId: wrapperDivId,
+        vfCtx: formData || {}
       });
       dialogInstance.appContext = this.$root.$.appContext;
       const wrapperDiv = document.createElement("div");
@@ -53632,7 +53634,7 @@ function _sfc_render$3O(_ctx, _cache, $props, $setup, $data, $options) {
     _: 3
   }, 8, ["component-size"]);
 }
-const VFormRender = /* @__PURE__ */ _export_sfc$1(_sfc_main$3O, [["render", _sfc_render$3O], ["__scopeId", "data-v-381d3407"]]);
+const VFormRender = /* @__PURE__ */ _export_sfc$1(_sfc_main$3O, [["render", _sfc_render$3O], ["__scopeId", "data-v-9ef4e237"]]);
 const generateCode = function(formJson, codeType = "vue") {
   const formJsonStr = JSON.stringify(formJson);
   if (codeType === "html") {
@@ -81465,13 +81467,13 @@ function registerIcon(app) {
 if (typeof window !== "undefined") {
   let loadSvg = function() {
     var body = document.body;
-    var svgDom = document.getElementById("__svg__icons__dom__1716878759562__");
+    var svgDom = document.getElementById("__svg__icons__dom__1716980731807__");
     if (!svgDom) {
       svgDom = document.createElementNS("http://www.w3.org/2000/svg", "svg");
       svgDom.style.position = "absolute";
       svgDom.style.width = "0";
       svgDom.style.height = "0";
-      svgDom.id = "__svg__icons__dom__1716878759562__";
+      svgDom.id = "__svg__icons__dom__1716980731807__";
       svgDom.setAttribute("xmlns", "http://www.w3.org/2000/svg");
       svgDom.setAttribute("xmlns:link", "http://www.w3.org/1999/xlink");
     }

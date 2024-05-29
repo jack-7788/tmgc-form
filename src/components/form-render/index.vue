@@ -1043,7 +1043,8 @@
           globalDsv: topFormRef.globalDsv,
           parentFormRef: this,
           extraData: extraData,
-          wrapperId: wrapperDivId
+          wrapperId: wrapperDivId,
+          vfCtx: formData || {}
         });
         dialogInstance.appContext = this.$root.$.appContext; //非常重要， 覆盖应用上下文！！
 
@@ -1105,10 +1106,7 @@
   .ant-form {
     &.render-form {
       height: 100%;
+      overflow: auto;
     }
-  }
-
-  .ant-form :deep(.ant-row) {
-    // padding: 8px;
   }
 </style>

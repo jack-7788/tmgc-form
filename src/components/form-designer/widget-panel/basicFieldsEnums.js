@@ -798,47 +798,7 @@ export const dropdown = (ops = {}) => {
     }
   };
 };
-export const codeEditor = (ops = {}) => {
-  return {
-    key: getUuidKey(),
-    id: ops.name,
-    showName: '代码编辑器',
-    type: 'code-editor',
-    icon: 'code-editor',
-    formItemFlag: true,
-    options: {
-      name: '',
-      label: '',
-      labelAlign: '',
-      defaultValue: '',
-      columnWidth: '200px',
-      labelWidth: null,
-      labelHidden: false,
-      readonly: false,
-      hidden: false,
-      holdHidden: true,
-      allowClear: true,
-      required: false,
-      requiredHint: '',
-      mode: 'javascript',
-      //-------------------
-      customClass: [], //自定义css类名
-      //-------------------
-      onCreated: '',
-      onMounted: '',
-      onInput: '',
-      onChange: '',
-      onFocus: '',
-      onBlur: '',
-      onValidate: `
-        const flag = this.$refs.fieldEditor.validateCode();
-        if(flag) return Promise.resolve();
-        return Promise.reject('语法校验失败');
-      `,
-      ...ops
-    }
-  };
-};
+
 export const basicFieldsEnums = {
   input,
   textarea,
@@ -858,6 +818,5 @@ export const basicFieldsEnums = {
   htmlText,
   button,
   divider,
-  dropdown,
-  codeEditor
+  dropdown
 };

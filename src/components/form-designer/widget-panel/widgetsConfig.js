@@ -1,6 +1,8 @@
 import { basicFieldsEnums } from './basicFieldsEnums';
 import { businessFieldsEnums } from './businessFieldsEnums';
 import { containersEnums } from './containersEnums';
+import { advancedFieldsEnums } from './advancedFieldsEnums';
+
 export const containers = Object.values(containersEnums).map(fn => fn());
 export const containers1 = [
   {
@@ -323,8 +325,9 @@ export const containers1 = [
 export const basicFields = Object.values(basicFieldsEnums).map(fn => fn());
 
 export const businessFields = Object.values(businessFieldsEnums).map(fn => fn());
+export const advancedFields = Object.values(advancedFieldsEnums).map(fn => fn());
 
-export const advancedFields = [
+export const advancedFields1 = [
   // {
   //   type: 'picture-upload',
   //   icon: 'picture-upload-field',
@@ -368,7 +371,6 @@ export const advancedFields = [
   //     //onFileChange: '',
   //   }
   // },
-
   // {
   //   type: 'file-upload',
   //   icon: 'file-upload-field',
@@ -412,152 +414,148 @@ export const advancedFields = [
   //     //onFileChange: '',
   //   }
   // },
-
-  {
-    type: 'cascader',
-    icon: 'cascader-field',
-    formItemFlag: true,
-    options: {
-      name: '',
-      label: '',
-      labelAlign: '',
-      defaultValue: '',
-      placeholder: '',
-      size: '',
-      labelWidth: null,
-      labelHidden: false,
-      columnWidth: '200px',
-      disabled: false,
-      hidden: false,
-      holdHidden: true,
-      allowClear: true,
-      multiple: false,
-      dsEnabled: true, // 是否使用数据源数据
-      labelKey: 'label',
-      valueKey: 'value',
-      childrenKey: 'children',
-      http: {
-        url: '',
-        method: 'get',
-        data: {},
-        params: {}
-      },
-      optionItems: [
-        { label: 'select 1', value: 1, children: [{ label: 'child 1', value: 11 }] },
-        { label: 'select 2', value: 2 },
-        { label: 'select 3', value: 3 }
-      ],
-      dataHandlerCode: 'return data.data;\n ',
-      dataReqHandlerCode: `const d=data.data||{};\n Object.keys(d).forEach(k=>{\n if(d[k]==='null'){\n d[k]=null\n }\n })\nreturn {...data,data:d}`,
-
-      required: false,
-      requiredHint: '',
-      validation: '',
-      validationHint: '',
-      //-------------------
-      customClass: [], //自定义css类名
-      labelIconClass: null,
-      labelIconPosition: 'rear',
-      labelTooltip: null,
-      //-------------------
-      onCreated: '',
-      onMounted: '',
-      onChange: '',
-      onFocus: '',
-      onBlur: '',
-      onValidate: ''
-    }
-  },
-  {
-    type: 'treeSelect',
-    icon: 'tree_line',
-    formItemFlag: true,
-    options: {
-      name: '',
-      label: '',
-      labelAlign: '',
-      defaultValue: '',
-      placeholder: '',
-      size: '',
-      labelWidth: null,
-      labelHidden: false,
-      columnWidth: '200px',
-      disabled: false,
-      hidden: false,
-      holdHidden: true,
-      allowClear: true,
-      multiple: false,
-      treeDefaultExpandAll: false,
-      dsEnabled: true, // 是否使用数据源数据
-      labelKey: 'label',
-      valueKey: 'value',
-      childrenKey: 'children',
-      http: {
-        url: '',
-        method: 'get',
-        data: {},
-        params: {}
-      },
-      optionItems: [
-        { label: 'select 1', value: 1, children: [{ label: 'child 1', value: 11 }] },
-        { label: 'select 2', value: 2 },
-        { label: 'select 3', value: 3 }
-      ],
-      dataHandlerCode: 'return data.data;\n ',
-      dataReqHandlerCode: `const d=data.data||{};\n Object.keys(d).forEach(k=>{\n if(d[k]==='null'){\n d[k]=null\n }\n })\nreturn {...data,data:d}`,
-
-      required: false,
-      requiredHint: '',
-      validation: '',
-      validationHint: '',
-      //-------------------
-      customClass: [], //自定义css类名
-      labelIconClass: null,
-      labelIconPosition: 'rear',
-      labelTooltip: null,
-      //-------------------
-      onCreated: '',
-      onMounted: '',
-      onChange: '',
-      onFocus: '',
-      onBlur: '',
-      onValidate: ''
-    }
-  },
-  {
-    type: 'rich-editor',
-    icon: 'rich-editor-field',
-    formItemFlag: true,
-    options: {
-      name: '',
-      label: '',
-      labelAlign: '',
-      placeholder: '',
-      labelWidth: null,
-      labelHidden: false,
-      columnWidth: '200px',
-      contentHeight: '200px',
-      disabled: false,
-      hidden: false,
-      required: false,
-      requiredHint: '',
-      validation: '', // 自定义校验选项
-      validationHint: '', //自定义校验提示语
-      //-------------------
-      customClass: [], //自定义css类名
-      labelIconClass: null,
-      labelIconPosition: 'rear',
-      labelTooltip: null,
-      // minLength: null,
-      maxLength: null,
-      showCount: false,
-      //-------------------
-      onCreated: '',
-      onMounted: '',
-      onValidate: ''
-    }
-  }
-
+  // {
+  //   type: 'cascader',
+  //   icon: 'cascader-field',
+  //   formItemFlag: true,
+  //   options: {
+  //     name: '',
+  //     label: '',
+  //     labelAlign: '',
+  //     defaultValue: '',
+  //     placeholder: '',
+  //     size: '',
+  //     labelWidth: null,
+  //     labelHidden: false,
+  //     columnWidth: '200px',
+  //     disabled: false,
+  //     hidden: false,
+  //     holdHidden: true,
+  //     allowClear: true,
+  //     multiple: false,
+  //     dsEnabled: true, // 是否使用数据源数据
+  //     labelKey: 'label',
+  //     valueKey: 'value',
+  //     childrenKey: 'children',
+  //     http: {
+  //       url: '',
+  //       method: 'get',
+  //       data: {},
+  //       params: {}
+  //     },
+  //     optionItems: [
+  //       { label: 'select 1', value: 1, children: [{ label: 'child 1', value: 11 }] },
+  //       { label: 'select 2', value: 2 },
+  //       { label: 'select 3', value: 3 }
+  //     ],
+  //     dataHandlerCode: 'return data.data;\n ',
+  //     dataReqHandlerCode: `const d=data.data||{};\n Object.keys(d).forEach(k=>{\n if(d[k]==='null'){\n d[k]=null\n }\n })\nreturn {...data,data:d}`,
+  //     required: false,
+  //     requiredHint: '',
+  //     validation: '',
+  //     validationHint: '',
+  //     //-------------------
+  //     customClass: [], //自定义css类名
+  //     labelIconClass: null,
+  //     labelIconPosition: 'rear',
+  //     labelTooltip: null,
+  //     //-------------------
+  //     onCreated: '',
+  //     onMounted: '',
+  //     onChange: '',
+  //     onFocus: '',
+  //     onBlur: '',
+  //     onValidate: ''
+  //   }
+  // },
+  // {
+  //   type: 'treeSelect',
+  //   icon: 'tree_line',
+  //   formItemFlag: true,
+  //   options: {
+  //     name: '',
+  //     label: '',
+  //     labelAlign: '',
+  //     defaultValue: '',
+  //     placeholder: '',
+  //     size: '',
+  //     labelWidth: null,
+  //     labelHidden: false,
+  //     columnWidth: '200px',
+  //     disabled: false,
+  //     hidden: false,
+  //     holdHidden: true,
+  //     allowClear: true,
+  //     multiple: false,
+  //     treeDefaultExpandAll: false,
+  //     dsEnabled: true, // 是否使用数据源数据
+  //     labelKey: 'label',
+  //     valueKey: 'value',
+  //     childrenKey: 'children',
+  //     http: {
+  //       url: '',
+  //       method: 'get',
+  //       data: {},
+  //       params: {}
+  //     },
+  //     optionItems: [
+  //       { label: 'select 1', value: 1, children: [{ label: 'child 1', value: 11 }] },
+  //       { label: 'select 2', value: 2 },
+  //       { label: 'select 3', value: 3 }
+  //     ],
+  //     dataHandlerCode: 'return data.data;\n ',
+  //     dataReqHandlerCode: `const d=data.data||{};\n Object.keys(d).forEach(k=>{\n if(d[k]==='null'){\n d[k]=null\n }\n })\nreturn {...data,data:d}`,
+  //     required: false,
+  //     requiredHint: '',
+  //     validation: '',
+  //     validationHint: '',
+  //     //-------------------
+  //     customClass: [], //自定义css类名
+  //     labelIconClass: null,
+  //     labelIconPosition: 'rear',
+  //     labelTooltip: null,
+  //     //-------------------
+  //     onCreated: '',
+  //     onMounted: '',
+  //     onChange: '',
+  //     onFocus: '',
+  //     onBlur: '',
+  //     onValidate: ''
+  //   }
+  // },
+  // {
+  //   type: 'rich-editor',
+  //   icon: 'rich-editor-field',
+  //   formItemFlag: true,
+  //   options: {
+  //     name: '',
+  //     label: '',
+  //     labelAlign: '',
+  //     placeholder: '',
+  //     labelWidth: null,
+  //     labelHidden: false,
+  //     columnWidth: '200px',
+  //     contentHeight: '200px',
+  //     disabled: false,
+  //     hidden: false,
+  //     required: false,
+  //     requiredHint: '',
+  //     validation: '', // 自定义校验选项
+  //     validationHint: '', //自定义校验提示语
+  //     //-------------------
+  //     customClass: [], //自定义css类名
+  //     labelIconClass: null,
+  //     labelIconPosition: 'rear',
+  //     labelTooltip: null,
+  //     // minLength: null,
+  //     maxLength: null,
+  //     showCount: false,
+  //     //-------------------
+  //     onCreated: '',
+  //     onMounted: '',
+  //     onValidate: ''
+  //   }
+  // }
   // {
   //   type: 'slot',
   //   icon: 'slot-field',

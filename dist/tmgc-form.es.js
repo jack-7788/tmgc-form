@@ -4047,48 +4047,6 @@ const dropdown = (ops = {}) => {
     }
   };
 };
-const codeEditor = (ops = {}) => {
-  return {
-    key: getUuidKey(),
-    id: ops.name,
-    showName: "代码编辑器",
-    type: "code-editor",
-    icon: "code-editor",
-    formItemFlag: true,
-    options: {
-      name: "",
-      label: "",
-      labelAlign: "",
-      defaultValue: "",
-      columnWidth: "200px",
-      labelWidth: null,
-      labelHidden: false,
-      readonly: false,
-      hidden: false,
-      holdHidden: true,
-      allowClear: true,
-      required: false,
-      requiredHint: "",
-      mode: "javascript",
-      //-------------------
-      customClass: [],
-      //自定义css类名
-      //-------------------
-      onCreated: "",
-      onMounted: "",
-      onInput: "",
-      onChange: "",
-      onFocus: "",
-      onBlur: "",
-      onValidate: `
-        const flag = this.$refs.fieldEditor.validateCode();
-        if(flag) return Promise.resolve();
-        return Promise.reject('语法校验失败');
-      `,
-      ...ops
-    }
-  };
-};
 const basicFieldsEnums = {
   input,
   textarea,
@@ -4108,8 +4066,7 @@ const basicFieldsEnums = {
   htmlText,
   button,
   divider,
-  dropdown,
-  codeEditor
+  dropdown
 };
 const userSelect = (ops = {}) => {
   return {
@@ -4950,99 +4907,54 @@ const containersEnums = {
   vfCollapse,
   vfBox
 };
-const containers$1 = Object.values(containersEnums).map((fn) => fn());
-const basicFields = Object.values(basicFieldsEnums).map((fn) => fn());
-const businessFields = Object.values(businessFieldsEnums).map((fn) => fn());
-const advancedFields = [
-  // {
-  //   type: 'picture-upload',
-  //   icon: 'picture-upload-field',
-  //   formItemFlag: true,
-  //   options: {
-  //     name: '',
-  //     label: '',
-  //     labelAlign: '',
-  //     labelWidth: null,
-  //     labelHidden: false,
-  //     columnWidth: '200px',
-  //     disabled: false,
-  //     hidden: false,
-  //     required: false,
-  //     requiredHint: '',
-  //    validation: '',
-  //    validationHint: '',
-  //     //-------------------
-  //     uploadURL: '',
-  //     uploadTip: '',
-  //     withCredentials: false,
-  //     multipleSelect: false,
-  //     showFileList: true,
-  //     limit: 3,
-  //     fileMaxSize: 5, //MB
-  //     fileTypes: ['jpg', 'jpeg', 'png'],
-  //     //headers: [],
-  //     //-------------------
-  //     customClass: [], //自定义css类名
-  //     labelIconClass: null,
-  //     labelIconPosition: 'rear',
-  //     labelTooltip: null,
-  //     //-------------------
-  //     onCreated: '',
-  //     onMounted: '',
-  //     onBeforeUpload: '',
-  //     onUploadSuccess: '',
-  //     onUploadError: '',
-  //     onFileRemove: '',
-  //     onValidate: ''
-  //     //onFileChange: '',
-  //   }
-  // },
-  // {
-  //   type: 'file-upload',
-  //   icon: 'file-upload-field',
-  //   formItemFlag: true,
-  //   options: {
-  //     name: '',
-  //     label: '',
-  //     labelAlign: '',
-  //     labelWidth: null,
-  //     labelHidden: false,
-  //     columnWidth: '200px',
-  //     disabled: false,
-  //     hidden: false,
-  //     required: false,
-  //     requiredHint: '',
-  //    validation: '',
-  //    validationHint: '',
-  //     //-------------------
-  //     uploadURL: '',
-  //     uploadTip: '',
-  //     withCredentials: false,
-  //     multipleSelect: false,
-  //     showFileList: true,
-  //     limit: 3,
-  //     fileMaxSize: 5, //MB
-  //     fileTypes: ['doc', 'docx', 'xls', 'xlsx'],
-  //     //headers: [],
-  //     //-------------------
-  //     customClass: [], //自定义css类名
-  //     labelIconClass: null,
-  //     labelIconPosition: 'rear',
-  //     labelTooltip: null,
-  //     //-------------------
-  //     onCreated: '',
-  //     onMounted: '',
-  //     onBeforeUpload: '',
-  //     onUploadSuccess: '',
-  //     onUploadError: '',
-  //     onFileRemove: '',
-  //     onValidate: ''
-  //     //onFileChange: '',
-  //   }
-  // },
-  {
+const codeEditor = (ops = {}) => {
+  return {
+    key: getUuidKey(),
+    id: ops.name,
+    showName: "代码编辑器",
+    type: "code-editor",
+    icon: "code-editor",
+    formItemFlag: true,
+    options: {
+      name: "",
+      label: "",
+      labelAlign: "",
+      defaultValue: "",
+      columnWidth: "200px",
+      labelWidth: null,
+      labelHidden: false,
+      readonly: false,
+      hidden: false,
+      holdHidden: true,
+      allowClear: true,
+      required: false,
+      requiredHint: "",
+      mode: "javascript",
+      //-------------------
+      customClass: [],
+      //自定义css类名
+      //-------------------
+      onCreated: "",
+      onMounted: "",
+      onInput: "",
+      onChange: "",
+      onFocus: "",
+      onBlur: "",
+      onValidate: `
+        const flag = this.$refs.fieldEditor.validateCode();
+        if(flag) return Promise.resolve();
+        return Promise.reject('语法校验失败');
+      `,
+      ...ops
+    }
+  };
+};
+const cascader = (ops = {}) => {
+  return {
+    key: getUuidKey(),
     type: "cascader",
     icon: "cascader-field",
+    id: ops.name,
     formItemFlag: true,
     options: {
       name: "",
@@ -5099,12 +5011,17 @@ return {...data,data:d}`,
       onChange: "",
       onFocus: "",
       onBlur: "",
-      onValidate: ""
+      onValidate: "",
+      ...ops
     }
-  },
-  {
+  };
+};
+const treeSelect = (ops = {}) => {
+  return {
+    key: getUuidKey(),
     type: "treeSelect",
     icon: "tree_line",
+    id: ops.name,
     formItemFlag: true,
     options: {
       name: "",
@@ -5162,12 +5079,16 @@ return {...data,data:d}`,
       onChange: "",
       onFocus: "",
       onBlur: "",
-      onValidate: ""
+      onValidate: "",
+      ...ops
     }
-  },
-  {
+  };
+};
+const richEditor = (ops = {}) => {
+  return {
     type: "rich-editor",
     icon: "rich-editor-field",
+    id: ops.name,
     formItemFlag: true,
     options: {
       name: "",
@@ -5198,20 +5119,21 @@ return {...data,data:d}`,
       //-------------------
       onCreated: "",
       onMounted: "",
-      onValidate: ""
+      onValidate: "",
+      ...ops
     }
-  }
-  // {
-  //   type: 'slot',
-  //   icon: 'slot-field',
-  //   formItemFlag: false,
-  //   options: {
-  //     name: '',
-  //     label: '',
-  //     customClass: [],  //自定义css类名
-  //   }
-  // },
-];
+  };
+};
+const advancedFieldsEnums = {
+  cascader,
+  treeSelect,
+  richEditor,
+  codeEditor
+};
+const containers$1 = Object.values(containersEnums).map((fn) => fn());
+const basicFields = Object.values(basicFieldsEnums).map((fn) => fn());
+const businessFields = Object.values(businessFieldsEnums).map((fn) => fn());
+const advancedFields = Object.values(advancedFieldsEnums).map((fn) => fn());
 const customFields = [];
 function addContainerWidgetSchema(containerSchema) {
   containers$1.push(containerSchema);
@@ -34568,10 +34490,16 @@ const _sfc_main$4p = {
       if (val) {
         this.init();
       }
+    },
+    readonly(val) {
+      this.init();
     }
   },
   methods: {
     init() {
+      if (this.aceEditor) {
+        this.aceEditor.destroy();
+      }
       ace$1.config.set("basePath", ACE_BASE_PATH);
       this.addAutoCompletion(ace$1);
       this.aceEditor = ace$1.edit(this.$refs.ace, {
@@ -34677,7 +34605,7 @@ function _sfc_render$4o(_ctx, _cache, $props, $setup, $data, $options) {
     createElementVNode("div", _hoisted_2$B, null, 512)
   ]);
 }
-const CodeEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$4p, [["render", _sfc_render$4o], ["__scopeId", "data-v-68f78a62"]]);
+const CodeEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$4p, [["render", _sfc_render$4o], ["__scopeId", "data-v-34702439"]]);
 const _sfc_main$4o = {
   name: "code-editor-widget",
   componentName: "FieldWidget",
@@ -34757,7 +34685,7 @@ function _sfc_render$4n(_ctx, _cache, $props, $setup, $data, $options) {
     default: withCtx(() => [
       createVNode(_component_code_editor, {
         mode: $props.field.options.mode,
-        readonly: $props.field.options.readonly,
+        readonly: $props.field.options.readonly || _ctx.isReadMode,
         modelValue: $data.fieldModel,
         "onUpdate:modelValue": _cache[0] || (_cache[0] = ($event) => $data.fieldModel = $event),
         ref: "fieldEditor",
@@ -34768,7 +34696,7 @@ function _sfc_render$4n(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["designer", "field", "rules", "design-state", "parent-widget", "parent-list", "index-of-parent-list", "sub-form-row-index", "sub-form-col-index", "sub-form-row-id"]);
 }
-const codeEditorWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$4o, [["render", _sfc_render$4n], ["__scopeId", "data-v-5bd17dd2"]]);
+const codeEditorWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$4o, [["render", _sfc_render$4n], ["__scopeId", "data-v-d8d7cd0a"]]);
 const __vite_glob_0_3$3 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: codeEditorWidget
@@ -81467,13 +81395,13 @@ function registerIcon(app) {
 if (typeof window !== "undefined") {
   let loadSvg = function() {
     var body = document.body;
-    var svgDom = document.getElementById("__svg__icons__dom__1716980731807__");
+    var svgDom = document.getElementById("__svg__icons__dom__1717039680896__");
     if (!svgDom) {
       svgDom = document.createElementNS("http://www.w3.org/2000/svg", "svg");
       svgDom.style.position = "absolute";
       svgDom.style.width = "0";
       svgDom.style.height = "0";
-      svgDom.id = "__svg__icons__dom__1716980731807__";
+      svgDom.id = "__svg__icons__dom__1717039680896__";
       svgDom.setAttribute("xmlns", "http://www.w3.org/2000/svg");
       svgDom.setAttribute("xmlns:link", "http://www.w3.org/1999/xlink");
     }

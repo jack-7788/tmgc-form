@@ -59,10 +59,16 @@
         if (val) {
           this.init();
         }
+      },
+      readonly(val) {
+        this.init();
       }
     },
     methods: {
       init() {
+        if (this.aceEditor) {
+          this.aceEditor.destroy();
+        }
         //ace.config.set('basePath', 'https://ks3-cn-beijing.ksyun.com/vform2021/ace')
         ace.config.set('basePath', ACE_BASE_PATH);
 

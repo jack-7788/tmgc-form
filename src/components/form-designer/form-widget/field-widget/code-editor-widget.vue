@@ -13,7 +13,7 @@
   >
     <code-editor
       :mode="field.options.mode"
-      :readonly="field.options.readonly"
+      :readonly="field.options.readonly || isReadMode"
       v-model="fieldModel"
       ref="fieldEditor"
       @blur="handleBlurCustomEvent"

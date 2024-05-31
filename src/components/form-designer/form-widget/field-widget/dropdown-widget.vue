@@ -11,7 +11,7 @@
     :sub-form-col-index="subFormColIndex"
     :sub-form-row-id="subFormRowId"
   >
-    <a-dropdown ref="fieldEditor" :disabled="handleDisabled()">
+    <a-dropdown ref="fieldEditor" :disabled="handleDisabled()" :placement="field.options.placement">
       <template #overlay>
         <a-menu @click="handleMenuClick">
           <a-menu-item :key="item.value" v-for="item in field.options.menuList || []">

@@ -134,5 +134,6 @@ export default {
   install,
   VFormDesigner,
   VFormRender,
-  VFormSDK
+  VFormSDK,
+  VFormRegisterHttp
 };

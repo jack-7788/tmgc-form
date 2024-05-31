@@ -35231,7 +35231,8 @@ function _sfc_render$4i(_ctx, _cache, $props, $setup, $data, $options) {
     default: withCtx(() => [
       createVNode(_component_a_dropdown, {
         ref: "fieldEditor",
-        disabled: _ctx.handleDisabled()
+        disabled: _ctx.handleDisabled(),
+        placement: $props.field.options.placement
       }, {
         overlay: withCtx(() => [
           createVNode(_component_a_menu, { onClick: $options.handleMenuClick }, {
@@ -35268,12 +35269,12 @@ function _sfc_render$4i(_ctx, _cache, $props, $setup, $data, $options) {
           }, 8, ["type", "size", "class", "shape", "danger", "ghost", "disabled"])
         ]),
         _: 1
-      }, 8, ["disabled"])
+      }, 8, ["disabled", "placement"])
     ]),
     _: 1
   }, 8, ["designer", "field", "design-state", "display-style", "parent-widget", "parent-list", "index-of-parent-list", "sub-form-row-index", "sub-form-col-index", "sub-form-row-id"]);
 }
-const dropdownWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$4j, [["render", _sfc_render$4i], ["__scopeId", "data-v-50748ac2"]]);
+const dropdownWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$4j, [["render", _sfc_render$4i], ["__scopeId", "data-v-200931c2"]]);
 const __vite_glob_0_8$3 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: dropdownWidget
@@ -81395,13 +81396,13 @@ function registerIcon(app) {
 if (typeof window !== "undefined") {
   let loadSvg = function() {
     var body = document.body;
-    var svgDom = document.getElementById("__svg__icons__dom__1717039680896__");
+    var svgDom = document.getElementById("__svg__icons__dom__1717121443046__");
     if (!svgDom) {
       svgDom = document.createElementNS("http://www.w3.org/2000/svg", "svg");
       svgDom.style.position = "absolute";
       svgDom.style.width = "0";
       svgDom.style.height = "0";
-      svgDom.id = "__svg__icons__dom__1717039680896__";
+      svgDom.id = "__svg__icons__dom__1717121443046__";
       svgDom.setAttribute("xmlns", "http://www.w3.org/2000/svg");
       svgDom.setAttribute("xmlns:link", "http://www.w3.org/1999/xlink");
     }
@@ -81791,7 +81792,8 @@ const install$1 = {
   install,
   VFormDesigner,
   VFormRender,
-  VFormSDK
+  VFormSDK,
+  VFormRegisterHttp
 };
 export {
   install$1 as default

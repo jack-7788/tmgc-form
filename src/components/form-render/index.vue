@@ -1038,13 +1038,13 @@
         const dialogInstance = createVNode(DynamicDialog, {
           options: dialogCon.options,
           formJson: dFormJson,
-          formData: formData || {},
+          formData: { ...formData },
           optionData: topFormRef.optionData,
           globalDsv: topFormRef.globalDsv,
           parentFormRef: this,
           extraData: extraData,
           wrapperId: wrapperDivId,
-          vfCtx: formData || {}
+          vfCtx: { ...formData }
         });
         dialogInstance.appContext = this.$root.$.appContext; //非常重要， 覆盖应用上下文！！
 

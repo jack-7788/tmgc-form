@@ -1,4 +1,4 @@
-import require$$0$2, { openBlock, createElementBlock, normalizeClass, normalizeStyle, createElementVNode, toDisplayString, createCommentVNode, reactive, createVNode, resolveComponent, withCtx, createTextVNode, createBlock, renderSlot, withModifiers, Fragment, withDirectives, renderList, vShow, createSlots, watch, ref, onBeforeUnmount, onMounted, onUnmounted, mergeProps, resolveDynamicComponent, normalizeProps, guardReactiveProps, pushScopeId, popScopeId, defineComponent, Transition, render, h, nextTick, isVNode } from "vue";
+import require$$0$2, { openBlock, createElementBlock, normalizeClass, normalizeStyle, createElementVNode, toDisplayString, createCommentVNode, reactive, createVNode, resolveComponent, withCtx, createTextVNode, createBlock, renderSlot, withModifiers, Fragment, withDirectives, renderList, vShow, h, nextTick, createSlots, watch, ref, onBeforeUnmount, onMounted, onUnmounted, mergeProps, resolveDynamicComponent, normalizeProps, guardReactiveProps, pushScopeId, popScopeId, defineComponent, Transition, render, isVNode } from "vue";
 import { cloneDeep, isArray as isArray$1, debounce, isEmpty, omit } from "lodash-es";
 import { Modal, message } from "ant-design-vue";
 function bind(fn, thisArg) {
@@ -2031,7 +2031,7 @@ const _export_sfc$1 = (sfc, props) => {
   }
   return target;
 };
-const _sfc_main$4x = {
+const _sfc_main$4y = {
   name: "SvgIcon",
   props: {
     iconClass: {
@@ -2073,7 +2073,7 @@ const _sfc_main$4x = {
 };
 const _hoisted_1$1b = ["xlink:href"];
 const _hoisted_2$F = { key: 0 };
-function _sfc_render$4w(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$4x(_ctx, _cache, $props, $setup, $data, $options) {
   return openBlock(), createElementBlock("svg", {
     class: normalizeClass($options.svgClass),
     "aria-hidden": "true",
@@ -2083,7 +2083,7 @@ function _sfc_render$4w(_ctx, _cache, $props, $setup, $data, $options) {
     !!$props.title ? (openBlock(), createElementBlock("title", _hoisted_2$F, toDisplayString($props.title), 1)) : createCommentVNode("", true)
   ], 6);
 }
-const SvgIcon = /* @__PURE__ */ _export_sfc$1(_sfc_main$4x, [["render", _sfc_render$4w], ["__scopeId", "data-v-dfe46d5e"]]);
+const SvgIcon = /* @__PURE__ */ _export_sfc$1(_sfc_main$4y, [["render", _sfc_render$4x], ["__scopeId", "data-v-dfe46d5e"]]);
 var commonjsGlobal = typeof globalThis !== "undefined" ? globalThis : typeof window !== "undefined" ? window : typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : {};
 function getDefaultExportFromCjs(x) {
   return x && x.__esModule && Object.prototype.hasOwnProperty.call(x, "default") ? x["default"] : x;
@@ -5129,6 +5129,7 @@ const advancedFieldsEnums = {
   treeSelect,
   richEditor,
   codeEditor
+  // fileUpload
 };
 const containers$1 = Object.values(containersEnums).map((fn) => fn());
 const basicFields = Object.values(basicFieldsEnums).map((fn) => fn());
@@ -5266,7 +5267,7 @@ function toPropertyKey(t) {
   var i = toPrimitive(t, "string");
   return "symbol" == _typeof$1(i) ? i : i + "";
 }
-function _defineProperty$6(obj, key, value2) {
+function _defineProperty$7(obj, key, value2) {
   key = toPropertyKey(key);
   if (key in obj) {
     Object.defineProperty(obj, key, {
@@ -5294,7 +5295,7 @@ function _objectSpread2$1(e) {
   for (var r = 1; r < arguments.length; r++) {
     var t = null != arguments[r] ? arguments[r] : {};
     r % 2 ? ownKeys$1(Object(t), true).forEach(function(r2) {
-      _defineProperty$6(e, r2, t[r2]);
+      _defineProperty$7(e, r2, t[r2]);
     }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys$1(Object(t)).forEach(function(r2) {
       Object.defineProperty(e, r2, Object.getOwnPropertyDescriptor(t, r2));
     });
@@ -6752,7 +6753,7 @@ const TpfConfirm = (ops) => {
     });
   });
 };
-const _sfc_main$4w = {
+const _sfc_main$4x = {
   name: "FieldPanel",
   mixins: [i18n$1],
   components: { SvgIcon },
@@ -6922,10 +6923,10 @@ const _sfc_main$4w = {
 const _hoisted_1$1a = { class: "side-scroll-bar" };
 const _hoisted_2$E = { class: "panel-container" };
 const _hoisted_3$u = ["title", "onDblclick"];
-const _hoisted_4$j = ["title", "onDblclick"];
-const _hoisted_5$d = ["title", "onDblclick"];
+const _hoisted_4$i = ["title", "onDblclick"];
+const _hoisted_5$c = ["title", "onDblclick"];
 const _hoisted_7$9 = ["title", "onDblclick"];
-function _sfc_render$4v(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$4w(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_svg_icon = resolveComponent("svg-icon");
   const _component_draggable = resolveComponent("draggable");
   const _component_a_collapse_panel = resolveComponent("a-collapse-panel");
@@ -7027,7 +7028,7 @@ function _sfc_render$4v(_ctx, _cache, $props, $setup, $data, $options) {
                                 `extension.widgetLabel.${fld.type}`
                               )), 1)
                             ])
-                          ], 40, _hoisted_4$j)
+                          ], 40, _hoisted_4$i)
                         ]),
                         _: 1
                       }, 8, ["list", "move", "clone"])
@@ -7065,7 +7066,7 @@ function _sfc_render$4v(_ctx, _cache, $props, $setup, $data, $options) {
                                 `extension.widgetLabel.${fld.type}`
                               )), 1)
                             ])
-                          ], 40, _hoisted_5$d)
+                          ], 40, _hoisted_5$c)
                         ]),
                         _: 1
                       }, 8, ["list", "move", "clone"])
@@ -7124,7 +7125,7 @@ function _sfc_render$4v(_ctx, _cache, $props, $setup, $data, $options) {
     ])
   ]);
 }
-const WidgetPanel = /* @__PURE__ */ _export_sfc$1(_sfc_main$4w, [["render", _sfc_render$4v], ["__scopeId", "data-v-dbc3e9b9"]]);
+const WidgetPanel = /* @__PURE__ */ _export_sfc$1(_sfc_main$4x, [["render", _sfc_render$4w], ["__scopeId", "data-v-dbc3e9b9"]]);
 const emitter = {
   data() {
     return {
@@ -7197,7 +7198,7 @@ const emitter = {
     }
   }
 };
-const _sfc_main$4v = {
+const _sfc_main$4w = {
   name: "container-item-wrapper",
   props: {
     widget: Object
@@ -7208,7 +7209,7 @@ const _sfc_main$4v = {
     }
   }
 };
-function _sfc_render$4u(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$4v(_ctx, _cache, $props, $setup, $data, $options) {
   return openBlock(), createElementBlock("div", {
     class: normalizeClass(["container-wrapper", [$options.customClass]]),
     style: normalizeStyle(_ctx.$attrs.containerStyle)
@@ -7216,12 +7217,12 @@ function _sfc_render$4u(_ctx, _cache, $props, $setup, $data, $options) {
     renderSlot(_ctx.$slots, "default")
   ], 6);
 }
-const ContainerItemWrapper = /* @__PURE__ */ _export_sfc$1(_sfc_main$4v, [["render", _sfc_render$4u]]);
+const ContainerItemWrapper = /* @__PURE__ */ _export_sfc$1(_sfc_main$4w, [["render", _sfc_render$4v]]);
 const __vite_glob_0_0$3 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: ContainerItemWrapper
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$4u = {
+const _sfc_main$4v = {
   name: "static-content-wrapper",
   mixins: [i18n$1],
   components: {
@@ -7314,15 +7315,15 @@ const _hoisted_1$19 = {
 };
 const _hoisted_2$D = ["title"];
 const _hoisted_3$t = ["title"];
-const _hoisted_4$i = ["title"];
-const _hoisted_5$c = ["title"];
+const _hoisted_4$h = ["title"];
+const _hoisted_5$b = ["title"];
 const _hoisted_6$a = {
   key: 1,
   class: "drag-handler background-opacity"
 };
 const _hoisted_7$8 = ["title"];
 const _hoisted_8$8 = { key: 0 };
-function _sfc_render$4t(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$4u(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_svg_icon = resolveComponent("svg-icon");
   return openBlock(), createElementBlock("div", {
     class: normalizeClass(["field-wrapper", { "design-time-bottom-margin": !!this.designer }]),
@@ -7357,13 +7358,13 @@ function _sfc_render$4t(_ctx, _cache, $props, $setup, $data, $options) {
           onClick: _cache[3] || (_cache[3] = withModifiers(($event) => $options.moveDownWidget($props.field), ["stop"]))
         }, [
           createVNode(_component_svg_icon, { "icon-class": "el-move-down" })
-        ], 8, _hoisted_4$i)) : createCommentVNode("", true),
+        ], 8, _hoisted_4$h)) : createCommentVNode("", true),
         createElementVNode("i", {
           title: _ctx.i18nt("designer.hint.remove"),
           onClick: _cache[4] || (_cache[4] = withModifiers((...args) => $options.removeFieldWidget && $options.removeFieldWidget(...args), ["stop"]))
         }, [
           createVNode(_component_svg_icon, { "icon-class": "el-delete" })
-        ], 8, _hoisted_5$c)
+        ], 8, _hoisted_5$b)
       ])) : createCommentVNode("", true),
       $props.designer.selectedId === $props.field.id ? (openBlock(), createElementBlock("div", _hoisted_6$a, [
         createElementVNode("i", {
@@ -7379,7 +7380,7 @@ function _sfc_render$4t(_ctx, _cache, $props, $setup, $data, $options) {
     ], 64)) : createCommentVNode("", true)
   ], 6);
 }
-const StaticContentWrapper = /* @__PURE__ */ _export_sfc$1(_sfc_main$4u, [["render", _sfc_render$4t], ["__scopeId", "data-v-44f8840e"]]);
+const StaticContentWrapper = /* @__PURE__ */ _export_sfc$1(_sfc_main$4v, [["render", _sfc_render$4u], ["__scopeId", "data-v-44f8840e"]]);
 const __vite_glob_0_21$1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: StaticContentWrapper
@@ -10053,6 +10054,16 @@ const fieldMixin = {
     getFieldEditor() {
       return this.$refs["fieldEditor"];
     },
+    showFileList(list) {
+      if (!isArray$1(list))
+        return [];
+      const res = list.map((item, uid) => ({
+        ...item,
+        name: item.fileName,
+        uid
+      }));
+      return res;
+    },
     /*
       注意：VFormRender的setFormData方法不会触发子表单内field-widget的setValue方法，
       因为setFormData方法调用后，子表单内所有field-widget组件已被清空，接收不到setFormData事件！！
@@ -10063,7 +10074,12 @@ const fieldMixin = {
       }
       if (!!this.field.formItemFlag) {
         const oldValue = deepClone(this.fieldModel);
-        this.fieldModel = newValue;
+        if (this.field.type === "file-upload") {
+          newValue = this.showFileList(newValue || []);
+          this.fieldModel = newValue;
+        } else {
+          this.fieldModel = newValue;
+        }
         this.initFileList();
         this.syncUpdateFormModel(newValue);
         if (!disableChangeEvent) {
@@ -10082,8 +10098,8 @@ const fieldMixin = {
       this.$nextTick(() => {
       });
       if (this.field.type === "picture-upload" || this.field.type === "file-upload") {
-        this.$refs["fieldEditor"].clearFiles();
         this.fileList.splice(0, this.fileList.length);
+        this.handleChangeEvent(this.fileList);
       }
     },
     setWidgetOption(optionName, optionValue) {
@@ -10247,7 +10263,7 @@ const fieldMixin = {
     //--------------------- 以上为组件支持外部调用的API方法 end ------------------//
   }
 };
-const _sfc_main$4t = {
+const _sfc_main$4u = {
   name: "button-widget",
   componentName: "FieldWidget",
   //必须固定为FieldWidget，用于接收父级组件的broadcast事件
@@ -10298,7 +10314,7 @@ const _sfc_main$4t = {
   },
   methods: {}
 };
-function _sfc_render$4s(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$4t(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_svg_icon = resolveComponent("svg-icon");
   const _component_a_button = resolveComponent("a-button");
   const _component_static_content_wrapper = resolveComponent("static-content-wrapper");
@@ -10340,12 +10356,12 @@ function _sfc_render$4s(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["designer", "field", "design-state", "display-style", "parent-widget", "parent-list", "index-of-parent-list", "sub-form-row-index", "sub-form-col-index", "sub-form-row-id"])) : createCommentVNode("", true);
 }
-const buttonWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$4t, [["render", _sfc_render$4s], ["__scopeId", "data-v-c331f217"]]);
+const buttonWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$4u, [["render", _sfc_render$4t], ["__scopeId", "data-v-c331f217"]]);
 const __vite_glob_0_0$2 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: buttonWidget
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$4s = {
+const _sfc_main$4t = {
   name: "form-item-wrapper",
   mixins: [i18n$1],
   components: {
@@ -10506,8 +10522,8 @@ const _hoisted_2$C = {
   class: "custom-label"
 };
 const _hoisted_3$s = { class: "label-text" };
-const _hoisted_4$h = { class: "label-text" };
-const _hoisted_5$b = { class: "label-text" };
+const _hoisted_4$g = { class: "label-text" };
+const _hoisted_5$a = { class: "label-text" };
 const _hoisted_6$9 = { class: "label-text" };
 const _hoisted_7$7 = { class: "label-text" };
 const _hoisted_8$7 = {
@@ -10524,7 +10540,7 @@ const _hoisted_13$1 = {
 };
 const _hoisted_14$1 = ["title"];
 const _hoisted_15 = { key: 0 };
-function _sfc_render$4r(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$4s(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_svg_icon = resolveComponent("svg-icon");
   const _component_a_tooltip = resolveComponent("a-tooltip");
   const _component_a_form_item = resolveComponent("a-form-item");
@@ -10576,7 +10592,7 @@ function _sfc_render$4r(_ctx, _cache, $props, $setup, $data, $options) {
                   overlayStyle: { zIndex: 1e3 }
                 }, {
                   default: withCtx(() => [
-                    createElementVNode("div", _hoisted_4$h, toDisplayString($options.label), 1)
+                    createElementVNode("div", _hoisted_4$g, toDisplayString($options.label), 1)
                   ]),
                   _: 1
                 }, 8, ["title"])
@@ -10588,7 +10604,7 @@ function _sfc_render$4r(_ctx, _cache, $props, $setup, $data, $options) {
                   overlayStyle: { zIndex: 1e3 }
                 }, {
                   default: withCtx(() => [
-                    createElementVNode("div", _hoisted_5$b, toDisplayString($options.label), 1)
+                    createElementVNode("div", _hoisted_5$a, toDisplayString($options.label), 1)
                   ]),
                   _: 1
                 }, 8, ["title"]),
@@ -10678,7 +10694,7 @@ function _sfc_render$4r(_ctx, _cache, $props, $setup, $data, $options) {
     ], 64)) : createCommentVNode("", true)
   ], 2);
 }
-const FormItemWrapper = /* @__PURE__ */ _export_sfc$1(_sfc_main$4s, [["render", _sfc_render$4r], ["__scopeId", "data-v-2c44d737"]]);
+const FormItemWrapper = /* @__PURE__ */ _export_sfc$1(_sfc_main$4t, [["render", _sfc_render$4s], ["__scopeId", "data-v-2c44d737"]]);
 const __vite_glob_0_10$3 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: FormItemWrapper
@@ -10733,7 +10749,7 @@ const getListName = (val, list, fieldNames) => {
   });
   return res;
 };
-const _sfc_main$4r = {
+const _sfc_main$4s = {
   name: "cascader-widget",
   componentName: "FieldWidget",
   //必须固定为FieldWidget，用于接收父级组件的broadcast事件
@@ -10831,7 +10847,7 @@ const _sfc_main$4r = {
   }
 };
 const _hoisted_1$17 = { class: "readonly-mode-field" };
-function _sfc_render$4q(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$4r(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_cascader = resolveComponent("a-cascader");
   const _component_a_tooltip = resolveComponent("a-tooltip");
   const _component_form_item_wrapper = resolveComponent("form-item-wrapper");
@@ -10883,12 +10899,12 @@ function _sfc_render$4q(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["designer", "field", "rules", "design-state", "parent-widget", "parent-list", "index-of-parent-list", "sub-form-row-index", "sub-form-col-index", "sub-form-row-id"]);
 }
-const cascaderWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$4r, [["render", _sfc_render$4q], ["__scopeId", "data-v-9815d2f7"]]);
+const cascaderWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$4s, [["render", _sfc_render$4r], ["__scopeId", "data-v-9815d2f7"]]);
 const __vite_glob_0_1$3 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: cascaderWidget
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$4q = {
+const _sfc_main$4r = {
   name: "checkbox-widget",
   componentName: "FieldWidget",
   //必须固定为FieldWidget，用于接收父级组件的broadcast事件
@@ -10953,7 +10969,7 @@ const _hoisted_1$16 = {
   key: 0,
   class: "readonly-mode-field"
 };
-function _sfc_render$4p(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$4q(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_checkbox = resolveComponent("a-checkbox");
   const _component_a_checkbox_group = resolveComponent("a-checkbox-group");
   const _component_form_item_wrapper = resolveComponent("form-item-wrapper");
@@ -11002,7 +11018,7 @@ function _sfc_render$4p(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["designer", "field", "rules", "design-state", "parent-widget", "parent-list", "index-of-parent-list", "sub-form-row-index", "sub-form-col-index", "sub-form-row-id"]);
 }
-const checkboxWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$4q, [["render", _sfc_render$4p], ["__scopeId", "data-v-0df5bd5e"]]);
+const checkboxWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$4r, [["render", _sfc_render$4q], ["__scopeId", "data-v-0df5bd5e"]]);
 const __vite_glob_0_2$3 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: checkboxWidget
@@ -34449,7 +34465,7 @@ var extLanguage_tools = { exports: {} };
 })(extLanguage_tools);
 const VARIANT_FORM_VERSION = "3.1.6";
 const ACE_BASE_PATH = "https://ks3-cn-beijing.ksyun.com/vform2021/ace-mini";
-const _sfc_main$4p = {
+const _sfc_main$4q = {
   name: "CodeEditor",
   props: {
     modelValue: {
@@ -34600,13 +34616,13 @@ const _hoisted_2$B = {
   class: "ace-editor",
   ref: "ace"
 };
-function _sfc_render$4o(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$4p(_ctx, _cache, $props, $setup, $data, $options) {
   return openBlock(), createElementBlock("div", _hoisted_1$15, [
     createElementVNode("div", _hoisted_2$B, null, 512)
   ]);
 }
-const CodeEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$4p, [["render", _sfc_render$4o], ["__scopeId", "data-v-34702439"]]);
-const _sfc_main$4o = {
+const CodeEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$4q, [["render", _sfc_render$4p], ["__scopeId", "data-v-34702439"]]);
+const _sfc_main$4p = {
   name: "code-editor-widget",
   componentName: "FieldWidget",
   //必须固定为FieldWidget，用于接收父级组件的broadcast事件
@@ -34667,7 +34683,7 @@ const _sfc_main$4o = {
   },
   methods: {}
 };
-function _sfc_render$4n(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$4o(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_code_editor = resolveComponent("code-editor");
   const _component_form_item_wrapper = resolveComponent("form-item-wrapper");
   return openBlock(), createBlock(_component_form_item_wrapper, {
@@ -34696,12 +34712,12 @@ function _sfc_render$4n(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["designer", "field", "rules", "design-state", "parent-widget", "parent-list", "index-of-parent-list", "sub-form-row-index", "sub-form-col-index", "sub-form-row-id"]);
 }
-const codeEditorWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$4o, [["render", _sfc_render$4n], ["__scopeId", "data-v-d8d7cd0a"]]);
+const codeEditorWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$4p, [["render", _sfc_render$4o], ["__scopeId", "data-v-d8d7cd0a"]]);
 const __vite_glob_0_3$3 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: codeEditorWidget
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$4n = {
+const _sfc_main$4o = {
   name: "color-widget",
   componentName: "FieldWidget",
   //必须固定为FieldWidget，用于接收父级组件的broadcast事件
@@ -34765,7 +34781,7 @@ const _hoisted_1$14 = {
   key: 0,
   class: "readonly-mode-field"
 };
-function _sfc_render$4m(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$4n(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_input = resolveComponent("a-input");
   const _component_form_item_wrapper = resolveComponent("form-item-wrapper");
   return openBlock(), createBlock(_component_form_item_wrapper, {
@@ -34797,12 +34813,12 @@ function _sfc_render$4m(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["designer", "field", "rules", "design-state", "parent-widget", "parent-list", "index-of-parent-list", "sub-form-row-index", "sub-form-col-index", "sub-form-row-id"]);
 }
-const colorWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$4n, [["render", _sfc_render$4m], ["__scopeId", "data-v-cbaee193"]]);
+const colorWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$4o, [["render", _sfc_render$4n], ["__scopeId", "data-v-cbaee193"]]);
 const __vite_glob_0_4$3 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: colorWidget
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$4m = {
+const _sfc_main$4n = {
   name: "date-range-widget",
   componentName: "FieldWidget",
   //必须固定为FieldWidget，用于接收父级组件的broadcast事件
@@ -34871,7 +34887,7 @@ const _sfc_main$4m = {
   methods: {}
 };
 const _hoisted_1$13 = { class: "readonly-mode-field" };
-function _sfc_render$4l(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$4m(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_range_picker = resolveComponent("a-range-picker");
   const _component_a_tooltip = resolveComponent("a-tooltip");
   const _component_form_item_wrapper = resolveComponent("form-item-wrapper");
@@ -34927,12 +34943,12 @@ function _sfc_render$4l(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["designer", "field", "rules", "design-state", "parent-widget", "parent-list", "index-of-parent-list", "sub-form-row-index", "sub-form-col-index", "sub-form-row-id"]);
 }
-const dateRangeWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$4m, [["render", _sfc_render$4l], ["__scopeId", "data-v-cc3613dd"]]);
+const dateRangeWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$4n, [["render", _sfc_render$4m], ["__scopeId", "data-v-cc3613dd"]]);
 const __vite_glob_0_5$3 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: dateRangeWidget
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$4l = {
+const _sfc_main$4m = {
   name: "date-widget",
   componentName: "FieldWidget",
   //必须固定为FieldWidget，用于接收父级组件的broadcast事件
@@ -35004,7 +35020,7 @@ const _sfc_main$4l = {
   methods: {}
 };
 const _hoisted_1$12 = { class: "readonly-mode-field" };
-function _sfc_render$4k(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$4l(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_date_picker = resolveComponent("a-date-picker");
   const _component_a_tooltip = resolveComponent("a-tooltip");
   const _component_form_item_wrapper = resolveComponent("form-item-wrapper");
@@ -35061,12 +35077,12 @@ function _sfc_render$4k(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["designer", "field", "rules", "design-state", "parent-widget", "parent-list", "index-of-parent-list", "sub-form-row-index", "sub-form-col-index", "sub-form-row-id"]);
 }
-const dateWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$4l, [["render", _sfc_render$4k], ["__scopeId", "data-v-74795a48"]]);
+const dateWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$4m, [["render", _sfc_render$4l], ["__scopeId", "data-v-74795a48"]]);
 const __vite_glob_0_6$3 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: dateWidget
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$4k = {
+const _sfc_main$4l = {
   name: "divider-widget",
   componentName: "FieldWidget",
   //必须固定为FieldWidget，用于接收父级组件的broadcast事件
@@ -35116,7 +35132,7 @@ const _sfc_main$4k = {
   },
   methods: {}
 };
-function _sfc_render$4j(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$4k(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_divider = resolveComponent("a-divider");
   const _component_static_content_wrapper = resolveComponent("static-content-wrapper");
   return openBlock(), createBlock(_component_static_content_wrapper, {
@@ -35145,12 +35161,12 @@ function _sfc_render$4j(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["designer", "field", "design-state", "parent-widget", "parent-list", "index-of-parent-list", "sub-form-row-index", "sub-form-col-index", "sub-form-row-id"]);
 }
-const dividerWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$4k, [["render", _sfc_render$4j], ["__scopeId", "data-v-5e29648b"]]);
+const dividerWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$4l, [["render", _sfc_render$4k], ["__scopeId", "data-v-5e29648b"]]);
 const __vite_glob_0_7$3 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: dividerWidget
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$4j = {
+const _sfc_main$4k = {
   name: "dropdown-widget",
   componentName: "FieldWidget",
   //必须固定为FieldWidget，用于接收父级组件的broadcast事件
@@ -35209,7 +35225,7 @@ const _sfc_main$4j = {
     }
   }
 };
-function _sfc_render$4i(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$4j(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_menu_item = resolveComponent("a-menu-item");
   const _component_a_menu = resolveComponent("a-menu");
   const _component_DownOutlined = resolveComponent("DownOutlined");
@@ -35274,13 +35290,1291 @@ function _sfc_render$4i(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["designer", "field", "design-state", "display-style", "parent-widget", "parent-list", "index-of-parent-list", "sub-form-row-index", "sub-form-col-index", "sub-form-row-id"]);
 }
-const dropdownWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$4j, [["render", _sfc_render$4i], ["__scopeId", "data-v-200931c2"]]);
+const dropdownWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$4k, [["render", _sfc_render$4j], ["__scopeId", "data-v-200931c2"]]);
 const __vite_glob_0_8$3 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: dropdownWidget
 }, Symbol.toStringTag, { value: "Module" }));
-const selectFileText = "'" + translate("render.hint.selectFile") + "'";
-const _sfc_main$4i = {
+var FileSaver_min = { exports: {} };
+(function(module, exports) {
+  (function(a, b) {
+    b();
+  })(commonjsGlobal, function() {
+    function b(a2, b2) {
+      return "undefined" == typeof b2 ? b2 = { autoBom: false } : "object" != typeof b2 && (console.warn("Deprecated: Expected third argument to be a object"), b2 = { autoBom: !b2 }), b2.autoBom && /^\s*(?:text\/\S*|application\/xml|\S*\/\S*\+xml)\s*;.*charset\s*=\s*utf-8/i.test(a2.type) ? new Blob(["\uFEFF", a2], { type: a2.type }) : a2;
+    }
+    function c(a2, b2, c2) {
+      var d2 = new XMLHttpRequest();
+      d2.open("GET", a2), d2.responseType = "blob", d2.onload = function() {
+        g(d2.response, b2, c2);
+      }, d2.onerror = function() {
+        console.error("could not download file");
+      }, d2.send();
+    }
+    function d(a2) {
+      var b2 = new XMLHttpRequest();
+      b2.open("HEAD", a2, false);
+      try {
+        b2.send();
+      } catch (a3) {
+      }
+      return 200 <= b2.status && 299 >= b2.status;
+    }
+    function e(a2) {
+      try {
+        a2.dispatchEvent(new MouseEvent("click"));
+      } catch (c2) {
+        var b2 = document.createEvent("MouseEvents");
+        b2.initMouseEvent("click", true, true, window, 0, 0, 0, 80, 20, false, false, false, false, 0, null), a2.dispatchEvent(b2);
+      }
+    }
+    var f = "object" == typeof window && window.window === window ? window : "object" == typeof self && self.self === self ? self : "object" == typeof commonjsGlobal && commonjsGlobal.global === commonjsGlobal ? commonjsGlobal : void 0, a = f.navigator && /Macintosh/.test(navigator.userAgent) && /AppleWebKit/.test(navigator.userAgent) && !/Safari/.test(navigator.userAgent), g = f.saveAs || ("object" != typeof window || window !== f ? function() {
+    } : "download" in HTMLAnchorElement.prototype && !a ? function(b2, g2, h2) {
+      var i = f.URL || f.webkitURL, j = document.createElement("a");
+      g2 = g2 || b2.name || "download", j.download = g2, j.rel = "noopener", "string" == typeof b2 ? (j.href = b2, j.origin === location.origin ? e(j) : d(j.href) ? c(b2, g2, h2) : e(j, j.target = "_blank")) : (j.href = i.createObjectURL(b2), setTimeout(function() {
+        i.revokeObjectURL(j.href);
+      }, 4e4), setTimeout(function() {
+        e(j);
+      }, 0));
+    } : "msSaveOrOpenBlob" in navigator ? function(f2, g2, h2) {
+      if (g2 = g2 || f2.name || "download", "string" != typeof f2)
+        navigator.msSaveOrOpenBlob(b(f2, h2), g2);
+      else if (d(f2))
+        c(f2, g2, h2);
+      else {
+        var i = document.createElement("a");
+        i.href = f2, i.target = "_blank", setTimeout(function() {
+          e(i);
+        });
+      }
+    } : function(b2, d2, e2, g2) {
+      if (g2 = g2 || open("", "_blank"), g2 && (g2.document.title = g2.document.body.innerText = "downloading..."), "string" == typeof b2)
+        return c(b2, d2, e2);
+      var h2 = "application/octet-stream" === b2.type, i = /constructor/i.test(f.HTMLElement) || f.safari, j = /CriOS\/[\d]+/.test(navigator.userAgent);
+      if ((j || h2 && i || a) && "undefined" != typeof FileReader) {
+        var k = new FileReader();
+        k.onloadend = function() {
+          var a2 = k.result;
+          a2 = j ? a2 : a2.replace(/^data:[^;]*;/, "data:attachment/file;"), g2 ? g2.location.href = a2 : location = a2, g2 = null;
+        }, k.readAsDataURL(b2);
+      } else {
+        var l = f.URL || f.webkitURL, m = l.createObjectURL(b2);
+        g2 ? g2.location = m : location.href = m, g2 = null, setTimeout(function() {
+          l.revokeObjectURL(m);
+        }, 4e4);
+      }
+    });
+    f.saveAs = g.saveAs = g, module.exports = g;
+  });
+})(FileSaver_min);
+var FileSaver_minExports = FileSaver_min.exports;
+const useFilesystemApi = () => {
+  const http2 = getHttp();
+  const tmgc2Filesystem = "/api/tmgc2-filesystem/";
+  const downloadFileObjectApi = async (params) => {
+    const response = await http2.get(`${tmgc2Filesystem}/fileObject/downloadFileObject`, {
+      params,
+      responseType: "blob"
+    });
+    const fileName = window.decodeURI(response.headers["filename"]);
+    FileSaver_minExports.saveAs(new Blob([response.data], { type: "application/vnd.ms-excel;" }), fileName);
+  };
+  return {
+    /**
+     * 上传文件获取 fileCode
+     */
+    uploadFileObject: (params) => {
+      return http2.postForm(`${tmgc2Filesystem}/fileObject/uploadFileObject`, params, {
+        timeout: 6e5
+      });
+    },
+    /**
+     * 根据 fileCode下载文件
+     */
+    downloadFileObject: downloadFileObjectApi,
+    /**
+     * 下载模版
+     */
+    downloadTemplateObject: async (params) => {
+      const response = await http2.get(`${tmgc2Filesystem}/fileObject/downloadTemplateObject`, {
+        params,
+        responseType: "blob"
+      });
+      const fileName = window.decodeURI(response.headers["filename"]);
+      FileSaver_minExports.saveAs(new Blob([response.data], { type: "application/vnd.ms-excel;" }), fileName);
+    },
+    /**
+     * 展示文件
+     * @param params
+     * @returns
+     */
+    getPreviewFileUrl: (params) => {
+      return http2.get(`${tmgc2Filesystem}/fileObject/getPreviewFileUrl`, {
+        params
+      });
+    }
+  };
+};
+function bound01(n, max) {
+  if (isOnePointZero(n)) {
+    n = "100%";
+  }
+  var isPercent = isPercentage(n);
+  n = max === 360 ? n : Math.min(max, Math.max(0, parseFloat(n)));
+  if (isPercent) {
+    n = parseInt(String(n * max), 10) / 100;
+  }
+  if (Math.abs(n - max) < 1e-6) {
+    return 1;
+  }
+  if (max === 360) {
+    n = (n < 0 ? n % max + max : n % max) / parseFloat(String(max));
+  } else {
+    n = n % max / parseFloat(String(max));
+  }
+  return n;
+}
+function isOnePointZero(n) {
+  return typeof n === "string" && n.indexOf(".") !== -1 && parseFloat(n) === 1;
+}
+function isPercentage(n) {
+  return typeof n === "string" && n.indexOf("%") !== -1;
+}
+function boundAlpha(a) {
+  a = parseFloat(a);
+  if (isNaN(a) || a < 0 || a > 1) {
+    a = 1;
+  }
+  return a;
+}
+function convertToPercentage(n) {
+  if (n <= 1) {
+    return "".concat(Number(n) * 100, "%");
+  }
+  return n;
+}
+function pad2(c) {
+  return c.length === 1 ? "0" + c : String(c);
+}
+function rgbToRgb(r, g, b) {
+  return {
+    r: bound01(r, 255) * 255,
+    g: bound01(g, 255) * 255,
+    b: bound01(b, 255) * 255
+  };
+}
+function hue2rgb(p, q, t) {
+  if (t < 0) {
+    t += 1;
+  }
+  if (t > 1) {
+    t -= 1;
+  }
+  if (t < 1 / 6) {
+    return p + (q - p) * (6 * t);
+  }
+  if (t < 1 / 2) {
+    return q;
+  }
+  if (t < 2 / 3) {
+    return p + (q - p) * (2 / 3 - t) * 6;
+  }
+  return p;
+}
+function hslToRgb(h2, s, l) {
+  var r;
+  var g;
+  var b;
+  h2 = bound01(h2, 360);
+  s = bound01(s, 100);
+  l = bound01(l, 100);
+  if (s === 0) {
+    g = l;
+    b = l;
+    r = l;
+  } else {
+    var q = l < 0.5 ? l * (1 + s) : l + s - l * s;
+    var p = 2 * l - q;
+    r = hue2rgb(p, q, h2 + 1 / 3);
+    g = hue2rgb(p, q, h2);
+    b = hue2rgb(p, q, h2 - 1 / 3);
+  }
+  return { r: r * 255, g: g * 255, b: b * 255 };
+}
+function rgbToHsv(r, g, b) {
+  r = bound01(r, 255);
+  g = bound01(g, 255);
+  b = bound01(b, 255);
+  var max = Math.max(r, g, b);
+  var min = Math.min(r, g, b);
+  var h2 = 0;
+  var v = max;
+  var d = max - min;
+  var s = max === 0 ? 0 : d / max;
+  if (max === min) {
+    h2 = 0;
+  } else {
+    switch (max) {
+      case r:
+        h2 = (g - b) / d + (g < b ? 6 : 0);
+        break;
+      case g:
+        h2 = (b - r) / d + 2;
+        break;
+      case b:
+        h2 = (r - g) / d + 4;
+        break;
+    }
+    h2 /= 6;
+  }
+  return { h: h2, s, v };
+}
+function hsvToRgb(h2, s, v) {
+  h2 = bound01(h2, 360) * 6;
+  s = bound01(s, 100);
+  v = bound01(v, 100);
+  var i = Math.floor(h2);
+  var f = h2 - i;
+  var p = v * (1 - s);
+  var q = v * (1 - f * s);
+  var t = v * (1 - (1 - f) * s);
+  var mod = i % 6;
+  var r = [v, q, p, p, t, v][mod];
+  var g = [t, v, v, q, p, p][mod];
+  var b = [p, p, t, v, v, q][mod];
+  return { r: r * 255, g: g * 255, b: b * 255 };
+}
+function rgbToHex(r, g, b, allow3Char) {
+  var hex = [
+    pad2(Math.round(r).toString(16)),
+    pad2(Math.round(g).toString(16)),
+    pad2(Math.round(b).toString(16))
+  ];
+  if (allow3Char && hex[0].startsWith(hex[0].charAt(1)) && hex[1].startsWith(hex[1].charAt(1)) && hex[2].startsWith(hex[2].charAt(1))) {
+    return hex[0].charAt(0) + hex[1].charAt(0) + hex[2].charAt(0);
+  }
+  return hex.join("");
+}
+function convertHexToDecimal(h2) {
+  return parseIntFromHex(h2) / 255;
+}
+function parseIntFromHex(val) {
+  return parseInt(val, 16);
+}
+var names = {
+  aliceblue: "#f0f8ff",
+  antiquewhite: "#faebd7",
+  aqua: "#00ffff",
+  aquamarine: "#7fffd4",
+  azure: "#f0ffff",
+  beige: "#f5f5dc",
+  bisque: "#ffe4c4",
+  black: "#000000",
+  blanchedalmond: "#ffebcd",
+  blue: "#0000ff",
+  blueviolet: "#8a2be2",
+  brown: "#a52a2a",
+  burlywood: "#deb887",
+  cadetblue: "#5f9ea0",
+  chartreuse: "#7fff00",
+  chocolate: "#d2691e",
+  coral: "#ff7f50",
+  cornflowerblue: "#6495ed",
+  cornsilk: "#fff8dc",
+  crimson: "#dc143c",
+  cyan: "#00ffff",
+  darkblue: "#00008b",
+  darkcyan: "#008b8b",
+  darkgoldenrod: "#b8860b",
+  darkgray: "#a9a9a9",
+  darkgreen: "#006400",
+  darkgrey: "#a9a9a9",
+  darkkhaki: "#bdb76b",
+  darkmagenta: "#8b008b",
+  darkolivegreen: "#556b2f",
+  darkorange: "#ff8c00",
+  darkorchid: "#9932cc",
+  darkred: "#8b0000",
+  darksalmon: "#e9967a",
+  darkseagreen: "#8fbc8f",
+  darkslateblue: "#483d8b",
+  darkslategray: "#2f4f4f",
+  darkslategrey: "#2f4f4f",
+  darkturquoise: "#00ced1",
+  darkviolet: "#9400d3",
+  deeppink: "#ff1493",
+  deepskyblue: "#00bfff",
+  dimgray: "#696969",
+  dimgrey: "#696969",
+  dodgerblue: "#1e90ff",
+  firebrick: "#b22222",
+  floralwhite: "#fffaf0",
+  forestgreen: "#228b22",
+  fuchsia: "#ff00ff",
+  gainsboro: "#dcdcdc",
+  ghostwhite: "#f8f8ff",
+  goldenrod: "#daa520",
+  gold: "#ffd700",
+  gray: "#808080",
+  green: "#008000",
+  greenyellow: "#adff2f",
+  grey: "#808080",
+  honeydew: "#f0fff0",
+  hotpink: "#ff69b4",
+  indianred: "#cd5c5c",
+  indigo: "#4b0082",
+  ivory: "#fffff0",
+  khaki: "#f0e68c",
+  lavenderblush: "#fff0f5",
+  lavender: "#e6e6fa",
+  lawngreen: "#7cfc00",
+  lemonchiffon: "#fffacd",
+  lightblue: "#add8e6",
+  lightcoral: "#f08080",
+  lightcyan: "#e0ffff",
+  lightgoldenrodyellow: "#fafad2",
+  lightgray: "#d3d3d3",
+  lightgreen: "#90ee90",
+  lightgrey: "#d3d3d3",
+  lightpink: "#ffb6c1",
+  lightsalmon: "#ffa07a",
+  lightseagreen: "#20b2aa",
+  lightskyblue: "#87cefa",
+  lightslategray: "#778899",
+  lightslategrey: "#778899",
+  lightsteelblue: "#b0c4de",
+  lightyellow: "#ffffe0",
+  lime: "#00ff00",
+  limegreen: "#32cd32",
+  linen: "#faf0e6",
+  magenta: "#ff00ff",
+  maroon: "#800000",
+  mediumaquamarine: "#66cdaa",
+  mediumblue: "#0000cd",
+  mediumorchid: "#ba55d3",
+  mediumpurple: "#9370db",
+  mediumseagreen: "#3cb371",
+  mediumslateblue: "#7b68ee",
+  mediumspringgreen: "#00fa9a",
+  mediumturquoise: "#48d1cc",
+  mediumvioletred: "#c71585",
+  midnightblue: "#191970",
+  mintcream: "#f5fffa",
+  mistyrose: "#ffe4e1",
+  moccasin: "#ffe4b5",
+  navajowhite: "#ffdead",
+  navy: "#000080",
+  oldlace: "#fdf5e6",
+  olive: "#808000",
+  olivedrab: "#6b8e23",
+  orange: "#ffa500",
+  orangered: "#ff4500",
+  orchid: "#da70d6",
+  palegoldenrod: "#eee8aa",
+  palegreen: "#98fb98",
+  paleturquoise: "#afeeee",
+  palevioletred: "#db7093",
+  papayawhip: "#ffefd5",
+  peachpuff: "#ffdab9",
+  peru: "#cd853f",
+  pink: "#ffc0cb",
+  plum: "#dda0dd",
+  powderblue: "#b0e0e6",
+  purple: "#800080",
+  rebeccapurple: "#663399",
+  red: "#ff0000",
+  rosybrown: "#bc8f8f",
+  royalblue: "#4169e1",
+  saddlebrown: "#8b4513",
+  salmon: "#fa8072",
+  sandybrown: "#f4a460",
+  seagreen: "#2e8b57",
+  seashell: "#fff5ee",
+  sienna: "#a0522d",
+  silver: "#c0c0c0",
+  skyblue: "#87ceeb",
+  slateblue: "#6a5acd",
+  slategray: "#708090",
+  slategrey: "#708090",
+  snow: "#fffafa",
+  springgreen: "#00ff7f",
+  steelblue: "#4682b4",
+  tan: "#d2b48c",
+  teal: "#008080",
+  thistle: "#d8bfd8",
+  tomato: "#ff6347",
+  turquoise: "#40e0d0",
+  violet: "#ee82ee",
+  wheat: "#f5deb3",
+  white: "#ffffff",
+  whitesmoke: "#f5f5f5",
+  yellow: "#ffff00",
+  yellowgreen: "#9acd32"
+};
+function inputToRGB(color2) {
+  var rgb = { r: 0, g: 0, b: 0 };
+  var a = 1;
+  var s = null;
+  var v = null;
+  var l = null;
+  var ok = false;
+  var format = false;
+  if (typeof color2 === "string") {
+    color2 = stringInputToObject(color2);
+  }
+  if (typeof color2 === "object") {
+    if (isValidCSSUnit(color2.r) && isValidCSSUnit(color2.g) && isValidCSSUnit(color2.b)) {
+      rgb = rgbToRgb(color2.r, color2.g, color2.b);
+      ok = true;
+      format = String(color2.r).substr(-1) === "%" ? "prgb" : "rgb";
+    } else if (isValidCSSUnit(color2.h) && isValidCSSUnit(color2.s) && isValidCSSUnit(color2.v)) {
+      s = convertToPercentage(color2.s);
+      v = convertToPercentage(color2.v);
+      rgb = hsvToRgb(color2.h, s, v);
+      ok = true;
+      format = "hsv";
+    } else if (isValidCSSUnit(color2.h) && isValidCSSUnit(color2.s) && isValidCSSUnit(color2.l)) {
+      s = convertToPercentage(color2.s);
+      l = convertToPercentage(color2.l);
+      rgb = hslToRgb(color2.h, s, l);
+      ok = true;
+      format = "hsl";
+    }
+    if (Object.prototype.hasOwnProperty.call(color2, "a")) {
+      a = color2.a;
+    }
+  }
+  a = boundAlpha(a);
+  return {
+    ok,
+    format: color2.format || format,
+    r: Math.min(255, Math.max(rgb.r, 0)),
+    g: Math.min(255, Math.max(rgb.g, 0)),
+    b: Math.min(255, Math.max(rgb.b, 0)),
+    a
+  };
+}
+var CSS_INTEGER = "[-\\+]?\\d+%?";
+var CSS_NUMBER = "[-\\+]?\\d*\\.\\d+%?";
+var CSS_UNIT = "(?:".concat(CSS_NUMBER, ")|(?:").concat(CSS_INTEGER, ")");
+var PERMISSIVE_MATCH3 = "[\\s|\\(]+(".concat(CSS_UNIT, ")[,|\\s]+(").concat(CSS_UNIT, ")[,|\\s]+(").concat(CSS_UNIT, ")\\s*\\)?");
+var PERMISSIVE_MATCH4 = "[\\s|\\(]+(".concat(CSS_UNIT, ")[,|\\s]+(").concat(CSS_UNIT, ")[,|\\s]+(").concat(CSS_UNIT, ")[,|\\s]+(").concat(CSS_UNIT, ")\\s*\\)?");
+var matchers = {
+  CSS_UNIT: new RegExp(CSS_UNIT),
+  rgb: new RegExp("rgb" + PERMISSIVE_MATCH3),
+  rgba: new RegExp("rgba" + PERMISSIVE_MATCH4),
+  hsl: new RegExp("hsl" + PERMISSIVE_MATCH3),
+  hsla: new RegExp("hsla" + PERMISSIVE_MATCH4),
+  hsv: new RegExp("hsv" + PERMISSIVE_MATCH3),
+  hsva: new RegExp("hsva" + PERMISSIVE_MATCH4),
+  hex3: /^#?([0-9a-fA-F]{1})([0-9a-fA-F]{1})([0-9a-fA-F]{1})$/,
+  hex6: /^#?([0-9a-fA-F]{2})([0-9a-fA-F]{2})([0-9a-fA-F]{2})$/,
+  hex4: /^#?([0-9a-fA-F]{1})([0-9a-fA-F]{1})([0-9a-fA-F]{1})([0-9a-fA-F]{1})$/,
+  hex8: /^#?([0-9a-fA-F]{2})([0-9a-fA-F]{2})([0-9a-fA-F]{2})([0-9a-fA-F]{2})$/
+};
+function stringInputToObject(color2) {
+  color2 = color2.trim().toLowerCase();
+  if (color2.length === 0) {
+    return false;
+  }
+  var named = false;
+  if (names[color2]) {
+    color2 = names[color2];
+    named = true;
+  } else if (color2 === "transparent") {
+    return { r: 0, g: 0, b: 0, a: 0, format: "name" };
+  }
+  var match = matchers.rgb.exec(color2);
+  if (match) {
+    return { r: match[1], g: match[2], b: match[3] };
+  }
+  match = matchers.rgba.exec(color2);
+  if (match) {
+    return { r: match[1], g: match[2], b: match[3], a: match[4] };
+  }
+  match = matchers.hsl.exec(color2);
+  if (match) {
+    return { h: match[1], s: match[2], l: match[3] };
+  }
+  match = matchers.hsla.exec(color2);
+  if (match) {
+    return { h: match[1], s: match[2], l: match[3], a: match[4] };
+  }
+  match = matchers.hsv.exec(color2);
+  if (match) {
+    return { h: match[1], s: match[2], v: match[3] };
+  }
+  match = matchers.hsva.exec(color2);
+  if (match) {
+    return { h: match[1], s: match[2], v: match[3], a: match[4] };
+  }
+  match = matchers.hex8.exec(color2);
+  if (match) {
+    return {
+      r: parseIntFromHex(match[1]),
+      g: parseIntFromHex(match[2]),
+      b: parseIntFromHex(match[3]),
+      a: convertHexToDecimal(match[4]),
+      format: named ? "name" : "hex8"
+    };
+  }
+  match = matchers.hex6.exec(color2);
+  if (match) {
+    return {
+      r: parseIntFromHex(match[1]),
+      g: parseIntFromHex(match[2]),
+      b: parseIntFromHex(match[3]),
+      format: named ? "name" : "hex"
+    };
+  }
+  match = matchers.hex4.exec(color2);
+  if (match) {
+    return {
+      r: parseIntFromHex(match[1] + match[1]),
+      g: parseIntFromHex(match[2] + match[2]),
+      b: parseIntFromHex(match[3] + match[3]),
+      a: convertHexToDecimal(match[4] + match[4]),
+      format: named ? "name" : "hex8"
+    };
+  }
+  match = matchers.hex3.exec(color2);
+  if (match) {
+    return {
+      r: parseIntFromHex(match[1] + match[1]),
+      g: parseIntFromHex(match[2] + match[2]),
+      b: parseIntFromHex(match[3] + match[3]),
+      format: named ? "name" : "hex"
+    };
+  }
+  return false;
+}
+function isValidCSSUnit(color2) {
+  return Boolean(matchers.CSS_UNIT.exec(String(color2)));
+}
+var hueStep = 2;
+var saturationStep = 0.16;
+var saturationStep2 = 0.05;
+var brightnessStep1 = 0.05;
+var brightnessStep2 = 0.15;
+var lightColorCount = 5;
+var darkColorCount = 4;
+var darkColorMap = [{
+  index: 7,
+  opacity: 0.15
+}, {
+  index: 6,
+  opacity: 0.25
+}, {
+  index: 5,
+  opacity: 0.3
+}, {
+  index: 5,
+  opacity: 0.45
+}, {
+  index: 5,
+  opacity: 0.65
+}, {
+  index: 5,
+  opacity: 0.85
+}, {
+  index: 4,
+  opacity: 0.9
+}, {
+  index: 3,
+  opacity: 0.95
+}, {
+  index: 2,
+  opacity: 0.97
+}, {
+  index: 1,
+  opacity: 0.98
+}];
+function toHsv(_ref) {
+  var r = _ref.r, g = _ref.g, b = _ref.b;
+  var hsv = rgbToHsv(r, g, b);
+  return {
+    h: hsv.h * 360,
+    s: hsv.s,
+    v: hsv.v
+  };
+}
+function toHex(_ref2) {
+  var r = _ref2.r, g = _ref2.g, b = _ref2.b;
+  return "#".concat(rgbToHex(r, g, b, false));
+}
+function mix(rgb1, rgb2, amount) {
+  var p = amount / 100;
+  var rgb = {
+    r: (rgb2.r - rgb1.r) * p + rgb1.r,
+    g: (rgb2.g - rgb1.g) * p + rgb1.g,
+    b: (rgb2.b - rgb1.b) * p + rgb1.b
+  };
+  return rgb;
+}
+function getHue(hsv, i, light) {
+  var hue;
+  if (Math.round(hsv.h) >= 60 && Math.round(hsv.h) <= 240) {
+    hue = light ? Math.round(hsv.h) - hueStep * i : Math.round(hsv.h) + hueStep * i;
+  } else {
+    hue = light ? Math.round(hsv.h) + hueStep * i : Math.round(hsv.h) - hueStep * i;
+  }
+  if (hue < 0) {
+    hue += 360;
+  } else if (hue >= 360) {
+    hue -= 360;
+  }
+  return hue;
+}
+function getSaturation(hsv, i, light) {
+  if (hsv.h === 0 && hsv.s === 0) {
+    return hsv.s;
+  }
+  var saturation;
+  if (light) {
+    saturation = hsv.s - saturationStep * i;
+  } else if (i === darkColorCount) {
+    saturation = hsv.s + saturationStep;
+  } else {
+    saturation = hsv.s + saturationStep2 * i;
+  }
+  if (saturation > 1) {
+    saturation = 1;
+  }
+  if (light && i === lightColorCount && saturation > 0.1) {
+    saturation = 0.1;
+  }
+  if (saturation < 0.06) {
+    saturation = 0.06;
+  }
+  return Number(saturation.toFixed(2));
+}
+function getValue(hsv, i, light) {
+  var value2;
+  if (light) {
+    value2 = hsv.v + brightnessStep1 * i;
+  } else {
+    value2 = hsv.v - brightnessStep2 * i;
+  }
+  if (value2 > 1) {
+    value2 = 1;
+  }
+  return Number(value2.toFixed(2));
+}
+function generate$1(color2) {
+  var opts = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : {};
+  var patterns = [];
+  var pColor = inputToRGB(color2);
+  for (var i = lightColorCount; i > 0; i -= 1) {
+    var hsv = toHsv(pColor);
+    var colorString = toHex(inputToRGB({
+      h: getHue(hsv, i, true),
+      s: getSaturation(hsv, i, true),
+      v: getValue(hsv, i, true)
+    }));
+    patterns.push(colorString);
+  }
+  patterns.push(toHex(pColor));
+  for (var _i = 1; _i <= darkColorCount; _i += 1) {
+    var _hsv = toHsv(pColor);
+    var _colorString = toHex(inputToRGB({
+      h: getHue(_hsv, _i),
+      s: getSaturation(_hsv, _i),
+      v: getValue(_hsv, _i)
+    }));
+    patterns.push(_colorString);
+  }
+  if (opts.theme === "dark") {
+    return darkColorMap.map(function(_ref3) {
+      var index2 = _ref3.index, opacity = _ref3.opacity;
+      var darkColorString = toHex(mix(inputToRGB(opts.backgroundColor || "#141414"), inputToRGB(patterns[index2]), opacity * 100));
+      return darkColorString;
+    });
+  }
+  return patterns;
+}
+var presetPrimaryColors = {
+  red: "#F5222D",
+  volcano: "#FA541C",
+  orange: "#FA8C16",
+  gold: "#FAAD14",
+  yellow: "#FADB14",
+  lime: "#A0D911",
+  green: "#52C41A",
+  cyan: "#13C2C2",
+  blue: "#1890FF",
+  geekblue: "#2F54EB",
+  purple: "#722ED1",
+  magenta: "#EB2F96",
+  grey: "#666666"
+};
+var presetPalettes = {};
+var presetDarkPalettes = {};
+Object.keys(presetPrimaryColors).forEach(function(key) {
+  presetPalettes[key] = generate$1(presetPrimaryColors[key]);
+  presetPalettes[key].primary = presetPalettes[key][5];
+  presetDarkPalettes[key] = generate$1(presetPrimaryColors[key], {
+    theme: "dark",
+    backgroundColor: "#141414"
+  });
+  presetDarkPalettes[key].primary = presetDarkPalettes[key][5];
+});
+var containers = [];
+var styleElements = [];
+var usage = "insert-css: You need to provide a CSS string. Usage: insertCss(cssString[, options]).";
+function createStyleElement() {
+  var styleElement = document.createElement("style");
+  styleElement.setAttribute("type", "text/css");
+  return styleElement;
+}
+function insertCss(css2, options) {
+  options = options || {};
+  if (css2 === void 0) {
+    throw new Error(usage);
+  }
+  var position = options.prepend === true ? "prepend" : "append";
+  var container = options.container !== void 0 ? options.container : document.querySelector("head");
+  var containerId = containers.indexOf(container);
+  if (containerId === -1) {
+    containerId = containers.push(container) - 1;
+    styleElements[containerId] = {};
+  }
+  var styleElement;
+  if (styleElements[containerId] !== void 0 && styleElements[containerId][position] !== void 0) {
+    styleElement = styleElements[containerId][position];
+  } else {
+    styleElement = styleElements[containerId][position] = createStyleElement();
+    if (position === "prepend") {
+      container.insertBefore(styleElement, container.childNodes[0]);
+    } else {
+      container.appendChild(styleElement);
+    }
+  }
+  if (css2.charCodeAt(0) === 65279) {
+    css2 = css2.substr(1, css2.length);
+  }
+  if (styleElement.styleSheet) {
+    styleElement.styleSheet.cssText += css2;
+  } else {
+    styleElement.textContent += css2;
+  }
+  return styleElement;
+}
+function _objectSpread$5(target) {
+  for (var i = 1; i < arguments.length; i++) {
+    var source = arguments[i] != null ? Object(arguments[i]) : {};
+    var ownKeys2 = Object.keys(source);
+    if (typeof Object.getOwnPropertySymbols === "function") {
+      ownKeys2 = ownKeys2.concat(Object.getOwnPropertySymbols(source).filter(function(sym) {
+        return Object.getOwnPropertyDescriptor(source, sym).enumerable;
+      }));
+    }
+    ownKeys2.forEach(function(key) {
+      _defineProperty$6(target, key, source[key]);
+    });
+  }
+  return target;
+}
+function _defineProperty$6(obj, key, value2) {
+  if (key in obj) {
+    Object.defineProperty(obj, key, { value: value2, enumerable: true, configurable: true, writable: true });
+  } else {
+    obj[key] = value2;
+  }
+  return obj;
+}
+function warn(valid, message2) {
+  if (process.env.NODE_ENV !== "production" && !valid && console !== void 0) {
+    console.error("Warning: ".concat(message2));
+  }
+}
+function warning(valid, message2) {
+  warn(valid, "[@ant-design/icons-vue] ".concat(message2));
+}
+function isIconDefinition(target) {
+  return typeof target === "object" && typeof target.name === "string" && typeof target.theme === "string" && (typeof target.icon === "object" || typeof target.icon === "function");
+}
+function generate(node, key, rootProps) {
+  if (!rootProps) {
+    return h(node.tag, _objectSpread$5({
+      key
+    }, node.attrs), (node.children || []).map(function(child, index2) {
+      return generate(child, "".concat(key, "-").concat(node.tag, "-").concat(index2));
+    }));
+  }
+  return h(node.tag, _objectSpread$5({
+    key
+  }, rootProps, node.attrs), (node.children || []).map(function(child, index2) {
+    return generate(child, "".concat(key, "-").concat(node.tag, "-").concat(index2));
+  }));
+}
+function getSecondaryColor(primaryColor) {
+  return generate$1(primaryColor)[0];
+}
+function normalizeTwoToneColors(twoToneColor) {
+  if (!twoToneColor) {
+    return [];
+  }
+  return Array.isArray(twoToneColor) ? twoToneColor : [twoToneColor];
+}
+var iconStyles = "\n.anticon {\n  display: inline-block;\n  color: inherit;\n  font-style: normal;\n  line-height: 0;\n  text-align: center;\n  text-transform: none;\n  vertical-align: -0.125em;\n  text-rendering: optimizeLegibility;\n  -webkit-font-smoothing: antialiased;\n  -moz-osx-font-smoothing: grayscale;\n}\n\n.anticon > * {\n  line-height: 1;\n}\n\n.anticon svg {\n  display: inline-block;\n}\n\n.anticon::before {\n  display: none;\n}\n\n.anticon .anticon-icon {\n  display: block;\n}\n\n.anticon[tabindex] {\n  cursor: pointer;\n}\n\n.anticon-spin::before,\n.anticon-spin {\n  display: inline-block;\n  -webkit-animation: loadingCircle 1s infinite linear;\n  animation: loadingCircle 1s infinite linear;\n}\n\n@-webkit-keyframes loadingCircle {\n  100% {\n    -webkit-transform: rotate(360deg);\n    transform: rotate(360deg);\n  }\n}\n\n@keyframes loadingCircle {\n  100% {\n    -webkit-transform: rotate(360deg);\n    transform: rotate(360deg);\n  }\n}\n";
+var cssInjectedFlag = false;
+var useInsertStyles = function useInsertStyles2() {
+  var styleStr = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : iconStyles;
+  nextTick(function() {
+    if (!cssInjectedFlag) {
+      if (typeof window !== "undefined" && window.document && window.document.documentElement) {
+        insertCss(styleStr, {
+          prepend: true
+        });
+      }
+      cssInjectedFlag = true;
+    }
+  });
+};
+var _excluded$2 = ["icon", "primaryColor", "secondaryColor"];
+function _objectWithoutProperties$2(source, excluded) {
+  if (source == null)
+    return {};
+  var target = _objectWithoutPropertiesLoose$2(source, excluded);
+  var key, i;
+  if (Object.getOwnPropertySymbols) {
+    var sourceSymbolKeys = Object.getOwnPropertySymbols(source);
+    for (i = 0; i < sourceSymbolKeys.length; i++) {
+      key = sourceSymbolKeys[i];
+      if (excluded.indexOf(key) >= 0)
+        continue;
+      if (!Object.prototype.propertyIsEnumerable.call(source, key))
+        continue;
+      target[key] = source[key];
+    }
+  }
+  return target;
+}
+function _objectWithoutPropertiesLoose$2(source, excluded) {
+  if (source == null)
+    return {};
+  var target = {};
+  var sourceKeys = Object.keys(source);
+  var key, i;
+  for (i = 0; i < sourceKeys.length; i++) {
+    key = sourceKeys[i];
+    if (excluded.indexOf(key) >= 0)
+      continue;
+    target[key] = source[key];
+  }
+  return target;
+}
+function _objectSpread$4(target) {
+  for (var i = 1; i < arguments.length; i++) {
+    var source = arguments[i] != null ? Object(arguments[i]) : {};
+    var ownKeys2 = Object.keys(source);
+    if (typeof Object.getOwnPropertySymbols === "function") {
+      ownKeys2 = ownKeys2.concat(Object.getOwnPropertySymbols(source).filter(function(sym) {
+        return Object.getOwnPropertyDescriptor(source, sym).enumerable;
+      }));
+    }
+    ownKeys2.forEach(function(key) {
+      _defineProperty$5(target, key, source[key]);
+    });
+  }
+  return target;
+}
+function _defineProperty$5(obj, key, value2) {
+  if (key in obj) {
+    Object.defineProperty(obj, key, { value: value2, enumerable: true, configurable: true, writable: true });
+  } else {
+    obj[key] = value2;
+  }
+  return obj;
+}
+var twoToneColorPalette = {
+  primaryColor: "#333",
+  secondaryColor: "#E6E6E6",
+  calculated: false
+};
+function setTwoToneColors(_ref) {
+  var primaryColor = _ref.primaryColor, secondaryColor = _ref.secondaryColor;
+  twoToneColorPalette.primaryColor = primaryColor;
+  twoToneColorPalette.secondaryColor = secondaryColor || getSecondaryColor(primaryColor);
+  twoToneColorPalette.calculated = !!secondaryColor;
+}
+function getTwoToneColors() {
+  return _objectSpread$4({}, twoToneColorPalette);
+}
+var IconBase = function IconBase2(props, context) {
+  var _props$context$attrs = _objectSpread$4({}, props, context.attrs), icon = _props$context$attrs.icon, primaryColor = _props$context$attrs.primaryColor, secondaryColor = _props$context$attrs.secondaryColor, restProps = _objectWithoutProperties$2(_props$context$attrs, _excluded$2);
+  var colors = twoToneColorPalette;
+  if (primaryColor) {
+    colors = {
+      primaryColor,
+      secondaryColor: secondaryColor || getSecondaryColor(primaryColor)
+    };
+  }
+  useInsertStyles();
+  warning(isIconDefinition(icon), "icon should be icon definiton, but got ".concat(icon));
+  if (!isIconDefinition(icon)) {
+    return null;
+  }
+  var target = icon;
+  if (target && typeof target.icon === "function") {
+    target = _objectSpread$4({}, target, {
+      icon: target.icon(colors.primaryColor, colors.secondaryColor)
+    });
+  }
+  return generate(target.icon, "svg-".concat(target.name), _objectSpread$4({}, restProps, {
+    "data-icon": target.name,
+    width: "1em",
+    height: "1em",
+    fill: "currentColor",
+    "aria-hidden": "true"
+  }));
+};
+IconBase.props = {
+  icon: Object,
+  primaryColor: String,
+  secondaryColor: String,
+  focusable: String
+};
+IconBase.inheritAttrs = false;
+IconBase.displayName = "IconBase";
+IconBase.getTwoToneColors = getTwoToneColors;
+IconBase.setTwoToneColors = setTwoToneColors;
+const VueIcon = IconBase;
+function _slicedToArray$1(arr, i) {
+  return _arrayWithHoles$1(arr) || _iterableToArrayLimit$1(arr, i) || _unsupportedIterableToArray$1(arr, i) || _nonIterableRest$1();
+}
+function _nonIterableRest$1() {
+  throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+}
+function _unsupportedIterableToArray$1(o, minLen) {
+  if (!o)
+    return;
+  if (typeof o === "string")
+    return _arrayLikeToArray$1(o, minLen);
+  var n = Object.prototype.toString.call(o).slice(8, -1);
+  if (n === "Object" && o.constructor)
+    n = o.constructor.name;
+  if (n === "Map" || n === "Set")
+    return Array.from(o);
+  if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n))
+    return _arrayLikeToArray$1(o, minLen);
+}
+function _arrayLikeToArray$1(arr, len) {
+  if (len == null || len > arr.length)
+    len = arr.length;
+  for (var i = 0, arr2 = new Array(len); i < len; i++) {
+    arr2[i] = arr[i];
+  }
+  return arr2;
+}
+function _iterableToArrayLimit$1(arr, i) {
+  var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"];
+  if (_i == null)
+    return;
+  var _arr = [];
+  var _n = true;
+  var _d = false;
+  var _s, _e;
+  try {
+    for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) {
+      _arr.push(_s.value);
+      if (i && _arr.length === i)
+        break;
+    }
+  } catch (err) {
+    _d = true;
+    _e = err;
+  } finally {
+    try {
+      if (!_n && _i["return"] != null)
+        _i["return"]();
+    } finally {
+      if (_d)
+        throw _e;
+    }
+  }
+  return _arr;
+}
+function _arrayWithHoles$1(arr) {
+  if (Array.isArray(arr))
+    return arr;
+}
+function setTwoToneColor(twoToneColor) {
+  var _normalizeTwoToneColo = normalizeTwoToneColors(twoToneColor), _normalizeTwoToneColo2 = _slicedToArray$1(_normalizeTwoToneColo, 2), primaryColor = _normalizeTwoToneColo2[0], secondaryColor = _normalizeTwoToneColo2[1];
+  return VueIcon.setTwoToneColors({
+    primaryColor,
+    secondaryColor
+  });
+}
+function getTwoToneColor() {
+  var colors = VueIcon.getTwoToneColors();
+  if (!colors.calculated) {
+    return colors.primaryColor;
+  }
+  return [colors.primaryColor, colors.secondaryColor];
+}
+var _excluded$1 = ["class", "icon", "spin", "rotate", "tabindex", "twoToneColor", "onClick"];
+function _slicedToArray(arr, i) {
+  return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest();
+}
+function _nonIterableRest() {
+  throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+}
+function _unsupportedIterableToArray(o, minLen) {
+  if (!o)
+    return;
+  if (typeof o === "string")
+    return _arrayLikeToArray(o, minLen);
+  var n = Object.prototype.toString.call(o).slice(8, -1);
+  if (n === "Object" && o.constructor)
+    n = o.constructor.name;
+  if (n === "Map" || n === "Set")
+    return Array.from(o);
+  if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n))
+    return _arrayLikeToArray(o, minLen);
+}
+function _arrayLikeToArray(arr, len) {
+  if (len == null || len > arr.length)
+    len = arr.length;
+  for (var i = 0, arr2 = new Array(len); i < len; i++) {
+    arr2[i] = arr[i];
+  }
+  return arr2;
+}
+function _iterableToArrayLimit(arr, i) {
+  var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"];
+  if (_i == null)
+    return;
+  var _arr = [];
+  var _n = true;
+  var _d = false;
+  var _s, _e;
+  try {
+    for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) {
+      _arr.push(_s.value);
+      if (i && _arr.length === i)
+        break;
+    }
+  } catch (err) {
+    _d = true;
+    _e = err;
+  } finally {
+    try {
+      if (!_n && _i["return"] != null)
+        _i["return"]();
+    } finally {
+      if (_d)
+        throw _e;
+    }
+  }
+  return _arr;
+}
+function _arrayWithHoles(arr) {
+  if (Array.isArray(arr))
+    return arr;
+}
+function _objectSpread$3(target) {
+  for (var i = 1; i < arguments.length; i++) {
+    var source = arguments[i] != null ? Object(arguments[i]) : {};
+    var ownKeys2 = Object.keys(source);
+    if (typeof Object.getOwnPropertySymbols === "function") {
+      ownKeys2 = ownKeys2.concat(Object.getOwnPropertySymbols(source).filter(function(sym) {
+        return Object.getOwnPropertyDescriptor(source, sym).enumerable;
+      }));
+    }
+    ownKeys2.forEach(function(key) {
+      _defineProperty$4(target, key, source[key]);
+    });
+  }
+  return target;
+}
+function _defineProperty$4(obj, key, value2) {
+  if (key in obj) {
+    Object.defineProperty(obj, key, { value: value2, enumerable: true, configurable: true, writable: true });
+  } else {
+    obj[key] = value2;
+  }
+  return obj;
+}
+function _objectWithoutProperties$1(source, excluded) {
+  if (source == null)
+    return {};
+  var target = _objectWithoutPropertiesLoose$1(source, excluded);
+  var key, i;
+  if (Object.getOwnPropertySymbols) {
+    var sourceSymbolKeys = Object.getOwnPropertySymbols(source);
+    for (i = 0; i < sourceSymbolKeys.length; i++) {
+      key = sourceSymbolKeys[i];
+      if (excluded.indexOf(key) >= 0)
+        continue;
+      if (!Object.prototype.propertyIsEnumerable.call(source, key))
+        continue;
+      target[key] = source[key];
+    }
+  }
+  return target;
+}
+function _objectWithoutPropertiesLoose$1(source, excluded) {
+  if (source == null)
+    return {};
+  var target = {};
+  var sourceKeys = Object.keys(source);
+  var key, i;
+  for (i = 0; i < sourceKeys.length; i++) {
+    key = sourceKeys[i];
+    if (excluded.indexOf(key) >= 0)
+      continue;
+    target[key] = source[key];
+  }
+  return target;
+}
+setTwoToneColor("#1890ff");
+var Icon = function Icon2(props, context) {
+  var _classObj;
+  var _props$context$attrs = _objectSpread$3({}, props, context.attrs), cls = _props$context$attrs["class"], icon = _props$context$attrs.icon, spin = _props$context$attrs.spin, rotate = _props$context$attrs.rotate, tabindex = _props$context$attrs.tabindex, twoToneColor = _props$context$attrs.twoToneColor, onClick = _props$context$attrs.onClick, restProps = _objectWithoutProperties$1(_props$context$attrs, _excluded$1);
+  var classObj = (_classObj = {
+    anticon: true
+  }, _defineProperty$4(_classObj, "anticon-".concat(icon.name), Boolean(icon.name)), _defineProperty$4(_classObj, cls, cls), _classObj);
+  var svgClassString = spin === "" || !!spin || icon.name === "loading" ? "anticon-spin" : "";
+  var iconTabIndex = tabindex;
+  if (iconTabIndex === void 0 && onClick) {
+    iconTabIndex = -1;
+    restProps.tabindex = iconTabIndex;
+  }
+  var svgStyle = rotate ? {
+    msTransform: "rotate(".concat(rotate, "deg)"),
+    transform: "rotate(".concat(rotate, "deg)")
+  } : void 0;
+  var _normalizeTwoToneColo = normalizeTwoToneColors(twoToneColor), _normalizeTwoToneColo2 = _slicedToArray(_normalizeTwoToneColo, 2), primaryColor = _normalizeTwoToneColo2[0], secondaryColor = _normalizeTwoToneColo2[1];
+  return createVNode("span", _objectSpread$3({
+    "role": "img",
+    "aria-label": icon.name
+  }, restProps, {
+    "onClick": onClick,
+    "class": classObj
+  }), [createVNode(VueIcon, {
+    "class": svgClassString,
+    "icon": icon,
+    "primaryColor": primaryColor,
+    "secondaryColor": secondaryColor,
+    "style": svgStyle
+  }, null)]);
+};
+Icon.props = {
+  spin: Boolean,
+  rotate: Number,
+  icon: Object,
+  twoToneColor: String
+};
+Icon.displayName = "AntdIcon";
+Icon.inheritAttrs = false;
+Icon.getTwoToneColor = getTwoToneColor;
+Icon.setTwoToneColor = setTwoToneColor;
+const AntdIcon = Icon;
+var DownOutlined$2 = { "icon": { "tag": "svg", "attrs": { "viewBox": "64 64 896 896", "focusable": "false" }, "children": [{ "tag": "path", "attrs": { "d": "M884 256h-75c-5.1 0-9.9 2.5-12.9 6.6L512 654.2 227.9 262.6c-3-4.1-7.8-6.6-12.9-6.6h-75c-6.5 0-10.3 7.4-6.5 12.7l352.6 486.1c12.8 17.6 39 17.6 51.7 0l352.6-486.1c3.9-5.3.1-12.7-6.4-12.7z" } }] }, "name": "down", "theme": "outlined" };
+const DownOutlinedSvg = DownOutlined$2;
+function _objectSpread$2(target) {
+  for (var i = 1; i < arguments.length; i++) {
+    var source = arguments[i] != null ? Object(arguments[i]) : {};
+    var ownKeys2 = Object.keys(source);
+    if (typeof Object.getOwnPropertySymbols === "function") {
+      ownKeys2 = ownKeys2.concat(Object.getOwnPropertySymbols(source).filter(function(sym) {
+        return Object.getOwnPropertyDescriptor(source, sym).enumerable;
+      }));
+    }
+    ownKeys2.forEach(function(key) {
+      _defineProperty$3(target, key, source[key]);
+    });
+  }
+  return target;
+}
+function _defineProperty$3(obj, key, value2) {
+  if (key in obj) {
+    Object.defineProperty(obj, key, { value: value2, enumerable: true, configurable: true, writable: true });
+  } else {
+    obj[key] = value2;
+  }
+  return obj;
+}
+var DownOutlined = function DownOutlined2(props, context) {
+  var p = _objectSpread$2({}, props, context.attrs);
+  return createVNode(AntdIcon, _objectSpread$2({}, p, {
+    "icon": DownOutlinedSvg
+  }), null);
+};
+DownOutlined.displayName = "DownOutlined";
+DownOutlined.inheritAttrs = false;
+const DownOutlined$1 = DownOutlined;
+var PaperClipOutlined$2 = { "icon": { "tag": "svg", "attrs": { "viewBox": "64 64 896 896", "focusable": "false" }, "children": [{ "tag": "path", "attrs": { "d": "M779.3 196.6c-94.2-94.2-247.6-94.2-341.7 0l-261 260.8c-1.7 1.7-2.6 4-2.6 6.4s.9 4.7 2.6 6.4l36.9 36.9a9 9 0 0012.7 0l261-260.8c32.4-32.4 75.5-50.2 121.3-50.2s88.9 17.8 121.2 50.2c32.4 32.4 50.2 75.5 50.2 121.2 0 45.8-17.8 88.8-50.2 121.2l-266 265.9-43.1 43.1c-40.3 40.3-105.8 40.3-146.1 0-19.5-19.5-30.2-45.4-30.2-73s10.7-53.5 30.2-73l263.9-263.8c6.7-6.6 15.5-10.3 24.9-10.3h.1c9.4 0 18.1 3.7 24.7 10.3 6.7 6.7 10.3 15.5 10.3 24.9 0 9.3-3.7 18.1-10.3 24.7L372.4 653c-1.7 1.7-2.6 4-2.6 6.4s.9 4.7 2.6 6.4l36.9 36.9a9 9 0 0012.7 0l215.6-215.6c19.9-19.9 30.8-46.3 30.8-74.4s-11-54.6-30.8-74.4c-41.1-41.1-107.9-41-149 0L463 364 224.8 602.1A172.22 172.22 0 00174 724.8c0 46.3 18.1 89.8 50.8 122.5 33.9 33.8 78.3 50.7 122.7 50.7 44.4 0 88.8-16.9 122.6-50.7l309.2-309C824.8 492.7 850 432 850 367.5c.1-64.6-25.1-125.3-70.7-170.9z" } }] }, "name": "paper-clip", "theme": "outlined" };
+const PaperClipOutlinedSvg = PaperClipOutlined$2;
+function _objectSpread$1(target) {
+  for (var i = 1; i < arguments.length; i++) {
+    var source = arguments[i] != null ? Object(arguments[i]) : {};
+    var ownKeys2 = Object.keys(source);
+    if (typeof Object.getOwnPropertySymbols === "function") {
+      ownKeys2 = ownKeys2.concat(Object.getOwnPropertySymbols(source).filter(function(sym) {
+        return Object.getOwnPropertyDescriptor(source, sym).enumerable;
+      }));
+    }
+    ownKeys2.forEach(function(key) {
+      _defineProperty$2(target, key, source[key]);
+    });
+  }
+  return target;
+}
+function _defineProperty$2(obj, key, value2) {
+  if (key in obj) {
+    Object.defineProperty(obj, key, { value: value2, enumerable: true, configurable: true, writable: true });
+  } else {
+    obj[key] = value2;
+  }
+  return obj;
+}
+var PaperClipOutlined = function PaperClipOutlined2(props, context) {
+  var p = _objectSpread$1({}, props, context.attrs);
+  return createVNode(AntdIcon, _objectSpread$1({}, p, {
+    "icon": PaperClipOutlinedSvg
+  }), null);
+};
+PaperClipOutlined.displayName = "PaperClipOutlined";
+PaperClipOutlined.inheritAttrs = false;
+const PaperClipOutlined$1 = PaperClipOutlined;
+var UserOutlined$2 = { "icon": { "tag": "svg", "attrs": { "viewBox": "64 64 896 896", "focusable": "false" }, "children": [{ "tag": "path", "attrs": { "d": "M858.5 763.6a374 374 0 00-80.6-119.5 375.63 375.63 0 00-119.5-80.6c-.4-.2-.8-.3-1.2-.5C719.5 518 760 444.7 760 362c0-137-111-248-248-248S264 225 264 362c0 82.7 40.5 156 102.8 201.1-.4.2-.8.3-1.2.5-44.8 18.9-85 46-119.5 80.6a375.63 375.63 0 00-80.6 119.5A371.7 371.7 0 00136 901.8a8 8 0 008 8.2h60c4.4 0 7.9-3.5 8-7.8 2-77.2 33-149.5 87.8-204.3 56.7-56.7 132-87.9 212.2-87.9s155.5 31.2 212.2 87.9C779 752.7 810 825 812 902.2c.1 4.4 3.6 7.8 8 7.8h60a8 8 0 008-8.2c-1-47.8-10.9-94.3-29.5-138.2zM512 534c-45.9 0-89.1-17.9-121.6-50.4S340 407.9 340 362c0-45.9 17.9-89.1 50.4-121.6S466.1 190 512 190s89.1 17.9 121.6 50.4S684 316.1 684 362c0 45.9-17.9 89.1-50.4 121.6S557.9 534 512 534z" } }] }, "name": "user", "theme": "outlined" };
+const UserOutlinedSvg = UserOutlined$2;
+function _objectSpread(target) {
+  for (var i = 1; i < arguments.length; i++) {
+    var source = arguments[i] != null ? Object(arguments[i]) : {};
+    var ownKeys2 = Object.keys(source);
+    if (typeof Object.getOwnPropertySymbols === "function") {
+      ownKeys2 = ownKeys2.concat(Object.getOwnPropertySymbols(source).filter(function(sym) {
+        return Object.getOwnPropertyDescriptor(source, sym).enumerable;
+      }));
+    }
+    ownKeys2.forEach(function(key) {
+      _defineProperty$1(target, key, source[key]);
+    });
+  }
+  return target;
+}
+function _defineProperty$1(obj, key, value2) {
+  if (key in obj) {
+    Object.defineProperty(obj, key, { value: value2, enumerable: true, configurable: true, writable: true });
+  } else {
+    obj[key] = value2;
+  }
+  return obj;
+}
+var UserOutlined = function UserOutlined2(props, context) {
+  var p = _objectSpread({}, props, context.attrs);
+  return createVNode(AntdIcon, _objectSpread({}, p, {
+    "icon": UserOutlinedSvg
+  }), null);
+};
+UserOutlined.displayName = "UserOutlined";
+UserOutlined.inheritAttrs = false;
+const UserOutlined$1 = UserOutlined;
+const filesystemApi = useFilesystemApi();
+const _sfc_main$4j = {
   name: "file-upload-widget",
   componentName: "FieldWidget",
   //必须固定为FieldWidget，用于接收父级组件的broadcast事件
@@ -35317,33 +36611,23 @@ const _sfc_main$4i = {
   },
   data() {
     return {
+      loading: false,
       oldFieldValue: null,
       //field组件change之前的值
       fieldModel: [],
       rules: [],
-      uploadHeaders: {},
-      uploadData: {
-        key: ""
-        //七牛云上传文件名
-        //token: '',  //七牛云上传token
-        //policy: '',  //又拍云上传policy
-        //authorization: '',  //又拍云上传签名
-      },
-      fileList: [],
+      fileList: []
       //上传文件列表
-      styleVariables: {
-        "--select-file-action": selectFileText
-      }
     };
   },
   computed: {
-    realUploadURL() {
-      const uploadURL = this.field.options.uploadURL;
-      if (!!uploadURL && (uploadURL.indexOf("DSV.") > -1 || uploadURL.indexOf("DSV[") > -1)) {
-        this.getGlobalDsv();
-        return eval(this.field.options.uploadURL);
-      }
-      return this.field.options.uploadURL;
+    descCol() {
+      const {
+        accept,
+        maxSize
+      } = this.field.options;
+      const acceptList = (accept || []).join(",");
+      return [acceptList.length ? `支持扩展名${acceptList}` : "", maxSize ? `支持文件大小${maxSize}M` : ""].filter(Boolean);
     },
     uploadBtnHidden() {
       return !this.fileList || this.fileList.length >= this.field.options.limit;
@@ -35365,39 +36649,31 @@ const _sfc_main$4i = {
     this.unregisterFromRefList();
   },
   methods: {
-    handleFileExceed() {
-      const uploadLimit = this.field.options.limit;
-      this.$message.warning(
-        this.i18nt("render.hint.uploadExceed").replace("${uploadLimit}", uploadLimit)
-      );
+    iconRender({
+      file
+    }) {
+      const fieldTypes = file.fileName.slice(file.fileName.lastIndexOf("."));
+      if ([".xls", ".xlsx"].includes(fieldTypes.toLowerCase())) {
+        return createVNode(SvgIcon, {
+          "icon-class": "excel"
+        }, null);
+      }
+      if ([".doc", ".docx"].includes(fieldTypes.toLowerCase())) {
+        return createVNode(SvgIcon, {
+          "icon-class": "word"
+        }, null);
+      }
+      if ([".pdf"].includes(fieldTypes.toLowerCase())) {
+        return createVNode(SvgIcon, {
+          "icon-class": "pdf"
+        }, null);
+      }
+      return createVNode(PaperClipOutlined$1, null, null);
     },
-    beforeFileUpload(file) {
-      let fileTypeCheckResult = false;
-      const extFileName = file.name.substring(file.name.lastIndexOf(".") + 1);
-      if (!!this.field.options && !!this.field.options.fileTypes) {
-        const uploadFileTypes = this.field.options.fileTypes;
-        if (uploadFileTypes.length > 0) {
-          fileTypeCheckResult = uploadFileTypes.some((ft) => {
-            return extFileName.toLowerCase() === ft.toLowerCase();
-          });
-        }
-      }
-      if (!fileTypeCheckResult) {
-        this.$message.error(this.i18nt("render.hint.unsupportedFileType") + extFileName);
-        return false;
-      }
-      let fileSizeCheckResult = false;
-      let uploadFileMaxSize = 5;
-      if (!!this.field.options && !!this.field.options.fileMaxSize) {
-        uploadFileMaxSize = this.field.options.fileMaxSize;
-      }
-      fileSizeCheckResult = file.size / 1024 / 1024 <= uploadFileMaxSize;
-      if (!fileSizeCheckResult) {
-        this.$message.error(this.i18nt("render.hint.fileSizeExceed") + uploadFileMaxSize + "MB");
-        return false;
-      }
-      this.uploadData.key = file.name;
-      return this.handleOnBeforeUpload(file);
+    onPreview(file) {
+      filesystemApi.downloadFileObject({
+        fileCode: file.fileCode
+      });
     },
     handleOnBeforeUpload(file) {
       if (!!this.field.options.onBeforeUpload) {
@@ -35411,98 +36687,82 @@ const _sfc_main$4i = {
       }
       return true;
     },
-    updateFieldModelAndEmitDataChangeForUpload(fileList, customResult, defaultResult) {
-      this.fieldModel = this.fieldModel || [];
-      const oldValue = deepClone(this.fieldModel);
-      if (!!customResult && !!customResult.name && !!customResult.url) {
-        this.fieldModel.push({
-          name: customResult.name,
-          url: customResult.url
-        });
-      } else if (!!defaultResult && !!defaultResult.name && !!defaultResult.url) {
-        this.fieldModel.push({
-          name: defaultResult.name,
-          url: defaultResult.url
-        });
-      } else {
-        this.fieldModel = deepClone(fileList);
+    removeFile(file) {
+      const findInx = this.fileList.findIndex((item) => item.uid === file.uid);
+      this.fileList.splice(findInx, 1);
+      this.handleChangeEvent(this.fileList);
+    },
+    async customRequest(upload) {
+      const {
+        accept,
+        maxSize,
+        limit,
+        businessType,
+        multiple
+      } = this.field.options;
+      const fileName = upload.file.name;
+      const fieldTypesArr = accept.map((item) => item.toLowerCase());
+      const fieldTypes = fileName.slice(fileName.lastIndexOf("."));
+      const {
+        message: message2
+      } = await import("ant-design-vue");
+      if (!fieldTypesArr.includes(fieldTypes.toLowerCase())) {
+        return message2.error(`目前仅支持${accept}格式的文件`);
       }
-      this.syncUpdateFormModel(this.fieldModel);
-      this.emitFieldDataChange(this.fieldModel, oldValue);
-    },
-    handleFileUpload(res, file, fileList) {
-      if (file.status === "success") {
-        let customResult = null;
-        if (!!this.field.options.onUploadSuccess) {
-          const mountFunc = new Function(
-            "result",
-            "file",
-            "fileList",
-            this.field.options.onUploadSuccess
-          );
-          customResult = mountFunc.call(this, res, file, fileList);
-        }
-        this.updateFieldModelAndEmitDataChangeForUpload(fileList, customResult, res);
-        if (!!customResult && !!customResult.name) {
-          file.name = customResult.name;
-        }
-        if (!!customResult && !!customResult.url) {
-          file.url = customResult.url;
-        }
-        this.fileList = deepClone(fileList);
+      if (maxSize && upload.file.size > maxSize * 1024 * 1024) {
+        message2.error(`文件大小不能超过${maxSize}M`);
+        return;
       }
-    },
-    updateFieldModelAndEmitDataChangeForRemove(deletedFileIdx, fileList) {
-      const oldValue = deepClone(this.fieldModel);
-      this.fieldModel.splice(deletedFileIdx, 1);
-      this.syncUpdateFormModel(this.fieldModel);
-      this.emitFieldDataChange(this.fieldModel, oldValue);
-    },
-    removeUploadFile(fileName, fileUrl, fileUid) {
-      let foundIdx = -1;
-      let foundFile = null;
-      this.fileList.forEach((file, idx) => {
-        if (file.name === fileName && (file.url === fileUrl || !!fileUid && file.uid === fileUid)) {
-          foundIdx = idx;
-          foundFile = file;
-        }
-      });
-      if (foundIdx >= 0) {
-        this.fileList.splice(foundIdx, 1);
-        this.updateFieldModelAndEmitDataChangeForRemove(foundIdx, this.fileList);
-        if (!!this.field.options.onFileRemove) {
-          const customFn = new Function("file", "fileList", this.field.options.onFileRemove);
-          customFn.call(this, foundFile, this.fileList);
-        }
+      if (limit && this.fileList.length >= limit) {
+        message2.error("超出限制上传文件数");
+        return;
       }
-    },
-    handleUploadError(err, file, fileList) {
-      if (!!this.field.options.onUploadError) {
-        const customFn = new Function(
-          "error",
-          "file",
-          "fileList",
-          this.field.options.onUploadError
-        );
-        customFn.call(this, err, file, fileList);
-      } else {
-        this.$message({
-          message: this.i18nt("render.hint.uploadError") + err,
-          duration: 3e3,
-          type: "error"
+      const flag = this.handleOnBeforeUpload(upload);
+      if (!flag)
+        return;
+      this.loading = true;
+      try {
+        const res = await filesystemApi.uploadFileObject({
+          businessType,
+          file: upload.file
         });
+        const {
+          fileName: name
+        } = res.data.object;
+        if (limit > 1) {
+          const findIndex = this.fileList.findIndex((item) => item.name === name);
+          if (findIndex > -1) {
+            this.fileList.splice(findIndex, 1);
+          }
+          if (this.fileList.length < limit) {
+            this.fileList.push({
+              ...res.data.object,
+              name
+            });
+          }
+        } else {
+          this.fileList = [{
+            ...res.data.object,
+            name
+          }];
+        }
+      } finally {
+        this.handleChangeEvent(this.fileList);
+        this.loading = false;
       }
     }
   }
 };
-const _hoisted_1$11 = { class: "upload-file-list" };
-const _hoisted_2$A = ["title"];
-const _hoisted_3$r = ["href"];
-const _hoisted_4$g = ["title"];
-const _hoisted_5$a = ["title", "onClick"];
-function _sfc_render$4h(_ctx, _cache, $props, $setup, $data, $options) {
+const _hoisted_1$11 = {
+  gutter: 20,
+  style: { "flex-flow": "unset", "flex-direction": "column" }
+};
+const _hoisted_2$A = { key: 0 };
+const _hoisted_3$r = { key: 1 };
+function _sfc_render$4i(_ctx, _cache, $props, $setup, $data, $options) {
+  const _component_SvgIcon = resolveComponent("SvgIcon");
   const _component_a_button = resolveComponent("a-button");
-  const _component_svg_icon = resolveComponent("svg-icon");
+  const _component_a_space = resolveComponent("a-space");
   const _component_a_upload = resolveComponent("a-upload");
   const _component_form_item_wrapper = resolveComponent("form-item-wrapper");
   return openBlock(), createBlock(_component_form_item_wrapper, {
@@ -35521,69 +36781,56 @@ function _sfc_render$4h(_ctx, _cache, $props, $setup, $data, $options) {
       createVNode(_component_a_upload, {
         ref: "fieldEditor",
         disabled: _ctx.handleDisabled() || _ctx.isReadMode,
-        style: normalizeStyle($data.styleVariables),
-        class: normalizeClass(["dynamicPseudoAfter", { hideUploadDiv: $options.uploadBtnHidden || _ctx.isReadMode }]),
-        action: $options.realUploadURL,
-        headers: $data.uploadHeaders,
-        data: $data.uploadData,
-        "with-credentials": $props.field.options.withCredentials,
-        multiple: $props.field.options.multipleSelect,
+        class: normalizeClass(["dynamicPseudoAfter", ["tpf-upload", { isReadonly: $options.uploadBtnHidden || _ctx.isReadMode }]]),
+        multiple: $props.field.options.multiple,
+        accept: $props.field.options.accept.join(","),
         "file-list": $data.fileList,
-        "show-file-list": $props.field.options.showFileList,
-        limit: $props.field.options.limit,
-        "on-exceed": $options.handleFileExceed,
-        "before-upload": $options.beforeFileUpload,
-        "on-success": $options.handleFileUpload,
-        "on-error": $options.handleUploadError
+        customRequest: $options.customRequest,
+        iconRender: $options.iconRender,
+        onPreview: $options.onPreview,
+        onRemove: $options.removeFile
       }, {
-        file: withCtx(({ file }) => [
-          createElementVNode("div", _hoisted_1$11, [
-            createElementVNode("span", {
-              class: "upload-file-name",
-              title: file.name
-            }, toDisplayString(file.name), 9, _hoisted_2$A),
-            createElementVNode("a", {
-              href: file.url,
-              download: "",
-              target: "_blank"
-            }, [
-              createElementVNode("span", {
-                class: "el-icon-download file-action",
-                title: _ctx.i18nt("render.hint.downloadFile")
-              }, [
-                createVNode(_component_svg_icon, { "icon-class": "el-download" })
-              ], 8, _hoisted_4$g)
-            ], 8, _hoisted_3$r),
-            !_ctx.handleDisabled() && !_ctx.isReadMode ? (openBlock(), createElementBlock("span", {
-              key: 0,
-              class: "file-action",
-              title: _ctx.i18nt("render.hint.removeFile"),
-              onClick: ($event) => $options.removeUploadFile(file.name, file.url, file.uid)
-            }, [
-              createVNode(_component_svg_icon, { "icon-class": "el-delete" })
-            ], 8, _hoisted_5$a)) : createCommentVNode("", true)
-          ])
-        ]),
         default: withCtx(() => [
-          createVNode(_component_a_button, null, {
+          createVNode(_component_a_space, {
+            size: 10,
+            align: "start"
+          }, {
             default: withCtx(() => [
-              createTextVNode(" + 上传 ")
+              createVNode(_component_a_button, {
+                loading: $data.loading,
+                class: "tpf-button",
+                type: "primary",
+                disabled: _ctx.handleDisabled()
+              }, {
+                default: withCtx(() => [
+                  createVNode(_component_SvgIcon, { "icon-class": "daochu" }),
+                  createTextVNode(" 上传文件 ")
+                ]),
+                _: 1
+              }, 8, ["loading", "disabled"]),
+              createElementVNode("div", _hoisted_1$11, [
+                (openBlock(true), createElementBlock(Fragment, null, renderList($options.descCol, (item, inx) => {
+                  return openBlock(), createElementBlock("div", { key: inx }, [
+                    $options.descCol.length > 1 ? (openBlock(), createElementBlock("span", _hoisted_2$A, toDisplayString(inx + 1) + "、" + toDisplayString(item), 1)) : (openBlock(), createElementBlock("span", _hoisted_3$r, toDisplayString(item), 1))
+                  ]);
+                }), 128))
+              ])
             ]),
             _: 1
           })
         ]),
         _: 1
-      }, 8, ["disabled", "style", "action", "headers", "data", "with-credentials", "multiple", "file-list", "show-file-list", "class", "limit", "on-exceed", "before-upload", "on-success", "on-error"])
+      }, 8, ["disabled", "class", "multiple", "accept", "file-list", "customRequest", "iconRender", "onPreview", "onRemove"])
     ]),
     _: 1
   }, 8, ["designer", "field", "rules", "design-state", "parent-widget", "parent-list", "index-of-parent-list", "sub-form-row-index", "sub-form-col-index", "sub-form-row-id"]);
 }
-const fileUploadWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$4i, [["render", _sfc_render$4h], ["__scopeId", "data-v-7fd7982c"]]);
+const fileUploadWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$4j, [["render", _sfc_render$4i], ["__scopeId", "data-v-b7a98c87"]]);
 const __vite_glob_0_9$3 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: fileUploadWidget
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$4h = {
+const _sfc_main$4i = {
   name: "html-text-widget",
   componentName: "FieldWidget",
   //必须固定为FieldWidget，用于接收父级组件的broadcast事件
@@ -35634,7 +36881,7 @@ const _sfc_main$4h = {
   methods: {}
 };
 const _hoisted_1$10 = ["innerHTML"];
-function _sfc_render$4g(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$4h(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_static_content_wrapper = resolveComponent("static-content-wrapper");
   return openBlock(), createBlock(_component_static_content_wrapper, {
     designer: $props.designer,
@@ -35656,12 +36903,12 @@ function _sfc_render$4g(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["designer", "field", "design-state", "parent-widget", "parent-list", "index-of-parent-list", "sub-form-row-index", "sub-form-col-index", "sub-form-row-id"]);
 }
-const htmlTextWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$4h, [["render", _sfc_render$4g], ["__scopeId", "data-v-625c91c9"]]);
+const htmlTextWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$4i, [["render", _sfc_render$4h], ["__scopeId", "data-v-625c91c9"]]);
 const __vite_glob_0_11$3 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: htmlTextWidget
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$4g = {
+const _sfc_main$4h = {
   name: "input-widget",
   componentName: "FieldWidget",
   //必须固定为FieldWidget，用于接收父级组件的broadcast事件
@@ -35740,7 +36987,7 @@ const _sfc_main$4g = {
   methods: {}
 };
 const _hoisted_1$$ = { class: "readonly-mode-field" };
-function _sfc_render$4f(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$4g(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_svg_icon = resolveComponent("svg-icon");
   const _component_a_button = resolveComponent("a-button");
   const _component_a_input = resolveComponent("a-input");
@@ -35815,12 +37062,12 @@ function _sfc_render$4f(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["designer", "field", "rules", "design-state", "parent-widget", "parent-list", "index-of-parent-list", "sub-form-row-index", "sub-form-col-index", "sub-form-row-id"]);
 }
-const inputWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$4g, [["render", _sfc_render$4f], ["__scopeId", "data-v-369bcc95"]]);
+const inputWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$4h, [["render", _sfc_render$4g], ["__scopeId", "data-v-369bcc95"]]);
 const __vite_glob_0_12$2 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: inputWidget
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$4f = {
+const _sfc_main$4g = {
   name: "number-widget",
   componentName: "FieldWidget",
   //必须固定为FieldWidget，用于接收父级组件的broadcast事件
@@ -35892,7 +37139,7 @@ const _sfc_main$4f = {
   methods: {}
 };
 const _hoisted_1$_ = { class: "readonly-mode-field" };
-function _sfc_render$4e(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$4f(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_input_number = resolveComponent("a-input-number");
   const _component_a_tooltip = resolveComponent("a-tooltip");
   const _component_form_item_wrapper = resolveComponent("form-item-wrapper");
@@ -35943,12 +37190,12 @@ function _sfc_render$4e(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["designer", "field", "rules", "design-state", "parent-widget", "parent-list", "index-of-parent-list", "sub-form-row-index", "sub-form-col-index", "sub-form-row-id"]);
 }
-const numberWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$4f, [["render", _sfc_render$4e], ["__scopeId", "data-v-d369e350"]]);
+const numberWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$4g, [["render", _sfc_render$4f], ["__scopeId", "data-v-d369e350"]]);
 const __vite_glob_0_13$2 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: numberWidget
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$4e = {
+const _sfc_main$4f = {
   name: "picture-upload-widget",
   componentName: "FieldWidget",
   //必须固定为FieldWidget，用于接收父级组件的broadcast事件
@@ -36169,7 +37416,7 @@ const _hoisted_1$Z = {
 };
 const _hoisted_2$z = { class: "uploader-icon" };
 const _hoisted_3$q = ["src"];
-function _sfc_render$4d(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$4e(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_svg_icon = resolveComponent("svg-icon");
   const _component_a_upload = resolveComponent("a-upload");
   const _component_a_modal = resolveComponent("a-modal");
@@ -36243,12 +37490,12 @@ function _sfc_render$4d(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["designer", "field", "rules", "design-state", "parent-widget", "parent-list", "index-of-parent-list", "sub-form-row-index", "sub-form-col-index", "sub-form-row-id"]);
 }
-const pictureUploadWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$4e, [["render", _sfc_render$4d], ["__scopeId", "data-v-a28d8b63"]]);
+const pictureUploadWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$4f, [["render", _sfc_render$4e], ["__scopeId", "data-v-a28d8b63"]]);
 const __vite_glob_0_14$1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: pictureUploadWidget
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$4d = {
+const _sfc_main$4e = {
   name: "radio-widget",
   componentName: "FieldWidget",
   //必须固定为FieldWidget，用于接收父级组件的broadcast事件
@@ -36325,7 +37572,7 @@ const _hoisted_1$Y = {
   key: 0,
   class: "readonly-mode-field"
 };
-function _sfc_render$4c(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$4d(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_radio_button = resolveComponent("a-radio-button");
   const _component_a_radio = resolveComponent("a-radio");
   const _component_a_radio_group = resolveComponent("a-radio-group");
@@ -36390,12 +37637,12 @@ function _sfc_render$4c(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["designer", "field", "rules", "design-state", "parent-widget", "parent-list", "index-of-parent-list", "sub-form-row-index", "sub-form-col-index", "sub-form-row-id"]);
 }
-const radioWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$4d, [["render", _sfc_render$4c], ["__scopeId", "data-v-a3e4f5ee"]]);
+const radioWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$4e, [["render", _sfc_render$4d], ["__scopeId", "data-v-a3e4f5ee"]]);
 const __vite_glob_0_15$1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: radioWidget
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$4c = {
+const _sfc_main$4d = {
   name: "rate-widget",
   componentName: "FieldWidget",
   //必须固定为FieldWidget，用于接收父级组件的broadcast事件
@@ -36455,7 +37702,7 @@ const _sfc_main$4c = {
   },
   methods: {}
 };
-function _sfc_render$4b(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$4c(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_rate = resolveComponent("a-rate");
   const _component_form_item_wrapper = resolveComponent("form-item-wrapper");
   return openBlock(), createBlock(_component_form_item_wrapper, {
@@ -36485,7 +37732,7 @@ function _sfc_render$4b(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["designer", "field", "rules", "design-state", "parent-widget", "parent-list", "index-of-parent-list", "sub-form-row-index", "sub-form-col-index", "sub-form-row-id"]);
 }
-const rateWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$4c, [["render", _sfc_render$4b], ["__scopeId", "data-v-4b0abebd"]]);
+const rateWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$4d, [["render", _sfc_render$4c], ["__scopeId", "data-v-4b0abebd"]]);
 const __vite_glob_0_16$1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: rateWidget
@@ -48143,7 +49390,7 @@ const defaultOptions = {
   placeholder: "Insert content here ...",
   readOnly: false
 };
-const _sfc_main$4b = {
+const _sfc_main$4c = {
   name: "quill-editor",
   props: {
     content: String,
@@ -48257,14 +49504,14 @@ const _sfc_main$4b = {
   }
 };
 const _hoisted_1$X = { ref: "editor" };
-function _sfc_render$4a(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$4b(_ctx, _cache, $props, $setup, $data, $options) {
   return openBlock(), createElementBlock("section", _hoisted_1$X, null, 512);
 }
-const quillEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$4b, [["render", _sfc_render$4a]]);
+const quillEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$4c, [["render", _sfc_render$4b]]);
 quillEditor.install = function(app) {
   app.component(quillEditor.name, quillEditor);
 };
-const _sfc_main$4a = {
+const _sfc_main$4b = {
   name: "rich-editor-widget",
   componentName: "FieldWidget",
   //必须固定为FieldWidget，用于接收父级组件的broadcast事件
@@ -48352,7 +49599,7 @@ const _sfc_main$4a = {
     }
   }
 };
-function _sfc_render$49(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$4a(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_quill_editor = resolveComponent("quill-editor");
   const _component_form_item_wrapper = resolveComponent("form-item-wrapper");
   return openBlock(), createBlock(_component_form_item_wrapper, {
@@ -48387,7 +49634,7 @@ function _sfc_render$49(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["designer", "field", "rules", "design-state", "parent-widget", "parent-list", "index-of-parent-list", "sub-form-row-index", "sub-form-col-index", "sub-form-row-id"]);
 }
-const richEditorWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$4a, [["render", _sfc_render$49], ["__scopeId", "data-v-e6c3367f"]]);
+const richEditorWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$4b, [["render", _sfc_render$4a], ["__scopeId", "data-v-e6c3367f"]]);
 const __vite_glob_0_17$1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: richEditorWidget
@@ -48464,7 +49711,7 @@ const useSelectMixin = {
     }, 500)
   }
 };
-const _sfc_main$49 = {
+const _sfc_main$4a = {
   name: "select-widget",
   componentName: "FieldWidget",
   //必须固定为FieldWidget，用于接收父级组件的broadcast事件
@@ -48575,7 +49822,7 @@ const _sfc_main$49 = {
 };
 const _hoisted_1$W = { class: "design-select-box" };
 const _hoisted_2$y = { class: "readonly-mode-field" };
-function _sfc_render$48(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$49(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_select = resolveComponent("a-select");
   const _component_svg_icon = resolveComponent("svg-icon");
   const _component_a_tooltip = resolveComponent("a-tooltip");
@@ -48639,12 +49886,12 @@ function _sfc_render$48(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["designer", "field", "rules", "design-state", "parent-widget", "parent-list", "index-of-parent-list", "sub-form-row-index", "sub-form-col-index", "sub-form-row-id"]);
 }
-const selectWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$49, [["render", _sfc_render$48], ["__scopeId", "data-v-e64d7d03"]]);
+const selectWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$4a, [["render", _sfc_render$49], ["__scopeId", "data-v-e64d7d03"]]);
 const __vite_glob_0_18$1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: selectWidget
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$48 = {
+const _sfc_main$49 = {
   name: "slider-widget",
   componentName: "FieldWidget",
   //必须固定为FieldWidget，用于接收父级组件的broadcast事件
@@ -48714,7 +49961,7 @@ const _hoisted_1$V = {
   key: 0,
   class: "readonly-mode-field"
 };
-function _sfc_render$47(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$48(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_slider = resolveComponent("a-slider");
   const _component_form_item_wrapper = resolveComponent("form-item-wrapper");
   return openBlock(), createBlock(_component_form_item_wrapper, {
@@ -48749,12 +49996,12 @@ function _sfc_render$47(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["designer", "field", "rules", "design-state", "parent-widget", "parent-list", "index-of-parent-list", "sub-form-row-index", "sub-form-col-index", "sub-form-row-id"]);
 }
-const sliderWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$48, [["render", _sfc_render$47], ["__scopeId", "data-v-8166af68"]]);
+const sliderWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$49, [["render", _sfc_render$48], ["__scopeId", "data-v-8166af68"]]);
 const __vite_glob_0_19$1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: sliderWidget
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$47 = {
+const _sfc_main$48 = {
   name: "slot-widget",
   componentName: "FieldWidget",
   //必须固定为FieldWidget，用于接收父级组件的broadcast事件
@@ -48808,7 +50055,7 @@ const _hoisted_1$U = {
   key: 0,
   class: "slot-title"
 };
-function _sfc_render$46(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$47(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_static_content_wrapper = resolveComponent("static-content-wrapper");
   return openBlock(), createBlock(_component_static_content_wrapper, {
     designer: $props.designer,
@@ -48832,12 +50079,12 @@ function _sfc_render$46(_ctx, _cache, $props, $setup, $data, $options) {
     _: 3
   }, 8, ["designer", "field", "design-state", "parent-widget", "parent-list", "index-of-parent-list", "sub-form-row-index", "sub-form-col-index", "sub-form-row-id"]);
 }
-const slotWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$47, [["render", _sfc_render$46], ["__scopeId", "data-v-4d60db4d"]]);
+const slotWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$48, [["render", _sfc_render$47], ["__scopeId", "data-v-4d60db4d"]]);
 const __vite_glob_0_20$1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: slotWidget
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$46 = {
+const _sfc_main$47 = {
   name: "static-text-widget",
   componentName: "FieldWidget",
   //必须固定为FieldWidget，用于接收父级组件的broadcast事件
@@ -48887,7 +50134,7 @@ const _sfc_main$46 = {
   },
   methods: {}
 };
-function _sfc_render$45(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$46(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_static_content_wrapper = resolveComponent("static-content-wrapper");
   return openBlock(), createBlock(_component_static_content_wrapper, {
     designer: $props.designer,
@@ -48906,12 +50153,12 @@ function _sfc_render$45(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["designer", "field", "design-state", "parent-widget", "parent-list", "index-of-parent-list", "sub-form-row-index", "sub-form-col-index", "sub-form-row-id"]);
 }
-const staticTextWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$46, [["render", _sfc_render$45], ["__scopeId", "data-v-11d19d63"]]);
+const staticTextWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$47, [["render", _sfc_render$46], ["__scopeId", "data-v-11d19d63"]]);
 const __vite_glob_0_22$1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: staticTextWidget
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$45 = {
+const _sfc_main$46 = {
   name: "switch-widget",
   componentName: "FieldWidget",
   //必须固定为FieldWidget，用于接收父级组件的broadcast事件
@@ -48982,7 +50229,7 @@ const _hoisted_1$T = {
   key: 0,
   class: "readonly-mode-field"
 };
-function _sfc_render$44(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$45(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_switch = resolveComponent("a-switch");
   const _component_form_item_wrapper = resolveComponent("form-item-wrapper");
   return openBlock(), createBlock(_component_form_item_wrapper, {
@@ -49014,12 +50261,12 @@ function _sfc_render$44(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["designer", "field", "rules", "design-state", "parent-widget", "parent-list", "index-of-parent-list", "sub-form-row-index", "sub-form-col-index", "sub-form-row-id"]);
 }
-const switchWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$45, [["render", _sfc_render$44], ["__scopeId", "data-v-03f748da"]]);
+const switchWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$46, [["render", _sfc_render$45], ["__scopeId", "data-v-03f748da"]]);
 const __vite_glob_0_23$1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: switchWidget
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$44 = {
+const _sfc_main$45 = {
   name: "textarea-widget",
   componentName: "FieldWidget",
   //必须固定为FieldWidget，用于接收父级组件的broadcast事件
@@ -49091,7 +50338,7 @@ const _sfc_main$44 = {
   methods: {}
 };
 const _hoisted_1$S = ["innerHTML"];
-function _sfc_render$43(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$44(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_textarea = resolveComponent("a-textarea");
   const _component_a_tooltip = resolveComponent("a-tooltip");
   const _component_form_item_wrapper = resolveComponent("form-item-wrapper");
@@ -49147,12 +50394,12 @@ function _sfc_render$43(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["designer", "field", "rules", "design-state", "parent-widget", "parent-list", "index-of-parent-list", "sub-form-row-index", "sub-form-col-index", "sub-form-row-id"]);
 }
-const textareaWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$44, [["render", _sfc_render$43], ["__scopeId", "data-v-176f7777"]]);
+const textareaWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$45, [["render", _sfc_render$44], ["__scopeId", "data-v-176f7777"]]);
 const __vite_glob_0_24$1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: textareaWidget
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$43 = {
+const _sfc_main$44 = {
   name: "time-range-widget",
   componentName: "FieldWidget",
   //必须固定为FieldWidget，用于接收父级组件的broadcast事件
@@ -49234,7 +50481,7 @@ const _hoisted_1$R = {
   key: 0,
   class: "readonly-mode-field"
 };
-function _sfc_render$42(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$43(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_time_range_picker = resolveComponent("a-time-range-picker");
   const _component_form_item_wrapper = resolveComponent("form-item-wrapper");
   return openBlock(), createBlock(_component_form_item_wrapper, {
@@ -49282,12 +50529,12 @@ function _sfc_render$42(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["designer", "field", "rules", "design-state", "parent-widget", "parent-list", "index-of-parent-list", "sub-form-row-index", "sub-form-col-index", "sub-form-row-id"]);
 }
-const timeRangeWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$43, [["render", _sfc_render$42], ["__scopeId", "data-v-c3e907db"]]);
+const timeRangeWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$44, [["render", _sfc_render$43], ["__scopeId", "data-v-c3e907db"]]);
 const __vite_glob_0_25$1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: timeRangeWidget
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$42 = {
+const _sfc_main$43 = {
   name: "time-widget",
   componentName: "FieldWidget",
   //必须固定为FieldWidget，用于接收父级组件的broadcast事件
@@ -49362,7 +50609,7 @@ const _hoisted_1$Q = {
   key: 0,
   class: "readonly-mode-field"
 };
-function _sfc_render$41(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$42(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_time_picker = resolveComponent("a-time-picker");
   const _component_form_item_wrapper = resolveComponent("form-item-wrapper");
   return openBlock(), createBlock(_component_form_item_wrapper, {
@@ -49406,12 +50653,12 @@ function _sfc_render$41(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["designer", "field", "rules", "design-state", "parent-widget", "parent-list", "index-of-parent-list", "sub-form-row-index", "sub-form-col-index", "sub-form-row-id"]);
 }
-const timeWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$42, [["render", _sfc_render$41], ["__scopeId", "data-v-6943e235"]]);
+const timeWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$43, [["render", _sfc_render$42], ["__scopeId", "data-v-6943e235"]]);
 const __vite_glob_0_26$1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: timeWidget
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$41 = {
+const _sfc_main$42 = {
   name: "treeSelect-widget",
   componentName: "FieldWidget",
   //必须固定为FieldWidget，用于接收父级组件的broadcast事件
@@ -49510,7 +50757,7 @@ const _sfc_main$41 = {
   }
 };
 const _hoisted_1$P = { class: "readonly-mode-field" };
-function _sfc_render$40(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$41(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_tree_select = resolveComponent("a-tree-select");
   const _component_a_tooltip = resolveComponent("a-tooltip");
   const _component_form_item_wrapper = resolveComponent("form-item-wrapper");
@@ -49564,7 +50811,7 @@ function _sfc_render$40(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["designer", "field", "rules", "design-state", "parent-widget", "parent-list", "index-of-parent-list", "sub-form-row-index", "sub-form-col-index", "sub-form-row-id"]);
 }
-const treeSelectWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$41, [["render", _sfc_render$40], ["__scopeId", "data-v-132b6a1f"]]);
+const treeSelectWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$42, [["render", _sfc_render$41], ["__scopeId", "data-v-132b6a1f"]]);
 const __vite_glob_0_27$1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: treeSelectWidget
@@ -50130,7 +51377,7 @@ const useDataTableMixin = {
     }
   }
 };
-const _sfc_main$40 = {
+const _sfc_main$41 = {
   name: "DataTableItem",
   componentName: "ContainerItem",
   // 必须固定为ContainerItem，用于接收父级组件的broadcast事件
@@ -50233,7 +51480,7 @@ const _sfc_main$40 = {
     // --------------------- 以上为组件支持外部调用的API方法 end ------------------//
   }
 };
-function _sfc_render$3$(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$40(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_empty = resolveComponent("a-empty");
   const _component_a_table_column = resolveComponent("a-table-column");
   const _component_a_button = resolveComponent("a-button");
@@ -50319,12 +51566,12 @@ function _sfc_render$3$(_ctx, _cache, $props, $setup, $data, $options) {
     [vShow, !$props.widget.options.hidden]
   ]);
 }
-const dataTableItem = /* @__PURE__ */ _export_sfc$1(_sfc_main$40, [["render", _sfc_render$3$], ["__scopeId", "data-v-897bc145"]]);
+const dataTableItem = /* @__PURE__ */ _export_sfc$1(_sfc_main$41, [["render", _sfc_render$40], ["__scopeId", "data-v-897bc145"]]);
 const __vite_glob_0_1$2 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: dataTableItem
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$3$ = {
+const _sfc_main$40 = {
   name: "GridColItem",
   componentName: "ContainerItem",
   mixins: [emitter, i18n$1, refMixin],
@@ -50421,7 +51668,7 @@ const _sfc_main$3$ = {
 };
 const _hoisted_1$O = { class: "blank-cell" };
 const _hoisted_2$x = { class: "invisible-content" };
-function _sfc_render$3_(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$3$(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_col = resolveComponent("a-col");
   return withDirectives((openBlock(), createBlock(_component_a_col, mergeProps({
     class: ["grid-cell", [$options.customClass]]
@@ -50485,12 +51732,12 @@ function _sfc_render$3_(_ctx, _cache, $props, $setup, $data, $options) {
     [vShow, !$options.isHidden && !$props.widget.options.hidden]
   ]);
 }
-const GridColItem = /* @__PURE__ */ _export_sfc$1(_sfc_main$3$, [["render", _sfc_render$3_], ["__scopeId", "data-v-fce0759c"]]);
+const GridColItem = /* @__PURE__ */ _export_sfc$1(_sfc_main$40, [["render", _sfc_render$3$], ["__scopeId", "data-v-fce0759c"]]);
 const __vite_glob_0_2$2 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: GridColItem
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$3_ = {
+const _sfc_main$3$ = {
   name: "vf-grid-item",
   //grid-item跟VueGridLayout全局注册组件重名，故特殊处理！！
   componentName: "ContainerItem",
@@ -50528,7 +51775,7 @@ const _sfc_main$3_ = {
   },
   methods: {}
 };
-function _sfc_render$3Z(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$3_(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_grid_col_item = resolveComponent("grid-col-item");
   const _component_a_row = resolveComponent("a-row");
   const _component_container_item_wrapper = resolveComponent("container-item-wrapper");
@@ -50572,12 +51819,12 @@ function _sfc_render$3Z(_ctx, _cache, $props, $setup, $data, $options) {
     _: 3
   }, 8, ["widget"]);
 }
-const gridItem = /* @__PURE__ */ _export_sfc$1(_sfc_main$3_, [["render", _sfc_render$3Z]]);
+const gridItem = /* @__PURE__ */ _export_sfc$1(_sfc_main$3$, [["render", _sfc_render$3_]]);
 const __vite_glob_0_3$2 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: gridItem
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$3Z = {
+const _sfc_main$3_ = {
   name: "grid-sub-form-item",
   componentName: "ContainerItem",
   mixins: [emitter, i18n$1, refMixin, containerItemMixin],
@@ -50875,7 +52122,7 @@ const _hoisted_10$4 = {
   class: "sub-form-action-column hide-label"
 };
 const _hoisted_11$3 = { class: "action-button-column" };
-function _sfc_render$3Y(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$3Z(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_button = resolveComponent("a-button");
   const _component_a_row = resolveComponent("a-row");
   const _component_container_item_wrapper = resolveComponent("container-item-wrapper");
@@ -50989,12 +52236,12 @@ function _sfc_render$3Y(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["widget"]);
 }
-const gridSubFormItem = /* @__PURE__ */ _export_sfc$1(_sfc_main$3Z, [["render", _sfc_render$3Y], ["__scopeId", "data-v-50d62ca2"]]);
+const gridSubFormItem = /* @__PURE__ */ _export_sfc$1(_sfc_main$3_, [["render", _sfc_render$3Z], ["__scopeId", "data-v-50d62ca2"]]);
 const __vite_glob_0_4$2 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: gridSubFormItem
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$3Y = {
+const _sfc_main$3Z = {
   name: "sub-form-item",
   componentName: "ContainerItem",
   mixins: [emitter, i18n$1, refMixin, containerItemMixin],
@@ -51290,7 +52537,7 @@ const _hoisted_13 = {
   class: "sub-form-action-column hide-label"
 };
 const _hoisted_14 = { class: "action-button-column" };
-function _sfc_render$3X(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$3Y(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_svg_icon = resolveComponent("svg-icon");
   const _component_a_button = resolveComponent("a-button");
   const _component_a_tooltip = resolveComponent("a-tooltip");
@@ -51509,12 +52756,12 @@ function _sfc_render$3X(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["widget"]);
 }
-const subFormItem = /* @__PURE__ */ _export_sfc$1(_sfc_main$3Y, [["render", _sfc_render$3X], ["__scopeId", "data-v-43c56bd4"]]);
+const subFormItem = /* @__PURE__ */ _export_sfc$1(_sfc_main$3Z, [["render", _sfc_render$3Y], ["__scopeId", "data-v-43c56bd4"]]);
 const __vite_glob_0_5$2 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: subFormItem
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$3X = {
+const _sfc_main$3Y = {
   name: "tab-item",
   componentName: "ContainerItem",
   mixins: [emitter, i18n$1, refMixin, containerItemMixin],
@@ -51587,7 +52834,7 @@ const _sfc_main$3X = {
     }
   }
 };
-function _sfc_render$3W(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$3X(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_tab_pane = resolveComponent("a-tab-pane");
   const _component_a_tabs = resolveComponent("a-tabs");
   const _component_container_item_wrapper = resolveComponent("container-item-wrapper");
@@ -51668,12 +52915,12 @@ function _sfc_render$3W(_ctx, _cache, $props, $setup, $data, $options) {
     _: 3
   }, 8, ["widget"]);
 }
-const tabItem = /* @__PURE__ */ _export_sfc$1(_sfc_main$3X, [["render", _sfc_render$3W]]);
+const tabItem = /* @__PURE__ */ _export_sfc$1(_sfc_main$3Y, [["render", _sfc_render$3X]]);
 const __vite_glob_0_6$2 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: tabItem
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$3W = {
+const _sfc_main$3X = {
   name: "TableCellItem",
   componentName: "ContainerItem",
   mixins: [emitter, i18n$1, refMixin],
@@ -51711,7 +52958,7 @@ const _sfc_main$3W = {
   methods: {}
 };
 const _hoisted_1$L = ["colspan", "rowspan"];
-function _sfc_render$3V(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$3W(_ctx, _cache, $props, $setup, $data, $options) {
   return openBlock(), createElementBlock("td", {
     class: normalizeClass(["table-cell", [$options.customClass]]),
     colspan: $props.widget.options.colspan || 1,
@@ -51764,12 +53011,12 @@ function _sfc_render$3V(_ctx, _cache, $props, $setup, $data, $options) {
     }), 256))
   ], 14, _hoisted_1$L);
 }
-const TableCellItem = /* @__PURE__ */ _export_sfc$1(_sfc_main$3W, [["render", _sfc_render$3V], ["__scopeId", "data-v-ae7f3b63"]]);
+const TableCellItem = /* @__PURE__ */ _export_sfc$1(_sfc_main$3X, [["render", _sfc_render$3W], ["__scopeId", "data-v-ae7f3b63"]]);
 const __vite_glob_0_7$2 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: TableCellItem
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$3V = {
+const _sfc_main$3W = {
   name: "table-item",
   componentName: "ContainerItem",
   mixins: [emitter, i18n$1, refMixin, containerItemMixin],
@@ -51806,7 +53053,7 @@ const _sfc_main$3V = {
   },
   methods: {}
 };
-function _sfc_render$3U(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$3V(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_table_cell_item = resolveComponent("table-cell-item");
   const _component_container_item_wrapper = resolveComponent("container-item-wrapper");
   return openBlock(), createBlock(_component_container_item_wrapper, { widget: $props.widget }, {
@@ -51859,7 +53106,7 @@ function _sfc_render$3U(_ctx, _cache, $props, $setup, $data, $options) {
     _: 3
   }, 8, ["widget"]);
 }
-const tableItem = /* @__PURE__ */ _export_sfc$1(_sfc_main$3V, [["render", _sfc_render$3U], ["__scopeId", "data-v-48955c34"]]);
+const tableItem = /* @__PURE__ */ _export_sfc$1(_sfc_main$3W, [["render", _sfc_render$3V], ["__scopeId", "data-v-48955c34"]]);
 const __vite_glob_0_8$2 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: tableItem
@@ -51868,7 +53115,7 @@ const http = getHttp() || http$1;
 const _hoisted_1$K = {
   class: "tpf-collapse-title"
 };
-const _sfc_main$3U = /* @__PURE__ */ defineComponent({
+const _sfc_main$3V = /* @__PURE__ */ defineComponent({
   __name: "TpfCollapseTitle",
   props: {
     title: {
@@ -51881,8 +53128,8 @@ const _sfc_main$3U = /* @__PURE__ */ defineComponent({
     };
   }
 });
-const TpfCollapseTitle = /* @__PURE__ */ _export_sfc$1(_sfc_main$3U, [["__scopeId", "data-v-07185a23"]]);
-const _sfc_main$3T = {
+const TpfCollapseTitle = /* @__PURE__ */ _export_sfc$1(_sfc_main$3V, [["__scopeId", "data-v-07185a23"]]);
+const _sfc_main$3U = {
   name: "VfCollapseItem",
   componentName: "ContainerItem",
   // 必须固定为ContainerItem，用于接收父级组件的broadcast事件
@@ -51999,7 +53246,7 @@ const _sfc_main$3T = {
 };
 const _hoisted_1$J = { class: "tpf-collapse" };
 const _hoisted_2$u = { class: "tpf-collapse-header" };
-function _sfc_render$3T(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$3U(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_TpfCollapseTitle = resolveComponent("TpfCollapseTitle");
   const _component_SvgIcon = resolveComponent("SvgIcon");
   const _component_a_space = resolveComponent("a-space");
@@ -52144,29 +53391,29 @@ function _sfc_render$3T(_ctx, _cache, $props, $setup, $data, $options) {
     [vShow, !$props.widget.options.hidden]
   ]);
 }
-const vfCollapseItem = /* @__PURE__ */ _export_sfc$1(_sfc_main$3T, [["render", _sfc_render$3T], ["__scopeId", "data-v-029bbeb8"]]);
+const vfCollapseItem = /* @__PURE__ */ _export_sfc$1(_sfc_main$3U, [["render", _sfc_render$3U], ["__scopeId", "data-v-029bbeb8"]]);
 const __vite_glob_0_9$2 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: vfCollapseItem
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$3S = {
+const _sfc_main$3T = {
   name: "vf-dialog-item"
 };
-function _sfc_render$3S(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$3T(_ctx, _cache, $props, $setup, $data, $options) {
   return createCommentVNode("", true);
 }
-const vfDialogItem = /* @__PURE__ */ _export_sfc$1(_sfc_main$3S, [["render", _sfc_render$3S]]);
+const vfDialogItem = /* @__PURE__ */ _export_sfc$1(_sfc_main$3T, [["render", _sfc_render$3T]]);
 const __vite_glob_0_10$2 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: vfDialogItem
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$3R = {
+const _sfc_main$3S = {
   name: "vf-drawer-item"
 };
-function _sfc_render$3R(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$3S(_ctx, _cache, $props, $setup, $data, $options) {
   return createCommentVNode("", true);
 }
-const vfDrawerItem = /* @__PURE__ */ _export_sfc$1(_sfc_main$3R, [["render", _sfc_render$3R]]);
+const vfDrawerItem = /* @__PURE__ */ _export_sfc$1(_sfc_main$3S, [["render", _sfc_render$3S]]);
 const __vite_glob_0_11$2 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: vfDrawerItem
@@ -52180,7 +53427,7 @@ const ContainerItems = {
     }
   }
 };
-const _sfc_main$3Q = {
+const _sfc_main$3R = {
   name: "dynamic-dialog",
   mixins: [i18n$1],
   props: {
@@ -52192,6 +53439,10 @@ const _sfc_main$3Q = {
       type: Object
     },
     formData: {
+      type: Object,
+      default: () => ({})
+    },
+    vfCtx: {
       type: Object,
       default: () => ({})
     },
@@ -52220,12 +53471,20 @@ const _sfc_main$3Q = {
   },
   data() {
     return {
-      dialogVisible: false
+      dialogVisible: false,
+      elLocaleMap: {
+        "zh-CN": { ...localeValues$1 },
+        "en-US": {}
+      }
     };
   },
   created() {
   },
   computed: {
+    elLocale() {
+      const curLocale = localStorage.getItem("v_form_locale") || "zh-CN";
+      return this.elLocaleMap[curLocale];
+    },
     parentForm() {
       return { ...this.parentFormRef, parentDom: this, getParentFormRef: this.getParentFormRef };
     },
@@ -52320,16 +53579,20 @@ const _sfc_main$3Q = {
       this.dialogVisible = false;
       setTimeout(this.deleteWrapperNode, 150);
     },
-    handleOkClick() {
-      if (!!this.options.onOkButtonClick) {
-        const customFn = new Function(this.options.onOkButtonClick);
-        const clickResult = customFn.call(this);
-        if (clickResult === false) {
-          return;
+    async handleOkClick() {
+      try {
+        if (!!this.options.onOkButtonClick) {
+          const customFn = new Function(this.options.onOkButtonClick);
+          const clickResult = await customFn.call(this);
+          if (clickResult === false) {
+            return;
+          }
         }
+        this.dialogVisible = false;
+        setTimeout(this.deleteWrapperNode, 150);
+      } catch (error) {
+        console.log("error: ", error);
       }
-      this.dialogVisible = false;
-      setTimeout(this.deleteWrapperNode, 150);
     },
     getParentFormRef() {
       return this.parentFormRef;
@@ -52347,71 +53610,81 @@ const _sfc_main$3Q = {
 };
 const _hoisted_1$I = /* @__PURE__ */ createElementVNode("div", { class: "footer-left" }, null, -1);
 const _hoisted_2$t = { class: "footer-right" };
-function _sfc_render$3Q(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$3R(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_VFormRender = resolveComponent("VFormRender");
   const _component_a_button = resolveComponent("a-button");
   const _component_a_modal = resolveComponent("a-modal");
-  return openBlock(), createBlock(_component_a_modal, mergeProps({
-    class: "tpf-model design-model",
-    transitionName: !$data.dialogVisible ? "" : "zoom",
-    maskTransitionName: !$data.dialogVisible ? "" : "fade",
-    destroyOnClose: true,
-    title: $props.options.title,
-    bodyStyle: {
-      height: $props.options.height,
-      overflow: "auto",
-      ...JSON.parse(this.options.bodyStyle || "{}")
-    },
-    centered: true,
-    visible: $data.dialogVisible,
-    "onUpdate:visible": _cache[0] || (_cache[0] = ($event) => $data.dialogVisible = $event),
-    width: $props.options.width,
-    mask: $props.options.showModal,
-    maskClosable: $props.options.closeOnClickModal,
-    keyboard: $props.options.closeOnPressEscape,
-    onCancel: $options.handleCloseEvent
-  }, $options.otherAttrs), {
-    footer: withCtx(() => [
-      _hoisted_1$I,
-      createElementVNode("div", _hoisted_2$t, [
-        !$props.options.cancelButtonHidden ? (openBlock(), createBlock(_component_a_button, {
-          key: 0,
-          onClick: $options.handleCancelClick
-        }, {
-          default: withCtx(() => [
-            createTextVNode(toDisplayString($options.cancelBtnLabel), 1)
-          ]),
-          _: 1
-        }, 8, ["onClick"])) : createCommentVNode("", true),
-        !$props.options.okButtonHidden ? (openBlock(), createBlock(_component_a_button, {
-          key: 1,
-          type: "primary",
-          onClick: $options.handleOkClick
-        }, {
-          default: withCtx(() => [
-            createTextVNode(toDisplayString($options.okBtnLabel), 1)
-          ]),
-          _: 1
-        }, 8, ["onClick"])) : createCommentVNode("", true)
-      ])
-    ]),
+  const _component_a_config_provider = resolveComponent("a-config-provider");
+  return openBlock(), createBlock(_component_a_config_provider, {
+    locale: $options.elLocale,
+    input: { autocomplete: "off" }
+  }, {
     default: withCtx(() => [
-      createVNode(_component_VFormRender, {
-        ref: "dFormRef",
-        "form-json": $props.formJson,
-        "form-data": $props.formData,
-        "option-data": $props.optionData,
-        "global-dsv": $props.globalDsv,
-        "parent-form": $options.parentForm,
-        "disabled-mode": $props.options.disabledMode,
-        "dynamic-creation": true
-      }, null, 8, ["form-json", "form-data", "option-data", "global-dsv", "parent-form", "disabled-mode"])
+      createVNode(_component_a_modal, mergeProps({
+        class: "tpf-model design-model",
+        transitionName: !$data.dialogVisible ? "" : "zoom",
+        maskTransitionName: !$data.dialogVisible ? "" : "fade",
+        destroyOnClose: true,
+        title: $props.options.title,
+        bodyStyle: {
+          height: $props.options.height,
+          overflow: "auto",
+          ...JSON.parse(this.options.bodyStyle || "{}")
+        },
+        centered: true,
+        visible: $data.dialogVisible,
+        "onUpdate:visible": _cache[0] || (_cache[0] = ($event) => $data.dialogVisible = $event),
+        width: $props.options.width,
+        mask: $props.options.showModal,
+        maskClosable: $props.options.closeOnClickModal,
+        keyboard: $props.options.closeOnPressEscape,
+        onCancel: $options.handleCloseEvent
+      }, $options.otherAttrs), {
+        footer: withCtx(() => [
+          _hoisted_1$I,
+          createElementVNode("div", _hoisted_2$t, [
+            !$props.options.cancelButtonHidden ? (openBlock(), createBlock(_component_a_button, {
+              key: 0,
+              onClick: $options.handleCancelClick
+            }, {
+              default: withCtx(() => [
+                createTextVNode(toDisplayString($options.cancelBtnLabel), 1)
+              ]),
+              _: 1
+            }, 8, ["onClick"])) : createCommentVNode("", true),
+            !$props.options.okButtonHidden ? (openBlock(), createBlock(_component_a_button, {
+              key: 1,
+              type: "primary",
+              onClick: $options.handleOkClick
+            }, {
+              default: withCtx(() => [
+                createTextVNode(toDisplayString($options.okBtnLabel), 1)
+              ]),
+              _: 1
+            }, 8, ["onClick"])) : createCommentVNode("", true)
+          ])
+        ]),
+        default: withCtx(() => [
+          createVNode(_component_VFormRender, {
+            ref: "dFormRef",
+            "form-json": $props.formJson,
+            "form-data": $props.formData,
+            vfCtx: $props.vfCtx,
+            "option-data": $props.optionData,
+            "global-dsv": $props.globalDsv,
+            "parent-form": $options.parentForm,
+            "disabled-mode": $props.options.disabledMode,
+            "dynamic-creation": true
+          }, null, 8, ["form-json", "form-data", "vfCtx", "option-data", "global-dsv", "parent-form", "disabled-mode"])
+        ]),
+        _: 1
+      }, 16, ["transitionName", "maskTransitionName", "title", "bodyStyle", "visible", "width", "mask", "maskClosable", "keyboard", "onCancel"])
     ]),
     _: 1
-  }, 16, ["transitionName", "maskTransitionName", "title", "bodyStyle", "visible", "width", "mask", "maskClosable", "keyboard", "onCancel"]);
+  }, 8, ["locale"]);
 }
-const DynamicDialog = /* @__PURE__ */ _export_sfc$1(_sfc_main$3Q, [["render", _sfc_render$3Q]]);
-const _sfc_main$3P = {
+const DynamicDialog = /* @__PURE__ */ _export_sfc$1(_sfc_main$3R, [["render", _sfc_render$3R]]);
+const _sfc_main$3Q = {
   name: "dynamic-drawer",
   mixins: [i18n$1],
   props: {
@@ -52551,7 +53824,7 @@ const _sfc_main$3P = {
   }
 };
 const _hoisted_1$H = { style: { "float": "right" } };
-function _sfc_render$3P(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$3Q(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_VFormRender = resolveComponent("VFormRender");
   const _component_a_button = resolveComponent("a-button");
   const _component_a_drawer = resolveComponent("a-drawer");
@@ -52611,8 +53884,8 @@ function _sfc_render$3P(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["title", "visible", "size", "modal", "direction", "show-close", "close-on-click-modal", "close-on-press-escape", "before-close", "onClose", "onOpened"]);
 }
-const DynamicDrawer = /* @__PURE__ */ _export_sfc$1(_sfc_main$3P, [["render", _sfc_render$3P], ["__scopeId", "data-v-de083670"]]);
-const _sfc_main$3O = {
+const DynamicDrawer = /* @__PURE__ */ _export_sfc$1(_sfc_main$3Q, [["render", _sfc_render$3Q], ["__scopeId", "data-v-de083670"]]);
+const _sfc_main$3P = {
   name: "VFormRender",
   componentName: "VFormRender",
   mixins: [emitter, i18n$1],
@@ -53444,13 +54717,13 @@ const _sfc_main$3O = {
       const dialogInstance = createVNode(DynamicDialog, {
         options: dialogCon.options,
         formJson: dFormJson,
-        formData: formData || {},
+        formData: { ...formData },
         optionData: topFormRef.optionData,
         globalDsv: topFormRef.globalDsv,
         parentFormRef: this,
         extraData,
         wrapperId: wrapperDivId,
-        vfCtx: formData || {}
+        vfCtx: { ...formData }
       });
       dialogInstance.appContext = this.$root.$.appContext;
       const wrapperDiv = document.createElement("div");
@@ -53500,7 +54773,7 @@ const _sfc_main$3O = {
     //--------------------- 以上为组件支持外部调用的API方法 end ------------------//
   }
 };
-function _sfc_render$3O(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$3P(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_form = resolveComponent("a-form");
   const _component_a_config_provider = resolveComponent("a-config-provider");
   return openBlock(), createBlock(_component_a_config_provider, {
@@ -53563,7 +54836,7 @@ function _sfc_render$3O(_ctx, _cache, $props, $setup, $data, $options) {
     _: 3
   }, 8, ["component-size"]);
 }
-const VFormRender = /* @__PURE__ */ _export_sfc$1(_sfc_main$3O, [["render", _sfc_render$3O], ["__scopeId", "data-v-9ef4e237"]]);
+const VFormRender = /* @__PURE__ */ _export_sfc$1(_sfc_main$3P, [["render", _sfc_render$3P], ["__scopeId", "data-v-ab2b030a"]]);
 const generateCode = function(formJson, codeType = "vue") {
   const formJsonStr = JSON.stringify(formJson);
   if (codeType === "html") {
@@ -53647,80 +54920,7 @@ const generateCode = function(formJson, codeType = "vue") {
 <\/script>`;
   }
 };
-var FileSaver_min = { exports: {} };
-(function(module, exports) {
-  (function(a, b) {
-    b();
-  })(commonjsGlobal, function() {
-    function b(a2, b2) {
-      return "undefined" == typeof b2 ? b2 = { autoBom: false } : "object" != typeof b2 && (console.warn("Deprecated: Expected third argument to be a object"), b2 = { autoBom: !b2 }), b2.autoBom && /^\s*(?:text\/\S*|application\/xml|\S*\/\S*\+xml)\s*;.*charset\s*=\s*utf-8/i.test(a2.type) ? new Blob(["\uFEFF", a2], { type: a2.type }) : a2;
-    }
-    function c(a2, b2, c2) {
-      var d2 = new XMLHttpRequest();
-      d2.open("GET", a2), d2.responseType = "blob", d2.onload = function() {
-        g(d2.response, b2, c2);
-      }, d2.onerror = function() {
-        console.error("could not download file");
-      }, d2.send();
-    }
-    function d(a2) {
-      var b2 = new XMLHttpRequest();
-      b2.open("HEAD", a2, false);
-      try {
-        b2.send();
-      } catch (a3) {
-      }
-      return 200 <= b2.status && 299 >= b2.status;
-    }
-    function e(a2) {
-      try {
-        a2.dispatchEvent(new MouseEvent("click"));
-      } catch (c2) {
-        var b2 = document.createEvent("MouseEvents");
-        b2.initMouseEvent("click", true, true, window, 0, 0, 0, 80, 20, false, false, false, false, 0, null), a2.dispatchEvent(b2);
-      }
-    }
-    var f = "object" == typeof window && window.window === window ? window : "object" == typeof self && self.self === self ? self : "object" == typeof commonjsGlobal && commonjsGlobal.global === commonjsGlobal ? commonjsGlobal : void 0, a = f.navigator && /Macintosh/.test(navigator.userAgent) && /AppleWebKit/.test(navigator.userAgent) && !/Safari/.test(navigator.userAgent), g = f.saveAs || ("object" != typeof window || window !== f ? function() {
-    } : "download" in HTMLAnchorElement.prototype && !a ? function(b2, g2, h2) {
-      var i = f.URL || f.webkitURL, j = document.createElement("a");
-      g2 = g2 || b2.name || "download", j.download = g2, j.rel = "noopener", "string" == typeof b2 ? (j.href = b2, j.origin === location.origin ? e(j) : d(j.href) ? c(b2, g2, h2) : e(j, j.target = "_blank")) : (j.href = i.createObjectURL(b2), setTimeout(function() {
-        i.revokeObjectURL(j.href);
-      }, 4e4), setTimeout(function() {
-        e(j);
-      }, 0));
-    } : "msSaveOrOpenBlob" in navigator ? function(f2, g2, h2) {
-      if (g2 = g2 || f2.name || "download", "string" != typeof f2)
-        navigator.msSaveOrOpenBlob(b(f2, h2), g2);
-      else if (d(f2))
-        c(f2, g2, h2);
-      else {
-        var i = document.createElement("a");
-        i.href = f2, i.target = "_blank", setTimeout(function() {
-          e(i);
-        });
-      }
-    } : function(b2, d2, e2, g2) {
-      if (g2 = g2 || open("", "_blank"), g2 && (g2.document.title = g2.document.body.innerText = "downloading..."), "string" == typeof b2)
-        return c(b2, d2, e2);
-      var h2 = "application/octet-stream" === b2.type, i = /constructor/i.test(f.HTMLElement) || f.safari, j = /CriOS\/[\d]+/.test(navigator.userAgent);
-      if ((j || h2 && i || a) && "undefined" != typeof FileReader) {
-        var k = new FileReader();
-        k.onloadend = function() {
-          var a2 = k.result;
-          a2 = j ? a2 : a2.replace(/^data:[^;]*;/, "data:attachment/file;"), g2 ? g2.location.href = a2 : location = a2, g2 = null;
-        }, k.readAsDataURL(b2);
-      } else {
-        var l = f.URL || f.webkitURL, m = l.createObjectURL(b2);
-        g2 ? g2.location = m : location.href = m, g2 = null, setTimeout(function() {
-          l.revokeObjectURL(m);
-        }, 4e4);
-      }
-    });
-    f.saveAs = g.saveAs = g, module.exports = g;
-  });
-})(FileSaver_min);
-var FileSaver_minExports = FileSaver_min.exports;
-const _sfc_main$3N = {
+const _sfc_main$3O = {
   name: "ToolbarPanel",
   mixins: [i18n$1],
   components: {
@@ -53837,7 +55037,24 @@ const _sfc_main$3N = {
       }
     },
     setReadMode() {
-      this.$refs.preForm.setReadMode(!this.$refs.preForm.getReadMode());
+      this.$refs.preForm.setFormData({
+        fileupload26481: [
+          {
+            // fileCode: '88927836217345',
+            // fileSavePath: 'file/',
+            // fileSaveName: '88927836217345.xlsx',
+            // fileName: '备料清单导入模板.xlsx',
+            // fileType: '.xlsx',
+            // fileSize: 11239,
+            // name: '备料清单导入模板.xlsx',
+            // uid: '__AUTO__1717584897101_0__',
+            fileCode: "89046755221505",
+            fileName: "首页-透明工厂.png",
+            guidebookId: 89046782484481,
+            id: 89046782484482
+          }
+        ]
+      });
     },
     showToolButton(configName) {
       if (this.designerConfig[configName] === void 0) {
@@ -54973,7 +56190,7 @@ const _hoisted_7$4 = { class: "dialog-footer" };
 const _hoisted_8$4 = { style: { "border": "1px solid #dcdfe6" } };
 const _hoisted_9$3 = { class: "dialog-footer" };
 const _hoisted_10$2 = { class: "dialog-footer" };
-function _sfc_render$3N(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$3O(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_svg_icon = resolveComponent("svg-icon");
   const _component_a_button = resolveComponent("a-button");
   const _component_a_tree = resolveComponent("a-tree");
@@ -55467,7 +56684,53 @@ function _sfc_render$3N(_ctx, _cache, $props, $setup, $data, $options) {
     }, 8, ["title", "visible"])) : createCommentVNode("", true)
   ]);
 }
-const ToolbarPanel = /* @__PURE__ */ _export_sfc$1(_sfc_main$3N, [["render", _sfc_render$3N], ["__scopeId", "data-v-76c73736"]]);
+const ToolbarPanel = /* @__PURE__ */ _export_sfc$1(_sfc_main$3O, [["render", _sfc_render$3O], ["__scopeId", "data-v-ad9a7c60"]]);
+const _sfc_main$3N = {
+  name: "accept-editor",
+  componentName: "PropertyEditor",
+  mixins: [i18n$1],
+  props: {
+    designer: Object,
+    selectedWidget: Object,
+    optionModel: Object
+  },
+  data() {
+    return {
+      ops: [
+        { value: ".doc", label: ".doc" },
+        { value: ".docx", label: ".docx" },
+        { value: ".xlsx", label: ".xlsx" },
+        { value: ".xls", label: ".xls" },
+        { value: ".pdf", label: ".pdf" },
+        { value: ".pptx", label: ".pptx" },
+        { value: ".dwg", label: ".dwg" },
+        { value: ".jpg", label: ".jpg" },
+        { value: ".png", label: ".png" }
+      ]
+    };
+  }
+};
+function _sfc_render$3N(_ctx, _cache, $props, $setup, $data, $options) {
+  const _component_a_select = resolveComponent("a-select");
+  const _component_a_form_item = resolveComponent("a-form-item");
+  return openBlock(), createBlock(_component_a_form_item, { label: `文件类型` }, {
+    default: withCtx(() => [
+      createVNode(_component_a_select, {
+        value: $props.optionModel.accept,
+        "onUpdate:value": _cache[0] || (_cache[0] = ($event) => $props.optionModel.accept = $event),
+        allowClear: "",
+        mode: "tags",
+        options: $data.ops
+      }, null, 8, ["value", "options"])
+    ]),
+    _: 1
+  });
+}
+const acceptEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3N, [["render", _sfc_render$3N]]);
+const __vite_glob_0_0$1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+  __proto__: null,
+  default: acceptEditor
+}, Symbol.toStringTag, { value: "Module" }));
 const _sfc_main$3M = {
   name: "actionColumnPosition-editor",
   mixins: [i18n$1],
@@ -55516,7 +56779,7 @@ function _sfc_render$3M(_ctx, _cache, $props, $setup, $data, $options) {
   }, 8, ["label"]);
 }
 const actionColumnPositionEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3M, [["render", _sfc_render$3M], ["__scopeId", "data-v-d3a47f26"]]);
-const __vite_glob_0_0$1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_1$1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: actionColumnPositionEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -55546,7 +56809,7 @@ function _sfc_render$3L(_ctx, _cache, $props, $setup, $data, $options) {
   }, 8, ["label"]);
 }
 const addonAfterEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3L, [["render", _sfc_render$3L]]);
-const __vite_glob_0_1$1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_2$1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: addonAfterEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -55576,7 +56839,7 @@ function _sfc_render$3K(_ctx, _cache, $props, $setup, $data, $options) {
   }, 8, ["label"]);
 }
 const addonBeforeEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3K, [["render", _sfc_render$3K]]);
-const __vite_glob_0_2$1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_3$1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: addonBeforeEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -55605,7 +56868,7 @@ function _sfc_render$3J(_ctx, _cache, $props, $setup, $data, $options) {
   }, 8, ["label"]);
 }
 const allowClearEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3J, [["render", _sfc_render$3J]]);
-const __vite_glob_0_3$1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_4$1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: allowClearEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -55648,7 +56911,7 @@ function _sfc_render$3I(_ctx, _cache, $props, $setup, $data, $options) {
   ]);
 }
 const appendButtonEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3I, [["render", _sfc_render$3I]]);
-const __vite_glob_0_4$1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_5$1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: appendButtonEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -55677,7 +56940,7 @@ function _sfc_render$3H(_ctx, _cache, $props, $setup, $data, $options) {
   }, 8, ["label"]);
 }
 const appendButtonDisabledEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3H, [["render", _sfc_render$3H]]);
-const __vite_glob_0_5$1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_6$1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: appendButtonDisabledEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -55706,7 +56969,7 @@ function _sfc_render$3G(_ctx, _cache, $props, $setup, $data, $options) {
   }, 8, ["label"]);
 }
 const autoFullWidthEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3G, [["render", _sfc_render$3G]]);
-const __vite_glob_0_6$1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_7$1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: autoFullWidthEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -55735,7 +56998,7 @@ function _sfc_render$3F(_ctx, _cache, $props, $setup, $data, $options) {
   }, 8, ["label"]);
 }
 const borderEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3F, [["render", _sfc_render$3F]]);
-const __vite_glob_0_7$1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_8$1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: borderEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -55765,7 +57028,7 @@ function _sfc_render$3E(_ctx, _cache, $props, $setup, $data, $options) {
   }, 8, ["label"]);
 }
 const buttonIconEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3E, [["render", _sfc_render$3E]]);
-const __vite_glob_0_8$1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_9$1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: buttonIconEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -55794,7 +57057,7 @@ function _sfc_render$3D(_ctx, _cache, $props, $setup, $data, $options) {
   }, 8, ["label"]);
 }
 const buttonStyleEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3D, [["render", _sfc_render$3D]]);
-const __vite_glob_0_9$1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_10$1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: buttonStyleEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -55841,7 +57104,7 @@ function _sfc_render$3C(_ctx, _cache, $props, $setup, $data, $options) {
   });
 }
 const codeEditorMode = /* @__PURE__ */ _export_sfc$1(_sfc_main$3C, [["render", _sfc_render$3C]]);
-const __vite_glob_0_10$1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_11$1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: codeEditorMode
 }, Symbol.toStringTag, { value: "Module" }));
@@ -55876,7 +57139,7 @@ function _sfc_render$3B(_ctx, _cache, $props, $setup, $data, $options) {
   ]);
 }
 const columnWidthEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3B, [["render", _sfc_render$3B]]);
-const __vite_glob_0_11$1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_12$1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: columnWidthEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -55995,7 +57258,7 @@ function _sfc_render$3A(_ctx, _cache, $props, $setup, $data, $options) {
   ], 64);
 }
 const dataTableCustomRowEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3A, [["render", _sfc_render$3A]]);
-const __vite_glob_0_12$1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_13$1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: dataTableCustomRowEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -56080,7 +57343,7 @@ function _sfc_render$3z(_ctx, _cache, $props, $setup, $data, $options) {
   }, 8, ["label"]);
 }
 const dataTableCustomClassEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3z, [["render", _sfc_render$3z]]);
-const __vite_glob_0_13$1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_14 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: dataTableCustomClassEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -56861,7 +58124,7 @@ function _sfc_render$3w(_ctx, _cache, $props, $setup, $data, $options) {
   ], 64);
 }
 const dataTableDsEnabledEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3w, [["render", _sfc_render$3w]]);
-const __vite_glob_0_14 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_15 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: dataTableDsEnabledEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -57063,7 +58326,7 @@ function _sfc_render$3v(_ctx, _cache, $props, $setup, $data, $options) {
   ], 64);
 }
 const dataTablePaginationEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3v, [["render", _sfc_render$3v]]);
-const __vite_glob_0_15 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_16 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: dataTablePaginationEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -57094,7 +58357,7 @@ function _sfc_render$3u(_ctx, _cache, $props, $setup, $data, $options) {
   });
 }
 const dataTableRowKeyEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3u, [["render", _sfc_render$3u]]);
-const __vite_glob_0_16 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_17 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: dataTableRowKeyEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -57244,7 +58507,7 @@ function _sfc_render$3t(_ctx, _cache, $props, $setup, $data, $options) {
   ], 64);
 }
 const dataTableSelectionsEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3t, [["render", _sfc_render$3t]]);
-const __vite_glob_0_17 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_18 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: dataTableSelectionsEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -57782,7 +59045,7 @@ function _sfc_render$3s(_ctx, _cache, $props, $setup, $data, $options) {
   ], 64);
 }
 const dataTableShowButtonsColumnEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3s, [["render", _sfc_render$3s], ["__scopeId", "data-v-dd00e485"]]);
-const __vite_glob_0_18 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_19 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: dataTableShowButtonsColumnEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -57815,7 +59078,7 @@ function _sfc_render$3r(_ctx, _cache, $props, $setup, $data, $options) {
   }, 8, ["label"]);
 }
 const dataTableShowIndexEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3r, [["render", _sfc_render$3r]]);
-const __vite_glob_0_19 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_20 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: dataTableShowIndexEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -57848,7 +59111,7 @@ function _sfc_render$3q(_ctx, _cache, $props, $setup, $data, $options) {
   }, 8, ["label"]);
 }
 const dataTableStripeEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3q, [["render", _sfc_render$3q]]);
-const __vite_glob_0_20 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_21 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: dataTableStripeEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -57876,7 +59139,7 @@ function _objectSpread2(target) {
     var source = arguments[i] != null ? arguments[i] : {};
     if (i % 2) {
       ownKeys(Object(source), true).forEach(function(key) {
-        _defineProperty$5(target, key, source[key]);
+        _defineProperty(target, key, source[key]);
       });
     } else if (Object.getOwnPropertyDescriptors) {
       Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));
@@ -57901,7 +59164,7 @@ function _typeof(obj) {
   }
   return _typeof(obj);
 }
-function _defineProperty$5(obj, key, value2) {
+function _defineProperty(obj, key, value2) {
   if (key in obj) {
     Object.defineProperty(obj, key, {
       value: value2,
@@ -57928,7 +59191,7 @@ function _extends() {
   };
   return _extends.apply(this, arguments);
 }
-function _objectWithoutPropertiesLoose$2(source, excluded) {
+function _objectWithoutPropertiesLoose(source, excluded) {
   if (source == null)
     return {};
   var target = {};
@@ -57942,10 +59205,10 @@ function _objectWithoutPropertiesLoose$2(source, excluded) {
   }
   return target;
 }
-function _objectWithoutProperties$2(source, excluded) {
+function _objectWithoutProperties(source, excluded) {
   if (source == null)
     return {};
-  var target = _objectWithoutPropertiesLoose$2(source, excluded);
+  var target = _objectWithoutPropertiesLoose(source, excluded);
   var key, i;
   if (Object.getOwnPropertySymbols) {
     var sourceSymbolKeys = Object.getOwnPropertySymbols(source);
@@ -58511,9 +59774,9 @@ function dispatchEvent(_ref) {
     options[onName].call(sortable, evt);
   }
 }
-var _excluded$2 = ["evt"];
+var _excluded = ["evt"];
 var pluginEvent = function pluginEvent3(eventName, sortable) {
-  var _ref = arguments.length > 2 && arguments[2] !== void 0 ? arguments[2] : {}, originalEvent = _ref.evt, data = _objectWithoutProperties$2(_ref, _excluded$2);
+  var _ref = arguments.length > 2 && arguments[2] !== void 0 ? arguments[2] : {}, originalEvent = _ref.evt, data = _objectWithoutProperties(_ref, _excluded);
   PluginManager.pluginEvent.bind(Sortable)(eventName, sortable, _objectSpread2({
     dragEl,
     parentEl,
@@ -60411,7 +61674,7 @@ function _sfc_render$3p(_ctx, _cache, $props, $setup, $data, $options) {
   ], 64);
 }
 const dataTableTableColumnsEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3p, [["render", _sfc_render$3p], ["__scopeId", "data-v-3b5eb05e"]]);
-const __vite_glob_0_21 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_22 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: dataTableTableColumnsEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -60444,7 +61707,7 @@ function _sfc_render$3o(_ctx, _cache, $props, $setup, $data, $options) {
   }, 8, ["label"]);
 }
 const dataTableTableHeightEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3o, [["render", _sfc_render$3o]]);
-const __vite_glob_0_22 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_23 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: dataTableTableHeightEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -60484,7 +61747,7 @@ function _sfc_render$3n(_ctx, _cache, $props, $setup, $data, $options) {
   }, 8, ["label"]);
 }
 const dataTableTableSizeEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3n, [["render", _sfc_render$3n]]);
-const __vite_glob_0_23 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_24 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: dataTableTableSizeEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -60517,7 +61780,7 @@ function _sfc_render$3m(_ctx, _cache, $props, $setup, $data, $options) {
   }, 8, ["label"]);
 }
 const dataTableTableWidthEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3m, [["render", _sfc_render$3m]]);
-const __vite_glob_0_24 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_25 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: dataTableTableWidthEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -60588,7 +61851,7 @@ function _sfc_render$3l(_ctx, _cache, $props, $setup, $data, $options) {
   ], 64);
 }
 const dataTableTreeDataEnabledEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3l, [["render", _sfc_render$3l]]);
-const __vite_glob_0_25 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_26 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: dataTableTreeDataEnabledEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -60620,7 +61883,7 @@ function _sfc_render$3k(_ctx, _cache, $props, $setup, $data, $options) {
   }, 8, ["label"]);
 }
 const gridColOffsetEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3k, [["render", _sfc_render$3k]]);
-const __vite_glob_0_26 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_27 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: gridColOffsetEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -60652,7 +61915,7 @@ function _sfc_render$3j(_ctx, _cache, $props, $setup, $data, $options) {
   }, 8, ["label"]);
 }
 const gridColPullEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3j, [["render", _sfc_render$3j]]);
-const __vite_glob_0_27 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_28 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: gridColPullEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -60684,7 +61947,7 @@ function _sfc_render$3i(_ctx, _cache, $props, $setup, $data, $options) {
   }, 8, ["label"]);
 }
 const gridColPushEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3i, [["render", _sfc_render$3i]]);
-const __vite_glob_0_28 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_29 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: gridColPushEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -60713,7 +61976,7 @@ function _sfc_render$3h(_ctx, _cache, $props, $setup, $data, $options) {
   }, 8, ["label"]);
 }
 const gridColResponsiveEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3h, [["render", _sfc_render$3h]]);
-const __vite_glob_0_29 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_30 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: gridColResponsiveEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -60798,7 +62061,7 @@ function _sfc_render$3g(_ctx, _cache, $props, $setup, $data, $options) {
   ]);
 }
 const gridColSpanEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3g, [["render", _sfc_render$3g]]);
-const __vite_glob_0_30 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_31 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: gridColSpanEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -60878,7 +62141,7 @@ function _sfc_render$3f(_ctx, _cache, $props, $setup, $data, $options) {
   ]);
 }
 const colHeightEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3f, [["render", _sfc_render$3f]]);
-const __vite_glob_0_31 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_32 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: colHeightEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -61014,7 +62277,7 @@ function _sfc_render$3e(_ctx, _cache, $props, $setup, $data, $options) {
   ]);
 }
 const gutterEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3e, [["render", _sfc_render$3e], ["__scopeId", "data-v-35700e4d"]]);
-const __vite_glob_0_32 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_33 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: gutterEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -61043,7 +62306,7 @@ function _sfc_render$3d(_ctx, _cache, $props, $setup, $data, $options) {
   }, 8, ["label"]);
 }
 const showBlankRowEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3d, [["render", _sfc_render$3d]]);
-const __vite_glob_0_33 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_34 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: showBlankRowEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -61072,7 +62335,7 @@ function _sfc_render$3c(_ctx, _cache, $props, $setup, $data, $options) {
   }, 8, ["label"]);
 }
 const showRowNumberEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3c, [["render", _sfc_render$3c]]);
-const __vite_glob_0_34 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_35 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: showRowNumberEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -61119,7 +62382,7 @@ function _sfc_render$3b(_ctx, _cache, $props, $setup, $data, $options) {
   }, 8, ["label"]);
 }
 const subFormLabelAlignEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3b, [["render", _sfc_render$3b], ["__scopeId", "data-v-35af70d0"]]);
-const __vite_glob_0_35 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_36 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: subFormLabelAlignEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -61260,7 +62523,7 @@ function _sfc_render$3a(_ctx, _cache, $props, $setup, $data, $options) {
   ]);
 }
 const tabCustomClassEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$3a, [["render", _sfc_render$3a], ["__scopeId", "data-v-11d9c5b8"]]);
-const __vite_glob_0_36 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_37 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: tabCustomClassEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -61290,7 +62553,7 @@ function _sfc_render$39(_ctx, _cache, $props, $setup, $data, $options) {
   }, 8, ["label"]);
 }
 const cellHeightEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$39, [["render", _sfc_render$39]]);
-const __vite_glob_0_37 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_38 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: cellHeightEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -61320,7 +62583,7 @@ function _sfc_render$38(_ctx, _cache, $props, $setup, $data, $options) {
   }, 8, ["label"]);
 }
 const cellWidthEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$38, [["render", _sfc_render$38]]);
-const __vite_glob_0_38 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_39 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: cellWidthEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -61413,7 +62676,7 @@ function _sfc_render$37(_ctx, _cache, $props, $setup, $data, $options) {
   ], 64);
 }
 const bodyStyleEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$37, [["render", _sfc_render$37]]);
-const __vite_glob_0_39 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_40 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: bodyStyleEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -61442,7 +62705,7 @@ function _sfc_render$36(_ctx, _cache, $props, $setup, $data, $options) {
   }, 8, ["label"]);
 }
 const cancelButtonHiddenEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$36, [["render", _sfc_render$36]]);
-const __vite_glob_0_40 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_41 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: cancelButtonHiddenEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -61472,7 +62735,7 @@ function _sfc_render$35(_ctx, _cache, $props, $setup, $data, $options) {
   }, 8, ["label"]);
 }
 const cancelButtonLabelEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$35, [["render", _sfc_render$35]]);
-const __vite_glob_0_41 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_42 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: cancelButtonLabelEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -61501,7 +62764,7 @@ function _sfc_render$34(_ctx, _cache, $props, $setup, $data, $options) {
   }, 8, ["label"]);
 }
 const closeOnClickModalEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$34, [["render", _sfc_render$34]]);
-const __vite_glob_0_42 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_43 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: closeOnClickModalEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -61530,7 +62793,7 @@ function _sfc_render$33(_ctx, _cache, $props, $setup, $data, $options) {
   }, 8, ["label"]);
 }
 const closeOnPressEscapeEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$33, [["render", _sfc_render$33]]);
-const __vite_glob_0_43 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_44 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: closeOnPressEscapeEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -61558,7 +62821,7 @@ function _sfc_render$32(_ctx, _cache, $props, $setup, $data, $options) {
   });
 }
 const collapseIconEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$32, [["render", _sfc_render$32]]);
-const __vite_glob_0_44 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_45 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: collapseIconEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -61587,7 +62850,7 @@ function _sfc_render$31(_ctx, _cache, $props, $setup, $data, $options) {
   }, 8, ["label"]);
 }
 const disabledModeEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$31, [["render", _sfc_render$31]]);
-const __vite_glob_0_45 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_46 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: disabledModeEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -61646,7 +62909,7 @@ function _sfc_render$30(_ctx, _cache, $props, $setup, $data, $options) {
   });
 }
 const formCodeEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$30, [["render", _sfc_render$30]]);
-const __vite_glob_0_46 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_47 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: formCodeEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -61675,7 +62938,7 @@ function _sfc_render$2$(_ctx, _cache, $props, $setup, $data, $options) {
   }, 8, ["label"]);
 }
 const fullscreenEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2$, [["render", _sfc_render$2$]]);
-const __vite_glob_0_47 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_48 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: fullscreenEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -61703,7 +62966,7 @@ function _sfc_render$2_(_ctx, _cache, $props, $setup, $data, $options) {
   });
 }
 const heightEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2_, [["render", _sfc_render$2_]]);
-const __vite_glob_0_48 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_49 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: heightEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -61730,7 +62993,7 @@ function _sfc_render$2Z(_ctx, _cache, $props, $setup, $data, $options) {
   });
 }
 const isCollapseEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2Z, [["render", _sfc_render$2Z]]);
-const __vite_glob_0_49 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_50 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: isCollapseEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -61759,7 +63022,7 @@ function _sfc_render$2Y(_ctx, _cache, $props, $setup, $data, $options) {
   }, 8, ["label"]);
 }
 const okButtonHiddenEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2Y, [["render", _sfc_render$2Y]]);
-const __vite_glob_0_50 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_51 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: okButtonHiddenEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -61789,7 +63052,7 @@ function _sfc_render$2X(_ctx, _cache, $props, $setup, $data, $options) {
   }, 8, ["label"]);
 }
 const okButtonLabelEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2X, [["render", _sfc_render$2X]]);
-const __vite_glob_0_51 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_52 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: okButtonLabelEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -61818,7 +63081,7 @@ function _sfc_render$2W(_ctx, _cache, $props, $setup, $data, $options) {
   }, 8, ["label"]);
 }
 const readModeEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2W, [["render", _sfc_render$2W]]);
-const __vite_glob_0_52 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_53 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: readModeEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -61847,7 +63110,7 @@ function _sfc_render$2V(_ctx, _cache, $props, $setup, $data, $options) {
   }, 8, ["label"]);
 }
 const showCloseEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2V, [["render", _sfc_render$2V]]);
-const __vite_glob_0_53 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_54 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: showCloseEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -61877,7 +63140,7 @@ function _sfc_render$2U(_ctx, _cache, $props, $setup, $data, $options) {
   }, 8, ["label"]);
 }
 const titleEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2U, [["render", _sfc_render$2U]]);
-const __vite_glob_0_54 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_55 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: titleEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -61905,7 +63168,7 @@ function _sfc_render$2T(_ctx, _cache, $props, $setup, $data, $options) {
   });
 }
 const unCollapseIconEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2T, [["render", _sfc_render$2T]]);
-const __vite_glob_0_55 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_56 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: unCollapseIconEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -61935,7 +63198,7 @@ function _sfc_render$2S(_ctx, _cache, $props, $setup, $data, $options) {
   }, 8, ["label"]);
 }
 const widthEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2S, [["render", _sfc_render$2S]]);
-const __vite_glob_0_56 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_57 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: widthEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -61998,7 +63261,7 @@ function _sfc_render$2R(_ctx, _cache, $props, $setup, $data, $options) {
   }, 8, ["label"]);
 }
 const vfDrawerDirectionEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2R, [["render", _sfc_render$2R], ["__scopeId", "data-v-3da0396a"]]);
-const __vite_glob_0_57 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_58 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: vfDrawerDirectionEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -62028,7 +63291,7 @@ function _sfc_render$2Q(_ctx, _cache, $props, $setup, $data, $options) {
   }, 8, ["label"]);
 }
 const vfDrawerSizeEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2Q, [["render", _sfc_render$2Q]]);
-const __vite_glob_0_58 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_59 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: vfDrawerSizeEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -62072,7 +63335,7 @@ function _sfc_render$2P(_ctx, _cache, $props, $setup, $data, $options) {
   }, 8, ["label"]);
 }
 const customClassEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2P, [["render", _sfc_render$2P]]);
-const __vite_glob_0_59 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_60 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: customClassEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -62104,7 +63367,7 @@ function _sfc_render$2O(_ctx, _cache, $props, $setup, $data, $options) {
   }, 8, ["label"])) : createCommentVNode("", true);
 }
 const defaultValueEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2O, [["render", _sfc_render$2O]]);
-const __vite_glob_0_60 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_61 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: defaultValueEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -62156,7 +63419,7 @@ function _sfc_render$2N(_ctx, _cache, $props, $setup, $data, $options) {
   }, 8, ["label"]);
 }
 const disabledEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2N, [["render", _sfc_render$2N]]);
-const __vite_glob_0_61 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_62 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: disabledEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -62202,7 +63465,7 @@ function _sfc_render$2M(_ctx, _cache, $props, $setup, $data, $options) {
   }, 8, ["label"]);
 }
 const displayStyleEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2M, [["render", _sfc_render$2M]]);
-const __vite_glob_0_62 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_63 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: displayStyleEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -62231,7 +63494,7 @@ function _sfc_render$2L(_ctx, _cache, $props, $setup, $data, $options) {
   }, 8, ["label"]);
 }
 const editableEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2L, [["render", _sfc_render$2L]]);
-const __vite_glob_0_63 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_64 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: editableEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -62261,7 +63524,7 @@ function _sfc_render$2K(_ctx, _cache, $props, $setup, $data, $options) {
   }, 8, ["label"]);
 }
 const endPlaceholderEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2K, [["render", _sfc_render$2K]]);
-const __vite_glob_0_64 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_65 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: endPlaceholderEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -62309,7 +63572,7 @@ function _sfc_render$2J(_ctx, _cache, $props, $setup, $data, $options) {
   });
 }
 const onAppendButtonClickEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2J, [["render", _sfc_render$2J]]);
-const __vite_glob_0_65 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_66 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: onAppendButtonClickEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -62356,7 +63619,7 @@ function _sfc_render$2I(_ctx, _cache, $props, $setup, $data, $options) {
   });
 }
 const onBeforeUploadEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2I, [["render", _sfc_render$2I]]);
-const __vite_glob_0_66 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_67 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: onBeforeUploadEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -62404,7 +63667,7 @@ function _sfc_render$2H(_ctx, _cache, $props, $setup, $data, $options) {
   });
 }
 const onBlurEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2H, [["render", _sfc_render$2H]]);
-const __vite_glob_0_67 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_68 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: onBlurEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -62451,7 +63714,7 @@ function _sfc_render$2G(_ctx, _cache, $props, $setup, $data, $options) {
   });
 }
 const onCancelButtonClickEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2G, [["render", _sfc_render$2G]]);
-const __vite_glob_0_68 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_69 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: onCancelButtonClickEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -62498,7 +63761,7 @@ function _sfc_render$2F(_ctx, _cache, $props, $setup, $data, $options) {
   });
 }
 const onCellClickEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2F, [["render", _sfc_render$2F]]);
-const __vite_glob_0_69 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_70 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: onCellClickEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -62545,7 +63808,7 @@ function _sfc_render$2E(_ctx, _cache, $props, $setup, $data, $options) {
   });
 }
 const onCellDoubleClickEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2E, [["render", _sfc_render$2E]]);
-const __vite_glob_0_70 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_71 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: onCellDoubleClickEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -62593,7 +63856,7 @@ function _sfc_render$2D(_ctx, _cache, $props, $setup, $data, $options) {
   });
 }
 const onChangeEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2D, [["render", _sfc_render$2D]]);
-const __vite_glob_0_71 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_72 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: onChangeEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -62640,7 +63903,7 @@ function _sfc_render$2C(_ctx, _cache, $props, $setup, $data, $options) {
   });
 }
 const onClickEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2C, [["render", _sfc_render$2C]]);
-const __vite_glob_0_72 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_73 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: onClickEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -62688,7 +63951,7 @@ function _sfc_render$2B(_ctx, _cache, $props, $setup, $data, $options) {
   });
 }
 const onClickIconEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2B, [["render", _sfc_render$2B]]);
-const __vite_glob_0_73 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_74 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: onClickIconEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -62736,7 +63999,7 @@ function _sfc_render$2A(_ctx, _cache, $props, $setup, $data, $options) {
   });
 }
 const onCreatedEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2A, [["render", _sfc_render$2A]]);
-const __vite_glob_0_74 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_75 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: onCreatedEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -62783,7 +64046,7 @@ function _sfc_render$2z(_ctx, _cache, $props, $setup, $data, $options) {
   });
 }
 const onCurrentPageChangeEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2z, [["render", _sfc_render$2z]]);
-const __vite_glob_0_75 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_76 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: onCurrentPageChangeEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -62830,7 +64093,7 @@ function _sfc_render$2y(_ctx, _cache, $props, $setup, $data, $options) {
   });
 }
 const onDialogBeforeCloseEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2y, [["render", _sfc_render$2y]]);
-const __vite_glob_0_76 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_77 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: onDialogBeforeCloseEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -62877,7 +64140,7 @@ function _sfc_render$2x(_ctx, _cache, $props, $setup, $data, $options) {
   });
 }
 const onDialogOpenedEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2x, [["render", _sfc_render$2x]]);
-const __vite_glob_0_77 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_78 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: onDialogOpenedEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -62925,7 +64188,7 @@ function _sfc_render$2w(_ctx, _cache, $props, $setup, $data, $options) {
   });
 }
 const onDisableOperationButtonEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2w, [["render", _sfc_render$2w]]);
-const __vite_glob_0_78 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_79 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: onDisableOperationButtonEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -62972,7 +64235,7 @@ function _sfc_render$2v(_ctx, _cache, $props, $setup, $data, $options) {
   });
 }
 const onDrawerBeforeCloseEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2v, [["render", _sfc_render$2v]]);
-const __vite_glob_0_79 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_80 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: onDrawerBeforeCloseEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -63019,7 +64282,7 @@ function _sfc_render$2u(_ctx, _cache, $props, $setup, $data, $options) {
   });
 }
 const onDrawerOpenedEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2u, [["render", _sfc_render$2u]]);
-const __vite_glob_0_80 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_81 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: onDrawerOpenedEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -63066,7 +64329,7 @@ function _sfc_render$2t(_ctx, _cache, $props, $setup, $data, $options) {
   });
 }
 const onFileRemove = /* @__PURE__ */ _export_sfc$1(_sfc_main$2t, [["render", _sfc_render$2t]]);
-const __vite_glob_0_81 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_82 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: onFileRemove
 }, Symbol.toStringTag, { value: "Module" }));
@@ -63114,7 +64377,7 @@ function _sfc_render$2s(_ctx, _cache, $props, $setup, $data, $options) {
   });
 }
 const onFocusEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2s, [["render", _sfc_render$2s]]);
-const __vite_glob_0_82 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_83 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: onFocusEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -63162,7 +64425,7 @@ function _sfc_render$2r(_ctx, _cache, $props, $setup, $data, $options) {
   });
 }
 const onGetOperationButtonLabelEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2r, [["render", _sfc_render$2r]]);
-const __vite_glob_0_83 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_84 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: onGetOperationButtonLabelEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -63209,7 +64472,7 @@ function _sfc_render$2q(_ctx, _cache, $props, $setup, $data, $options) {
   });
 }
 const onGetRowClassNameEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2q, [["render", _sfc_render$2q]]);
-const __vite_glob_0_84 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_85 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: onGetRowClassNameEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -63256,7 +64519,7 @@ function _sfc_render$2p(_ctx, _cache, $props, $setup, $data, $options) {
   });
 }
 const onGetSpanMethodEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2p, [["render", _sfc_render$2p]]);
-const __vite_glob_0_85 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_86 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: onGetSpanMethodEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -63303,7 +64566,7 @@ function _sfc_render$2o(_ctx, _cache, $props, $setup, $data, $options) {
   });
 }
 const onHeaderClickEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2o, [["render", _sfc_render$2o]]);
-const __vite_glob_0_86 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_87 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: onHeaderClickEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -63350,7 +64613,7 @@ function _sfc_render$2n(_ctx, _cache, $props, $setup, $data, $options) {
   });
 }
 const onHideOperationButtonEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2n, [["render", _sfc_render$2n]]);
-const __vite_glob_0_87 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_88 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: onHideOperationButtonEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -63398,7 +64661,7 @@ function _sfc_render$2m(_ctx, _cache, $props, $setup, $data, $options) {
   });
 }
 const onInputEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2m, [["render", _sfc_render$2m]]);
-const __vite_glob_0_88 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_89 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: onInputEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -63445,7 +64708,7 @@ function _sfc_render$2l(_ctx, _cache, $props, $setup, $data, $options) {
   });
 }
 const onMenuClickEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2l, [["render", _sfc_render$2l]]);
-const __vite_glob_0_89 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_90 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: onMenuClickEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -63493,7 +64756,7 @@ function _sfc_render$2k(_ctx, _cache, $props, $setup, $data, $options) {
   });
 }
 const onMountedEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2k, [["render", _sfc_render$2k]]);
-const __vite_glob_0_90 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_91 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: onMountedEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -63540,7 +64803,7 @@ function _sfc_render$2j(_ctx, _cache, $props, $setup, $data, $options) {
   });
 }
 const onOkButtonClickEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2j, [["render", _sfc_render$2j]]);
-const __vite_glob_0_91 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_92 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: onOkButtonClickEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -63587,7 +64850,7 @@ function _sfc_render$2i(_ctx, _cache, $props, $setup, $data, $options) {
   });
 }
 const onOperationButtonClickEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2i, [["render", _sfc_render$2i]]);
-const __vite_glob_0_92 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_93 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: onOperationButtonClickEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -63634,7 +64897,7 @@ function _sfc_render$2h(_ctx, _cache, $props, $setup, $data, $options) {
   });
 }
 const onPageSizeChangeEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2h, [["render", _sfc_render$2h]]);
-const __vite_glob_0_93 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_94 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: onPageSizeChangeEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -63681,7 +64944,7 @@ function _sfc_render$2g(_ctx, _cache, $props, $setup, $data, $options) {
   });
 }
 const onRemoteQueryEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2g, [["render", _sfc_render$2g]]);
-const __vite_glob_0_94 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_95 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: onRemoteQueryEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -63728,7 +64991,7 @@ function _sfc_render$2f(_ctx, _cache, $props, $setup, $data, $options) {
   });
 }
 const onRowClickEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2f, [["render", _sfc_render$2f]]);
-const __vite_glob_0_95 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_96 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: onRowClickEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -63775,7 +65038,7 @@ function _sfc_render$2e(_ctx, _cache, $props, $setup, $data, $options) {
   });
 }
 const onRowDoubleClickEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2e, [["render", _sfc_render$2e]]);
-const __vite_glob_0_96 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_97 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: onRowDoubleClickEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -63822,7 +65085,7 @@ function _sfc_render$2d(_ctx, _cache, $props, $setup, $data, $options) {
   });
 }
 const onSelectionChangeEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2d, [["render", _sfc_render$2d]]);
-const __vite_glob_0_97 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_98 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: onSelectionChangeEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -63869,7 +65132,7 @@ function _sfc_render$2c(_ctx, _cache, $props, $setup, $data, $options) {
   });
 }
 const onSubFormRowAddEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2c, [["render", _sfc_render$2c]]);
-const __vite_glob_0_98 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_99 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: onSubFormRowAddEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -63916,7 +65179,7 @@ function _sfc_render$2b(_ctx, _cache, $props, $setup, $data, $options) {
   });
 }
 const onSubFormRowChangeEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2b, [["render", _sfc_render$2b]]);
-const __vite_glob_0_99 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_100 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: onSubFormRowChangeEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -63963,7 +65226,7 @@ function _sfc_render$2a(_ctx, _cache, $props, $setup, $data, $options) {
   });
 }
 const onSubFormRowDeleteEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$2a, [["render", _sfc_render$2a]]);
-const __vite_glob_0_100 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_101 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: onSubFormRowDeleteEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -64010,7 +65273,7 @@ function _sfc_render$29(_ctx, _cache, $props, $setup, $data, $options) {
   });
 }
 const onSubFormRowInsertEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$29, [["render", _sfc_render$29]]);
-const __vite_glob_0_101 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_102 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: onSubFormRowInsertEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -64057,7 +65320,7 @@ function _sfc_render$28(_ctx, _cache, $props, $setup, $data, $options) {
   });
 }
 const onTabClickEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$28, [["render", _sfc_render$28]]);
-const __vite_glob_0_102 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_103 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: onTabClickEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -64105,7 +65368,7 @@ function _sfc_render$27(_ctx, _cache, $props, $setup, $data, $options) {
   });
 }
 const onTableChangeEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$27, [["render", _sfc_render$27]]);
-const __vite_glob_0_103 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_104 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: onTableChangeEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -64152,7 +65415,7 @@ function _sfc_render$26(_ctx, _cache, $props, $setup, $data, $options) {
   });
 }
 const onUploadErrorEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$26, [["render", _sfc_render$26]]);
-const __vite_glob_0_104 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_105 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: onUploadErrorEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -64199,7 +65462,7 @@ function _sfc_render$25(_ctx, _cache, $props, $setup, $data, $options) {
   });
 }
 const onUploadSuccessEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$25, [["render", _sfc_render$25]]);
-const __vite_glob_0_105 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_106 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: onUploadSuccessEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -64247,7 +65510,7 @@ function _sfc_render$24(_ctx, _cache, $props, $setup, $data, $options) {
   });
 }
 const onValidateEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$24, [["render", _sfc_render$24]]);
-const __vite_glob_0_106 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_107 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: onValidateEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -64295,7 +65558,7 @@ function _sfc_render$23(_ctx, _cache, $props, $setup, $data, $options) {
   });
 }
 const onVformAddEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$23, [["render", _sfc_render$23]]);
-const __vite_glob_0_107 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_108 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: onVformAddEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -64324,7 +65587,7 @@ function _sfc_render$22(_ctx, _cache, $props, $setup, $data, $options) {
   }, 8, ["label"]);
 }
 const circleEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$22, [["render", _sfc_render$22]]);
-const __vite_glob_0_108 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_109 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: circleEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -64351,7 +65614,7 @@ function _sfc_render$21(_ctx, _cache, $props, $setup, $data, $options) {
   });
 }
 const dangerEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$21, [["render", _sfc_render$21]]);
-const __vite_glob_0_109 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_110 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: dangerEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -64378,7 +65641,7 @@ function _sfc_render$20(_ctx, _cache, $props, $setup, $data, $options) {
   });
 }
 const ghostEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$20, [["render", _sfc_render$20]]);
-const __vite_glob_0_110 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_111 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: ghostEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -64408,7 +65671,7 @@ function _sfc_render$1$(_ctx, _cache, $props, $setup, $data, $options) {
   }, 8, ["label"]);
 }
 const iconEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1$, [["render", _sfc_render$1$]]);
-const __vite_glob_0_111 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_112 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: iconEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -64437,7 +65700,7 @@ function _sfc_render$1_(_ctx, _cache, $props, $setup, $data, $options) {
   }, 8, ["label"]);
 }
 const plainEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1_, [["render", _sfc_render$1_]]);
-const __vite_glob_0_112 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_113 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: plainEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -64466,7 +65729,7 @@ function _sfc_render$1Z(_ctx, _cache, $props, $setup, $data, $options) {
   }, 8, ["label"]);
 }
 const roundEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1Z, [["render", _sfc_render$1Z]]);
-const __vite_glob_0_113 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_114 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: roundEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -64516,7 +65779,7 @@ function _sfc_render$1Y(_ctx, _cache, $props, $setup, $data, $options) {
   });
 }
 const shapeEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1Y, [["render", _sfc_render$1Y]]);
-const __vite_glob_0_114 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_115 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: shapeEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -64604,7 +65867,7 @@ function _sfc_render$1X(_ctx, _cache, $props, $setup, $data, $options) {
   }, 8, ["label"]);
 }
 const typeEditor$1 = /* @__PURE__ */ _export_sfc$1(_sfc_main$1X, [["render", _sfc_render$1X]]);
-const __vite_glob_0_115 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_116 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: typeEditor$1
 }, Symbol.toStringTag, { value: "Module" }));
@@ -64621,7 +65884,7 @@ function _sfc_render$1W(_ctx, _cache, $props, $setup, $data, $options) {
   return openBlock(), createElementBlock("div", _hoisted_1$z);
 }
 const cascaderDefaultValueEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1W, [["render", _sfc_render$1W]]);
-const __vite_glob_0_116 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_117 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: cascaderDefaultValueEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -64650,7 +65913,7 @@ function _sfc_render$1V(_ctx, _cache, $props, $setup, $data, $options) {
   }, 8, ["label"]);
 }
 const cascaderMultipleEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1V, [["render", _sfc_render$1V]]);
-const __vite_glob_0_117 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_118 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: cascaderMultipleEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -64667,7 +65930,7 @@ function _sfc_render$1U(_ctx, _cache, $props, $setup, $data, $options) {
   return openBlock(), createElementBlock("div", _hoisted_1$y);
 }
 const checkboxDefaultValueEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1U, [["render", _sfc_render$1U]]);
-const __vite_glob_0_118 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_119 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: checkboxDefaultValueEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -64699,7 +65962,7 @@ function _sfc_render$1T(_ctx, _cache, $props, $setup, $data, $options) {
   }, 8, ["label"]);
 }
 const colorDefaultValueEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1T, [["render", _sfc_render$1T]]);
-const __vite_glob_0_119 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_120 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: colorDefaultValueEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -64733,7 +65996,7 @@ function _sfc_render$1S(_ctx, _cache, $props, $setup, $data, $options) {
   }, 8, ["label"]);
 }
 const dateRangeDefaultValueEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1S, [["render", _sfc_render$1S]]);
-const __vite_glob_0_120 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_121 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: dateRangeDefaultValueEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -64813,7 +66076,7 @@ function _sfc_render$1R(_ctx, _cache, $props, $setup, $data, $options) {
   }, 8, ["label"]);
 }
 const dateRangeFormatEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1R, [["render", _sfc_render$1R]]);
-const __vite_glob_0_121 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_122 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: dateRangeFormatEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -64874,7 +66137,7 @@ function _sfc_render$1Q(_ctx, _cache, $props, $setup, $data, $options) {
   }, 8, ["label"]);
 }
 const dateRangeTypeEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1Q, [["render", _sfc_render$1Q]]);
-const __vite_glob_0_122 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_123 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: dateRangeTypeEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -64945,7 +66208,7 @@ function _sfc_render$1P(_ctx, _cache, $props, $setup, $data, $options) {
   }, 8, ["label"]);
 }
 const dateRangeValueFormatEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1P, [["render", _sfc_render$1P]]);
-const __vite_glob_0_123 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_124 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: dateRangeValueFormatEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -64979,7 +66242,7 @@ function _sfc_render$1O(_ctx, _cache, $props, $setup, $data, $options) {
   }, 8, ["label"]);
 }
 const dateDefaultValueEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1O, [["render", _sfc_render$1O]]);
-const __vite_glob_0_124 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_125 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: dateDefaultValueEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -65050,7 +66313,7 @@ function _sfc_render$1N(_ctx, _cache, $props, $setup, $data, $options) {
   }, 8, ["label"]);
 }
 const dateFormatEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1N, [["render", _sfc_render$1N]]);
-const __vite_glob_0_125 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_126 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: dateFormatEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -65129,7 +66392,7 @@ function _sfc_render$1M(_ctx, _cache, $props, $setup, $data, $options) {
   }, 8, ["label"]);
 }
 const dateTypeEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1M, [["render", _sfc_render$1M]]);
-const __vite_glob_0_126 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_127 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: dateTypeEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -65200,7 +66463,7 @@ function _sfc_render$1L(_ctx, _cache, $props, $setup, $data, $options) {
   }, 8, ["label"]);
 }
 const dateValueFormatEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1L, [["render", _sfc_render$1L]]);
-const __vite_glob_0_127 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_128 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: dateValueFormatEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -65261,7 +66524,7 @@ function _sfc_render$1K(_ctx, _cache, $props, $setup, $data, $options) {
   }, 8, ["label"]);
 }
 const contentPositionEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1K, [["render", _sfc_render$1K]]);
-const __vite_glob_0_128 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_129 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: contentPositionEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -65313,7 +66576,7 @@ function _sfc_render$1J(_ctx, _cache, $props, $setup, $data, $options) {
   }, 8, ["label"]);
 }
 const dividerDirectionEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1J, [["render", _sfc_render$1J]]);
-const __vite_glob_0_129 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_130 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: dividerDirectionEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -65377,7 +66640,7 @@ function _sfc_render$1I(_ctx, _cache, $props, $setup, $data, $options) {
   ], 64);
 }
 const dropdownMenuListEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1I, [["render", _sfc_render$1I]]);
-const __vite_glob_0_130 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_131 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: dropdownMenuListEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -65438,7 +66701,7 @@ function _sfc_render$1H(_ctx, _cache, $props, $setup, $data, $options) {
   });
 }
 const fileUploadFileTypesEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1H, [["render", _sfc_render$1H]]);
-const __vite_glob_0_131 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_132 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: fileUploadFileTypesEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -65472,7 +66735,7 @@ function _sfc_render$1G(_ctx, _cache, $props, $setup, $data, $options) {
   ]);
 }
 const htmlContentEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1G, [["render", _sfc_render$1G], ["__scopeId", "data-v-85305ed8"]]);
-const __vite_glob_0_132 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_133 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: htmlContentEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -65524,7 +66787,7 @@ function _sfc_render$1F(_ctx, _cache, $props, $setup, $data, $options) {
   }, 8, ["label"]);
 }
 const controlsPositionEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1F, [["render", _sfc_render$1F]]);
-const __vite_glob_0_133 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_134 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: controlsPositionEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -65557,7 +66820,7 @@ function _sfc_render$1E(_ctx, _cache, $props, $setup, $data, $options) {
   }, 8, ["label"])) : createCommentVNode("", true);
 }
 const numberDefaultValueEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1E, [["render", _sfc_render$1E]]);
-const __vite_glob_0_134 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_135 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: numberDefaultValueEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -65621,7 +66884,7 @@ function _sfc_render$1D(_ctx, _cache, $props, $setup, $data, $options) {
   });
 }
 const pictureUploadFileTypesEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1D, [["render", _sfc_render$1D]]);
-const __vite_glob_0_135 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_136 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: pictureUploadFileTypesEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -65638,7 +66901,7 @@ function _sfc_render$1C(_ctx, _cache, $props, $setup, $data, $options) {
   return openBlock(), createElementBlock("div", _hoisted_1$x);
 }
 const radioDefaultValueEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1C, [["render", _sfc_render$1C]]);
-const __vite_glob_0_136 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_137 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: radioDefaultValueEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -65667,7 +66930,7 @@ function _sfc_render$1B(_ctx, _cache, $props, $setup, $data, $options) {
   }, 8, ["label"]);
 }
 const allowHalfEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1B, [["render", _sfc_render$1B]]);
-const __vite_glob_0_137 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_138 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: allowHalfEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -65700,7 +66963,7 @@ function _sfc_render$1A(_ctx, _cache, $props, $setup, $data, $options) {
   }, 8, ["label"]);
 }
 const highThresholdEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1A, [["render", _sfc_render$1A]]);
-const __vite_glob_0_138 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_139 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: highThresholdEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -65733,7 +66996,7 @@ function _sfc_render$1z(_ctx, _cache, $props, $setup, $data, $options) {
   }, 8, ["label"]);
 }
 const lowThresholdEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1z, [["render", _sfc_render$1z]]);
-const __vite_glob_0_139 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_140 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: lowThresholdEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -65766,7 +67029,7 @@ function _sfc_render$1y(_ctx, _cache, $props, $setup, $data, $options) {
   }, 8, ["label"]);
 }
 const rateCountEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1y, [["render", _sfc_render$1y]]);
-const __vite_glob_0_140 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_141 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: rateCountEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -65799,7 +67062,7 @@ function _sfc_render$1x(_ctx, _cache, $props, $setup, $data, $options) {
   }, 8, ["label"]);
 }
 const rateDefaultValueEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1x, [["render", _sfc_render$1x]]);
-const __vite_glob_0_141 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_142 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: rateDefaultValueEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -65828,7 +67091,7 @@ function _sfc_render$1w(_ctx, _cache, $props, $setup, $data, $options) {
   }, 8, ["label"]);
 }
 const showScoreEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1w, [["render", _sfc_render$1w]]);
-const __vite_glob_0_142 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_143 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: showScoreEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -65857,7 +67120,7 @@ function _sfc_render$1v(_ctx, _cache, $props, $setup, $data, $options) {
   }, 8, ["label"]);
 }
 const showTextEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1v, [["render", _sfc_render$1v]]);
-const __vite_glob_0_143 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_144 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: showTextEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -65889,7 +67152,7 @@ function _sfc_render$1u(_ctx, _cache, $props, $setup, $data, $options) {
   ]);
 }
 const richEditorContentHeightEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1u, [["render", _sfc_render$1u]]);
-const __vite_glob_0_144 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_145 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: richEditorContentHeightEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -65936,7 +67199,7 @@ function _sfc_render$1t(_ctx, _cache, $props, $setup, $data, $options) {
   });
 }
 const modeEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1t, [["render", _sfc_render$1t]]);
-const __vite_glob_0_145 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_146 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: modeEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -65953,7 +67216,7 @@ function _sfc_render$1s(_ctx, _cache, $props, $setup, $data, $options) {
   return openBlock(), createElementBlock("div", _hoisted_1$w);
 }
 const selectDefaultValueEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1s, [["render", _sfc_render$1s]]);
-const __vite_glob_0_146 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_147 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: selectDefaultValueEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -65998,7 +67261,7 @@ function _sfc_render$1r(_ctx, _cache, $props, $setup, $data, $options) {
   }, 8, ["label"]);
 }
 const rangeEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1r, [["render", _sfc_render$1r]]);
-const __vite_glob_0_147 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_148 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: rangeEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -66027,7 +67290,7 @@ function _sfc_render$1q(_ctx, _cache, $props, $setup, $data, $options) {
   }, 8, ["label"]);
 }
 const verticalEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1q, [["render", _sfc_render$1q]]);
-const __vite_glob_0_148 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_149 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: verticalEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -66056,7 +67319,7 @@ function _sfc_render$1p(_ctx, _cache, $props, $setup, $data, $options) {
   }, 8, ["label"]);
 }
 const textContentEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1p, [["render", _sfc_render$1p]]);
-const __vite_glob_0_149 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_150 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: textContentEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -66088,7 +67351,7 @@ function _sfc_render$1o(_ctx, _cache, $props, $setup, $data, $options) {
   }, 8, ["label"]);
 }
 const activeColorEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1o, [["render", _sfc_render$1o]]);
-const __vite_glob_0_150 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_151 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: activeColorEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -66117,7 +67380,7 @@ function _sfc_render$1n(_ctx, _cache, $props, $setup, $data, $options) {
   }, 8, ["label"]);
 }
 const checkedValueEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1n, [["render", _sfc_render$1n]]);
-const __vite_glob_0_151 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_152 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: checkedValueEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -66149,7 +67412,7 @@ function _sfc_render$1m(_ctx, _cache, $props, $setup, $data, $options) {
   }, 8, ["label"]);
 }
 const inactiveColorEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1m, [["render", _sfc_render$1m]]);
-const __vite_glob_0_152 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_153 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: inactiveColorEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -66179,7 +67442,7 @@ function _sfc_render$1l(_ctx, _cache, $props, $setup, $data, $options) {
   }, 8, ["label"]);
 }
 const switchDefaultValueEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1l, [["render", _sfc_render$1l]]);
-const __vite_glob_0_153 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_154 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: switchDefaultValueEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -66209,7 +67472,7 @@ function _sfc_render$1k(_ctx, _cache, $props, $setup, $data, $options) {
   }, 8, ["label"]);
 }
 const switchWidthEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1k, [["render", _sfc_render$1k]]);
-const __vite_glob_0_154 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_155 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: switchWidthEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -66238,7 +67501,7 @@ function _sfc_render$1j(_ctx, _cache, $props, $setup, $data, $options) {
   }, 8, ["label"]);
 }
 const unCheckedValueEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1j, [["render", _sfc_render$1j]]);
-const __vite_glob_0_155 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_156 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: unCheckedValueEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -66272,7 +67535,7 @@ function _sfc_render$1i(_ctx, _cache, $props, $setup, $data, $options) {
   }, 8, ["label"]);
 }
 const timeRangeDefaultValueEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1i, [["render", _sfc_render$1i]]);
-const __vite_glob_0_156 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_157 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: timeRangeDefaultValueEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -66325,7 +67588,7 @@ function _sfc_render$1h(_ctx, _cache, $props, $setup, $data, $options) {
   }, 8, ["label"]);
 }
 const timeRangeFormatEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1h, [["render", _sfc_render$1h]]);
-const __vite_glob_0_157 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_158 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: timeRangeFormatEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -66358,7 +67621,7 @@ function _sfc_render$1g(_ctx, _cache, $props, $setup, $data, $options) {
   }, 8, ["label"]);
 }
 const timeDefaultValueEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1g, [["render", _sfc_render$1g]]);
-const __vite_glob_0_158 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_159 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: timeDefaultValueEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -66411,7 +67674,7 @@ function _sfc_render$1f(_ctx, _cache, $props, $setup, $data, $options) {
   }, 8, ["label"]);
 }
 const timeFormatEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1f, [["render", _sfc_render$1f]]);
-const __vite_glob_0_159 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_160 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: timeFormatEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -66438,43 +67701,11 @@ function _sfc_render$1e(_ctx, _cache, $props, $setup, $data, $options) {
   });
 }
 const treeSelectTreeDefaultExpandAllEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1e, [["render", _sfc_render$1e]]);
-const __vite_glob_0_160 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_161 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: treeSelectTreeDefaultExpandAllEditor
 }, Symbol.toStringTag, { value: "Module" }));
 const _sfc_main$1d = {
-  name: "fileMaxSize-editor",
-  mixins: [i18n$1],
-  props: {
-    designer: Object,
-    selectedWidget: Object,
-    optionModel: Object
-  }
-};
-function _sfc_render$1d(_ctx, _cache, $props, $setup, $data, $options) {
-  const _component_a_input_number = resolveComponent("a-input-number");
-  const _component_a_form_item = resolveComponent("a-form-item");
-  return openBlock(), createBlock(_component_a_form_item, {
-    label: _ctx.i18nt("designer.setting.fileMaxSize")
-  }, {
-    default: withCtx(() => [
-      createVNode(_component_a_input_number, {
-        value: $props.optionModel.fileMaxSize,
-        "onUpdate:value": _cache[0] || (_cache[0] = ($event) => $props.optionModel.fileMaxSize = $event),
-        min: 1,
-        class: "hide-spin-button",
-        style: { "width": "100%" }
-      }, null, 8, ["value"])
-    ]),
-    _: 1
-  }, 8, ["label"]);
-}
-const fileMaxSizeEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1d, [["render", _sfc_render$1d]]);
-const __vite_glob_0_161 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
-  __proto__: null,
-  default: fileMaxSizeEditor
-}, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$1c = {
   name: "hidden-editor",
   mixins: [i18n$1, eventMixin],
   props: {
@@ -66488,7 +67719,7 @@ const _sfc_main$1c = {
     };
   }
 };
-function _sfc_render$1c(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$1d(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_switch = resolveComponent("a-switch");
   const _component_a_button = resolveComponent("a-button");
   const _component_a_space = resolveComponent("a-space");
@@ -66540,12 +67771,12 @@ function _sfc_render$1c(_ctx, _cache, $props, $setup, $data, $options) {
     })) : createCommentVNode("", true)
   ], 64);
 }
-const hiddenEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1c, [["render", _sfc_render$1c]]);
+const hiddenEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1d, [["render", _sfc_render$1d]]);
 const __vite_glob_0_162 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: hiddenEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$1b = {
+const _sfc_main$1c = {
   name: "label-editor",
   mixins: [i18n$1],
   props: {
@@ -66559,7 +67790,7 @@ const _sfc_main$1b = {
     }
   }
 };
-function _sfc_render$1b(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$1c(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_input = resolveComponent("a-input");
   const _component_a_form_item = resolveComponent("a-form-item");
   return !$options.noLabelSetting ? (openBlock(), createBlock(_component_a_form_item, {
@@ -66576,12 +67807,12 @@ function _sfc_render$1b(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"])) : createCommentVNode("", true);
 }
-const labelEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1b, [["render", _sfc_render$1b]]);
+const labelEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1c, [["render", _sfc_render$1c]]);
 const __vite_glob_0_163 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: labelEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$1a = {
+const _sfc_main$1b = {
   name: "labelAlign-editor",
   mixins: [i18n$1],
   props: {
@@ -66595,7 +67826,7 @@ const _sfc_main$1a = {
     }
   }
 };
-function _sfc_render$1a(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$1b(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_radio_button = resolveComponent("a-radio-button");
   const _component_a_radio_group = resolveComponent("a-radio-group");
   const _component_a_form_item = resolveComponent("a-form-item");
@@ -66629,12 +67860,12 @@ function _sfc_render$1a(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"])) : createCommentVNode("", true);
 }
-const labelAlignEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1a, [["render", _sfc_render$1a], ["__scopeId", "data-v-c7ae9c26"]]);
+const labelAlignEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1b, [["render", _sfc_render$1b], ["__scopeId", "data-v-c7ae9c26"]]);
 const __vite_glob_0_164 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: labelAlignEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$19 = {
+const _sfc_main$1a = {
   name: "labelHidden-editor",
   mixins: [i18n$1],
   props: {
@@ -66643,7 +67874,7 @@ const _sfc_main$19 = {
     optionModel: Object
   }
 };
-function _sfc_render$19(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$1a(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_switch = resolveComponent("a-switch");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -66658,12 +67889,12 @@ function _sfc_render$19(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const labelHiddenEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$19, [["render", _sfc_render$19]]);
+const labelHiddenEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$1a, [["render", _sfc_render$1a]]);
 const __vite_glob_0_165 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: labelHiddenEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$18 = {
+const _sfc_main$19 = {
   name: "labelIconClass-editor",
   mixins: [i18n$1],
   props: {
@@ -66672,7 +67903,7 @@ const _sfc_main$18 = {
     optionModel: Object
   }
 };
-function _sfc_render$18(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$19(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_divider = resolveComponent("a-divider");
   const _component_a_form_item = resolveComponent("a-form-item");
   const _component_a_input = resolveComponent("a-input");
@@ -66702,12 +67933,12 @@ function _sfc_render$18(_ctx, _cache, $props, $setup, $data, $options) {
     }, 8, ["label"])
   ]);
 }
-const labelIconClassEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$18, [["render", _sfc_render$18]]);
+const labelIconClassEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$19, [["render", _sfc_render$19]]);
 const __vite_glob_0_166 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: labelIconClassEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$17 = {
+const _sfc_main$18 = {
   name: "labelIconPosition-editor",
   mixins: [i18n$1],
   props: {
@@ -66724,7 +67955,7 @@ const _sfc_main$17 = {
     };
   }
 };
-function _sfc_render$17(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$18(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_select_option = resolveComponent("a-select-option");
   const _component_a_select = resolveComponent("a-select");
   const _component_a_form_item = resolveComponent("a-form-item");
@@ -66756,12 +67987,12 @@ function _sfc_render$17(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const labelIconPositionEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$17, [["render", _sfc_render$17]]);
+const labelIconPositionEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$18, [["render", _sfc_render$18]]);
 const __vite_glob_0_167 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: labelIconPositionEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$16 = {
+const _sfc_main$17 = {
   name: "labelTooltip-editor",
   mixins: [i18n$1],
   props: {
@@ -66770,7 +68001,7 @@ const _sfc_main$16 = {
     optionModel: Object
   }
 };
-function _sfc_render$16(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$17(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_input = resolveComponent("a-input");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -66786,12 +68017,12 @@ function _sfc_render$16(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const labelTooltipEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$16, [["render", _sfc_render$16]]);
+const labelTooltipEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$17, [["render", _sfc_render$17]]);
 const __vite_glob_0_168 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: labelTooltipEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$15 = {
+const _sfc_main$16 = {
   name: "labelWidth-editor",
   mixins: [i18n$1, propertyMixin],
   props: {
@@ -66800,7 +68031,7 @@ const _sfc_main$15 = {
     optionModel: Object
   }
 };
-function _sfc_render$15(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$16(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_input_number = resolveComponent("a-input-number");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -66819,12 +68050,12 @@ function _sfc_render$15(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const labelWidthEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$15, [["render", _sfc_render$15]]);
+const labelWidthEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$16, [["render", _sfc_render$16]]);
 const __vite_glob_0_169 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: labelWidthEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$14 = {
+const _sfc_main$15 = {
   name: "limit-editor",
   mixins: [i18n$1],
   props: {
@@ -66833,7 +68064,7 @@ const _sfc_main$14 = {
     optionModel: Object
   }
 };
-function _sfc_render$14(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$15(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_input_number = resolveComponent("a-input-number");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -66851,12 +68082,12 @@ function _sfc_render$14(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const limitEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$14, [["render", _sfc_render$14]]);
+const limitEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$15, [["render", _sfc_render$15]]);
 const __vite_glob_0_170 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: limitEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$13 = {
+const _sfc_main$14 = {
   name: "loadingPage-editor",
   mixins: [i18n$1],
   props: {
@@ -66865,7 +68096,7 @@ const _sfc_main$13 = {
     optionModel: Object
   }
 };
-function _sfc_render$13(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$14(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_switch = resolveComponent("a-switch");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, { label: `使用分页加载` }, {
@@ -66878,12 +68109,12 @@ function _sfc_render$13(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   });
 }
-const loadingPageEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$13, [["render", _sfc_render$13]]);
+const loadingPageEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$14, [["render", _sfc_render$14]]);
 const __vite_glob_0_171 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: loadingPageEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$12 = {
+const _sfc_main$13 = {
   name: "max-editor",
   mixins: [i18n$1],
   props: {
@@ -66906,7 +68137,7 @@ const _sfc_main$12 = {
     }
   }
 };
-function _sfc_render$12(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$13(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_input_number = resolveComponent("a-input-number");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -66925,12 +68156,12 @@ function _sfc_render$12(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const maxEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$12, [["render", _sfc_render$12]]);
+const maxEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$13, [["render", _sfc_render$13]]);
 const __vite_glob_0_172 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: maxEditor
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$11 = {
+const _sfc_main$12 = {
   name: "maxLength-editor",
   mixins: [i18n$1, propertyMixin],
   props: {
@@ -66953,7 +68184,7 @@ const _sfc_main$11 = {
     }
   }
 };
-function _sfc_render$11(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$12(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_input_number = resolveComponent("a-input-number");
   const _component_a_form_item = resolveComponent("a-form-item");
   return openBlock(), createBlock(_component_a_form_item, {
@@ -66972,10 +68203,40 @@ function _sfc_render$11(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["label"]);
 }
-const maxLengthEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$11, [["render", _sfc_render$11]]);
+const maxLengthEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$12, [["render", _sfc_render$12]]);
 const __vite_glob_0_173 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: maxLengthEditor
+}, Symbol.toStringTag, { value: "Module" }));
+const _sfc_main$11 = {
+  name: "maxSize-editor",
+  mixins: [i18n$1],
+  props: {
+    designer: Object,
+    selectedWidget: Object,
+    optionModel: Object
+  }
+};
+function _sfc_render$11(_ctx, _cache, $props, $setup, $data, $options) {
+  const _component_a_input_number = resolveComponent("a-input-number");
+  const _component_a_form_item = resolveComponent("a-form-item");
+  return openBlock(), createBlock(_component_a_form_item, { label: `文件大小(M)` }, {
+    default: withCtx(() => [
+      createVNode(_component_a_input_number, {
+        value: $props.optionModel.maxSize,
+        "onUpdate:value": _cache[0] || (_cache[0] = ($event) => $props.optionModel.maxSize = $event),
+        min: 1,
+        max: 20,
+        style: { "width": "100%" }
+      }, null, 8, ["value"])
+    ]),
+    _: 1
+  });
+}
+const maxSizeEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$11, [["render", _sfc_render$11]]);
+const __vite_glob_0_174 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+  __proto__: null,
+  default: maxSizeEditor
 }, Symbol.toStringTag, { value: "Module" }));
 const _sfc_main$10 = {
   name: "min-editor",
@@ -67020,7 +68281,7 @@ function _sfc_render$10(_ctx, _cache, $props, $setup, $data, $options) {
   }, 8, ["label"]);
 }
 const minEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$10, [["render", _sfc_render$10]]);
-const __vite_glob_0_174 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_175 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: minEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -67067,7 +68328,7 @@ function _sfc_render$$(_ctx, _cache, $props, $setup, $data, $options) {
   }, 8, ["label"]);
 }
 const minLengthEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$$, [["render", _sfc_render$$]]);
-const __vite_glob_0_175 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_176 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: minLengthEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -67098,9 +68359,7 @@ const _sfc_main$_ = {
 function _sfc_render$_(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_switch = resolveComponent("a-switch");
   const _component_a_form_item = resolveComponent("a-form-item");
-  return openBlock(), createBlock(_component_a_form_item, {
-    label: _ctx.i18nt("designer.setting.multiple")
-  }, {
+  return openBlock(), createBlock(_component_a_form_item, { label: `是否可多选` }, {
     default: withCtx(() => [
       createVNode(_component_a_switch, {
         checked: $props.optionModel.multiple,
@@ -67109,10 +68368,10 @@ function _sfc_render$_(_ctx, _cache, $props, $setup, $data, $options) {
       }, null, 8, ["checked", "onChange"])
     ]),
     _: 1
-  }, 8, ["label"]);
+  });
 }
 const multipleEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$_, [["render", _sfc_render$_]]);
-const __vite_glob_0_176 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_177 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: multipleEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -67141,7 +68400,7 @@ function _sfc_render$Z(_ctx, _cache, $props, $setup, $data, $options) {
   }, 8, ["label"]);
 }
 const multipleSelectEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$Z, [["render", _sfc_render$Z]]);
-const __vite_glob_0_177 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_178 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: multipleSelectEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -67291,7 +68550,7 @@ function _sfc_render$Y(_ctx, _cache, $props, $setup, $data, $options) {
   }, 8, ["rules"]);
 }
 const nameEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$Y, [["render", _sfc_render$Y]]);
-const __vite_glob_0_178 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_179 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: nameEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -67853,7 +69112,7 @@ function _sfc_render$W(_ctx, _cache, $props, $setup, $data, $options) {
   ], 64);
 }
 const optionItemsEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$W, [["render", _sfc_render$W]]);
-const __vite_glob_0_179 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_180 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: optionItemsEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -67883,7 +69142,7 @@ function _sfc_render$V(_ctx, _cache, $props, $setup, $data, $options) {
   }, 8, ["label"]);
 }
 const placeholderEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$V, [["render", _sfc_render$V]]);
-const __vite_glob_0_180 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_181 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: placeholderEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -67927,7 +69186,7 @@ function _sfc_render$U(_ctx, _cache, $props, $setup, $data, $options) {
   });
 }
 const placementEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$U, [["render", _sfc_render$U]]);
-const __vite_glob_0_181 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_182 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: placementEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -67959,7 +69218,7 @@ function _sfc_render$T(_ctx, _cache, $props, $setup, $data, $options) {
   }, 8, ["label"]);
 }
 const precisionEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$T, [["render", _sfc_render$T]]);
-const __vite_glob_0_182 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_183 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: precisionEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -67988,7 +69247,7 @@ function _sfc_render$S(_ctx, _cache, $props, $setup, $data, $options) {
   }, 8, ["label"]);
 }
 const readonlyEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$S, [["render", _sfc_render$S]]);
-const __vite_glob_0_183 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_184 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: readonlyEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -68017,7 +69276,7 @@ function _sfc_render$R(_ctx, _cache, $props, $setup, $data, $options) {
   }, 8, ["label"]);
 }
 const requiredEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$R, [["render", _sfc_render$R]]);
-const __vite_glob_0_184 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_185 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: requiredEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -68049,7 +69308,7 @@ function _sfc_render$Q(_ctx, _cache, $props, $setup, $data, $options) {
   }, 8, ["label"]);
 }
 const requiredHintEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$Q, [["render", _sfc_render$Q]]);
-const __vite_glob_0_185 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_186 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: requiredHintEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -68091,7 +69350,7 @@ function _sfc_render$P(_ctx, _cache, $props, $setup, $data, $options) {
   });
 }
 const rightSlotCssEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$P, [["render", _sfc_render$P]]);
-const __vite_glob_0_186 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_187 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: rightSlotCssEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -68123,7 +69382,7 @@ function _sfc_render$O(_ctx, _cache, $props, $setup, $data, $options) {
   }, 8, ["label"]);
 }
 const rowsEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$O, [["render", _sfc_render$O]]);
-const __vite_glob_0_187 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_188 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: rowsEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -68152,7 +69411,7 @@ function _sfc_render$N(_ctx, _cache, $props, $setup, $data, $options) {
   }, 8, ["label"]);
 }
 const showCountEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$N, [["render", _sfc_render$N]]);
-const __vite_glob_0_188 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_189 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: showCountEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -68181,7 +69440,7 @@ function _sfc_render$M(_ctx, _cache, $props, $setup, $data, $options) {
   }, 8, ["label"]);
 }
 const showFileListEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$M, [["render", _sfc_render$M]]);
-const __vite_glob_0_189 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_190 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: showFileListEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -68211,7 +69470,7 @@ function _sfc_render$L(_ctx, _cache, $props, $setup, $data, $options) {
   }, 8, ["label"])) : createCommentVNode("", true);
 }
 const showPasswordEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$L, [["render", _sfc_render$L]]);
-const __vite_glob_0_190 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_191 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: showPasswordEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -68241,7 +69500,7 @@ function _sfc_render$K(_ctx, _cache, $props, $setup, $data, $options) {
   }, 8, ["label"]);
 }
 const showSearchEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$K, [["render", _sfc_render$K]]);
-const __vite_glob_0_191 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_192 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: showSearchEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -68268,7 +69527,7 @@ function _sfc_render$J(_ctx, _cache, $props, $setup, $data, $options) {
   });
 }
 const showTimeEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$J, [["render", _sfc_render$J]]);
-const __vite_glob_0_192 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_193 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: showTimeEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -68308,7 +69567,7 @@ function _sfc_render$I(_ctx, _cache, $props, $setup, $data, $options) {
   }, 8, ["label"]);
 }
 const sizeEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$I, [["render", _sfc_render$I]]);
-const __vite_glob_0_193 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_194 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: sizeEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -68338,7 +69597,7 @@ function _sfc_render$H(_ctx, _cache, $props, $setup, $data, $options) {
   }, 8, ["label"]);
 }
 const startPlaceholderEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$H, [["render", _sfc_render$H]]);
-const __vite_glob_0_194 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_195 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: startPlaceholderEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -68369,7 +69628,7 @@ function _sfc_render$G(_ctx, _cache, $props, $setup, $data, $options) {
   }, 8, ["label"]);
 }
 const stepEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$G, [["render", _sfc_render$G]]);
-const __vite_glob_0_195 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_196 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: stepEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -68417,7 +69676,7 @@ function _sfc_render$F(_ctx, _cache, $props, $setup, $data, $options) {
   }, 8, ["label"])) : createCommentVNode("", true);
 }
 const typeEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$F, [["render", _sfc_render$F]]);
-const __vite_glob_0_196 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_197 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: typeEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -68447,7 +69706,7 @@ function _sfc_render$E(_ctx, _cache, $props, $setup, $data, $options) {
   }, 8, ["label"]);
 }
 const uploadTipEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$E, [["render", _sfc_render$E]]);
-const __vite_glob_0_197 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_198 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: uploadTipEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -68491,7 +69750,7 @@ function _sfc_render$D(_ctx, _cache, $props, $setup, $data, $options) {
   ]);
 }
 const uploadURLEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$D, [["render", _sfc_render$D]]);
-const __vite_glob_0_198 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_199 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: uploadURLEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -68518,7 +69777,7 @@ function _sfc_render$C(_ctx, _cache, $props, $setup, $data, $options) {
   });
 }
 const useModelEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$C, [["render", _sfc_render$C]]);
-const __vite_glob_0_199 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_200 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: useModelEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -68567,7 +69826,7 @@ function _sfc_render$B(_ctx, _cache, $props, $setup, $data, $options) {
   });
 }
 const validationEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$B, [["render", _sfc_render$B]]);
-const __vite_glob_0_200 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_201 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: validationEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -68599,7 +69858,7 @@ function _sfc_render$A(_ctx, _cache, $props, $setup, $data, $options) {
   }, 8, ["label"]);
 }
 const validationHintEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$A, [["render", _sfc_render$A]]);
-const __vite_glob_0_201 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_202 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: validationHintEditor
 }, Symbol.toStringTag, { value: "Module" }));
@@ -68628,12 +69887,12 @@ function _sfc_render$z(_ctx, _cache, $props, $setup, $data, $options) {
   }, 8, ["label"]);
 }
 const withCredentialsEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$z, [["render", _sfc_render$z]]);
-const __vite_glob_0_202 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_203 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: withCredentialsEditor
 }, Symbol.toStringTag, { value: "Module" }));
 const comps = {};
-const modules$1 = /* @__PURE__ */ Object.assign({ "./actionColumnPosition-editor.vue": __vite_glob_0_0$1, "./addonAfter-editor.vue": __vite_glob_0_1$1, "./addonBefore-editor.vue": __vite_glob_0_2$1, "./allowClear-editor.vue": __vite_glob_0_3$1, "./appendButton-editor.vue": __vite_glob_0_4$1, "./appendButtonDisabled-editor.vue": __vite_glob_0_5$1, "./autoFullWidth-editor.vue": __vite_glob_0_6$1, "./border-editor.vue": __vite_glob_0_7$1, "./buttonIcon-editor.vue": __vite_glob_0_8$1, "./buttonStyle-editor.vue": __vite_glob_0_9$1, "./code-editor/code-editor-mode.vue": __vite_glob_0_10$1, "./columnWidth-editor.vue": __vite_glob_0_11$1, "./container-data-table/customRowEvent/data-table-customRow-editor.vue": __vite_glob_0_12$1, "./container-data-table/data-table-customClass-editor.vue": __vite_glob_0_13$1, "./container-data-table/data-table-dsEnabled-editor.vue": __vite_glob_0_14, "./container-data-table/data-table-pagination-editor.vue": __vite_glob_0_15, "./container-data-table/data-table-rowKey-editor.vue": __vite_glob_0_16, "./container-data-table/data-table-selections-editor.vue": __vite_glob_0_17, "./container-data-table/data-table-showButtonsColumn-editor.vue": __vite_glob_0_18, "./container-data-table/data-table-showIndex-editor.vue": __vite_glob_0_19, "./container-data-table/data-table-stripe-editor.vue": __vite_glob_0_20, "./container-data-table/data-table-tableColumns-editor.vue": __vite_glob_0_21, "./container-data-table/data-table-tableHeight-editor.vue": __vite_glob_0_22, "./container-data-table/data-table-tableSize-editor.vue": __vite_glob_0_23, "./container-data-table/data-table-tableWidth-editor.vue": __vite_glob_0_24, "./container-data-table/data-table-treeDataEnabled-editor.vue": __vite_glob_0_25, "./container-grid-col/grid-col-offset-editor.vue": __vite_glob_0_26, "./container-grid-col/grid-col-pull-editor.vue": __vite_glob_0_27, "./container-grid-col/grid-col-push-editor.vue": __vite_glob_0_28, "./container-grid-col/grid-col-responsive-editor.vue": __vite_glob_0_29, "./container-grid-col/grid-col-span-editor.vue": __vite_glob_0_30, "./container-grid/colHeight-editor.vue": __vite_glob_0_31, "./container-grid/gutter-editor.vue": __vite_glob_0_32, "./container-sub-form/showBlankRow-editor.vue": __vite_glob_0_33, "./container-sub-form/showRowNumber-editor.vue": __vite_glob_0_34, "./container-sub-form/sub-form-labelAlign-editor.vue": __vite_glob_0_35, "./container-tab/tab-customClass-editor.vue": __vite_glob_0_36, "./container-table-cell/cellHeight-editor.vue": __vite_glob_0_37, "./container-table-cell/cellWidth-editor.vue": __vite_glob_0_38, "./container-vf-dialog/bodyStyle-editor.vue": __vite_glob_0_39, "./container-vf-dialog/cancelButtonHidden-editor.vue": __vite_glob_0_40, "./container-vf-dialog/cancelButtonLabel-editor.vue": __vite_glob_0_41, "./container-vf-dialog/closeOnClickModal-editor.vue": __vite_glob_0_42, "./container-vf-dialog/closeOnPressEscape-editor.vue": __vite_glob_0_43, "./container-vf-dialog/collapseIcon-editor.vue": __vite_glob_0_44, "./container-vf-dialog/disabledMode-editor.vue": __vite_glob_0_45, "./container-vf-dialog/formCode-editor.vue": __vite_glob_0_46, "./container-vf-dialog/fullscreen-editor.vue": __vite_glob_0_47, "./container-vf-dialog/height-editor.vue": __vite_glob_0_48, "./container-vf-dialog/isCollapse-editor.vue": __vite_glob_0_49, "./container-vf-dialog/okButtonHidden-editor.vue": __vite_glob_0_50, "./container-vf-dialog/okButtonLabel-editor.vue": __vite_glob_0_51, "./container-vf-dialog/readMode-editor.vue": __vite_glob_0_52, "./container-vf-dialog/showClose-editor.vue": __vite_glob_0_53, "./container-vf-dialog/title-editor.vue": __vite_glob_0_54, "./container-vf-dialog/unCollapseIcon-editor.vue": __vite_glob_0_55, "./container-vf-dialog/width-editor.vue": __vite_glob_0_56, "./container-vf-drawer/vf-drawer-direction-editor.vue": __vite_glob_0_57, "./container-vf-drawer/vf-drawer-size-editor.vue": __vite_glob_0_58, "./customClass-editor.vue": __vite_glob_0_59, "./defaultValue-editor.vue": __vite_glob_0_60, "./disabled-editor.vue": __vite_glob_0_61, "./displayStyle-editor.vue": __vite_glob_0_62, "./editable-editor.vue": __vite_glob_0_63, "./endPlaceholder-editor.vue": __vite_glob_0_64, "./event-handler/onAppendButtonClick-editor.vue": __vite_glob_0_65, "./event-handler/onBeforeUpload-editor.vue": __vite_glob_0_66, "./event-handler/onBlur-editor.vue": __vite_glob_0_67, "./event-handler/onCancelButtonClick-editor.vue": __vite_glob_0_68, "./event-handler/onCellClick-editor.vue": __vite_glob_0_69, "./event-handler/onCellDoubleClick-editor.vue": __vite_glob_0_70, "./event-handler/onChange-editor.vue": __vite_glob_0_71, "./event-handler/onClick-editor.vue": __vite_glob_0_72, "./event-handler/onClickIcon-editor.vue": __vite_glob_0_73, "./event-handler/onCreated-editor.vue": __vite_glob_0_74, "./event-handler/onCurrentPageChange-editor.vue": __vite_glob_0_75, "./event-handler/onDialogBeforeClose-editor.vue": __vite_glob_0_76, "./event-handler/onDialogOpened-editor.vue": __vite_glob_0_77, "./event-handler/onDisableOperationButton-editor.vue": __vite_glob_0_78, "./event-handler/onDrawerBeforeClose-editor.vue": __vite_glob_0_79, "./event-handler/onDrawerOpened-editor.vue": __vite_glob_0_80, "./event-handler/onFileRemove.vue": __vite_glob_0_81, "./event-handler/onFocus-editor.vue": __vite_glob_0_82, "./event-handler/onGetOperationButtonLabel-editor.vue": __vite_glob_0_83, "./event-handler/onGetRowClassName-editor.vue": __vite_glob_0_84, "./event-handler/onGetSpanMethod-editor.vue": __vite_glob_0_85, "./event-handler/onHeaderClick-editor.vue": __vite_glob_0_86, "./event-handler/onHideOperationButton-editor.vue": __vite_glob_0_87, "./event-handler/onInput-editor.vue": __vite_glob_0_88, "./event-handler/onMenuClick-editor.vue": __vite_glob_0_89, "./event-handler/onMounted-editor.vue": __vite_glob_0_90, "./event-handler/onOkButtonClick-editor.vue": __vite_glob_0_91, "./event-handler/onOperationButtonClick-editor.vue": __vite_glob_0_92, "./event-handler/onPageSizeChange-editor.vue": __vite_glob_0_93, "./event-handler/onRemoteQuery-editor.vue": __vite_glob_0_94, "./event-handler/onRowClick-editor.vue": __vite_glob_0_95, "./event-handler/onRowDoubleClick-editor.vue": __vite_glob_0_96, "./event-handler/onSelectionChange-editor.vue": __vite_glob_0_97, "./event-handler/onSubFormRowAdd-editor.vue": __vite_glob_0_98, "./event-handler/onSubFormRowChange-editor.vue": __vite_glob_0_99, "./event-handler/onSubFormRowDelete-editor.vue": __vite_glob_0_100, "./event-handler/onSubFormRowInsert-editor.vue": __vite_glob_0_101, "./event-handler/onTabClick-editor.vue": __vite_glob_0_102, "./event-handler/onTableChange-editor.vue": __vite_glob_0_103, "./event-handler/onUploadError-editor.vue": __vite_glob_0_104, "./event-handler/onUploadSuccess-editor.vue": __vite_glob_0_105, "./event-handler/onValidate-editor.vue": __vite_glob_0_106, "./event-handler/onVformAdd-editor.vue": __vite_glob_0_107, "./field-button/circle-editor.vue": __vite_glob_0_108, "./field-button/danger-editor.vue": __vite_glob_0_109, "./field-button/ghost-editor.vue": __vite_glob_0_110, "./field-button/icon-editor.vue": __vite_glob_0_111, "./field-button/plain-editor.vue": __vite_glob_0_112, "./field-button/round-editor.vue": __vite_glob_0_113, "./field-button/shape-editor.vue": __vite_glob_0_114, "./field-button/type-editor.vue": __vite_glob_0_115, "./field-cascader/cascader-defaultValue-editor.vue": __vite_glob_0_116, "./field-cascader/cascader-multiple-editor.vue": __vite_glob_0_117, "./field-checkbox/checkbox-defaultValue-editor.vue": __vite_glob_0_118, "./field-color/color-defaultValue-editor.vue": __vite_glob_0_119, "./field-date-range/date-range-defaultValue-editor.vue": __vite_glob_0_120, "./field-date-range/date-range-format-editor.vue": __vite_glob_0_121, "./field-date-range/date-range-type-editor.vue": __vite_glob_0_122, "./field-date-range/date-range-valueFormat-editor.vue": __vite_glob_0_123, "./field-date/date-defaultValue-editor.vue": __vite_glob_0_124, "./field-date/date-format-editor.vue": __vite_glob_0_125, "./field-date/date-type-editor.vue": __vite_glob_0_126, "./field-date/date-valueFormat-editor.vue": __vite_glob_0_127, "./field-divider/contentPosition-editor.vue": __vite_glob_0_128, "./field-divider/divider-direction-editor.vue": __vite_glob_0_129, "./field-dropdown/dropdown-menuList-editor.vue": __vite_glob_0_130, "./field-file-upload/file-upload-fileTypes-editor.vue": __vite_glob_0_131, "./field-html-text/htmlContent-editor.vue": __vite_glob_0_132, "./field-number/controlsPosition-editor.vue": __vite_glob_0_133, "./field-number/number-defaultValue-editor.vue": __vite_glob_0_134, "./field-picture-upload/picture-upload-fileTypes-editor.vue": __vite_glob_0_135, "./field-radio/radio-defaultValue-editor.vue": __vite_glob_0_136, "./field-rate/allowHalf-editor.vue": __vite_glob_0_137, "./field-rate/highThreshold-editor.vue": __vite_glob_0_138, "./field-rate/lowThreshold-editor.vue": __vite_glob_0_139, "./field-rate/rate-count-editor.vue": __vite_glob_0_140, "./field-rate/rate-defaultValue-editor.vue": __vite_glob_0_141, "./field-rate/showScore-editor.vue": __vite_glob_0_142, "./field-rate/showText-editor.vue": __vite_glob_0_143, "./field-rich-editor/rich-editor-contentHeight-editor.vue": __vite_glob_0_144, "./field-select/mode-editor.vue": __vite_glob_0_145, "./field-select/select-defaultValue-editor.vue": __vite_glob_0_146, "./field-slider/range-editor.vue": __vite_glob_0_147, "./field-slider/vertical-editor.vue": __vite_glob_0_148, "./field-static-text/textContent-editor.vue": __vite_glob_0_149, "./field-switch/activeColor-editor.vue": __vite_glob_0_150, "./field-switch/checkedValue-editor.vue": __vite_glob_0_151, "./field-switch/inactiveColor-editor.vue": __vite_glob_0_152, "./field-switch/switch-defaultValue-editor.vue": __vite_glob_0_153, "./field-switch/switchWidth-editor.vue": __vite_glob_0_154, "./field-switch/unCheckedValue-editor.vue": __vite_glob_0_155, "./field-time-range/time-range-defaultValue-editor.vue": __vite_glob_0_156, "./field-time-range/time-range-format-editor.vue": __vite_glob_0_157, "./field-time/time-defaultValue-editor.vue": __vite_glob_0_158, "./field-time/time-format-editor.vue": __vite_glob_0_159, "./field-treeSelect/treeSelect-treeDefaultExpandAll-editor.vue": __vite_glob_0_160, "./fileMaxSize-editor.vue": __vite_glob_0_161, "./hidden-editor.vue": __vite_glob_0_162, "./label-editor.vue": __vite_glob_0_163, "./labelAlign-editor.vue": __vite_glob_0_164, "./labelHidden-editor.vue": __vite_glob_0_165, "./labelIconClass-editor.vue": __vite_glob_0_166, "./labelIconPosition-editor.vue": __vite_glob_0_167, "./labelTooltip-editor.vue": __vite_glob_0_168, "./labelWidth-editor.vue": __vite_glob_0_169, "./limit-editor.vue": __vite_glob_0_170, "./loadingPage-editor.vue": __vite_glob_0_171, "./max-editor.vue": __vite_glob_0_172, "./maxLength-editor.vue": __vite_glob_0_173, "./min-editor.vue": __vite_glob_0_174, "./minLength-editor.vue": __vite_glob_0_175, "./multiple-editor.vue": __vite_glob_0_176, "./multipleSelect-editor.vue": __vite_glob_0_177, "./name-editor.vue": __vite_glob_0_178, "./optionItems-editor.vue": __vite_glob_0_179, "./placeholder-editor.vue": __vite_glob_0_180, "./placement-editor.vue": __vite_glob_0_181, "./precision-editor.vue": __vite_glob_0_182, "./readonly-editor.vue": __vite_glob_0_183, "./required-editor.vue": __vite_glob_0_184, "./requiredHint-editor.vue": __vite_glob_0_185, "./rightSlotCss-editor.vue": __vite_glob_0_186, "./rows-editor.vue": __vite_glob_0_187, "./showCount-editor.vue": __vite_glob_0_188, "./showFileList-editor.vue": __vite_glob_0_189, "./showPassword-editor.vue": __vite_glob_0_190, "./showSearch-editor.vue": __vite_glob_0_191, "./showTime-editor.vue": __vite_glob_0_192, "./size-editor.vue": __vite_glob_0_193, "./startPlaceholder-editor.vue": __vite_glob_0_194, "./step-editor.vue": __vite_glob_0_195, "./type-editor.vue": __vite_glob_0_196, "./uploadTip-editor.vue": __vite_glob_0_197, "./uploadURL-editor.vue": __vite_glob_0_198, "./useModel-editor.vue": __vite_glob_0_199, "./validation-editor.vue": __vite_glob_0_200, "./validationHint-editor.vue": __vite_glob_0_201, "./withCredentials-editor.vue": __vite_glob_0_202 });
+const modules$1 = /* @__PURE__ */ Object.assign({ "./accept-editor.vue": __vite_glob_0_0$1, "./actionColumnPosition-editor.vue": __vite_glob_0_1$1, "./addonAfter-editor.vue": __vite_glob_0_2$1, "./addonBefore-editor.vue": __vite_glob_0_3$1, "./allowClear-editor.vue": __vite_glob_0_4$1, "./appendButton-editor.vue": __vite_glob_0_5$1, "./appendButtonDisabled-editor.vue": __vite_glob_0_6$1, "./autoFullWidth-editor.vue": __vite_glob_0_7$1, "./border-editor.vue": __vite_glob_0_8$1, "./buttonIcon-editor.vue": __vite_glob_0_9$1, "./buttonStyle-editor.vue": __vite_glob_0_10$1, "./code-editor/code-editor-mode.vue": __vite_glob_0_11$1, "./columnWidth-editor.vue": __vite_glob_0_12$1, "./container-data-table/customRowEvent/data-table-customRow-editor.vue": __vite_glob_0_13$1, "./container-data-table/data-table-customClass-editor.vue": __vite_glob_0_14, "./container-data-table/data-table-dsEnabled-editor.vue": __vite_glob_0_15, "./container-data-table/data-table-pagination-editor.vue": __vite_glob_0_16, "./container-data-table/data-table-rowKey-editor.vue": __vite_glob_0_17, "./container-data-table/data-table-selections-editor.vue": __vite_glob_0_18, "./container-data-table/data-table-showButtonsColumn-editor.vue": __vite_glob_0_19, "./container-data-table/data-table-showIndex-editor.vue": __vite_glob_0_20, "./container-data-table/data-table-stripe-editor.vue": __vite_glob_0_21, "./container-data-table/data-table-tableColumns-editor.vue": __vite_glob_0_22, "./container-data-table/data-table-tableHeight-editor.vue": __vite_glob_0_23, "./container-data-table/data-table-tableSize-editor.vue": __vite_glob_0_24, "./container-data-table/data-table-tableWidth-editor.vue": __vite_glob_0_25, "./container-data-table/data-table-treeDataEnabled-editor.vue": __vite_glob_0_26, "./container-grid-col/grid-col-offset-editor.vue": __vite_glob_0_27, "./container-grid-col/grid-col-pull-editor.vue": __vite_glob_0_28, "./container-grid-col/grid-col-push-editor.vue": __vite_glob_0_29, "./container-grid-col/grid-col-responsive-editor.vue": __vite_glob_0_30, "./container-grid-col/grid-col-span-editor.vue": __vite_glob_0_31, "./container-grid/colHeight-editor.vue": __vite_glob_0_32, "./container-grid/gutter-editor.vue": __vite_glob_0_33, "./container-sub-form/showBlankRow-editor.vue": __vite_glob_0_34, "./container-sub-form/showRowNumber-editor.vue": __vite_glob_0_35, "./container-sub-form/sub-form-labelAlign-editor.vue": __vite_glob_0_36, "./container-tab/tab-customClass-editor.vue": __vite_glob_0_37, "./container-table-cell/cellHeight-editor.vue": __vite_glob_0_38, "./container-table-cell/cellWidth-editor.vue": __vite_glob_0_39, "./container-vf-dialog/bodyStyle-editor.vue": __vite_glob_0_40, "./container-vf-dialog/cancelButtonHidden-editor.vue": __vite_glob_0_41, "./container-vf-dialog/cancelButtonLabel-editor.vue": __vite_glob_0_42, "./container-vf-dialog/closeOnClickModal-editor.vue": __vite_glob_0_43, "./container-vf-dialog/closeOnPressEscape-editor.vue": __vite_glob_0_44, "./container-vf-dialog/collapseIcon-editor.vue": __vite_glob_0_45, "./container-vf-dialog/disabledMode-editor.vue": __vite_glob_0_46, "./container-vf-dialog/formCode-editor.vue": __vite_glob_0_47, "./container-vf-dialog/fullscreen-editor.vue": __vite_glob_0_48, "./container-vf-dialog/height-editor.vue": __vite_glob_0_49, "./container-vf-dialog/isCollapse-editor.vue": __vite_glob_0_50, "./container-vf-dialog/okButtonHidden-editor.vue": __vite_glob_0_51, "./container-vf-dialog/okButtonLabel-editor.vue": __vite_glob_0_52, "./container-vf-dialog/readMode-editor.vue": __vite_glob_0_53, "./container-vf-dialog/showClose-editor.vue": __vite_glob_0_54, "./container-vf-dialog/title-editor.vue": __vite_glob_0_55, "./container-vf-dialog/unCollapseIcon-editor.vue": __vite_glob_0_56, "./container-vf-dialog/width-editor.vue": __vite_glob_0_57, "./container-vf-drawer/vf-drawer-direction-editor.vue": __vite_glob_0_58, "./container-vf-drawer/vf-drawer-size-editor.vue": __vite_glob_0_59, "./customClass-editor.vue": __vite_glob_0_60, "./defaultValue-editor.vue": __vite_glob_0_61, "./disabled-editor.vue": __vite_glob_0_62, "./displayStyle-editor.vue": __vite_glob_0_63, "./editable-editor.vue": __vite_glob_0_64, "./endPlaceholder-editor.vue": __vite_glob_0_65, "./event-handler/onAppendButtonClick-editor.vue": __vite_glob_0_66, "./event-handler/onBeforeUpload-editor.vue": __vite_glob_0_67, "./event-handler/onBlur-editor.vue": __vite_glob_0_68, "./event-handler/onCancelButtonClick-editor.vue": __vite_glob_0_69, "./event-handler/onCellClick-editor.vue": __vite_glob_0_70, "./event-handler/onCellDoubleClick-editor.vue": __vite_glob_0_71, "./event-handler/onChange-editor.vue": __vite_glob_0_72, "./event-handler/onClick-editor.vue": __vite_glob_0_73, "./event-handler/onClickIcon-editor.vue": __vite_glob_0_74, "./event-handler/onCreated-editor.vue": __vite_glob_0_75, "./event-handler/onCurrentPageChange-editor.vue": __vite_glob_0_76, "./event-handler/onDialogBeforeClose-editor.vue": __vite_glob_0_77, "./event-handler/onDialogOpened-editor.vue": __vite_glob_0_78, "./event-handler/onDisableOperationButton-editor.vue": __vite_glob_0_79, "./event-handler/onDrawerBeforeClose-editor.vue": __vite_glob_0_80, "./event-handler/onDrawerOpened-editor.vue": __vite_glob_0_81, "./event-handler/onFileRemove.vue": __vite_glob_0_82, "./event-handler/onFocus-editor.vue": __vite_glob_0_83, "./event-handler/onGetOperationButtonLabel-editor.vue": __vite_glob_0_84, "./event-handler/onGetRowClassName-editor.vue": __vite_glob_0_85, "./event-handler/onGetSpanMethod-editor.vue": __vite_glob_0_86, "./event-handler/onHeaderClick-editor.vue": __vite_glob_0_87, "./event-handler/onHideOperationButton-editor.vue": __vite_glob_0_88, "./event-handler/onInput-editor.vue": __vite_glob_0_89, "./event-handler/onMenuClick-editor.vue": __vite_glob_0_90, "./event-handler/onMounted-editor.vue": __vite_glob_0_91, "./event-handler/onOkButtonClick-editor.vue": __vite_glob_0_92, "./event-handler/onOperationButtonClick-editor.vue": __vite_glob_0_93, "./event-handler/onPageSizeChange-editor.vue": __vite_glob_0_94, "./event-handler/onRemoteQuery-editor.vue": __vite_glob_0_95, "./event-handler/onRowClick-editor.vue": __vite_glob_0_96, "./event-handler/onRowDoubleClick-editor.vue": __vite_glob_0_97, "./event-handler/onSelectionChange-editor.vue": __vite_glob_0_98, "./event-handler/onSubFormRowAdd-editor.vue": __vite_glob_0_99, "./event-handler/onSubFormRowChange-editor.vue": __vite_glob_0_100, "./event-handler/onSubFormRowDelete-editor.vue": __vite_glob_0_101, "./event-handler/onSubFormRowInsert-editor.vue": __vite_glob_0_102, "./event-handler/onTabClick-editor.vue": __vite_glob_0_103, "./event-handler/onTableChange-editor.vue": __vite_glob_0_104, "./event-handler/onUploadError-editor.vue": __vite_glob_0_105, "./event-handler/onUploadSuccess-editor.vue": __vite_glob_0_106, "./event-handler/onValidate-editor.vue": __vite_glob_0_107, "./event-handler/onVformAdd-editor.vue": __vite_glob_0_108, "./field-button/circle-editor.vue": __vite_glob_0_109, "./field-button/danger-editor.vue": __vite_glob_0_110, "./field-button/ghost-editor.vue": __vite_glob_0_111, "./field-button/icon-editor.vue": __vite_glob_0_112, "./field-button/plain-editor.vue": __vite_glob_0_113, "./field-button/round-editor.vue": __vite_glob_0_114, "./field-button/shape-editor.vue": __vite_glob_0_115, "./field-button/type-editor.vue": __vite_glob_0_116, "./field-cascader/cascader-defaultValue-editor.vue": __vite_glob_0_117, "./field-cascader/cascader-multiple-editor.vue": __vite_glob_0_118, "./field-checkbox/checkbox-defaultValue-editor.vue": __vite_glob_0_119, "./field-color/color-defaultValue-editor.vue": __vite_glob_0_120, "./field-date-range/date-range-defaultValue-editor.vue": __vite_glob_0_121, "./field-date-range/date-range-format-editor.vue": __vite_glob_0_122, "./field-date-range/date-range-type-editor.vue": __vite_glob_0_123, "./field-date-range/date-range-valueFormat-editor.vue": __vite_glob_0_124, "./field-date/date-defaultValue-editor.vue": __vite_glob_0_125, "./field-date/date-format-editor.vue": __vite_glob_0_126, "./field-date/date-type-editor.vue": __vite_glob_0_127, "./field-date/date-valueFormat-editor.vue": __vite_glob_0_128, "./field-divider/contentPosition-editor.vue": __vite_glob_0_129, "./field-divider/divider-direction-editor.vue": __vite_glob_0_130, "./field-dropdown/dropdown-menuList-editor.vue": __vite_glob_0_131, "./field-file-upload/file-upload-fileTypes-editor.vue": __vite_glob_0_132, "./field-html-text/htmlContent-editor.vue": __vite_glob_0_133, "./field-number/controlsPosition-editor.vue": __vite_glob_0_134, "./field-number/number-defaultValue-editor.vue": __vite_glob_0_135, "./field-picture-upload/picture-upload-fileTypes-editor.vue": __vite_glob_0_136, "./field-radio/radio-defaultValue-editor.vue": __vite_glob_0_137, "./field-rate/allowHalf-editor.vue": __vite_glob_0_138, "./field-rate/highThreshold-editor.vue": __vite_glob_0_139, "./field-rate/lowThreshold-editor.vue": __vite_glob_0_140, "./field-rate/rate-count-editor.vue": __vite_glob_0_141, "./field-rate/rate-defaultValue-editor.vue": __vite_glob_0_142, "./field-rate/showScore-editor.vue": __vite_glob_0_143, "./field-rate/showText-editor.vue": __vite_glob_0_144, "./field-rich-editor/rich-editor-contentHeight-editor.vue": __vite_glob_0_145, "./field-select/mode-editor.vue": __vite_glob_0_146, "./field-select/select-defaultValue-editor.vue": __vite_glob_0_147, "./field-slider/range-editor.vue": __vite_glob_0_148, "./field-slider/vertical-editor.vue": __vite_glob_0_149, "./field-static-text/textContent-editor.vue": __vite_glob_0_150, "./field-switch/activeColor-editor.vue": __vite_glob_0_151, "./field-switch/checkedValue-editor.vue": __vite_glob_0_152, "./field-switch/inactiveColor-editor.vue": __vite_glob_0_153, "./field-switch/switch-defaultValue-editor.vue": __vite_glob_0_154, "./field-switch/switchWidth-editor.vue": __vite_glob_0_155, "./field-switch/unCheckedValue-editor.vue": __vite_glob_0_156, "./field-time-range/time-range-defaultValue-editor.vue": __vite_glob_0_157, "./field-time-range/time-range-format-editor.vue": __vite_glob_0_158, "./field-time/time-defaultValue-editor.vue": __vite_glob_0_159, "./field-time/time-format-editor.vue": __vite_glob_0_160, "./field-treeSelect/treeSelect-treeDefaultExpandAll-editor.vue": __vite_glob_0_161, "./hidden-editor.vue": __vite_glob_0_162, "./label-editor.vue": __vite_glob_0_163, "./labelAlign-editor.vue": __vite_glob_0_164, "./labelHidden-editor.vue": __vite_glob_0_165, "./labelIconClass-editor.vue": __vite_glob_0_166, "./labelIconPosition-editor.vue": __vite_glob_0_167, "./labelTooltip-editor.vue": __vite_glob_0_168, "./labelWidth-editor.vue": __vite_glob_0_169, "./limit-editor.vue": __vite_glob_0_170, "./loadingPage-editor.vue": __vite_glob_0_171, "./max-editor.vue": __vite_glob_0_172, "./maxLength-editor.vue": __vite_glob_0_173, "./maxSize-editor.vue": __vite_glob_0_174, "./min-editor.vue": __vite_glob_0_175, "./minLength-editor.vue": __vite_glob_0_176, "./multiple-editor.vue": __vite_glob_0_177, "./multipleSelect-editor.vue": __vite_glob_0_178, "./name-editor.vue": __vite_glob_0_179, "./optionItems-editor.vue": __vite_glob_0_180, "./placeholder-editor.vue": __vite_glob_0_181, "./placement-editor.vue": __vite_glob_0_182, "./precision-editor.vue": __vite_glob_0_183, "./readonly-editor.vue": __vite_glob_0_184, "./required-editor.vue": __vite_glob_0_185, "./requiredHint-editor.vue": __vite_glob_0_186, "./rightSlotCss-editor.vue": __vite_glob_0_187, "./rows-editor.vue": __vite_glob_0_188, "./showCount-editor.vue": __vite_glob_0_189, "./showFileList-editor.vue": __vite_glob_0_190, "./showPassword-editor.vue": __vite_glob_0_191, "./showSearch-editor.vue": __vite_glob_0_192, "./showTime-editor.vue": __vite_glob_0_193, "./size-editor.vue": __vite_glob_0_194, "./startPlaceholder-editor.vue": __vite_glob_0_195, "./step-editor.vue": __vite_glob_0_196, "./type-editor.vue": __vite_glob_0_197, "./uploadTip-editor.vue": __vite_glob_0_198, "./uploadURL-editor.vue": __vite_glob_0_199, "./useModel-editor.vue": __vite_glob_0_200, "./validation-editor.vue": __vite_glob_0_201, "./validationHint-editor.vue": __vite_glob_0_202, "./withCredentials-editor.vue": __vite_glob_0_203 });
 for (const path in modules$1) {
   const cname = modules$1[path].default.name;
   comps[cname] = modules$1[path].default;
@@ -70841,17 +72100,18 @@ const COMMON_PROPERTIES$1 = {
   // checkStrictly: 'checkStrictly-editor',
   // showAllLevels: 'showAllLevels-editor',
   multiple: "multiple-editor",
+  accept: "accept-editor",
   // multipleLimit: 'multipleLimit-editor',
   mode: "mode-editor",
   menuList: "menuList-editor",
   contentPosition: "contentPosition-editor",
   optionItems: "optionItems-editor",
-  uploadURL: "uploadURL-editor",
-  uploadTip: "uploadTip-editor",
-  withCredentials: "withCredentials-editor",
-  multipleSelect: "multipleSelect-editor",
+  // uploadURL: 'uploadURL-editor',
+  // uploadTip: 'uploadTip-editor',
+  // withCredentials: 'withCredentials-editor',
+  // multipleSelect: 'multipleSelect-editor',
   limit: "limit-editor",
-  fileMaxSize: "fileMaxSize-editor",
+  maxSize: "maxSize-editor",
   fileTypes: "fileTypes-editor",
   contentHeight: "contentHeight-editor",
   customClass: "customClass-editor",
@@ -80250,1130 +81510,6 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
   return openBlock(), createElementBlock("svg", _hoisted_1, _hoisted_3);
 }
 var top = /* @__PURE__ */ _export_sfc(_sfc_main, [["render", _sfc_render]]);
-function bound01(n, max) {
-  if (isOnePointZero(n)) {
-    n = "100%";
-  }
-  var isPercent = isPercentage(n);
-  n = max === 360 ? n : Math.min(max, Math.max(0, parseFloat(n)));
-  if (isPercent) {
-    n = parseInt(String(n * max), 10) / 100;
-  }
-  if (Math.abs(n - max) < 1e-6) {
-    return 1;
-  }
-  if (max === 360) {
-    n = (n < 0 ? n % max + max : n % max) / parseFloat(String(max));
-  } else {
-    n = n % max / parseFloat(String(max));
-  }
-  return n;
-}
-function isOnePointZero(n) {
-  return typeof n === "string" && n.indexOf(".") !== -1 && parseFloat(n) === 1;
-}
-function isPercentage(n) {
-  return typeof n === "string" && n.indexOf("%") !== -1;
-}
-function boundAlpha(a) {
-  a = parseFloat(a);
-  if (isNaN(a) || a < 0 || a > 1) {
-    a = 1;
-  }
-  return a;
-}
-function convertToPercentage(n) {
-  if (n <= 1) {
-    return "".concat(Number(n) * 100, "%");
-  }
-  return n;
-}
-function pad2(c) {
-  return c.length === 1 ? "0" + c : String(c);
-}
-function rgbToRgb(r, g, b) {
-  return {
-    r: bound01(r, 255) * 255,
-    g: bound01(g, 255) * 255,
-    b: bound01(b, 255) * 255
-  };
-}
-function hue2rgb(p, q, t) {
-  if (t < 0) {
-    t += 1;
-  }
-  if (t > 1) {
-    t -= 1;
-  }
-  if (t < 1 / 6) {
-    return p + (q - p) * (6 * t);
-  }
-  if (t < 1 / 2) {
-    return q;
-  }
-  if (t < 2 / 3) {
-    return p + (q - p) * (2 / 3 - t) * 6;
-  }
-  return p;
-}
-function hslToRgb(h2, s, l) {
-  var r;
-  var g;
-  var b;
-  h2 = bound01(h2, 360);
-  s = bound01(s, 100);
-  l = bound01(l, 100);
-  if (s === 0) {
-    g = l;
-    b = l;
-    r = l;
-  } else {
-    var q = l < 0.5 ? l * (1 + s) : l + s - l * s;
-    var p = 2 * l - q;
-    r = hue2rgb(p, q, h2 + 1 / 3);
-    g = hue2rgb(p, q, h2);
-    b = hue2rgb(p, q, h2 - 1 / 3);
-  }
-  return { r: r * 255, g: g * 255, b: b * 255 };
-}
-function rgbToHsv(r, g, b) {
-  r = bound01(r, 255);
-  g = bound01(g, 255);
-  b = bound01(b, 255);
-  var max = Math.max(r, g, b);
-  var min = Math.min(r, g, b);
-  var h2 = 0;
-  var v = max;
-  var d = max - min;
-  var s = max === 0 ? 0 : d / max;
-  if (max === min) {
-    h2 = 0;
-  } else {
-    switch (max) {
-      case r:
-        h2 = (g - b) / d + (g < b ? 6 : 0);
-        break;
-      case g:
-        h2 = (b - r) / d + 2;
-        break;
-      case b:
-        h2 = (r - g) / d + 4;
-        break;
-    }
-    h2 /= 6;
-  }
-  return { h: h2, s, v };
-}
-function hsvToRgb(h2, s, v) {
-  h2 = bound01(h2, 360) * 6;
-  s = bound01(s, 100);
-  v = bound01(v, 100);
-  var i = Math.floor(h2);
-  var f = h2 - i;
-  var p = v * (1 - s);
-  var q = v * (1 - f * s);
-  var t = v * (1 - (1 - f) * s);
-  var mod = i % 6;
-  var r = [v, q, p, p, t, v][mod];
-  var g = [t, v, v, q, p, p][mod];
-  var b = [p, p, t, v, v, q][mod];
-  return { r: r * 255, g: g * 255, b: b * 255 };
-}
-function rgbToHex(r, g, b, allow3Char) {
-  var hex = [
-    pad2(Math.round(r).toString(16)),
-    pad2(Math.round(g).toString(16)),
-    pad2(Math.round(b).toString(16))
-  ];
-  if (allow3Char && hex[0].startsWith(hex[0].charAt(1)) && hex[1].startsWith(hex[1].charAt(1)) && hex[2].startsWith(hex[2].charAt(1))) {
-    return hex[0].charAt(0) + hex[1].charAt(0) + hex[2].charAt(0);
-  }
-  return hex.join("");
-}
-function convertHexToDecimal(h2) {
-  return parseIntFromHex(h2) / 255;
-}
-function parseIntFromHex(val) {
-  return parseInt(val, 16);
-}
-var names = {
-  aliceblue: "#f0f8ff",
-  antiquewhite: "#faebd7",
-  aqua: "#00ffff",
-  aquamarine: "#7fffd4",
-  azure: "#f0ffff",
-  beige: "#f5f5dc",
-  bisque: "#ffe4c4",
-  black: "#000000",
-  blanchedalmond: "#ffebcd",
-  blue: "#0000ff",
-  blueviolet: "#8a2be2",
-  brown: "#a52a2a",
-  burlywood: "#deb887",
-  cadetblue: "#5f9ea0",
-  chartreuse: "#7fff00",
-  chocolate: "#d2691e",
-  coral: "#ff7f50",
-  cornflowerblue: "#6495ed",
-  cornsilk: "#fff8dc",
-  crimson: "#dc143c",
-  cyan: "#00ffff",
-  darkblue: "#00008b",
-  darkcyan: "#008b8b",
-  darkgoldenrod: "#b8860b",
-  darkgray: "#a9a9a9",
-  darkgreen: "#006400",
-  darkgrey: "#a9a9a9",
-  darkkhaki: "#bdb76b",
-  darkmagenta: "#8b008b",
-  darkolivegreen: "#556b2f",
-  darkorange: "#ff8c00",
-  darkorchid: "#9932cc",
-  darkred: "#8b0000",
-  darksalmon: "#e9967a",
-  darkseagreen: "#8fbc8f",
-  darkslateblue: "#483d8b",
-  darkslategray: "#2f4f4f",
-  darkslategrey: "#2f4f4f",
-  darkturquoise: "#00ced1",
-  darkviolet: "#9400d3",
-  deeppink: "#ff1493",
-  deepskyblue: "#00bfff",
-  dimgray: "#696969",
-  dimgrey: "#696969",
-  dodgerblue: "#1e90ff",
-  firebrick: "#b22222",
-  floralwhite: "#fffaf0",
-  forestgreen: "#228b22",
-  fuchsia: "#ff00ff",
-  gainsboro: "#dcdcdc",
-  ghostwhite: "#f8f8ff",
-  goldenrod: "#daa520",
-  gold: "#ffd700",
-  gray: "#808080",
-  green: "#008000",
-  greenyellow: "#adff2f",
-  grey: "#808080",
-  honeydew: "#f0fff0",
-  hotpink: "#ff69b4",
-  indianred: "#cd5c5c",
-  indigo: "#4b0082",
-  ivory: "#fffff0",
-  khaki: "#f0e68c",
-  lavenderblush: "#fff0f5",
-  lavender: "#e6e6fa",
-  lawngreen: "#7cfc00",
-  lemonchiffon: "#fffacd",
-  lightblue: "#add8e6",
-  lightcoral: "#f08080",
-  lightcyan: "#e0ffff",
-  lightgoldenrodyellow: "#fafad2",
-  lightgray: "#d3d3d3",
-  lightgreen: "#90ee90",
-  lightgrey: "#d3d3d3",
-  lightpink: "#ffb6c1",
-  lightsalmon: "#ffa07a",
-  lightseagreen: "#20b2aa",
-  lightskyblue: "#87cefa",
-  lightslategray: "#778899",
-  lightslategrey: "#778899",
-  lightsteelblue: "#b0c4de",
-  lightyellow: "#ffffe0",
-  lime: "#00ff00",
-  limegreen: "#32cd32",
-  linen: "#faf0e6",
-  magenta: "#ff00ff",
-  maroon: "#800000",
-  mediumaquamarine: "#66cdaa",
-  mediumblue: "#0000cd",
-  mediumorchid: "#ba55d3",
-  mediumpurple: "#9370db",
-  mediumseagreen: "#3cb371",
-  mediumslateblue: "#7b68ee",
-  mediumspringgreen: "#00fa9a",
-  mediumturquoise: "#48d1cc",
-  mediumvioletred: "#c71585",
-  midnightblue: "#191970",
-  mintcream: "#f5fffa",
-  mistyrose: "#ffe4e1",
-  moccasin: "#ffe4b5",
-  navajowhite: "#ffdead",
-  navy: "#000080",
-  oldlace: "#fdf5e6",
-  olive: "#808000",
-  olivedrab: "#6b8e23",
-  orange: "#ffa500",
-  orangered: "#ff4500",
-  orchid: "#da70d6",
-  palegoldenrod: "#eee8aa",
-  palegreen: "#98fb98",
-  paleturquoise: "#afeeee",
-  palevioletred: "#db7093",
-  papayawhip: "#ffefd5",
-  peachpuff: "#ffdab9",
-  peru: "#cd853f",
-  pink: "#ffc0cb",
-  plum: "#dda0dd",
-  powderblue: "#b0e0e6",
-  purple: "#800080",
-  rebeccapurple: "#663399",
-  red: "#ff0000",
-  rosybrown: "#bc8f8f",
-  royalblue: "#4169e1",
-  saddlebrown: "#8b4513",
-  salmon: "#fa8072",
-  sandybrown: "#f4a460",
-  seagreen: "#2e8b57",
-  seashell: "#fff5ee",
-  sienna: "#a0522d",
-  silver: "#c0c0c0",
-  skyblue: "#87ceeb",
-  slateblue: "#6a5acd",
-  slategray: "#708090",
-  slategrey: "#708090",
-  snow: "#fffafa",
-  springgreen: "#00ff7f",
-  steelblue: "#4682b4",
-  tan: "#d2b48c",
-  teal: "#008080",
-  thistle: "#d8bfd8",
-  tomato: "#ff6347",
-  turquoise: "#40e0d0",
-  violet: "#ee82ee",
-  wheat: "#f5deb3",
-  white: "#ffffff",
-  whitesmoke: "#f5f5f5",
-  yellow: "#ffff00",
-  yellowgreen: "#9acd32"
-};
-function inputToRGB(color2) {
-  var rgb = { r: 0, g: 0, b: 0 };
-  var a = 1;
-  var s = null;
-  var v = null;
-  var l = null;
-  var ok = false;
-  var format = false;
-  if (typeof color2 === "string") {
-    color2 = stringInputToObject(color2);
-  }
-  if (typeof color2 === "object") {
-    if (isValidCSSUnit(color2.r) && isValidCSSUnit(color2.g) && isValidCSSUnit(color2.b)) {
-      rgb = rgbToRgb(color2.r, color2.g, color2.b);
-      ok = true;
-      format = String(color2.r).substr(-1) === "%" ? "prgb" : "rgb";
-    } else if (isValidCSSUnit(color2.h) && isValidCSSUnit(color2.s) && isValidCSSUnit(color2.v)) {
-      s = convertToPercentage(color2.s);
-      v = convertToPercentage(color2.v);
-      rgb = hsvToRgb(color2.h, s, v);
-      ok = true;
-      format = "hsv";
-    } else if (isValidCSSUnit(color2.h) && isValidCSSUnit(color2.s) && isValidCSSUnit(color2.l)) {
-      s = convertToPercentage(color2.s);
-      l = convertToPercentage(color2.l);
-      rgb = hslToRgb(color2.h, s, l);
-      ok = true;
-      format = "hsl";
-    }
-    if (Object.prototype.hasOwnProperty.call(color2, "a")) {
-      a = color2.a;
-    }
-  }
-  a = boundAlpha(a);
-  return {
-    ok,
-    format: color2.format || format,
-    r: Math.min(255, Math.max(rgb.r, 0)),
-    g: Math.min(255, Math.max(rgb.g, 0)),
-    b: Math.min(255, Math.max(rgb.b, 0)),
-    a
-  };
-}
-var CSS_INTEGER = "[-\\+]?\\d+%?";
-var CSS_NUMBER = "[-\\+]?\\d*\\.\\d+%?";
-var CSS_UNIT = "(?:".concat(CSS_NUMBER, ")|(?:").concat(CSS_INTEGER, ")");
-var PERMISSIVE_MATCH3 = "[\\s|\\(]+(".concat(CSS_UNIT, ")[,|\\s]+(").concat(CSS_UNIT, ")[,|\\s]+(").concat(CSS_UNIT, ")\\s*\\)?");
-var PERMISSIVE_MATCH4 = "[\\s|\\(]+(".concat(CSS_UNIT, ")[,|\\s]+(").concat(CSS_UNIT, ")[,|\\s]+(").concat(CSS_UNIT, ")[,|\\s]+(").concat(CSS_UNIT, ")\\s*\\)?");
-var matchers = {
-  CSS_UNIT: new RegExp(CSS_UNIT),
-  rgb: new RegExp("rgb" + PERMISSIVE_MATCH3),
-  rgba: new RegExp("rgba" + PERMISSIVE_MATCH4),
-  hsl: new RegExp("hsl" + PERMISSIVE_MATCH3),
-  hsla: new RegExp("hsla" + PERMISSIVE_MATCH4),
-  hsv: new RegExp("hsv" + PERMISSIVE_MATCH3),
-  hsva: new RegExp("hsva" + PERMISSIVE_MATCH4),
-  hex3: /^#?([0-9a-fA-F]{1})([0-9a-fA-F]{1})([0-9a-fA-F]{1})$/,
-  hex6: /^#?([0-9a-fA-F]{2})([0-9a-fA-F]{2})([0-9a-fA-F]{2})$/,
-  hex4: /^#?([0-9a-fA-F]{1})([0-9a-fA-F]{1})([0-9a-fA-F]{1})([0-9a-fA-F]{1})$/,
-  hex8: /^#?([0-9a-fA-F]{2})([0-9a-fA-F]{2})([0-9a-fA-F]{2})([0-9a-fA-F]{2})$/
-};
-function stringInputToObject(color2) {
-  color2 = color2.trim().toLowerCase();
-  if (color2.length === 0) {
-    return false;
-  }
-  var named = false;
-  if (names[color2]) {
-    color2 = names[color2];
-    named = true;
-  } else if (color2 === "transparent") {
-    return { r: 0, g: 0, b: 0, a: 0, format: "name" };
-  }
-  var match = matchers.rgb.exec(color2);
-  if (match) {
-    return { r: match[1], g: match[2], b: match[3] };
-  }
-  match = matchers.rgba.exec(color2);
-  if (match) {
-    return { r: match[1], g: match[2], b: match[3], a: match[4] };
-  }
-  match = matchers.hsl.exec(color2);
-  if (match) {
-    return { h: match[1], s: match[2], l: match[3] };
-  }
-  match = matchers.hsla.exec(color2);
-  if (match) {
-    return { h: match[1], s: match[2], l: match[3], a: match[4] };
-  }
-  match = matchers.hsv.exec(color2);
-  if (match) {
-    return { h: match[1], s: match[2], v: match[3] };
-  }
-  match = matchers.hsva.exec(color2);
-  if (match) {
-    return { h: match[1], s: match[2], v: match[3], a: match[4] };
-  }
-  match = matchers.hex8.exec(color2);
-  if (match) {
-    return {
-      r: parseIntFromHex(match[1]),
-      g: parseIntFromHex(match[2]),
-      b: parseIntFromHex(match[3]),
-      a: convertHexToDecimal(match[4]),
-      format: named ? "name" : "hex8"
-    };
-  }
-  match = matchers.hex6.exec(color2);
-  if (match) {
-    return {
-      r: parseIntFromHex(match[1]),
-      g: parseIntFromHex(match[2]),
-      b: parseIntFromHex(match[3]),
-      format: named ? "name" : "hex"
-    };
-  }
-  match = matchers.hex4.exec(color2);
-  if (match) {
-    return {
-      r: parseIntFromHex(match[1] + match[1]),
-      g: parseIntFromHex(match[2] + match[2]),
-      b: parseIntFromHex(match[3] + match[3]),
-      a: convertHexToDecimal(match[4] + match[4]),
-      format: named ? "name" : "hex8"
-    };
-  }
-  match = matchers.hex3.exec(color2);
-  if (match) {
-    return {
-      r: parseIntFromHex(match[1] + match[1]),
-      g: parseIntFromHex(match[2] + match[2]),
-      b: parseIntFromHex(match[3] + match[3]),
-      format: named ? "name" : "hex"
-    };
-  }
-  return false;
-}
-function isValidCSSUnit(color2) {
-  return Boolean(matchers.CSS_UNIT.exec(String(color2)));
-}
-var hueStep = 2;
-var saturationStep = 0.16;
-var saturationStep2 = 0.05;
-var brightnessStep1 = 0.05;
-var brightnessStep2 = 0.15;
-var lightColorCount = 5;
-var darkColorCount = 4;
-var darkColorMap = [{
-  index: 7,
-  opacity: 0.15
-}, {
-  index: 6,
-  opacity: 0.25
-}, {
-  index: 5,
-  opacity: 0.3
-}, {
-  index: 5,
-  opacity: 0.45
-}, {
-  index: 5,
-  opacity: 0.65
-}, {
-  index: 5,
-  opacity: 0.85
-}, {
-  index: 4,
-  opacity: 0.9
-}, {
-  index: 3,
-  opacity: 0.95
-}, {
-  index: 2,
-  opacity: 0.97
-}, {
-  index: 1,
-  opacity: 0.98
-}];
-function toHsv(_ref) {
-  var r = _ref.r, g = _ref.g, b = _ref.b;
-  var hsv = rgbToHsv(r, g, b);
-  return {
-    h: hsv.h * 360,
-    s: hsv.s,
-    v: hsv.v
-  };
-}
-function toHex(_ref2) {
-  var r = _ref2.r, g = _ref2.g, b = _ref2.b;
-  return "#".concat(rgbToHex(r, g, b, false));
-}
-function mix(rgb1, rgb2, amount) {
-  var p = amount / 100;
-  var rgb = {
-    r: (rgb2.r - rgb1.r) * p + rgb1.r,
-    g: (rgb2.g - rgb1.g) * p + rgb1.g,
-    b: (rgb2.b - rgb1.b) * p + rgb1.b
-  };
-  return rgb;
-}
-function getHue(hsv, i, light) {
-  var hue;
-  if (Math.round(hsv.h) >= 60 && Math.round(hsv.h) <= 240) {
-    hue = light ? Math.round(hsv.h) - hueStep * i : Math.round(hsv.h) + hueStep * i;
-  } else {
-    hue = light ? Math.round(hsv.h) + hueStep * i : Math.round(hsv.h) - hueStep * i;
-  }
-  if (hue < 0) {
-    hue += 360;
-  } else if (hue >= 360) {
-    hue -= 360;
-  }
-  return hue;
-}
-function getSaturation(hsv, i, light) {
-  if (hsv.h === 0 && hsv.s === 0) {
-    return hsv.s;
-  }
-  var saturation;
-  if (light) {
-    saturation = hsv.s - saturationStep * i;
-  } else if (i === darkColorCount) {
-    saturation = hsv.s + saturationStep;
-  } else {
-    saturation = hsv.s + saturationStep2 * i;
-  }
-  if (saturation > 1) {
-    saturation = 1;
-  }
-  if (light && i === lightColorCount && saturation > 0.1) {
-    saturation = 0.1;
-  }
-  if (saturation < 0.06) {
-    saturation = 0.06;
-  }
-  return Number(saturation.toFixed(2));
-}
-function getValue(hsv, i, light) {
-  var value2;
-  if (light) {
-    value2 = hsv.v + brightnessStep1 * i;
-  } else {
-    value2 = hsv.v - brightnessStep2 * i;
-  }
-  if (value2 > 1) {
-    value2 = 1;
-  }
-  return Number(value2.toFixed(2));
-}
-function generate$1(color2) {
-  var opts = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : {};
-  var patterns = [];
-  var pColor = inputToRGB(color2);
-  for (var i = lightColorCount; i > 0; i -= 1) {
-    var hsv = toHsv(pColor);
-    var colorString = toHex(inputToRGB({
-      h: getHue(hsv, i, true),
-      s: getSaturation(hsv, i, true),
-      v: getValue(hsv, i, true)
-    }));
-    patterns.push(colorString);
-  }
-  patterns.push(toHex(pColor));
-  for (var _i = 1; _i <= darkColorCount; _i += 1) {
-    var _hsv = toHsv(pColor);
-    var _colorString = toHex(inputToRGB({
-      h: getHue(_hsv, _i),
-      s: getSaturation(_hsv, _i),
-      v: getValue(_hsv, _i)
-    }));
-    patterns.push(_colorString);
-  }
-  if (opts.theme === "dark") {
-    return darkColorMap.map(function(_ref3) {
-      var index2 = _ref3.index, opacity = _ref3.opacity;
-      var darkColorString = toHex(mix(inputToRGB(opts.backgroundColor || "#141414"), inputToRGB(patterns[index2]), opacity * 100));
-      return darkColorString;
-    });
-  }
-  return patterns;
-}
-var presetPrimaryColors = {
-  red: "#F5222D",
-  volcano: "#FA541C",
-  orange: "#FA8C16",
-  gold: "#FAAD14",
-  yellow: "#FADB14",
-  lime: "#A0D911",
-  green: "#52C41A",
-  cyan: "#13C2C2",
-  blue: "#1890FF",
-  geekblue: "#2F54EB",
-  purple: "#722ED1",
-  magenta: "#EB2F96",
-  grey: "#666666"
-};
-var presetPalettes = {};
-var presetDarkPalettes = {};
-Object.keys(presetPrimaryColors).forEach(function(key) {
-  presetPalettes[key] = generate$1(presetPrimaryColors[key]);
-  presetPalettes[key].primary = presetPalettes[key][5];
-  presetDarkPalettes[key] = generate$1(presetPrimaryColors[key], {
-    theme: "dark",
-    backgroundColor: "#141414"
-  });
-  presetDarkPalettes[key].primary = presetDarkPalettes[key][5];
-});
-var containers = [];
-var styleElements = [];
-var usage = "insert-css: You need to provide a CSS string. Usage: insertCss(cssString[, options]).";
-function createStyleElement() {
-  var styleElement = document.createElement("style");
-  styleElement.setAttribute("type", "text/css");
-  return styleElement;
-}
-function insertCss(css2, options) {
-  options = options || {};
-  if (css2 === void 0) {
-    throw new Error(usage);
-  }
-  var position = options.prepend === true ? "prepend" : "append";
-  var container = options.container !== void 0 ? options.container : document.querySelector("head");
-  var containerId = containers.indexOf(container);
-  if (containerId === -1) {
-    containerId = containers.push(container) - 1;
-    styleElements[containerId] = {};
-  }
-  var styleElement;
-  if (styleElements[containerId] !== void 0 && styleElements[containerId][position] !== void 0) {
-    styleElement = styleElements[containerId][position];
-  } else {
-    styleElement = styleElements[containerId][position] = createStyleElement();
-    if (position === "prepend") {
-      container.insertBefore(styleElement, container.childNodes[0]);
-    } else {
-      container.appendChild(styleElement);
-    }
-  }
-  if (css2.charCodeAt(0) === 65279) {
-    css2 = css2.substr(1, css2.length);
-  }
-  if (styleElement.styleSheet) {
-    styleElement.styleSheet.cssText += css2;
-  } else {
-    styleElement.textContent += css2;
-  }
-  return styleElement;
-}
-function _objectSpread$4(target) {
-  for (var i = 1; i < arguments.length; i++) {
-    var source = arguments[i] != null ? Object(arguments[i]) : {};
-    var ownKeys2 = Object.keys(source);
-    if (typeof Object.getOwnPropertySymbols === "function") {
-      ownKeys2 = ownKeys2.concat(Object.getOwnPropertySymbols(source).filter(function(sym) {
-        return Object.getOwnPropertyDescriptor(source, sym).enumerable;
-      }));
-    }
-    ownKeys2.forEach(function(key) {
-      _defineProperty$4(target, key, source[key]);
-    });
-  }
-  return target;
-}
-function _defineProperty$4(obj, key, value2) {
-  if (key in obj) {
-    Object.defineProperty(obj, key, { value: value2, enumerable: true, configurable: true, writable: true });
-  } else {
-    obj[key] = value2;
-  }
-  return obj;
-}
-function warn(valid, message2) {
-  if (process.env.NODE_ENV !== "production" && !valid && console !== void 0) {
-    console.error("Warning: ".concat(message2));
-  }
-}
-function warning(valid, message2) {
-  warn(valid, "[@ant-design/icons-vue] ".concat(message2));
-}
-function isIconDefinition(target) {
-  return typeof target === "object" && typeof target.name === "string" && typeof target.theme === "string" && (typeof target.icon === "object" || typeof target.icon === "function");
-}
-function generate(node, key, rootProps) {
-  if (!rootProps) {
-    return h(node.tag, _objectSpread$4({
-      key
-    }, node.attrs), (node.children || []).map(function(child, index2) {
-      return generate(child, "".concat(key, "-").concat(node.tag, "-").concat(index2));
-    }));
-  }
-  return h(node.tag, _objectSpread$4({
-    key
-  }, rootProps, node.attrs), (node.children || []).map(function(child, index2) {
-    return generate(child, "".concat(key, "-").concat(node.tag, "-").concat(index2));
-  }));
-}
-function getSecondaryColor(primaryColor) {
-  return generate$1(primaryColor)[0];
-}
-function normalizeTwoToneColors(twoToneColor) {
-  if (!twoToneColor) {
-    return [];
-  }
-  return Array.isArray(twoToneColor) ? twoToneColor : [twoToneColor];
-}
-var iconStyles = "\n.anticon {\n  display: inline-block;\n  color: inherit;\n  font-style: normal;\n  line-height: 0;\n  text-align: center;\n  text-transform: none;\n  vertical-align: -0.125em;\n  text-rendering: optimizeLegibility;\n  -webkit-font-smoothing: antialiased;\n  -moz-osx-font-smoothing: grayscale;\n}\n\n.anticon > * {\n  line-height: 1;\n}\n\n.anticon svg {\n  display: inline-block;\n}\n\n.anticon::before {\n  display: none;\n}\n\n.anticon .anticon-icon {\n  display: block;\n}\n\n.anticon[tabindex] {\n  cursor: pointer;\n}\n\n.anticon-spin::before,\n.anticon-spin {\n  display: inline-block;\n  -webkit-animation: loadingCircle 1s infinite linear;\n  animation: loadingCircle 1s infinite linear;\n}\n\n@-webkit-keyframes loadingCircle {\n  100% {\n    -webkit-transform: rotate(360deg);\n    transform: rotate(360deg);\n  }\n}\n\n@keyframes loadingCircle {\n  100% {\n    -webkit-transform: rotate(360deg);\n    transform: rotate(360deg);\n  }\n}\n";
-var cssInjectedFlag = false;
-var useInsertStyles = function useInsertStyles2() {
-  var styleStr = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : iconStyles;
-  nextTick(function() {
-    if (!cssInjectedFlag) {
-      if (typeof window !== "undefined" && window.document && window.document.documentElement) {
-        insertCss(styleStr, {
-          prepend: true
-        });
-      }
-      cssInjectedFlag = true;
-    }
-  });
-};
-var _excluded$1 = ["icon", "primaryColor", "secondaryColor"];
-function _objectWithoutProperties$1(source, excluded) {
-  if (source == null)
-    return {};
-  var target = _objectWithoutPropertiesLoose$1(source, excluded);
-  var key, i;
-  if (Object.getOwnPropertySymbols) {
-    var sourceSymbolKeys = Object.getOwnPropertySymbols(source);
-    for (i = 0; i < sourceSymbolKeys.length; i++) {
-      key = sourceSymbolKeys[i];
-      if (excluded.indexOf(key) >= 0)
-        continue;
-      if (!Object.prototype.propertyIsEnumerable.call(source, key))
-        continue;
-      target[key] = source[key];
-    }
-  }
-  return target;
-}
-function _objectWithoutPropertiesLoose$1(source, excluded) {
-  if (source == null)
-    return {};
-  var target = {};
-  var sourceKeys = Object.keys(source);
-  var key, i;
-  for (i = 0; i < sourceKeys.length; i++) {
-    key = sourceKeys[i];
-    if (excluded.indexOf(key) >= 0)
-      continue;
-    target[key] = source[key];
-  }
-  return target;
-}
-function _objectSpread$3(target) {
-  for (var i = 1; i < arguments.length; i++) {
-    var source = arguments[i] != null ? Object(arguments[i]) : {};
-    var ownKeys2 = Object.keys(source);
-    if (typeof Object.getOwnPropertySymbols === "function") {
-      ownKeys2 = ownKeys2.concat(Object.getOwnPropertySymbols(source).filter(function(sym) {
-        return Object.getOwnPropertyDescriptor(source, sym).enumerable;
-      }));
-    }
-    ownKeys2.forEach(function(key) {
-      _defineProperty$3(target, key, source[key]);
-    });
-  }
-  return target;
-}
-function _defineProperty$3(obj, key, value2) {
-  if (key in obj) {
-    Object.defineProperty(obj, key, { value: value2, enumerable: true, configurable: true, writable: true });
-  } else {
-    obj[key] = value2;
-  }
-  return obj;
-}
-var twoToneColorPalette = {
-  primaryColor: "#333",
-  secondaryColor: "#E6E6E6",
-  calculated: false
-};
-function setTwoToneColors(_ref) {
-  var primaryColor = _ref.primaryColor, secondaryColor = _ref.secondaryColor;
-  twoToneColorPalette.primaryColor = primaryColor;
-  twoToneColorPalette.secondaryColor = secondaryColor || getSecondaryColor(primaryColor);
-  twoToneColorPalette.calculated = !!secondaryColor;
-}
-function getTwoToneColors() {
-  return _objectSpread$3({}, twoToneColorPalette);
-}
-var IconBase = function IconBase2(props, context) {
-  var _props$context$attrs = _objectSpread$3({}, props, context.attrs), icon = _props$context$attrs.icon, primaryColor = _props$context$attrs.primaryColor, secondaryColor = _props$context$attrs.secondaryColor, restProps = _objectWithoutProperties$1(_props$context$attrs, _excluded$1);
-  var colors = twoToneColorPalette;
-  if (primaryColor) {
-    colors = {
-      primaryColor,
-      secondaryColor: secondaryColor || getSecondaryColor(primaryColor)
-    };
-  }
-  useInsertStyles();
-  warning(isIconDefinition(icon), "icon should be icon definiton, but got ".concat(icon));
-  if (!isIconDefinition(icon)) {
-    return null;
-  }
-  var target = icon;
-  if (target && typeof target.icon === "function") {
-    target = _objectSpread$3({}, target, {
-      icon: target.icon(colors.primaryColor, colors.secondaryColor)
-    });
-  }
-  return generate(target.icon, "svg-".concat(target.name), _objectSpread$3({}, restProps, {
-    "data-icon": target.name,
-    width: "1em",
-    height: "1em",
-    fill: "currentColor",
-    "aria-hidden": "true"
-  }));
-};
-IconBase.props = {
-  icon: Object,
-  primaryColor: String,
-  secondaryColor: String,
-  focusable: String
-};
-IconBase.inheritAttrs = false;
-IconBase.displayName = "IconBase";
-IconBase.getTwoToneColors = getTwoToneColors;
-IconBase.setTwoToneColors = setTwoToneColors;
-const VueIcon = IconBase;
-function _slicedToArray$1(arr, i) {
-  return _arrayWithHoles$1(arr) || _iterableToArrayLimit$1(arr, i) || _unsupportedIterableToArray$1(arr, i) || _nonIterableRest$1();
-}
-function _nonIterableRest$1() {
-  throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
-}
-function _unsupportedIterableToArray$1(o, minLen) {
-  if (!o)
-    return;
-  if (typeof o === "string")
-    return _arrayLikeToArray$1(o, minLen);
-  var n = Object.prototype.toString.call(o).slice(8, -1);
-  if (n === "Object" && o.constructor)
-    n = o.constructor.name;
-  if (n === "Map" || n === "Set")
-    return Array.from(o);
-  if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n))
-    return _arrayLikeToArray$1(o, minLen);
-}
-function _arrayLikeToArray$1(arr, len) {
-  if (len == null || len > arr.length)
-    len = arr.length;
-  for (var i = 0, arr2 = new Array(len); i < len; i++) {
-    arr2[i] = arr[i];
-  }
-  return arr2;
-}
-function _iterableToArrayLimit$1(arr, i) {
-  var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"];
-  if (_i == null)
-    return;
-  var _arr = [];
-  var _n = true;
-  var _d = false;
-  var _s, _e;
-  try {
-    for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) {
-      _arr.push(_s.value);
-      if (i && _arr.length === i)
-        break;
-    }
-  } catch (err) {
-    _d = true;
-    _e = err;
-  } finally {
-    try {
-      if (!_n && _i["return"] != null)
-        _i["return"]();
-    } finally {
-      if (_d)
-        throw _e;
-    }
-  }
-  return _arr;
-}
-function _arrayWithHoles$1(arr) {
-  if (Array.isArray(arr))
-    return arr;
-}
-function setTwoToneColor(twoToneColor) {
-  var _normalizeTwoToneColo = normalizeTwoToneColors(twoToneColor), _normalizeTwoToneColo2 = _slicedToArray$1(_normalizeTwoToneColo, 2), primaryColor = _normalizeTwoToneColo2[0], secondaryColor = _normalizeTwoToneColo2[1];
-  return VueIcon.setTwoToneColors({
-    primaryColor,
-    secondaryColor
-  });
-}
-function getTwoToneColor() {
-  var colors = VueIcon.getTwoToneColors();
-  if (!colors.calculated) {
-    return colors.primaryColor;
-  }
-  return [colors.primaryColor, colors.secondaryColor];
-}
-var _excluded = ["class", "icon", "spin", "rotate", "tabindex", "twoToneColor", "onClick"];
-function _slicedToArray(arr, i) {
-  return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest();
-}
-function _nonIterableRest() {
-  throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
-}
-function _unsupportedIterableToArray(o, minLen) {
-  if (!o)
-    return;
-  if (typeof o === "string")
-    return _arrayLikeToArray(o, minLen);
-  var n = Object.prototype.toString.call(o).slice(8, -1);
-  if (n === "Object" && o.constructor)
-    n = o.constructor.name;
-  if (n === "Map" || n === "Set")
-    return Array.from(o);
-  if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n))
-    return _arrayLikeToArray(o, minLen);
-}
-function _arrayLikeToArray(arr, len) {
-  if (len == null || len > arr.length)
-    len = arr.length;
-  for (var i = 0, arr2 = new Array(len); i < len; i++) {
-    arr2[i] = arr[i];
-  }
-  return arr2;
-}
-function _iterableToArrayLimit(arr, i) {
-  var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"];
-  if (_i == null)
-    return;
-  var _arr = [];
-  var _n = true;
-  var _d = false;
-  var _s, _e;
-  try {
-    for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) {
-      _arr.push(_s.value);
-      if (i && _arr.length === i)
-        break;
-    }
-  } catch (err) {
-    _d = true;
-    _e = err;
-  } finally {
-    try {
-      if (!_n && _i["return"] != null)
-        _i["return"]();
-    } finally {
-      if (_d)
-        throw _e;
-    }
-  }
-  return _arr;
-}
-function _arrayWithHoles(arr) {
-  if (Array.isArray(arr))
-    return arr;
-}
-function _objectSpread$2(target) {
-  for (var i = 1; i < arguments.length; i++) {
-    var source = arguments[i] != null ? Object(arguments[i]) : {};
-    var ownKeys2 = Object.keys(source);
-    if (typeof Object.getOwnPropertySymbols === "function") {
-      ownKeys2 = ownKeys2.concat(Object.getOwnPropertySymbols(source).filter(function(sym) {
-        return Object.getOwnPropertyDescriptor(source, sym).enumerable;
-      }));
-    }
-    ownKeys2.forEach(function(key) {
-      _defineProperty$2(target, key, source[key]);
-    });
-  }
-  return target;
-}
-function _defineProperty$2(obj, key, value2) {
-  if (key in obj) {
-    Object.defineProperty(obj, key, { value: value2, enumerable: true, configurable: true, writable: true });
-  } else {
-    obj[key] = value2;
-  }
-  return obj;
-}
-function _objectWithoutProperties(source, excluded) {
-  if (source == null)
-    return {};
-  var target = _objectWithoutPropertiesLoose(source, excluded);
-  var key, i;
-  if (Object.getOwnPropertySymbols) {
-    var sourceSymbolKeys = Object.getOwnPropertySymbols(source);
-    for (i = 0; i < sourceSymbolKeys.length; i++) {
-      key = sourceSymbolKeys[i];
-      if (excluded.indexOf(key) >= 0)
-        continue;
-      if (!Object.prototype.propertyIsEnumerable.call(source, key))
-        continue;
-      target[key] = source[key];
-    }
-  }
-  return target;
-}
-function _objectWithoutPropertiesLoose(source, excluded) {
-  if (source == null)
-    return {};
-  var target = {};
-  var sourceKeys = Object.keys(source);
-  var key, i;
-  for (i = 0; i < sourceKeys.length; i++) {
-    key = sourceKeys[i];
-    if (excluded.indexOf(key) >= 0)
-      continue;
-    target[key] = source[key];
-  }
-  return target;
-}
-setTwoToneColor("#1890ff");
-var Icon = function Icon2(props, context) {
-  var _classObj;
-  var _props$context$attrs = _objectSpread$2({}, props, context.attrs), cls = _props$context$attrs["class"], icon = _props$context$attrs.icon, spin = _props$context$attrs.spin, rotate = _props$context$attrs.rotate, tabindex = _props$context$attrs.tabindex, twoToneColor = _props$context$attrs.twoToneColor, onClick = _props$context$attrs.onClick, restProps = _objectWithoutProperties(_props$context$attrs, _excluded);
-  var classObj = (_classObj = {
-    anticon: true
-  }, _defineProperty$2(_classObj, "anticon-".concat(icon.name), Boolean(icon.name)), _defineProperty$2(_classObj, cls, cls), _classObj);
-  var svgClassString = spin === "" || !!spin || icon.name === "loading" ? "anticon-spin" : "";
-  var iconTabIndex = tabindex;
-  if (iconTabIndex === void 0 && onClick) {
-    iconTabIndex = -1;
-    restProps.tabindex = iconTabIndex;
-  }
-  var svgStyle = rotate ? {
-    msTransform: "rotate(".concat(rotate, "deg)"),
-    transform: "rotate(".concat(rotate, "deg)")
-  } : void 0;
-  var _normalizeTwoToneColo = normalizeTwoToneColors(twoToneColor), _normalizeTwoToneColo2 = _slicedToArray(_normalizeTwoToneColo, 2), primaryColor = _normalizeTwoToneColo2[0], secondaryColor = _normalizeTwoToneColo2[1];
-  return createVNode("span", _objectSpread$2({
-    "role": "img",
-    "aria-label": icon.name
-  }, restProps, {
-    "onClick": onClick,
-    "class": classObj
-  }), [createVNode(VueIcon, {
-    "class": svgClassString,
-    "icon": icon,
-    "primaryColor": primaryColor,
-    "secondaryColor": secondaryColor,
-    "style": svgStyle
-  }, null)]);
-};
-Icon.props = {
-  spin: Boolean,
-  rotate: Number,
-  icon: Object,
-  twoToneColor: String
-};
-Icon.displayName = "AntdIcon";
-Icon.inheritAttrs = false;
-Icon.getTwoToneColor = getTwoToneColor;
-Icon.setTwoToneColor = setTwoToneColor;
-const AntdIcon = Icon;
-var DownOutlined$2 = { "icon": { "tag": "svg", "attrs": { "viewBox": "64 64 896 896", "focusable": "false" }, "children": [{ "tag": "path", "attrs": { "d": "M884 256h-75c-5.1 0-9.9 2.5-12.9 6.6L512 654.2 227.9 262.6c-3-4.1-7.8-6.6-12.9-6.6h-75c-6.5 0-10.3 7.4-6.5 12.7l352.6 486.1c12.8 17.6 39 17.6 51.7 0l352.6-486.1c3.9-5.3.1-12.7-6.4-12.7z" } }] }, "name": "down", "theme": "outlined" };
-const DownOutlinedSvg = DownOutlined$2;
-function _objectSpread$1(target) {
-  for (var i = 1; i < arguments.length; i++) {
-    var source = arguments[i] != null ? Object(arguments[i]) : {};
-    var ownKeys2 = Object.keys(source);
-    if (typeof Object.getOwnPropertySymbols === "function") {
-      ownKeys2 = ownKeys2.concat(Object.getOwnPropertySymbols(source).filter(function(sym) {
-        return Object.getOwnPropertyDescriptor(source, sym).enumerable;
-      }));
-    }
-    ownKeys2.forEach(function(key) {
-      _defineProperty$1(target, key, source[key]);
-    });
-  }
-  return target;
-}
-function _defineProperty$1(obj, key, value2) {
-  if (key in obj) {
-    Object.defineProperty(obj, key, { value: value2, enumerable: true, configurable: true, writable: true });
-  } else {
-    obj[key] = value2;
-  }
-  return obj;
-}
-var DownOutlined = function DownOutlined2(props, context) {
-  var p = _objectSpread$1({}, props, context.attrs);
-  return createVNode(AntdIcon, _objectSpread$1({}, p, {
-    "icon": DownOutlinedSvg
-  }), null);
-};
-DownOutlined.displayName = "DownOutlined";
-DownOutlined.inheritAttrs = false;
-const DownOutlined$1 = DownOutlined;
-var UserOutlined$2 = { "icon": { "tag": "svg", "attrs": { "viewBox": "64 64 896 896", "focusable": "false" }, "children": [{ "tag": "path", "attrs": { "d": "M858.5 763.6a374 374 0 00-80.6-119.5 375.63 375.63 0 00-119.5-80.6c-.4-.2-.8-.3-1.2-.5C719.5 518 760 444.7 760 362c0-137-111-248-248-248S264 225 264 362c0 82.7 40.5 156 102.8 201.1-.4.2-.8.3-1.2.5-44.8 18.9-85 46-119.5 80.6a375.63 375.63 0 00-80.6 119.5A371.7 371.7 0 00136 901.8a8 8 0 008 8.2h60c4.4 0 7.9-3.5 8-7.8 2-77.2 33-149.5 87.8-204.3 56.7-56.7 132-87.9 212.2-87.9s155.5 31.2 212.2 87.9C779 752.7 810 825 812 902.2c.1 4.4 3.6 7.8 8 7.8h60a8 8 0 008-8.2c-1-47.8-10.9-94.3-29.5-138.2zM512 534c-45.9 0-89.1-17.9-121.6-50.4S340 407.9 340 362c0-45.9 17.9-89.1 50.4-121.6S466.1 190 512 190s89.1 17.9 121.6 50.4S684 316.1 684 362c0 45.9-17.9 89.1-50.4 121.6S557.9 534 512 534z" } }] }, "name": "user", "theme": "outlined" };
-const UserOutlinedSvg = UserOutlined$2;
-function _objectSpread(target) {
-  for (var i = 1; i < arguments.length; i++) {
-    var source = arguments[i] != null ? Object(arguments[i]) : {};
-    var ownKeys2 = Object.keys(source);
-    if (typeof Object.getOwnPropertySymbols === "function") {
-      ownKeys2 = ownKeys2.concat(Object.getOwnPropertySymbols(source).filter(function(sym) {
-        return Object.getOwnPropertyDescriptor(source, sym).enumerable;
-      }));
-    }
-    ownKeys2.forEach(function(key) {
-      _defineProperty(target, key, source[key]);
-    });
-  }
-  return target;
-}
-function _defineProperty(obj, key, value2) {
-  if (key in obj) {
-    Object.defineProperty(obj, key, { value: value2, enumerable: true, configurable: true, writable: true });
-  } else {
-    obj[key] = value2;
-  }
-  return obj;
-}
-var UserOutlined = function UserOutlined2(props, context) {
-  var p = _objectSpread({}, props, context.attrs);
-  return createVNode(AntdIcon, _objectSpread({}, p, {
-    "icon": UserOutlinedSvg
-  }), null);
-};
-UserOutlined.displayName = "UserOutlined";
-UserOutlined.inheritAttrs = false;
-const UserOutlined$1 = UserOutlined;
 function registerIcon(app) {
   app.component("DownOutlined", DownOutlined$1);
   app.component("UserOutlined", UserOutlined$1);
@@ -81396,13 +81532,13 @@ function registerIcon(app) {
 if (typeof window !== "undefined") {
   let loadSvg = function() {
     var body = document.body;
-    var svgDom = document.getElementById("__svg__icons__dom__1717121443046__");
+    var svgDom = document.getElementById("__svg__icons__dom__1717653044503__");
     if (!svgDom) {
       svgDom = document.createElementNS("http://www.w3.org/2000/svg", "svg");
       svgDom.style.position = "absolute";
       svgDom.style.width = "0";
       svgDom.style.height = "0";
-      svgDom.id = "__svg__icons__dom__1717121443046__";
+      svgDom.id = "__svg__icons__dom__1717653044503__";
       svgDom.setAttribute("xmlns", "http://www.w3.org/2000/svg");
       svgDom.setAttribute("xmlns:link", "http://www.w3.org/1999/xlink");
     }

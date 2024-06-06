@@ -1,51 +1,55 @@
 <template>
-  <a-modal
-    class="tpf-model design-model"
-    :transitionName="!dialogVisible ? '' : 'zoom'"
-    :maskTransitionName="!dialogVisible ? '' : 'fade'"
-    :destroyOnClose="true"
-    :title="options.title"
-    :bodyStyle="{
-      height: options.height,
-      overflow: 'auto',
-      ...JSON.parse(this.options.bodyStyle || '{}')
-    }"
-    :centered="true"
-    v-model:visible="dialogVisible"
-    :width="options.width"
-    :mask="options.showModal"
-    :maskClosable="options.closeOnClickModal"
-    :keyboard="options.closeOnPressEscape"
-    @cancel="handleCloseEvent"
-    v-bind="otherAttrs"
-  >
-    <VFormRender
-      ref="dFormRef"
-      :form-json="formJson"
-      :form-data="formData"
-      :option-data="optionData"
-      :global-dsv="globalDsv"
-      :parent-form="parentForm"
-      :disabled-mode="options.disabledMode"
-      :dynamic-creation="true"
-    />
-    <template #footer>
-      <div class="footer-left"></div>
-      <div class="footer-right">
-        <a-button v-if="!options.cancelButtonHidden" @click="handleCancelClick">
-          {{ cancelBtnLabel }}
-        </a-button>
-        <a-button v-if="!options.okButtonHidden" type="primary" @click="handleOkClick">
-          {{ okBtnLabel }}
-        </a-button>
-      </div>
-    </template>
-  </a-modal>
+  <a-config-provider :locale="elLocale" :input="{ autocomplete: 'off' }">
+    <a-modal
+      class="tpf-model design-model"
+      :transitionName="!dialogVisible ? '' : 'zoom'"
+      :maskTransitionName="!dialogVisible ? '' : 'fade'"
+      :destroyOnClose="true"
+      :title="options.title"
+      :bodyStyle="{
+        height: options.height,
+        overflow: 'auto',
+        ...JSON.parse(this.options.bodyStyle || '{}')
+      }"
+      :centered="true"
+      v-model:visible="dialogVisible"
+      :width="options.width"
+      :mask="options.showModal"
+      :maskClosable="options.closeOnClickModal"
+      :keyboard="options.closeOnPressEscape"
+      @cancel="handleCloseEvent"
+      v-bind="otherAttrs"
+    >
+      <VFormRender
+        ref="dFormRef"
+        :form-json="formJson"
+        :form-data="formData"
+        :vfCtx="vfCtx"
+        :option-data="optionData"
+        :global-dsv="globalDsv"
+        :parent-form="parentForm"
+        :disabled-mode="options.disabledMode"
+        :dynamic-creation="true"
+      />
+      <template #footer>
+        <div class="footer-left"></div>
+        <div class="footer-right">
+          <a-button v-if="!options.cancelButtonHidden" @click="handleCancelClick">
+            {{ cancelBtnLabel }}
+          </a-button>
+          <a-button v-if="!options.okButtonHidden" type="primary" @click="handleOkClick">
+            {{ okBtnLabel }}
+          </a-button>
+        </div>
+      </template>
+    </a-modal>
+  </a-config-provider>
 </template>
 
 <script>
   import i18n from '@/utils/i18n';
   import http from '@/utils/http';
+  import zhCN from 'ant-design-vue/es/locale/zh_CN';
 
   export default {
     name: 'dynamic-dialog',
@@ -59,6 +63,10 @@
         type: Object
       },
       formData: {
+        type: Object,
+        default: () => ({})
+      },
+      vfCtx: {
         type: Object,
         default: () => ({})
       },
@@ -87,11 +95,20 @@
     },
     data() {
       return {
-        dialogVisible: false
+        dialogVisible: false,
+        elLocaleMap: {
+          'zh-CN': { ...zhCN },
+          'en-US': {}
+        }
       };
     },
     created() {},
     computed: {
+      elLocale() {
+        const curLocale = localStorage.getItem('v_form_locale') || 'zh-CN';
+        return this.elLocaleMap[curLocale];
+      },
+
       parentForm() {
         return { ...this.parentFormRef, parentDom: this, getParentFormRef: this.getParentFormRef };
       },
@@ -200,17 +217,20 @@
         setTimeout(this.deleteWrapperNode, 150);
       },
 
-      handleOkClick() {
-        if (!!this.options.onOkButtonClick) {
-          const customFn = new Function(this.options.onOkButtonClick);
-          const clickResult = customFn.call(this);
-          if (clickResult === false) {
-            return;
+      async handleOkClick() {
+        try {
+          if (!!this.options.onOkButtonClick) {
+            const customFn = new Function(this.options.onOkButtonClick);
+            const clickResult = await customFn.call(this);
+            if (clickResult === false) {
+              return;
+            }
           }
+          this.dialogVisible = false;
+          setTimeout(this.deleteWrapperNode, 150);
+        } catch (error) {
+          console.log('error: ', error);
         }
-
-        this.dialogVisible = false;
-        setTimeout(this.deleteWrapperNode, 150);
       },
 
       getParentFormRef() {

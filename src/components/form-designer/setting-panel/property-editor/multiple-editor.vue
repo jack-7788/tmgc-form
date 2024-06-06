@@ -1,5 +1,5 @@
 <template>
-  <a-form-item :label="i18nt('designer.setting.multiple')">
+  <a-form-item :label="`是否可多选`">
     <a-switch v-model:checked="optionModel.multiple" @change="changeMultiple" />
   </a-form-item>
 </template>

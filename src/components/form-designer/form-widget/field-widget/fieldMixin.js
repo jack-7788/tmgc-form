@@ -700,6 +700,15 @@ export default {
       //获取内置的el表单组件
       return this.$refs['fieldEditor'];
     },
+    showFileList(list) {
+      if (!isArray(list)) return [];
+      const res = list.map((item, uid) => ({
+        ...item,
+        name: item.fileName,
+        uid
+      }));
+      return res;
+    },
 
     /*
       注意：VFormRender的setFormData方法不会触发子表单内field-widget的setValue方法，
@@ -714,7 +723,13 @@ export default {
         this.fileList = newValue
       } else */ if (!!this.field.formItemFlag) {
         const oldValue = deepClone(this.fieldModel);
-        this.fieldModel = newValue;
+        if (this.field.type === 'file-upload') {
+          newValue = this.showFileList(newValue || []);
+          this.fieldModel = newValue;
+          // TODO
+        } else {
+          this.fieldModel = newValue;
+        }
         this.initFileList();
 
         this.syncUpdateFormModel(newValue);
@@ -741,8 +756,8 @@ export default {
 
       //清空上传组件文件列表
       if (this.field.type === 'picture-upload' || this.field.type === 'file-upload') {
-        this.$refs['fieldEditor'].clearFiles();
         this.fileList.splice(0, this.fileList.length);
+        this.handleChangeEvent(this.fileList);
       }
     },
 

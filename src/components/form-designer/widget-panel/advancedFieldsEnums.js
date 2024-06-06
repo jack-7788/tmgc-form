@@ -200,10 +200,54 @@ export const richEditor = (ops = {}) => {
     }
   };
 };
+export const fileUpload = (ops = {}) => {
+  return {
+    type: 'file-upload',
+    icon: 'file-upload-field',
+    formItemFlag: true,
+    id: ops.name,
+    options: {
+      name: '',
+      label: '',
+      labelAlign: '',
+      labelWidth: null,
+      labelHidden: false,
+      columnWidth: '200px',
+      multiple: false,
+      accept: ['.xls', '.xlsx', '.pdf'],
+      maxSize: 10,
+      disabled: false,
+      hidden: false,
+      required: false,
+      requiredHint: '',
+      validation: '',
+      validationHint: '',
+      //-------------------
+      showFileList: true,
+      limit: 1,
+      //-------------------
+      customClass: [], //自定义css类名
+      labelIconClass: null,
+      labelIconPosition: 'rear',
+      labelTooltip: null,
+      //-------------------
+      onCreated: '',
+      onMounted: '',
+      onBeforeUpload: '',
+      // onUploadSuccess: '',
+      // onUploadError: '',
+      // onFileRemove: '',
+      onValidate: '',
+      //onFileChange: '',
+      ...ops
+    }
+  };
+};
 
 export const advancedFieldsEnums = {
   cascader,
   treeSelect,
   richEditor,
   codeEditor
+  // fileUpload
 };

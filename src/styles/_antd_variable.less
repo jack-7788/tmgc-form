@@ -710,3 +710,39 @@
     }
   }
 }
+.tpf-upload {
+  .ant-upload-list {
+    max-width: 550px;
+    min-width: 0;
+
+    .ant-upload-list-item-info {
+      cursor: pointer;
+    }
+  }
+
+  .ant-col-24 {
+    font-weight: 400;
+    color: #b0b4b7;
+    font-size: 12px;
+  }
+
+  &.isReadonly {
+    .ant-upload {
+      display: none;
+    }
+
+    .ant-upload-list {
+      .ant-upload-list-item {
+        margin-top: 0;
+      }
+
+      .ant-upload-list-item-card-actions-btn {
+        display: none;
+      }
+    }
+  }
+
+  .tpfImagePreview-upload {
+    padding-top: 10px;
+  }
+}

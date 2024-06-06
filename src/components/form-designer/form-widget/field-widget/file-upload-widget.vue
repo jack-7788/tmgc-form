@@ -11,63 +11,44 @@
     :sub-form-col-index="subFormColIndex"
     :sub-form-row-id="subFormRowId"
   >
-    <!-- el-upload增加:name="field.options.name"后，会导致又拍云上传失败！故删除之！！ -->
     <a-upload
       ref="fieldEditor"
       :disabled="handleDisabled() || isReadMode"
-      :style="styleVariables"
       class="dynamicPseudoAfter"
-      :action="realUploadURL"
-      :headers="uploadHeaders"
-      :data="uploadData"
-      :with-credentials="field.options.withCredentials"
-      :multiple="field.options.multipleSelect"
+      :class="['tpf-upload', { isReadonly: uploadBtnHidden || isReadMode }]"
+      :multiple="field.options.multiple"
+      :accept="field.options.accept.join(',')"
       :file-list="fileList"
-      :show-file-list="field.options.showFileList"
-      :class="{ hideUploadDiv: uploadBtnHidden || isReadMode }"
-      :limit="field.options.limit"
-      :on-exceed="handleFileExceed"
-      :before-upload="beforeFileUpload"
-      :on-success="handleFileUpload"
-      :on-error="handleUploadError"
+      :customRequest="customRequest"
+      :iconRender="iconRender"
+      @preview="onPreview"
+      @remove="removeFile"
     >
-      <a-button> + 上传 </a-button>
-      <!-- <template #tip>
-        <div class="el-upload__tip"
-             v-if="!!field.options.uploadTip">{{field.options.uploadTip}}</div>
-      </template> -->
-      <!-- <template #default>
-        <svg-icon icon-class="el-plus" /><i class="el-icon-plus avatar-uploader-icon"></i>
-      </template> -->
-      <template #file="{ file }">
-        <div class="upload-file-list">
-          <span class="upload-file-name" :title="file.name">{{ file.name }}</span>
-          <a :href="file.url" download="" target="_blank">
-            <span class="el-icon-download file-action" :title="i18nt('render.hint.downloadFile')">
-              <svg-icon icon-class="el-download" /> </span
-          ></a>
-          <span
-            class="file-action"
-            :title="i18nt('render.hint.removeFile')"
-            v-if="!handleDisabled() && !isReadMode"
-            @click="removeUploadFile(file.name, file.url, file.uid)"
-            ><svg-icon icon-class="el-delete"
-          /></span>
+      <a-space :size="10" align="start">
+        <a-button :loading="loading" class="tpf-button" type="primary" :disabled="handleDisabled()">
+          <SvgIcon icon-class="daochu" /> 上传文件
+        </a-button>
+        <div :gutter="20" style="flex-flow: unset; flex-direction: column">
+          <div v-for="(item, inx) in descCol" :key="inx">
+            <span v-if="descCol.length > 1">{{ inx + 1 }}、{{ item }}</span>
+            <span v-else>{{ item }}</span>
+          </div>
         </div>
-      </template>
+      </a-space>
     </a-upload>
   </form-item-wrapper>
 </template>
 
-<script>
+<script lang="jsx">
   import FormItemWrapper from './form-item-wrapper';
   import emitter from '@/utils/emitter';
   import i18n, { translate } from '@/utils/i18n';
-  import { deepClone } from '@/utils/util';
   import fieldMixin from '@/components/form-designer/form-widget/field-widget/fieldMixin';
   import SvgIcon from '@/components/svg-icon/index';
+  import { useFilesystemApi } from '@/api/useFilesystemApi';
+  import { PaperClipOutlined } from '@ant-design/icons-vue';
 
-  const selectFileText = "'" + translate('render.hint.selectFile') + "'";
+  const filesystemApi = useFilesystemApi();
 
   export default {
     name: 'file-upload-widget',
@@ -104,36 +85,23 @@
     },
     data() {
       return {
+        loading: false,
         oldFieldValue: null, //field组件change之前的值
         fieldModel: [],
         rules: [],
 
-        uploadHeaders: {},
-        uploadData: {
-          key: '' //七牛云上传文件名
-          //token: '',  //七牛云上传token
-
-          //policy: '',  //又拍云上传policy
-          //authorization: '',  //又拍云上传签名
-        },
-        fileList: [], //上传文件列表
-
-        styleVariables: {
-          '--select-file-action': selectFileText
-        }
+        fileList: [] //上传文件列表
       };
     },
     computed: {
-      realUploadURL() {
-        const uploadURL = this.field.options.uploadURL;
-        if (!!uploadURL && (uploadURL.indexOf('DSV.') > -1 || uploadURL.indexOf('DSV[') > -1)) {
-          const DSV = this.getGlobalDsv();
-          return eval(this.field.options.uploadURL);
-        }
-
-        return this.field.options.uploadURL;
+      descCol() {
+        const { accept, maxSize } = this.field.options;
+        const acceptList = (accept || []).join(',');
+        return [
+          acceptList.length ? `支持扩展名${acceptList}` : '',
+          maxSize ? `支持文件大小${maxSize}M` : ''
+        ].filter(Boolean);
       },
-
       uploadBtnHidden() {
         return !this.fileList || this.fileList.length >= this.field.options.limit;
       }
@@ -162,44 +130,24 @@
     },
 
     methods: {
-      handleFileExceed() {
-        const uploadLimit = this.field.options.limit;
-        this.$message.warning(
-          this.i18nt('render.hint.uploadExceed').replace('${uploadLimit}', uploadLimit)
-        );
+      iconRender({ file }) {
+        const fieldTypes = file.fileName.slice(file.fileName.lastIndexOf('.'));
+
+        if (['.xls', '.xlsx'].includes(fieldTypes.toLowerCase())) {
+          return <SvgIcon icon-class="excel" />;
+        }
+        if (['.doc', '.docx'].includes(fieldTypes.toLowerCase())) {
+          return <SvgIcon icon-class="word" />;
+        }
+        if (['.pdf'].includes(fieldTypes.toLowerCase())) {
+          return <SvgIcon icon-class="pdf" />;
+        }
+
+        return <PaperClipOutlined />;
       },
-
-      beforeFileUpload(file) {
-        let fileTypeCheckResult = false;
-        const extFileName = file.name.substring(file.name.lastIndexOf('.') + 1);
-        if (!!this.field.options && !!this.field.options.fileTypes) {
-          const uploadFileTypes = this.field.options.fileTypes;
-          if (uploadFileTypes.length > 0) {
-            fileTypeCheckResult = uploadFileTypes.some(ft => {
-              return extFileName.toLowerCase() === ft.toLowerCase();
-            });
-          }
-        }
-        if (!fileTypeCheckResult) {
-          this.$message.error(this.i18nt('render.hint.unsupportedFileType') + extFileName);
-          return false;
-        }
-
-        let fileSizeCheckResult = false;
-        let uploadFileMaxSize = 5; //5MB
-        if (!!this.field.options && !!this.field.options.fileMaxSize) {
-          uploadFileMaxSize = this.field.options.fileMaxSize;
-        }
-        fileSizeCheckResult = file.size / 1024 / 1024 <= uploadFileMaxSize;
-        if (!fileSizeCheckResult) {
-          this.$message.error(this.i18nt('render.hint.fileSizeExceed') + uploadFileMaxSize + 'MB');
-          return false;
-        }
-
-        this.uploadData.key = file.name;
-        return this.handleOnBeforeUpload(file);
+      onPreview(file) {
+        filesystemApi.downloadFileObject({ fileCode: file.fileCode });
       },
-
       handleOnBeforeUpload(file) {
         if (!!this.field.options.onBeforeUpload) {
           const bfFunc = new Function('file', this.field.options.onBeforeUpload);
@@ -210,101 +158,59 @@
             return true;
           }
         }
-
         return true;
       },
+      removeFile(file) {
+        const findInx = this.fileList.findIndex(item => item.uid === file.uid);
+        this.fileList.splice(findInx, 1);
+        this.handleChangeEvent(this.fileList);
+      },
+      async customRequest(upload) {
+        const { accept, maxSize, limit, businessType, multiple } = this.field.options;
+        const fileName = upload.file.name;
+        const fieldTypesArr = accept.map(item => item.toLowerCase());
+        const fieldTypes = fileName.slice(fileName.lastIndexOf('.'));
+        const { message } = await import('ant-design-vue');
 
-      updateFieldModelAndEmitDataChangeForUpload(fileList, customResult, defaultResult) {
-        this.fieldModel = this.fieldModel || [];
-        const oldValue = deepClone(this.fieldModel);
-        if (!!customResult && !!customResult.name && !!customResult.url) {
-          this.fieldModel.push({
-            name: customResult.name,
-            url: customResult.url
-          });
-        } else if (!!defaultResult && !!defaultResult.name && !!defaultResult.url) {
-          this.fieldModel.push({
-            name: defaultResult.name,
-            url: defaultResult.url
-          });
-        } else {
-          this.fieldModel = deepClone(fileList);
+        if (!fieldTypesArr.includes(fieldTypes.toLowerCase())) {
+          return message.error(`目前仅支持${accept}格式的文件`);
         }
 
-        this.syncUpdateFormModel(this.fieldModel);
-        this.emitFieldDataChange(this.fieldModel, oldValue);
-      },
-
-      handleFileUpload(res, file, fileList) {
-        if (file.status === 'success') {
-          let customResult = null;
-          if (!!this.field.options.onUploadSuccess) {
-            const mountFunc = new Function(
-              'result',
-              'file',
-              'fileList',
-              this.field.options.onUploadSuccess
-            );
-            customResult = mountFunc.call(this, res, file, fileList);
-          }
-
-          this.updateFieldModelAndEmitDataChangeForUpload(fileList, customResult, res);
-          if (!!customResult && !!customResult.name) {
-            file.name = customResult.name;
-          }
-          if (!!customResult && !!customResult.url) {
-            file.url = customResult.url;
-          }
-          this.fileList = deepClone(fileList);
+        if (maxSize && upload.file.size > maxSize * 1024 * 1024) {
+          message.error(`文件大小不能超过${maxSize}M`);
+          return;
         }
-      },
 
-      updateFieldModelAndEmitDataChangeForRemove(deletedFileIdx, fileList) {
-        const oldValue = deepClone(this.fieldModel);
-        this.fieldModel.splice(deletedFileIdx, 1);
-        this.syncUpdateFormModel(this.fieldModel);
-        this.emitFieldDataChange(this.fieldModel, oldValue);
-      },
-
-      removeUploadFile(fileName, fileUrl, fileUid) {
-        let foundIdx = -1;
-        let foundFile = null;
-        this.fileList.forEach((file, idx) => {
-          if (
-            file.name === fileName &&
-            (file.url === fileUrl || (!!fileUid && file.uid === fileUid))
-          ) {
-            foundIdx = idx;
-            foundFile = file;
-          }
-        });
-
-        if (foundIdx >= 0) {
-          this.fileList.splice(foundIdx, 1);
-          this.updateFieldModelAndEmitDataChangeForRemove(foundIdx, this.fileList);
-
-          if (!!this.field.options.onFileRemove) {
-            const customFn = new Function('file', 'fileList', this.field.options.onFileRemove);
-            customFn.call(this, foundFile, this.fileList);
-          }
+        if (limit && this.fileList.length >= limit) {
+          message.error('超出限制上传文件数');
+          return;
         }
-      },
 
-      handleUploadError(err, file, fileList) {
-        if (!!this.field.options.onUploadError) {
-          const customFn = new Function(
-            'error',
-            'file',
-            'fileList',
-            this.field.options.onUploadError
-          );
-          customFn.call(this, err, file, fileList);
-        } else {
-          this.$message({
-            message: this.i18nt('render.hint.uploadError') + err,
-            duration: 3000,
-            type: 'error'
+        const flag = this.handleOnBeforeUpload(upload);
+
+        if (!flag) return;
+        this.loading = true;
+        try {
+          const res = await filesystemApi.uploadFileObject({
+            businessType: businessType,
+            file: upload.file
           });
+
+          const { fileName: name } = res.data.object;
+          if (limit > 1) {
+            const findIndex = this.fileList.findIndex(item => item.name === name);
+            if (findIndex > -1) {
+              this.fileList.splice(findIndex, 1);
+            }
+            if (this.fileList.length < limit) {
+              this.fileList.push({ ...res.data.object, name });
+            }
+          } else {
+            this.fileList = [{ ...res.data.object, name }];
+          }
+        } finally {
+          this.handleChangeEvent(this.fileList);
+          this.loading = false;
         }
       }
     }
@@ -313,44 +219,4 @@
 
 <style lang="scss" scoped>
   @import '../../../../styles/global.scss'; /* form-item-wrapper已引入，还需要重复引入吗？ */
-
-  .full-width-input {
-    width: 100% !important;
-  }
-
-  .dynamicPseudoAfter :deep(.ant-upload.ant-upload--text) {
-    color: $--color-primary;
-    font-size: 12px;
-    .el-icon-plus:after {
-      content: var(--select-file-action);
-    }
-  }
-
-  .hideUploadDiv {
-    :deep(div.ant-upload--picture-card) {
-      /* 隐藏最后的图片上传按钮 */
-      display: none;
-    }
-
-    :deep(div.ant-upload--text) {
-      /* 隐藏最后的文件上传按钮 */
-      display: none;
-    }
-
-    :deep(div.ant-upload__tip) {
-      /* 隐藏最后的文件上传按钮 */
-      display: none;
-    }
-  }
-
-  .upload-file-list {
-    font-size: 12px;
-
-    .file-action {
-      color: $--color-primary;
-      margin-left: 5px;
-      margin-right: 5px;
-      cursor: pointer;
-    }
-  }
 </style>

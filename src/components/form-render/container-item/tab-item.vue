@@ -8,7 +8,7 @@
         :tabPosition="widget.options.tabPosition"
         :ref="widget.id"
         :class="[customClass]"
-        @tab-click="handleTabClick"
+        @tab-click="onTabClick"
       >
         <a-tab-pane
           v-for="tab in visibleTabs"
@@ -107,14 +107,36 @@
     },
     created() {
       this.initRefList();
+      this.handleOnCreated();
     },
     mounted() {
       this.initActiveTab();
+      this.handleOnMounted();
     },
     beforeUnmount() {
       this.unregisterFromRefList();
     },
     methods: {
+      handleOnCreated() {
+        if (!!this.widget.options.onCreated) {
+          const customFunc = new Function(this.widget.options.onCreated);
+          customFunc.call(this);
+        }
+      },
+      handleOnMounted() {
+        if (!!this.designState) {
+          //设计状态不触发事件
+          return;
+        }
+
+        if (!!this.widget.options.onMounted) {
+          const mountFunc = new Function(this.widget.options.onMounted);
+          mountFunc.call(this);
+        }
+      },
+      changeCurrentTab(str) {
+        this.onTabClick(str);
+      },
       initActiveTab() {
         if (this.widget.type === 'tab' && this.widget.tabs.length > 0) {
           const activePanes = this.widget.tabs.filter(tp => {
@@ -132,7 +154,7 @@
         }
       },
 
-      handleTabClick(tab) {
+      onTabClick(tab) {
         if (!!this.widget.options.onTabClick) {
           const customFn = new Function('tab', this.widget.options.onTabClick);
           customFn.call(this, tab);

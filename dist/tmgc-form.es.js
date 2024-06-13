@@ -4916,7 +4916,9 @@ const tab = (ops = {}) => {
       //tab被选中时触发
       tabBarGutter: 30,
       tabPosition: "top",
-      type: "line"
+      type: "line",
+      onCreated: "",
+      onMounted: ""
     }
   };
 };
@@ -52892,14 +52894,34 @@ const _sfc_main$3$ = {
   },
   created() {
     this.initRefList();
+    this.handleOnCreated();
   },
   mounted() {
     this.initActiveTab();
+    this.handleOnMounted();
   },
   beforeUnmount() {
     this.unregisterFromRefList();
   },
   methods: {
+    handleOnCreated() {
+      if (!!this.widget.options.onCreated) {
+        const customFunc = new Function(this.widget.options.onCreated);
+        customFunc.call(this);
+      }
+    },
+    handleOnMounted() {
+      if (!!this.designState) {
+        return;
+      }
+      if (!!this.widget.options.onMounted) {
+        const mountFunc = new Function(this.widget.options.onMounted);
+        mountFunc.call(this);
+      }
+    },
+    changeCurrentTab(str) {
+      this.onTabClick(str);
+    },
     initActiveTab() {
       if (this.widget.type === "tab" && this.widget.tabs.length > 0) {
         const activePanes = this.widget.tabs.filter((tp) => {
@@ -52916,7 +52938,7 @@ const _sfc_main$3$ = {
         }
       }
     },
-    handleTabClick(tab2) {
+    onTabClick(tab2) {
       if (!!this.widget.options.onTabClick) {
         const customFn = new Function("tab", this.widget.options.onTabClick);
         customFn.call(this, tab2);
@@ -52942,7 +52964,7 @@ function _sfc_render$3_(_ctx, _cache, $props, $setup, $data, $options) {
           tabPosition: $props.widget.options.tabPosition,
           ref: $props.widget.id,
           class: normalizeClass([_ctx.customClass]),
-          onTabClick: $options.handleTabClick
+          onTabClick: $options.onTabClick
         }, {
           default: withCtx(() => [
             (openBlock(true), createElementBlock(Fragment, null, renderList($options.visibleTabs, (tab2) => {
@@ -53007,7 +53029,7 @@ function _sfc_render$3_(_ctx, _cache, $props, $setup, $data, $options) {
     _: 3
   }, 8, ["widget"]);
 }
-const tabItem = /* @__PURE__ */ _export_sfc$1(_sfc_main$3$, [["render", _sfc_render$3_], ["__scopeId", "data-v-abe8e297"]]);
+const tabItem = /* @__PURE__ */ _export_sfc$1(_sfc_main$3$, [["render", _sfc_render$3_], ["__scopeId", "data-v-620be80e"]]);
 const __vite_glob_0_6$2 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: tabItem
@@ -74157,10 +74179,30 @@ const _sfc_main$o = {
   },
   created() {
     this.initRefList();
+    this.handleOnCreated();
   },
   mounted() {
+    this.handleOnMounted();
   },
   methods: {
+    handleOnCreated() {
+      if (!!this.widget.options.onCreated) {
+        const customFunc = new Function(this.widget.options.onCreated);
+        customFunc.call(this);
+      }
+    },
+    handleOnMounted() {
+      if (!!this.designState) {
+        return;
+      }
+      if (!!this.widget.options.onMounted) {
+        const mountFunc = new Function(this.widget.options.onMounted);
+        mountFunc.call(this);
+      }
+    },
+    changeCurrentTab(str) {
+      this.onTabClick(str);
+    },
     onTabClick(evt) {
       const paneName = evt;
       this.widget.tabs.forEach((tp) => {
@@ -74254,7 +74296,7 @@ function _sfc_render$o(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["designer", "widget", "parent-widget", "parent-list", "index-of-parent-list"]);
 }
-const tabWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$o, [["render", _sfc_render$o], ["__scopeId", "data-v-68d53513"]]);
+const tabWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$o, [["render", _sfc_render$o], ["__scopeId", "data-v-be35a902"]]);
 const __vite_glob_0_6 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: tabWidget
@@ -81768,13 +81810,13 @@ function registerIcon(app) {
 if (typeof window !== "undefined") {
   let loadSvg = function() {
     var body = document.body;
-    var svgDom = document.getElementById("__svg__icons__dom__1718256514371__");
+    var svgDom = document.getElementById("__svg__icons__dom__1718262338899__");
     if (!svgDom) {
       svgDom = document.createElementNS("http://www.w3.org/2000/svg", "svg");
       svgDom.style.position = "absolute";
       svgDom.style.width = "0";
       svgDom.style.height = "0";
-      svgDom.id = "__svg__icons__dom__1718256514371__";
+      svgDom.id = "__svg__icons__dom__1718262338899__";
       svgDom.setAttribute("xmlns", "http://www.w3.org/2000/svg");
       svgDom.setAttribute("xmlns:link", "http://www.w3.org/1999/xlink");
     }

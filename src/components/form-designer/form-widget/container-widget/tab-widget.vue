@@ -113,11 +113,33 @@
     },
     created() {
       this.initRefList();
+      this.handleOnCreated();
     },
     mounted() {
       //
+      this.handleOnMounted();
     },
     methods: {
+      handleOnCreated() {
+        if (!!this.widget.options.onCreated) {
+          const customFunc = new Function(this.widget.options.onCreated);
+          customFunc.call(this);
+        }
+      },
+      handleOnMounted() {
+        if (!!this.designState) {
+          //设计状态不触发事件
+          return;
+        }
+
+        if (!!this.widget.options.onMounted) {
+          const mountFunc = new Function(this.widget.options.onMounted);
+          mountFunc.call(this);
+        }
+      },
+      changeCurrentTab(str) {
+        this.onTabClick(str);
+      },
       onTabClick(evt) {
         const paneName = evt;
         this.widget.tabs.forEach(tp => {

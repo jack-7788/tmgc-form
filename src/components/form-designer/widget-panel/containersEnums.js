@@ -249,7 +249,9 @@ const tab = (ops = {}) => {
       onTabClick: '', //tab被选中时触发
       tabBarGutter: 30,
       tabPosition: 'top',
-      type: 'line'
+      type: 'line',
+      onCreated: '',
+      onMounted: ''
     }
   };
 };

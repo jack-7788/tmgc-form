@@ -2,11 +2,11 @@
   <container-item-wrapper :widget="widget">
     <div :key="widget.id" class="tab-container" v-show="!widget.options.hidden">
       <a-tabs
-        v-model:activeKey="activeTabName"
+        ref="fieldEditor"
+        v-model:activeKey="widget.options.activeTab"
         :type="widget.options.type"
         :tabBarGutter="widget.options.tabBarGutter"
         :tabPosition="widget.options.tabPosition"
-        :ref="widget.id"
         :class="[customClass]"
         @tab-click="onTabClick"
       >
@@ -107,10 +107,10 @@
     },
     created() {
       this.initRefList();
+      this.initActiveTab();
       this.handleOnCreated();
     },
     mounted() {
-      this.initActiveTab();
       this.handleOnMounted();
     },
     beforeUnmount() {
@@ -134,8 +134,10 @@
           mountFunc.call(this);
         }
       },
-      changeCurrentTab(str) {
+      changeCurrentTab(inx) {
+        const str = this.widget.tabs[inx]?.options?.label || '';
         this.onTabClick(str);
+        this.widget.options.activeTab = str;
       },
       initActiveTab() {
         if (this.widget.type === 'tab' && this.widget.tabs.length > 0) {

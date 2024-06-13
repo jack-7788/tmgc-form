@@ -131,14 +131,15 @@
           //设计状态不触发事件
           return;
         }
-
         if (!!this.widget.options.onMounted) {
           const mountFunc = new Function(this.widget.options.onMounted);
           mountFunc.call(this);
         }
       },
-      changeCurrentTab(str) {
+      changeCurrentTab(inx) {
+        const str = this.widget.tabs[inx]?.options?.label || '';
         this.onTabClick(str);
+        this.widget.options.activeTab = str;
       },
       onTabClick(evt) {
         const paneName = evt;

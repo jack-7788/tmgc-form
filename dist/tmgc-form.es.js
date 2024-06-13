@@ -10168,10 +10168,10 @@ const fieldMixin = {
         const oldValue = deepClone(this.fieldModel);
         if (this.field.type === "file-upload") {
           newValue = this.showFileList(newValue || []);
-          this.fieldModel = newValue;
-        } else {
-          this.fieldModel = newValue;
+        } else if (this.field.type === "code-editor") {
+          this.$refs.fieldEditor.setValue(newValue);
         }
+        this.fieldModel = newValue;
         this.initFileList();
         this.syncUpdateFormModel(newValue);
         if (!disableChangeEvent) {
@@ -52894,10 +52894,10 @@ const _sfc_main$3$ = {
   },
   created() {
     this.initRefList();
+    this.initActiveTab();
     this.handleOnCreated();
   },
   mounted() {
-    this.initActiveTab();
     this.handleOnMounted();
   },
   beforeUnmount() {
@@ -52919,8 +52919,11 @@ const _sfc_main$3$ = {
         mountFunc.call(this);
       }
     },
-    changeCurrentTab(str) {
+    changeCurrentTab(inx) {
+      var _a, _b;
+      const str = ((_b = (_a = this.widget.tabs[inx]) == null ? void 0 : _a.options) == null ? void 0 : _b.label) || "";
       this.onTabClick(str);
+      this.widget.options.activeTab = str;
     },
     initActiveTab() {
       if (this.widget.type === "tab" && this.widget.tabs.length > 0) {
@@ -52957,12 +52960,12 @@ function _sfc_render$3_(_ctx, _cache, $props, $setup, $data, $options) {
         class: "tab-container"
       }, [
         createVNode(_component_a_tabs, {
-          activeKey: $data.activeTabName,
-          "onUpdate:activeKey": _cache[0] || (_cache[0] = ($event) => $data.activeTabName = $event),
+          ref: "fieldEditor",
+          activeKey: $props.widget.options.activeTab,
+          "onUpdate:activeKey": _cache[0] || (_cache[0] = ($event) => $props.widget.options.activeTab = $event),
           type: $props.widget.options.type,
           tabBarGutter: $props.widget.options.tabBarGutter,
           tabPosition: $props.widget.options.tabPosition,
-          ref: $props.widget.id,
           class: normalizeClass([_ctx.customClass]),
           onTabClick: $options.onTabClick
         }, {
@@ -53029,7 +53032,7 @@ function _sfc_render$3_(_ctx, _cache, $props, $setup, $data, $options) {
     _: 3
   }, 8, ["widget"]);
 }
-const tabItem = /* @__PURE__ */ _export_sfc$1(_sfc_main$3$, [["render", _sfc_render$3_], ["__scopeId", "data-v-620be80e"]]);
+const tabItem = /* @__PURE__ */ _export_sfc$1(_sfc_main$3$, [["render", _sfc_render$3_], ["__scopeId", "data-v-300ed7fd"]]);
 const __vite_glob_0_6$2 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: tabItem
@@ -74200,8 +74203,11 @@ const _sfc_main$o = {
         mountFunc.call(this);
       }
     },
-    changeCurrentTab(str) {
+    changeCurrentTab(inx) {
+      var _a, _b;
+      const str = ((_b = (_a = this.widget.tabs[inx]) == null ? void 0 : _a.options) == null ? void 0 : _b.label) || "";
       this.onTabClick(str);
+      this.widget.options.activeTab = str;
     },
     onTabClick(evt) {
       const paneName = evt;
@@ -74296,7 +74302,7 @@ function _sfc_render$o(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["designer", "widget", "parent-widget", "parent-list", "index-of-parent-list"]);
 }
-const tabWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$o, [["render", _sfc_render$o], ["__scopeId", "data-v-be35a902"]]);
+const tabWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$o, [["render", _sfc_render$o], ["__scopeId", "data-v-7753e22d"]]);
 const __vite_glob_0_6 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: tabWidget
@@ -81810,13 +81816,13 @@ function registerIcon(app) {
 if (typeof window !== "undefined") {
   let loadSvg = function() {
     var body = document.body;
-    var svgDom = document.getElementById("__svg__icons__dom__1718262338899__");
+    var svgDom = document.getElementById("__svg__icons__dom__1718281979818__");
     if (!svgDom) {
       svgDom = document.createElementNS("http://www.w3.org/2000/svg", "svg");
       svgDom.style.position = "absolute";
       svgDom.style.width = "0";
       svgDom.style.height = "0";
-      svgDom.id = "__svg__icons__dom__1718262338899__";
+      svgDom.id = "__svg__icons__dom__1718281979818__";
       svgDom.setAttribute("xmlns", "http://www.w3.org/2000/svg");
       svgDom.setAttribute("xmlns:link", "http://www.w3.org/1999/xlink");
     }

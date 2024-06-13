@@ -725,11 +725,11 @@ export default {
         const oldValue = deepClone(this.fieldModel);
         if (this.field.type === 'file-upload') {
           newValue = this.showFileList(newValue || []);
-          this.fieldModel = newValue;
           // TODO
-        } else {
-          this.fieldModel = newValue;
+        } else if (this.field.type === 'code-editor') {
+          this.$refs.fieldEditor.setValue(newValue);
         }
+        this.fieldModel = newValue;
         this.initFileList();
 
         this.syncUpdateFormModel(newValue);

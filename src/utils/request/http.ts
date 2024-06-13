@@ -28,6 +28,7 @@ http.interceptors.request.use(config => {
   const localUserInfo = getUserInfo();
   const tokenId = localUserInfo?.loginInfo?.userToken?.tokenId;
   const tenantId = localUserInfo?.loginInfo?.userToken?.tenantId;
+  const employeeId = localUserInfo?.loginInfo?.employeeId;
 
   config.withCredentials = true;
 
@@ -48,7 +49,9 @@ http.interceptors.request.use(config => {
   if (tenantId) {
     config.headers['imeclient-tenant-id'] = tenantId;
   }
-
+  if (employeeId) {
+    config.headers['imeclient-employee-id'] = employeeId;
+  }
   return config;
 });
 

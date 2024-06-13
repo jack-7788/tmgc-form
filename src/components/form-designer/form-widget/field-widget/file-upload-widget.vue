@@ -15,7 +15,7 @@
       ref="fieldEditor"
       :disabled="handleDisabled() || isReadMode"
       class="dynamicPseudoAfter"
-      :class="['tpf-upload', { isReadonly: uploadBtnHidden || isReadMode }]"
+      :class="['tpf-upload', { isReadonly: isReadMode }]"
       :multiple="field.options.multiple"
       :accept="field.options.accept.join(',')"
       :file-list="fileList"
@@ -101,10 +101,10 @@
           acceptList.length ? `支持扩展名${acceptList}` : '',
           maxSize ? `支持文件大小${maxSize}M` : ''
         ].filter(Boolean);
-      },
-      uploadBtnHidden() {
-        return !this.fileList || this.fileList.length >= this.field.options.limit;
       }
+      // uploadBtnHidden() {
+      //   return !this.fileList || this.fileList.length >= this.field.options.limit;
+      // }
     },
     beforeCreate() {
       /* 这里不能访问方法和属性！！ */

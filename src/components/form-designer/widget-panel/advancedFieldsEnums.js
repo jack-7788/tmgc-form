@@ -248,6 +248,6 @@ export const advancedFieldsEnums = {
   cascader,
   treeSelect,
   richEditor,
-  codeEditor
-  // fileUpload
+  codeEditor,
+  fileUpload
 };

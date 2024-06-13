@@ -13,7 +13,9 @@
       @click.stop="selectWidget(widget)"
     >
       <a-tabs
-        :type="widget.displayType"
+        :type="widget.options.type"
+        :tabBarGutter="widget.options.tabBarGutter"
+        :tabPosition="widget.options.tabPosition"
         v-model:activeKey="widget.options.activeTab"
         @tab-click="onTabClick"
       >
@@ -117,11 +119,15 @@
     },
     methods: {
       onTabClick(evt) {
-        console.log('onTabClick', evt);
-        const paneName = evt.name;
+        const paneName = evt;
         this.widget.tabs.forEach(tp => {
           tp.options.active = tp.options.name === paneName;
         });
+        const onTabClick = this.widget.options.onTabClick;
+        if (onTabClick) {
+          const onTabClickFn = new Function('tab', onTabClick);
+          onTabClickFn.call(this, paneName);
+        }
       }
     }
   };
@@ -129,11 +135,19 @@
 
 <style lang="scss" scoped>
   .tab-container {
-    //padding: 5px;
     margin: 2px;
 
     .form-widget-list {
       min-height: 28px;
+    }
+    :deep(.ant-tabs) {
+      &.ant-tabs-bottom .ant-tabs-nav-wrap,
+      &.ant-tabs-top .ant-tabs-nav-wrap {
+        padding-left: 46px;
+      }
+      .ant-tabs-content {
+        min-height: 100px;
+      }
     }
   }
 

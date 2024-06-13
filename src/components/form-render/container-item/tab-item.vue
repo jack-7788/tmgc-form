@@ -3,7 +3,9 @@
     <div :key="widget.id" class="tab-container" v-show="!widget.options.hidden">
       <a-tabs
         v-model:activeKey="activeTabName"
-        :type="widget.displayType"
+        :type="widget.options.type"
+        :tabBarGutter="widget.options.tabBarGutter"
+        :tabPosition="widget.options.tabPosition"
         :ref="widget.id"
         :class="[customClass]"
         @tab-click="handleTabClick"
@@ -140,4 +142,14 @@
   };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+  :deep(.ant-tabs) {
+    &.ant-tabs-bottom .ant-tabs-nav-wrap,
+    &.ant-tabs-top .ant-tabs-nav-wrap {
+      padding-left: 46px;
+    }
+    .ant-tabs-content {
+      min-height: 100px;
+    }
+  }
+</style>

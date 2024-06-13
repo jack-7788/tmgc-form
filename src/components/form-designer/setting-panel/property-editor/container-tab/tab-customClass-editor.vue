@@ -23,7 +23,6 @@
         >
           <template #item="{ element: tpItem, index: tpIdx }">
             <li class="col-item">
-              <!-- span style="margin-right: 12px">{{tpIdx + 1}}</span -->
               <a-radio :value="tpItem.options.label" style="margin-right: 8px">
                 {{ i18nt('designer.setting.paneActive') }}
               </a-radio>
@@ -32,7 +31,7 @@
               <a-button
                 size="small"
                 type="danger"
-                @click="deleteTabPane(selectedWidget, tpIdx)"
+                @click="deleteTabPane(selectedWidget, tpIdx, tpItem)"
                 class="col-delete-button"
               >
                 删除
@@ -89,12 +88,15 @@
         this.designer.emitHistoryChange();
       },
 
-      deleteTabPane(curTabs, tpIdx) {
+      deleteTabPane(curTabs, tpIdx, tpItem) {
+        console.log('curTabs, tpIdx: ', curTabs, tpIdx, tpItem);
         if (curTabs.tabs.length === 1) {
           this.$message.info(this.i18nt('designer.hint.lastPaneCannotBeDeleted'));
           return;
         }
-
+        if (this.optionModel.activeTab === tpItem.options.label) {
+          this.optionModel.activeTab = '';
+        }
         this.designer.deleteTabPaneOfTabs(curTabs, tpIdx);
         this.designer.emitHistoryChange();
       }

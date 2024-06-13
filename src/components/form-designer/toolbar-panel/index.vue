@@ -454,7 +454,25 @@
         }
       },
       setReadMode() {
-        this.$refs.preForm.setReadMode(!this.$refs.preForm.getReadMode());
+        this.$refs.preForm.setFormData({
+          fileupload26481: [
+            {
+              // fileCode: '88927836217345',
+              // fileSavePath: 'file/',
+              // fileSaveName: '88927836217345.xlsx',
+              // fileName: '备料清单导入模板.xlsx',
+              // fileType: '.xlsx',
+              // fileSize: 11239,
+              // name: '备料清单导入模板.xlsx',
+              // uid: '__AUTO__1717584897101_0__',
+              fileCode: '89046755221505',
+              fileName: '首页-透明工厂.png',
+              guidebookId: 89046782484481,
+              id: 89046782484482
+            }
+          ]
+        });
+        // this.$refs.preForm.setReadMode(!this.$refs.preForm.getReadMode());
       },
       showToolButton(configName) {
         if (this.designerConfig[configName] === undefined) {

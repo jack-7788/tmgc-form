@@ -234,11 +234,52 @@ const vfBox = (ops = {}) => {
     }
   };
 };
+const tab = (ops = {}) => {
+  return {
+    key: getUuidKey(),
+    type: 'tab',
+    category: 'container',
+    icon: 'tab',
+    displayType: 'border-card',
+    tabs: [],
+    options: {
+      name: '',
+      hidden: false,
+      customClass: [], //自定义css类名
+      onTabClick: '', //tab被选中时触发
+      tabBarGutter: 30,
+      tabPosition: 'top',
+      type: 'line'
+    }
+  };
+};
+
+const tabPane = () => {
+  return {
+    key: getUuidKey(),
+    type: 'tab-pane',
+    category: 'container',
+    icon: 'tab-pane',
+    internal: true,
+    widgetList: [],
+    options: {
+      name: '',
+      label: '',
+      hidden: false,
+      active: false,
+      disabled: false,
+      customClass: [] //自定义css类名
+    }
+  };
+};
+
 export const containersEnums = {
   grid,
   gridCol,
   dataTable,
   vfDialog,
   vfCollapse,
-  vfBox
+  vfBox,
+  tab,
+  tabPane
 };

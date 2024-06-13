@@ -9,6 +9,8 @@ const COMMON_PROPERTIES = {
   label: 'label-editor',
   labelAlign: 'labelAlign-editor',
   type: 'type-editor',
+  tabPosition: 'tabPosition-editor',
+  tabBarGutter: 'tabBarGutter-editor',
   shape: 'shape-editor',
   danger: 'danger-editor',
   ghost: 'ghost-editor',

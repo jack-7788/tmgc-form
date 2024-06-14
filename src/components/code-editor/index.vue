@@ -65,11 +65,14 @@
       }
     },
     methods: {
-      init() {
+      init(value) {
         if (this.aceEditor) {
           this.aceEditor.destroy();
         }
-        //ace.config.set('basePath', 'https://ks3-cn-beijing.ksyun.com/vform2021/ace')
+        value = value || this.codeValue;
+        this.$emit('update:modelValue', value);
+        this.$emit('change', value);
+
         ace.config.set('basePath', ACE_BASE_PATH);
 
         this.addAutoCompletion(ace); //添加自定义代码提示！！
@@ -83,7 +86,7 @@
           tabSize: 2, // 制表符设置为2个空格大小
           readOnly: this.readonly,
           highlightActiveLine: true,
-          value: this.codeValue
+          value
         });
 
         this.aceEditor.setOptions({
@@ -149,7 +152,7 @@
       },
 
       setValue(newValue) {
-        this.aceEditor.getSession().setValue(newValue);
+        this.init(newValue);
       },
       validateCode() {
         const codeHints = this.getEditorAnnotations();

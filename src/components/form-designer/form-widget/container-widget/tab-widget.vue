@@ -91,11 +91,14 @@
       parentWidget: Object,
       parentList: Array,
       indexOfParentList: Number,
-      designer: Object
+      designer: Object,
+      designState: {
+        type: Boolean,
+        default: false
+      }
     },
     data() {
       return {
-        activeTab: 'tab1'
         //
       };
     },

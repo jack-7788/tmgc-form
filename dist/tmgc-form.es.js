@@ -34604,10 +34604,13 @@ const _sfc_main$4t = {
     }
   },
   methods: {
-    init() {
+    init(value2) {
       if (this.aceEditor) {
         this.aceEditor.destroy();
       }
+      value2 = value2 || this.codeValue;
+      this.$emit("update:modelValue", value2);
+      this.$emit("change", value2);
       ace$1.config.set("basePath", ACE_BASE_PATH);
       this.addAutoCompletion(ace$1);
       this.aceEditor = ace$1.edit(this.$refs.ace, {
@@ -34625,7 +34628,7 @@ const _sfc_main$4t = {
         // 制表符设置为2个空格大小
         readOnly: this.readonly,
         highlightActiveLine: true,
-        value: this.codeValue
+        value: value2
       });
       this.aceEditor.setOptions({
         enableBasicAutocompletion: true,
@@ -34683,7 +34686,7 @@ const _sfc_main$4t = {
       return this.aceEditor.getSession().getAnnotations();
     },
     setValue(newValue) {
-      this.aceEditor.getSession().setValue(newValue);
+      this.init(newValue);
     },
     validateCode() {
       const codeHints = this.getEditorAnnotations();
@@ -34713,7 +34716,7 @@ function _sfc_render$4s(_ctx, _cache, $props, $setup, $data, $options) {
     createElementVNode("div", _hoisted_2$B, null, 512)
   ]);
 }
-const CodeEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$4t, [["render", _sfc_render$4s], ["__scopeId", "data-v-34702439"]]);
+const CodeEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$4t, [["render", _sfc_render$4s], ["__scopeId", "data-v-4f8f5529"]]);
 const _sfc_main$4s = {
   name: "code-editor-widget",
   componentName: "FieldWidget",
@@ -74162,11 +74165,14 @@ const _sfc_main$o = {
     parentWidget: Object,
     parentList: Array,
     indexOfParentList: Number,
-    designer: Object
+    designer: Object,
+    designState: {
+      type: Boolean,
+      default: false
+    }
   },
   data() {
     return {
-      activeTab: "tab1"
       //
     };
   },
@@ -74307,7 +74313,7 @@ function _sfc_render$o(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["designer", "widget", "parent-widget", "parent-list", "index-of-parent-list"]);
 }
-const tabWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$o, [["render", _sfc_render$o], ["__scopeId", "data-v-86d15a60"]]);
+const tabWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$o, [["render", _sfc_render$o], ["__scopeId", "data-v-743d0c0c"]]);
 const __vite_glob_0_6 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: tabWidget
@@ -75948,7 +75954,8 @@ function _sfc_render$g(_ctx, _cache, $props, $setup, $data, $options) {
                       key: widget.id,
                       "parent-list": $props.designer.widgetList,
                       "index-of-parent-list": index2,
-                      "parent-widget": null
+                      "parent-widget": null,
+                      "design-state": true
                     }, null, 8, ["widget", "designer", "parent-list", "index-of-parent-list"])) : (openBlock(), createBlock(resolveDynamicComponent($options.getWidgetName(widget)), {
                       field: widget,
                       designer: $props.designer,
@@ -75971,7 +75978,7 @@ function _sfc_render$g(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["component-size"]);
 }
-const VFormWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$g, [["render", _sfc_render$g], ["__scopeId", "data-v-59a33f21"]]);
+const VFormWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$g, [["render", _sfc_render$g], ["__scopeId", "data-v-8cb2596a"]]);
 function mitt(n) {
   return { all: n = n || /* @__PURE__ */ new Map(), on: function(t, e) {
     var i = n.get(t);
@@ -81821,13 +81828,13 @@ function registerIcon(app) {
 if (typeof window !== "undefined") {
   let loadSvg = function() {
     var body = document.body;
-    var svgDom = document.getElementById("__svg__icons__dom__1718336292984__");
+    var svgDom = document.getElementById("__svg__icons__dom__1718347752596__");
     if (!svgDom) {
       svgDom = document.createElementNS("http://www.w3.org/2000/svg", "svg");
       svgDom.style.position = "absolute";
       svgDom.style.width = "0";
       svgDom.style.height = "0";
-      svgDom.id = "__svg__icons__dom__1718336292984__";
+      svgDom.id = "__svg__icons__dom__1718347752596__";
       svgDom.setAttribute("xmlns", "http://www.w3.org/2000/svg");
       svgDom.setAttribute("xmlns:link", "http://www.w3.org/1999/xlink");
     }

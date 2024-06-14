@@ -40,6 +40,7 @@
                     :parent-list="designer.widgetList"
                     :index-of-parent-list="index"
                     :parent-widget="null"
+                    :design-state="true"
                   />
                 </template>
                 <template v-else>

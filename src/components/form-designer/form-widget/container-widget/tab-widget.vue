@@ -142,14 +142,19 @@
         this.widget.options.activeTab = str;
       },
       onTabClick(evt) {
+        const index = this.widget.tabs.findIndex(item => item.options.label === evt);
         const paneName = evt;
         this.widget.tabs.forEach(tp => {
           tp.options.active = tp.options.name === paneName;
         });
+        if (!!this.designState) {
+          //设计状态不触发事件
+          return;
+        }
         const onTabClick = this.widget.options.onTabClick;
         if (onTabClick) {
-          const onTabClickFn = new Function('tab', onTabClick);
-          onTabClickFn.call(this, paneName);
+          const onTabClickFn = new Function('tab', 'index', onTabClick);
+          onTabClickFn.call(this, paneName, index);
         }
       }
     }

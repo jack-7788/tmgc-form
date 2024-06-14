@@ -157,9 +157,11 @@
       },
 
       onTabClick(tab) {
+        const index = this.widget.tabs.findIndex(item => item.options.label === tab);
+
         if (!!this.widget.options.onTabClick) {
-          const customFn = new Function('tab', this.widget.options.onTabClick);
-          customFn.call(this, tab);
+          const customFn = new Function('tab', 'index', this.widget.options.onTabClick);
+          customFn.call(this, tab, index);
         }
       }
     }

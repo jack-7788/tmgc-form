@@ -30,7 +30,7 @@
     },
     data() {
       return {
-        eventParams: ['tab']
+        eventParams: ['tab', 'index']
       };
     }
   };

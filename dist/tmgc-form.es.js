@@ -52942,9 +52942,10 @@ const _sfc_main$3$ = {
       }
     },
     onTabClick(tab2) {
+      const index2 = this.widget.tabs.findIndex((item) => item.options.label === tab2);
       if (!!this.widget.options.onTabClick) {
-        const customFn = new Function("tab", this.widget.options.onTabClick);
-        customFn.call(this, tab2);
+        const customFn = new Function("tab", "index", this.widget.options.onTabClick);
+        customFn.call(this, tab2, index2);
       }
     }
   }
@@ -53032,7 +53033,7 @@ function _sfc_render$3_(_ctx, _cache, $props, $setup, $data, $options) {
     _: 3
   }, 8, ["widget"]);
 }
-const tabItem = /* @__PURE__ */ _export_sfc$1(_sfc_main$3$, [["render", _sfc_render$3_], ["__scopeId", "data-v-300ed7fd"]]);
+const tabItem = /* @__PURE__ */ _export_sfc$1(_sfc_main$3$, [["render", _sfc_render$3_], ["__scopeId", "data-v-7375c2f0"]]);
 const __vite_glob_0_6$2 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: tabItem
@@ -65544,7 +65545,7 @@ const _sfc_main$28 = {
   },
   data() {
     return {
-      eventParams: ["tab"]
+      eventParams: ["tab", "index"]
     };
   }
 };
@@ -74210,14 +74211,18 @@ const _sfc_main$o = {
       this.widget.options.activeTab = str;
     },
     onTabClick(evt) {
+      const index2 = this.widget.tabs.findIndex((item) => item.options.label === evt);
       const paneName = evt;
       this.widget.tabs.forEach((tp) => {
         tp.options.active = tp.options.name === paneName;
       });
+      if (!!this.designState) {
+        return;
+      }
       const onTabClick = this.widget.options.onTabClick;
       if (onTabClick) {
-        const onTabClickFn = new Function("tab", onTabClick);
-        onTabClickFn.call(this, paneName);
+        const onTabClickFn = new Function("tab", "index", onTabClick);
+        onTabClickFn.call(this, paneName, index2);
       }
     }
   }
@@ -74302,7 +74307,7 @@ function _sfc_render$o(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["designer", "widget", "parent-widget", "parent-list", "index-of-parent-list"]);
 }
-const tabWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$o, [["render", _sfc_render$o], ["__scopeId", "data-v-7753e22d"]]);
+const tabWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$o, [["render", _sfc_render$o], ["__scopeId", "data-v-86d15a60"]]);
 const __vite_glob_0_6 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: tabWidget
@@ -81816,13 +81821,13 @@ function registerIcon(app) {
 if (typeof window !== "undefined") {
   let loadSvg = function() {
     var body = document.body;
-    var svgDom = document.getElementById("__svg__icons__dom__1718281979818__");
+    var svgDom = document.getElementById("__svg__icons__dom__1718336292984__");
     if (!svgDom) {
       svgDom = document.createElementNS("http://www.w3.org/2000/svg", "svg");
       svgDom.style.position = "absolute";
       svgDom.style.width = "0";
       svgDom.style.height = "0";
-      svgDom.id = "__svg__icons__dom__1718281979818__";
+      svgDom.id = "__svg__icons__dom__1718336292984__";
       svgDom.setAttribute("xmlns", "http://www.w3.org/2000/svg");
       svgDom.setAttribute("xmlns:link", "http://www.w3.org/1999/xlink");
     }

@@ -34610,7 +34610,6 @@ const _sfc_main$4t = {
       }
       value2 = value2 || this.codeValue;
       this.$emit("update:modelValue", value2);
-      this.$emit("change", value2);
       ace$1.config.set("basePath", ACE_BASE_PATH);
       this.addAutoCompletion(ace$1);
       this.aceEditor = ace$1.edit(this.$refs.ace, {
@@ -34716,7 +34715,7 @@ function _sfc_render$4s(_ctx, _cache, $props, $setup, $data, $options) {
     createElementVNode("div", _hoisted_2$B, null, 512)
   ]);
 }
-const CodeEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$4t, [["render", _sfc_render$4s], ["__scopeId", "data-v-4f8f5529"]]);
+const CodeEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$4t, [["render", _sfc_render$4s], ["__scopeId", "data-v-09afdf8d"]]);
 const _sfc_main$4s = {
   name: "code-editor-widget",
   componentName: "FieldWidget",
@@ -81828,13 +81827,13 @@ function registerIcon(app) {
 if (typeof window !== "undefined") {
   let loadSvg = function() {
     var body = document.body;
-    var svgDom = document.getElementById("__svg__icons__dom__1718347752596__");
+    var svgDom = document.getElementById("__svg__icons__dom__1718351177229__");
     if (!svgDom) {
       svgDom = document.createElementNS("http://www.w3.org/2000/svg", "svg");
       svgDom.style.position = "absolute";
       svgDom.style.width = "0";
       svgDom.style.height = "0";
-      svgDom.id = "__svg__icons__dom__1718347752596__";
+      svgDom.id = "__svg__icons__dom__1718351177229__";
       svgDom.setAttribute("xmlns", "http://www.w3.org/2000/svg");
       svgDom.setAttribute("xmlns:link", "http://www.w3.org/1999/xlink");
     }

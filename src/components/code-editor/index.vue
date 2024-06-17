@@ -71,8 +71,6 @@
         }
         value = value || this.codeValue;
         this.$emit('update:modelValue', value);
-        this.$emit('change', value);
-
         ace.config.set('basePath', ACE_BASE_PATH);
 
         this.addAutoCompletion(ace); //添加自定义代码提示！！

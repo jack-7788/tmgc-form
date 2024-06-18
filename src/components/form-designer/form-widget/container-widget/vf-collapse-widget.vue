@@ -149,7 +149,6 @@
   import refMixinDesign from '@/components/form-designer/refMixinDesign';
   import TpfCollapseTitle from '@/components/TpfCollapse/TpfCollapseTitle.vue';
   import SvgIcon from '@/components/svg-icon/index.vue';
-  import http from '@/utils/http';
   import gridWidget from './grid-widget.vue';
 
   export default {
@@ -251,7 +250,7 @@
       },
       async loadFormCode(formCode) {
         if (formCode) {
-          const res = await http
+          const res = await this.$http
             .get(`/api/tmgc2-query/dataQuery/detail/FormDefinitionManagement`, {
               params: { code: formCode }
             })

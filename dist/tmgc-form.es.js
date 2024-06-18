@@ -9484,7 +9484,7 @@ jsonBigint.exports.stringify = json_stringify;
 var jsonBigintExports = jsonBigint.exports;
 const JSONBig = /* @__PURE__ */ getDefaultExportFromCjs(jsonBigintExports);
 var define_import_meta_env_default = { VITE_NODE_ENV: "production", VITE_APP_API_ROOT: "", VITE_APP_USE_MOCK: "1", VITE_APP_UCENTER_URL: "/redirect_usercenter", VITE_APP_GATEWAY_URL: "/redirect_geteway_url", BASE_URL: "/", MODE: "production", DEV: false, PROD: true, SSR: false };
-const http$1 = axios.create({
+const http = axios.create({
   timeout: 6e5,
   baseURL: define_import_meta_env_default.VITE_API_BASE_URL,
   withCredentials: true,
@@ -9502,7 +9502,7 @@ const http$1 = axios.create({
     return status <= 600;
   }
 });
-http$1.interceptors.request.use((config2) => {
+http.interceptors.request.use((config2) => {
   var _a, _b, _c, _d, _e;
   const localUserInfo = getUserInfo();
   const tokenId = (_b = (_a = localUserInfo == null ? void 0 : localUserInfo.loginInfo) == null ? void 0 : _a.userToken) == null ? void 0 : _b.tokenId;
@@ -9528,7 +9528,7 @@ http$1.interceptors.request.use((config2) => {
   }
   return config2;
 });
-http$1.interceptors.response.use(
+http.interceptors.response.use(
   (data) => {
     if ([200].includes(data.status)) {
       const resData = data.data;
@@ -9562,7 +9562,7 @@ http$1.interceptors.response.use(
 );
 const getHttp = () => {
   var _a;
-  return ((_a = window.$vform) == null ? void 0 : _a.$http) || http$1;
+  return ((_a = window.$vform) == null ? void 0 : _a.$http) || http;
 };
 async function fmtHttpParams(req, params = {}) {
   const request = getHttp();
@@ -53231,7 +53231,6 @@ const __vite_glob_0_8$2 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.d
   __proto__: null,
   default: tableItem
 }, Symbol.toStringTag, { value: "Module" }));
-const http = getHttp() || http$1;
 const _hoisted_1$K = {
   class: "tpf-collapse-title"
 };
@@ -53341,7 +53340,7 @@ const _sfc_main$3X = {
     },
     async loadFormCode(formCode) {
       if (formCode) {
-        const res = await http.get(`/api/tmgc2-query/dataQuery/detail/FormDefinitionManagement`, {
+        const res = await this.$http.get(`/api/tmgc2-query/dataQuery/detail/FormDefinitionManagement`, {
           params: { code: formCode }
         }).then((res2) => res2.data.object.frontendDefinition || "{}");
         this.$refs.dFormRef.setFormJson(JSON.parse(res));
@@ -53511,7 +53510,7 @@ function _sfc_render$3X(_ctx, _cache, $props, $setup, $data, $options) {
     [vShow, !$props.widget.options.hidden]
   ]);
 }
-const vfCollapseItem = /* @__PURE__ */ _export_sfc$1(_sfc_main$3X, [["render", _sfc_render$3X], ["__scopeId", "data-v-029bbeb8"]]);
+const vfCollapseItem = /* @__PURE__ */ _export_sfc$1(_sfc_main$3X, [["render", _sfc_render$3X], ["__scopeId", "data-v-895997e5"]]);
 const __vite_glob_0_9$2 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: vfCollapseItem
@@ -53629,7 +53628,7 @@ const _sfc_main$3U = {
   methods: {
     async loadFormCode() {
       if (this.options.formCode) {
-        const res = await http.get(`/api/tmgc2-query/dataQuery/detail/FormDefinitionManagement`, {
+        const res = await this.$http.get(`/api/tmgc2-query/dataQuery/detail/FormDefinitionManagement`, {
           params: { code: this.options.formCode }
         }).then((res2) => res2.data.object.frontendDefinition || "{}");
         this.$refs.dFormRef.setFormJson(JSON.parse(res));
@@ -63144,7 +63143,7 @@ const _sfc_main$30 = {
         pageSize: null,
         sorts: []
       };
-      this.ops = await http.post("/api/tmgc2-query/dataQuery/execute", p).then((res) => res.data.object.list || []).then((list) => list.map((item) => ({ formCode: item.formCode })));
+      this.ops = await this.$http.post("/api/tmgc2-query/dataQuery/execute", p).then((res) => res.data.object.list || []).then((list) => list.map((item) => ({ formCode: item.formCode })));
     }
   }
 };
@@ -74935,7 +74934,7 @@ const _sfc_main$l = {
   methods: {
     async loadFormCode(formCode) {
       if (formCode) {
-        const res = await http.get(`/api/tmgc2-query/dataQuery/detail/FormDefinitionManagement`, {
+        const res = await this.$http.get(`/api/tmgc2-query/dataQuery/detail/FormDefinitionManagement`, {
           params: { code: formCode }
         }).then((res2) => res2.data.object.frontendDefinition || "{}");
         this.$refs.dFormRef.setFormJson(JSON.parse(res));
@@ -75020,7 +75019,7 @@ function _sfc_render$l(_ctx, _cache, $props, $setup, $data, $options) {
     [vShow, !$props.widget.options.hidden]
   ]);
 }
-const vfBoxItem = /* @__PURE__ */ _export_sfc$1(_sfc_main$l, [["render", _sfc_render$l], ["__scopeId", "data-v-e1daf681"]]);
+const vfBoxItem = /* @__PURE__ */ _export_sfc$1(_sfc_main$l, [["render", _sfc_render$l], ["__scopeId", "data-v-0daceeb9"]]);
 const __vite_glob_0_9 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: vfBoxItem
@@ -75070,7 +75069,7 @@ const _sfc_main$k = {
   methods: {
     async loadFormCode(formCode) {
       if (formCode) {
-        const res = await http.get(`/api/tmgc2-query/dataQuery/detail/FormDefinitionManagement`, {
+        const res = await this.$http.get(`/api/tmgc2-query/dataQuery/detail/FormDefinitionManagement`, {
           params: { code: formCode }
         }).then((res2) => res2.data.object.frontendDefinition || "{}");
         this.$refs.dFormRef.setFormJson(JSON.parse(res));
@@ -75195,7 +75194,7 @@ function _sfc_render$k(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["designer", "widget", "parent-widget", "parent-list", "index-of-parent-list"]);
 }
-const vfBoxWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$k, [["render", _sfc_render$k], ["__scopeId", "data-v-1f9ad5f0"]]);
+const vfBoxWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$k, [["render", _sfc_render$k], ["__scopeId", "data-v-8b832a99"]]);
 const __vite_glob_0_10 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: vfBoxWidget
@@ -75299,7 +75298,7 @@ const _sfc_main$j = {
     },
     async loadFormCode(formCode) {
       if (formCode) {
-        const res = await http.get(`/api/tmgc2-query/dataQuery/detail/FormDefinitionManagement`, {
+        const res = await this.$http.get(`/api/tmgc2-query/dataQuery/detail/FormDefinitionManagement`, {
           params: {
             code: formCode
           }
@@ -75461,7 +75460,7 @@ function _sfc_render$j(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["designer", "widget", "parent-widget", "parent-list", "index-of-parent-list"]);
 }
-const vfCollapseWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$j, [["render", _sfc_render$j], ["__scopeId", "data-v-aa785742"]]);
+const vfCollapseWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$j, [["render", _sfc_render$j], ["__scopeId", "data-v-7a58d12a"]]);
 const __vite_glob_0_11 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: vfCollapseWidget
@@ -81827,13 +81826,13 @@ function registerIcon(app) {
 if (typeof window !== "undefined") {
   let loadSvg = function() {
     var body = document.body;
-    var svgDom = document.getElementById("__svg__icons__dom__1718351177229__");
+    var svgDom = document.getElementById("__svg__icons__dom__1718706129013__");
     if (!svgDom) {
       svgDom = document.createElementNS("http://www.w3.org/2000/svg", "svg");
       svgDom.style.position = "absolute";
       svgDom.style.width = "0";
       svgDom.style.height = "0";
-      svgDom.id = "__svg__icons__dom__1718351177229__";
+      svgDom.id = "__svg__icons__dom__1718706129013__";
       svgDom.setAttribute("xmlns", "http://www.w3.org/2000/svg");
       svgDom.setAttribute("xmlns:link", "http://www.w3.org/1999/xlink");
     }

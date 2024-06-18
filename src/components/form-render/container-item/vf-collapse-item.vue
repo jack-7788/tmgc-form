@@ -133,7 +133,6 @@
   import FieldComponents from '@/components/form-designer/form-widget/field-widget/index';
   import refMixin from '@/components/form-render/refMixin';
   import containerItemMixin from '@/components/form-render/container-item/containerItemMixin';
-  import http from '@/utils/http';
   import TpfCollapseTitle from '@/components/TpfCollapse/TpfCollapseTitle.vue';
   import SvgIcon from '@/components/svg-icon/index.vue';
 
@@ -226,7 +225,7 @@
       },
       async loadFormCode(formCode) {
         if (formCode) {
-          const res = await http
+          const res = await this.$http
             .get(`/api/tmgc2-query/dataQuery/detail/FormDefinitionManagement`, {
               params: { code: formCode }
             })

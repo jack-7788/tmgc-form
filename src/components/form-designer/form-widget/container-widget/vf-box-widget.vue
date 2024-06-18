@@ -66,7 +66,6 @@
   import refMixinDesign from '@/components/form-designer/refMixinDesign';
   import FieldComponents from '@/components/form-designer/form-widget/field-widget';
   import ContainerWrapper from '@/components/form-designer/form-widget/container-widget/container-wrapper.vue';
-  import http from '@/utils/http';
 
   export default {
     name: 'vf-box-widget',
@@ -114,7 +113,7 @@
     methods: {
       async loadFormCode(formCode) {
         if (formCode) {
-          const res = await http
+          const res = await this.$http
             .get(`/api/tmgc2-query/dataQuery/detail/FormDefinitionManagement`, {
               params: { code: formCode }
             })

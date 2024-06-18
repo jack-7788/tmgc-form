@@ -48,7 +48,6 @@
 
 <script>
   import i18n from '@/utils/i18n';
-  import http from '@/utils/http';
   import zhCN from 'ant-design-vue/es/locale/zh_CN';
 
   export default {
@@ -135,7 +134,7 @@
     methods: {
       async loadFormCode() {
         if (this.options.formCode) {
-          const res = await http
+          const res = await this.$http
             .get(`/api/tmgc2-query/dataQuery/detail/FormDefinitionManagement`, {
               params: { code: this.options.formCode }
             })

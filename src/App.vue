@@ -17,7 +17,6 @@
   import zhCN from 'ant-design-vue/es/locale/zh_CN';
   import dayjs from 'dayjs';
   import 'dayjs/locale/zh-cn';
-  import http from '@/utils/http';
   import { basicFieldsEnums } from '@/components/form-designer/widget-panel/basicFieldsEnums';
   import { getLocat, getUuidKey } from '@/utils/util';
 
@@ -86,7 +85,7 @@
         if (id) {
           params.formId = id || null;
         }
-        await http.post(`/api/tmgc2-mgt/formDefinition/save`, params);
+        await this.$http.post(`/api/tmgc2-mgt/formDefinition/save`, params);
         this.$message.success('操作成功');
       },
       insertBtn(list = []) {
@@ -125,7 +124,7 @@
       async getComponentJson(list) {
         let json = { widgetList: [], formConfig: {} };
         if (formCode && id) {
-          const res = await http({
+          const res = await this.$http({
             method: 'get',
             url: `/api/tmgc2-query/dataQuery/detail/FormDefinitionManagement`,
             params: { code: formCode }
@@ -153,7 +152,7 @@
           pageSize: null,
           sorts: []
         };
-        const list = await http({
+        const list = await this.$http({
           method: 'post',
           url: '/api/tmgc2-query/dataQuery/execute',
           data: p

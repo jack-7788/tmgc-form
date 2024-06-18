@@ -11,7 +11,6 @@
 
 <script>
   import i18n from '@/utils/i18n';
-  import http from '@/utils/http';
 
   export default {
     name: 'formCode-editor',
@@ -47,7 +46,7 @@
           pageSize: null,
           sorts: []
         };
-        this.ops = await http
+        this.ops = await this.$http
           .post('/api/tmgc2-query/dataQuery/execute', p)
           .then(res => res.data.object.list || [])
           .then(list => list.map(item => ({ formCode: item.formCode })));

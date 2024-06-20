@@ -1,6 +1,11 @@
 <template>
   <a-form-item :label="i18nt('designer.setting.defaultValue')">
-    <a-switch v-model:checked="optionModel.defaultValue" @change="emitDefaultValueChange" />
+    <a-switch
+      v-model:checked="optionModel.defaultValue"
+      @change="emitDefaultValueChange"
+      :checkedValue="optionModel.checkedValue"
+      :unCheckedValue="optionModel.unCheckedValue"
+    />
   </a-form-item>
 </template>
 

@@ -67690,8 +67690,10 @@ function _sfc_render$1l(_ctx, _cache, $props, $setup, $data, $options) {
       createVNode(_component_a_switch, {
         checked: $props.optionModel.defaultValue,
         "onUpdate:checked": _cache[0] || (_cache[0] = ($event) => $props.optionModel.defaultValue = $event),
-        onChange: _ctx.emitDefaultValueChange
-      }, null, 8, ["checked", "onChange"])
+        onChange: _ctx.emitDefaultValueChange,
+        checkedValue: $props.optionModel.checkedValue,
+        unCheckedValue: $props.optionModel.unCheckedValue
+      }, null, 8, ["checked", "onChange", "checkedValue", "unCheckedValue"])
     ]),
     _: 1
   }, 8, ["label"]);
@@ -81826,13 +81828,13 @@ function registerIcon(app) {
 if (typeof window !== "undefined") {
   let loadSvg = function() {
     var body = document.body;
-    var svgDom = document.getElementById("__svg__icons__dom__1718706129013__");
+    var svgDom = document.getElementById("__svg__icons__dom__1718853465764__");
     if (!svgDom) {
       svgDom = document.createElementNS("http://www.w3.org/2000/svg", "svg");
       svgDom.style.position = "absolute";
       svgDom.style.width = "0";
       svgDom.style.height = "0";
-      svgDom.id = "__svg__icons__dom__1718706129013__";
+      svgDom.id = "__svg__icons__dom__1718853465764__";
       svgDom.setAttribute("xmlns", "http://www.w3.org/2000/svg");
       svgDom.setAttribute("xmlns:link", "http://www.w3.org/1999/xlink");
     }

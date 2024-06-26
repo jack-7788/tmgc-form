@@ -3,22 +3,22 @@ import axios from 'axios';
 import { message } from 'ant-design-vue';
 import { handleErrorStatus } from './handleAxiosError';
 import type { AxiosInstance, AxiosRequestHeaders } from 'axios';
-import JSONBig from 'json-bigint';
+// import JSONBig from 'json-bigint';
 
 const http = axios.create({
   timeout: 600000,
   baseURL: import.meta.env.VITE_API_BASE_URL as string,
   withCredentials: true,
-  transformResponse: [
-    function (data) {
-      try {
-        return JSONBig.parse(data);
-      } catch (error) {
-        console.log(error);
-        return data;
-      }
-    }
-  ],
+  // transformResponse: [
+  //   function (data) {
+  //     try {
+  //       return JSONBig.parse(data);
+  //     } catch (error) {
+  //       console.log(error);
+  //       return data;
+  //     }
+  //   }
+  // ],
   validateStatus(status) {
     return status <= 600; // 状态码在大于或等于500时才会 reject
   }

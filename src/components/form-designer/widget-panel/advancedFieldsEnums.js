@@ -244,10 +244,39 @@ export const fileUpload = (ops = {}) => {
   };
 };
 
+export const bpmnEditor = (ops = {}) => {
+  return {
+    key: getUuidKey(),
+    id: ops.name,
+    showName: '流程图',
+    type: 'bpmn-editor',
+    icon: 'liucheng',
+    formItemFlag: true,
+    options: {
+      name: '',
+      label: '',
+      labelAlign: '',
+      defaultValue: '',
+      columnWidth: '200px',
+      labelWidth: null,
+      labelHidden: false,
+      hidden: false,
+      holdHidden: true,
+      //-------------------
+      customClass: [], //自定义css类名
+      //-------------------
+      onCreated: '',
+      onMounted: '',
+      ...ops
+    }
+  };
+};
+
 export const advancedFieldsEnums = {
   cascader,
   treeSelect,
   richEditor,
   codeEditor,
-  fileUpload
+  fileUpload,
+  bpmnEditor
 };

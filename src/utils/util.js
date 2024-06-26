@@ -1,5 +1,5 @@
 import Clipboard from 'clipboard';
-import axios from 'axios';
+// import axios from 'axios';
 import { isArray, isEmpty, cloneDeep } from 'lodash-es';
 import {
   containers,
@@ -647,10 +647,10 @@ function buildRequestConfig(dataSource, DSV, VFR, isSandbox) {
 export async function runDataSourceRequest(dataSource, DSV, VFR, isSandbox, $message) {
   try {
     const requestConfig = buildRequestConfig(dataSource, DSV, VFR, isSandbox);
-    const result = await axios.request(requestConfig);
+    // const result = await axios.request(requestConfig);
 
-    const dhFn = new Function('result', 'isSandbox', 'DSV', 'VFR', dataSource.dataHandlerCode);
-    return dhFn.call(null, result, isSandbox, DSV, VFR);
+    // const dhFn = new Function('result', 'isSandbox', 'DSV', 'VFR', dataSource.dataHandlerCode);
+    // return dhFn.call(null, result, isSandbox, DSV, VFR);
   } catch (err) {
     const ehFn = new Function(
       'error',

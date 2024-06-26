@@ -1,5 +1,3 @@
-import axios from 'axios';
-
 import VFormRender from '@/components/form-render/index.vue';
 import ContainerItems from '@/components/form-render/container-item/index';
 
@@ -40,8 +38,6 @@ const install = (app, h) => {
   components.forEach(component => {
     app.component(component.name, component);
   });
-
-  window.axios = axios;
 };
 
 if (typeof window !== 'undefined' && window.Vue) {

@@ -189,7 +189,7 @@
   import CodeEditor from '@/components/code-editor/index.vue';
   import PropertyEditors from './property-editor/index';
   import FormSetting from './form-setting';
-  import DataSourceSetting from './data-source-setting.vue';
+  // import DataSourceSetting from './data-source-setting.vue';
   import FormCrudSetting from './form-crud-setting.vue';
   import WidgetProperties from './propertyRegister';
   import { addWindowResizeHandler } from '@/utils/util';
@@ -206,7 +206,7 @@
     components: {
       CodeEditor,
       FormSetting,
-      DataSourceSetting,
+      // DataSourceSetting,
       FormCrudSetting,
       ...PropertyEditors
     },

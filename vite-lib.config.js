@@ -73,14 +73,15 @@ export default defineConfig({
     },
     rollupOptions: {
       // 确保外部化处理那些你不想打包进库的依赖
-      external: ['vue', 'ant-design-vue', 'lodash-es'],
+      external: ['vue', 'ant-design-vue', 'lodash-es', 'bpmn-js'],
       output: {
         exports: 'default', //要支持CDN引入必须设置此参数！！！
         // 在 UMD 构建模式下为这些外部化的依赖提供一个全局变量
         globals: {
           vue: 'Vue',
           'ant-design-vue': 'antd',
-          'lodash-es': 'lodash'
+          'lodash-es': 'lodash',
+          'bpmn-js': 'BpmnJS'
         },
         assetFileNames: 'tmgc-form.style.css'
       }

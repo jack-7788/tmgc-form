@@ -48,7 +48,7 @@ const _sfc_main$4B = {
     }
   }
 };
-const _hoisted_1$1b = ["xlink:href"];
+const _hoisted_1$1a = ["xlink:href"];
 const _hoisted_2$E = { key: 0 };
 function _sfc_render$4A(_ctx, _cache, $props, $setup, $data, $options) {
   return openBlock(), createElementBlock("svg", {
@@ -56,7 +56,7 @@ function _sfc_render$4A(_ctx, _cache, $props, $setup, $data, $options) {
     "aria-hidden": "true",
     style: normalizeStyle($options.getStyle)
   }, [
-    createElementVNode("use", { "xlink:href": $options.iconName }, null, 8, _hoisted_1$1b),
+    createElementVNode("use", { "xlink:href": $options.iconName }, null, 8, _hoisted_1$1a),
     !!$props.title ? (openBlock(), createElementBlock("title", _hoisted_2$E, toDisplayString($props.title), 1)) : createCommentVNode("", true)
   ], 6);
 }
@@ -7034,7 +7034,7 @@ const _sfc_main$4A = {
     }
   }
 };
-const _hoisted_1$1a = { class: "side-scroll-bar" };
+const _hoisted_1$19 = { class: "side-scroll-bar" };
 const _hoisted_2$D = { class: "panel-container" };
 const _hoisted_3$t = ["title", "onDblclick"];
 const _hoisted_4$h = ["title", "onDblclick"];
@@ -7050,7 +7050,7 @@ function _sfc_render$4z(_ctx, _cache, $props, $setup, $data, $options) {
   resolveComponent("a-button");
   resolveComponent("a-card");
   const _component_a_tabs = resolveComponent("a-tabs");
-  return openBlock(), createElementBlock("div", _hoisted_1$1a, [
+  return openBlock(), createElementBlock("div", _hoisted_1$19, [
     createElementVNode("div", _hoisted_2$D, [
       createVNode(_component_a_tabs, {
         activeKey: $data.firstTab,
@@ -7491,7 +7491,7 @@ const _sfc_main$4y = {
     }
   }
 };
-const _hoisted_1$19 = { class: "label-box" };
+const _hoisted_1$18 = { class: "label-box" };
 const _hoisted_2$C = {
   key: 0,
   class: "custom-label"
@@ -7534,7 +7534,7 @@ function _sfc_render$4x(_ctx, _cache, $props, $setup, $data, $options) {
       onClick: _cache[0] || (_cache[0] = withModifiers(($event) => $options.selectField($props.field), ["stop"]))
     }, {
       label: withCtx(() => [
-        createElementVNode("div", _hoisted_1$19, [
+        createElementVNode("div", _hoisted_1$18, [
           !!$props.field.options.labelIconClass ? (openBlock(), createElementBlock("span", _hoisted_2$C, [
             $props.field.options.labelIconPosition === "front" ? (openBlock(), createElementBlock(Fragment, { key: 0 }, [
               !!$props.field.options.labelTooltip ? (openBlock(), createElementBlock(Fragment, { key: 0 }, [
@@ -22114,9 +22114,9 @@ const _sfc_main$4x = {
     }
   }
 };
-const _hoisted_1$18 = {
+const _hoisted_1$17 = {
   ref: "fieldEditor",
-  class: "t-w-full"
+  class: "t-w-full t-h-[30vh]"
 };
 function _sfc_render$4w(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_form_item_wrapper = resolveComponent("form-item-wrapper");
@@ -22133,12 +22133,12 @@ function _sfc_render$4w(_ctx, _cache, $props, $setup, $data, $options) {
     "sub-form-row-id": $props.subFormRowId
   }, {
     default: withCtx(() => [
-      createElementVNode("div", _hoisted_1$18, null, 512)
+      createElementVNode("div", _hoisted_1$17, null, 512)
     ]),
     _: 1
   }, 8, ["designer", "field", "rules", "design-state", "parent-widget", "parent-list", "index-of-parent-list", "sub-form-row-index", "sub-form-col-index", "sub-form-row-id"]);
 }
-const bpmnEditorWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$4x, [["render", _sfc_render$4w], ["__scopeId", "data-v-f697335e"]]);
+const bpmnEditorWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$4x, [["render", _sfc_render$4w], ["__scopeId", "data-v-8902330c"]]);
 const __vite_glob_0_0$2 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: bpmnEditorWidget
@@ -22230,7 +22230,7 @@ const _sfc_main$4w = {
     }
   }
 };
-const _hoisted_1$17 = {
+const _hoisted_1$16 = {
   key: 0,
   class: "field-action"
 };
@@ -22259,7 +22259,7 @@ function _sfc_render$4v(_ctx, _cache, $props, $setup, $data, $options) {
       renderSlot(_ctx.$slots, "default", {}, void 0, true)
     ], 6)) : createCommentVNode("", true),
     !!this.designer ? (openBlock(), createElementBlock(Fragment, { key: 1 }, [
-      $props.designer.selectedId === $props.field.id ? (openBlock(), createElementBlock("div", _hoisted_1$17, [
+      $props.designer.selectedId === $props.field.id ? (openBlock(), createElementBlock("div", _hoisted_1$16, [
         createElementVNode("i", {
           title: _ctx.i18nt("designer.hint.selectParentWidget"),
           onClick: _cache[1] || (_cache[1] = withModifiers(($event) => $options.selectParentWidget($props.field), ["stop"]))
@@ -22551,7 +22551,7 @@ const _sfc_main$4u = {
     }
   }
 };
-const _hoisted_1$16 = { class: "readonly-mode-field" };
+const _hoisted_1$15 = { class: "readonly-mode-field" };
 function _sfc_render$4t(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_cascader = resolveComponent("a-cascader");
   const _component_a_tooltip = resolveComponent("a-tooltip");
@@ -22595,7 +22595,7 @@ function _sfc_render$4t(_ctx, _cache, $props, $setup, $data, $options) {
           overlayStyle: { zIndex: 1e3 }
         }, {
           default: withCtx(() => [
-            createElementVNode("span", _hoisted_1$16, toDisplayString($options.contentForReadMode), 1)
+            createElementVNode("span", _hoisted_1$15, toDisplayString($options.contentForReadMode), 1)
           ]),
           _: 1
         }, 8, ["title"])) : createCommentVNode("", true)
@@ -22670,7 +22670,7 @@ const _sfc_main$4t = {
   },
   methods: {}
 };
-const _hoisted_1$15 = {
+const _hoisted_1$14 = {
   key: 0,
   class: "readonly-mode-field"
 };
@@ -22718,7 +22718,7 @@ function _sfc_render$4s(_ctx, _cache, $props, $setup, $data, $options) {
       }, 8, ["value", "disabled", "onChange"]), [
         [vShow, !_ctx.isReadMode]
       ]),
-      _ctx.isReadMode ? (openBlock(), createElementBlock("span", _hoisted_1$15, toDisplayString(_ctx.optionLabel), 1)) : createCommentVNode("", true)
+      _ctx.isReadMode ? (openBlock(), createElementBlock("span", _hoisted_1$14, toDisplayString(_ctx.optionLabel), 1)) : createCommentVNode("", true)
     ]),
     _: 1
   }, 8, ["designer", "field", "rules", "design-state", "parent-widget", "parent-list", "index-of-parent-list", "sub-form-row-index", "sub-form-col-index", "sub-form-row-id"]);
@@ -46318,13 +46318,13 @@ const _sfc_main$4s = {
     }
   }
 };
-const _hoisted_1$14 = { class: "ace-container" };
+const _hoisted_1$13 = { class: "ace-container" };
 const _hoisted_2$A = {
   class: "ace-editor",
   ref: "ace"
 };
 function _sfc_render$4r(_ctx, _cache, $props, $setup, $data, $options) {
-  return openBlock(), createElementBlock("div", _hoisted_1$14, [
+  return openBlock(), createElementBlock("div", _hoisted_1$13, [
     createElementVNode("div", _hoisted_2$A, null, 512)
   ]);
 }
@@ -46484,7 +46484,7 @@ const _sfc_main$4q = {
   },
   methods: {}
 };
-const _hoisted_1$13 = {
+const _hoisted_1$12 = {
   key: 0,
   class: "readonly-mode-field"
 };
@@ -46514,7 +46514,7 @@ function _sfc_render$4p(_ctx, _cache, $props, $setup, $data, $options) {
           onChange: _ctx.handleChangeEvent,
           type: "color"
         }, null, 8, ["value", "onChange"]),
-        _ctx.isReadMode ? (openBlock(), createElementBlock("span", _hoisted_1$13, toDisplayString($data.fieldModel), 1)) : createCommentVNode("", true)
+        _ctx.isReadMode ? (openBlock(), createElementBlock("span", _hoisted_1$12, toDisplayString($data.fieldModel), 1)) : createCommentVNode("", true)
       ], 2)
     ]),
     _: 1
@@ -46593,7 +46593,7 @@ const _sfc_main$4p = {
   },
   methods: {}
 };
-const _hoisted_1$12 = { class: "readonly-mode-field" };
+const _hoisted_1$11 = { class: "readonly-mode-field" };
 function _sfc_render$4o(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_range_picker = resolveComponent("a-range-picker");
   const _component_a_tooltip = resolveComponent("a-tooltip");
@@ -46641,7 +46641,7 @@ function _sfc_render$4o(_ctx, _cache, $props, $setup, $data, $options) {
           overlayStyle: { zIndex: 1e3 }
         }, {
           default: withCtx(() => [
-            createElementVNode("span", _hoisted_1$12, toDisplayString($options.contentForReadMode), 1)
+            createElementVNode("span", _hoisted_1$11, toDisplayString($options.contentForReadMode), 1)
           ]),
           _: 1
         }, 8, ["title"])) : createCommentVNode("", true)
@@ -46726,7 +46726,7 @@ const _sfc_main$4o = {
   },
   methods: {}
 };
-const _hoisted_1$11 = { class: "readonly-mode-field" };
+const _hoisted_1$10 = { class: "readonly-mode-field" };
 function _sfc_render$4n(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_date_picker = resolveComponent("a-date-picker");
   const _component_a_tooltip = resolveComponent("a-tooltip");
@@ -46775,7 +46775,7 @@ function _sfc_render$4n(_ctx, _cache, $props, $setup, $data, $options) {
           overlayStyle: { zIndex: 1e3 }
         }, {
           default: withCtx(() => [
-            createElementVNode("span", _hoisted_1$11, toDisplayString($data.fieldModel), 1)
+            createElementVNode("span", _hoisted_1$10, toDisplayString($data.fieldModel), 1)
           ]),
           _: 1
         }, 8, ["title"])) : createCommentVNode("", true)
@@ -48460,7 +48460,7 @@ const _sfc_main$4l = {
     }
   }
 };
-const _hoisted_1$10 = {
+const _hoisted_1$$ = {
   gutter: 20,
   style: { "flex-flow": "unset", "flex-direction": "column" }
 };
@@ -48515,7 +48515,7 @@ function _sfc_render$4k(_ctx, _cache, $props, $setup, $data, $options) {
                 ]),
                 _: 1
               }, 8, ["loading", "disabled"]),
-              createElementVNode("div", _hoisted_1$10, [
+              createElementVNode("div", _hoisted_1$$, [
                 (openBlock(true), createElementBlock(Fragment, null, renderList($options.descCol, (item, inx) => {
                   return openBlock(), createElementBlock("div", { key: inx }, [
                     $options.descCol.length > 1 ? (openBlock(), createElementBlock("span", _hoisted_2$z, toDisplayString(inx + 1) + "、" + toDisplayString(item), 1)) : (openBlock(), createElementBlock("span", _hoisted_3$q, toDisplayString(item), 1))
@@ -48587,7 +48587,7 @@ const _sfc_main$4k = {
   },
   methods: {}
 };
-const _hoisted_1$$ = ["innerHTML"];
+const _hoisted_1$_ = ["innerHTML"];
 function _sfc_render$4j(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_static_content_wrapper = resolveComponent("static-content-wrapper");
   return openBlock(), createBlock(_component_static_content_wrapper, {
@@ -48605,7 +48605,7 @@ function _sfc_render$4j(_ctx, _cache, $props, $setup, $data, $options) {
       createElementVNode("div", {
         ref: "fieldEditor",
         innerHTML: $props.field.options.htmlContent
-      }, null, 8, _hoisted_1$$)
+      }, null, 8, _hoisted_1$_)
     ]),
     _: 1
   }, 8, ["designer", "field", "design-state", "parent-widget", "parent-list", "index-of-parent-list", "sub-form-row-index", "sub-form-col-index", "sub-form-row-id"]);
@@ -48693,7 +48693,7 @@ const _sfc_main$4j = {
   },
   methods: {}
 };
-const _hoisted_1$_ = { class: "readonly-mode-field" };
+const _hoisted_1$Z = { class: "readonly-mode-field" };
 function _sfc_render$4i(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_svg_icon = resolveComponent("svg-icon");
   const _component_a_button = resolveComponent("a-button");
@@ -48761,7 +48761,7 @@ function _sfc_render$4i(_ctx, _cache, $props, $setup, $data, $options) {
         overlayStyle: { zIndex: 1e3 }
       }, {
         default: withCtx(() => [
-          createElementVNode("span", _hoisted_1$_, toDisplayString($data.fieldModel), 1)
+          createElementVNode("span", _hoisted_1$Z, toDisplayString($data.fieldModel), 1)
         ]),
         _: 1
       }, 8, ["title"])) : createCommentVNode("", true)
@@ -48845,7 +48845,7 @@ const _sfc_main$4i = {
   },
   methods: {}
 };
-const _hoisted_1$Z = { class: "readonly-mode-field" };
+const _hoisted_1$Y = { class: "readonly-mode-field" };
 function _sfc_render$4h(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_input_number = resolveComponent("a-input-number");
   const _component_a_tooltip = resolveComponent("a-tooltip");
@@ -48889,7 +48889,7 @@ function _sfc_render$4h(_ctx, _cache, $props, $setup, $data, $options) {
         overlayStyle: { zIndex: 1e3 }
       }, {
         default: withCtx(() => [
-          createElementVNode("span", _hoisted_1$Z, toDisplayString($data.fieldModel), 1)
+          createElementVNode("span", _hoisted_1$Y, toDisplayString($data.fieldModel), 1)
         ]),
         _: 1
       }, 8, ["title"])) : createCommentVNode("", true)
@@ -49117,7 +49117,7 @@ const _sfc_main$4h = {
     }
   }
 };
-const _hoisted_1$Y = {
+const _hoisted_1$X = {
   key: 0,
   class: "el-upload__tip"
 };
@@ -49163,7 +49163,7 @@ function _sfc_render$4g(_ctx, _cache, $props, $setup, $data, $options) {
         "on-remove": $options.handlePictureRemove
       }, {
         tip: withCtx(() => [
-          !!$props.field.options.uploadTip ? (openBlock(), createElementBlock("div", _hoisted_1$Y, toDisplayString($props.field.options.uploadTip), 1)) : createCommentVNode("", true)
+          !!$props.field.options.uploadTip ? (openBlock(), createElementBlock("div", _hoisted_1$X, toDisplayString($props.field.options.uploadTip), 1)) : createCommentVNode("", true)
         ]),
         default: withCtx(() => [
           createElementVNode("div", _hoisted_2$y, [
@@ -49275,7 +49275,7 @@ const _sfc_main$4g = {
   },
   methods: {}
 };
-const _hoisted_1$X = {
+const _hoisted_1$W = {
   key: 0,
   class: "readonly-mode-field"
 };
@@ -49339,7 +49339,7 @@ function _sfc_render$4f(_ctx, _cache, $props, $setup, $data, $options) {
       }, 8, ["value", "size", "disabled", "style", "onChange"]), [
         [vShow, !_ctx.isReadMode]
       ]),
-      _ctx.isReadMode ? (openBlock(), createElementBlock("span", _hoisted_1$X, toDisplayString(_ctx.optionLabel), 1)) : createCommentVNode("", true)
+      _ctx.isReadMode ? (openBlock(), createElementBlock("span", _hoisted_1$W, toDisplayString(_ctx.optionLabel), 1)) : createCommentVNode("", true)
     ]),
     _: 1
   }, 8, ["designer", "field", "rules", "design-state", "parent-widget", "parent-list", "index-of-parent-list", "sub-form-row-index", "sub-form-col-index", "sub-form-row-id"]);
@@ -61210,9 +61210,9 @@ const _sfc_main$4e = {
     return { editor };
   }
 };
-const _hoisted_1$W = { ref: "editor" };
+const _hoisted_1$V = { ref: "editor" };
 function _sfc_render$4d(_ctx, _cache, $props, $setup, $data, $options) {
-  return openBlock(), createElementBlock("section", _hoisted_1$W, null, 512);
+  return openBlock(), createElementBlock("section", _hoisted_1$V, null, 512);
 }
 const quillEditor = /* @__PURE__ */ _export_sfc$1(_sfc_main$4e, [["render", _sfc_render$4d]]);
 quillEditor.install = function(app) {
@@ -61527,7 +61527,7 @@ const _sfc_main$4c = {
     // }
   }
 };
-const _hoisted_1$V = { class: "design-select-box" };
+const _hoisted_1$U = { class: "design-select-box" };
 const _hoisted_2$x = { class: "readonly-mode-field" };
 function _sfc_render$4b(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_select = resolveComponent("a-select");
@@ -61547,7 +61547,7 @@ function _sfc_render$4b(_ctx, _cache, $props, $setup, $data, $options) {
     "sub-form-row-id": $props.subFormRowId
   }, {
     default: withCtx(() => [
-      withDirectives(createElementVNode("div", _hoisted_1$V, [
+      withDirectives(createElementVNode("div", _hoisted_1$U, [
         withDirectives(createVNode(_component_a_select, mergeProps({
           ref: "fieldEditor",
           value: $data.fieldModel,
@@ -61664,7 +61664,7 @@ const _sfc_main$4b = {
     }
   }
 };
-const _hoisted_1$U = {
+const _hoisted_1$T = {
   key: 0,
   class: "readonly-mode-field"
 };
@@ -61698,7 +61698,7 @@ function _sfc_render$4a(_ctx, _cache, $props, $setup, $data, $options) {
       }, null, 8, ["value", "disabled", "min", "max", "step", "range", "vertical", "onChange"]), [
         [vShow, !_ctx.isReadMode]
       ]),
-      _ctx.isReadMode ? (openBlock(), createElementBlock("span", _hoisted_1$U, toDisplayString($data.fieldModel), 1)) : createCommentVNode("", true)
+      _ctx.isReadMode ? (openBlock(), createElementBlock("span", _hoisted_1$T, toDisplayString($data.fieldModel), 1)) : createCommentVNode("", true)
     ]),
     _: 1
   }, 8, ["designer", "field", "rules", "design-state", "parent-widget", "parent-list", "index-of-parent-list", "sub-form-row-index", "sub-form-col-index", "sub-form-row-id"]);
@@ -61758,7 +61758,7 @@ const _sfc_main$4a = {
   },
   methods: {}
 };
-const _hoisted_1$T = {
+const _hoisted_1$S = {
   key: 0,
   class: "slot-title"
 };
@@ -61780,7 +61780,7 @@ function _sfc_render$49(_ctx, _cache, $props, $setup, $data, $options) {
         class: normalizeClass([!!$props.designState ? "slot-wrapper-design" : "slot-wrapper-render"])
       }, [
         renderSlot(_ctx.$slots, $props.field.options.name, { formModel: _ctx.formModel }, void 0, true),
-        !!$props.designState ? (openBlock(), createElementBlock("div", _hoisted_1$T, toDisplayString($props.field.options.label), 1)) : createCommentVNode("", true)
+        !!$props.designState ? (openBlock(), createElementBlock("div", _hoisted_1$S, toDisplayString($props.field.options.label), 1)) : createCommentVNode("", true)
       ], 2)
     ]),
     _: 3
@@ -61932,10 +61932,6 @@ const _sfc_main$48 = {
   },
   methods: {}
 };
-const _hoisted_1$S = {
-  key: 0,
-  class: "readonly-mode-field"
-};
 function _sfc_render$47(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_switch = resolveComponent("a-switch");
   const _component_form_item_wrapper = resolveComponent("form-item-wrapper");
@@ -61956,19 +61952,17 @@ function _sfc_render$47(_ctx, _cache, $props, $setup, $data, $options) {
         ref: "fieldEditor",
         checked: $data.fieldModel,
         "onUpdate:checked": _cache[0] || (_cache[0] = ($event) => $data.fieldModel = $event),
-        class: normalizeClass([_ctx.isReadMode ? "readonly-mode-switch" : ""]),
-        disabled: _ctx.handleDisabled(),
+        disabled: _ctx.isReadMode || _ctx.handleDisabled(),
         checkedValue: $props.field.options.checkedValue,
         unCheckedValue: $props.field.options.unCheckedValue,
         onChange: _ctx.handleChangeEvent,
         style: normalizeStyle({ width: $props.field.options.switchWidth + "px" })
-      }, null, 8, ["checked", "class", "disabled", "checkedValue", "unCheckedValue", "onChange", "style"]),
-      _ctx.isReadMode ? (openBlock(), createElementBlock("span", _hoisted_1$S, toDisplayString($options.contentForReadMode), 1)) : createCommentVNode("", true)
+      }, null, 8, ["checked", "disabled", "checkedValue", "unCheckedValue", "onChange", "style"])
     ]),
     _: 1
   }, 8, ["designer", "field", "rules", "design-state", "parent-widget", "parent-list", "index-of-parent-list", "sub-form-row-index", "sub-form-col-index", "sub-form-row-id"]);
 }
-const switchWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$48, [["render", _sfc_render$47], ["__scopeId", "data-v-03f748da"]]);
+const switchWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$48, [["render", _sfc_render$47], ["__scopeId", "data-v-30d63f8e"]]);
 const __vite_glob_0_24$1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: switchWidget
@@ -91992,13 +91986,13 @@ function registerIcon(app) {
 if (typeof window !== "undefined") {
   let loadSvg = function() {
     var body = document.body;
-    var svgDom = document.getElementById("__svg__icons__dom__1720605951971__");
+    var svgDom = document.getElementById("__svg__icons__dom__1721799763682__");
     if (!svgDom) {
       svgDom = document.createElementNS("http://www.w3.org/2000/svg", "svg");
       svgDom.style.position = "absolute";
       svgDom.style.width = "0";
       svgDom.style.height = "0";
-      svgDom.id = "__svg__icons__dom__1720605951971__";
+      svgDom.id = "__svg__icons__dom__1721799763682__";
       svgDom.setAttribute("xmlns", "http://www.w3.org/2000/svg");
       svgDom.setAttribute("xmlns:link", "http://www.w3.org/1999/xlink");
     }

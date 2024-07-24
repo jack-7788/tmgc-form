@@ -11,7 +11,7 @@
     :sub-form-col-index="subFormColIndex"
     :sub-form-row-id="subFormRowId"
   >
-    <div ref="fieldEditor" class="t-w-full"></div>
+    <div ref="fieldEditor" class="t-w-full t-h-[30vh]"></div>
   </form-item-wrapper>
 </template>
 

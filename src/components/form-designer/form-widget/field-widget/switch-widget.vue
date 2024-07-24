@@ -14,16 +14,16 @@
     <a-switch
       ref="fieldEditor"
       v-model:checked="fieldModel"
-      :class="[isReadMode ? 'readonly-mode-switch' : '']"
-      :disabled="handleDisabled()"
+      :disabled="isReadMode || handleDisabled()"
       :checkedValue="field.options.checkedValue"
       :unCheckedValue="field.options.unCheckedValue"
       @change="handleChangeEvent"
       :style="{ width: field.options.switchWidth + 'px' }"
     />
-    <template v-if="isReadMode">
+    <!-- <template v-if="isReadMode">
+      :class="[isReadMode ? 'readonly-mode-switch' : '']"
       <span class="readonly-mode-field">{{ contentForReadMode }}</span>
-    </template>
+    </template> -->
   </form-item-wrapper>
 </template>
 

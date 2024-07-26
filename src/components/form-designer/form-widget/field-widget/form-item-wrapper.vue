@@ -1,7 +1,7 @@
 <template>
   <div class="field-wrapper" :class="{ 'design-time-bottom-margin': !!this.designer }">
     <a-form-item
-      v-if="!!field.formItemFlag && !handleHidden()"
+      v-if="!!field.formItemFlag"
       :labelCol="{ style: { width: labelWidth + 'px' } }"
       :title="field.options.labelTooltip"
       :size="size"
@@ -214,18 +214,18 @@
       //
     },
     methods: {
-      handleHidden() {
-        if (this.designState) {
-          return false;
-        }
-        const { onHidden, hidden } = this.field.options;
-        if (hidden) return true;
-        if (onHidden) {
-          const onHiddenFn = new Function(onHidden);
-          return onHiddenFn.call(this);
-        }
-        return false;
-      },
+      // handleHidden() {
+      //   if (this.designState) {
+      //     return false;
+      //   }
+      //   const { onHidden, hidden } = this.field.options;
+      //   if (hidden) return true;
+      //   if (onHidden) {
+      //     const onHiddenFn = new Function(onHidden);
+      //     return onHiddenFn.call(this);
+      //   }
+      //   return false;
+      // },
       selectField(field) {
         if (!!this.designer) {
           this.designer.setSelected(field);

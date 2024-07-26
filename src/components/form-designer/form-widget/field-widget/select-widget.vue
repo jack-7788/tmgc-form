@@ -10,6 +10,7 @@
     :sub-form-row-index="subFormRowIndex"
     :sub-form-col-index="subFormColIndex"
     :sub-form-row-id="subFormRowId"
+    v-if="!handleHidden()"
   >
     <div class="design-select-box" v-show="!isReadMode">
       <a-select

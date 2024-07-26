@@ -7429,19 +7429,18 @@ const _sfc_main$4y = {
   created() {
   },
   methods: {
-    handleHidden() {
-      if (this.designState) {
-        return false;
-      }
-      const { onHidden, hidden } = this.field.options;
-      if (hidden)
-        return true;
-      if (onHidden) {
-        const onHiddenFn = new Function(onHidden);
-        return onHiddenFn.call(this);
-      }
-      return false;
-    },
+    // handleHidden() {
+    //   if (this.designState) {
+    //     return false;
+    //   }
+    //   const { onHidden, hidden } = this.field.options;
+    //   if (hidden) return true;
+    //   if (onHidden) {
+    //     const onHiddenFn = new Function(onHidden);
+    //     return onHiddenFn.call(this);
+    //   }
+    //   return false;
+    // },
     selectField(field) {
       if (!!this.designer) {
         this.designer.setSelected(field);
@@ -7522,7 +7521,7 @@ function _sfc_render$4x(_ctx, _cache, $props, $setup, $data, $options) {
   return openBlock(), createElementBlock("div", {
     class: normalizeClass(["field-wrapper", { "design-time-bottom-margin": !!this.designer }])
   }, [
-    !!$props.field.formItemFlag && !$options.handleHidden() ? (openBlock(), createBlock(_component_a_form_item, {
+    !!$props.field.formItemFlag ? (openBlock(), createBlock(_component_a_form_item, {
       key: 0,
       labelCol: { style: { width: $options.labelWidth + "px" } },
       title: $props.field.options.labelTooltip,
@@ -7669,7 +7668,7 @@ function _sfc_render$4x(_ctx, _cache, $props, $setup, $data, $options) {
     ], 64)) : createCommentVNode("", true)
   ], 2);
 }
-const FormItemWrapper = /* @__PURE__ */ _export_sfc$1(_sfc_main$4y, [["render", _sfc_render$4x], ["__scopeId", "data-v-2c44d737"]]);
+const FormItemWrapper = /* @__PURE__ */ _export_sfc$1(_sfc_main$4y, [["render", _sfc_render$4x], ["__scopeId", "data-v-e7234e21"]]);
 const __vite_glob_0_11$3 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: FormItemWrapper
@@ -22120,7 +22119,8 @@ const _hoisted_1$17 = {
 };
 function _sfc_render$4w(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_form_item_wrapper = resolveComponent("form-item-wrapper");
-  return openBlock(), createBlock(_component_form_item_wrapper, {
+  return _ctx.handleHidden() ? (openBlock(), createBlock(_component_form_item_wrapper, {
+    key: 0,
     designer: $props.designer,
     field: $props.field,
     rules: $data.rules,
@@ -22136,9 +22136,9 @@ function _sfc_render$4w(_ctx, _cache, $props, $setup, $data, $options) {
       createElementVNode("div", _hoisted_1$17, null, 512)
     ]),
     _: 1
-  }, 8, ["designer", "field", "rules", "design-state", "parent-widget", "parent-list", "index-of-parent-list", "sub-form-row-index", "sub-form-col-index", "sub-form-row-id"]);
+  }, 8, ["designer", "field", "rules", "design-state", "parent-widget", "parent-list", "index-of-parent-list", "sub-form-row-index", "sub-form-col-index", "sub-form-row-id"])) : createCommentVNode("", true);
 }
-const bpmnEditorWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$4x, [["render", _sfc_render$4w], ["__scopeId", "data-v-8902330c"]]);
+const bpmnEditorWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$4x, [["render", _sfc_render$4w], ["__scopeId", "data-v-2d77ae3e"]]);
 const __vite_glob_0_0$2 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: bpmnEditorWidget
@@ -22556,7 +22556,8 @@ function _sfc_render$4t(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_cascader = resolveComponent("a-cascader");
   const _component_a_tooltip = resolveComponent("a-tooltip");
   const _component_form_item_wrapper = resolveComponent("form-item-wrapper");
-  return openBlock(), createBlock(_component_form_item_wrapper, {
+  return !_ctx.handleHidden() ? (openBlock(), createBlock(_component_form_item_wrapper, {
+    key: 0,
     designer: $props.designer,
     field: $props.field,
     rules: $data.rules,
@@ -22602,9 +22603,9 @@ function _sfc_render$4t(_ctx, _cache, $props, $setup, $data, $options) {
       ], 2)
     ]),
     _: 1
-  }, 8, ["designer", "field", "rules", "design-state", "parent-widget", "parent-list", "index-of-parent-list", "sub-form-row-index", "sub-form-col-index", "sub-form-row-id"]);
+  }, 8, ["designer", "field", "rules", "design-state", "parent-widget", "parent-list", "index-of-parent-list", "sub-form-row-index", "sub-form-col-index", "sub-form-row-id"])) : createCommentVNode("", true);
 }
-const cascaderWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$4u, [["render", _sfc_render$4t], ["__scopeId", "data-v-9815d2f7"]]);
+const cascaderWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$4u, [["render", _sfc_render$4t], ["__scopeId", "data-v-85d611ae"]]);
 const __vite_glob_0_2$3 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: cascaderWidget
@@ -22678,7 +22679,8 @@ function _sfc_render$4s(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_checkbox = resolveComponent("a-checkbox");
   const _component_a_checkbox_group = resolveComponent("a-checkbox-group");
   const _component_form_item_wrapper = resolveComponent("form-item-wrapper");
-  return openBlock(), createBlock(_component_form_item_wrapper, {
+  return !_ctx.handleHidden() ? (openBlock(), createBlock(_component_form_item_wrapper, {
+    key: 0,
     designer: $props.designer,
     field: $props.field,
     rules: $data.rules,
@@ -22721,9 +22723,9 @@ function _sfc_render$4s(_ctx, _cache, $props, $setup, $data, $options) {
       _ctx.isReadMode ? (openBlock(), createElementBlock("span", _hoisted_1$14, toDisplayString(_ctx.optionLabel), 1)) : createCommentVNode("", true)
     ]),
     _: 1
-  }, 8, ["designer", "field", "rules", "design-state", "parent-widget", "parent-list", "index-of-parent-list", "sub-form-row-index", "sub-form-col-index", "sub-form-row-id"]);
+  }, 8, ["designer", "field", "rules", "design-state", "parent-widget", "parent-list", "index-of-parent-list", "sub-form-row-index", "sub-form-col-index", "sub-form-row-id"])) : createCommentVNode("", true);
 }
-const checkboxWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$4t, [["render", _sfc_render$4s], ["__scopeId", "data-v-0df5bd5e"]]);
+const checkboxWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$4t, [["render", _sfc_render$4s], ["__scopeId", "data-v-313a939f"]]);
 const __vite_glob_0_3$3 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: checkboxWidget
@@ -46393,7 +46395,8 @@ const _sfc_main$4r = {
 function _sfc_render$4q(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_code_editor = resolveComponent("code-editor");
   const _component_form_item_wrapper = resolveComponent("form-item-wrapper");
-  return openBlock(), createBlock(_component_form_item_wrapper, {
+  return !_ctx.handleHidden() ? (openBlock(), createBlock(_component_form_item_wrapper, {
+    key: 0,
     designer: $props.designer,
     field: $props.field,
     rules: $data.rules,
@@ -46417,9 +46420,9 @@ function _sfc_render$4q(_ctx, _cache, $props, $setup, $data, $options) {
       }, null, 8, ["mode", "readonly", "modelValue", "onBlur", "onChange"])
     ]),
     _: 1
-  }, 8, ["designer", "field", "rules", "design-state", "parent-widget", "parent-list", "index-of-parent-list", "sub-form-row-index", "sub-form-col-index", "sub-form-row-id"]);
+  }, 8, ["designer", "field", "rules", "design-state", "parent-widget", "parent-list", "index-of-parent-list", "sub-form-row-index", "sub-form-col-index", "sub-form-row-id"])) : createCommentVNode("", true);
 }
-const codeEditorWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$4r, [["render", _sfc_render$4q], ["__scopeId", "data-v-d8d7cd0a"]]);
+const codeEditorWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$4r, [["render", _sfc_render$4q], ["__scopeId", "data-v-9dc605ea"]]);
 const __vite_glob_0_4$3 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: codeEditorWidget
@@ -46491,7 +46494,8 @@ const _hoisted_1$12 = {
 function _sfc_render$4p(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_input = resolveComponent("a-input");
   const _component_form_item_wrapper = resolveComponent("form-item-wrapper");
-  return openBlock(), createBlock(_component_form_item_wrapper, {
+  return !_ctx.handleHidden() ? (openBlock(), createBlock(_component_form_item_wrapper, {
+    key: 0,
     designer: $props.designer,
     field: $props.field,
     rules: $data.rules,
@@ -46518,9 +46522,9 @@ function _sfc_render$4p(_ctx, _cache, $props, $setup, $data, $options) {
       ], 2)
     ]),
     _: 1
-  }, 8, ["designer", "field", "rules", "design-state", "parent-widget", "parent-list", "index-of-parent-list", "sub-form-row-index", "sub-form-col-index", "sub-form-row-id"]);
+  }, 8, ["designer", "field", "rules", "design-state", "parent-widget", "parent-list", "index-of-parent-list", "sub-form-row-index", "sub-form-col-index", "sub-form-row-id"])) : createCommentVNode("", true);
 }
-const colorWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$4q, [["render", _sfc_render$4p], ["__scopeId", "data-v-cbaee193"]]);
+const colorWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$4q, [["render", _sfc_render$4p], ["__scopeId", "data-v-bc7a87ea"]]);
 const __vite_glob_0_5$3 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: colorWidget
@@ -46598,7 +46602,8 @@ function _sfc_render$4o(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_range_picker = resolveComponent("a-range-picker");
   const _component_a_tooltip = resolveComponent("a-tooltip");
   const _component_form_item_wrapper = resolveComponent("form-item-wrapper");
-  return openBlock(), createBlock(_component_form_item_wrapper, {
+  return !_ctx.handleHidden() ? (openBlock(), createBlock(_component_form_item_wrapper, {
+    key: 0,
     designer: $props.designer,
     field: $props.field,
     rules: $data.rules,
@@ -46648,9 +46653,9 @@ function _sfc_render$4o(_ctx, _cache, $props, $setup, $data, $options) {
       ], 2)
     ]),
     _: 1
-  }, 8, ["designer", "field", "rules", "design-state", "parent-widget", "parent-list", "index-of-parent-list", "sub-form-row-index", "sub-form-col-index", "sub-form-row-id"]);
+  }, 8, ["designer", "field", "rules", "design-state", "parent-widget", "parent-list", "index-of-parent-list", "sub-form-row-index", "sub-form-col-index", "sub-form-row-id"])) : createCommentVNode("", true);
 }
-const dateRangeWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$4p, [["render", _sfc_render$4o], ["__scopeId", "data-v-cc3613dd"]]);
+const dateRangeWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$4p, [["render", _sfc_render$4o], ["__scopeId", "data-v-a060361b"]]);
 const __vite_glob_0_6$3 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: dateRangeWidget
@@ -46731,7 +46736,8 @@ function _sfc_render$4n(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_date_picker = resolveComponent("a-date-picker");
   const _component_a_tooltip = resolveComponent("a-tooltip");
   const _component_form_item_wrapper = resolveComponent("form-item-wrapper");
-  return openBlock(), createBlock(_component_form_item_wrapper, {
+  return !_ctx.handleHidden() ? (openBlock(), createBlock(_component_form_item_wrapper, {
+    key: 0,
     designer: $props.designer,
     field: $props.field,
     rules: $data.rules,
@@ -46782,9 +46788,9 @@ function _sfc_render$4n(_ctx, _cache, $props, $setup, $data, $options) {
       ], 2)
     ]),
     _: 1
-  }, 8, ["designer", "field", "rules", "design-state", "parent-widget", "parent-list", "index-of-parent-list", "sub-form-row-index", "sub-form-col-index", "sub-form-row-id"]);
+  }, 8, ["designer", "field", "rules", "design-state", "parent-widget", "parent-list", "index-of-parent-list", "sub-form-row-index", "sub-form-col-index", "sub-form-row-id"])) : createCommentVNode("", true);
 }
-const dateWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$4o, [["render", _sfc_render$4n], ["__scopeId", "data-v-74795a48"]]);
+const dateWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$4o, [["render", _sfc_render$4n], ["__scopeId", "data-v-342bff54"]]);
 const __vite_glob_0_7$3 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: dateWidget
@@ -46842,7 +46848,8 @@ const _sfc_main$4n = {
 function _sfc_render$4m(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_divider = resolveComponent("a-divider");
   const _component_static_content_wrapper = resolveComponent("static-content-wrapper");
-  return openBlock(), createBlock(_component_static_content_wrapper, {
+  return !_ctx.handleHidden() ? (openBlock(), createBlock(_component_static_content_wrapper, {
+    key: 0,
     designer: $props.designer,
     field: $props.field,
     "design-state": $props.designState,
@@ -46866,9 +46873,9 @@ function _sfc_render$4m(_ctx, _cache, $props, $setup, $data, $options) {
       }, 8, ["type", "orientation"])
     ]),
     _: 1
-  }, 8, ["designer", "field", "design-state", "parent-widget", "parent-list", "index-of-parent-list", "sub-form-row-index", "sub-form-col-index", "sub-form-row-id"]);
+  }, 8, ["designer", "field", "design-state", "parent-widget", "parent-list", "index-of-parent-list", "sub-form-row-index", "sub-form-col-index", "sub-form-row-id"])) : createCommentVNode("", true);
 }
-const dividerWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$4n, [["render", _sfc_render$4m], ["__scopeId", "data-v-5e29648b"]]);
+const dividerWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$4n, [["render", _sfc_render$4m], ["__scopeId", "data-v-68feb2bf"]]);
 const __vite_glob_0_8$3 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: dividerWidget
@@ -46939,7 +46946,8 @@ function _sfc_render$4l(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_button = resolveComponent("a-button");
   const _component_a_dropdown = resolveComponent("a-dropdown");
   const _component_static_content_wrapper = resolveComponent("static-content-wrapper");
-  return openBlock(), createBlock(_component_static_content_wrapper, {
+  return !_ctx.handleHidden() ? (openBlock(), createBlock(_component_static_content_wrapper, {
+    key: 0,
     designer: $props.designer,
     field: $props.field,
     "design-state": $props.designState,
@@ -46995,9 +47003,9 @@ function _sfc_render$4l(_ctx, _cache, $props, $setup, $data, $options) {
       }, 8, ["disabled", "placement"])
     ]),
     _: 1
-  }, 8, ["designer", "field", "design-state", "display-style", "parent-widget", "parent-list", "index-of-parent-list", "sub-form-row-index", "sub-form-col-index", "sub-form-row-id"]);
+  }, 8, ["designer", "field", "design-state", "display-style", "parent-widget", "parent-list", "index-of-parent-list", "sub-form-row-index", "sub-form-col-index", "sub-form-row-id"])) : createCommentVNode("", true);
 }
-const dropdownWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$4m, [["render", _sfc_render$4l], ["__scopeId", "data-v-200931c2"]]);
+const dropdownWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$4m, [["render", _sfc_render$4l], ["__scopeId", "data-v-c3bf543e"]]);
 const __vite_glob_0_9$3 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: dropdownWidget
@@ -48472,7 +48480,8 @@ function _sfc_render$4k(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_space = resolveComponent("a-space");
   const _component_a_upload = resolveComponent("a-upload");
   const _component_form_item_wrapper = resolveComponent("form-item-wrapper");
-  return openBlock(), createBlock(_component_form_item_wrapper, {
+  return !_ctx.handleHidden() ? (openBlock(), createBlock(_component_form_item_wrapper, {
+    key: 0,
     designer: $props.designer,
     field: $props.field,
     rules: $data.rules,
@@ -48530,9 +48539,9 @@ function _sfc_render$4k(_ctx, _cache, $props, $setup, $data, $options) {
       }, 8, ["disabled", "class", "multiple", "accept", "file-list", "customRequest", "iconRender", "onPreview", "onRemove"])
     ]),
     _: 1
-  }, 8, ["designer", "field", "rules", "design-state", "parent-widget", "parent-list", "index-of-parent-list", "sub-form-row-index", "sub-form-col-index", "sub-form-row-id"]);
+  }, 8, ["designer", "field", "rules", "design-state", "parent-widget", "parent-list", "index-of-parent-list", "sub-form-row-index", "sub-form-col-index", "sub-form-row-id"])) : createCommentVNode("", true);
 }
-const fileUploadWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$4l, [["render", _sfc_render$4k], ["__scopeId", "data-v-992c50ef"]]);
+const fileUploadWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$4l, [["render", _sfc_render$4k], ["__scopeId", "data-v-cc08a015"]]);
 const __vite_glob_0_10$3 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: fileUploadWidget
@@ -48590,7 +48599,8 @@ const _sfc_main$4k = {
 const _hoisted_1$_ = ["innerHTML"];
 function _sfc_render$4j(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_static_content_wrapper = resolveComponent("static-content-wrapper");
-  return openBlock(), createBlock(_component_static_content_wrapper, {
+  return !_ctx.handleHidden() ? (openBlock(), createBlock(_component_static_content_wrapper, {
+    key: 0,
     designer: $props.designer,
     field: $props.field,
     "design-state": $props.designState,
@@ -48608,9 +48618,9 @@ function _sfc_render$4j(_ctx, _cache, $props, $setup, $data, $options) {
       }, null, 8, _hoisted_1$_)
     ]),
     _: 1
-  }, 8, ["designer", "field", "design-state", "parent-widget", "parent-list", "index-of-parent-list", "sub-form-row-index", "sub-form-col-index", "sub-form-row-id"]);
+  }, 8, ["designer", "field", "design-state", "parent-widget", "parent-list", "index-of-parent-list", "sub-form-row-index", "sub-form-col-index", "sub-form-row-id"])) : createCommentVNode("", true);
 }
-const htmlTextWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$4k, [["render", _sfc_render$4j], ["__scopeId", "data-v-625c91c9"]]);
+const htmlTextWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$4k, [["render", _sfc_render$4j], ["__scopeId", "data-v-358286fd"]]);
 const __vite_glob_0_12$2 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: htmlTextWidget
@@ -48700,7 +48710,8 @@ function _sfc_render$4i(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_input = resolveComponent("a-input");
   const _component_a_tooltip = resolveComponent("a-tooltip");
   const _component_form_item_wrapper = resolveComponent("form-item-wrapper");
-  return openBlock(), createBlock(_component_form_item_wrapper, {
+  return !_ctx.handleHidden() ? (openBlock(), createBlock(_component_form_item_wrapper, {
+    key: 0,
     designer: $props.designer,
     field: $props.field,
     rules: $data.rules,
@@ -48767,9 +48778,9 @@ function _sfc_render$4i(_ctx, _cache, $props, $setup, $data, $options) {
       }, 8, ["title"])) : createCommentVNode("", true)
     ]),
     _: 1
-  }, 8, ["designer", "field", "rules", "design-state", "parent-widget", "parent-list", "index-of-parent-list", "sub-form-row-index", "sub-form-col-index", "sub-form-row-id"]);
+  }, 8, ["designer", "field", "rules", "design-state", "parent-widget", "parent-list", "index-of-parent-list", "sub-form-row-index", "sub-form-col-index", "sub-form-row-id"])) : createCommentVNode("", true);
 }
-const inputWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$4j, [["render", _sfc_render$4i], ["__scopeId", "data-v-369bcc95"]]);
+const inputWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$4j, [["render", _sfc_render$4i], ["__scopeId", "data-v-141f5d9c"]]);
 const __vite_glob_0_13$2 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: inputWidget
@@ -48850,7 +48861,8 @@ function _sfc_render$4h(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_input_number = resolveComponent("a-input-number");
   const _component_a_tooltip = resolveComponent("a-tooltip");
   const _component_form_item_wrapper = resolveComponent("form-item-wrapper");
-  return openBlock(), createBlock(_component_form_item_wrapper, {
+  return !_ctx.handleHidden() ? (openBlock(), createBlock(_component_form_item_wrapper, {
+    key: 0,
     designer: $props.designer,
     field: $props.field,
     rules: $data.rules,
@@ -48895,9 +48907,9 @@ function _sfc_render$4h(_ctx, _cache, $props, $setup, $data, $options) {
       }, 8, ["title"])) : createCommentVNode("", true)
     ]),
     _: 1
-  }, 8, ["designer", "field", "rules", "design-state", "parent-widget", "parent-list", "index-of-parent-list", "sub-form-row-index", "sub-form-col-index", "sub-form-row-id"]);
+  }, 8, ["designer", "field", "rules", "design-state", "parent-widget", "parent-list", "index-of-parent-list", "sub-form-row-index", "sub-form-col-index", "sub-form-row-id"])) : createCommentVNode("", true);
 }
-const numberWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$4i, [["render", _sfc_render$4h], ["__scopeId", "data-v-d369e350"]]);
+const numberWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$4i, [["render", _sfc_render$4h], ["__scopeId", "data-v-a0ea9354"]]);
 const __vite_glob_0_14$1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: numberWidget
@@ -49128,7 +49140,8 @@ function _sfc_render$4g(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_upload = resolveComponent("a-upload");
   const _component_a_modal = resolveComponent("a-modal");
   const _component_form_item_wrapper = resolveComponent("form-item-wrapper");
-  return openBlock(), createBlock(_component_form_item_wrapper, {
+  return !_ctx.handleHidden() ? (openBlock(), createBlock(_component_form_item_wrapper, {
+    key: 0,
     designer: $props.designer,
     field: $props.field,
     rules: $data.rules,
@@ -49195,9 +49208,9 @@ function _sfc_render$4g(_ctx, _cache, $props, $setup, $data, $options) {
       }, 8, ["visible"])
     ]),
     _: 1
-  }, 8, ["designer", "field", "rules", "design-state", "parent-widget", "parent-list", "index-of-parent-list", "sub-form-row-index", "sub-form-col-index", "sub-form-row-id"]);
+  }, 8, ["designer", "field", "rules", "design-state", "parent-widget", "parent-list", "index-of-parent-list", "sub-form-row-index", "sub-form-col-index", "sub-form-row-id"])) : createCommentVNode("", true);
 }
-const pictureUploadWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$4h, [["render", _sfc_render$4g], ["__scopeId", "data-v-a28d8b63"]]);
+const pictureUploadWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$4h, [["render", _sfc_render$4g], ["__scopeId", "data-v-5165908b"]]);
 const __vite_glob_0_15$1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: pictureUploadWidget
@@ -49284,7 +49297,8 @@ function _sfc_render$4f(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_radio = resolveComponent("a-radio");
   const _component_a_radio_group = resolveComponent("a-radio-group");
   const _component_form_item_wrapper = resolveComponent("form-item-wrapper");
-  return openBlock(), createBlock(_component_form_item_wrapper, {
+  return !_ctx.handleHidden() ? (openBlock(), createBlock(_component_form_item_wrapper, {
+    key: 0,
     designer: $props.designer,
     field: $props.field,
     rules: $data.rules,
@@ -49342,9 +49356,9 @@ function _sfc_render$4f(_ctx, _cache, $props, $setup, $data, $options) {
       _ctx.isReadMode ? (openBlock(), createElementBlock("span", _hoisted_1$W, toDisplayString(_ctx.optionLabel), 1)) : createCommentVNode("", true)
     ]),
     _: 1
-  }, 8, ["designer", "field", "rules", "design-state", "parent-widget", "parent-list", "index-of-parent-list", "sub-form-row-index", "sub-form-col-index", "sub-form-row-id"]);
+  }, 8, ["designer", "field", "rules", "design-state", "parent-widget", "parent-list", "index-of-parent-list", "sub-form-row-index", "sub-form-col-index", "sub-form-row-id"])) : createCommentVNode("", true);
 }
-const radioWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$4g, [["render", _sfc_render$4f], ["__scopeId", "data-v-a3e4f5ee"]]);
+const radioWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$4g, [["render", _sfc_render$4f], ["__scopeId", "data-v-8739bdf9"]]);
 const __vite_glob_0_16$1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: radioWidget
@@ -49412,7 +49426,8 @@ const _sfc_main$4f = {
 function _sfc_render$4e(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_rate = resolveComponent("a-rate");
   const _component_form_item_wrapper = resolveComponent("form-item-wrapper");
-  return openBlock(), createBlock(_component_form_item_wrapper, {
+  return !_ctx.handleHidden() ? (openBlock(), createBlock(_component_form_item_wrapper, {
+    key: 0,
     designer: $props.designer,
     field: $props.field,
     rules: $data.rules,
@@ -49437,9 +49452,9 @@ function _sfc_render$4e(_ctx, _cache, $props, $setup, $data, $options) {
       }, null, 8, ["value", "disabled", "allowClear", "count", "allow-half", "onChange"])
     ]),
     _: 1
-  }, 8, ["designer", "field", "rules", "design-state", "parent-widget", "parent-list", "index-of-parent-list", "sub-form-row-index", "sub-form-col-index", "sub-form-row-id"]);
+  }, 8, ["designer", "field", "rules", "design-state", "parent-widget", "parent-list", "index-of-parent-list", "sub-form-row-index", "sub-form-col-index", "sub-form-row-id"])) : createCommentVNode("", true);
 }
-const rateWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$4f, [["render", _sfc_render$4e], ["__scopeId", "data-v-4b0abebd"]]);
+const rateWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$4f, [["render", _sfc_render$4e], ["__scopeId", "data-v-c64f78a6"]]);
 const __vite_glob_0_17$1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: rateWidget
@@ -61309,7 +61324,8 @@ const _sfc_main$4d = {
 function _sfc_render$4c(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_quill_editor = resolveComponent("quill-editor");
   const _component_form_item_wrapper = resolveComponent("form-item-wrapper");
-  return openBlock(), createBlock(_component_form_item_wrapper, {
+  return !_ctx.handleHidden() ? (openBlock(), createBlock(_component_form_item_wrapper, {
+    key: 0,
     designer: $props.designer,
     field: $props.field,
     rules: $data.rules,
@@ -61339,9 +61355,9 @@ function _sfc_render$4c(_ctx, _cache, $props, $setup, $data, $options) {
       ], 2)
     ]),
     _: 1
-  }, 8, ["designer", "field", "rules", "design-state", "parent-widget", "parent-list", "index-of-parent-list", "sub-form-row-index", "sub-form-col-index", "sub-form-row-id"]);
+  }, 8, ["designer", "field", "rules", "design-state", "parent-widget", "parent-list", "index-of-parent-list", "sub-form-row-index", "sub-form-col-index", "sub-form-row-id"])) : createCommentVNode("", true);
 }
-const richEditorWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$4d, [["render", _sfc_render$4c], ["__scopeId", "data-v-e6c3367f"]]);
+const richEditorWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$4d, [["render", _sfc_render$4c], ["__scopeId", "data-v-26930f10"]]);
 const __vite_glob_0_18$1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: richEditorWidget
@@ -61534,7 +61550,8 @@ function _sfc_render$4b(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_svg_icon = resolveComponent("svg-icon");
   const _component_a_tooltip = resolveComponent("a-tooltip");
   const _component_form_item_wrapper = resolveComponent("form-item-wrapper");
-  return openBlock(), createBlock(_component_form_item_wrapper, {
+  return !_ctx.handleHidden() ? (openBlock(), createBlock(_component_form_item_wrapper, {
+    key: 0,
     designer: $props.designer,
     field: $props.field,
     rules: $data.rules,
@@ -61591,9 +61608,9 @@ function _sfc_render$4b(_ctx, _cache, $props, $setup, $data, $options) {
       }, 8, ["title"])) : createCommentVNode("", true)
     ]),
     _: 1
-  }, 8, ["designer", "field", "rules", "design-state", "parent-widget", "parent-list", "index-of-parent-list", "sub-form-row-index", "sub-form-col-index", "sub-form-row-id"]);
+  }, 8, ["designer", "field", "rules", "design-state", "parent-widget", "parent-list", "index-of-parent-list", "sub-form-row-index", "sub-form-col-index", "sub-form-row-id"])) : createCommentVNode("", true);
 }
-const selectWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$4c, [["render", _sfc_render$4b], ["__scopeId", "data-v-e64d7d03"]]);
+const selectWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$4c, [["render", _sfc_render$4b], ["__scopeId", "data-v-d457a7aa"]]);
 const __vite_glob_0_19$1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: selectWidget
@@ -61671,7 +61688,8 @@ const _hoisted_1$T = {
 function _sfc_render$4a(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_slider = resolveComponent("a-slider");
   const _component_form_item_wrapper = resolveComponent("form-item-wrapper");
-  return openBlock(), createBlock(_component_form_item_wrapper, {
+  return !_ctx.handleHidden() ? (openBlock(), createBlock(_component_form_item_wrapper, {
+    key: 0,
     designer: $props.designer,
     field: $props.field,
     rules: $data.rules,
@@ -61701,9 +61719,9 @@ function _sfc_render$4a(_ctx, _cache, $props, $setup, $data, $options) {
       _ctx.isReadMode ? (openBlock(), createElementBlock("span", _hoisted_1$T, toDisplayString($data.fieldModel), 1)) : createCommentVNode("", true)
     ]),
     _: 1
-  }, 8, ["designer", "field", "rules", "design-state", "parent-widget", "parent-list", "index-of-parent-list", "sub-form-row-index", "sub-form-col-index", "sub-form-row-id"]);
+  }, 8, ["designer", "field", "rules", "design-state", "parent-widget", "parent-list", "index-of-parent-list", "sub-form-row-index", "sub-form-col-index", "sub-form-row-id"])) : createCommentVNode("", true);
 }
-const sliderWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$4b, [["render", _sfc_render$4a], ["__scopeId", "data-v-8166af68"]]);
+const sliderWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$4b, [["render", _sfc_render$4a], ["__scopeId", "data-v-5a30bec3"]]);
 const __vite_glob_0_20$1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: sliderWidget
@@ -61843,7 +61861,8 @@ const _sfc_main$49 = {
 };
 function _sfc_render$48(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_static_content_wrapper = resolveComponent("static-content-wrapper");
-  return openBlock(), createBlock(_component_static_content_wrapper, {
+  return !_ctx.handleHidden() ? (openBlock(), createBlock(_component_static_content_wrapper, {
+    key: 0,
     designer: $props.designer,
     field: $props.field,
     "design-state": $props.designState,
@@ -61858,9 +61877,9 @@ function _sfc_render$48(_ctx, _cache, $props, $setup, $data, $options) {
       createElementVNode("div", { ref: "fieldEditor" }, toDisplayString($props.field.options.textContent), 513)
     ]),
     _: 1
-  }, 8, ["designer", "field", "design-state", "parent-widget", "parent-list", "index-of-parent-list", "sub-form-row-index", "sub-form-col-index", "sub-form-row-id"]);
+  }, 8, ["designer", "field", "design-state", "parent-widget", "parent-list", "index-of-parent-list", "sub-form-row-index", "sub-form-col-index", "sub-form-row-id"])) : createCommentVNode("", true);
 }
-const staticTextWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$49, [["render", _sfc_render$48], ["__scopeId", "data-v-11d19d63"]]);
+const staticTextWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$49, [["render", _sfc_render$48], ["__scopeId", "data-v-a2571be4"]]);
 const __vite_glob_0_23$1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: staticTextWidget
@@ -61935,7 +61954,8 @@ const _sfc_main$48 = {
 function _sfc_render$47(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_switch = resolveComponent("a-switch");
   const _component_form_item_wrapper = resolveComponent("form-item-wrapper");
-  return openBlock(), createBlock(_component_form_item_wrapper, {
+  return !_ctx.handleHidden() ? (openBlock(), createBlock(_component_form_item_wrapper, {
+    key: 0,
     designer: $props.designer,
     field: $props.field,
     rules: $data.rules,
@@ -61960,9 +61980,9 @@ function _sfc_render$47(_ctx, _cache, $props, $setup, $data, $options) {
       }, null, 8, ["checked", "disabled", "checkedValue", "unCheckedValue", "onChange", "style"])
     ]),
     _: 1
-  }, 8, ["designer", "field", "rules", "design-state", "parent-widget", "parent-list", "index-of-parent-list", "sub-form-row-index", "sub-form-col-index", "sub-form-row-id"]);
+  }, 8, ["designer", "field", "rules", "design-state", "parent-widget", "parent-list", "index-of-parent-list", "sub-form-row-index", "sub-form-col-index", "sub-form-row-id"])) : createCommentVNode("", true);
 }
-const switchWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$48, [["render", _sfc_render$47], ["__scopeId", "data-v-30d63f8e"]]);
+const switchWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$48, [["render", _sfc_render$47], ["__scopeId", "data-v-17feb9d4"]]);
 const __vite_glob_0_24$1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: switchWidget
@@ -62043,7 +62063,8 @@ function _sfc_render$46(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_textarea = resolveComponent("a-textarea");
   const _component_a_tooltip = resolveComponent("a-tooltip");
   const _component_form_item_wrapper = resolveComponent("form-item-wrapper");
-  return openBlock(), createBlock(_component_form_item_wrapper, {
+  return !_ctx.handleHidden() ? (openBlock(), createBlock(_component_form_item_wrapper, {
+    key: 0,
     designer: $props.designer,
     field: $props.field,
     rules: $data.rules,
@@ -62093,9 +62114,9 @@ function _sfc_render$46(_ctx, _cache, $props, $setup, $data, $options) {
       }, 8, ["title"])) : createCommentVNode("", true)
     ]),
     _: 1
-  }, 8, ["designer", "field", "rules", "design-state", "parent-widget", "parent-list", "index-of-parent-list", "sub-form-row-index", "sub-form-col-index", "sub-form-row-id"]);
+  }, 8, ["designer", "field", "rules", "design-state", "parent-widget", "parent-list", "index-of-parent-list", "sub-form-row-index", "sub-form-col-index", "sub-form-row-id"])) : createCommentVNode("", true);
 }
-const textareaWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$47, [["render", _sfc_render$46], ["__scopeId", "data-v-176f7777"]]);
+const textareaWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$47, [["render", _sfc_render$46], ["__scopeId", "data-v-70c5736c"]]);
 const __vite_glob_0_25$1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: textareaWidget
@@ -62185,7 +62206,8 @@ const _hoisted_1$Q = {
 function _sfc_render$45(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_time_range_picker = resolveComponent("a-time-range-picker");
   const _component_form_item_wrapper = resolveComponent("form-item-wrapper");
-  return openBlock(), createBlock(_component_form_item_wrapper, {
+  return !_ctx.handleHidden() ? (openBlock(), createBlock(_component_form_item_wrapper, {
+    key: 0,
     designer: $props.designer,
     field: $props.field,
     rules: $data.rules,
@@ -62228,9 +62250,9 @@ function _sfc_render$45(_ctx, _cache, $props, $setup, $data, $options) {
       ], 2)
     ]),
     _: 1
-  }, 8, ["designer", "field", "rules", "design-state", "parent-widget", "parent-list", "index-of-parent-list", "sub-form-row-index", "sub-form-col-index", "sub-form-row-id"]);
+  }, 8, ["designer", "field", "rules", "design-state", "parent-widget", "parent-list", "index-of-parent-list", "sub-form-row-index", "sub-form-col-index", "sub-form-row-id"])) : createCommentVNode("", true);
 }
-const timeRangeWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$46, [["render", _sfc_render$45], ["__scopeId", "data-v-c3e907db"]]);
+const timeRangeWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$46, [["render", _sfc_render$45], ["__scopeId", "data-v-101be86d"]]);
 const __vite_glob_0_26$1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: timeRangeWidget
@@ -62313,7 +62335,8 @@ const _hoisted_1$P = {
 function _sfc_render$44(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_time_picker = resolveComponent("a-time-picker");
   const _component_form_item_wrapper = resolveComponent("form-item-wrapper");
-  return openBlock(), createBlock(_component_form_item_wrapper, {
+  return !_ctx.handleHidden() ? (openBlock(), createBlock(_component_form_item_wrapper, {
+    key: 0,
     designer: $props.designer,
     field: $props.field,
     rules: $data.rules,
@@ -62352,9 +62375,9 @@ function _sfc_render$44(_ctx, _cache, $props, $setup, $data, $options) {
       ], 2)
     ]),
     _: 1
-  }, 8, ["designer", "field", "rules", "design-state", "parent-widget", "parent-list", "index-of-parent-list", "sub-form-row-index", "sub-form-col-index", "sub-form-row-id"]);
+  }, 8, ["designer", "field", "rules", "design-state", "parent-widget", "parent-list", "index-of-parent-list", "sub-form-row-index", "sub-form-col-index", "sub-form-row-id"])) : createCommentVNode("", true);
 }
-const timeWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$45, [["render", _sfc_render$44], ["__scopeId", "data-v-6943e235"]]);
+const timeWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$45, [["render", _sfc_render$44], ["__scopeId", "data-v-6f144fcd"]]);
 const __vite_glob_0_27$1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: timeWidget
@@ -62462,7 +62485,8 @@ function _sfc_render$43(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_tree_select = resolveComponent("a-tree-select");
   const _component_a_tooltip = resolveComponent("a-tooltip");
   const _component_form_item_wrapper = resolveComponent("form-item-wrapper");
-  return openBlock(), createBlock(_component_form_item_wrapper, {
+  return !_ctx.handleHidden() ? (openBlock(), createBlock(_component_form_item_wrapper, {
+    key: 0,
     designer: $props.designer,
     field: $props.field,
     rules: $data.rules,
@@ -62510,9 +62534,9 @@ function _sfc_render$43(_ctx, _cache, $props, $setup, $data, $options) {
       ], 2)
     ]),
     _: 1
-  }, 8, ["designer", "field", "rules", "design-state", "parent-widget", "parent-list", "index-of-parent-list", "sub-form-row-index", "sub-form-col-index", "sub-form-row-id"]);
+  }, 8, ["designer", "field", "rules", "design-state", "parent-widget", "parent-list", "index-of-parent-list", "sub-form-row-index", "sub-form-col-index", "sub-form-row-id"])) : createCommentVNode("", true);
 }
-const treeSelectWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$44, [["render", _sfc_render$43], ["__scopeId", "data-v-132b6a1f"]]);
+const treeSelectWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$44, [["render", _sfc_render$43], ["__scopeId", "data-v-801e372a"]]);
 const __vite_glob_0_28$1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: treeSelectWidget
@@ -91986,13 +92010,13 @@ function registerIcon(app) {
 if (typeof window !== "undefined") {
   let loadSvg = function() {
     var body = document.body;
-    var svgDom = document.getElementById("__svg__icons__dom__1721799763682__");
+    var svgDom = document.getElementById("__svg__icons__dom__1721975297187__");
     if (!svgDom) {
       svgDom = document.createElementNS("http://www.w3.org/2000/svg", "svg");
       svgDom.style.position = "absolute";
       svgDom.style.width = "0";
       svgDom.style.height = "0";
-      svgDom.id = "__svg__icons__dom__1721799763682__";
+      svgDom.id = "__svg__icons__dom__1721975297187__";
       svgDom.setAttribute("xmlns", "http://www.w3.org/2000/svg");
       svgDom.setAttribute("xmlns:link", "http://www.w3.org/1999/xlink");
     }

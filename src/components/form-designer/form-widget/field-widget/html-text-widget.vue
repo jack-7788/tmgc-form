@@ -9,6 +9,7 @@
     :sub-form-row-index="subFormRowIndex"
     :sub-form-col-index="subFormColIndex"
     :sub-form-row-id="subFormRowId"
+    v-if="!handleHidden()"
   >
     <div ref="fieldEditor" v-html="field.options.htmlContent"></div>
   </static-content-wrapper>

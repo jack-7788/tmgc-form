@@ -10,6 +10,7 @@
     :sub-form-row-index="subFormRowIndex"
     :sub-form-col-index="subFormColIndex"
     :sub-form-row-id="subFormRowId"
+    v-if="!handleHidden()"
   >
     <!-- el-upload增加:name="field.options.name"后，会导致又拍云上传失败！故删除之！！ -->
     <a-upload

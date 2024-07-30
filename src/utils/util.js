@@ -514,6 +514,8 @@ export function getDefaultFormConfig() {
     onFormMounted: `
     if(!this.vfCtx) return
     if(!this.vfCtx._id) return
+    const type = this.vfCtx.type
+    this.setReadMode(type==='view')
     this.onFormDetail().then(res=>{
       this.setFormData({...res})
     })

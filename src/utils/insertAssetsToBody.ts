@@ -39,6 +39,7 @@ export const insertJsToHead = () => {
 };
 
 export const insertAssetsToBody = () => {
+  if(!window.location.origin.includes('.imefuture.com'))return
   insertCssToHead();
   insertJsToHead();
 };

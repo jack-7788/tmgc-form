@@ -1,6 +1,6 @@
 <template>
   <form-item-wrapper
-    v-if="handleHidden()"
+    v-if="!handleHidden()"
     :designer="designer"
     :field="field"
     :rules="rules"

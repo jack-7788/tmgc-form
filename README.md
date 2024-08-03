@@ -8,7 +8,7 @@
 
 ### 立即体验
 
-[在线 Demo](http://120.92.142.115:81/vform3pro/)
+[在线 Demo](https://variant-form-antd.vercel.app/)
 
 ### 安装依赖
 
@@ -53,18 +53,18 @@ npm run lib-render
 #### 1. 安装包
 
 ```bash
-npm i vform3-tpf
+npm i tmgc-form
 ```
 
 或
 
 ```bash
-yarn add vform3-tpf
+yarn add tmgc-form
 ```
 
  <br/>
 
-#### 2. 引入并全局注册 VForm3-tpf 组件
+#### 2. 引入并全局注册 tmgc-form 组件
 
 ```
 import { createApp } from 'vue'
@@ -72,12 +72,15 @@ import App from './App.vue'
 
 import Antd from 'ant-design-vue';
 
-import VForm3 from 'vform3-tpf'; //引入VForm 3库
-import 'vform3-tpf/designer.style.css'; //引入VForm3样式
+import tmgcForm from 'tmgc-form'; //引入VForm 3库
+import 'tmgc-form/designer.style.css'; //引入tmgcForm样式
 
 const app = createApp(App)
+// 注册全局的请求工具
+app.config.globalProperties.$http = http;
 app.use(Antd)  //全局注册Antd
-app.use(VForm3)  //全局注册VForm 3(同时注册了v-form-designer和v-form-render组件)
+app.use(TmgcForm, http);//传入http工具
+ //全局注册VForm 3(同时注册了v-form-designer和v-form-render组件)
 
 app.mount('#app')
 ```

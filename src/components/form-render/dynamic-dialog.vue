@@ -237,6 +237,7 @@
       },
 
       getFormRef() {
+        console.log('getFormRef');
         return this.$refs['dFormRef'];
       },
 

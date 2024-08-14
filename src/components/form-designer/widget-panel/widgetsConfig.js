@@ -140,7 +140,7 @@ export const containers1 = [
       showIndex: false, // 是否显示行号列
       showPagination: true, // 是否分页
       border: true, // 是否带有纵向边框（拖拽）
-      tableSize: 'default', // 表格大小，large大、default中、small小
+      tableSize: 'small', // 表格大小，large大、default中、small小
       tableColumns: [
         //表格列信息
         {
@@ -220,6 +220,7 @@ export const containers1 = [
         position: ['bottomRight'],
         showTotal: total => `共 ${total} 条`
       },
+      colorRow: true,
       rowSelection: {
         hasRowSelection: false,
         preserveSelectedRowKeys: false, //当数据被删除时仍然保留选项的 key

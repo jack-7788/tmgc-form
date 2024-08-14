@@ -27,6 +27,7 @@
         :row-class-name="rowClassName"
         :rowSelection="handleRowSelection()"
         :pagination="fmtPagination"
+        :rowClassName="rowClassName"
         @change="handleTablePageChange"
         :customRow="handleCustomRow"
         @resizeColumn="handleResizeColumn"

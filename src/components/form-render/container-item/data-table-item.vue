@@ -18,6 +18,7 @@
       :rowSelection="handleRowSelection()"
       :pagination="fmtPagination"
       :customRow="handleCustomRow"
+      :rowClassName="rowClassName"
       @change="handleTablePageChange"
       @resizeColumn="handleResizeColumn"
       :loading="loading"

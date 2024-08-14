@@ -14,12 +14,12 @@ export default {
     tableHeight() {
       return this.widget.options.tableHeight || undefined;
     },
-    rowClassName() {
-      if (this.widget.options.stripe) {
-        return (_record, index) => (index % 2 === 1 ? 'table-striped' : null);
-      }
-      return null;
-    },
+    // rowClassName() {
+    //   if (this.widget.options.stripe) {
+    //     return (_record, index) => (index % 2 === 1 ? 'table-striped' : null);
+    //   }
+    //   return null;
+    // },
     customClass() {
       return this.widget.options.customClass || '';
     },
@@ -36,6 +36,12 @@ export default {
     }
   },
   methods: {
+    rowClassName(record) {
+      const { rowKey, colorRow } = this.widget.options;
+
+      if (!colorRow) return '';
+      return this.selectRow[rowKey] === record[rowKey] ? 'colorRowClassName' : '';
+    },
     handleResizeColumn(w, col) {
       const { tableColumns } = this.widget.options;
       const newTableColumns = tableColumns.map(item => {
@@ -47,7 +53,7 @@ export default {
       this.setTableColumns(newTableColumns);
     },
     disabledClick() {
-      const { hasRowSelection } = this.widget.options;
+      const { hasRowSelection } = this.widget.options.rowSelection;
       if (hasRowSelection) {
         return isEmpty(this.selectedRowInfo.selectedRowKeys);
       }
@@ -127,11 +133,12 @@ export default {
       }
     },
     handleCustomRow(record) {
-      const { customRow, hasRowSelection } = this.widget.options;
-      if (!customRow) return {};
+      const { customRow, colorRow } = this.widget.options;
+      const { hasRowSelection } = this.widget.options.rowSelection;
+      // if (!customRow) return {};
       return {
         onClick: event => {
-          if (hasRowSelection) {
+          if (colorRow) {
             this.selectRow = record;
           }
           const customFn = new Function('record', 'event', customRow.onClick);

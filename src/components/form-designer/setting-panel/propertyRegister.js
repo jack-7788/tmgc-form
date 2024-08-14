@@ -44,6 +44,7 @@ const COMMON_PROPERTIES = {
   tableHeight: 'tableHeight-editor',
   showIndex: 'showIndex-editor',
   stripe: 'stripe-editor',
+  colorRow: 'colorRow-editor',
   tableSize: 'tableSize-editor',
   pagination: 'pagination-editor',
   showButtonsColumn: 'showButtonsColumn-editor',

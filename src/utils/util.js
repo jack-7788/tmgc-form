@@ -105,14 +105,14 @@ const createStyleSheet = function () {
 
 export const insertCustomCssToHead = function (cssCode, formId = '') {
   const head = document.getElementsByTagName('head')[0];
-  let oldStyle = document.getElementById('vform-custom-css');
-  if (!!oldStyle) {
-    head.removeChild(oldStyle); //先清除后插入！！
-  }
-  if (!!formId) {
-    oldStyle = document.getElementById('vform-custom-css' + '-' + formId);
-    !!oldStyle && head.removeChild(oldStyle); //先清除后插入！！
-  }
+  // let oldStyle = document.getElementById('vform-custom-css');
+  // if (!!oldStyle) {
+  //   head.removeChild(oldStyle); //先清除后插入！！
+  // }
+  // if (!!formId) {
+  //   oldStyle = document.getElementById('vform-custom-css' + '-' + formId);
+  //   !!oldStyle && head.removeChild(oldStyle); //先清除后插入！！
+  // }
 
   const newStyle = document.createElement('style');
   newStyle.type = 'text/css';
@@ -129,12 +129,12 @@ export const insertCustomCssToHead = function (cssCode, formId = '') {
 
 export const insertGlobalFunctionsToHtml = function (functionsCode, formId = '') {
   const bodyEle = document.getElementsByTagName('body')[0];
-  let oldScriptEle = document.getElementById('v_form_global_functions');
-  !!oldScriptEle && bodyEle.removeChild(oldScriptEle); //先清除后插入！！
-  if (!!formId) {
-    oldScriptEle = document.getElementById('v_form_global_functions' + '-' + formId);
-    !!oldScriptEle && bodyEle.removeChild(oldScriptEle); //先清除后插入！！
-  }
+  // let oldScriptEle = document.getElementById('v_form_global_functions');
+  // !!oldScriptEle && bodyEle.removeChild(oldScriptEle); //先清除后插入！！
+  // if (!!formId) {
+  //   oldScriptEle = document.getElementById('v_form_global_functions' + '-' + formId);
+  //   !!oldScriptEle && bodyEle.removeChild(oldScriptEle); //先清除后插入！！
+  // }
 
   const newScriptEle = document.createElement('script');
   newScriptEle.id = !!formId ? 'v_form_global_functions' + '-' + formId : 'v_form_global_functions';

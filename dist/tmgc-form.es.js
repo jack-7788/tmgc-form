@@ -7925,7 +7925,8 @@ const fieldMixin = {
   ],
   data() {
     return {
-      fieldReadonlyFlag: false
+      fieldReadonlyFlag: false,
+      loading: false
     };
   },
   computed: {
@@ -8339,6 +8340,10 @@ const fieldMixin = {
       if (!!this.field.options.onFocus) {
         const customFn = new Function("event", this.field.options.onFocus);
         customFn.call(this, event2);
+      }
+      if (this.field.options.loadingPage) {
+        this.initPager();
+        this.initOptionItems();
       }
     },
     handleBlurCustomEvent(event2) {
@@ -22372,6 +22377,7 @@ function _sfc_render$4v(_ctx, _cache, $props, $setup, $data, $options) {
         danger: $props.field.options.danger,
         ghost: $props.field.options.ghost,
         disabled: _ctx.handleDisabled(),
+        loading: _ctx.loading,
         onClick: _ctx.handleButtonWidgetClick
       }, {
         default: withCtx(() => [
@@ -22382,12 +22388,12 @@ function _sfc_render$4v(_ctx, _cache, $props, $setup, $data, $options) {
           createTextVNode(" " + toDisplayString($props.field.options.label), 1)
         ]),
         _: 1
-      }, 8, ["type", "size", "class", "shape", "danger", "ghost", "disabled", "onClick"])
+      }, 8, ["type", "size", "class", "shape", "danger", "ghost", "disabled", "loading", "onClick"])
     ]),
     _: 1
   }, 8, ["designer", "field", "design-state", "display-style", "parent-widget", "parent-list", "index-of-parent-list", "sub-form-row-index", "sub-form-col-index", "sub-form-row-id"])) : createCommentVNode("", true);
 }
-const buttonWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$4w, [["render", _sfc_render$4v], ["__scopeId", "data-v-c331f217"]]);
+const buttonWidget = /* @__PURE__ */ _export_sfc$1(_sfc_main$4w, [["render", _sfc_render$4v], ["__scopeId", "data-v-74f07e57"]]);
 const __vite_glob_0_1$3 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: buttonWidget
@@ -61379,7 +61385,7 @@ const useSelectMixin = {
         onPopupScroll: this.onPopupScroll,
         onSearch: this.remoteQuery,
         filterOption: !useServer && this.filterOption,
-        listHeight: 120
+        listHeight: 240
       };
     }
   },
@@ -92034,13 +92040,13 @@ function registerIcon(app) {
 if (typeof window !== "undefined") {
   let loadSvg = function() {
     var body = document.body;
-    var svgDom = document.getElementById("__svg__icons__dom__1723620256738__");
+    var svgDom = document.getElementById("__svg__icons__dom__1723699891885__");
     if (!svgDom) {
       svgDom = document.createElementNS("http://www.w3.org/2000/svg", "svg");
       svgDom.style.position = "absolute";
       svgDom.style.width = "0";
       svgDom.style.height = "0";
-      svgDom.id = "__svg__icons__dom__1723620256738__";
+      svgDom.id = "__svg__icons__dom__1723699891885__";
       svgDom.setAttribute("xmlns", "http://www.w3.org/2000/svg");
       svgDom.setAttribute("xmlns:link", "http://www.w3.org/1999/xlink");
     }

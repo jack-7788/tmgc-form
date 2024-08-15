@@ -18,7 +18,8 @@ export default {
   ],
   data() {
     return {
-      fieldReadonlyFlag: false
+      fieldReadonlyFlag: false,
+      loading: false
     };
   },
   computed: {

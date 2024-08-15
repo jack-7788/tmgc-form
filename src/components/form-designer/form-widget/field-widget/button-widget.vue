@@ -21,6 +21,7 @@
       :danger="field.options.danger"
       :ghost="field.options.ghost"
       :disabled="handleDisabled()"
+      :loading="loading"
       @click="handleButtonWidgetClick"
     >
       <svg-icon v-if="field.options.icon" :icon-class="field.options.icon" />

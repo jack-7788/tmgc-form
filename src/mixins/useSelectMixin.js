@@ -29,7 +29,7 @@ export default {
         onPopupScroll: this.onPopupScroll,
         onSearch: showSearch ? this.remoteQuery : void 0,
         filterOption: !useServer && this.filterOption,
-        listHeight: 120
+        listHeight: 240
       };
     }
   },

@@ -284,9 +284,9 @@ export const select = (ops = {}) => {
       labelKey: 'label',
       valueKey: 'value',
       optionItems: [
-        { label: 'select 1', value: 1 },
-        { label: 'select 2', value: 2 },
-        { label: 'select 3', value: 3 }
+        { label: 'select 1', value: '1' },
+        { label: 'select 2', value: '2' },
+        { label: 'select 3', value: '3' }
       ],
       http: {
         url: '',

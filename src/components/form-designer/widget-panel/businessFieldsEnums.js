@@ -36,9 +36,9 @@ const userSelect = (ops = {}) => {
       labelKey: 'userName',
       valueKey: 'userId',
       optionItems: [
-        { label: 'select 1', value: 1 },
-        { label: 'select 2', value: 2 },
-        { label: 'select 3', value: 3 }
+        { label: 'select 1', value: '1' },
+        { label: 'select 2', value: '2' },
+        { label: 'select 3', value: '3' }
       ],
       http: {
         url: '/api/tmgc2-org/user/queryUserPageByParam',
@@ -122,9 +122,9 @@ const departmentSelect = (ops = {}) => {
       labelKey: 'departmentName',
       valueKey: 'departmentCode',
       optionItems: [
-        { label: 'select 1', value: 1 },
-        { label: 'select 2', value: 2 },
-        { label: 'select 3', value: 3 }
+        { label: 'select 1', value: '1' },
+        { label: 'select 2', value: '2' },
+        { label: 'select 3', value: '3' }
       ],
       http: {
         url: '/api/tmgc2-org/department/getDepartmentList',
@@ -205,9 +205,9 @@ const postSelect = (ops = {}) => {
       labelKey: 'postName',
       valueKey: 'postCode',
       optionItems: [
-        { label: 'select 1', value: 1 },
-        { label: 'select 2', value: 2 },
-        { label: 'select 3', value: 3 }
+        { label: 'select 1', value: '1' },
+        { label: 'select 2', value: '2' },
+        { label: 'select 3', value: '3' }
       ],
       http: {
         url: '/api/tmgc2-org/post/getPostList',
@@ -287,9 +287,9 @@ const operationSelect = (ops = {}) => {
       labelKey: 'operationName',
       valueKey: 'operationCode',
       optionItems: [
-        { label: 'select 1', value: 1 },
-        { label: 'select 2', value: 2 },
-        { label: 'select 3', value: 3 }
+        { label: 'select 1', value: '1' },
+        { label: 'select 2', value: '2' },
+        { label: 'select 3', value: '3' }
       ],
       http: {
         url: '/api/tmgc2-query/dataQuery/execute',
@@ -372,9 +372,9 @@ const materialSelect = (ops = {}) => {
       labelKey: 'materialName',
       valueKey: 'materialCode',
       optionItems: [
-        { label: 'select 1', value: 1 },
-        { label: 'select 2', value: 2 },
-        { label: 'select 3', value: 3 }
+        { label: 'select 1', value: '1' },
+        { label: 'select 2', value: '2' },
+        { label: 'select 3', value: '3' }
       ],
       http: {
         url: '/api/tmgc2-material/material/queryMaterialListByPage-v2',
@@ -457,9 +457,9 @@ const projectSelect = (ops = {}) => {
       labelKey: 'projectName',
       valueKey: 'projectCode',
       optionItems: [
-        { label: 'select 1', value: 1 },
-        { label: 'select 2', value: 2 },
-        { label: 'select 3', value: 3 }
+        { label: 'select 1', value: '1' },
+        { label: 'select 2', value: '2' },
+        { label: 'select 3', value: '3' }
       ],
       http: {
         url: '/api/tmgc2-production/project/queryPopProjectListByPage',
@@ -538,9 +538,9 @@ const projectGroupSelect = (ops = {}) => {
       labelKey: 'projectGroupName',
       valueKey: 'projectGroupCode',
       optionItems: [
-        { label: 'select 1', value: 1 },
-        { label: 'select 2', value: 2 },
-        { label: 'select 3', value: 3 }
+        { label: 'select 1', value: '1' },
+        { label: 'select 2', value: '2' },
+        { label: 'select 3', value: '3' }
       ],
       http: {
         url: '/api/tmgc2-query/dataQuery/execute',

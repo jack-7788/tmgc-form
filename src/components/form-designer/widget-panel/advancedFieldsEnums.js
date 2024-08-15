@@ -75,9 +75,9 @@ export const cascader = (ops = {}) => {
         params: {}
       },
       optionItems: [
-        { label: 'select 1', value: 1, children: [{ label: 'child 1', value: 11 }] },
-        { label: 'select 2', value: 2 },
-        { label: 'select 3', value: 3 }
+        { label: 'select 1', value: '1', children: [{ label: 'child 1', value: 11 }] },
+        { label: 'select 2', value: '2' },
+        { label: 'select 3', value: '3' }
       ],
       dataHandlerCode: 'return data.data;\n ',
       dataReqHandlerCode: `const d=data.data||{};\n Object.keys(d).forEach(k=>{\n if(d[k]==='null'){\n d[k]=null\n }\n })\nreturn {...data,data:d}`,
@@ -136,9 +136,9 @@ export const treeSelect = (ops = {}) => {
         params: {}
       },
       optionItems: [
-        { label: 'select 1', value: 1, children: [{ label: 'child 1', value: 11 }] },
-        { label: 'select 2', value: 2 },
-        { label: 'select 3', value: 3 }
+        { label: 'select 1', value: '1', children: [{ label: 'child 1', value: 11 }] },
+        { label: 'select 2', value: '2' },
+        { label: 'select 3', value: '3' }
       ],
       dataHandlerCode: 'return data.data;\n ',
       dataReqHandlerCode: `const d=data.data||{};\n Object.keys(d).forEach(k=>{\n if(d[k]==='null'){\n d[k]=null\n }\n })\nreturn {...data,data:d}`,

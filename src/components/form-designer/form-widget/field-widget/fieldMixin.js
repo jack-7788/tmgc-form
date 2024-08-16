@@ -541,6 +541,10 @@ export default {
         const customFn = new Function('event', this.field.options.onFocus);
         customFn.call(this, event);
       }
+      if (this.field.options.loadingPage) {
+        this.initPager();
+        this.initOptionItems();
+      }
     },
 
     handleBlurCustomEvent(event) {

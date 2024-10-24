@@ -127,7 +127,7 @@
       <template #footer>
         <div class="dialog-footer">
           <!-- <a-button @click="insertData">新增一个数据</a-button> -->
-          <!-- <a-button @click="showData(1848)">数据回显 _id 1848</a-button> -->
+          <a-button @click="showData(1)">数据回显 _id 1</a-button>
           <a-button type="primary" @click="getFormData">
             {{ i18nt('designer.hint.getFormData') }}
           </a-button>
@@ -453,6 +453,7 @@
           this.saveJsonApi(this.formJson);
         }
       },
+
       setReadMode() {
         this.$refs.preForm.setFormData({
           fileupload26481: [
@@ -778,7 +779,6 @@
       async showData(_id) {
         const formConfig = this.designer.formConfig;
         const dsResult = await fmtHttpParams(formConfig.serveList.vformDetail, { _id });
-
         this.$refs.preForm.setFormData({ ...dsResult });
         this.$refs.preForm.setReadMode(true);
       },

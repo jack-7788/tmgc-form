@@ -6,6 +6,7 @@ import '@/styles/tmgc2.less';
 import { getLocat } from '@/utils/util';
 import { TpfConfirm } from '@/hooks/TpfConfirm';
 import { insertAssetsToBody } from '@/utils/insertAssetsToBody';
+import dayjs from 'dayjs';
 
 import http from '@/utils/request/http';
 
@@ -15,6 +16,7 @@ console.log(`======当前后端域名-vform：${import.meta.env.VITE_APP_API_ROO
 insertAssetsToBody();
 const vfApp = createApp(App);
 vfApp.config.globalProperties.$getLocat = getLocat;
+vfApp.config.globalProperties.$dayjs = dayjs;
 vfApp.config.globalProperties.$TpfDelConfirm = TpfConfirm;
 
 vfApp.use(Antd);

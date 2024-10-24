@@ -1,7 +1,7 @@
 import { deepClone, translateOptionItems } from '@/utils/util';
 import FormValidators from '@/utils/validators';
 import { fmtHttpParams } from '@/utils/request/fmtHttpParams';
-import { isArray } from 'lodash-es';
+import { isArray, eq } from 'lodash-es';
 
 export default {
   inject: [
@@ -723,6 +723,7 @@ export default {
       if (newValue) {
         newValue = newValue.target ? newValue.target.value : newValue;
       }
+      if (eq(this.fieldModel, newValue)) return;
 
       /* if ((this.field.type === 'picture-upload') || (this.field.type === 'file-upload')) {
         this.fileList = newValue

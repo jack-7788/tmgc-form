@@ -1,5 +1,5 @@
 import require$$0$1, { openBlock, createElementBlock, normalizeClass, normalizeStyle, createElementVNode, toDisplayString, createCommentVNode, reactive, createVNode, resolveComponent, withCtx, createTextVNode, createBlock, renderSlot, withModifiers, Fragment, withDirectives, renderList, vShow, h, nextTick, createSlots, watch, ref, onBeforeUnmount, onMounted, onUnmounted, mergeProps, resolveDynamicComponent, normalizeProps, guardReactiveProps, pushScopeId, popScopeId, defineComponent, Transition, render, isVNode } from "vue";
-import { cloneDeep, isArray as isArray$4, debounce as debounce$1, isEmpty, omit as omit$1 } from "lodash-es";
+import { cloneDeep, isArray as isArray$4, eq, debounce as debounce$1, isEmpty, omit as omit$1 } from "lodash-es";
 import { Modal, message } from "ant-design-vue";
 const _export_sfc$1 = (sfc, props) => {
   const target = sfc.__vccOpts || sfc;
@@ -8486,6 +8486,8 @@ const fieldMixin = {
       if (newValue) {
         newValue = newValue.target ? newValue.target.value : newValue;
       }
+      if (eq(this.fieldModel, newValue))
+        return;
       if (!!this.field.formItemFlag) {
         const oldValue = deepClone(this.fieldModel);
         if (this.field.type === "file-upload") {
@@ -68085,7 +68087,7 @@ function _sfc_render$3R(_ctx, _cache, $props, $setup, $data, $options) {
     createVNode(_component_a_modal, {
       title: _ctx.i18nt("designer.toolbar.preview"),
       visible: $data.showPreviewDialogFlag,
-      "onUpdate:visible": _cache[4] || (_cache[4] = ($event) => $data.showPreviewDialogFlag = $event),
+      "onUpdate:visible": _cache[5] || (_cache[5] = ($event) => $data.showPreviewDialogFlag = $event),
       "show-close": true,
       "close-on-click-modal": false,
       "close-on-press-escape": false,
@@ -68098,6 +68100,14 @@ function _sfc_render$3R(_ctx, _cache, $props, $setup, $data, $options) {
     }, {
       footer: withCtx(() => [
         createElementVNode("div", _hoisted_5$6, [
+          createVNode(_component_a_button, {
+            onClick: _cache[3] || (_cache[3] = ($event) => $options.showData(1))
+          }, {
+            default: withCtx(() => [
+              createTextVNode("数据回显 _id 1")
+            ]),
+            _: 1
+          }),
           createVNode(_component_a_button, {
             type: "primary",
             onClick: $options.getFormData
@@ -68135,7 +68145,7 @@ function _sfc_render$3R(_ctx, _cache, $props, $setup, $data, $options) {
             _: 1
           }, 8, ["onClick"]),
           createVNode(_component_a_button, {
-            onClick: _cache[3] || (_cache[3] = ($event) => $data.showPreviewDialogFlag = false)
+            onClick: _cache[4] || (_cache[4] = ($event) => $data.showPreviewDialogFlag = false)
           }, {
             default: withCtx(() => [
               createTextVNode(toDisplayString(_ctx.i18nt("designer.hint.closePreview")), 1)
@@ -68179,7 +68189,7 @@ function _sfc_render$3R(_ctx, _cache, $props, $setup, $data, $options) {
     createVNode(_component_a_modal, {
       title: _ctx.i18nt("designer.toolbar.importJson"),
       visible: $data.showImportJsonDialogFlag,
-      "onUpdate:visible": _cache[7] || (_cache[7] = ($event) => $data.showImportJsonDialogFlag = $event),
+      "onUpdate:visible": _cache[8] || (_cache[8] = ($event) => $data.showImportJsonDialogFlag = $event),
       "show-close": true,
       class: "drag-dialog",
       "append-to-body": true,
@@ -68200,7 +68210,7 @@ function _sfc_render$3R(_ctx, _cache, $props, $setup, $data, $options) {
             _: 1
           }, 8, ["onClick"]),
           createVNode(_component_a_button, {
-            onClick: _cache[6] || (_cache[6] = ($event) => $data.showImportJsonDialogFlag = false)
+            onClick: _cache[7] || (_cache[7] = ($event) => $data.showImportJsonDialogFlag = false)
           }, {
             default: withCtx(() => [
               createTextVNode(toDisplayString(_ctx.i18nt("designer.hint.cancel")), 1)
@@ -68220,7 +68230,7 @@ function _sfc_render$3R(_ctx, _cache, $props, $setup, $data, $options) {
           mode: "json",
           readonly: false,
           modelValue: $data.importTemplate,
-          "onUpdate:modelValue": _cache[5] || (_cache[5] = ($event) => $data.importTemplate = $event)
+          "onUpdate:modelValue": _cache[6] || (_cache[6] = ($event) => $data.importTemplate = $event)
         }, null, 8, ["modelValue"])
       ]),
       _: 1
@@ -68228,7 +68238,7 @@ function _sfc_render$3R(_ctx, _cache, $props, $setup, $data, $options) {
     createVNode(_component_a_modal, {
       title: _ctx.i18nt("designer.toolbar.exportJson"),
       visible: $data.showExportJsonDialogFlag,
-      "onUpdate:visible": _cache[10] || (_cache[10] = ($event) => $data.showExportJsonDialogFlag = $event),
+      "onUpdate:visible": _cache[11] || (_cache[11] = ($event) => $data.showExportJsonDialogFlag = $event),
       "show-close": true,
       class: "drag-dialog",
       center: "",
@@ -68257,7 +68267,7 @@ function _sfc_render$3R(_ctx, _cache, $props, $setup, $data, $options) {
             _: 1
           }, 8, ["onClick"]),
           createVNode(_component_a_button, {
-            onClick: _cache[9] || (_cache[9] = ($event) => $data.showExportJsonDialogFlag = false)
+            onClick: _cache[10] || (_cache[10] = ($event) => $data.showExportJsonDialogFlag = false)
           }, {
             default: withCtx(() => [
               createTextVNode(toDisplayString(_ctx.i18nt("designer.hint.closePreview")), 1)
@@ -68271,7 +68281,7 @@ function _sfc_render$3R(_ctx, _cache, $props, $setup, $data, $options) {
           mode: "json",
           readonly: true,
           modelValue: $data.jsonContent,
-          "onUpdate:modelValue": _cache[8] || (_cache[8] = ($event) => $data.jsonContent = $event)
+          "onUpdate:modelValue": _cache[9] || (_cache[9] = ($event) => $data.jsonContent = $event)
         }, null, 8, ["modelValue"])
       ]),
       _: 1
@@ -68279,7 +68289,7 @@ function _sfc_render$3R(_ctx, _cache, $props, $setup, $data, $options) {
     createVNode(_component_a_modal, {
       title: _ctx.i18nt("designer.hint.exportFormData"),
       visible: $data.showFormDataDialogFlag,
-      "onUpdate:visible": _cache[13] || (_cache[13] = ($event) => $data.showFormDataDialogFlag = $event),
+      "onUpdate:visible": _cache[14] || (_cache[14] = ($event) => $data.showFormDataDialogFlag = $event),
       "show-close": true,
       class: "nested-drag-dialog dialog-title-light-bg",
       center: "",
@@ -68308,7 +68318,7 @@ function _sfc_render$3R(_ctx, _cache, $props, $setup, $data, $options) {
             _: 1
           }, 8, ["onClick"]),
           createVNode(_component_a_button, {
-            onClick: _cache[12] || (_cache[12] = ($event) => $data.showFormDataDialogFlag = false)
+            onClick: _cache[13] || (_cache[13] = ($event) => $data.showFormDataDialogFlag = false)
           }, {
             default: withCtx(() => [
               createTextVNode(toDisplayString(_ctx.i18nt("designer.hint.closePreview")), 1)
@@ -68323,7 +68333,7 @@ function _sfc_render$3R(_ctx, _cache, $props, $setup, $data, $options) {
             mode: "json",
             readonly: true,
             modelValue: $data.formDataJson,
-            "onUpdate:modelValue": _cache[11] || (_cache[11] = ($event) => $data.formDataJson = $event)
+            "onUpdate:modelValue": _cache[12] || (_cache[12] = ($event) => $data.formDataJson = $event)
           }, null, 8, ["modelValue"])
         ])
       ]),
@@ -68333,7 +68343,7 @@ function _sfc_render$3R(_ctx, _cache, $props, $setup, $data, $options) {
       key: 0,
       title: _ctx.i18nt("designer.toolbar.generateSFC"),
       visible: $data.showExportSFCDialogFlag,
-      "onUpdate:visible": _cache[18] || (_cache[18] = ($event) => $data.showExportSFCDialogFlag = $event),
+      "onUpdate:visible": _cache[19] || (_cache[19] = ($event) => $data.showExportSFCDialogFlag = $event),
       "append-to-body": "",
       "show-close": true,
       class: "drag-dialog",
@@ -68380,7 +68390,7 @@ function _sfc_render$3R(_ctx, _cache, $props, $setup, $data, $options) {
             _: 1
           }, 8, ["onClick"]),
           createVNode(_component_a_button, {
-            onClick: _cache[17] || (_cache[17] = ($event) => $data.showExportSFCDialogFlag = false)
+            onClick: _cache[18] || (_cache[18] = ($event) => $data.showExportSFCDialogFlag = false)
           }, {
             default: withCtx(() => [
               createTextVNode(toDisplayString(_ctx.i18nt("designer.hint.closePreview")), 1)
@@ -68394,7 +68404,7 @@ function _sfc_render$3R(_ctx, _cache, $props, $setup, $data, $options) {
           type: "border-card",
           class: "no-box-shadow no-padding",
           activeKey: $data.activeSFCTab,
-          "onUpdate:activeKey": _cache[16] || (_cache[16] = ($event) => $data.activeSFCTab = $event)
+          "onUpdate:activeKey": _cache[17] || (_cache[17] = ($event) => $data.activeSFCTab = $event)
         }, {
           default: withCtx(() => [
             createVNode(_component_a_tab_pane, {
@@ -68406,7 +68416,7 @@ function _sfc_render$3R(_ctx, _cache, $props, $setup, $data, $options) {
                   mode: "html",
                   readonly: true,
                   modelValue: $data.sfcCode,
-                  "onUpdate:modelValue": _cache[14] || (_cache[14] = ($event) => $data.sfcCode = $event),
+                  "onUpdate:modelValue": _cache[15] || (_cache[15] = ($event) => $data.sfcCode = $event),
                   "user-worker": false
                 }, null, 8, ["modelValue"])
               ]),
@@ -68421,7 +68431,7 @@ function _sfc_render$3R(_ctx, _cache, $props, $setup, $data, $options) {
                   mode: "html",
                   readonly: true,
                   modelValue: $data.sfcCodeV3,
-                  "onUpdate:modelValue": _cache[15] || (_cache[15] = ($event) => $data.sfcCodeV3 = $event),
+                  "onUpdate:modelValue": _cache[16] || (_cache[16] = ($event) => $data.sfcCodeV3 = $event),
                   "user-worker": false
                 }, null, 8, ["modelValue"])
               ]),
@@ -68435,7 +68445,7 @@ function _sfc_render$3R(_ctx, _cache, $props, $setup, $data, $options) {
     }, 8, ["title", "visible"])) : createCommentVNode("", true)
   ]);
 }
-const ToolbarPanel = /* @__PURE__ */ _export_sfc$1(_sfc_main$3R, [["render", _sfc_render$3R], ["__scopeId", "data-v-ad9a7c60"]]);
+const ToolbarPanel = /* @__PURE__ */ _export_sfc$1(_sfc_main$3R, [["render", _sfc_render$3R], ["__scopeId", "data-v-bbf3f85e"]]);
 const _sfc_main$3Q = {
   name: "accept-editor",
   componentName: "PropertyEditor",
@@ -92040,13 +92050,13 @@ function registerIcon(app) {
 if (typeof window !== "undefined") {
   let loadSvg = function() {
     var body = document.body;
-    var svgDom = document.getElementById("__svg__icons__dom__1723803251993__");
+    var svgDom = document.getElementById("__svg__icons__dom__1729753742136__");
     if (!svgDom) {
       svgDom = document.createElementNS("http://www.w3.org/2000/svg", "svg");
       svgDom.style.position = "absolute";
       svgDom.style.width = "0";
       svgDom.style.height = "0";
-      svgDom.id = "__svg__icons__dom__1723803251993__";
+      svgDom.id = "__svg__icons__dom__1729753742136__";
       svgDom.setAttribute("xmlns", "http://www.w3.org/2000/svg");
       svgDom.setAttribute("xmlns:link", "http://www.w3.org/1999/xlink");
     }

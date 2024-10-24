@@ -62877,6 +62877,16 @@ const useDataTableMixin = {
     }
   },
   methods: {
+    handleHidden() {
+      const { onHidden, hidden } = this.widget.options;
+      if (hidden)
+        return true;
+      if (onHidden) {
+        const onHiddenFn = new Function(onHidden);
+        return onHiddenFn.call(this);
+      }
+      return false;
+    },
     rowClassName(record) {
       const { rowKey, colorRow } = this.widget.options;
       if (!colorRow)
@@ -62949,6 +62959,7 @@ const useDataTableMixin = {
       this.widget.options.dataSource = [...val];
     },
     setValue(list) {
+      console.log("list: ", list);
       this.setDataSource(list);
     },
     getDataSource() {
@@ -63290,10 +63301,10 @@ function _sfc_render$43(_ctx, _cache, $props, $setup, $data, $options) {
     ]),
     _: 1
   }, 8, ["style", "widget"])), [
-    [vShow, !$props.widget.options.hidden]
+    [vShow, _ctx.handleHidden()]
   ]);
 }
-const dataTableItem = /* @__PURE__ */ _export_sfc$1(_sfc_main$44, [["render", _sfc_render$43], ["__scopeId", "data-v-d4446bb9"]]);
+const dataTableItem = /* @__PURE__ */ _export_sfc$1(_sfc_main$44, [["render", _sfc_render$43], ["__scopeId", "data-v-ca6e730b"]]);
 const __vite_glob_0_1$2 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: dataTableItem
@@ -67038,7 +67049,11 @@ const _sfc_main$3R = {
     async showData(_id) {
       const formConfig = this.designer.formConfig;
       const dsResult = await fmtHttpParams(formConfig.serveList.vformDetail, { _id });
-      this.$refs.preForm.setFormData({ ...dsResult });
+      const leaveDates = [{ date: "2024-10-28" }, { date: "2024-10-29" }, { date: "2024-10-20" }];
+      this.$refs["preForm"].getWidgetRef("leaveDates").setValue(leaveDates);
+      this.$refs.preForm.setFormData({
+        ...dsResult
+      });
       this.$refs.preForm.setReadMode(true);
     },
     getFormData() {
@@ -68445,7 +68460,7 @@ function _sfc_render$3R(_ctx, _cache, $props, $setup, $data, $options) {
     }, 8, ["title", "visible"])) : createCommentVNode("", true)
   ]);
 }
-const ToolbarPanel = /* @__PURE__ */ _export_sfc$1(_sfc_main$3R, [["render", _sfc_render$3R], ["__scopeId", "data-v-bbf3f85e"]]);
+const ToolbarPanel = /* @__PURE__ */ _export_sfc$1(_sfc_main$3R, [["render", _sfc_render$3R], ["__scopeId", "data-v-758d33a1"]]);
 const _sfc_main$3Q = {
   name: "accept-editor",
   componentName: "PropertyEditor",
@@ -92050,13 +92065,13 @@ function registerIcon(app) {
 if (typeof window !== "undefined") {
   let loadSvg = function() {
     var body = document.body;
-    var svgDom = document.getElementById("__svg__icons__dom__1729753742136__");
+    var svgDom = document.getElementById("__svg__icons__dom__1729766972626__");
     if (!svgDom) {
       svgDom = document.createElementNS("http://www.w3.org/2000/svg", "svg");
       svgDom.style.position = "absolute";
       svgDom.style.width = "0";
       svgDom.style.height = "0";
-      svgDom.id = "__svg__icons__dom__1729753742136__";
+      svgDom.id = "__svg__icons__dom__1729766972626__";
       svgDom.setAttribute("xmlns", "http://www.w3.org/2000/svg");
       svgDom.setAttribute("xmlns:link", "http://www.w3.org/1999/xlink");
     }

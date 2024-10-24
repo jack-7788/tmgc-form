@@ -36,6 +36,15 @@ export default {
     }
   },
   methods: {
+    handleHidden() {
+      const { onHidden, hidden } = this.widget.options;
+      if (hidden) return true;
+      if (onHidden) {
+        const onHiddenFn = new Function(onHidden);
+        return onHiddenFn.call(this);
+      }
+      return false;
+    },
     rowClassName(record) {
       const { rowKey, colorRow } = this.widget.options;
 
@@ -111,6 +120,7 @@ export default {
       this.widget.options.dataSource = [...val];
     },
     setValue(list) {
+      console.log('list: ', list);
       this.setDataSource(list);
     },
     getDataSource() {

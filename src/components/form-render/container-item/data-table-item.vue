@@ -1,7 +1,7 @@
 <template>
   <container-item-wrapper
     :style="{ display: 'flex', height: parseFloat(tableHeight || 0) + 'px' }"
-    v-show="!widget.options.hidden"
+    v-show="handleHidden()"
     :widget="widget"
   >
     <a-table

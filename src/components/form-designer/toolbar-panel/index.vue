@@ -779,7 +779,12 @@
       async showData(_id) {
         const formConfig = this.designer.formConfig;
         const dsResult = await fmtHttpParams(formConfig.serveList.vformDetail, { _id });
-        this.$refs.preForm.setFormData({ ...dsResult });
+        const leaveDates = [{ date: '2024-10-28' }, { date: '2024-10-29' }, { date: '2024-10-20' }];
+
+        this.$refs['preForm'].getWidgetRef('leaveDates').setValue(leaveDates);
+        this.$refs.preForm.setFormData({
+          ...dsResult
+        });
         this.$refs.preForm.setReadMode(true);
       },
 

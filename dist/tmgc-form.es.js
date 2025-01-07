@@ -77723,7 +77723,7 @@ const __vite_glob_0_119 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.d
   default: shapeEditor
 }, Symbol.toStringTag, { value: "Module" }));
 const _sfc_main$1W = {
-  name: "type-editor",
+  name: "button-type-editor",
   mixins: [i18n$1, propertyMixin],
   props: {
     designer: Object,
@@ -92065,13 +92065,13 @@ function registerIcon(app) {
 if (typeof window !== "undefined") {
   let loadSvg = function() {
     var body = document.body;
-    var svgDom = document.getElementById("__svg__icons__dom__1729766972626__");
+    var svgDom = document.getElementById("__svg__icons__dom__1736241830297__");
     if (!svgDom) {
       svgDom = document.createElementNS("http://www.w3.org/2000/svg", "svg");
       svgDom.style.position = "absolute";
       svgDom.style.width = "0";
       svgDom.style.height = "0";
-      svgDom.id = "__svg__icons__dom__1729766972626__";
+      svgDom.id = "__svg__icons__dom__1736241830297__";
       svgDom.setAttribute("xmlns", "http://www.w3.org/2000/svg");
       svgDom.setAttribute("xmlns:link", "http://www.w3.org/1999/xlink");
     }

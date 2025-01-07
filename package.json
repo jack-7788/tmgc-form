@@ -1,6 +1,6 @@
 {
   "name": "tmgc-form",
-  "version": "0.0.1",
+  "version": "0.0.57",
   "private": false,
   "scripts": {
     "serve": "vite",

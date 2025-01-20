@@ -63166,6 +63166,7 @@ const _sfc_main$44 = {
   created() {
     this.initRefList();
     this.handleOnCreated();
+    console.log(222);
   },
   mounted() {
     this.loadDataTableDataSource();
@@ -63301,10 +63302,10 @@ function _sfc_render$43(_ctx, _cache, $props, $setup, $data, $options) {
     ]),
     _: 1
   }, 8, ["style", "widget"])), [
-    [vShow, _ctx.handleHidden()]
+    [vShow, !_ctx.handleHidden()]
   ]);
 }
-const dataTableItem = /* @__PURE__ */ _export_sfc$1(_sfc_main$44, [["render", _sfc_render$43], ["__scopeId", "data-v-ca6e730b"]]);
+const dataTableItem = /* @__PURE__ */ _export_sfc$1(_sfc_main$44, [["render", _sfc_render$43], ["__scopeId", "data-v-4470ff24"]]);
 const __vite_glob_0_1$2 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: dataTableItem
@@ -92065,13 +92066,13 @@ function registerIcon(app) {
 if (typeof window !== "undefined") {
   let loadSvg = function() {
     var body = document.body;
-    var svgDom = document.getElementById("__svg__icons__dom__1736241830297__");
+    var svgDom = document.getElementById("__svg__icons__dom__1737357105227__");
     if (!svgDom) {
       svgDom = document.createElementNS("http://www.w3.org/2000/svg", "svg");
       svgDom.style.position = "absolute";
       svgDom.style.width = "0";
       svgDom.style.height = "0";
-      svgDom.id = "__svg__icons__dom__1736241830297__";
+      svgDom.id = "__svg__icons__dom__1737357105227__";
       svgDom.setAttribute("xmlns", "http://www.w3.org/2000/svg");
       svgDom.setAttribute("xmlns:link", "http://www.w3.org/1999/xlink");
     }

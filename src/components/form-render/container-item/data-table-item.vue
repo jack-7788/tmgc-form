@@ -1,7 +1,7 @@
 <template>
   <container-item-wrapper
     :style="{ display: 'flex', height: parseFloat(tableHeight || 0) + 'px' }"
-    v-show="handleHidden()"
+    v-show="!handleHidden()"
     :widget="widget"
   >
     <a-table
@@ -135,6 +135,7 @@
     created() {
       this.initRefList();
       this.handleOnCreated();
+      console.log(222);
     },
     mounted() {
       this.loadDataTableDataSource();
